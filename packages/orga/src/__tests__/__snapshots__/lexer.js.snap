@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lexer recognize headlines 1`] = `
+Object {
+  "content": " headline one",
+  "keyword": "TODO",
+  "level": 1,
+  "name": "headline",
+  "priority": "A",
+  "tags": ":swift:javascript:",
+}
+`;
+
+exports[`Lexer recognize planning 1`] = `
+Object {
+  "keyword": "DEADLINE",
+  "name": "planning",
+  "timestamp": " <2018-01-01 Mon>",
+}
+`;
