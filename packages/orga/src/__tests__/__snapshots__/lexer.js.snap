@@ -1,20 +1,883 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Lexer recognize headlines 1`] = `
+exports[`Lexer knows blank 1`] = `
 Object {
-  "content": " headline one",
-  "keyword": "TODO",
-  "level": 1,
-  "name": "headline",
-  "priority": "A",
-  "tags": ":swift:javascript:",
+  "name": "blank",
 }
 `;
 
-exports[`Lexer recognize planning 1`] = `
+exports[`Lexer knows blank 2`] = `
 Object {
-  "keyword": "DEADLINE",
+  "name": "blank",
+}
+`;
+
+exports[`Lexer knows blank 3`] = `
+Object {
+  "name": "blank",
+}
+`;
+
+exports[`Lexer knows blank 4`] = `
+Object {
+  "name": "blank",
+}
+`;
+
+exports[`Lexer knows blank 5`] = `
+Object {
+  "name": "blank",
+}
+`;
+
+exports[`Lexer knows blank 6`] = `
+Object {
+  "name": "blank",
+}
+`;
+
+exports[`Lexer knows blank 7`] = `
+Object {
+  "name": "blank",
+}
+`;
+
+exports[`Lexer knows block begins 1`] = `
+Object {
+  "data": Object {
+    "params": Array [
+      "swift",
+    ],
+    "type": "SRC",
+  },
+  "name": "block.begin",
+}
+`;
+
+exports[`Lexer knows block begins 2`] = `
+Object {
+  "data": Object {
+    "params": Array [
+      "swift",
+    ],
+    "type": "SRC",
+  },
+  "name": "block.begin",
+}
+`;
+
+exports[`Lexer knows block begins 3`] = `
+Object {
+  "data": Object {
+    "params": Array [
+      "swift",
+    ],
+    "type": "src",
+  },
+  "name": "block.begin",
+}
+`;
+
+exports[`Lexer knows block begins 4`] = `
+Object {
+  "data": Object {
+    "params": Array [],
+    "type": "example",
+  },
+  "name": "block.begin",
+}
+`;
+
+exports[`Lexer knows block begins 5`] = `
+Object {
+  "data": Object {
+    "params": Array [
+      "😀mple",
+    ],
+    "type": "ex",
+  },
+  "name": "block.begin",
+}
+`;
+
+exports[`Lexer knows block begins 6`] = `
+Object {
+  "data": Object {
+    "params": Array [
+      "swift",
+      ":tangle",
+      "code.swift",
+    ],
+    "type": "src",
+  },
+  "name": "block.begin",
+}
+`;
+
+exports[`Lexer knows block ends 1`] = `
+Object {
+  "data": Object {
+    "type": "SRC",
+  },
+  "name": "block.end",
+}
+`;
+
+exports[`Lexer knows block ends 2`] = `
+Object {
+  "data": Object {
+    "type": "SRC",
+  },
+  "name": "block.end",
+}
+`;
+
+exports[`Lexer knows block ends 3`] = `
+Object {
+  "data": Object {
+    "type": "src",
+  },
+  "name": "block.end",
+}
+`;
+
+exports[`Lexer knows block ends 4`] = `
+Object {
+  "data": Object {
+    "type": "SRC",
+  },
+  "name": "block.end",
+}
+`;
+
+exports[`Lexer knows block ends 5`] = `
+Object {
+  "content": "#+end_S😀RC",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows comments 1`] = `
+Object {
+  "data": Object {},
+  "name": "comment",
+}
+`;
+
+exports[`Lexer knows comments 2`] = `
+Object {
+  "data": Object {},
+  "name": "comment",
+}
+`;
+
+exports[`Lexer knows comments 3`] = `
+Object {
+  "data": Object {},
+  "name": "comment",
+}
+`;
+
+exports[`Lexer knows comments 4`] = `
+Object {
+  "data": Object {},
+  "name": "comment",
+}
+`;
+
+exports[`Lexer knows comments 5`] = `
+Object {
+  "data": Object {},
+  "name": "comment",
+}
+`;
+
+exports[`Lexer knows comments 6`] = `
+Object {
+  "data": Object {},
+  "name": "comment",
+}
+`;
+
+exports[`Lexer knows comments 7`] = `
+Object {
+  "data": Object {},
+  "name": "comment",
+}
+`;
+
+exports[`Lexer knows drawer begins 1`] = `
+Object {
+  "data": Object {
+    "type": "PROPERTIES",
+  },
+  "name": "drawer.begin",
+}
+`;
+
+exports[`Lexer knows drawer begins 2`] = `
+Object {
+  "data": Object {
+    "type": "properties",
+  },
+  "name": "drawer.begin",
+}
+`;
+
+exports[`Lexer knows drawer begins 3`] = `
+Object {
+  "data": Object {
+    "type": "properties",
+  },
+  "name": "drawer.begin",
+}
+`;
+
+exports[`Lexer knows drawer begins 4`] = `
+Object {
+  "data": Object {
+    "type": "prop_erties",
+  },
+  "name": "drawer.begin",
+}
+`;
+
+exports[`Lexer knows drawer ends 1`] = `
+Object {
+  "data": Object {},
+  "name": "drawer.end",
+}
+`;
+
+exports[`Lexer knows drawer ends 2`] = `
+Object {
+  "data": Object {},
+  "name": "drawer.end",
+}
+`;
+
+exports[`Lexer knows drawer ends 3`] = `
+Object {
+  "data": Object {},
+  "name": "drawer.end",
+}
+`;
+
+exports[`Lexer knows drawer ends 4`] = `
+Object {
+  "data": Object {},
+  "name": "drawer.end",
+}
+`;
+
+exports[`Lexer knows footnotes 1`] = `
+Object {
+  "data": Object {
+    "content": "a footnote",
+    "label": "1",
+  },
+  "name": "footnote",
+}
+`;
+
+exports[`Lexer knows footnotes 2`] = `
+Object {
+  "data": Object {
+    "content": "a footnote",
+    "label": "word",
+  },
+  "name": "footnote",
+}
+`;
+
+exports[`Lexer knows footnotes 3`] = `
+Object {
+  "data": Object {
+    "content": "a footnote",
+    "label": "word_",
+  },
+  "name": "footnote",
+}
+`;
+
+exports[`Lexer knows footnotes 4`] = `
+Object {
+  "data": Object {
+    "content": "a footnote",
+    "label": "wor1d_",
+  },
+  "name": "footnote",
+}
+`;
+
+exports[`Lexer knows headlines 1`] = `
+Object {
+  "data": Object {
+    "content": "a headline",
+    "keyword": undefined,
+    "level": 2,
+    "priority": undefined,
+    "tags": Array [],
+  },
+  "name": "headline",
+}
+`;
+
+exports[`Lexer knows headlines 2`] = `
+Object {
+  "data": Object {
+    "content": "a headline",
+    "keyword": undefined,
+    "level": 2,
+    "priority": undefined,
+    "tags": Array [],
+  },
+  "name": "headline",
+}
+`;
+
+exports[`Lexer knows headlines 3`] = `
+Object {
+  "data": Object {
+    "content": "a headline",
+    "keyword": undefined,
+    "level": 5,
+    "priority": undefined,
+    "tags": Array [],
+  },
+  "name": "headline",
+}
+`;
+
+exports[`Lexer knows headlines 4`] = `
+Object {
+  "data": Object {
+    "content": "a 😀line",
+    "keyword": undefined,
+    "level": 1,
+    "priority": undefined,
+    "tags": Array [],
+  },
+  "name": "headline",
+}
+`;
+
+exports[`Lexer knows headlines 5`] = `
+Object {
+  "data": Object {
+    "content": " a headline",
+    "keyword": "TODO",
+    "level": 1,
+    "priority": "A",
+    "tags": Array [
+      "tag1",
+      "tag2",
+    ],
+  },
+  "name": "headline",
+}
+`;
+
+exports[`Lexer knows horizontal rules 1`] = `
+Object {
+  "data": Object {},
+  "name": "horizontalRule",
+}
+`;
+
+exports[`Lexer knows horizontal rules 2`] = `
+Object {
+  "data": Object {},
+  "name": "horizontalRule",
+}
+`;
+
+exports[`Lexer knows horizontal rules 3`] = `
+Object {
+  "data": Object {},
+  "name": "horizontalRule",
+}
+`;
+
+exports[`Lexer knows horizontal rules 4`] = `
+Object {
+  "data": Object {},
+  "name": "horizontalRule",
+}
+`;
+
+exports[`Lexer knows horizontal rules 5`] = `
+Object {
+  "data": Object {},
+  "name": "horizontalRule",
+}
+`;
+
+exports[`Lexer knows horizontal rules 6`] = `
+Object {
+  "data": Object {},
+  "name": "horizontalRule",
+}
+`;
+
+exports[`Lexer knows horizontal rules 7`] = `
+Object {
+  "data": Object {},
+  "name": "horizontalRule",
+}
+`;
+
+exports[`Lexer knows keywords 1`] = `
+Object {
+  "data": Object {
+    "key": "KEY",
+    "value": "Value",
+  },
+  "name": "keyword",
+}
+`;
+
+exports[`Lexer knows keywords 2`] = `
+Object {
+  "data": Object {
+    "key": "KEY",
+    "value": "Another Value",
+  },
+  "name": "keyword",
+}
+`;
+
+exports[`Lexer knows keywords 3`] = `
+Object {
+  "data": Object {
+    "key": "KEY",
+    "value": "value : Value",
+  },
+  "name": "keyword",
+}
+`;
+
+exports[`Lexer knows list items 1`] = `
+Object {
+  "data": Object {
+    "content": "buy milk",
+    "ordered": false,
+  },
+  "name": "list.item",
+}
+`;
+
+exports[`Lexer knows list items 2`] = `
+Object {
+  "data": Object {
+    "content": "buy milk",
+    "ordered": false,
+  },
+  "name": "list.item",
+}
+`;
+
+exports[`Lexer knows list items 3`] = `
+Object {
+  "data": Object {
+    "content": "buy milk",
+    "ordered": true,
+  },
+  "name": "list.item",
+}
+`;
+
+exports[`Lexer knows list items 4`] = `
+Object {
+  "data": Object {
+    "content": "buy milk",
+    "ordered": true,
+  },
+  "name": "list.item",
+}
+`;
+
+exports[`Lexer knows list items 5`] = `
+Object {
+  "data": Object {
+    "content": "buy milk",
+    "ordered": true,
+  },
+  "name": "list.item",
+}
+`;
+
+exports[`Lexer knows plannings 1`] = `
+Object {
+  "data": Object {
+    "keyword": "DEADLINE",
+    "timestamp": "<2018-01-01 Mon>",
+  },
   "name": "planning",
-  "timestamp": " <2018-01-01 Mon>",
+}
+`;
+
+exports[`Lexer knows plannings 2`] = `
+Object {
+  "data": Object {
+    "keyword": "DEADLINE",
+    "timestamp": "<2018-01-01 Mon>",
+  },
+  "name": "planning",
+}
+`;
+
+exports[`Lexer knows plannings 3`] = `
+Object {
+  "data": Object {
+    "keyword": "DEADLINE",
+    "timestamp": "<2018-01-01 Mon>",
+  },
+  "name": "planning",
+}
+`;
+
+exports[`Lexer knows plannings 4`] = `
+Object {
+  "data": Object {
+    "keyword": "DEADLINE",
+    "timestamp": "<2018-01-01 Mon>",
+  },
+  "name": "planning",
+}
+`;
+
+exports[`Lexer knows table row 1`] = `
+Object {
+  "data": Object {
+    "cells": Array [
+      "batman",
+      "superman",
+      "wonder woman",
+    ],
+  },
+  "name": "table.row",
+}
+`;
+
+exports[`Lexer knows table rows 1`] = `
+Object {
+  "data": Object {
+    "cells": Array [
+      "hello",
+      "world",
+      "y'all",
+    ],
+  },
+  "name": "table.row",
+}
+`;
+
+exports[`Lexer knows table rows 2`] = `
+Object {
+  "data": Object {
+    "cells": Array [
+      "hello",
+      "world",
+      "y'all",
+    ],
+  },
+  "name": "table.row",
+}
+`;
+
+exports[`Lexer knows table rows 3`] = `
+Object {
+  "data": Object {
+    "cells": Array [
+      "hello",
+      "world",
+      "y'all",
+    ],
+  },
+  "name": "table.row",
+}
+`;
+
+exports[`Lexer knows table separators 1`] = `
+Object {
+  "data": Object {},
+  "name": "table.separator",
+}
+`;
+
+exports[`Lexer knows table separators 2`] = `
+Object {
+  "data": Object {},
+  "name": "table.separator",
+}
+`;
+
+exports[`Lexer knows table separators 3`] = `
+Object {
+  "data": Object {},
+  "name": "table.separator",
+}
+`;
+
+exports[`Lexer knows table separators 4`] = `
+Object {
+  "data": Object {},
+  "name": "table.separator",
+}
+`;
+
+exports[`Lexer knows table separators 5`] = `
+Object {
+  "data": Object {},
+  "name": "table.separator",
+}
+`;
+
+exports[`Lexer knows table separators 6`] = `
+Object {
+  "data": Object {},
+  "name": "table.separator",
+}
+`;
+
+exports[`Lexer knows these are not blanks 1`] = `
+Object {
+  "content": "a",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not block begins 1`] = `
+Object {
+  "content": "#+begi😀n_src swift",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not block ends 1`] = `
+Object {
+  "content": "#+end_SRC",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not block ends 2`] = `
+Object {
+  "content": "#+end_src param",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not comments 1`] = `
+Object {
+  "content": "#not a comment",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not comments 2`] = `
+Object {
+  "content": "#not a comment",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not drawer begins 1`] = `
+Object {
+  "content": "PROPERTIES:",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not drawer begins 2`] = `
+Object {
+  "content": ":PROPERTIES",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not drawer begins 3`] = `
+Object {
+  "content": ":PR OPERTIES:",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not drawer ends 1`] = `
+Object {
+  "content": "END:",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not drawer ends 2`] = `
+Object {
+  "content": ":END",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not drawer ends 3`] = `
+Object {
+  "content": ":ENDed",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not footnotes 1`] = `
+Object {
+  "content": "[fn:1]: not a footnote",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not footnotes 2`] = `
+Object {
+  "content": "[[fn:1]: not a footnote",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not footnotes 3`] = `
+Object {
+  "content": "[fn:1]: not a footnote",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not headlines 1`] = `
+Object {
+  "content": "*not a headline",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not headlines 2`] = `
+Object {
+  "content": "* not a headline",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not headlines 3`] = `
+Object {
+  "content": "*_* not a headline",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not headlines 4`] = `
+Object {
+  "content": "not a headline",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not horizontal rules 1`] = `
+Object {
+  "content": "----",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not horizontal rules 2`] = `
+Object {
+  "data": Object {
+    "content": "----",
+    "ordered": false,
+  },
+  "name": "list.item",
+}
+`;
+
+exports[`Lexer knows these are not horizontal rules 3`] = `
+Object {
+  "content": "-----a",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not horizontal rules 4`] = `
+Object {
+  "content": "_-----",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not horizontal rules 5`] = `
+Object {
+  "content": "-----    a",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not keywords 1`] = `
+Object {
+  "content": "#+KEY : Value",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not keywords 2`] = `
+Object {
+  "content": "#+KE Y: Value",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not list items 1`] = `
+Object {
+  "content": "-not item",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not list items 2`] = `
+Object {
+  "content": "1.not item",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not list items 3`] = `
+Object {
+  "content": "8)not item",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not list items 4`] = `
+Object {
+  "content": "8a) not item",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not plannings 1`] = `
+Object {
+  "content": "dEADLINE: <2018-01-01 Mon>",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not table rows 1`] = `
+Object {
+  "content": "hello | world | y'all |",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not table rows 2`] = `
+Object {
+  "content": "|+",
+  "name": "line",
+}
+`;
+
+exports[`Lexer knows these are not table separators 1`] = `
+Object {
+  "content": "----+---+----|",
+  "name": "line",
 }
 `;
