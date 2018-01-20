@@ -2,42 +2,49 @@
 
 exports[`Lexer knows blank 1`] = `
 Object {
+  "input": "",
   "name": "blank",
 }
 `;
 
 exports[`Lexer knows blank 2`] = `
 Object {
+  "input": " ",
   "name": "blank",
 }
 `;
 
 exports[`Lexer knows blank 3`] = `
 Object {
+  "input": "    ",
   "name": "blank",
 }
 `;
 
 exports[`Lexer knows blank 4`] = `
 Object {
+  "input": "	",
   "name": "blank",
 }
 `;
 
 exports[`Lexer knows blank 5`] = `
 Object {
+  "input": " 	",
   "name": "blank",
 }
 `;
 
 exports[`Lexer knows blank 6`] = `
 Object {
+  "input": "	 ",
   "name": "blank",
 }
 `;
 
 exports[`Lexer knows blank 7`] = `
 Object {
+  "input": " 	  ",
   "name": "blank",
 }
 `;
@@ -50,6 +57,7 @@ Object {
     ],
     "type": "SRC",
   },
+  "input": "#+BEGIN_SRC swift",
   "name": "block.begin",
 }
 `;
@@ -62,6 +70,7 @@ Object {
     ],
     "type": "SRC",
   },
+  "input": " #+BEGIN_SRC swift",
   "name": "block.begin",
 }
 `;
@@ -74,6 +83,7 @@ Object {
     ],
     "type": "src",
   },
+  "input": "#+begin_src swift",
   "name": "block.begin",
 }
 `;
@@ -84,6 +94,7 @@ Object {
     "params": Array [],
     "type": "example",
   },
+  "input": "#+begin_example",
   "name": "block.begin",
 }
 `;
@@ -96,6 +107,7 @@ Object {
     ],
     "type": "ex",
   },
+  "input": "#+begin_ex😀mple",
   "name": "block.begin",
 }
 `;
@@ -110,6 +122,7 @@ Object {
     ],
     "type": "src",
   },
+  "input": "#+begin_src swift :tangle code.swift",
   "name": "block.begin",
 }
 `;
@@ -119,6 +132,7 @@ Object {
   "data": Object {
     "type": "SRC",
   },
+  "input": "#+END_SRC",
   "name": "block.end",
 }
 `;
@@ -128,6 +142,7 @@ Object {
   "data": Object {
     "type": "SRC",
   },
+  "input": "  #+END_SRC",
   "name": "block.end",
 }
 `;
@@ -137,6 +152,7 @@ Object {
   "data": Object {
     "type": "src",
   },
+  "input": "#+end_src",
   "name": "block.end",
 }
 `;
@@ -146,13 +162,16 @@ Object {
   "data": Object {
     "type": "SRC",
   },
+  "input": "#+end_SRC",
   "name": "block.end",
 }
 `;
 
 exports[`Lexer knows block ends 5`] = `
 Object {
-  "content": "#+end_S😀RC",
+  "data": Object {
+    "content": "#+end_S😀RC",
+  },
   "name": "line",
 }
 `;
@@ -160,6 +179,7 @@ Object {
 exports[`Lexer knows comments 1`] = `
 Object {
   "data": Object {},
+  "input": "# a comment",
   "name": "comment",
 }
 `;
@@ -167,6 +187,7 @@ Object {
 exports[`Lexer knows comments 2`] = `
 Object {
   "data": Object {},
+  "input": "# ",
   "name": "comment",
 }
 `;
@@ -174,6 +195,7 @@ Object {
 exports[`Lexer knows comments 3`] = `
 Object {
   "data": Object {},
+  "input": "# a comment😯",
   "name": "comment",
 }
 `;
@@ -181,6 +203,7 @@ Object {
 exports[`Lexer knows comments 4`] = `
 Object {
   "data": Object {},
+  "input": " # a comment",
   "name": "comment",
 }
 `;
@@ -188,6 +211,7 @@ Object {
 exports[`Lexer knows comments 5`] = `
 Object {
   "data": Object {},
+  "input": "  	  # a comment",
   "name": "comment",
 }
 `;
@@ -195,6 +219,7 @@ Object {
 exports[`Lexer knows comments 6`] = `
 Object {
   "data": Object {},
+  "input": "#   a comment",
   "name": "comment",
 }
 `;
@@ -202,6 +227,7 @@ Object {
 exports[`Lexer knows comments 7`] = `
 Object {
   "data": Object {},
+  "input": "#    	 a comment",
   "name": "comment",
 }
 `;
@@ -211,6 +237,7 @@ Object {
   "data": Object {
     "type": "PROPERTIES",
   },
+  "input": ":PROPERTIES:",
   "name": "drawer.begin",
 }
 `;
@@ -220,6 +247,7 @@ Object {
   "data": Object {
     "type": "properties",
   },
+  "input": "  :properties:",
   "name": "drawer.begin",
 }
 `;
@@ -229,6 +257,7 @@ Object {
   "data": Object {
     "type": "properties",
   },
+  "input": "  :properties:  ",
   "name": "drawer.begin",
 }
 `;
@@ -238,6 +267,7 @@ Object {
   "data": Object {
     "type": "prop_erties",
   },
+  "input": "  :prop_erties:  ",
   "name": "drawer.begin",
 }
 `;
@@ -245,6 +275,7 @@ Object {
 exports[`Lexer knows drawer ends 1`] = `
 Object {
   "data": Object {},
+  "input": ":END:",
   "name": "drawer.end",
 }
 `;
@@ -252,6 +283,7 @@ Object {
 exports[`Lexer knows drawer ends 2`] = `
 Object {
   "data": Object {},
+  "input": "  :end:",
   "name": "drawer.end",
 }
 `;
@@ -259,6 +291,7 @@ Object {
 exports[`Lexer knows drawer ends 3`] = `
 Object {
   "data": Object {},
+  "input": "  :end:  ",
   "name": "drawer.end",
 }
 `;
@@ -266,6 +299,7 @@ Object {
 exports[`Lexer knows drawer ends 4`] = `
 Object {
   "data": Object {},
+  "input": "  :end:  ",
   "name": "drawer.end",
 }
 `;
@@ -276,6 +310,7 @@ Object {
     "content": "a footnote",
     "label": "1",
   },
+  "input": "[fn:1]: a footnote",
   "name": "footnote",
 }
 `;
@@ -286,6 +321,7 @@ Object {
     "content": "a footnote",
     "label": "word",
   },
+  "input": "[fn:word]: a footnote",
   "name": "footnote",
 }
 `;
@@ -296,6 +332,7 @@ Object {
     "content": "a footnote",
     "label": "word_",
   },
+  "input": "[fn:word_]: a footnote",
   "name": "footnote",
 }
 `;
@@ -306,6 +343,7 @@ Object {
     "content": "a footnote",
     "label": "wor1d_",
   },
+  "input": "[fn:wor1d_]: a footnote",
   "name": "footnote",
 }
 `;
@@ -319,6 +357,7 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
+  "input": "** a headline",
   "name": "headline",
 }
 `;
@@ -332,6 +371,7 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
+  "input": "**   a headline",
   "name": "headline",
 }
 `;
@@ -345,6 +385,7 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
+  "input": "***** a headline",
   "name": "headline",
 }
 `;
@@ -358,6 +399,7 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
+  "input": "* a 😀line",
   "name": "headline",
 }
 `;
@@ -374,6 +416,7 @@ Object {
       "tag2",
     ],
   },
+  "input": "* TODO [#A] a headline     :tag1:tag2:",
   "name": "headline",
 }
 `;
@@ -381,6 +424,7 @@ Object {
 exports[`Lexer knows horizontal rules 1`] = `
 Object {
   "data": Object {},
+  "input": "-----",
   "name": "horizontalRule",
 }
 `;
@@ -388,6 +432,7 @@ Object {
 exports[`Lexer knows horizontal rules 2`] = `
 Object {
   "data": Object {},
+  "input": "------",
   "name": "horizontalRule",
 }
 `;
@@ -395,6 +440,7 @@ Object {
 exports[`Lexer knows horizontal rules 3`] = `
 Object {
   "data": Object {},
+  "input": "--------",
   "name": "horizontalRule",
 }
 `;
@@ -402,6 +448,7 @@ Object {
 exports[`Lexer knows horizontal rules 4`] = `
 Object {
   "data": Object {},
+  "input": "  -----",
   "name": "horizontalRule",
 }
 `;
@@ -409,6 +456,7 @@ Object {
 exports[`Lexer knows horizontal rules 5`] = `
 Object {
   "data": Object {},
+  "input": "-----   ",
   "name": "horizontalRule",
 }
 `;
@@ -416,6 +464,7 @@ Object {
 exports[`Lexer knows horizontal rules 6`] = `
 Object {
   "data": Object {},
+  "input": "  -----   ",
   "name": "horizontalRule",
 }
 `;
@@ -423,6 +472,7 @@ Object {
 exports[`Lexer knows horizontal rules 7`] = `
 Object {
   "data": Object {},
+  "input": "  -----  	 ",
   "name": "horizontalRule",
 }
 `;
@@ -433,6 +483,7 @@ Object {
     "key": "KEY",
     "value": "Value",
   },
+  "input": "#+KEY: Value",
   "name": "keyword",
 }
 `;
@@ -443,6 +494,7 @@ Object {
     "key": "KEY",
     "value": "Another Value",
   },
+  "input": "#+KEY: Another Value",
   "name": "keyword",
 }
 `;
@@ -453,6 +505,7 @@ Object {
     "key": "KEY",
     "value": "value : Value",
   },
+  "input": "#+KEY: value : Value",
   "name": "keyword",
 }
 `;
@@ -463,6 +516,7 @@ Object {
     "content": "buy milk",
     "ordered": false,
   },
+  "input": "- buy milk",
   "name": "list.item",
 }
 `;
@@ -473,6 +527,7 @@ Object {
     "content": "buy milk",
     "ordered": false,
   },
+  "input": "+ buy milk",
   "name": "list.item",
 }
 `;
@@ -483,6 +538,7 @@ Object {
     "content": "buy milk",
     "ordered": true,
   },
+  "input": "1. buy milk",
   "name": "list.item",
 }
 `;
@@ -493,6 +549,7 @@ Object {
     "content": "buy milk",
     "ordered": true,
   },
+  "input": "12. buy milk",
   "name": "list.item",
 }
 `;
@@ -503,6 +560,7 @@ Object {
     "content": "buy milk",
     "ordered": true,
   },
+  "input": "123) buy milk",
   "name": "list.item",
 }
 `;
@@ -513,6 +571,7 @@ Object {
     "keyword": "DEADLINE",
     "timestamp": "<2018-01-01 Mon>",
   },
+  "input": "DEADLINE: <2018-01-01 Mon>",
   "name": "planning",
 }
 `;
@@ -523,6 +582,7 @@ Object {
     "keyword": "DEADLINE",
     "timestamp": "<2018-01-01 Mon>",
   },
+  "input": "  DEADLINE: <2018-01-01 Mon>",
   "name": "planning",
 }
 `;
@@ -533,6 +593,7 @@ Object {
     "keyword": "DEADLINE",
     "timestamp": "<2018-01-01 Mon>",
   },
+  "input": " 	DEADLINE: <2018-01-01 Mon>",
   "name": "planning",
 }
 `;
@@ -543,6 +604,7 @@ Object {
     "keyword": "DEADLINE",
     "timestamp": "<2018-01-01 Mon>",
   },
+  "input": " 	 DEADLINE: <2018-01-01 Mon>",
   "name": "planning",
 }
 `;
@@ -556,6 +618,7 @@ Object {
       "wonder woman",
     ],
   },
+  "input": "| batman | superman | wonder woman |",
   "name": "table.row",
 }
 `;
@@ -569,6 +632,7 @@ Object {
       "y'all",
     ],
   },
+  "input": "| hello | world | y'all |",
   "name": "table.row",
 }
 `;
@@ -582,6 +646,7 @@ Object {
       "y'all",
     ],
   },
+  "input": "   | hello | world | y'all |",
   "name": "table.row",
 }
 `;
@@ -595,6 +660,7 @@ Object {
       "y'all",
     ],
   },
+  "input": "|    hello |  world   |y'all |",
   "name": "table.row",
 }
 `;
@@ -602,6 +668,7 @@ Object {
 exports[`Lexer knows table separators 1`] = `
 Object {
   "data": Object {},
+  "input": "|----+---+----|",
   "name": "table.separator",
 }
 `;
@@ -609,6 +676,7 @@ Object {
 exports[`Lexer knows table separators 2`] = `
 Object {
   "data": Object {},
+  "input": "|--=-+---+----|",
   "name": "table.separator",
 }
 `;
@@ -616,6 +684,7 @@ Object {
 exports[`Lexer knows table separators 3`] = `
 Object {
   "data": Object {},
+  "input": "  |----+---+----|",
   "name": "table.separator",
 }
 `;
@@ -623,6 +692,7 @@ Object {
 exports[`Lexer knows table separators 4`] = `
 Object {
   "data": Object {},
+  "input": "|----+---+----",
   "name": "table.separator",
 }
 `;
@@ -630,6 +700,7 @@ Object {
 exports[`Lexer knows table separators 5`] = `
 Object {
   "data": Object {},
+  "input": "|---",
   "name": "table.separator",
 }
 `;
@@ -637,146 +708,187 @@ Object {
 exports[`Lexer knows table separators 6`] = `
 Object {
   "data": Object {},
+  "input": "|-",
   "name": "table.separator",
 }
 `;
 
 exports[`Lexer knows these are not blanks 1`] = `
 Object {
-  "content": "a",
+  "data": Object {
+    "content": "a",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not block begins 1`] = `
 Object {
-  "content": "#+begi😀n_src swift",
+  "data": Object {
+    "content": "#+begi😀n_src swift",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not block ends 1`] = `
 Object {
-  "content": "#+end_SRC",
+  "data": Object {
+    "content": "#+end_SRC",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not block ends 2`] = `
 Object {
-  "content": "#+end_src param",
+  "data": Object {
+    "content": "#+end_src param",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not comments 1`] = `
 Object {
-  "content": "#not a comment",
+  "data": Object {
+    "content": "#not a comment",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not comments 2`] = `
 Object {
-  "content": "#not a comment",
+  "data": Object {
+    "content": "#not a comment",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not drawer begins 1`] = `
 Object {
-  "content": "PROPERTIES:",
+  "data": Object {
+    "content": "PROPERTIES:",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not drawer begins 2`] = `
 Object {
-  "content": ":PROPERTIES",
+  "data": Object {
+    "content": ":PROPERTIES",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not drawer begins 3`] = `
 Object {
-  "content": ":PR OPERTIES:",
+  "data": Object {
+    "content": ":PR OPERTIES:",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not drawer ends 1`] = `
 Object {
-  "content": "END:",
+  "data": Object {
+    "content": "END:",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not drawer ends 2`] = `
 Object {
-  "content": ":END",
+  "data": Object {
+    "content": ":END",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not drawer ends 3`] = `
 Object {
-  "content": ":ENDed",
+  "data": Object {
+    "content": ":ENDed",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not footnotes 1`] = `
 Object {
-  "content": "[fn:1]: not a footnote",
+  "data": Object {
+    "content": "[fn:1]: not a footnote",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not footnotes 2`] = `
 Object {
-  "content": "[[fn:1]: not a footnote",
+  "data": Object {
+    "content": "[[fn:1]: not a footnote",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not footnotes 3`] = `
 Object {
-  "content": "[fn:1]: not a footnote",
+  "data": Object {
+    "content": "[fn:1]: not a footnote",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not headlines 1`] = `
 Object {
-  "content": "*not a headline",
+  "data": Object {
+    "content": "*not a headline",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not headlines 2`] = `
 Object {
-  "content": "* not a headline",
+  "data": Object {
+    "content": "* not a headline",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not headlines 3`] = `
 Object {
-  "content": "*_* not a headline",
+  "data": Object {
+    "content": "*_* not a headline",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not headlines 4`] = `
 Object {
-  "content": "not a headline",
+  "data": Object {
+    "content": "not a headline",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not horizontal rules 1`] = `
 Object {
-  "content": "----",
+  "data": Object {
+    "content": "----",
+  },
   "name": "line",
 }
 `;
@@ -787,97 +899,124 @@ Object {
     "content": "----",
     "ordered": false,
   },
+  "input": "- ----",
   "name": "list.item",
 }
 `;
 
 exports[`Lexer knows these are not horizontal rules 3`] = `
 Object {
-  "content": "-----a",
+  "data": Object {
+    "content": "-----a",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not horizontal rules 4`] = `
 Object {
-  "content": "_-----",
+  "data": Object {
+    "content": "_-----",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not horizontal rules 5`] = `
 Object {
-  "content": "-----    a",
+  "data": Object {
+    "content": "-----    a",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not keywords 1`] = `
 Object {
-  "content": "#+KEY : Value",
+  "data": Object {
+    "content": "#+KEY : Value",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not keywords 2`] = `
 Object {
-  "content": "#+KE Y: Value",
+  "data": Object {
+    "content": "#+KE Y: Value",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not list items 1`] = `
 Object {
-  "content": "-not item",
+  "data": Object {
+    "content": "-not item",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not list items 2`] = `
 Object {
-  "content": "1.not item",
+  "data": Object {
+    "content": "1.not item",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not list items 3`] = `
 Object {
-  "content": "8)not item",
+  "data": Object {
+    "content": "8)not item",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not list items 4`] = `
 Object {
-  "content": "8a) not item",
+  "data": Object {
+    "content": "8a) not item",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not plannings 1`] = `
 Object {
-  "content": "dEADLINE: <2018-01-01 Mon>",
+  "data": Object {
+    "content": "dEADLINE: <2018-01-01 Mon>",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not table rows 1`] = `
 Object {
-  "content": "hello | world | y'all |",
+  "data": Object {
+    "content": "hello | world | y'all |",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not table rows 2`] = `
 Object {
-  "content": "|+",
+  "data": Object {
+    "content": "|+",
+  },
   "name": "line",
 }
 `;
 
 exports[`Lexer knows these are not table separators 1`] = `
 Object {
-  "content": "----+---+----|",
+  "data": Object {
+    "content": "----+---+----|",
+  },
   "name": "line",
 }
 `;
