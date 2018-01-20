@@ -92,17 +92,17 @@ Lexer.prototype = {
     for ( const { name, pattern, post } of org.rules ) {
       const m = pattern.exec(input)
       if (!m) { continue }
-      var token = { name, input }
+      var token = { name, raw: input }
       token.data = post(m)
       return token
     }
 
     const trimed = input.trim()
     if (trimed === '') {
-      return { name: `blank`, input }
+      return { name: `blank`, raw: input }
     }
 
-    return { name: `line`, data: { content: trimed } }
+    return { name: `line`, raw: input, data: { content: trimed } }
   }
 }
 

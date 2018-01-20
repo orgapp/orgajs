@@ -3,14 +3,49 @@
 exports[`Parser works 1`] = `
 Object {
   "children": Array [
-    Node {
-      "children": Array [],
-      "content": "headline one",
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "type": "text",
+          "value": "headline one",
+        },
+        Object {
+          "children": Array [],
+          "keyword": "DEADLINE",
+          "timestamp": "<2018-01-01 Mon>",
+          "type": "planning",
+        },
+        Object {
+          "children": Array [],
+          "content": Array [
+            "key: value",
+            "key: value",
+          ],
+          "name": "PROPERTIES",
+          "type": "drawer",
+        },
+      ],
       "keyword": undefined,
       "level": 1,
       "priority": undefined,
       "tags": Array [],
       "type": "headline",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "type": "text",
+          "value": "[[https://github.com/xiaoxinghu/OrgMarker/releases][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,",
+        },
+        Object {
+          "children": Array [],
+          "type": "text",
+          "value": "the round pegs in the +round+ square holes...",
+        },
+      ],
+      "type": "paragraph",
     },
   ],
   "settings": Object {

@@ -2,50 +2,50 @@
 
 exports[`Lexer knows blank 1`] = `
 Object {
-  "input": "",
   "name": "blank",
+  "raw": "",
 }
 `;
 
 exports[`Lexer knows blank 2`] = `
 Object {
-  "input": " ",
   "name": "blank",
+  "raw": " ",
 }
 `;
 
 exports[`Lexer knows blank 3`] = `
 Object {
-  "input": "    ",
   "name": "blank",
+  "raw": "    ",
 }
 `;
 
 exports[`Lexer knows blank 4`] = `
 Object {
-  "input": "	",
   "name": "blank",
+  "raw": "	",
 }
 `;
 
 exports[`Lexer knows blank 5`] = `
 Object {
-  "input": " 	",
   "name": "blank",
+  "raw": " 	",
 }
 `;
 
 exports[`Lexer knows blank 6`] = `
 Object {
-  "input": "	 ",
   "name": "blank",
+  "raw": "	 ",
 }
 `;
 
 exports[`Lexer knows blank 7`] = `
 Object {
-  "input": " 	  ",
   "name": "blank",
+  "raw": " 	  ",
 }
 `;
 
@@ -57,8 +57,8 @@ Object {
     ],
     "type": "SRC",
   },
-  "input": "#+BEGIN_SRC swift",
   "name": "block.begin",
+  "raw": "#+BEGIN_SRC swift",
 }
 `;
 
@@ -70,8 +70,8 @@ Object {
     ],
     "type": "SRC",
   },
-  "input": " #+BEGIN_SRC swift",
   "name": "block.begin",
+  "raw": " #+BEGIN_SRC swift",
 }
 `;
 
@@ -83,8 +83,8 @@ Object {
     ],
     "type": "src",
   },
-  "input": "#+begin_src swift",
   "name": "block.begin",
+  "raw": "#+begin_src swift",
 }
 `;
 
@@ -94,8 +94,8 @@ Object {
     "params": Array [],
     "type": "example",
   },
-  "input": "#+begin_example",
   "name": "block.begin",
+  "raw": "#+begin_example",
 }
 `;
 
@@ -107,8 +107,8 @@ Object {
     ],
     "type": "ex",
   },
-  "input": "#+begin_ex😀mple",
   "name": "block.begin",
+  "raw": "#+begin_ex😀mple",
 }
 `;
 
@@ -122,8 +122,8 @@ Object {
     ],
     "type": "src",
   },
-  "input": "#+begin_src swift :tangle code.swift",
   "name": "block.begin",
+  "raw": "#+begin_src swift :tangle code.swift",
 }
 `;
 
@@ -132,8 +132,8 @@ Object {
   "data": Object {
     "type": "SRC",
   },
-  "input": "#+END_SRC",
   "name": "block.end",
+  "raw": "#+END_SRC",
 }
 `;
 
@@ -142,8 +142,8 @@ Object {
   "data": Object {
     "type": "SRC",
   },
-  "input": "  #+END_SRC",
   "name": "block.end",
+  "raw": "  #+END_SRC",
 }
 `;
 
@@ -152,8 +152,8 @@ Object {
   "data": Object {
     "type": "src",
   },
-  "input": "#+end_src",
   "name": "block.end",
+  "raw": "#+end_src",
 }
 `;
 
@@ -162,8 +162,8 @@ Object {
   "data": Object {
     "type": "SRC",
   },
-  "input": "#+end_SRC",
   "name": "block.end",
+  "raw": "#+end_SRC",
 }
 `;
 
@@ -173,62 +173,63 @@ Object {
     "content": "#+end_S😀RC",
   },
   "name": "line",
+  "raw": "#+end_S😀RC",
 }
 `;
 
 exports[`Lexer knows comments 1`] = `
 Object {
   "data": Object {},
-  "input": "# a comment",
   "name": "comment",
+  "raw": "# a comment",
 }
 `;
 
 exports[`Lexer knows comments 2`] = `
 Object {
   "data": Object {},
-  "input": "# ",
   "name": "comment",
+  "raw": "# ",
 }
 `;
 
 exports[`Lexer knows comments 3`] = `
 Object {
   "data": Object {},
-  "input": "# a comment😯",
   "name": "comment",
+  "raw": "# a comment😯",
 }
 `;
 
 exports[`Lexer knows comments 4`] = `
 Object {
   "data": Object {},
-  "input": " # a comment",
   "name": "comment",
+  "raw": " # a comment",
 }
 `;
 
 exports[`Lexer knows comments 5`] = `
 Object {
   "data": Object {},
-  "input": "  	  # a comment",
   "name": "comment",
+  "raw": "  	  # a comment",
 }
 `;
 
 exports[`Lexer knows comments 6`] = `
 Object {
   "data": Object {},
-  "input": "#   a comment",
   "name": "comment",
+  "raw": "#   a comment",
 }
 `;
 
 exports[`Lexer knows comments 7`] = `
 Object {
   "data": Object {},
-  "input": "#    	 a comment",
   "name": "comment",
+  "raw": "#    	 a comment",
 }
 `;
 
@@ -237,8 +238,8 @@ Object {
   "data": Object {
     "type": "PROPERTIES",
   },
-  "input": ":PROPERTIES:",
   "name": "drawer.begin",
+  "raw": ":PROPERTIES:",
 }
 `;
 
@@ -247,8 +248,8 @@ Object {
   "data": Object {
     "type": "properties",
   },
-  "input": "  :properties:",
   "name": "drawer.begin",
+  "raw": "  :properties:",
 }
 `;
 
@@ -257,8 +258,8 @@ Object {
   "data": Object {
     "type": "properties",
   },
-  "input": "  :properties:  ",
   "name": "drawer.begin",
+  "raw": "  :properties:  ",
 }
 `;
 
@@ -267,40 +268,40 @@ Object {
   "data": Object {
     "type": "prop_erties",
   },
-  "input": "  :prop_erties:  ",
   "name": "drawer.begin",
+  "raw": "  :prop_erties:  ",
 }
 `;
 
 exports[`Lexer knows drawer ends 1`] = `
 Object {
   "data": Object {},
-  "input": ":END:",
   "name": "drawer.end",
+  "raw": ":END:",
 }
 `;
 
 exports[`Lexer knows drawer ends 2`] = `
 Object {
   "data": Object {},
-  "input": "  :end:",
   "name": "drawer.end",
+  "raw": "  :end:",
 }
 `;
 
 exports[`Lexer knows drawer ends 3`] = `
 Object {
   "data": Object {},
-  "input": "  :end:  ",
   "name": "drawer.end",
+  "raw": "  :end:  ",
 }
 `;
 
 exports[`Lexer knows drawer ends 4`] = `
 Object {
   "data": Object {},
-  "input": "  :end:  ",
   "name": "drawer.end",
+  "raw": "  :end:  ",
 }
 `;
 
@@ -310,8 +311,8 @@ Object {
     "content": "a footnote",
     "label": "1",
   },
-  "input": "[fn:1]: a footnote",
   "name": "footnote",
+  "raw": "[fn:1]: a footnote",
 }
 `;
 
@@ -321,8 +322,8 @@ Object {
     "content": "a footnote",
     "label": "word",
   },
-  "input": "[fn:word]: a footnote",
   "name": "footnote",
+  "raw": "[fn:word]: a footnote",
 }
 `;
 
@@ -332,8 +333,8 @@ Object {
     "content": "a footnote",
     "label": "word_",
   },
-  "input": "[fn:word_]: a footnote",
   "name": "footnote",
+  "raw": "[fn:word_]: a footnote",
 }
 `;
 
@@ -343,8 +344,8 @@ Object {
     "content": "a footnote",
     "label": "wor1d_",
   },
-  "input": "[fn:wor1d_]: a footnote",
   "name": "footnote",
+  "raw": "[fn:wor1d_]: a footnote",
 }
 `;
 
@@ -357,8 +358,8 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "input": "** a headline",
   "name": "headline",
+  "raw": "** a headline",
 }
 `;
 
@@ -371,8 +372,8 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "input": "**   a headline",
   "name": "headline",
+  "raw": "**   a headline",
 }
 `;
 
@@ -385,8 +386,8 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "input": "***** a headline",
   "name": "headline",
+  "raw": "***** a headline",
 }
 `;
 
@@ -399,8 +400,8 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "input": "* a 😀line",
   "name": "headline",
+  "raw": "* a 😀line",
 }
 `;
 
@@ -416,64 +417,64 @@ Object {
       "tag2",
     ],
   },
-  "input": "* TODO [#A] a headline     :tag1:tag2:",
   "name": "headline",
+  "raw": "* TODO [#A] a headline     :tag1:tag2:",
 }
 `;
 
 exports[`Lexer knows horizontal rules 1`] = `
 Object {
   "data": Object {},
-  "input": "-----",
   "name": "horizontalRule",
+  "raw": "-----",
 }
 `;
 
 exports[`Lexer knows horizontal rules 2`] = `
 Object {
   "data": Object {},
-  "input": "------",
   "name": "horizontalRule",
+  "raw": "------",
 }
 `;
 
 exports[`Lexer knows horizontal rules 3`] = `
 Object {
   "data": Object {},
-  "input": "--------",
   "name": "horizontalRule",
+  "raw": "--------",
 }
 `;
 
 exports[`Lexer knows horizontal rules 4`] = `
 Object {
   "data": Object {},
-  "input": "  -----",
   "name": "horizontalRule",
+  "raw": "  -----",
 }
 `;
 
 exports[`Lexer knows horizontal rules 5`] = `
 Object {
   "data": Object {},
-  "input": "-----   ",
   "name": "horizontalRule",
+  "raw": "-----   ",
 }
 `;
 
 exports[`Lexer knows horizontal rules 6`] = `
 Object {
   "data": Object {},
-  "input": "  -----   ",
   "name": "horizontalRule",
+  "raw": "  -----   ",
 }
 `;
 
 exports[`Lexer knows horizontal rules 7`] = `
 Object {
   "data": Object {},
-  "input": "  -----  	 ",
   "name": "horizontalRule",
+  "raw": "  -----  	 ",
 }
 `;
 
@@ -483,8 +484,8 @@ Object {
     "key": "KEY",
     "value": "Value",
   },
-  "input": "#+KEY: Value",
   "name": "keyword",
+  "raw": "#+KEY: Value",
 }
 `;
 
@@ -494,8 +495,8 @@ Object {
     "key": "KEY",
     "value": "Another Value",
   },
-  "input": "#+KEY: Another Value",
   "name": "keyword",
+  "raw": "#+KEY: Another Value",
 }
 `;
 
@@ -505,8 +506,8 @@ Object {
     "key": "KEY",
     "value": "value : Value",
   },
-  "input": "#+KEY: value : Value",
   "name": "keyword",
+  "raw": "#+KEY: value : Value",
 }
 `;
 
@@ -516,8 +517,8 @@ Object {
     "content": "buy milk",
     "ordered": false,
   },
-  "input": "- buy milk",
   "name": "list.item",
+  "raw": "- buy milk",
 }
 `;
 
@@ -527,8 +528,8 @@ Object {
     "content": "buy milk",
     "ordered": false,
   },
-  "input": "+ buy milk",
   "name": "list.item",
+  "raw": "+ buy milk",
 }
 `;
 
@@ -538,8 +539,8 @@ Object {
     "content": "buy milk",
     "ordered": true,
   },
-  "input": "1. buy milk",
   "name": "list.item",
+  "raw": "1. buy milk",
 }
 `;
 
@@ -549,8 +550,8 @@ Object {
     "content": "buy milk",
     "ordered": true,
   },
-  "input": "12. buy milk",
   "name": "list.item",
+  "raw": "12. buy milk",
 }
 `;
 
@@ -560,8 +561,8 @@ Object {
     "content": "buy milk",
     "ordered": true,
   },
-  "input": "123) buy milk",
   "name": "list.item",
+  "raw": "123) buy milk",
 }
 `;
 
@@ -571,8 +572,8 @@ Object {
     "keyword": "DEADLINE",
     "timestamp": "<2018-01-01 Mon>",
   },
-  "input": "DEADLINE: <2018-01-01 Mon>",
   "name": "planning",
+  "raw": "DEADLINE: <2018-01-01 Mon>",
 }
 `;
 
@@ -582,8 +583,8 @@ Object {
     "keyword": "DEADLINE",
     "timestamp": "<2018-01-01 Mon>",
   },
-  "input": "  DEADLINE: <2018-01-01 Mon>",
   "name": "planning",
+  "raw": "  DEADLINE: <2018-01-01 Mon>",
 }
 `;
 
@@ -593,8 +594,8 @@ Object {
     "keyword": "DEADLINE",
     "timestamp": "<2018-01-01 Mon>",
   },
-  "input": " 	DEADLINE: <2018-01-01 Mon>",
   "name": "planning",
+  "raw": " 	DEADLINE: <2018-01-01 Mon>",
 }
 `;
 
@@ -604,8 +605,8 @@ Object {
     "keyword": "DEADLINE",
     "timestamp": "<2018-01-01 Mon>",
   },
-  "input": " 	 DEADLINE: <2018-01-01 Mon>",
   "name": "planning",
+  "raw": " 	 DEADLINE: <2018-01-01 Mon>",
 }
 `;
 
@@ -618,8 +619,8 @@ Object {
       "wonder woman",
     ],
   },
-  "input": "| batman | superman | wonder woman |",
   "name": "table.row",
+  "raw": "| batman | superman | wonder woman |",
 }
 `;
 
@@ -632,8 +633,8 @@ Object {
       "y'all",
     ],
   },
-  "input": "| hello | world | y'all |",
   "name": "table.row",
+  "raw": "| hello | world | y'all |",
 }
 `;
 
@@ -646,8 +647,8 @@ Object {
       "y'all",
     ],
   },
-  "input": "   | hello | world | y'all |",
   "name": "table.row",
+  "raw": "   | hello | world | y'all |",
 }
 `;
 
@@ -660,56 +661,56 @@ Object {
       "y'all",
     ],
   },
-  "input": "|    hello |  world   |y'all |",
   "name": "table.row",
+  "raw": "|    hello |  world   |y'all |",
 }
 `;
 
 exports[`Lexer knows table separators 1`] = `
 Object {
   "data": Object {},
-  "input": "|----+---+----|",
   "name": "table.separator",
+  "raw": "|----+---+----|",
 }
 `;
 
 exports[`Lexer knows table separators 2`] = `
 Object {
   "data": Object {},
-  "input": "|--=-+---+----|",
   "name": "table.separator",
+  "raw": "|--=-+---+----|",
 }
 `;
 
 exports[`Lexer knows table separators 3`] = `
 Object {
   "data": Object {},
-  "input": "  |----+---+----|",
   "name": "table.separator",
+  "raw": "  |----+---+----|",
 }
 `;
 
 exports[`Lexer knows table separators 4`] = `
 Object {
   "data": Object {},
-  "input": "|----+---+----",
   "name": "table.separator",
+  "raw": "|----+---+----",
 }
 `;
 
 exports[`Lexer knows table separators 5`] = `
 Object {
   "data": Object {},
-  "input": "|---",
   "name": "table.separator",
+  "raw": "|---",
 }
 `;
 
 exports[`Lexer knows table separators 6`] = `
 Object {
   "data": Object {},
-  "input": "|-",
   "name": "table.separator",
+  "raw": "|-",
 }
 `;
 
@@ -719,6 +720,7 @@ Object {
     "content": "a",
   },
   "name": "line",
+  "raw": " a ",
 }
 `;
 
@@ -728,6 +730,7 @@ Object {
     "content": "#+begi😀n_src swift",
   },
   "name": "line",
+  "raw": "#+begi😀n_src swift",
 }
 `;
 
@@ -737,6 +740,7 @@ Object {
     "content": "#+end_SRC",
   },
   "name": "line",
+  "raw": "#+end_SRC ",
 }
 `;
 
@@ -746,6 +750,7 @@ Object {
     "content": "#+end_src param",
   },
   "name": "line",
+  "raw": "#+end_src param",
 }
 `;
 
@@ -755,6 +760,7 @@ Object {
     "content": "#not a comment",
   },
   "name": "line",
+  "raw": "#not a comment",
 }
 `;
 
@@ -764,6 +770,7 @@ Object {
     "content": "#not a comment",
   },
   "name": "line",
+  "raw": "  #not a comment",
 }
 `;
 
@@ -773,6 +780,7 @@ Object {
     "content": "PROPERTIES:",
   },
   "name": "line",
+  "raw": "PROPERTIES:",
 }
 `;
 
@@ -782,6 +790,7 @@ Object {
     "content": ":PROPERTIES",
   },
   "name": "line",
+  "raw": ":PROPERTIES",
 }
 `;
 
@@ -791,6 +800,7 @@ Object {
     "content": ":PR OPERTIES:",
   },
   "name": "line",
+  "raw": ":PR OPERTIES:",
 }
 `;
 
@@ -800,6 +810,7 @@ Object {
     "content": "END:",
   },
   "name": "line",
+  "raw": "END:",
 }
 `;
 
@@ -809,6 +820,7 @@ Object {
     "content": ":END",
   },
   "name": "line",
+  "raw": ":END",
 }
 `;
 
@@ -818,6 +830,7 @@ Object {
     "content": ":ENDed",
   },
   "name": "line",
+  "raw": ":ENDed",
 }
 `;
 
@@ -827,6 +840,7 @@ Object {
     "content": "[fn:1]: not a footnote",
   },
   "name": "line",
+  "raw": " [fn:1]: not a footnote",
 }
 `;
 
@@ -836,6 +850,7 @@ Object {
     "content": "[[fn:1]: not a footnote",
   },
   "name": "line",
+  "raw": "[[fn:1]: not a footnote",
 }
 `;
 
@@ -845,6 +860,7 @@ Object {
     "content": "[fn:1]: not a footnote",
   },
   "name": "line",
+  "raw": "	[fn:1]: not a footnote",
 }
 `;
 
@@ -854,6 +870,7 @@ Object {
     "content": "*not a headline",
   },
   "name": "line",
+  "raw": "*not a headline",
 }
 `;
 
@@ -863,6 +880,7 @@ Object {
     "content": "* not a headline",
   },
   "name": "line",
+  "raw": " * not a headline",
 }
 `;
 
@@ -872,6 +890,7 @@ Object {
     "content": "*_* not a headline",
   },
   "name": "line",
+  "raw": "*_* not a headline",
 }
 `;
 
@@ -881,6 +900,7 @@ Object {
     "content": "not a headline",
   },
   "name": "line",
+  "raw": "not a headline",
 }
 `;
 
@@ -890,6 +910,7 @@ Object {
     "content": "----",
   },
   "name": "line",
+  "raw": "----",
 }
 `;
 
@@ -899,8 +920,8 @@ Object {
     "content": "----",
     "ordered": false,
   },
-  "input": "- ----",
   "name": "list.item",
+  "raw": "- ----",
 }
 `;
 
@@ -910,6 +931,7 @@ Object {
     "content": "-----a",
   },
   "name": "line",
+  "raw": "-----a",
 }
 `;
 
@@ -919,6 +941,7 @@ Object {
     "content": "_-----",
   },
   "name": "line",
+  "raw": "_-----",
 }
 `;
 
@@ -928,6 +951,7 @@ Object {
     "content": "-----    a",
   },
   "name": "line",
+  "raw": "-----    a",
 }
 `;
 
@@ -937,6 +961,7 @@ Object {
     "content": "#+KEY : Value",
   },
   "name": "line",
+  "raw": "#+KEY : Value",
 }
 `;
 
@@ -946,6 +971,7 @@ Object {
     "content": "#+KE Y: Value",
   },
   "name": "line",
+  "raw": "#+KE Y: Value",
 }
 `;
 
@@ -955,6 +981,7 @@ Object {
     "content": "-not item",
   },
   "name": "line",
+  "raw": "-not item",
 }
 `;
 
@@ -964,6 +991,7 @@ Object {
     "content": "1.not item",
   },
   "name": "line",
+  "raw": "1.not item",
 }
 `;
 
@@ -973,6 +1001,7 @@ Object {
     "content": "8)not item",
   },
   "name": "line",
+  "raw": "8)not item",
 }
 `;
 
@@ -982,6 +1011,7 @@ Object {
     "content": "8a) not item",
   },
   "name": "line",
+  "raw": "8a) not item",
 }
 `;
 
@@ -991,6 +1021,7 @@ Object {
     "content": "dEADLINE: <2018-01-01 Mon>",
   },
   "name": "line",
+  "raw": "dEADLINE: <2018-01-01 Mon>",
 }
 `;
 
@@ -1000,6 +1031,7 @@ Object {
     "content": "hello | world | y'all |",
   },
   "name": "line",
+  "raw": " hello | world | y'all |",
 }
 `;
 
@@ -1009,6 +1041,7 @@ Object {
     "content": "|+",
   },
   "name": "line",
+  "raw": "|+",
 }
 `;
 
@@ -1018,5 +1051,6 @@ Object {
     "content": "----+---+----|",
   },
   "name": "line",
+  "raw": "----+---+----|",
 }
 `;
