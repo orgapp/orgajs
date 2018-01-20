@@ -194,4 +194,13 @@ describe('Lexer', () => {
     expect(lexer.tokenize(':END')).toMatchSnapshot()
     expect(lexer.tokenize(':ENDed')).toMatchSnapshot()
   })
+
+  it('POC', () => {
+    const pattern = /(.*?)\*(.+?)\*(.*)/
+    const str = 'hello *world*, have a nice *day*.'
+    // const m = str.match(pattern)
+    const m = pattern.exec(str)
+
+    // console.log(m)
+  })
 })

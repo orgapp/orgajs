@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser works 1`] = `
+Object {
+  "children": Array [
+    Node {
+      "children": Array [],
+      "content": "headline one",
+      "keyword": undefined,
+      "level": 1,
+      "priority": undefined,
+      "tags": Array [],
+      "type": "headline",
+    },
+  ],
+  "settings": Object {
+    "title": "hello world",
+  },
+  "type": "root",
+}
+`;
