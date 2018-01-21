@@ -121,7 +121,7 @@ Lexer.prototype = {
       return { name: `blank`, raw: input }
     }
 
-    return { name: `line`, raw: input, data: { content: trimed } }
+    return { name: `line`, raw: input }
   },
 
   updateTODOs: function(todos) {

@@ -169,9 +169,6 @@ Object {
 
 exports[`Lexer knows block ends 5`] = `
 Object {
-  "data": Object {
-    "content": "#+end_S😀RC",
-  },
   "name": "line",
   "raw": "#+end_S😀RC",
 }
@@ -716,9 +713,6 @@ Object {
 
 exports[`Lexer knows these are not blanks 1`] = `
 Object {
-  "data": Object {
-    "content": "a",
-  },
   "name": "line",
   "raw": " a ",
 }
@@ -726,9 +720,6 @@ Object {
 
 exports[`Lexer knows these are not block begins 1`] = `
 Object {
-  "data": Object {
-    "content": "#+begi😀n_src swift",
-  },
   "name": "line",
   "raw": "#+begi😀n_src swift",
 }
@@ -736,9 +727,6 @@ Object {
 
 exports[`Lexer knows these are not block ends 1`] = `
 Object {
-  "data": Object {
-    "content": "#+end_SRC",
-  },
   "name": "line",
   "raw": "#+end_SRC ",
 }
@@ -746,9 +734,6 @@ Object {
 
 exports[`Lexer knows these are not block ends 2`] = `
 Object {
-  "data": Object {
-    "content": "#+end_src param",
-  },
   "name": "line",
   "raw": "#+end_src param",
 }
@@ -756,9 +741,6 @@ Object {
 
 exports[`Lexer knows these are not comments 1`] = `
 Object {
-  "data": Object {
-    "content": "#not a comment",
-  },
   "name": "line",
   "raw": "#not a comment",
 }
@@ -766,9 +748,6 @@ Object {
 
 exports[`Lexer knows these are not comments 2`] = `
 Object {
-  "data": Object {
-    "content": "#not a comment",
-  },
   "name": "line",
   "raw": "  #not a comment",
 }
@@ -776,9 +755,6 @@ Object {
 
 exports[`Lexer knows these are not drawer begins 1`] = `
 Object {
-  "data": Object {
-    "content": "PROPERTIES:",
-  },
   "name": "line",
   "raw": "PROPERTIES:",
 }
@@ -786,9 +762,6 @@ Object {
 
 exports[`Lexer knows these are not drawer begins 2`] = `
 Object {
-  "data": Object {
-    "content": ":PROPERTIES",
-  },
   "name": "line",
   "raw": ":PROPERTIES",
 }
@@ -796,9 +769,6 @@ Object {
 
 exports[`Lexer knows these are not drawer begins 3`] = `
 Object {
-  "data": Object {
-    "content": ":PR OPERTIES:",
-  },
   "name": "line",
   "raw": ":PR OPERTIES:",
 }
@@ -806,9 +776,6 @@ Object {
 
 exports[`Lexer knows these are not drawer ends 1`] = `
 Object {
-  "data": Object {
-    "content": "END:",
-  },
   "name": "line",
   "raw": "END:",
 }
@@ -816,9 +783,6 @@ Object {
 
 exports[`Lexer knows these are not drawer ends 2`] = `
 Object {
-  "data": Object {
-    "content": ":END",
-  },
   "name": "line",
   "raw": ":END",
 }
@@ -826,9 +790,6 @@ Object {
 
 exports[`Lexer knows these are not drawer ends 3`] = `
 Object {
-  "data": Object {
-    "content": ":ENDed",
-  },
   "name": "line",
   "raw": ":ENDed",
 }
@@ -836,9 +797,6 @@ Object {
 
 exports[`Lexer knows these are not footnotes 1`] = `
 Object {
-  "data": Object {
-    "content": "[fn:1]: not a footnote",
-  },
   "name": "line",
   "raw": " [fn:1]: not a footnote",
 }
@@ -846,9 +804,6 @@ Object {
 
 exports[`Lexer knows these are not footnotes 2`] = `
 Object {
-  "data": Object {
-    "content": "[[fn:1]: not a footnote",
-  },
   "name": "line",
   "raw": "[[fn:1]: not a footnote",
 }
@@ -856,9 +811,6 @@ Object {
 
 exports[`Lexer knows these are not footnotes 3`] = `
 Object {
-  "data": Object {
-    "content": "[fn:1]: not a footnote",
-  },
   "name": "line",
   "raw": "	[fn:1]: not a footnote",
 }
@@ -866,9 +818,6 @@ Object {
 
 exports[`Lexer knows these are not headlines 1`] = `
 Object {
-  "data": Object {
-    "content": "*not a headline",
-  },
   "name": "line",
   "raw": "*not a headline",
 }
@@ -876,9 +825,6 @@ Object {
 
 exports[`Lexer knows these are not headlines 2`] = `
 Object {
-  "data": Object {
-    "content": "* not a headline",
-  },
   "name": "line",
   "raw": " * not a headline",
 }
@@ -886,9 +832,6 @@ Object {
 
 exports[`Lexer knows these are not headlines 3`] = `
 Object {
-  "data": Object {
-    "content": "*_* not a headline",
-  },
   "name": "line",
   "raw": "*_* not a headline",
 }
@@ -896,9 +839,6 @@ Object {
 
 exports[`Lexer knows these are not headlines 4`] = `
 Object {
-  "data": Object {
-    "content": "not a headline",
-  },
   "name": "line",
   "raw": "not a headline",
 }
@@ -906,9 +846,6 @@ Object {
 
 exports[`Lexer knows these are not horizontal rules 1`] = `
 Object {
-  "data": Object {
-    "content": "----",
-  },
   "name": "line",
   "raw": "----",
 }
@@ -927,9 +864,6 @@ Object {
 
 exports[`Lexer knows these are not horizontal rules 3`] = `
 Object {
-  "data": Object {
-    "content": "-----a",
-  },
   "name": "line",
   "raw": "-----a",
 }
@@ -937,9 +871,6 @@ Object {
 
 exports[`Lexer knows these are not horizontal rules 4`] = `
 Object {
-  "data": Object {
-    "content": "_-----",
-  },
   "name": "line",
   "raw": "_-----",
 }
@@ -947,9 +878,6 @@ Object {
 
 exports[`Lexer knows these are not horizontal rules 5`] = `
 Object {
-  "data": Object {
-    "content": "-----    a",
-  },
   "name": "line",
   "raw": "-----    a",
 }
@@ -957,9 +885,6 @@ Object {
 
 exports[`Lexer knows these are not keywords 1`] = `
 Object {
-  "data": Object {
-    "content": "#+KEY : Value",
-  },
   "name": "line",
   "raw": "#+KEY : Value",
 }
@@ -967,9 +892,6 @@ Object {
 
 exports[`Lexer knows these are not keywords 2`] = `
 Object {
-  "data": Object {
-    "content": "#+KE Y: Value",
-  },
   "name": "line",
   "raw": "#+KE Y: Value",
 }
@@ -977,9 +899,6 @@ Object {
 
 exports[`Lexer knows these are not list items 1`] = `
 Object {
-  "data": Object {
-    "content": "-not item",
-  },
   "name": "line",
   "raw": "-not item",
 }
@@ -987,9 +906,6 @@ Object {
 
 exports[`Lexer knows these are not list items 2`] = `
 Object {
-  "data": Object {
-    "content": "1.not item",
-  },
   "name": "line",
   "raw": "1.not item",
 }
@@ -997,9 +913,6 @@ Object {
 
 exports[`Lexer knows these are not list items 3`] = `
 Object {
-  "data": Object {
-    "content": "8)not item",
-  },
   "name": "line",
   "raw": "8)not item",
 }
@@ -1007,9 +920,6 @@ Object {
 
 exports[`Lexer knows these are not list items 4`] = `
 Object {
-  "data": Object {
-    "content": "8a) not item",
-  },
   "name": "line",
   "raw": "8a) not item",
 }
@@ -1017,9 +927,6 @@ Object {
 
 exports[`Lexer knows these are not plannings 1`] = `
 Object {
-  "data": Object {
-    "content": "dEADLINE: <2018-01-01 Mon>",
-  },
   "name": "line",
   "raw": "dEADLINE: <2018-01-01 Mon>",
 }
@@ -1027,9 +934,6 @@ Object {
 
 exports[`Lexer knows these are not table rows 1`] = `
 Object {
-  "data": Object {
-    "content": "hello | world | y'all |",
-  },
   "name": "line",
   "raw": " hello | world | y'all |",
 }
@@ -1037,9 +941,6 @@ Object {
 
 exports[`Lexer knows these are not table rows 2`] = `
 Object {
-  "data": Object {
-    "content": "|+",
-  },
   "name": "line",
   "raw": "|+",
 }
@@ -1047,9 +948,6 @@ Object {
 
 exports[`Lexer knows these are not table separators 1`] = `
 Object {
-  "data": Object {
-    "content": "----+---+----|",
-  },
   "name": "line",
   "raw": "----+---+----|",
 }

@@ -12,7 +12,7 @@ Parser.prototype.peek = function() {
 }
 
 Parser.prototype.hasNext = function() {
-  return this.cursor < this.tokens.length
+  return this.cursor + 1 < this.tokens.length
 }
 
 Parser.prototype.consume = function() {
@@ -22,6 +22,11 @@ Parser.prototype.consume = function() {
 Parser.prototype.next = function() {
   this.consume()
   return this.tokens[this.cursor]
+}
+
+Parser.prototype.downgradeToLine = function(index) {
+  const { raw } = this.tokens[index]
+  this.tokens[index] = { name: `line`, raw, data: { content: raw.trim() }}
 }
 
 Parser.prototype.tryTo = function(process) {
@@ -60,6 +65,12 @@ Parser.prototype.parseDocument = function() {
   case 'line':
     const paragraph = this.parseParagraph()
     this.document.children.push(paragraph)
+    break
+  case `block.begin`:
+    const block = this.tryTo(parseBlock)
+    if (block) this.document.children.push(block)
+    else this.downgradeToLine(this.cursor + 1)
+    break
   default:
     this.consume()
     // this.children.push({ type: 'dummy', data: token.data })
@@ -94,11 +105,14 @@ Parser.prototype.parseHeadline = function() {
     headline.children.push(planning)
   }
 
-  do {
+  while (this.hasNext() && this.peek().name == `drawer.begin`) {
     let drawer = this.tryTo(parseDrawer)
-    if (!drawer) break
+    if (!drawer) { // broken drawer
+      this.downgradeToLine(this.cursor + 1)
+      break
+    }
     headline.children.push(drawer)
-  } while (true)
+  }
 
   return headline
 }
@@ -107,9 +121,10 @@ Parser.prototype.parseParagraph = function() {
   var lines = []
   do {
     const token = this.peek()
-    if (token.name != `line`) break
+    // also eats broken block/drawer ends
+    if (![`line`, `block.end`, `drawer.end`].includes(token.name)) break
     this.consume()
-    lines = lines.concat(inlineParse(token.data.content))
+    lines = lines.concat(inlineParse(token.raw.trim()))
   } while (true)
 
   return new Node(`paragraph`, lines)
@@ -123,13 +138,27 @@ function parsePlanning() {
 
 function parseDrawer() {
   const begin = this.next()
-  if (!begin || begin.name != `drawer.begin`) { return undefined }
   var lines = []
   while (this.hasNext()) {
     const t = this.next()
     if ( t.name === `headline` ) { return undefined }
     if (t.name === `drawer.end` ) {
-      return new Node('drawer').with({ name: begin.data.type, content: lines })
+      return new Node('drawer').with({ name: begin.data.type, value: lines.join(`\n`) })
+    }
+    lines.push(t.raw)
+  }
+  return undefined
+}
+
+function parseBlock() {
+  const t = this.next()
+  const { data: { type, params } } = t
+  var lines = []
+  while (this.hasNext()) {
+    const t = this.next()
+    if ( t.name === `headline` ) { return undefined }
+    if (t.name === `block.end` && t.data.type.toUpperCase() === type.toUpperCase() ) {
+      return new Node('block').with({ name: type.toUpperCase(), params, value: lines.join(`\n`) })
     }
     lines.push(t.raw)
   }
