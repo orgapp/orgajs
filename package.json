@@ -1,5 +1,19 @@
 {
 	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-jest": "^22.1.0",
+		"babel-preset-env": "^1.6.1",
+		"jest": "^22.1.4",
+		"jest-cli": "^22.1.4",
 		"lerna": "^2.7.1"
-	}
+	},
+  "scripts": {
+    "jest": "jest",
+    "lerna": "lerna",
+    "publish": "lerna publish",
+    "test": "yarn jest",
+    "test:update": "jest --updateSnapshot",
+    "test:watch": "jest --watch",
+    "watch": "lerna run watch --no-sort --stream --concurrency 999"
+  }
 }

@@ -1,5 +1,6 @@
-const Lexer = require('./lexer')
-const Node = require('./node')
+import Lexer from './lexer'
+import Node from './node'
+import { parse as inlineParse } from './inline'
 
 function Parser(options = require('./defaults')) {
   this.options = options
@@ -133,11 +134,6 @@ function parseDrawer() {
     lines.push(t.raw)
   }
   return undefined
-}
-
-function inlineParse(text) {
-  // TODO: inline parsing
-  return [ new Node(`text`).with({ value: text }) ]
 }
 
 module.exports = Parser
