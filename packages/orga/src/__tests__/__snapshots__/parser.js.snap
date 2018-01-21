@@ -26,7 +26,7 @@ Object {
           "type": "drawer",
         },
       ],
-      "keyword": undefined,
+      "keyword": "NEXT",
       "level": 1,
       "priority": undefined,
       "tags": Array [],
@@ -50,6 +50,11 @@ Object {
   ],
   "settings": Object {
     "title": "hello world",
+    "todos": Array [
+      "TODO",
+      "NEXT",
+      "DONE",
+    ],
   },
   "type": "root",
 }

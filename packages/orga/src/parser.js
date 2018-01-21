@@ -1,9 +1,9 @@
 const Lexer = require('./lexer')
 const Node = require('./node')
 
-function Parser(options) {
+function Parser(options = require('./defaults')) {
   this.options = options
-  this.lexer = new Lexer()
+  this.lexer = new Lexer(options)
 }
 
 Parser.prototype.peek = function() {
@@ -32,11 +32,16 @@ Parser.prototype.tryTo = function(process) {
 }
 
 Parser.prototype.parse = function(string) {
-  this.document = new Node('root').with({ settings: {} })
-  this.cursor = -1
-  this.restorePoint = -1
-  this.tokens = string.split('\n').map(this.lexer.tokenize)
-  const doc = this.parseDocument()
+  var self = this
+  self.document = new Node('root').with({ settings: {} })
+  self.cursor = -1
+  self.lines = string.split('\n')
+  self.tokens = string.split('\n').map(line => {
+    const token = self.lexer.tokenize(line)
+    if (token.name == 'keyword') self.processKeyword(token)
+    return token
+  })
+  const doc = self.parseDocument()
   return doc
 }
 
@@ -44,9 +49,9 @@ Parser.prototype.parseDocument = function() {
   const token = this.peek()
   if (!token) { return this.document }
   switch(token.name) {
-  case 'keyword':
-    this.processKeyword()
-    break
+  // case 'keyword':
+  //   this.processKeyword()
+  //   break
   case 'headline':
     const headline = this.parseHeadline()
     this.document.children.push(headline)
@@ -62,15 +67,16 @@ Parser.prototype.parseDocument = function() {
 }
 
 
-Parser.prototype.processKeyword = function() {
-  const token = this.next()
+Parser.prototype.processKeyword = function(token) {
   const { key, value } = token.data
   switch (key) {
   case `TITLE`:
     this.document.settings.title = value
     break
   case `TODO`:
-    this.document.settings.todo = value
+    const todos = value.split(/\s|\|/g).filter(String)
+    this.document.settings.todos = todos
+    this.lexer.updateTODOs(todos)
     break
   }
 }
@@ -78,14 +84,12 @@ Parser.prototype.processKeyword = function() {
 Parser.prototype.parseHeadline = function() {
   const token = this.next()
   const { level, keyword, priority, tags, content } = token.data
-  // TODO: inline parse content
-  const text = new Node(`text`).with({ value: content })
-  var headline = new Node('headline', [text]).with({
+  const text = inlineParse(content)
+  var headline = new Node('headline', text).with({
     level, keyword, priority, tags
   })
   const planning = this.tryTo(parsePlanning)
   if (planning) {
-    console.log(planning)
     headline.children.push(planning)
   }
 
@@ -104,8 +108,7 @@ Parser.prototype.parseParagraph = function() {
     const token = this.peek()
     if (token.name != `line`) break
     this.consume()
-    // TODO: inline parsing
-    lines.push(new Node(`text`).with({ value: token.data.content }))
+    lines = lines.concat(inlineParse(token.data.content))
   } while (true)
 
   return new Node(`paragraph`, lines)
@@ -130,6 +133,11 @@ function parseDrawer() {
     lines.push(t.raw)
   }
   return undefined
+}
+
+function inlineParse(text) {
+  // TODO: inline parsing
+  return [ new Node(`text`).with({ value: text }) ]
 }
 
 module.exports = Parser

@@ -1,7 +1,7 @@
 const Lexer = require('../lexer')
 
 describe('Lexer', () => {
-  let lexer = new Lexer()
+  var lexer = new Lexer()
 
   it('knows table row', () => {
     expect(lexer.tokenize('| batman | superman | wonder woman |')).toMatchSnapshot()
@@ -202,5 +202,8 @@ describe('Lexer', () => {
     const m = pattern.exec(str)
 
     // console.log(m)
+
+    lexer.updateTODOs(['TODO', 'NEXT', 'DONE'])
+    // console.log(lexer.syntax)
   })
 })

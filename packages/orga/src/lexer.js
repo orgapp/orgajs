@@ -10,11 +10,25 @@ Syntax.prototype = {
       post,
     })
   },
+
+  update: function(name, pattern) {
+    const i = this.rules.findIndex(r => r.name == name)
+    var newRule = { name, post: () => {} }
+    if (i != -1) {
+      newRule = this.rules.splice(i, 1)[0]
+    }
+    newRule.pattern = pattern
+    this.rules.splice(i, 0, newRule)
+  }
 }
 
 var org = new Syntax()
 
-org.define('headline', /^(\*+)\s+(TODO|DONE)?(?:\s+\[#(A|B|C)\])?(.*?)\s*(:(?:\w+:)+)?$/, m => {
+function headlinePattern(todos = ['TODO', 'DONE']) {
+  return RegExp(`^(\\*+)\\s+(?:(${todos.join('|')})\\s+)?(?:\\[#(A|B|C)\\]\\s+)?(.*?)\\s*(:(?:\\w+:)+)?$`)
+}
+
+org.define('headline', headlinePattern(), m => {
   const level = m[1].length
   const keyword = m[2]
   const priority = m[3]
@@ -84,12 +98,17 @@ org.define('footnote', /^\[fn:(\w+)\]:\s*(.*)$/, m => {
 
 var inline = new Syntax()
 
-function Lexer() {
+function Lexer(options = require('./defaults')) {
+  this.syntax = org
+  const { todos } = options
+  if (todos) {
+    this.updateTODOs(todos)
+  }
 }
 
 Lexer.prototype = {
   tokenize: function (input) {
-    for ( const { name, pattern, post } of org.rules ) {
+    for ( const { name, pattern, post } of this.syntax.rules ) {
       const m = pattern.exec(input)
       if (!m) { continue }
       var token = { name, raw: input }
@@ -103,7 +122,12 @@ Lexer.prototype = {
     }
 
     return { name: `line`, raw: input, data: { content: trimed } }
+  },
+
+  updateTODOs: function(todos) {
+    this.syntax.update(`headline`, headlinePattern(todos))
   }
+
 }
 
 module.exports = Lexer

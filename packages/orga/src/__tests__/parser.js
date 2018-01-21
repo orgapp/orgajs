@@ -6,7 +6,9 @@ describe('Parser', () => {
 
     const content = `
 #+TITLE: hello world
-* headline one
+#+TODO: TODO NEXT | DONE
+
+* NEXT headline one
 DEADLINE: <2018-01-01 Mon>
 :PROPERTIES:
 key: value

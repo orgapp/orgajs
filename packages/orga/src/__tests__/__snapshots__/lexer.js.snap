@@ -408,7 +408,7 @@ Object {
 exports[`Lexer knows headlines 5`] = `
 Object {
   "data": Object {
-    "content": " a headline",
+    "content": "a headline",
     "keyword": "TODO",
     "level": 1,
     "priority": "A",
