@@ -3,49 +3,38 @@ import Node from './node'
 function parse(text) {
   // TODO: inline parsing
   const markups = [
-    { name: `bold`, marker: `\\*` },
-    { name: `verbatim`, marker: `=` },
-    // { name: `italic`, marker: `/` }, // TODO: deal with links first
-    { name: `strike-through`, marker: `\\+` },
-    { name: `underline`, marker: `_` },
-    { name: `code`, marker: `~` },
+    { name: `bold`, pattern: markup(`\\*`) },
+    { name: `verbatim`, pattern: markup(`=`) },
+    // { name: `italic`, pattern: `/` }, // TODO: deal with links first
+    { name: `strike-through`, pattern: markup(`\\+`) },
+    { name: `underline`, pattern: markup(`_`) },
+    { name: `code`, pattern: markup(`~`) },
   ]
-  for (const { name, marker } of markups) {
-    text = emphasis(name, marker, text)
+  for (const { name, pattern } of markups) {
+    text = _parse(pattern, text, (captures) => { return new Node(name).with({ value: captures[0] }) })
   }
   return text
 }
 
-function pattern(marker) {
+
+function markup(marker) {
   return RegExp(`(.*?)${marker}(.+?)${marker}(.*)`, 'm')
 }
 
-// function emphasis(name, marker, nodes) {
-//   return nodes.reduce([], (all, node) => {
-//     if (node.name != `text`) {
-//       return all + [node]
-//     }
-//     var m = pattern(marker).exec(node.value)
-//     let before = m[1]
-//     let match = m[2]
-//     let after = m[3]
-//     return all + newNodes
-//   })
-// }
-
-function emphasis(name, marker, text) {
+function _parse(pattern, text, post) {
   if (typeof text === `string`) {
-    var m = pattern(marker).exec(text)
+    var m = pattern.exec(text)
     if (!m) return [new Node(`text`).with({ value: text })]
-    let before = m[1]
-    let match = m[2]
-    let after = m[3]
+    m.shift()
+    let before = m.shift()
+    let after = m.pop()
     var nodes = [ new Node(`text`).with({ value: before }) ]
-    if (match) {
-      nodes.push(new Node(name).with({ value: match }))
+    if (m.length > 0) {
+      nodes.push(post(m))
+      // nodes.push(new Node(name).with({ value: match }))
     }
     if (after) {
-      nodes = nodes.concat(emphasis(name, marker, after))
+      nodes = nodes.concat(_parse(pattern, after, post))
     }
     return nodes
   }
@@ -55,18 +44,16 @@ function emphasis(name, marker, text) {
       if (node.hasOwnProperty(`type`) && node.type != `text`) {
         return all.concat(node)
       }
-      return all.concat(emphasis(name, marker, node))
+      return all.concat(_parse(pattern, node, post))
     }, [])
   }
 
   if (typeof text.value === `string`) {
-    return emphasis(name, marker, text.value)
+    return _parse(pattern, text.value, post)
   }
   return undefined
 }
 
 module.exports = {
   parse,
-  emphasis,
-  pattern,
 }
