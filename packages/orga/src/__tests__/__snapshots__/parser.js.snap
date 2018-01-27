@@ -237,7 +237,17 @@ key: value",
         Object {
           "children": Array [],
           "type": "text",
-          "value": "[[https://github.com/xiaoxinghu/OrgMarker/releases][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,",
+          "value": "[[https://github.com/xiaoxinghu/OrgMarker/releases][Here's]] to the ",
+        },
+        Object {
+          "children": Array [],
+          "type": "bold",
+          "value": "crazy",
+        },
+        Object {
+          "children": Array [],
+          "type": "text",
+          "value": " ones, the /misfits/, the _rebels_, the ~troublemakers~,",
         },
         Object {
           "children": Array [],

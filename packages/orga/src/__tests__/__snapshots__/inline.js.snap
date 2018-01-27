@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Inline Parsing single emphasis 1`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "hello ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "world",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ", welcome to ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "org-mode",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ". Have a nice ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "day",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ".",
+  },
+]
+`;
