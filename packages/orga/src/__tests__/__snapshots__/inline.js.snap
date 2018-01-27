@@ -1,6 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Inline Parsing single emphasis 1`] = `
+exports[`Inline Parsing recon mixed emphasis 1`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "[[https://github.com/xiaoxinghu/OrgMarker/releases][Here's]] to the ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "crazy",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " ones, the /misfits/, the ",
+  },
+  Object {
+    "children": Array [],
+    "type": "underline",
+    "value": "rebels",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ", the ",
+  },
+  Object {
+    "children": Array [],
+    "type": "code",
+    "value": "troublemakers",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ", the round pegs in the ",
+  },
+  Object {
+    "children": Array [],
+    "type": "strike-through",
+    "value": "round",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " square holes...",
+  },
+]
+`;
+
+exports[`Inline Parsing recon single emphasis 1`] = `
 Array [
   Object {
     "children": Array [],

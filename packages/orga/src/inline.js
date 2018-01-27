@@ -2,8 +2,18 @@ import Node from './node'
 
 function parse(text) {
   // TODO: inline parsing
-  return emphasis(`bold`, `\\*`, text)
-  // return [ new Node(`text`).with({ value: text }) ]
+  const markups = [
+    { name: `bold`, marker: `\\*` },
+    { name: `verbatim`, marker: `=` },
+    // { name: `italic`, marker: `/` }, // TODO: deal with links first
+    { name: `strike-through`, marker: `\\+` },
+    { name: `underline`, marker: `_` },
+    { name: `code`, marker: `~` },
+  ]
+  for (const { name, marker } of markups) {
+    text = emphasis(name, marker, text)
+  }
+  return text
 }
 
 function pattern(marker) {
@@ -41,15 +51,18 @@ function emphasis(name, marker, text) {
   }
 
   if (Array.isArray(text)) {
-    return text.reduce([], (all, node) => {
-      if (node.name != `text`) {
-        return all + [node]
+    return text.reduce((all, node) => {
+      if (node.hasOwnProperty(`type`) && node.type != `text`) {
+        return all.concat(node)
       }
-      return all + emphasis(name, marker, node.value)
-    })
+      return all.concat(emphasis(name, marker, node))
+    }, [])
   }
 
-  return emphasis(name, marker, text.value)
+  if (typeof text.value === `string`) {
+    return emphasis(name, marker, text.value)
+  }
+  return undefined
 }
 
 module.exports = {
