@@ -1,6 +1,6 @@
 {
   "name": "orga",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "org-mode parser",
   "main": "index.js",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
