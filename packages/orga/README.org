@@ -1,0 +1,30 @@
+* orga
+
+Turns org-mode content into AST.
+
+** Install
+
+#+BEGIN_SRC sh
+  npm install --save orga
+#+END_SRC
+
+** Usage
+
+#+BEGIN_SRC javascript
+  const parse = require('orga')
+  const ast = parse(`* TODO remember the milk    :shopping:`)
+#+END_SRC
+
+~ast~ is an object looks like this:
+
+#+BEGIN_SRC javascript
+  { type: 'root',
+    children:
+     [ { type: 'headline',
+         children: [ { type: 'text', children: [], value: 'remember the milk' } ],
+         level: 1,
+         keyword: 'TODO',
+         priority: undefined,
+         tags: [ 'shopping' ] } ],
+    settings: {} }
+#+END_SRC
