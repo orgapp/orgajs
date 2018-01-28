@@ -236,8 +236,14 @@ key: value",
       "children": Array [
         Object {
           "children": Array [],
+          "desc": "Here's",
+          "path": "https://github.com/xiaoxinghu/OrgMarker/releases",
+          "type": "link",
+        },
+        Object {
+          "children": Array [],
           "type": "text",
-          "value": "[[https://github.com/xiaoxinghu/OrgMarker/releases][Here's]] to the ",
+          "value": " to the ",
         },
         Object {
           "children": Array [],

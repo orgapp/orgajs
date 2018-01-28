@@ -1,7 +1,21 @@
 import Node from './node'
 
+const LINK_PATTERN = /(.*?)\[\[([^\]]*)\](?:\[([^\]]*)\])?\](.*)/m; // \1 => link, \2 => text
+
+const PRE = `[\\s\\({'"^]`
+const POST = `[\\s-\\.,:!?'\\)}$]`
+const BORDER = `[^,'"\\s]`
+
+function markup(marker) {
+  return RegExp(`(.*?${PRE})${marker}(${BORDER}.+?${BORDER})${marker}(${POST}.*)`, 'm')
+}
+
 function parse(text) {
-  // TODO: inline parsing
+  text = _parse(LINK_PATTERN, text, (captures) => {
+    return new Node(`link`).with({ path: captures[0], desc: captures[1] })
+  })
+
+
   const markups = [
     { name: `bold`, pattern: markup(`\\*`) },
     { name: `verbatim`, pattern: markup(`=`) },
@@ -16,13 +30,6 @@ function parse(text) {
   return text
 }
 
-const PRE = `[\\s\\({'"^]`
-const POST = `[\\s-\\.,:!?'\\)}$]`
-const BORDER = `[^,'"\\s]`
-
-function markup(marker) {
-  return RegExp(`(.*?${PRE})${marker}(${BORDER}.+?${BORDER})${marker}(${POST}.*)`, 'm')
-}
 
 function _parse(pattern, text, post) {
   if (typeof text === `string`) {
@@ -31,7 +38,10 @@ function _parse(pattern, text, post) {
     m.shift()
     let before = m.shift()
     let after = m.pop()
-    var nodes = [ new Node(`text`).with({ value: before }) ]
+    var nodes = []
+    if ( before.length > 0 ) {
+      nodes.push(new Node(`text`).with({ value: before }))
+    }
     if (m.length > 0) {
       nodes.push(post(m))
       // nodes.push(new Node(name).with({ value: match }))
