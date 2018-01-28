@@ -1,4 +1,4 @@
-const Lexer = require('../lexer')
+import Lexer from '../lexer'
 
 describe('Lexer', () => {
   var lexer = new Lexer()
@@ -195,15 +195,4 @@ describe('Lexer', () => {
     expect(lexer.tokenize(':ENDed')).toMatchSnapshot()
   })
 
-  it('POC', () => {
-    const pattern = /(.*?)\*(.+?)\*(.*)/
-    const str = 'hello *world*, have a nice *day*.'
-    // const m = str.match(pattern)
-    const m = pattern.exec(str)
-
-    // console.log(m)
-
-    lexer.updateTODOs(['TODO', 'NEXT', 'DONE'])
-    // console.log(lexer.syntax)
-  })
 })

@@ -5,6 +5,7 @@
   "main": "index.js",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "license": "MIT",
+  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "cross-env": "^5.1.3",
