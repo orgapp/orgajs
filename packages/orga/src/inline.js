@@ -17,15 +17,15 @@ function parse(text) {
 
 
   const markups = [
-    { name: `bold`, pattern: markup(`\\*`) },
-    { name: `verbatim`, pattern: markup(`=`) },
-    // { name: `italic`, pattern: `/` }, // TODO: deal with links first
-    { name: `strike-through`, pattern: markup(`\\+`) },
-    { name: `underline`, pattern: markup(`_`) },
-    { name: `code`, pattern: markup(`~`) },
+    { name: `bold`, marker: `\\*` },
+    { name: `verbatim`, marker: `=` },
+    { name: `italic`, marker: `/` },
+    { name: `strike-through`, marker: `\\+` },
+    { name: `underline`, marker: `_` },
+    { name: `code`, marker: `~` },
   ]
-  for (const { name, pattern } of markups) {
-    text = _parse(pattern, text, (captures) => { return new Node(name).with({ value: captures[0] }) })
+  for (const { name, marker } of markups) {
+    text = _parse(markup(marker), text, (captures) => { return new Node(name).with({ value: captures[0] }) })
   }
   return text
 }

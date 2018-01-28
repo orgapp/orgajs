@@ -253,7 +253,17 @@ key: value",
         Object {
           "children": Array [],
           "type": "text",
-          "value": " ones, the /misfits/, the ",
+          "value": " ones, the ",
+        },
+        Object {
+          "children": Array [],
+          "type": "italic",
+          "value": "misfits",
+        },
+        Object {
+          "children": Array [],
+          "type": "text",
+          "value": ", the ",
         },
         Object {
           "children": Array [],

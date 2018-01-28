@@ -41,7 +41,6 @@ Parser.prototype.parse = function(string) {
   var self = this
   self.document = new Node('root').with({ settings: {} })
   self.cursor = -1
-  self.lines = string.split('\n')
   self.tokens = string.split('\n').map(line => {
     const token = self.lexer.tokenize(line)
     if (token.name == 'keyword') self.processKeyword(token)
@@ -71,6 +70,9 @@ Parser.prototype.parseDocument = function() {
     if (block) this.document.children.push(block)
     else this.downgradeToLine(this.cursor + 1)
     break
+    // TODO: table
+    // TODO: list
+    // TODO: footnote
   default:
     this.consume()
     // this.children.push({ type: 'dummy', data: token.data })
