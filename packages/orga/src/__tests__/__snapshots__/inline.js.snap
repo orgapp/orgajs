@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Inline Parsing recon emphasises at different locations 1`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "one ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "two",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " three",
+  },
+]
+`;
+
+exports[`Inline Parsing recon emphasises at different locations 2`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "one",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " two three",
+  },
+]
+`;
+
+exports[`Inline Parsing recon emphasises at different locations 3`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "one two ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "three",
+  },
+]
+`;
+
 exports[`Inline Parsing recon mixed emphasis 1`] = `
 Array [
   Object {

@@ -17,4 +17,9 @@ describe('Inline Parsing', () => {
     expect(parse(str)).toMatchSnapshot()
   })
 
+  it('recon emphasises at different locations', () => {
+    expect(parse(`one *two* three`)).toMatchSnapshot()
+    expect(parse(`*one* two three`)).toMatchSnapshot()
+    expect(parse(`one two *three*`)).toMatchSnapshot()
+  })
 })

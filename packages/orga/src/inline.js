@@ -2,8 +2,8 @@ import Node from './node'
 
 const LINK_PATTERN = /(.*?)\[\[([^\]]*)\](?:\[([^\]]*)\])?\](.*)/m; // \1 => link, \2 => text
 
-const PRE = `[\\s\\({'"^]`
-const POST = `[\\s-\\.,:!?'\\)}$]`
+const PRE = `(?:[\\s\\({'"]|^)`
+const POST = `(?:[\\s-\\.,:!?'\\)}]|$)`
 const BORDER = `[^,'"\\s]`
 
 function markup(marker) {
