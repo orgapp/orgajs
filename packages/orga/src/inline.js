@@ -16,9 +16,12 @@ function parse(text) {
   return text
 }
 
+const PRE = `[\\s\\({'"^]`
+const POST = `[\\s-\\.,:!?'\\)}$]`
+const BORDER = `[^,'"\\s]`
 
 function markup(marker) {
-  return RegExp(`(.*?)${marker}(.+?)${marker}(.*)`, 'm')
+  return RegExp(`(.*?${PRE})${marker}(${BORDER}.+?${BORDER})${marker}(${POST}.*)`, 'm')
 }
 
 function _parse(pattern, text, post) {
