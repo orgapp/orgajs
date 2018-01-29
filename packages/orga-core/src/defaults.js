@@ -1,0 +1,3 @@
+exports = {
+  todos: [`TODO`, `DONE`]
+}

@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Inline Parsing recon emphasises at different locations 1`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "one ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "two",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " three",
+  },
+]
+`;
+
+exports[`Inline Parsing recon emphasises at different locations 2`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "one",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " two three",
+  },
+]
+`;
+
+exports[`Inline Parsing recon emphasises at different locations 3`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "one two ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "three",
+  },
+]
+`;
+
+exports[`Inline Parsing recon mixed emphasis 1`] = `
+Array [
+  Object {
+    "children": Array [],
+    "desc": "Here's",
+    "path": "https://github.com/xiaoxinghu/OrgMarker/releases",
+    "type": "link",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " to the ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "crazy",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " ones, the ",
+  },
+  Object {
+    "children": Array [],
+    "type": "italic",
+    "value": "misfits",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ", the ",
+  },
+  Object {
+    "children": Array [],
+    "type": "underline",
+    "value": "rebels",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ", the ",
+  },
+  Object {
+    "children": Array [],
+    "type": "code",
+    "value": "troublemakers",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ", the round pegs in the ",
+  },
+  Object {
+    "children": Array [],
+    "type": "strike-through",
+    "value": "round",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " square holes...",
+  },
+]
+`;
+
+exports[`Inline Parsing recon single emphasis 1`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "hello ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "world",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ", welcome to ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "org-mode",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ". Have a nice ",
+  },
+  Object {
+    "children": Array [],
+    "type": "bold",
+    "value": "day",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ".",
+  },
+]
+`;
