@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "orga": "^0.1.5",
+    "rehype-document": "^2.0.1",
+    "rehype-stringify": "^3.0.0",
+    "to-vfile": "^2.1.2",
+    "unified": "^6.1.6",
+    "vfile-reporter": "^4.0.0"
+  }
+}

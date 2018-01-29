@@ -5,4 +5,9 @@ function parse(string, options = require('./defaults')) {
   return parser.parse(string)
 }
 
+parse.Parser = Parser
+
+function parse(options) {
+  this.Parser = Parser
+}
 module.exports = parse

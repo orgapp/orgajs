@@ -2,9 +2,10 @@ import Lexer from './lexer'
 import Node from './node'
 import { parse as inlineParse } from './inline'
 
-function Parser(options = require('./defaults')) {
-  this.options = options
-  this.lexer = new Lexer(options)
+function Parser(doc, file) {
+  this.file = file
+  this.options = require('./defaults')
+  this.lexer = new Lexer(this.options)
 }
 
 Parser.prototype.peek = function() {
@@ -37,8 +38,9 @@ Parser.prototype.tryTo = function(process) {
   return result
 }
 
-Parser.prototype.parse = function(string) {
+Parser.prototype.parse = function() {
   var self = this
+  const string = String(self.file)
   self.document = new Node('root').with({ settings: {} })
   self.cursor = -1
   self.tokens = string.split('\n').map(line => {

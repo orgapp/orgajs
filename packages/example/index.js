@@ -1,0 +1,26 @@
+var util = require('util')
+var fs = require('fs')
+var vfile = require('to-vfile')
+var report = require('vfile-reporter')
+var unified = require('unified')
+var parse = require('../orga')
+var mutate = require('../oast-to-hast/index.js')
+var stringify = require('rehype-stringify')
+var doc = require('rehype-document')
+
+// var doc = String(vfile.readSync('./example.org'))
+// console.log(doc)
+
+// const parser = new parse.Parser()
+// var result = parser.parse(doc)
+// console.log(util.inspect(result, false, null))
+
+unified()
+  .use(parse)
+  .use(mutate)
+  .use(doc, {title: 'Hi!'})
+  .use(stringify)
+  .process(vfile.readSync('./example.org'), function (err, file) {
+    console.error(report(err || file))
+    console.log(String(file))
+  })
