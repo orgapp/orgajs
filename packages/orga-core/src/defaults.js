@@ -1,3 +1,0 @@
-exports = {
-  todos: [`TODO`, `DONE`]
-}
