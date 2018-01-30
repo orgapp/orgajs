@@ -2,9 +2,13 @@
   "name": "oast-to-hast",
   "version": "0.1.6",
   "description": "Transform OAST to HAST",
-  "main": "index.js",
-  "author": "",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "license": "MIT",
+  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/oast-to-hast",
   "dependencies": {
     "unist-builder": "^1.0.2"
   },
@@ -14,8 +18,8 @@
     "jest": "^22.1.4"
   },
   "scripts": {
-    "build": "babel src --out-dir . --ignore __tests__",
-    "watch": "babel -w src --out-dir . --ignore __tests__",
+    "build": "babel src --out-dir lib --ignore __tests__",
+    "watch": "babel -w src --out-dir lib --ignore __tests__",
     "test": "yarn jest",
     "prepare": "cross-env NODE_ENV=production npm run build"
   }

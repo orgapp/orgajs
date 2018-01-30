@@ -1,19 +1,10 @@
-var util = require('util')
-var fs = require('fs')
 var vfile = require('to-vfile')
 var report = require('vfile-reporter')
 var unified = require('unified')
-var parse = require('../orga-unified/lib')
-var mutate = require('../oast-to-hast/index.js')
+var parse = require('orga-unified')
+var mutate = require('oast-to-hast')
 var stringify = require('rehype-stringify')
 var doc = require('rehype-document')
-
-// var doc = String(vfile.readSync('./example.org'))
-// console.log(doc)
-
-// const parser = new parse.Parser()
-// var result = parser.parse(doc)
-// console.log(util.inspect(result, false, null))
 
 unified()
   .use(parse)
