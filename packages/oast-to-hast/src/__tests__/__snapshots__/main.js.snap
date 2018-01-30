@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main POC 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "type": "text",
+          "value": "remember the milk",
+        },
+      ],
+      "properties": Object {},
+      "tagName": "h1",
+      "type": "element",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "type": "text",
+              "value": "console.log(\\"hello world\\")",
+            },
+          ],
+          "properties": Object {
+            "className": Array [
+              "language-javascript",
+            ],
+          },
+          "tagName": "code",
+          "type": "element",
+        },
+      ],
+      "properties": Object {},
+      "tagName": "pre",
+      "type": "element",
+    },
+  ],
+  "type": "root",
+}
+`;

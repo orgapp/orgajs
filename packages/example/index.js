@@ -1,0 +1,17 @@
+var vfile = require('to-vfile')
+var report = require('vfile-reporter')
+var unified = require('unified')
+var parse = require('orga-unified')
+var mutate = require('oast-to-hast')
+var stringify = require('rehype-stringify')
+var doc = require('rehype-document')
+
+unified()
+  .use(parse)
+  .use(mutate)
+  .use(doc, {title: 'Hi!'})
+  .use(stringify)
+  .process(vfile.readSync('./example.org'), function (err, file) {
+    console.error(report(err || file))
+    console.log(String(file))
+  })

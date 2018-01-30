@@ -1,18 +1,21 @@
 {
-  "name": "orga",
+  "name": "oast-to-hast",
   "version": "0.1.8",
-  "description": "org-mode parser",
+  "description": "Transform OAST to HAST",
   "files": [
     "lib"
   ],
   "main": "lib/index.js",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "license": "MIT",
-  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga",
+  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/oast-to-hast",
+  "dependencies": {
+    "unist-builder": "^1.0.2"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "cross-env": "^5.1.3",
-    "jest": "^22.1.3"
+    "jest": "^22.1.4"
   },
   "scripts": {
     "build": "babel src --out-dir lib --ignore __tests__",

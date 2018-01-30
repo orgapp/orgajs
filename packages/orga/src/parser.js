@@ -4,7 +4,7 @@ import { parse as inlineParse } from './inline'
 
 function Parser(options = require('./defaults')) {
   this.options = options
-  this.lexer = new Lexer(options)
+  this.lexer = new Lexer(this.options)
 }
 
 Parser.prototype.peek = function() {
@@ -127,7 +127,7 @@ Parser.prototype.parseParagraph = function() {
     if (![`line`, `block.end`, `drawer.end`].includes(token.name)) break
     this.consume()
     lines = lines.concat(inlineParse(token.raw.trim()))
-  } while (true)
+  } while (this.hasNext())
 
   return new Node(`paragraph`, lines)
 }
