@@ -1963,6 +1963,10 @@ optionator@^0.8.1:
     type-check "~0.3.2"
     wordwrap "~1.0.0"
 
+orga@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/orga/-/orga-0.1.6.tgz#0afb8875d84db9e7d49f3887f59590e097e77855"
+
 os-homedir@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
