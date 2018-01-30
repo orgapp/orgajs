@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "example",
-  "version": "1.0.0",
+  "version": "0.1.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "orga": "^0.1.5",
+    "orga": "^0.1.6",
     "rehype-document": "^2.0.1",
     "rehype-stringify": "^3.0.0",
     "to-vfile": "^2.1.2",
