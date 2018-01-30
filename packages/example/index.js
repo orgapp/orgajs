@@ -11,7 +11,7 @@ unified()
   .use(mutate)
   .use(doc, {title: 'Hi!'})
   .use(stringify)
-  .process(vfile.readSync('./example.org'), function (err, file) {
+  .process(vfile.readSync('./README.org'), function (err, file) {
     console.error(report(err || file))
     console.log(String(file))
   })

@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "orga": "^0.1.8",
+    "oast-to-hast": "^0.1.8",
+    "orga-unified": "^0.1.8",
     "rehype-document": "^2.0.1",
     "rehype-stringify": "^3.0.0",
     "to-vfile": "^2.1.2",
