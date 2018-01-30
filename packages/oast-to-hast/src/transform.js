@@ -21,7 +21,6 @@ function transform(h, node, parent) {
   if (!type) {
     throw new Error('Expected node, got `' + node + '`')
   }
-  console.log(node)
 
   return (typeof fn === 'function' ? fn : unknown)(h, node, parent)
 }
