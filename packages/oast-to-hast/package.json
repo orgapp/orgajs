@@ -1,8 +1,10 @@
 {
   "name": "oast-to-hast",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Transform OAST to HAST",
-  "files": [ "lib" ],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "license": "MIT",

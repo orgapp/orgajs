@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "example",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "oast-to-hast": "^0.1.8",
     "orga-unified": "^0.1.8",
     "rehype-document": "^2.0.1",
     "rehype-stringify": "^3.0.0",

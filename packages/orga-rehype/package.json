@@ -1,8 +1,10 @@
 {
   "name": "orga-rehype",
-  "version": "0.1.0",
+  "version": "0.1.9",
   "description": "rehype support for orga",
-  "files": [ "lib" ],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "license": "MIT",
@@ -19,6 +21,6 @@
     "prepare": "cross-env NODE_ENV=production npm run build"
   },
   "dependencies": {
-    "oast-to-hast": "^0.1.8"
+    "oast-to-hast": "^0.1.9"
   }
 }
