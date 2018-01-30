@@ -10,7 +10,7 @@
     "lerna": "^2.7.1"
   },
   "scripts": {
-    "bootstrap": "yarn && lerna run prepublish",
+    "bootstrap": "yarn && lerna bootstrap",
     "jest": "jest",
     "lerna": "lerna",
     "publish": "lerna publish",
