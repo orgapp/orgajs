@@ -5,11 +5,10 @@ module.exports = async function onCreateNode(
   { node, getNode, loadNodeContent, boundActionCreators },
   pluginOptions) {
 
-  // We only care about org content.
-  if (node.internal.mediaType !== `text/x-org`) {
+  // We only care about org content. The mime is not useful for us. Use extension directly
+  if (node.extension !== `org`) {
     return
   }
-
 
   const { createNode, createParentChildLink } = boundActionCreators
   const content = await loadNodeContent(node)
