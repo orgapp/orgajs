@@ -2,7 +2,7 @@ var vfile = require('to-vfile')
 var report = require('vfile-reporter')
 var unified = require('unified')
 var parse = require('orga-unified')
-var mutate = require('oast-to-hast')
+var mutate = require('orga-rehype')
 var stringify = require('rehype-stringify')
 var doc = require('rehype-document')
 

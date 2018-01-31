@@ -131,15 +131,21 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-oast-to-hast@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/oast-to-hast/-/oast-to-hast-0.1.8.tgz#ba3ffdd0c6b3c64ca21fa3ca8762d645e2686840"
+oast-to-hast@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/oast-to-hast/-/oast-to-hast-0.1.9.tgz#bcf8cfa913814ad29bc1237fe2d1c8bbb1ec63af"
   dependencies:
     unist-builder "^1.0.2"
 
 object-assign@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
+
+orga-rehype@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/orga-rehype/-/orga-rehype-0.1.9.tgz#109f50aaeb5bde480d5e7ce72f7dc974d43fd110"
+  dependencies:
+    oast-to-hast "^0.1.9"
 
 orga-unified@^0.1.8:
   version "0.1.8"
