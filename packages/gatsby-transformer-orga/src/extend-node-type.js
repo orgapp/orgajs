@@ -13,7 +13,7 @@ module.exports = (
   { type, store, pathPrefix, getNode, cache },
   pluginOptions
 ) => {
-  if (type.name !== `Org`) {
+  if (type.name !== `Orga`) {
     return {}
   }
 

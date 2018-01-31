@@ -23,7 +23,6 @@ module.exports = async function onCreateNode(
     suppressAutoLink: false
   })
   const title = orgHTMLDocument.title
-  const html = orgHTMLDocument.contentHTML
   const date = orgDocument.directiveValues[`date:`]
   const tags = ( orgDocument.directiveValues[`keywords:`] || '' ).split(' ').filter(String)
   console.log(orgDocument.directiveValues)
@@ -33,17 +32,16 @@ module.exports = async function onCreateNode(
         .update(JSON.stringify(`data`))
         .digest(`hex`)
   const orgNode = {
-    id: `${node.id} >>> Org`,
+    id: `${node.id} >>> Orga`,
     children: [],
     parent: node.id,
     title,
     date,
     tags,
-    html,
     internal: {
       content,
       contentDigest,
-      type: `Org`,
+      type: `Orga`,
     },
   }
 
