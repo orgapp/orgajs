@@ -14,7 +14,7 @@ module.exports = async function onCreateNode(
 
   const contentDigest = crypto
         .createHash(`md5`)
-        .update(JSON.stringify(`data`))
+        .update(content)
         .digest(`hex`)
   const orgNode = {
     id: `${node.id} >>> Orga`,

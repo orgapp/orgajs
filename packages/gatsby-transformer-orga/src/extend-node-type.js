@@ -28,17 +28,23 @@ module.exports = (
 
 
   async function getAST(orgNode) {
-    const cachedAST = await cache.get(astCacheKey(orgNode))
-    if (cachedAST) {
-      return cachedAST
-    } else {
-      return new Promise((resolve, reject) => {
-        const parser = new Parser()
-        const ast = parser.parse(orgNode.internal.content)
-        cache.set(astCacheKey(orgNode), ast)
-        resolve(ast)
-      })
-    }
+    return new Promise((resolve, reject) => {
+      const parser = new Parser()
+      const ast = parser.parse(orgNode.internal.content)
+      cache.set(astCacheKey(orgNode), ast)
+      resolve(ast)
+    })
+    // const cachedAST = await cache.get(astCacheKey(orgNode))
+    // if (cachedAST) {
+    //   return cachedAST
+    // } else {
+    //   return new Promise((resolve, reject) => {
+    //     const parser = new Parser()
+    //     const ast = parser.parse(orgNode.internal.content)
+    //     cache.set(astCacheKey(orgNode), ast)
+    //     resolve(ast)
+    //   })
+    // }
   }
 
   async function getHTML(orgNode) {
