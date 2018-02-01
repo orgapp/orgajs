@@ -84,13 +84,13 @@ Parser.prototype.parseDocument = function() {
 Parser.prototype.processKeyword = function(token) {
   const { key, value } = token.data
   switch (key) {
-  case `TITLE`:
-    this.document.settings.title = value
-    break
   case `TODO`:
     const todos = value.split(/\s|\|/g).filter(String)
     this.document.settings.todos = todos
     this.lexer.updateTODOs(todos)
+    break
+  default:
+    this.document.settings[key.toLowerCase()] = value
     break
   }
 }
