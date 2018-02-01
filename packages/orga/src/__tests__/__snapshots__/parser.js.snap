@@ -305,6 +305,7 @@ key: value",
     },
   ],
   "settings": Object {
+    "date": "2018-01-01",
     "title": "hello world",
     "todos": Array [
       "TODO",
