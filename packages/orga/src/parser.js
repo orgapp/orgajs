@@ -51,6 +51,7 @@ Parser.prototype.parse = function(string) {
 }
 
 Parser.prototype.parseDocument = function() {
+  // return this.parseSection(this.document)
   const token = this.peek()
   if (!token) { return this.document }
   switch(token.name) {
@@ -59,15 +60,15 @@ Parser.prototype.parseDocument = function() {
   //   break
   case 'headline':
     const headline = this.parseHeadline()
-    this.document.children.push(headline)
+    this.document.push(headline)
     break
   case 'line':
     const paragraph = this.parseParagraph()
-    this.document.children.push(paragraph)
+    this.document.push(paragraph)
     break
   case `block.begin`:
     const block = this.tryTo(parseBlock)
-    if (block) this.document.children.push(block)
+    if (block) this.document.push(block)
     else this.downgradeToLine(this.cursor + 1)
     break
     // TODO: table
@@ -75,7 +76,7 @@ Parser.prototype.parseDocument = function() {
     // TODO: footnote
   default:
     this.consume()
-    // this.children.push({ type: 'dummy', data: token.data })
+    // this.push({ type: 'dummy', data: token.data })
   }
   return this.parseDocument()
 }
@@ -104,7 +105,7 @@ Parser.prototype.parseHeadline = function() {
   })
   const planning = this.tryTo(parsePlanning)
   if (planning) {
-    headline.children.push(planning)
+    headline.push(planning)
   }
 
   while (this.hasNext() && this.peek().name == `drawer.begin`) {
@@ -113,10 +114,45 @@ Parser.prototype.parseHeadline = function() {
       this.downgradeToLine(this.cursor + 1)
       break
     }
-    headline.children.push(drawer)
+    headline.push(drawer)
   }
 
   return headline
+}
+
+Parser.prototype.parseSection = function(section) {
+  const token = this.peek()
+  if (!token) { return section }
+  switch(token.name) {
+    // case 'keyword':
+    //   this.processKeyword()
+    //   break
+  case 'headline':
+    const { level } = token.data
+    const currentLevel = section.level || 0
+    if (level <= currentLevel) { return section }
+    const headline = this.parseHeadline()
+    const newSection = new Node(`section`, { level })
+    newSection.push(headline)
+    section.push(this.parseSection(newSection))
+    break
+  case 'line':
+    const paragraph = this.parseParagraph()
+    section.push(paragraph)
+    break
+  case `block.begin`:
+    const block = this.tryTo(parseBlock)
+    if (block) section.push(block)
+    else this.downgradeToLine(this.cursor + 1)
+    break
+    // TODO: table
+    // TODO: list
+    // TODO: footnote
+  default:
+    this.consume()
+    // this.push({ type: 'dummy', data: token.data })
+  }
+  return this.parseSection(section)
 }
 
 Parser.prototype.parseParagraph = function() {
