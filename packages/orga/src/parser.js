@@ -8,11 +8,11 @@ function Parser(options = require('./defaults')) {
 }
 
 Parser.prototype.peek = function() {
-  return this.tokens[this.cursor + 1]
+  return this.getToken(this.cursor + 1)
 }
 
 Parser.prototype.hasNext = function() {
-  return this.cursor + 1 < this.tokens.length
+  return this.cursor + 1 < this.lines.length
 }
 
 Parser.prototype.consume = function() {
@@ -21,7 +21,19 @@ Parser.prototype.consume = function() {
 
 Parser.prototype.next = function() {
   this.consume()
-  return this.tokens[this.cursor]
+  return this.getToken(this.cursor)
+}
+
+Parser.prototype.getToken = function(index) {
+  var self = this
+  if (index >= self.lines.length) { return undefined }
+  if (index >= self.tokens.length) {
+    const start = self.tokens.length
+    for (var i = start; i <= index; i++) {
+      self.tokens.push(self.lexer.tokenize(self.lines[i]))
+    }
+  }
+  return self.tokens[index]
 }
 
 Parser.prototype.downgradeToLine = function(index) {
@@ -39,61 +51,26 @@ Parser.prototype.tryTo = function(process) {
 
 Parser.prototype.parse = function(string) {
   var self = this
-  self.document = new Node('root').with({ settings: {} })
+  const document = new Node('root').with({ settings: {} })
   self.cursor = -1
-  self.tokens = string.split('\n').map(line => {
-    const token = self.lexer.tokenize(line)
-    if (token.name == 'keyword') self.processKeyword(token)
-    return token
-  })
-  const doc = self.parseDocument()
-  return doc
+  self.lines = string.split('\n') // TODO: more robust lines?
+  self.tokens = []
+  return this.parseSection(document)
 }
 
-Parser.prototype.parseDocument = function() {
-  // return this.parseSection(this.document)
-  const token = this.peek()
-  if (!token) { return this.document }
-  switch(token.name) {
-  // case 'keyword':
-  //   this.processKeyword()
-  //   break
-  case 'headline':
-    const headline = this.parseHeadline()
-    this.document.push(headline)
-    break
-  case 'line':
-    const paragraph = this.parseParagraph()
-    this.document.push(paragraph)
-    break
-  case `block.begin`:
-    const block = this.tryTo(parseBlock)
-    if (block) this.document.push(block)
-    else this.downgradeToLine(this.cursor + 1)
-    break
-    // TODO: table
-    // TODO: list
-    // TODO: footnote
-  default:
-    this.consume()
-    // this.push({ type: 'dummy', data: token.data })
-  }
-  return this.parseDocument()
-}
-
-
-Parser.prototype.processKeyword = function(token) {
+Parser.prototype.processKeyword = function(token, doc) {
   const { key, value } = token.data
   switch (key) {
   case `TODO`:
     const todos = value.split(/\s|\|/g).filter(String)
-    this.document.settings.todos = todos
+    doc.settings.todos = todos
     this.lexer.updateTODOs(todos)
     break
   default:
-    this.document.settings[key.toLowerCase()] = value
+    doc.settings[key.toLowerCase()] = value
     break
   }
+  return doc
 }
 
 Parser.prototype.parseHeadline = function() {
@@ -124,15 +101,18 @@ Parser.prototype.parseSection = function(section) {
   const token = this.peek()
   if (!token) { return section }
   switch(token.name) {
-    // case 'keyword':
-    //   this.processKeyword()
-    //   break
+  case 'keyword':
+    if (section.type === `root`) { // only process keyword on root
+      section = this.processKeyword(token, section)
+      this.consume()
+    }
+    break
   case 'headline':
     const { level } = token.data
     const currentLevel = section.level || 0
     if (level <= currentLevel) { return section }
     const headline = this.parseHeadline()
-    const newSection = new Node(`section`, { level })
+    const newSection = new Node(`section`).with({ level })
     newSection.push(headline)
     section.push(this.parseSection(newSection))
     break
