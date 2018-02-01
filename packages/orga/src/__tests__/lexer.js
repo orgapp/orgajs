@@ -23,6 +23,7 @@ describe('Lexer', () => {
 
   it('knows headlines', () => {
     expect(lexer.tokenize('** a headline')).toMatchSnapshot()
+    expect(lexer.tokenize('** _headline_')).toMatchSnapshot()
     expect(lexer.tokenize('**   a headline')).toMatchSnapshot()
     expect(lexer.tokenize('***** a headline')).toMatchSnapshot()
     expect(lexer.tokenize('* a 😀line')).toMatchSnapshot()
