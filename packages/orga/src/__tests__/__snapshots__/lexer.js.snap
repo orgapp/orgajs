@@ -363,6 +363,20 @@ Object {
 exports[`Lexer knows headlines 2`] = `
 Object {
   "data": Object {
+    "content": "_headline_",
+    "keyword": undefined,
+    "level": 2,
+    "priority": undefined,
+    "tags": Array [],
+  },
+  "name": "headline",
+  "raw": "** _headline_",
+}
+`;
+
+exports[`Lexer knows headlines 3`] = `
+Object {
+  "data": Object {
     "content": "a headline",
     "keyword": undefined,
     "level": 2,
@@ -374,7 +388,7 @@ Object {
 }
 `;
 
-exports[`Lexer knows headlines 3`] = `
+exports[`Lexer knows headlines 4`] = `
 Object {
   "data": Object {
     "content": "a headline",
@@ -388,7 +402,7 @@ Object {
 }
 `;
 
-exports[`Lexer knows headlines 4`] = `
+exports[`Lexer knows headlines 5`] = `
 Object {
   "data": Object {
     "content": "a 😀line",
@@ -402,7 +416,7 @@ Object {
 }
 `;
 
-exports[`Lexer knows headlines 5`] = `
+exports[`Lexer knows headlines 6`] = `
 Object {
   "data": Object {
     "content": "a headline",

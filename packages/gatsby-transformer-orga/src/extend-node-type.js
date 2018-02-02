@@ -14,7 +14,7 @@ const {
 
 let pluginsCacheStr = ``
 const astCacheKey = node =>
-      `transformer-remark-markdown-ast-${
+      `transformer-orga-ast-${
     node.internal.contentDigest
   }-${pluginsCacheStr}`
 
@@ -31,7 +31,7 @@ module.exports = (
     return new Promise((resolve, reject) => {
       const parser = new Parser()
       const ast = parser.parse(orgNode.internal.content)
-      cache.set(astCacheKey(orgNode), ast)
+      // cache.set(astCacheKey(orgNode), ast)
       resolve(ast)
     })
     // const cachedAST = await cache.get(astCacheKey(orgNode))

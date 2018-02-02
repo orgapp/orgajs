@@ -73,4 +73,20 @@ Paragraph
 `
     expect(parser.parse(content)).toMatchSnapshot()
   })
+
+  it('can handle nested headlines', () => {
+    const content = `
+* #HEADLINE# 1
+Paragraph
+** #HEADLINE# 1.1
+*** #HEADLINE# 1.1.1
+content
+
+** #HEADLINE# 1.2
+* #HEADLINE# 2
+** #HEADLINE# 2.2
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+
+  })
 })

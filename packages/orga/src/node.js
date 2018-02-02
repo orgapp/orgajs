@@ -1,6 +1,7 @@
 function Node(type, children = []) {
   this.type = type
-  this.children = children
+  this.children = []
+  this.push(children)
 }
 
 Node.prototype = {
@@ -8,7 +9,18 @@ Node.prototype = {
     var newNode = this
     newNode = Object.assign(this, data)
     return newNode
-  }
+  },
+
+  push: function(node) {
+    if (Array.isArray(node)) {
+      for (const n of node) {
+        this.push(n)
+      }
+    } else {
+      node.parent = this
+      this.children.push(node)
+    }
+  },
 }
 
 module.exports = Node
