@@ -71,9 +71,16 @@ Array [
 exports[`Inline Parsing recon mixed emphasis 1`] = `
 Array [
   Object {
-    "children": Array [],
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "Here's",
+      },
+    ],
     "desc": "Here's",
-    "path": "https://github.com/xiaoxinghu/OrgMarker/releases",
+    "path": "https://github.com/xiaoxinghu/orgajs",
     "type": "link",
   },
   Object {

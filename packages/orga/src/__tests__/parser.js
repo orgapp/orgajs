@@ -15,7 +15,7 @@ key: value
 key: value
 :END:
 
-[[https://github.com/xiaoxinghu/OrgMarker/releases][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,
+[[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,
 the round pegs in the +round+ square holes...
 `
     const document = parser.parse(content)
