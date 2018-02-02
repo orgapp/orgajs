@@ -8,9 +8,15 @@ Array [
     "value": "one ",
   },
   Object {
-    "children": Array [],
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "two",
+      },
+    ],
     "type": "bold",
-    "value": "two",
   },
   Object {
     "children": Array [],
@@ -23,9 +29,15 @@ Array [
 exports[`Inline Parsing recon emphasises at different locations 2`] = `
 Array [
   Object {
-    "children": Array [],
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "one",
+      },
+    ],
     "type": "bold",
-    "value": "one",
   },
   Object {
     "children": Array [],
@@ -43,9 +55,15 @@ Array [
     "value": "one two ",
   },
   Object {
-    "children": Array [],
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "three",
+      },
+    ],
     "type": "bold",
-    "value": "three",
   },
 ]
 `;
@@ -64,9 +82,15 @@ Array [
     "value": " to the ",
   },
   Object {
-    "children": Array [],
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "crazy",
+      },
+    ],
     "type": "bold",
-    "value": "crazy",
   },
   Object {
     "children": Array [],
@@ -74,9 +98,15 @@ Array [
     "value": " ones, the ",
   },
   Object {
-    "children": Array [],
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "misfits",
+      },
+    ],
     "type": "italic",
-    "value": "misfits",
   },
   Object {
     "children": Array [],
@@ -84,9 +114,15 @@ Array [
     "value": ", the ",
   },
   Object {
-    "children": Array [],
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "rebels",
+      },
+    ],
     "type": "underline",
-    "value": "rebels",
   },
   Object {
     "children": Array [],
@@ -94,9 +130,15 @@ Array [
     "value": ", the ",
   },
   Object {
-    "children": Array [],
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "troublemakers",
+      },
+    ],
     "type": "code",
-    "value": "troublemakers",
   },
   Object {
     "children": Array [],
@@ -104,9 +146,15 @@ Array [
     "value": ", the round pegs in the ",
   },
   Object {
-    "children": Array [],
-    "type": "strike-through",
-    "value": "round",
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "round",
+      },
+    ],
+    "type": "strikeThrough",
   },
   Object {
     "children": Array [],
@@ -124,9 +172,15 @@ Array [
     "value": "hello ",
   },
   Object {
-    "children": Array [],
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "world",
+      },
+    ],
     "type": "bold",
-    "value": "world",
   },
   Object {
     "children": Array [],
@@ -134,9 +188,15 @@ Array [
     "value": ", welcome to ",
   },
   Object {
-    "children": Array [],
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "org-mode",
+      },
+    ],
     "type": "bold",
-    "value": "org-mode",
   },
   Object {
     "children": Array [],
@@ -144,9 +204,15 @@ Array [
     "value": ". Have a nice ",
   },
   Object {
-    "children": Array [],
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "day",
+      },
+    ],
     "type": "bold",
-    "value": "day",
   },
   Object {
     "children": Array [],

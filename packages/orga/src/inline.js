@@ -20,12 +20,15 @@ function parse(text) {
     { name: `bold`, marker: `\\*` },
     { name: `verbatim`, marker: `=` },
     { name: `italic`, marker: `/` },
-    { name: `strike-through`, marker: `\\+` },
+    { name: `strikeThrough`, marker: `\\+` },
     { name: `underline`, marker: `_` },
     { name: `code`, marker: `~` },
   ]
   for (const { name, marker } of markups) {
-    text = _parse(markup(marker), text, (captures) => { return new Node(name).with({ value: captures[0] }) })
+    text = _parse(markup(marker), text, (captures) => {
+      return new Node(name, [new Node(`text`).with({ value: captures[0] })])
+      // return new Node(name).with({ value: captures[0] })
+    })
   }
   return text
 }
