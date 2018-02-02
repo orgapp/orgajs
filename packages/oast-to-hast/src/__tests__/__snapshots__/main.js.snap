@@ -6,12 +6,19 @@ Object {
     Object {
       "children": Array [
         Object {
-          "type": "text",
-          "value": "remember the milk",
+          "children": Array [
+            Object {
+              "type": "text",
+              "value": "remember the milk",
+            },
+          ],
+          "properties": Object {},
+          "tagName": "h1",
+          "type": "element",
         },
       ],
       "properties": Object {},
-      "tagName": "h1",
+      "tagName": "div",
       "type": "element",
     },
     Object {
