@@ -16,7 +16,7 @@ Node.prototype = {
       for (const n of node) {
         this.push(n)
       }
-    } else {
+    } else if (node instanceof Node) {
       node.parent = this
       this.children.push(node)
     }

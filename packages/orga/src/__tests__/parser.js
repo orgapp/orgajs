@@ -89,4 +89,33 @@ content
     expect(parser.parse(content)).toMatchSnapshot()
 
   })
+
+  it('can handle unordered list', () => {
+    const content = `
+- apple
+- banana
+- orange
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
+  it('can handle ordered list', () => {
+    const content = `
+1. apple
+5. banana
+- orange
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
+  it('can handle nested list', () => {
+    const content = `
+1. apple
+  - iPhone
+  - Mac
+5. banana
+- orange
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
 })

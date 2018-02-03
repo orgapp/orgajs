@@ -526,6 +526,7 @@ exports[`Lexer knows list items 1`] = `
 Object {
   "data": Object {
     "content": "buy milk",
+    "indent": 0,
     "ordered": false,
   },
   "name": "list.item",
@@ -537,6 +538,7 @@ exports[`Lexer knows list items 2`] = `
 Object {
   "data": Object {
     "content": "buy milk",
+    "indent": 0,
     "ordered": false,
   },
   "name": "list.item",
@@ -548,6 +550,7 @@ exports[`Lexer knows list items 3`] = `
 Object {
   "data": Object {
     "content": "buy milk",
+    "indent": 0,
     "ordered": true,
   },
   "name": "list.item",
@@ -559,6 +562,7 @@ exports[`Lexer knows list items 4`] = `
 Object {
   "data": Object {
     "content": "buy milk",
+    "indent": 0,
     "ordered": true,
   },
   "name": "list.item",
@@ -570,10 +574,75 @@ exports[`Lexer knows list items 5`] = `
 Object {
   "data": Object {
     "content": "buy milk",
+    "indent": 0,
     "ordered": true,
   },
   "name": "list.item",
   "raw": "123) buy milk",
+}
+`;
+
+exports[`Lexer knows list items 6`] = `
+Object {
+  "data": Object {
+    "checked": true,
+    "content": " buy milk checked",
+    "indent": 0,
+    "ordered": false,
+  },
+  "name": "list.item",
+  "raw": "- [x] buy milk checked",
+}
+`;
+
+exports[`Lexer knows list items 7`] = `
+Object {
+  "data": Object {
+    "checked": true,
+    "content": " buy milk checked",
+    "indent": 0,
+    "ordered": false,
+  },
+  "name": "list.item",
+  "raw": "- [X] buy milk checked",
+}
+`;
+
+exports[`Lexer knows list items 8`] = `
+Object {
+  "data": Object {
+    "checked": true,
+    "content": " buy milk checked",
+    "indent": 0,
+    "ordered": false,
+  },
+  "name": "list.item",
+  "raw": "- [-] buy milk checked",
+}
+`;
+
+exports[`Lexer knows list items 9`] = `
+Object {
+  "data": Object {
+    "checked": false,
+    "content": " buy milk unchecked",
+    "indent": 0,
+    "ordered": false,
+  },
+  "name": "list.item",
+  "raw": "- [ ] buy milk unchecked",
+}
+`;
+
+exports[`Lexer knows list items 10`] = `
+Object {
+  "data": Object {
+    "content": "buy milk",
+    "indent": 2,
+    "ordered": false,
+  },
+  "name": "list.item",
+  "raw": "  - buy milk",
 }
 `;
 
@@ -869,6 +938,7 @@ exports[`Lexer knows these are not horizontal rules 2`] = `
 Object {
   "data": Object {
     "content": "----",
+    "indent": 0,
     "ordered": false,
   },
   "name": "list.item",

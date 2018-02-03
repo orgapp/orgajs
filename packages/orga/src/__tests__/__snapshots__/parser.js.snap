@@ -434,6 +434,204 @@ Object {
 }
 `;
 
+exports[`Parser can handle nested list 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "apple",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "parent": [Circular],
+                      "type": "text",
+                      "value": "iPhone",
+                    },
+                  ],
+                  "ordered": false,
+                  "parent": [Circular],
+                  "type": "listItem",
+                },
+                Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "parent": [Circular],
+                      "type": "text",
+                      "value": "Mac",
+                    },
+                  ],
+                  "ordered": false,
+                  "parent": [Circular],
+                  "type": "listItem",
+                },
+              ],
+              "ordered": false,
+              "parent": [Circular],
+              "type": "list",
+            },
+          ],
+          "ordered": true,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "banana",
+            },
+          ],
+          "ordered": true,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "orange",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+      ],
+      "ordered": true,
+      "parent": [Circular],
+      "type": "list",
+    },
+  ],
+  "settings": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle ordered list 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "apple",
+            },
+          ],
+          "ordered": true,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "banana",
+            },
+          ],
+          "ordered": true,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "orange",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+      ],
+      "ordered": true,
+      "parent": [Circular],
+      "type": "list",
+    },
+  ],
+  "settings": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle unordered list 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "apple",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "banana",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "orange",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+      ],
+      "ordered": false,
+      "parent": [Circular],
+      "type": "list",
+    },
+  ],
+  "settings": Object {},
+  "type": "root",
+}
+`;
+
 exports[`Parser works 1`] = `
 Object {
   "children": Array [

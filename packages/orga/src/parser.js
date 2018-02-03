@@ -125,8 +125,10 @@ Parser.prototype.parseSection = function(section) {
     if (block) section.push(block)
     else this.downgradeToLine(this.cursor + 1)
     break
+  case `list.item`:
+    const list = new Node(`list`)
+    section.push(this.parseList(-1))
     // TODO: table
-    // TODO: list
     // TODO: footnote
   default:
     this.consume()
@@ -146,6 +148,30 @@ Parser.prototype.parseParagraph = function() {
   } while (this.hasNext())
 
   return new Node(`paragraph`, lines)
+}
+
+Parser.prototype.parseList = function(level) {
+  const list = new Node(`list`)
+  var self = this
+  var listItems = []
+  while (self.hasNext()) {
+    const token = self.peek()
+    if ( token.name != `list.item` ) break
+    const { indent, content, ordered, checked } = token.data
+    if (indent <= level) break
+    self.consume()
+    const item = new Node(`listItem`, [ inlineParse(content) ]).with({ ordered })
+    if (checked !== undefined) {
+      item.checked = checked
+    }
+    item.push(self.parseList(indent))
+    list.push(item)
+  }
+  if (list.children.length > 0) { // list
+    list.ordered = list.children[0].ordered
+    return list
+  }
+  return undefined
 }
 
 function parsePlanning() {

@@ -10,6 +10,8 @@ import {
   verbatim,
   strikeThrough,
 } from './emphasis'
+import list from './list'
+import listItem from './listItem'
 
 module.exports = {
   root,
@@ -22,4 +24,6 @@ module.exports = {
   underline,
   verbatim,
   strikeThrough,
+  list,
+  listItem,
 }

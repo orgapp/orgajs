@@ -68,15 +68,21 @@ org.define('drawer.begin', /^\s*:(\w+):\s*$/, m => {
   return { type }
 })
 
-org.define('list.item', /^\s*([-+]|\d+[.)])\s+(.*)$/, m => {
-  const bullet = m[1]
-  const content = m[2]
+org.define('list.item', /^(\s*)([-+]|\d+[.)])\s+(?:\[(x|X|-| )\])?(.*)$/, m => {
+  const indent = m[1].length
+  const bullet = m[2]
+  const content = m[4]
   var ordered = true
   if ( [`-`, `+`].includes(bullet) ) {
     ordered = false
   }
 
-  return { ordered, content }
+  var result = { indent, ordered, content }
+  if (m[3]) {
+    var checked = m[3] != ' '
+    result.checked = checked
+  }
+  return result
 })
 
 org.define('table.separator', /^\s*\|-/)
