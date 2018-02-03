@@ -118,4 +118,15 @@ content
 `
     expect(parser.parse(content)).toMatchSnapshot()
   })
+
+  it('can handle table', () => {
+    const content = `
+| Name         | Species    | Gender | Role         |
+|--------------+------------+--------+--------------|
+| Bruce Wayne  | Human      | M      | Batman       |
+| Clark Kent   | Kryptonian | M      | Superman     |
+| Diana Prince | Amazonian  | F      | Wonder Woman |
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
 })

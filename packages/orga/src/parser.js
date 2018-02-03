@@ -128,7 +128,11 @@ Parser.prototype.parseSection = function(section) {
   case `list.item`:
     const list = new Node(`list`)
     section.push(this.parseList(-1))
-    // TODO: table
+    break
+  case `table.row`:
+    const table = this.parseTable()
+    section.push(table)
+    break
     // TODO: footnote
   default:
     this.consume()
@@ -172,6 +176,25 @@ Parser.prototype.parseList = function(level) {
     return list
   }
   return undefined
+}
+
+Parser.prototype.parseTable = function() {
+  const table = new Node(`table`)
+  var self = this
+  while (self.hasNext()) {
+    const token = self.peek()
+    if ( !token.name.startsWith(`table.`) ) break
+    self.consume()
+    if (token.name === `table.separator`) {
+      table.push(new Node(`tableSeparator`))
+      continue
+    }
+    if ( token.name != `table.row` ) break
+    const cells = token.data.cells.map(c => new Node(`tableCell`, c))
+    const row = new Node(`tableRow`, cells)
+    table.push(row)
+  }
+  return table
 }
 
 function parsePlanning() {

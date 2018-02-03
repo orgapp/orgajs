@@ -19,6 +19,10 @@ Node.prototype = {
     } else if (node instanceof Node) {
       node.parent = this
       this.children.push(node)
+    } else if (typeof node === `string`) {
+      var newNode = new Node(`text`).with({ value: node })
+      newNode.parent = this
+      this.children.push(newNode)
     }
   },
 }

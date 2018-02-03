@@ -12,7 +12,7 @@ function markup(marker) {
 
 function parse(text) {
   text = _parse(LINK_PATTERN, text, (captures) => {
-    return new Node(`link`, [new Node(`text`).with({ value: captures[1] })])
+    return new Node(`link`, captures[1])
       .with({ path: captures[0], desc: captures[1] })
   })
 
@@ -27,8 +27,7 @@ function parse(text) {
   ]
   for (const { name, marker } of markups) {
     text = _parse(markup(marker), text, (captures) => {
-      return new Node(name, [new Node(`text`).with({ value: captures[0] })])
-      // return new Node(name).with({ value: captures[0] })
+      return new Node(name, captures[0])
     })
   }
   return text
