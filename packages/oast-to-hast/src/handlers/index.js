@@ -12,6 +12,7 @@ import {
 } from './emphasis'
 import list from './list'
 import listItem from './listItem'
+import { table, tableRow, tableCell } from './table'
 
 module.exports = {
   root,
@@ -26,4 +27,7 @@ module.exports = {
   strikeThrough,
   list,
   listItem,
+  table,
+  tableRow,
+  tableCell,
 }
