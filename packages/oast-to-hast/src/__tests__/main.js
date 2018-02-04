@@ -6,7 +6,8 @@ describe('Main', () => {
     const org = u('root', [
       u('section', { level: 1}, [
         u('headline', { level: 1, keyword: 'TODO', tags: ['shopping'] }, [
-          u('text', 'remember the milk')
+          u('text', 'remember the '),
+          u('bold', [ u('text', 'milk') ])
         ]),
       ]),
       u('block', { name: 'SRC', params: ['javascript'] }, 'console.log("hello world")')

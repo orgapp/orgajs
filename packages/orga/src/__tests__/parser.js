@@ -15,7 +15,7 @@ key: value
 key: value
 :END:
 
-[[https://github.com/xiaoxinghu/OrgMarker/releases][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,
+[[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,
 the round pegs in the +round+ square holes...
 `
     const document = parser.parse(content)
@@ -88,5 +88,45 @@ content
 `
     expect(parser.parse(content)).toMatchSnapshot()
 
+  })
+
+  it('can handle unordered list', () => {
+    const content = `
+- apple
+- banana
+- orange
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
+  it('can handle ordered list', () => {
+    const content = `
+1. apple
+5. banana
+- orange
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
+  it('can handle nested list', () => {
+    const content = `
+1. apple
+  - iPhone
+  - Mac
+5. banana
+- orange
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
+  it('can handle table', () => {
+    const content = `
+| Name         | Species    | Gender | Role         |
+|--------------+------------+--------+--------------|
+| Bruce Wayne  | Human      | M      | Batman       |
+| Clark Kent   | Kryptonian | M      | Superman     |
+| Diana Prince | Amazonian  | F      | Wonder Woman |
+`
+    expect(parser.parse(content)).toMatchSnapshot()
   })
 })

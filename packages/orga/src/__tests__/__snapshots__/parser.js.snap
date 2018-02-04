@@ -434,6 +434,440 @@ Object {
 }
 `;
 
+exports[`Parser can handle nested list 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "apple",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "parent": [Circular],
+                      "type": "text",
+                      "value": "iPhone",
+                    },
+                  ],
+                  "ordered": false,
+                  "parent": [Circular],
+                  "type": "listItem",
+                },
+                Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "parent": [Circular],
+                      "type": "text",
+                      "value": "Mac",
+                    },
+                  ],
+                  "ordered": false,
+                  "parent": [Circular],
+                  "type": "listItem",
+                },
+              ],
+              "ordered": false,
+              "parent": [Circular],
+              "type": "list",
+            },
+          ],
+          "ordered": true,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "banana",
+            },
+          ],
+          "ordered": true,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "orange",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+      ],
+      "ordered": true,
+      "parent": [Circular],
+      "type": "list",
+    },
+  ],
+  "settings": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle ordered list 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "apple",
+            },
+          ],
+          "ordered": true,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "banana",
+            },
+          ],
+          "ordered": true,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "orange",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+      ],
+      "ordered": true,
+      "parent": [Circular],
+      "type": "list",
+    },
+  ],
+  "settings": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle table 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Name",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Species",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Gender",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Role",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+          ],
+          "parent": [Circular],
+          "type": "tableRow",
+        },
+        Object {
+          "children": Array [],
+          "parent": [Circular],
+          "type": "tableSeparator",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Bruce Wayne",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Human",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "M",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Batman",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+          ],
+          "parent": [Circular],
+          "type": "tableRow",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Clark Kent",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Kryptonian",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "M",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Superman",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+          ],
+          "parent": [Circular],
+          "type": "tableRow",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Diana Prince",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Amazonian",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "F",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Wonder Woman",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+          ],
+          "parent": [Circular],
+          "type": "tableRow",
+        },
+      ],
+      "parent": [Circular],
+      "type": "table",
+    },
+  ],
+  "settings": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle unordered list 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "apple",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "banana",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "orange",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "listItem",
+        },
+      ],
+      "ordered": false,
+      "parent": [Circular],
+      "type": "list",
+    },
+  ],
+  "settings": Object {},
+  "type": "root",
+}
+`;
+
 exports[`Parser works 1`] = `
 Object {
   "children": Array [
@@ -473,10 +907,17 @@ key: value",
         Object {
           "children": Array [
             Object {
-              "children": Array [],
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Here's",
+                },
+              ],
               "desc": "Here's",
               "parent": [Circular],
-              "path": "https://github.com/xiaoxinghu/OrgMarker/releases",
+              "path": "https://github.com/xiaoxinghu/orgajs",
               "type": "link",
             },
             Object {
@@ -486,10 +927,16 @@ key: value",
               "value": " to the ",
             },
             Object {
-              "children": Array [],
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "crazy",
+                },
+              ],
               "parent": [Circular],
               "type": "bold",
-              "value": "crazy",
             },
             Object {
               "children": Array [],
@@ -498,10 +945,16 @@ key: value",
               "value": " ones, the ",
             },
             Object {
-              "children": Array [],
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "misfits",
+                },
+              ],
               "parent": [Circular],
               "type": "italic",
-              "value": "misfits",
             },
             Object {
               "children": Array [],
@@ -510,10 +963,16 @@ key: value",
               "value": ", the ",
             },
             Object {
-              "children": Array [],
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "rebels",
+                },
+              ],
               "parent": [Circular],
               "type": "underline",
-              "value": "rebels",
             },
             Object {
               "children": Array [],
@@ -522,10 +981,16 @@ key: value",
               "value": ", the ",
             },
             Object {
-              "children": Array [],
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "troublemakers",
+                },
+              ],
               "parent": [Circular],
               "type": "code",
-              "value": "troublemakers",
             },
             Object {
               "children": Array [],
@@ -540,10 +1005,16 @@ key: value",
               "value": "the round pegs in the ",
             },
             Object {
-              "children": Array [],
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "round",
+                },
+              ],
               "parent": [Circular],
-              "type": "strike-through",
-              "value": "round",
+              "type": "strikeThrough",
             },
             Object {
               "children": Array [],

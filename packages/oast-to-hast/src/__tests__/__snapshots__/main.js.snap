@@ -9,7 +9,18 @@ Object {
           "children": Array [
             Object {
               "type": "text",
-              "value": "remember the milk",
+              "value": "remember the ",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "type": "text",
+                  "value": "milk",
+                },
+              ],
+              "properties": Object {},
+              "tagName": "strong",
+              "type": "element",
             },
           ],
           "properties": Object {},
