@@ -133,6 +133,10 @@ Parser.prototype.parseSection = function(section) {
     const table = this.parseTable()
     section.push(table)
     break
+  case `horizontalRule`:
+    this.consume()
+    section.push(new Node(`horizontalRule`))
+    break
     // TODO: footnote
   default:
     this.consume()
