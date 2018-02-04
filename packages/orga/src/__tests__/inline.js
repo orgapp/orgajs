@@ -12,7 +12,7 @@ describe('Inline Parsing', () => {
   it('recon mixed emphasis', () => {
 
     const str = `
-[[https://github.com/xiaoxinghu/OrgMarker/releases][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~, the round pegs in the +round+ square holes...
+[[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~, the round pegs in the +round+ square holes...
 `
     expect(parse(str)).toMatchSnapshot()
   })

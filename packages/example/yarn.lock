@@ -131,13 +131,31 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
+oast-to-hast@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/oast-to-hast/-/oast-to-hast-0.1.9.tgz#bcf8cfa913814ad29bc1237fe2d1c8bbb1ec63af"
+  dependencies:
+    unist-builder "^1.0.2"
+
 object-assign@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
-orga@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/orga/-/orga-0.1.5.tgz#05e7cd4c4f8b7bce0736270879aa2b5815e51d59"
+orga-rehype@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/orga-rehype/-/orga-rehype-0.1.9.tgz#109f50aaeb5bde480d5e7ce72f7dc974d43fd110"
+  dependencies:
+    oast-to-hast "^0.1.9"
+
+orga-unified@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/orga-unified/-/orga-unified-0.1.8.tgz#5af7a6e9c2ea488336e4f3c31b0edf3c02981456"
+  dependencies:
+    orga "^0.1.8"
+
+orga@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/orga/-/orga-0.1.8.tgz#2dc5639cdc07927cebbebbbd9bede4b4f2ef9a7c"
 
 property-information@^3.0.0, property-information@^3.1.0:
   version "3.2.0"
@@ -228,7 +246,7 @@ unified@^6.1.6:
     x-is-function "^1.0.4"
     x-is-string "^0.1.0"
 
-unist-builder@^1.0.1:
+unist-builder@^1.0.1, unist-builder@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/unist-builder/-/unist-builder-1.0.2.tgz#8c3b9903ef64bcfb117dd7cf6a5d98fc1b3b27b6"
   dependencies:

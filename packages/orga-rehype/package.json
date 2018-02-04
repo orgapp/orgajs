@@ -1,26 +1,26 @@
 {
-  "name": "orga-unified",
+  "name": "orga-rehype",
   "version": "0.2.0",
-  "description": "orga parser for unifiedjs",
+  "description": "rehype support for orga",
   "files": [
     "lib"
   ],
   "main": "lib/index.js",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "license": "MIT",
-  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga-unified",
+  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga-rehype",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "cross-env": "^5.1.3",
+    "jest": "^22.1.4"
+  },
   "scripts": {
     "build": "babel src --out-dir lib --ignore __tests__",
     "watch": "babel -w src --out-dir lib --ignore __tests__",
     "test": "yarn jest",
     "prepare": "cross-env NODE_ENV=production npm run build"
   },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "cross-env": "^5.1.3",
-    "jest": "^22.1.4"
-  },
   "dependencies": {
-    "orga": "^0.2.0"
+    "oast-to-hast": "^0.2.0"
   }
 }

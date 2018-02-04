@@ -23,6 +23,7 @@ describe('Lexer', () => {
 
   it('knows headlines', () => {
     expect(lexer.tokenize('** a headline')).toMatchSnapshot()
+    expect(lexer.tokenize('** _headline_')).toMatchSnapshot()
     expect(lexer.tokenize('**   a headline')).toMatchSnapshot()
     expect(lexer.tokenize('***** a headline')).toMatchSnapshot()
     expect(lexer.tokenize('* a 😀line')).toMatchSnapshot()
@@ -118,11 +119,20 @@ describe('Lexer', () => {
   })
 
   it('knows list items', () => {
+    // unordered
     expect(lexer.tokenize('- buy milk')).toMatchSnapshot()
     expect(lexer.tokenize('+ buy milk')).toMatchSnapshot()
+    // ordered
     expect(lexer.tokenize('1. buy milk')).toMatchSnapshot()
     expect(lexer.tokenize('12. buy milk')).toMatchSnapshot()
     expect(lexer.tokenize('123) buy milk')).toMatchSnapshot()
+    // checkbox
+    expect(lexer.tokenize('- [x] buy milk checked')).toMatchSnapshot()
+    expect(lexer.tokenize('- [X] buy milk checked')).toMatchSnapshot()
+    expect(lexer.tokenize('- [-] buy milk checked')).toMatchSnapshot()
+    expect(lexer.tokenize('- [ ] buy milk unchecked')).toMatchSnapshot()
+    // indent
+    expect(lexer.tokenize('  - buy milk')).toMatchSnapshot()
   })
 
   it('knows these are not list items', () => {

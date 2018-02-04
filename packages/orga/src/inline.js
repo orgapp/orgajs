@@ -12,7 +12,8 @@ function markup(marker) {
 
 function parse(text) {
   text = _parse(LINK_PATTERN, text, (captures) => {
-    return new Node(`link`).with({ path: captures[0], desc: captures[1] })
+    return new Node(`link`, captures[1])
+      .with({ path: captures[0], desc: captures[1] })
   })
 
 
@@ -20,12 +21,14 @@ function parse(text) {
     { name: `bold`, marker: `\\*` },
     { name: `verbatim`, marker: `=` },
     { name: `italic`, marker: `/` },
-    { name: `strike-through`, marker: `\\+` },
+    { name: `strikeThrough`, marker: `\\+` },
     { name: `underline`, marker: `_` },
     { name: `code`, marker: `~` },
   ]
   for (const { name, marker } of markups) {
-    text = _parse(markup(marker), text, (captures) => { return new Node(name).with({ value: captures[0] }) })
+    text = _parse(markup(marker), text, (captures) => {
+      return new Node(name, captures[0])
+    })
   }
   return text
 }

@@ -1,4 +1,0 @@
-#+TITLE: Hello World
-
-* Headline One
-This is a test.
