@@ -1,0 +1,3 @@
+* gatsby orga starter project
+
+An example project for using [[https://github.com/xiaoxinghu/orgajs][orga]] with [[https://www.gatsbyjs.org][gatsby]].

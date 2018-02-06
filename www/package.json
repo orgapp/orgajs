@@ -1,0 +1,30 @@
+{
+  "name": "orgajs",
+  "description": "Gatsby starter website with org-mode",
+  "version": "1.0.0",
+  "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
+  "dependencies": {
+    "gatsby": "^1.9.179",
+    "gatsby-link": "^1.6.34",
+    "gatsby-plugin-react-helmet": "^2.0.3",
+    "gatsby-source-filesystem": "^1.5.17",
+    "gatsby-transformer-orga": "^0.2.1",
+    "gatsby-transformer-toml": "^1.1.7",
+    "react-helmet": "^5.2.0"
+  },
+  "keywords": [
+    "gatsby",
+    "org-mode"
+  ],
+  "license": "MIT",
+  "main": "n/a",
+  "scripts": {
+    "build": "gatsby build",
+    "dev": "rm -rf .cache && gatsby develop",
+    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "prettier": "^1.10.2"
+  }
+}
