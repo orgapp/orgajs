@@ -129,4 +129,18 @@ content
 `
     expect(parser.parse(content)).toMatchSnapshot()
   })
+
+  it('can handle html export', () => {
+    const content = `#+HTML: <h1>Hello</h1>`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+  it('can handle html export block', () => {
+    const content = `
+#+BEGIN_EXPORT html
+<h1>hello</h1>
+<p>world!</p>
+#+END_EXPORT
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
 })
