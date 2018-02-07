@@ -1,5 +1,6 @@
 import React from 'react'
 import { Parser } from 'orga'
+import style from "./_style.module.scss"
 
 export default class AST extends React.Component {
   render() {
@@ -26,7 +27,7 @@ export default class AST extends React.Component {
     })
     return (
       <div>
-        <h1>Abstract Syntax Tree</h1>
+        <h1 className={style.title}>Abstract Syntax Tree</h1>
         { examples }
       </div>
     )

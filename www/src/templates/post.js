@@ -1,4 +1,6 @@
 import React from "react"
+import style from "./_style.module.scss"
+
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -8,7 +10,7 @@ class BlogPostTemplate extends React.Component {
     return (
       <div>
         <center>
-          <h1>{title}</h1>
+          <h1 className={style.title}>{title}</h1>
           <small>{date}</small>
         </center>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
