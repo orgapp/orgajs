@@ -263,6 +263,37 @@ key2: value 2",
 }
 `;
 
+exports[`Parser can handle html export 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "parent": [Circular],
+      "type": "html",
+      "value": "<h1>Hello</h1>",
+    },
+  ],
+  "settings": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle html export block 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "parent": [Circular],
+      "type": "html",
+      "value": "<h1>hello</h1>
+<p>world!</p>",
+    },
+  ],
+  "settings": Object {},
+  "type": "root",
+}
+`;
+
 exports[`Parser can handle nested headlines 1`] = `
 Object {
   "children": Array [

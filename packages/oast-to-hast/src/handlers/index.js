@@ -13,7 +13,8 @@ import {
 import list from './list'
 import listItem from './listItem'
 import { table, tableRow, tableCell } from './table'
-import horizontalRule from './horizontalRule'
+import horizontalRule from './horizontal-rule'
+import html from './html'
 
 
 module.exports = {
@@ -33,4 +34,5 @@ module.exports = {
   tableRow,
   tableCell,
   horizontalRule,
+  html,
 }

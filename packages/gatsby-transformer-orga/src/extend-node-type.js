@@ -48,8 +48,9 @@ module.exports = (
   }
 
   async function getHTML(orgNode) {
+    const highlight = pluginOptions.noHighlight !== true
     return getAST(orgNode).then(ast => {
-      const html = hastToHTML(toHAST(ast), { allowDangerousHTML: true })
+      const html = hastToHTML(toHAST(ast, { highlight }), { allowDangerousHTML: true })
       return html
     })
   }
