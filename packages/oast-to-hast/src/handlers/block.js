@@ -15,7 +15,8 @@ function block(h, node) {
   case `CENTER`:
     return center(h, node)
   default:
-    return u('text', node.value || '')
+    const props = { className: name.toLowerCase() }
+    return h(node, `pre`, props, [u('text', node.value || '')])
   }
 }
 
@@ -28,7 +29,7 @@ function center(h, node) {
 }
 
 function src(h, node) {
-  const lang = node.params[0]
+  const lang = node.params[0].toLowerCase()
   var props = {}
   if (lang) {
     props.className = ['language-' + lang]
