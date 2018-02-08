@@ -1,0 +1,50 @@
+[[examples]]
+name = "Paragraph"
+org = "Hello World."
+desc = "Paragraph represents a consecutive lines of non-special lines."
+
+[[examples]]
+name = "Section"
+org = "* TODO [#A] Hello World   :tag1:tag2:"
+desc = "Section starts with a headline."
+
+[[examples]]
+ame = "Section"
+org = "* TODO [#A] Hello World   :tag1:tag2:"
+desc = "Section starts with a headline."
+
+[[examples]]
+name = "Blocks"
+org = """
+#+BEGIN_SRC javascript
+const parser = new Parser()
+const ast = parser.parse(`Hello World`)
+#+END_SRC
+"""
+
+[[examples]]
+name = "List and List Item"
+org = """
+- [x] build an awesome org-mode parser
+- [ ] let people use it everywhere
+"""
+
+[[examples]]
+name = "Table, Table Row and Table Cell"
+org = """
+| foo | bar |
+|-----|-----|
+| baz | qux |
+"""
+
+[[examples]]
+name = "Horizontal Rule"
+org = "-----"
+
+[[examples]]
+name = "Inline Markup"
+org = "_Orga_ is +probably+ the *best* /org-mode/ ~parser~ alive."
+
+[[examples]]
+name = "Link"
+org = "Find the Source [[https://github.com/xiaoxinghu/orgajs][Here]]"
