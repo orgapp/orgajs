@@ -22,6 +22,8 @@ function h(node, tagName, props, children) {
 }
 
 function toHAST(tree, options) {
+  var settings = options || {}
   h.handlers = handlers
+  h.highlight = settings.highlight || false
   return transform(h, tree)
 }

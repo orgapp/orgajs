@@ -1,0 +1,3 @@
+#+TITLE: Basic Usage
+
+Here is how to use ~Orga~.
