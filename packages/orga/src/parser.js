@@ -62,12 +62,18 @@ Parser.prototype.processKeyword = function(token, doc) {
   const { key, value } = token.data
   switch (key) {
   case `TODO`:
+    if (doc.type != `root`) break
     const todos = value.split(/\s|\|/g).filter(String)
     doc.settings.todos = todos
     this.lexer.updateTODOs(todos)
     break
+  case `HTML`:
+    doc.push(new Node(`html`).with({ value }))
+    break
   default:
-    doc.settings[key.toLowerCase()] = value
+    if (doc.type === `root`) {
+      doc.settings[key.toLowerCase()] = value
+    }
     break
   }
   return doc
@@ -102,10 +108,8 @@ Parser.prototype.parseSection = function(section) {
   if (!token) { return section }
   switch(token.name) {
   case 'keyword':
-    if (section.type === `root`) { // only process keyword on root
-      section = this.processKeyword(token, section)
-      this.consume()
-    }
+    section = this.processKeyword(token, section)
+    this.consume()
     break
   case 'headline':
     const { level } = token.data
@@ -229,6 +233,10 @@ function parseBlock() {
     const t = this.next()
     if ( t.name === `headline` ) { return undefined }
     if (t.name === `block.end` && t.data.type.toUpperCase() === type.toUpperCase() ) {
+      if (t.data.type.toUpperCase() === `EXPORT`) {
+        const format = params[0]
+        return new Node(format).with({ value: lines.join(`\n`) })
+      }
       return new Node('block').with({ name: type.toUpperCase(), params, value: lines.join(`\n`) })
     }
     lines.push(t.raw)
