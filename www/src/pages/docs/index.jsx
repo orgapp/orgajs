@@ -13,7 +13,7 @@ class Index extends React.Component {
           <h3 style={{ marginBottom: '0.2em' }}>
             <Link to={node.fields.slug}>{title}</Link>
           </h3>
-          <p>{ desc }</p>
+          <p className={ style.muted }>{ desc }</p>
         </div>
       )
     })

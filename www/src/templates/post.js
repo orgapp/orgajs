@@ -25,10 +25,7 @@ export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
     orga(fields: { slug: { eq: $slug }}) {
       html
-      meta {
-        title
-        date
-      }
+      meta
     }
   }
 `

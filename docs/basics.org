@@ -1,8 +1,8 @@
 #+TITLE: Basic Usage
-#+DESC: The basic usage of package orga
+#+DESC: The basic usage of package orga. Explains how to parse org-mode string into AST.
 
 This documentation explains how to use orga to parse org-mode content into AST.
-Find the complete definition of AST here.
+Find the complete definition of AST [[/ast][here]].
 
 * Install
 

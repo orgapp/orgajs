@@ -58,7 +58,7 @@ module.exports = (
 
   async function getMeta(orgNode) {
     return getAST(orgNode).then(ast => {
-      return ast.settings
+      return ast.meta
     })
   }
 
