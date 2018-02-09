@@ -7,11 +7,13 @@ class Index extends React.Component {
     const posts = this.props.data.allOrga.edges
     const _posts = posts.map ( ({ node }) => {
       const title = node.meta.title || node.fields.slug
+      const desc = node.meta.desc
       return (
         <div>
           <h3 style={{ marginBottom: '0.2em' }}>
             <Link to={node.fields.slug}>{title}</Link>
           </h3>
+          <p>{ desc }</p>
         </div>
       )
     })
@@ -32,15 +34,13 @@ export const pageQuery = graphql`
         title
       }
     }
-    allOrga(sort: { fields: [meta___title], order: DESC }) {
+    allOrga {
       edges {
         node {
           fields {
             slug
           }
-          meta {
-            title
-          }
+          meta
         }
       }
     }

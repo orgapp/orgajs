@@ -1,3 +1,74 @@
 #+TITLE: Basic Usage
+#+DESC: The basic usage of package orga
 
-Here is how to use ~Orga~.
+This documentation explains how to use orga to parse org-mode content into AST.
+Find the complete definition of AST here.
+
+* Install
+
+#+BEGIN_SRC sh
+npm install orga
+#+END_SRC
+
+* Examples
+
+** Getting Started
+
+Create a file ~test.js~.
+
+#+BEGIN_SRC javascript
+  const { parse } = require(`orga`)
+  const content = "* TODO Hello World"
+  const ast = parse(content)
+#+END_SRC
+
+The ~ast~ would look like this:
+
+#+BEGIN_SRC javascript
+{ type: 'root',
+  children:
+   [ { type: 'section',
+       children:
+        [ { type: 'headline',
+            children:
+             [ { type: 'text',
+                 children: [ [length]: 0 ],
+                 value: 'Hello World',
+                 parent: [Circular] },
+               [length]: 1 ],
+            level: 1,
+            keyword: 'TODO',
+            priority: undefined,
+            tags: [ [length]: 0 ],
+            parent: [Circular] },
+          [length]: 1 ],
+       level: 1,
+       parent: [Circular] },
+     [length]: 1 ],
+  settings: {} }
+#+END_SRC
+
+** Add Options
+You can customize the parser by sending in options.
+
+#+BEGIN_SRC javascript
+  const { parse } = require(`orga`)
+  const content = "* NEXT Hello World"
+  const ast = parse(content, { todos: ['TODO', 'NEXT', 'DONE'] })
+#+END_SRC
+
+
+** User the ~Parser~
+
+#+BEGIN_SRC javascript
+  const { Parser } = require(`orga`)
+  const content = "* NEXT Hello World"
+  const parser = new Parser() // the Parser accept options too
+  const ast = parser.parse(content)
+#+END_SRC
+
+* Options
+
+| key   | type             | function      | Default          |
+|-------+------------------+---------------+------------------|
+| todos | Array of Strings | TODO keywords | ['TODO', 'DONE'] |

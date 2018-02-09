@@ -26,5 +26,5 @@ Turns org-mode content into AST.
          keyword: 'TODO',
          priority: undefined,
          tags: [ 'shopping' ] } ],
-    settings: {} }
+    meta: {} }
 #+END_SRC
