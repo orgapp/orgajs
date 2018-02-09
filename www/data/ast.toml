@@ -5,13 +5,26 @@ desc = "Paragraph represents a consecutive lines of non-special lines."
 
 [[examples]]
 name = "Section"
-org = "* TODO [#A] Hello World   :tag1:tag2:"
-desc = "Section starts with a headline."
+org = """
+* Headline 1
+And this is the content.
+** Headline 1.1
+*** Headline 1.1.1
+* Headline 2
+"""
+desc = "Section starts with a headline, and it can be nested."
 
 [[examples]]
-ame = "Section"
-org = "* TODO [#A] Hello World   :tag1:tag2:"
-desc = "Section starts with a headline."
+name = "Headline"
+org = """
+* TODO [#A] Hello World   :tag1:tag2:
+DEADLINE: <2018-01-01 Mon>
+:PROPERTY:
+key0: value0
+key1: value1
+:END:
+"""
+desc = "Headline can have keyword, priority, tags, planning, drawers."
 
 [[examples]]
 name = "Blocks"
@@ -43,8 +56,22 @@ org = "-----"
 
 [[examples]]
 name = "Inline Markup"
-org = "_Orga_ is +probably+ the *best* /org-mode/ ~parser~ alive."
+org = "_Orga_ is +probably+ the *best* /org-mode/ ~parser~ =alive=."
 
 [[examples]]
 name = "Link"
 org = "Find the Source [[https://github.com/xiaoxinghu/orgajs][Here]]"
+
+[[examples]]
+name = "Export"
+org = "#+HTML: <p>Hello World.</p>"
+
+[[examples]]
+name = "Export Block"
+org = """
+#+BEGIN_EXPORT html
+<div>
+    <p>Hello World.</p>
+</div>
+#+END_EXPORT
+"""
