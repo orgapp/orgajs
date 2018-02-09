@@ -1,6 +1,6 @@
 {
   "name": "orga-unified",
-  "version": "0.2.3",
+  "version": "0.2.5",
   "description": "orga parser for unifiedjs",
   "files": [
     "lib"
@@ -21,6 +21,6 @@
     "jest": "^22.2.2"
   },
   "dependencies": {
-    "orga": "^0.2.3"
+    "orga": "^0.2.5"
   }
 }
