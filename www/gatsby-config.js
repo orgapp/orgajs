@@ -1,6 +1,7 @@
 module.exports = {
+  pathPrefix: "/orgajs",
   siteMetadata: {
-    title: 'Gatsby Orga Starter',
+    title: 'Orga',
   },
   plugins: [
     'gatsby-plugin-react-helmet',

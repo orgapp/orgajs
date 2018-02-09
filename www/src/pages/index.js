@@ -5,9 +5,11 @@ class BlogIndex extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hi people</h1>
-        <p>Welcome to your new Gatsby site.</p>
-        <p>Now go build something great.</p>
+        <center>
+          <p>
+            Orga is the ultimate org-mode parser, writen in JavaScript.
+          </p>
+        </center>
       </div>
     )
   }

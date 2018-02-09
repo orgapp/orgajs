@@ -10,7 +10,7 @@
     "gatsby-plugin-sass": "^1.0.16",
     "gatsby-plugin-typography": "^1.7.13",
     "gatsby-source-filesystem": "^1.5.17",
-    "gatsby-transformer-orga": "*",
+    "gatsby-transformer-orga": "0.2.5",
     "gatsby-transformer-toml": "^1.1.7",
     "react-helmet": "^5.2.0",
     "typography-breakpoint-constants": "^0.15.10",
@@ -27,9 +27,11 @@
     "build": "gatsby build",
     "dev": "rm -rf .cache && gatsby develop",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
   },
   "devDependencies": {
+    "gh-pages": "^1.1.0",
     "prettier": "^1.10.2"
   }
 }
