@@ -12,6 +12,8 @@ const {
   GraphQLEnumType,
 } = require(`graphql`)
 
+import GraphQLJSON from 'graphql-type-json'
+
 let pluginsCacheStr = ``
 const astCacheKey = node =>
       `transformer-orga-ast-${
@@ -56,11 +58,7 @@ module.exports = (
 
   async function getMeta(orgNode) {
     return getAST(orgNode).then(ast => {
-      return {
-        title: ast.settings.title,
-        date: ast.settings.date,
-        tags: ast.settings.tags,
-      }
+      return ast.meta
     })
   }
 
@@ -74,14 +72,7 @@ module.exports = (
       },
 
       meta: {
-        type: new GraphQLObjectType({
-          name: `meta`,
-          fields: {
-            title: { type: GraphQLString },
-            date: { type: GraphQLString },
-            tags: { type: new GraphQLList(GraphQLString) },
-          }
-        }),
+        type: GraphQLJSON,
         resolve(orgNode) {
           return getMeta(orgNode)
         }

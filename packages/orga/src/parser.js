@@ -51,7 +51,7 @@ Parser.prototype.tryTo = function(process) {
 
 Parser.prototype.parse = function(string) {
   var self = this
-  const document = new Node('root').with({ settings: {} })
+  const document = new Node('root').with({ meta: {} })
   self.cursor = -1
   self.lines = string.split('\n') // TODO: more robust lines?
   self.tokens = []
@@ -64,7 +64,7 @@ Parser.prototype.processKeyword = function(token, doc) {
   case `TODO`:
     if (doc.type != `root`) break
     const todos = value.split(/\s|\|/g).filter(String)
-    doc.settings.todos = todos
+    doc.meta.todos = todos
     this.lexer.updateTODOs(todos)
     break
   case `HTML`:
@@ -72,7 +72,7 @@ Parser.prototype.processKeyword = function(token, doc) {
     break
   default:
     if (doc.type === `root`) {
-      doc.settings[key.toLowerCase()] = value
+      doc.meta[key.toLowerCase()] = value
     }
     break
   }
