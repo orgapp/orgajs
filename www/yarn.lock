@@ -1722,6 +1722,14 @@ cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
 
+clipboard@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-1.7.1.tgz#360d6d6946e99a7a1fef395e42ba92b5e9b5a16b"
+  dependencies:
+    good-listener "^1.2.2"
+    select "^1.1.2"
+    tiny-emitter "^2.0.0"
+
 clipboardy@1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/clipboardy/-/clipboardy-1.2.2.tgz#2ce320b9ed9be1514f79878b53ff9765420903e2"
@@ -2305,6 +2313,10 @@ del@^3.0.0:
 delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
+
+delegate@^3.1.2:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/delegate/-/delegate-3.2.0.tgz#b66b71c3158522e8ab5744f720d8ca0c2af59166"
 
 delegates@^1.0.0:
   version "1.0.0"
@@ -3150,9 +3162,9 @@ gatsby-1-config-css-modules@^1.0.8:
   dependencies:
     babel-runtime "^6.26.0"
 
-gatsby-cli@^1.1.34:
-  version "1.1.34"
-  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-1.1.34.tgz#85c17bf67bc717be0274c8e4a56c7df819ede1f5"
+gatsby-cli@^1.1.39:
+  version "1.1.39"
+  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-1.1.39.tgz#f2f4bf67d081de88c0a9a3728d9fcf0e215e182d"
   dependencies:
     babel-code-frame "^6.26.0"
     babel-runtime "^6.26.0"
@@ -3222,9 +3234,9 @@ gatsby-react-router-scroll@^1.0.10:
     scroll-behavior "^0.9.9"
     warning "^3.0.0"
 
-gatsby-source-filesystem@^1.5.17:
-  version "1.5.17"
-  resolved "https://registry.yarnpkg.com/gatsby-source-filesystem/-/gatsby-source-filesystem-1.5.17.tgz#aabfaa19df484cc45bd1b863ad50a162a1c01bac"
+gatsby-source-filesystem@^1.5.18:
+  version "1.5.18"
+  resolved "https://registry.yarnpkg.com/gatsby-source-filesystem/-/gatsby-source-filesystem-1.5.18.tgz#e2cb96a2c248c304e58ba3d0142316a695d3ef35"
   dependencies:
     babel-cli "^6.26.0"
     babel-runtime "^6.26.0"
@@ -3238,16 +3250,16 @@ gatsby-source-filesystem@^1.5.17:
     slash "^1.0.0"
     valid-url "^1.0.9"
 
-gatsby-transformer-orga@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/gatsby-transformer-orga/-/gatsby-transformer-orga-0.2.1.tgz#522e7934228c6d6aa6d487dbcfea1ee66aef3781"
+gatsby-transformer-orga@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-orga/-/gatsby-transformer-orga-0.2.4.tgz#e98037c81ac8152d27ef16d05c89928abc58a421"
   dependencies:
     bluebird "^3.5.1"
     graphql-type-json "^0.1.4"
     hast-util-to-html "^3.1.0"
-    oast-to-hast "^0.2.1"
+    oast-to-hast "^0.2.4"
     org "^0.2.0"
-    orga "^0.2.1"
+    orga "^0.2.2"
     rehype-stringify "^3.0.0"
     unified "^6.1.6"
 
@@ -3259,9 +3271,9 @@ gatsby-transformer-toml@^1.1.7:
     bluebird "^3.5.0"
     toml "^2.3.2"
 
-gatsby@^1.9.179:
-  version "1.9.179"
-  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-1.9.179.tgz#8c9ee55aa17ad25170f9987e49b2051a347bab42"
+gatsby@^1.9.188:
+  version "1.9.188"
+  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-1.9.188.tgz#2bacf2b956cfdf514c4be9be86b1e78b781f1307"
   dependencies:
     async "^2.1.2"
     babel-code-frame "^6.22.0"
@@ -3301,7 +3313,7 @@ gatsby@^1.9.179:
     front-matter "^2.1.0"
     fs-extra "^4.0.1"
     gatsby-1-config-css-modules "^1.0.8"
-    gatsby-cli "^1.1.34"
+    gatsby-cli "^1.1.39"
     gatsby-link "^1.6.36"
     gatsby-module-loader "^1.0.9"
     gatsby-react-router-scroll "^1.0.10"
@@ -3559,6 +3571,12 @@ globule@^1.0.0:
     glob "~7.1.1"
     lodash "~4.17.4"
     minimatch "~3.0.2"
+
+good-listener@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/good-listener/-/good-listener-1.2.2.tgz#d53b30cdf9313dffb7dc9a0d477096aa6d145c50"
+  dependencies:
+    delegate "^3.1.2"
 
 got@^6.7.1:
   version "6.7.1"
@@ -5439,10 +5457,11 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-oast-to-hast@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/oast-to-hast/-/oast-to-hast-0.2.1.tgz#db87e76bf63a77493bed16d2fd739de9e84f6857"
+oast-to-hast@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/oast-to-hast/-/oast-to-hast-0.2.4.tgz#fe9aef25f91d406bbc099f2416dbdcb97e86b102"
   dependencies:
+    prismjs "^1.11.0"
     unist-builder "^1.0.2"
 
 oauth-sign@~0.8.1, oauth-sign@~0.8.2:
@@ -5561,9 +5580,9 @@ org@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/org/-/org-0.2.0.tgz#d76378387dc506fb8e3ccff73a0ad04e3afc6391"
 
-orga@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/orga/-/orga-0.2.1.tgz#b01916c00a89c156156c22da134525c9c305e7d1"
+orga@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/orga/-/orga-0.2.2.tgz#3216889bc2ff04215198daeccb754419a4e43bf7"
 
 original@>=0.0.5:
   version "1.0.0"
@@ -6411,6 +6430,12 @@ pretty-error@^2.1.1:
   dependencies:
     renderkid "^2.0.1"
     utila "~0.4"
+
+prismjs@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.11.0.tgz#297aef33eb79421bfdb19273a5092ca515970d29"
+  optionalDependencies:
+    clipboard "^1.7.1"
 
 private@^0.1.6, private@^0.1.7:
   version "0.1.8"
@@ -7291,6 +7316,10 @@ scss-tokenizer@^0.2.3:
     js-base64 "^2.1.8"
     source-map "^0.4.2"
 
+select@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/select/-/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
+
 semver-diff@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/semver-diff/-/semver-diff-2.1.0.tgz#4bbb8437c8d37e4b0cf1a68fd726ec6d645d6d36"
@@ -8038,6 +8067,10 @@ timers-browserify@^2.0.2, timers-browserify@^2.0.4:
   resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.6.tgz#241e76927d9ca05f4d959819022f5b3664b64bae"
   dependencies:
     setimmediate "^1.0.4"
+
+tiny-emitter@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.0.2.tgz#82d27468aca5ade8e5fd1e6d22b57dd43ebdfb7c"
 
 tmp@^0.0.33:
   version "0.0.33"
