@@ -1,0 +1,34 @@
+#+TITLE: Orga + Unified
+#+DESC: How to use orga with unified, to do great things.
+
+[[https://unifiedjs.github.io][Unified]] is an awesome ecosystem for text processing. Here is how to plug orga into it.
+
+* Setup
+
+Install dependencies.
+
+#+BEGIN_SRC sh
+yarn add orga-unified oast-to-hast unified to-vfile vfile-reporter rehype-document rehype-stringify
+#+END_SRC
+
+* Usage
+
+#+BEGIN_SRC javascript
+  var vfile = require('to-vfile')
+  var report = require('vfile-reporter')
+  var unified = require('unified')
+  var parse = require('orga-unified')
+  var mutate = require('oast-to-hast')
+  var stringify = require('rehype-stringify')
+  var doc = require('rehype-document')
+
+  unified()
+    .use(parse)
+    .use(mutate)
+    .use(doc, {title: 'Hi!'})
+    .use(stringify)
+    .process(vfile.readSync('./GTD.org'), function (err, file) {
+      console.error(report(err || file))
+      console.log(String(file))
+    })
+#+END_SRC
