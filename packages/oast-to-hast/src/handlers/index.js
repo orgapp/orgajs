@@ -35,4 +35,5 @@ module.exports = {
   tableCell,
   horizontalRule,
   html,
+  drawer: () => undefined,
 }
