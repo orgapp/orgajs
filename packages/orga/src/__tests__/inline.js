@@ -22,4 +22,9 @@ describe('Inline Parsing', () => {
     expect(parse(`*one* two three`)).toMatchSnapshot()
     expect(parse(`one two *three*`)).toMatchSnapshot()
   })
+
+  it('recon link', () => {
+    expect(parse(`hello [[image/logo.png]]`)).toMatchSnapshot()
+    expect(parse(`hello [[image/logo.png][logo]]`)).toMatchSnapshot()
+  })
 })

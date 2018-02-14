@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Parser can handle affiliated keywords 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "attributes": Object {
+        "NAME": "code_block",
+      },
+      "children": Array [],
+      "name": "SRC",
+      "params": Array [
+        "javascript",
+      ],
+      "parent": [Circular],
+      "type": "block",
+      "value": "console.log('hello world.')",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
 exports[`Parser can handle blocks 1`] = `
 Object {
   "children": Array [
@@ -290,6 +312,46 @@ Object {
     },
   ],
   "meta": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle invalid affiliated keywords 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "name": "SRC",
+      "params": Array [
+        "javascript",
+      ],
+      "parent": [Circular],
+      "type": "block",
+      "value": "console.log('hello world.')",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle invalid affiliated keywords 2`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "name": "SRC",
+      "params": Array [
+        "javascript",
+      ],
+      "parent": [Circular],
+      "type": "block",
+      "value": "console.log('hello world.')",
+    },
+  ],
+  "meta": Object {
+    "nop": "code_block",
+  },
   "type": "root",
 }
 `;

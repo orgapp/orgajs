@@ -5,6 +5,7 @@ import { parse as inlineParse } from './inline'
 function Parser(options = require('./defaults')) {
   this.options = options
   this.lexer = new Lexer(this.options)
+  this._aks = {}
 }
 
 Parser.prototype.peek = function() {
@@ -70,6 +71,13 @@ Parser.prototype.processKeyword = function(token, doc) {
   case `HTML`:
     doc.push(new Node(`html`).with({ value }))
     break
+  case `CAPTION`:
+  case `HEADER`:
+  case `NAME`:
+  case `PLOT`:
+  case `RESULTS`:
+    this._aks[key] = value
+    break
   default:
     if (doc.type === `root`) {
       doc.meta[key.toLowerCase()] = value
@@ -103,6 +111,13 @@ Parser.prototype.parseHeadline = function() {
   return headline
 }
 
+/* Total Awareness */
+Parser.prototype.unagi = function(element) {
+  if (Object.keys(this._aks).length === 0) return element
+  element.attributes = this._aks
+  return element
+}
+
 Parser.prototype.parseSection = function(section) {
   const token = this.peek()
   if (!token) { return section }
@@ -110,7 +125,7 @@ Parser.prototype.parseSection = function(section) {
   case 'keyword':
     section = this.processKeyword(token, section)
     this.consume()
-    break
+    return this.parseSection(section)
   case 'headline':
     const { level } = token.data
     const currentLevel = section.level || 0
@@ -118,7 +133,7 @@ Parser.prototype.parseSection = function(section) {
     const headline = this.parseHeadline()
     const newSection = new Node(`section`).with({ level })
     newSection.push(headline)
-    section.push(this.parseSection(newSection))
+    section.push(this.parseSection(this.unagi(newSection)))
     break
   case 'line':
     const paragraph = this.parseParagraph()
@@ -126,15 +141,14 @@ Parser.prototype.parseSection = function(section) {
     break
   case `block.begin`:
     const block = this.tryTo(parseBlock)
-    if (block) section.push(block)
+    if (block) section.push(this.unagi(block))
     else this.downgradeToLine(this.cursor + 1)
     break
   case `list.item`:
-    const list = new Node(`list`)
-    section.push(this.parseList(-1))
+    section.push(this.unagi(this.parseList(-1)))
     break
   case `table.row`:
-    const table = this.parseTable()
+    const table = this.unagi(this.parseTable())
     section.push(table)
     break
   case `horizontalRule`:
@@ -144,8 +158,9 @@ Parser.prototype.parseSection = function(section) {
     // TODO: footnote
   default:
     this.consume()
-    // this.push({ type: 'dummy', data: token.data })
   }
+  // remove affiliated keywords
+  this._aks = {}
   return this.parseSection(section)
 }
 
@@ -165,7 +180,6 @@ Parser.prototype.parseParagraph = function() {
 Parser.prototype.parseList = function(level) {
   const list = new Node(`list`)
   var self = this
-  var listItems = []
   while (self.hasNext()) {
     const token = self.peek()
     if ( token.name != `list.item` ) break

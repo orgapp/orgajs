@@ -143,4 +143,33 @@ content
 `
     expect(parser.parse(content)).toMatchSnapshot()
   })
+
+  it('can handle affiliated keywords', () => {
+    const content = `
+#+NAME: code_block
+#+BEGIN_SRC javascript
+console.log('hello world.')
+#+END_SRC
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
+  it('can handle invalid affiliated keywords', () => {
+    const content1 = `
+#+NAME: code_block
+
+#+BEGIN_SRC javascript
+console.log('hello world.')
+#+END_SRC
+`
+    expect(parser.parse(content1)).toMatchSnapshot()
+
+    const content2 = `
+#+NOP: code_block
+#+BEGIN_SRC javascript
+console.log('hello world.')
+#+END_SRC
+`
+    expect(parser.parse(content2)).toMatchSnapshot()
+  })
 })

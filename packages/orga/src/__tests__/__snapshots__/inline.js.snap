@@ -68,6 +68,45 @@ Array [
 ]
 `;
 
+exports[`Inline Parsing recon link 1`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "hello ",
+  },
+  Object {
+    "children": Array [],
+    "desc": undefined,
+    "path": "image/logo.png",
+    "type": "link",
+  },
+]
+`;
+
+exports[`Inline Parsing recon link 2`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "hello ",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "logo",
+      },
+    ],
+    "desc": "logo",
+    "path": "image/logo.png",
+    "type": "link",
+  },
+]
+`;
+
 exports[`Inline Parsing recon mixed emphasis 1`] = `
 Array [
   Object {
