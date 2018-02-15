@@ -1,8 +1,13 @@
+import visit from 'unist-util-visit'
 import org from 'org'
+import path from 'path'
 import Promise from 'bluebird'
 import { Parser } from 'orga'
 import toHAST from 'oast-to-hast'
 import hastToHTML from 'hast-util-to-html'
+import getPublicURL from './get-public-url'
+
+import orgLink from './org-link'
 
 const {
   GraphQLObjectType,
@@ -28,13 +33,36 @@ module.exports = (
     return {}
   }
 
+  const files = Object.values(store.getState().nodes).filter(
+    n => n.internal.type === `File`
+  )
+
+  function processLinks(ast, orgNode) {
+    visit(ast, `link`, link => {
+      const dir = getNode(orgNode.parent).dir
+      // console.log(dir)
+      // console.log(link.path, link.desc)
+      const linkPath = path.posix.join(
+        getNode(orgNode.parent).dir,
+        link.path
+      )
+      const linkNode = files.find(
+        f => f.absolutePath === linkPath
+      )
+      if (linkNode) {
+        // console.log(linkNode)
+        link.path = getPublicURL({file: linkNode})
+      }
+    })
+    return ast
+  }
 
   async function getAST(orgNode) {
     return new Promise((resolve, reject) => {
       const parser = new Parser()
       const ast = parser.parse(orgNode.internal.content)
       // cache.set(astCacheKey(orgNode), ast)
-      resolve(ast)
+      resolve(processLinks(ast, orgNode))
     })
     // const cachedAST = await cache.get(astCacheKey(orgNode))
     // if (cachedAST) {

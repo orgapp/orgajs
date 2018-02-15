@@ -2013,9 +2013,9 @@ nwmatcher@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/nwmatcher/-/nwmatcher-1.4.3.tgz#64348e3b3d80f035b40ac11563d278f8b72db89c"
 
-oast-to-hast@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/oast-to-hast/-/oast-to-hast-0.2.4.tgz#fe9aef25f91d406bbc099f2416dbdcb97e86b102"
+oast-to-hast@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/oast-to-hast/-/oast-to-hast-0.2.6.tgz#8990e7f05db8a518b430e137ecd23170afa1f6ad"
   dependencies:
     prismjs "^1.11.0"
     unist-builder "^1.0.2"
@@ -2074,9 +2074,9 @@ org@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/org/-/org-0.2.0.tgz#d76378387dc506fb8e3ccff73a0ad04e3afc6391"
 
-orga@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/orga/-/orga-0.2.3.tgz#b8a7b49dafc81ec4a802f97627c058079c4146a6"
+orga@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/orga/-/orga-0.2.5.tgz#d98e12ba3040fe5df4b1b2aed8a82f4d12899de0"
 
 os-homedir@^1.0.0:
   version "1.0.2"
@@ -2825,13 +2825,19 @@ unist-builder@^1.0.2:
   dependencies:
     object-assign "^4.1.0"
 
-unist-util-is@^2.0.0:
+unist-util-is@^2.0.0, unist-util-is@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/unist-util-is/-/unist-util-is-2.1.1.tgz#0c312629e3f960c66e931e812d3d80e77010947b"
 
 unist-util-stringify-position@^1.0.0, unist-util-stringify-position@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/unist-util-stringify-position/-/unist-util-stringify-position-1.1.1.tgz#3ccbdc53679eed6ecf3777dd7f5e3229c1b6aa3c"
+
+unist-util-visit@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.3.0.tgz#41ca7c82981fd1ce6c762aac397fc24e35711444"
+  dependencies:
+    unist-util-is "^2.1.1"
 
 user-home@^1.1.1:
   version "1.1.1"

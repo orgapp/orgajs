@@ -1,4 +1,5 @@
 import { all } from '../transform'
+import mime from 'mime'
 
 module.exports = link
 

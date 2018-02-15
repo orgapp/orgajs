@@ -3,3 +3,4 @@ node_modules
 /gatsby-node.js
 /extend-node-type.js
 /on-node-create.js
+/get-public-url.js

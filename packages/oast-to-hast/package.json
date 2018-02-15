@@ -10,6 +10,7 @@
   "license": "MIT",
   "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/oast-to-hast",
   "dependencies": {
+    "mime": "^2.2.0",
     "prismjs": "^1.11.0",
     "unist-builder": "^1.0.2"
   },
