@@ -78,8 +78,12 @@ Array [
   Object {
     "children": Array [],
     "desc": undefined,
-    "path": "image/logo.png",
     "type": "link",
+    "uri": Object {
+      "location": "image/logo.png",
+      "protocol": "file",
+      "raw": "image/logo.png",
+    },
   },
 ]
 `;
@@ -101,8 +105,12 @@ Array [
       },
     ],
     "desc": "logo",
-    "path": "image/logo.png",
     "type": "link",
+    "uri": Object {
+      "location": "image/logo.png",
+      "protocol": "file",
+      "raw": "image/logo.png",
+    },
   },
 ]
 `;
@@ -119,8 +127,12 @@ Array [
       },
     ],
     "desc": "Here's",
-    "path": "https://github.com/xiaoxinghu/orgajs",
     "type": "link",
+    "uri": Object {
+      "location": "//github.com/xiaoxinghu/orgajs",
+      "protocol": "https",
+      "raw": "https://github.com/xiaoxinghu/orgajs",
+    },
   },
   Object {
     "children": Array [],

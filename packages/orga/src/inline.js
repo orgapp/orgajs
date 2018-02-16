@@ -1,4 +1,5 @@
 import Node from './node'
+import uri from './uri'
 
 const LINK_PATTERN = /(.*?)\[\[([^\]]*)\](?:\[([^\]]*)\])?\](.*)/m; // \1 => link, \2 => text
 
@@ -13,7 +14,7 @@ function markup(marker) {
 function parse(text) {
   text = _parse(LINK_PATTERN, text, (captures) => {
     return new Node(`link`, captures[1])
-      .with({ path: captures[0], desc: captures[1] })
+      .with({ uri: uri(captures[0]), desc: captures[1] })
   })
 
 

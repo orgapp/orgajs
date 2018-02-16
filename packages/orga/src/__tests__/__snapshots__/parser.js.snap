@@ -1010,8 +1010,12 @@ key: value",
               ],
               "desc": "Here's",
               "parent": [Circular],
-              "path": "https://github.com/xiaoxinghu/orgajs",
               "type": "link",
+              "uri": Object {
+                "location": "//github.com/xiaoxinghu/orgajs",
+                "protocol": "https",
+                "raw": "https://github.com/xiaoxinghu/orgajs",
+              },
             },
             Object {
               "children": Array [],
