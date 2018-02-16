@@ -96,14 +96,7 @@ Array [
     "value": "hello ",
   },
   Object {
-    "children": Array [
-      Object {
-        "children": Array [],
-        "parent": [Circular],
-        "type": "text",
-        "value": "logo",
-      },
-    ],
+    "children": Array [],
     "desc": "logo",
     "type": "link",
     "uri": Object {
@@ -118,14 +111,7 @@ Array [
 exports[`Inline Parsing recon mixed emphasis 1`] = `
 Array [
   Object {
-    "children": Array [
-      Object {
-        "children": Array [],
-        "parent": [Circular],
-        "type": "text",
-        "value": "Here's",
-      },
-    ],
+    "children": Array [],
     "desc": "Here's",
     "type": "link",
     "uri": Object {

@@ -1000,14 +1000,7 @@ key: value",
         Object {
           "children": Array [
             Object {
-              "children": Array [
-                Object {
-                  "children": Array [],
-                  "parent": [Circular],
-                  "type": "text",
-                  "value": "Here's",
-                },
-              ],
+              "children": Array [],
               "desc": "Here's",
               "parent": [Circular],
               "type": "link",

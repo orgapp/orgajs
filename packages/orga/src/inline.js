@@ -13,7 +13,7 @@ function markup(marker) {
 
 function parse(text) {
   text = _parse(LINK_PATTERN, text, (captures) => {
-    return new Node(`link`, captures[1])
+    return new Node(`link`)
       .with({ uri: uri(captures[0]), desc: captures[1] })
   })
 

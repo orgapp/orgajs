@@ -7,8 +7,6 @@ import toHAST from 'oast-to-hast'
 import hastToHTML from 'hast-util-to-html'
 import getPublicURL from './get-public-url'
 
-import orgLink from './org-link'
-
 const {
   GraphQLObjectType,
   GraphQLList,
@@ -42,16 +40,17 @@ module.exports = (
       const dir = getNode(orgNode.parent).dir
       // console.log(dir)
       // console.log(link.path, link.desc)
+      console.log(link.uri)
       const linkPath = path.posix.join(
         getNode(orgNode.parent).dir,
-        link.path
+        link.uri.location
       )
       const linkNode = files.find(
         f => f.absolutePath === linkPath
       )
       if (linkNode) {
         // console.log(linkNode)
-        link.path = getPublicURL({file: linkNode})
+        // link.path = getPublicURL({file: linkNode})
       }
     })
     return ast
@@ -62,7 +61,8 @@ module.exports = (
       const parser = new Parser()
       const ast = parser.parse(orgNode.internal.content)
       // cache.set(astCacheKey(orgNode), ast)
-      resolve(processLinks(ast, orgNode))
+      // resolve(processLinks(ast, orgNode))
+      resolve(ast)
     })
     // const cachedAST = await cache.get(astCacheKey(orgNode))
     // if (cachedAST) {
