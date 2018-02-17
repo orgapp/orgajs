@@ -23,6 +23,24 @@ const astCacheKey = node =>
     node.internal.contentDigest
   }-${pluginsCacheStr}`
 
+function handleLink(h, node) {
+  const { uri, desc } = node
+  var props = { href: uri.raw }
+
+  if (node.title !== null && node.title !== undefined) {
+    props.title = node.title
+  }
+
+  const type = mime.getType(uri.raw)
+  if (type && type.startsWith(`image`)) {
+    props = { src: uri.raw, alt: desc }
+    return h(node, `img`, props)
+  }
+  return h(node, `a`, props, [
+    u(`text`, `-- ${desc} --`)
+  ])
+}
+
 module.exports = (
   { type, store, pathPrefix, getNode, cache },
   pluginOptions
@@ -80,7 +98,8 @@ module.exports = (
   async function getHTML(orgNode) {
     const highlight = pluginOptions.noHighlight !== true
     return getAST(orgNode).then(ast => {
-      const html = hastToHTML(toHAST(ast, { highlight }), { allowDangerousHTML: true })
+      const handlers = { link: handleLink }
+      const html = hastToHTML(toHAST(ast, { highlight, handlers }), { allowDangerousHTML: true })
       return html
     })
   }
