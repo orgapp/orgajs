@@ -1899,6 +1899,10 @@ mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.7:
   dependencies:
     mime-db "~1.30.0"
 
+mime@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/mime/-/mime-2.2.0.tgz#161e541965551d3b549fa1114391e3a3d55b923b"
+
 mimic-fn@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-1.1.0.tgz#e667783d92e89dbd342818b5230b9d62a672ad18"
@@ -2013,10 +2017,11 @@ nwmatcher@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/nwmatcher/-/nwmatcher-1.4.3.tgz#64348e3b3d80f035b40ac11563d278f8b72db89c"
 
-oast-to-hast@^0.2.6:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/oast-to-hast/-/oast-to-hast-0.2.6.tgz#8990e7f05db8a518b430e137ecd23170afa1f6ad"
+oast-to-hast@^0.2.7:
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/oast-to-hast/-/oast-to-hast-0.2.7.tgz#20864aeb4fd63c022b9967a936c34fe19d7a1eb7"
   dependencies:
+    mime "^2.2.0"
     prismjs "^1.11.0"
     unist-builder "^1.0.2"
 
@@ -2074,9 +2079,9 @@ org@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/org/-/org-0.2.0.tgz#d76378387dc506fb8e3ccff73a0ad04e3afc6391"
 
-orga@^0.2.5:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/orga/-/orga-0.2.5.tgz#d98e12ba3040fe5df4b1b2aed8a82f4d12899de0"
+orga@^0.2.7:
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/orga/-/orga-0.2.7.tgz#8c15ba2dcab38b05c7cd52f2a099ba4847f054c9"
 
 os-homedir@^1.0.0:
   version "1.0.2"

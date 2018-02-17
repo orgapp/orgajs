@@ -1,3 +1,4 @@
+import u from 'unist-builder'
 import visit from 'unist-util-visit'
 import org from 'org'
 import path from 'path'
@@ -6,6 +7,7 @@ import { Parser } from 'orga'
 import toHAST from 'oast-to-hast'
 import hastToHTML from 'hast-util-to-html'
 import getPublicURL from './get-public-url'
+import mime from 'mime'
 
 const {
   GraphQLObjectType,
