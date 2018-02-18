@@ -8,6 +8,7 @@ import toHAST from 'oast-to-hast'
 import hastToHTML from 'hast-util-to-html'
 import getPublicURL from './get-public-url'
 import mime from 'mime'
+import fsExtra from 'fs-extra'
 
 const {
   GraphQLObjectType,
@@ -25,23 +26,10 @@ const astCacheKey = node =>
     node.internal.contentDigest
   }-${pluginsCacheStr}`
 
-function handleLink(h, node) {
-  const { uri, desc } = node
-  var props = { href: uri.raw }
-
-  if (node.title !== null && node.title !== undefined) {
-    props.title = node.title
-  }
-
-  const type = mime.getType(uri.raw)
-  if (type && type.startsWith(`image`)) {
-    props = { src: uri.raw, alt: desc }
-    return h(node, `img`, props)
-  }
-  return h(node, `a`, props, [
-    u(`text`, `-- ${desc} --`)
-  ])
+function isRelative(path) {
+  return !path.startsWith(`/`)
 }
+
 
 module.exports = (
   { type, store, pathPrefix, getNode, cache },
@@ -55,35 +43,15 @@ module.exports = (
     n => n.internal.type === `File`
   )
 
-  function processLinks(ast, orgNode) {
-    visit(ast, `link`, link => {
-      const dir = getNode(orgNode.parent).dir
-      // console.log(dir)
-      // console.log(link.path, link.desc)
-      console.log(link.uri)
-      const linkPath = path.posix.join(
-        getNode(orgNode.parent).dir,
-        link.uri.location
-      )
-      const linkNode = files.find(
-        f => f.absolutePath === linkPath
-      )
-      if (linkNode) {
-        // console.log(linkNode)
-        // link.path = getPublicURL({file: linkNode})
-      }
-    })
-    return ast
-  }
-
   async function getAST(orgNode) {
     return new Promise((resolve, reject) => {
       const parser = new Parser()
       const ast = parser.parse(orgNode.internal.content)
       // cache.set(astCacheKey(orgNode), ast)
-      // resolve(processLinks(ast, orgNode))
       resolve(ast)
     })
+
+
     // const cachedAST = await cache.get(astCacheKey(orgNode))
     // if (cachedAST) {
     //   return cachedAST
@@ -104,6 +72,69 @@ module.exports = (
       const html = hastToHTML(toHAST(ast, { highlight, handlers }), { allowDangerousHTML: true })
       return html
     })
+
+    function copyOnDemand(file) {
+      const fileName = `${file.name}-${file.internal.contentDigest}${file.ext}`
+      const publicPath = path.join(
+        process.cwd(),
+        `public`,
+        `static`,
+        fileName
+      )
+
+      if (!fsExtra.existsSync(publicPath)) {
+        fsExtra.copy(file.absolutePath, publicPath, err => {
+          if (err) {
+            console.error(
+              `error copying file from ${
+                  file.absolutePath
+                } to ${publicPath}`,
+              err
+            )
+          }
+        })
+      }
+
+      return `${pathPrefix}/static/${fileName}`
+    }
+
+    function handleLink(h, node) {
+      const { uri, desc } = node
+      var props = { href: uri.raw }
+
+      if (node.title !== null && node.title !== undefined) {
+        props.title = node.title
+      }
+
+      var src = uri.raw
+      if (isRelative(uri.location)) {
+        const linkPath = path.posix.join(
+          getNode(orgNode.parent).dir,
+          path.normalize(uri.location)
+        )
+        const linkNode = files.find(
+          f => f.absolutePath === linkPath
+        )
+        if (linkNode) {
+          src = copyOnDemand(linkNode)
+        }
+      }
+
+      const type = mime.getType(src)
+      if (type && type.startsWith(`image`)) {
+        props = { src, alt: desc }
+        var elements = [
+          h(node, `img`, props)
+        ]
+        if (desc) {
+          elements.push(h(node, `figcaption`, [u(`text`, desc)]))
+        }
+        return h(node, `figure`, elements)
+      }
+      return h(node, `a`, props, [
+        u(`text`, `-- ${desc} --`)
+      ])
+    }
   }
 
   async function getMeta(orgNode) {
