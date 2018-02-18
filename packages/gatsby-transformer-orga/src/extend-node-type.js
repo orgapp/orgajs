@@ -1,6 +1,5 @@
 import u from 'unist-builder'
 import visit from 'unist-util-visit'
-import org from 'org'
 import path from 'path'
 import Promise from 'bluebird'
 import { Parser } from 'orga'
@@ -10,15 +9,16 @@ import getPublicURL from './get-public-url'
 import mime from 'mime'
 import fsExtra from 'fs-extra'
 
-const {
+import {
   GraphQLObjectType,
   GraphQLList,
   GraphQLString,
   GraphQLInt,
   GraphQLEnumType,
-} = require(`graphql`)
-
+} from 'graphql'
 import GraphQLJSON from 'graphql-type-json'
+
+const DEPLOY_DIR = `public`
 
 let pluginsCacheStr = ``
 const astCacheKey = node =>
@@ -30,6 +30,17 @@ function isRelative(path) {
   return !path.startsWith(`/`)
 }
 
+const newFileName = linkNode =>
+      `${linkNode.name}-${linkNode.internal.contentDigest}.${linkNode.extension}`
+
+const newPath = (linkNode, destinationDir) => {
+  return path.posix.join(
+    process.cwd(),
+    DEPLOY_DIR,
+    destinationDir || `static`,
+    newFileName(linkNode)
+  )
+}
 
 module.exports = (
   { type, store, pathPrefix, getNode, cache },
@@ -38,6 +49,15 @@ module.exports = (
   if (type.name !== `Orga`) {
     return {}
   }
+
+  const newLinkURL = (linkNode, destinationDir) => {
+    return path.posix.join(
+      `/`,
+      pathPrefix,
+      destinationDir || `static`,
+      newFileName(linkNode))
+  }
+
 
   const files = Object.values(store.getState().nodes).filter(
     n => n.internal.type === `File`
@@ -74,14 +94,7 @@ module.exports = (
     })
 
     function copyOnDemand(file) {
-      const fileName = `${file.name}-${file.internal.contentDigest}${file.ext}`
-      const publicPath = path.join(
-        process.cwd(),
-        `public`,
-        `static`,
-        fileName
-      )
-
+      const publicPath = newPath(file)
       if (!fsExtra.existsSync(publicPath)) {
         fsExtra.copy(file.absolutePath, publicPath, err => {
           if (err) {
@@ -95,7 +108,7 @@ module.exports = (
         })
       }
 
-      return `${pathPrefix}/static/${fileName}`
+      return newLinkURL(file)
     }
 
     function handleLink(h, node) {

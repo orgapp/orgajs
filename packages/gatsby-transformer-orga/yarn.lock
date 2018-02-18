@@ -2075,10 +2075,6 @@ optionator@^0.8.1:
     type-check "~0.3.2"
     wordwrap "~1.0.0"
 
-org@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/org/-/org-0.2.0.tgz#d76378387dc506fb8e3ccff73a0ad04e3afc6391"
-
 orga@^0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/orga/-/orga-0.2.7.tgz#8c15ba2dcab38b05c7cd52f2a099ba4847f054c9"

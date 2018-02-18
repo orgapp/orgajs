@@ -9,7 +9,6 @@
     "hast-util-to-html": "^3.1.0",
     "mime": "^2.2.0",
     "oast-to-hast": "^0.2.7",
-    "org": "^0.2.0",
     "orga": "^0.2.7",
     "rehype-stringify": "^3.0.0",
     "unified": "^6.1.6",
