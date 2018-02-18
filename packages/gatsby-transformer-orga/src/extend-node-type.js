@@ -100,11 +100,6 @@ module.exports = (
 
     function handleLink(h, node) {
       const { uri, desc } = node
-      var props = { href: uri.raw }
-
-      if (node.title !== null && node.title !== undefined) {
-        props.title = node.title
-      }
 
       var src = uri.raw
       if (isRelative(uri.location)) {
@@ -122,18 +117,18 @@ module.exports = (
 
       const type = mime.getType(src)
       if (type && type.startsWith(`image`)) {
-        props = { src, alt: desc }
         var elements = [
-          h(node, `img`, props)
+          h(node, `img`, { src, alt: desc })
         ]
         if (desc) {
           elements.push(h(node, `figcaption`, [u(`text`, desc)]))
         }
         return h(node, `figure`, elements)
+      } else {
+        return h(node, `a`, { href: src }, [
+          u(`text`, desc)
+        ])
       }
-      return h(node, `a`, props, [
-        u(`text`, `-- ${desc} --`)
-      ])
     }
   }
 
