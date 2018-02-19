@@ -63,6 +63,10 @@ module.exports = (
     n => n.internal.type === `File`
   )
 
+  const orgFiles = Object.values(store.getState().nodes).filter(
+    n => n.internal.type === `Orga`
+  )
+
   async function getAST(orgNode) {
     return new Promise((resolve, reject) => {
       const parser = new Parser()
@@ -120,11 +124,13 @@ module.exports = (
           getNode(orgNode.parent).dir,
           path.normalize(uri.location)
         )
-        const linkNode = files.find(
-          f => f.absolutePath === linkPath
-        )
-        if (linkNode) {
-          src = copyOnDemand(linkNode)
+
+        const linkToOrg = orgFiles.find(f => f.fileAbsolutePath === linkPath)
+        if (linkToOrg) {
+          src = linkToOrg.fields.slug
+        } else {
+          const linkNode = files.find(f => f.absolutePath === linkPath)
+          if (linkNode) src = copyOnDemand(linkNode)
         }
       }
 
