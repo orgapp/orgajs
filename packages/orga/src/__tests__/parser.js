@@ -183,4 +183,13 @@ console.log('hello world.')
 `
     expect(parser.parse(content2)).toMatchSnapshot()
   })
+
+  it('can handle paragraph', () => {
+    const content = `
+this is line one.
+this is line two.
+this is line three.
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
 })

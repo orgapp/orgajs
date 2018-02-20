@@ -166,15 +166,14 @@ Parser.prototype.parseSection = function(section) {
 
 Parser.prototype.parseParagraph = function() {
   var lines = []
-  do {
+  while (this.hasNext()) {
     const token = this.peek()
     // also eats broken block/drawer ends
     if (![`line`, `block.end`, `drawer.end`].includes(token.name)) break
     this.consume()
-    lines = lines.concat(inlineParse(token.raw.trim()))
-  } while (this.hasNext())
-
-  return new Node(`paragraph`, lines)
+    lines.push(token.raw.trim())
+  }
+  return new Node(`paragraph`, inlineParse(lines.join(` `)))
 }
 
 Parser.prototype.parseList = function(level) {

@@ -92,19 +92,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "#+BEGIN_SRC javascript",
-            },
-            Object {
-              "children": Array [],
-              "parent": [Circular],
-              "type": "text",
-              "value": "console.log('hello')",
-            },
-            Object {
-              "children": Array [],
-              "parent": [Circular],
-              "type": "text",
-              "value": "console.log('world')",
+              "value": "#+BEGIN_SRC javascript console.log('hello') console.log('world')",
             },
           ],
           "parent": [Circular],
@@ -148,19 +136,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "console.log('hello')",
-            },
-            Object {
-              "children": Array [],
-              "parent": [Circular],
-              "type": "text",
-              "value": "console.log('world')",
-            },
-            Object {
-              "children": Array [],
-              "parent": [Circular],
-              "type": "text",
-              "value": "#+END_SRC",
+              "value": "console.log('hello') console.log('world') #+END_SRC",
             },
           ],
           "parent": [Circular],
@@ -204,19 +180,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": ":PROPERTIES:",
-            },
-            Object {
-              "children": Array [],
-              "parent": [Circular],
-              "type": "text",
-              "value": "key: value",
-            },
-            Object {
-              "children": Array [],
-              "parent": [Circular],
-              "type": "text",
-              "value": "key: value",
+              "value": ":PROPERTIES: key: value key: value",
             },
           ],
           "parent": [Circular],
@@ -663,6 +627,27 @@ Object {
       "ordered": true,
       "parent": [Circular],
       "type": "list",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle paragraph 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "parent": [Circular],
+          "type": "text",
+          "value": "this is line one. this is line two. this is line three.",
+        },
+      ],
+      "parent": [Circular],
+      "type": "paragraph",
     },
   ],
   "meta": Object {},
@@ -1379,13 +1364,7 @@ key: value",
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": ",",
-            },
-            Object {
-              "children": Array [],
-              "parent": [Circular],
-              "type": "text",
-              "value": "the round pegs in the ",
+              "value": ", the round pegs in the ",
             },
             Object {
               "children": Array [
