@@ -1,4 +1,5 @@
 import root from './root'
+import section from './section'
 import headline from './headline'
 import block from './block'
 import link from './link'
@@ -19,6 +20,7 @@ import html from './html'
 
 module.exports = {
   root,
+  section,
   headline,
   block,
   link,
