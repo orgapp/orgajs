@@ -22,15 +22,16 @@ function h(node, tagName, props, children) {
 }
 
 function toHAST(tree, options) {
-  var settings = options || {}
+  const settings = options || {}
+  const meta = tree.meta || {}
   h.handlers = Object.assign(handlers, settings.handlers || {})
-  const eTags = tree.meta.exclude_tags
+  const eTags = meta.exclude_tags
   if (eTags) {
     h.excludeTags = eTags.split(/\s+/)
   } else {
     h.excludeTags = settings.excludeTags || [`noexport`]
   }
-  const sTags = tree.meta.select_tags
+  const sTags = meta.select_tags
   if (sTags) {
     h.selectTags = sTags.split(/\s+/)
   } else {

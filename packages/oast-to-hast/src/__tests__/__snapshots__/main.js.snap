@@ -28,7 +28,9 @@ Object {
           "type": "element",
         },
       ],
-      "properties": Object {},
+      "properties": Object {
+        "className": "section",
+      },
       "tagName": "div",
       "type": "element",
     },

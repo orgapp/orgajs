@@ -130,6 +130,17 @@ content
     expect(parser.parse(content)).toMatchSnapshot()
   })
 
+  it('can handle table with inline style', () => {
+    const content = `
+| Name           | Species      | Gender | Role         |
+|----------------+--------------+--------+--------------|
+| *Bruce Wayne*  | +Bat+ Human  | M      | [[https://en.wikipedia.org/wiki/Batman][Batman]]       |
+| _Clark Kent_   | =Kryptonian= | M      | [[https://en.wikipedia.org/wiki/Superman][Superman]]     |
+| /Diana Prince/ | ~Amazonian~  | F      | [[https://en.wikipedia.org/wiki/Wonder_Woman][Wonder Woman]] |
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
   it('can handle html export', () => {
     const content = `#+HTML: <h1>Hello</h1>`
     expect(parser.parse(content)).toMatchSnapshot()

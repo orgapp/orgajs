@@ -906,6 +906,299 @@ Object {
 }
 `;
 
+exports[`Parser can handle table with inline style 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Name",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Species",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Gender",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "Role",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+          ],
+          "parent": [Circular],
+          "type": "tableRow",
+        },
+        Object {
+          "children": Array [],
+          "parent": [Circular],
+          "type": "tableSeparator",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "parent": [Circular],
+                      "type": "text",
+                      "value": "Bruce Wayne",
+                    },
+                  ],
+                  "parent": [Circular],
+                  "type": "bold",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "parent": [Circular],
+                      "type": "text",
+                      "value": "Bat",
+                    },
+                  ],
+                  "parent": [Circular],
+                  "type": "strikeThrough",
+                },
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": " Human",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "M",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "desc": "Batman",
+                  "parent": [Circular],
+                  "type": "link",
+                  "uri": Object {
+                    "location": "//en.wikipedia.org/wiki/Batman",
+                    "protocol": "https",
+                    "raw": "https://en.wikipedia.org/wiki/Batman",
+                  },
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+          ],
+          "parent": [Circular],
+          "type": "tableRow",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "parent": [Circular],
+                      "type": "text",
+                      "value": "Clark Kent",
+                    },
+                  ],
+                  "parent": [Circular],
+                  "type": "underline",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "parent": [Circular],
+                      "type": "text",
+                      "value": "Kryptonian",
+                    },
+                  ],
+                  "parent": [Circular],
+                  "type": "verbatim",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "M",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "desc": "Superman",
+                  "parent": [Circular],
+                  "type": "link",
+                  "uri": Object {
+                    "location": "//en.wikipedia.org/wiki/Superman",
+                    "protocol": "https",
+                    "raw": "https://en.wikipedia.org/wiki/Superman",
+                  },
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+          ],
+          "parent": [Circular],
+          "type": "tableRow",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "parent": [Circular],
+                      "type": "text",
+                      "value": "Diana Prince",
+                    },
+                  ],
+                  "parent": [Circular],
+                  "type": "italic",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "parent": [Circular],
+                      "type": "text",
+                      "value": "Amazonian",
+                    },
+                  ],
+                  "parent": [Circular],
+                  "type": "code",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "F",
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "desc": "Wonder Woman",
+                  "parent": [Circular],
+                  "type": "link",
+                  "uri": Object {
+                    "location": "//en.wikipedia.org/wiki/Wonder_Woman",
+                    "protocol": "https",
+                    "raw": "https://en.wikipedia.org/wiki/Wonder_Woman",
+                  },
+                },
+              ],
+              "parent": [Circular],
+              "type": "tableCell",
+            },
+          ],
+          "parent": [Circular],
+          "type": "tableRow",
+        },
+      ],
+      "parent": [Circular],
+      "type": "table",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
 exports[`Parser can handle unordered list 1`] = `
 Object {
   "children": Array [

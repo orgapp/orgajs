@@ -111,7 +111,7 @@ Parser.prototype.parseHeadline = function() {
   return headline
 }
 
-/* Total Awareness */
+/* Total Awareness -- according to Ross */
 Parser.prototype.unagi = function(element) {
   if (Object.keys(this._aks).length === 0) return element
   element.attributes = this._aks
@@ -212,7 +212,7 @@ Parser.prototype.parseTable = function() {
       continue
     }
     if ( token.name != `table.row` ) break
-    const cells = token.data.cells.map(c => new Node(`tableCell`, c))
+    const cells = token.data.cells.map(c => new Node(`tableCell`, inlineParse(c)))
     const row = new Node(`tableRow`, cells)
     table.push(row)
   }
