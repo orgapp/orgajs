@@ -1,6 +1,4 @@
 import { parse } from '../inline'
-import Node from '../node'
-
 
 describe('Inline Parsing', () => {
   it('recon single emphasis', () => {

@@ -1,11 +1,9 @@
 import u from 'unist-builder'
-import visit from 'unist-util-visit'
 import path from 'path'
 import Promise from 'bluebird'
 import { Parser } from 'orga'
 import toHAST from 'oast-to-hast'
 import hastToHTML from 'hast-util-to-html'
-import getPublicURL from './get-public-url'
 import mime from 'mime'
 import fsExtra from 'fs-extra'
 
@@ -68,7 +66,7 @@ module.exports = (
   )
 
   async function getAST(orgNode) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       const parser = new Parser()
       const ast = parser.parse(orgNode.internal.content)
       // cache.set(astCacheKey(orgNode), ast)
@@ -157,7 +155,7 @@ module.exports = (
     })
   }
 
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     return resolve({
       html: {
         type: GraphQLString,

@@ -31,7 +31,6 @@ function all(h, parent) {
   var values = []
   var index = -1
   var result
-  var head
 
   while (++index < length) {
     result = transform(h, nodes[index], parent)

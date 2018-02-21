@@ -1,8 +1,7 @@
 const crypto = require(`crypto`)
 
 module.exports = async function onCreateNode(
-  { node, getNode, loadNodeContent, boundActionCreators },
-  pluginOptions) {
+  { node, loadNodeContent, boundActionCreators }) {
 
   // We only care about org content. The mime is not useful for us. Use extension directly
   if (node.extension !== `org`) {

@@ -19,7 +19,6 @@ function parse(text) {
   })
 
   text = _parse(FOOTNOTE_PATTERN, text, (captures) => {
-    console.log(`got footnote`, captures)
     return new Node(`footnote.reference`)
       .with({ label: captures[0] })
   })

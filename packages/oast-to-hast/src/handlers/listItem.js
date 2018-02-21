@@ -1,7 +1,6 @@
 module.exports = listItem
 
 import { all } from '../transform'
-import { list } from './list'
 
 function listItem(h, node) {
   var props = {}

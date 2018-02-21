@@ -1,5 +1,4 @@
 import Node from '../node'
-import { parse as inlineParse } from '../inline'
 
 function parseBlock() {
   const t = this.next()

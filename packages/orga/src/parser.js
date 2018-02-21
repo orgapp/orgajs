@@ -1,6 +1,5 @@
 import Lexer from './lexer'
 import Node from './node'
-import { parse as inlineParse } from './inline'
 
 function Parser(options = require('./defaults')) {
   this.options = options

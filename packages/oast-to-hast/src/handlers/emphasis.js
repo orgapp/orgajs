@@ -1,5 +1,3 @@
-
-import u from 'unist-builder'
 import { all } from '../transform'
 
 module.exports = {

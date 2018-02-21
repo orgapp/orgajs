@@ -18,10 +18,6 @@ function definition(h, node) {
 
 function reference(h, node) {
   const { label } = node
-  const props = {
-    id: `fnref-${label}`,
-    href: `#fn-${label}`
-  }
   return h(node, `sup`, { id: `fnref-${label}` }, [
     h(node, `a`, { href: `#fn-${label}` }, [
       u(`text`, label)

@@ -1,5 +1,3 @@
-import Node from '../node'
-
 function process(token, section) {
   var self = this
   self._cel++

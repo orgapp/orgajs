@@ -1,6 +1,5 @@
 module.exports = headline
 
-import u from 'unist-builder'
 import { all } from '../transform'
 
 function headline(h, node) {

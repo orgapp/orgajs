@@ -102,8 +102,6 @@ org.define('footnote', /^\[fn:(\w+)\]\s+(.*)$/, m => {
   return { label, content }
 })
 
-var inline = new Syntax()
-
 function Lexer(options = require('./defaults')) {
   this.syntax = org
   const { todos } = options
