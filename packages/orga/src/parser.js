@@ -5,8 +5,9 @@ import { parse as inlineParse } from './inline'
 function Parser(options = require('./defaults')) {
   this.options = options
   this.lexer = new Lexer(this.options)
-  this._aks = {}
   this.prefix = []
+  this._aks = {} // Affiliated Keywords
+  this._cel = 0 // Consecutive Empty Lines
 }
 
 Parser.prototype.peek = function() {
@@ -75,6 +76,8 @@ Parser.prototype.parseSection = function(section, stopSigns = []) {
   const token = this.peek()
   if (!token) return section
   if (stopSigns.includes(token.name)) return section
+
+  if (token.name != `blank`) this._cel = 0 // reset consecutive empty lines
   const p = this.processor[token.name]
   if (p) {
     return p.bind(this)(token, section)

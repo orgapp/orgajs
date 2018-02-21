@@ -203,7 +203,48 @@ this is line three.
   it('can handle multi line footnote', () => {
     const content = `
 [fn:1] Content of the footnote.
+And here is *another* line.
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
+  it('can handle complex footnote', () => {
+    const content = `
+[fn:1] Content of the footnote.
+#+BEGIN_SRC javascript
+console.log('footnote with code block')
+#+END_SRC
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
+  it('knows when headline can stop footnote', () => {
+    const content = `
+[fn:1] Content of the footnote.
 And here is another line.
+* A Headline
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
+  it('knows when footnote can stop footnote', () => {
+    const content = `
+[fn:1] Content of the footnote.
+And here is another line.
+[fn:2] another footnote.
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
+  it('knows when empty lines can stop footnote', () => {
+    const content = `
+[fn:1] Content of the footnote.
+And here is another line.
+
+still belongs to fn:1
+
+
+This is not.
 `
     expect(parser.parse(content)).toMatchSnapshot()
   })

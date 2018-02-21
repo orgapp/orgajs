@@ -6,6 +6,7 @@ import list from './list'
 import table from './table'
 import horizontalRule from './horizontal-rule'
 import footnote from './footnote'
+import blank from './blank'
 
 module.exports = {
   keyword,
@@ -16,4 +17,5 @@ module.exports = {
   "table.row": table,
   horizontalRule,
   footnote,
+  blank,
 }

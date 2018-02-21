@@ -1,16 +1,14 @@
 import Node from '../node'
-import { parse as inlineParse } from '../inline'
 
 function process(token, section) {
 
+  if (section.type === `footnote`) return section // footnote breaks footnote
   var self = this
 
   const parseFootnote = () => {
     const { label, content } = self.next().data
-    var fn = new Node(`footnote`).with({ label })
     self.prefix = [{ name: `line`, raw: content, data: { content: content.trim() } }]
-    fn = self.parseSection(fn, [`headline`, `footnote`])
-    return fn
+    return self.parseSection(new Node(`footnote`).with({ label }))
   }
   section.push(parseFootnote())
   self._aks = {}

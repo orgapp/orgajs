@@ -209,6 +209,44 @@ Object {
 }
 `;
 
+exports[`Parser can handle complex footnote 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Content of the footnote.",
+            },
+          ],
+          "parent": [Circular],
+          "type": "paragraph",
+        },
+        Object {
+          "children": Array [],
+          "name": "SRC",
+          "params": Array [
+            "javascript",
+          ],
+          "parent": [Circular],
+          "type": "block",
+          "value": "console.log('footnote with code block')",
+        },
+      ],
+      "label": "1",
+      "parent": [Circular],
+      "type": "footnote",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
 exports[`Parser can handle drawers 1`] = `
 Object {
   "children": Array [
@@ -359,7 +397,25 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "Content of the footnote. And here is another line.",
+              "value": "Content of the footnote. And here is ",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "parent": [Circular],
+                  "type": "text",
+                  "value": "another",
+                },
+              ],
+              "parent": [Circular],
+              "type": "bold",
+            },
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": " line.",
             },
           ],
           "parent": [Circular],
@@ -1288,6 +1344,156 @@ Object {
       "ordered": false,
       "parent": [Circular],
       "type": "list",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser knows when empty lines can stop footnote 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Content of the footnote. And here is another line.",
+            },
+          ],
+          "parent": [Circular],
+          "type": "paragraph",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "still belongs to fn:1",
+            },
+          ],
+          "parent": [Circular],
+          "type": "paragraph",
+        },
+      ],
+      "label": "1",
+      "parent": [Circular],
+      "type": "footnote",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "parent": [Circular],
+          "type": "text",
+          "value": "This is not.",
+        },
+      ],
+      "parent": [Circular],
+      "type": "paragraph",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser knows when footnote can stop footnote 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Content of the footnote. And here is another line.",
+            },
+          ],
+          "parent": [Circular],
+          "type": "paragraph",
+        },
+      ],
+      "label": "1",
+      "parent": [Circular],
+      "type": "footnote",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "another footnote.",
+            },
+          ],
+          "parent": [Circular],
+          "type": "paragraph",
+        },
+      ],
+      "label": "2",
+      "parent": [Circular],
+      "type": "footnote",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser knows when headline can stop footnote 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Content of the footnote. And here is another line.",
+            },
+          ],
+          "parent": [Circular],
+          "type": "paragraph",
+        },
+      ],
+      "label": "1",
+      "parent": [Circular],
+      "type": "footnote",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "A Headline",
+            },
+          ],
+          "keyword": undefined,
+          "level": 1,
+          "parent": [Circular],
+          "priority": undefined,
+          "tags": Array [],
+          "type": "headline",
+        },
+      ],
+      "level": 1,
+      "parent": [Circular],
+      "type": "section",
     },
   ],
   "meta": Object {},
