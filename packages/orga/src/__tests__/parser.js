@@ -119,6 +119,38 @@ content
     expect(parser.parse(content)).toMatchSnapshot()
   })
 
+  it('can handle multi line list item', () => {
+    const legit = `
+- Apple is an American multinational technology company headquartered in
+  Cupertino, California that designs, develops, and sells consumer electronics,
+  computer software, and online services.
+- Orange
+- Banana
+`
+    expect(parser.parse(legit)).toMatchSnapshot()
+  })
+
+  it('can handle broken multi line list item', () => {
+    const brokenByEmptyLine = `
+- Apple is an American multinational technology company headquartered in
+  Cupertino, California that designs, develops, and sells consumer electronics,
+
+  computer software, and online services.
+- Orange
+- Banana
+`
+    expect(parser.parse(brokenByEmptyLine)).toMatchSnapshot()
+
+    const brokenByIndent = `
+- Apple is an American multinational technology company headquartered in
+Cupertino, California that designs, develops, and sells consumer electronics,
+  computer software, and online services.
+- Orange
+- Banana
+`
+    expect(parser.parse(brokenByIndent)).toMatchSnapshot()
+  })
+
   it('can handle table', () => {
     const content = `
 | Name         | Species    | Gender | Role         |

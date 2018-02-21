@@ -209,6 +209,154 @@ Object {
 }
 `;
 
+exports[`Parser can handle broken multi line list item 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Apple is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics,",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "list.item",
+        },
+      ],
+      "ordered": false,
+      "parent": [Circular],
+      "type": "list",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "parent": [Circular],
+          "type": "text",
+          "value": "computer software, and online services.",
+        },
+      ],
+      "parent": [Circular],
+      "type": "paragraph",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Orange",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "list.item",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Banana",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "list.item",
+        },
+      ],
+      "ordered": false,
+      "parent": [Circular],
+      "type": "list",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle broken multi line list item 2`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Apple is an American multinational technology company headquartered in",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "list.item",
+        },
+      ],
+      "ordered": false,
+      "parent": [Circular],
+      "type": "list",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "parent": [Circular],
+          "type": "text",
+          "value": "Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services.",
+        },
+      ],
+      "parent": [Circular],
+      "type": "paragraph",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Orange",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "list.item",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Banana",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "list.item",
+        },
+      ],
+      "ordered": false,
+      "parent": [Circular],
+      "type": "list",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
 exports[`Parser can handle complex footnote 1`] = `
 Object {
   "children": Array [
@@ -425,6 +573,61 @@ Object {
       "label": "1",
       "parent": [Circular],
       "type": "footnote.definition",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle multi line list item 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Apple is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services.",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "list.item",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Orange",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "list.item",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Banana",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "type": "list.item",
+        },
+      ],
+      "ordered": false,
+      "parent": [Circular],
+      "type": "list",
     },
   ],
   "meta": Object {},

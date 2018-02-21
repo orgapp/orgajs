@@ -5,18 +5,32 @@ function process(token, section) {
 
   var self = this
 
+  const parseListItem = () => {
+    const { indent, content, ordered, checked } = self.next().data
+    var lines = [content]
+    const item = new Node(`list.item`).with({ ordered })
+    if (checked !== undefined) {
+      item.checked = checked
+    }
+    while (self.hasNext()) {
+      const { name, raw } = self.peek()
+      if (name != `line`) break
+      const lineIndent = raw.search(/\S/)
+      if (lineIndent <= indent) break
+      lines.push(self.next().raw.trim())
+    }
+    item.push(inlineParse(lines.join(` `)))
+    return item
+  }
+
   const parseList = level => {
     const list = new Node(`list`)
     while (self.hasNext()) {
       const token = self.peek()
       if ( token.name != `list.item` ) break
-      const { indent, content, ordered, checked } = token.data
+      const { indent } = token.data
       if (indent <= level) break
-      self.consume()
-      const item = new Node(`list.item`, [ inlineParse(content) ]).with({ ordered })
-      if (checked !== undefined) {
-        item.checked = checked
-      }
+      const item = parseListItem()
       item.push(parseList(indent))
       list.push(item)
     }
