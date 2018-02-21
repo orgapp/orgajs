@@ -1,19 +1,30 @@
-module.exports = footnote
+module.exports = {
+  reference,
+  definition,
+}
 
 import u from 'unist-builder'
 import { all } from '../transform'
 
-function footnote(h, node) {
+function definition(h, node) {
   const { label } = node
   const props = {
     id: `fn-${label}`,
     className: `footnote`,
     dataLabel: label,
   }
-
-  // const l = h(node, `span`, [
-  //   u(`text`, label)
-  // ])
-  // const element = [l]
   return h(node, `div`, props, all(h, node))
+}
+
+function reference(h, node) {
+  const { label } = node
+  const props = {
+    id: `fnref-${label}`,
+    href: `#fn-${label}`
+  }
+  return h(node, `sup`, { id: `fnref-${label}` }, [
+    h(node, `a`, { href: `#fn-${label}` }, [
+      u(`text`, label)
+    ])
+  ])
 }

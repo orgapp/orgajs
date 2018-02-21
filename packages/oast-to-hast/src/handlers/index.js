@@ -16,7 +16,11 @@ import listItem from './listItem'
 import { table, tableRow, tableCell } from './table'
 import horizontalRule from './horizontal-rule'
 import html from './html'
-import footnote from './footnote'
+
+import {
+  definition as fnDef,
+  reference as fnRef,
+} from './footnote'
 
 
 module.exports = {
@@ -38,6 +42,7 @@ module.exports = {
   "table.cell": tableCell,
   horizontalRule,
   html,
-  "footnote.definition": footnote,
+  "footnote.definition": fnDef,
+  "footnote.reference": fnRef,
   drawer: () => undefined,
 }
