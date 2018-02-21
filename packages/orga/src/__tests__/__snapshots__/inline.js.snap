@@ -68,6 +68,26 @@ Array [
 ]
 `;
 
+exports[`Inline Parsing recon footnote reference 1`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "hello",
+  },
+  Object {
+    "children": Array [],
+    "label": "1",
+    "type": "footnote.reference",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " world.",
+  },
+]
+`;
+
 exports[`Inline Parsing recon link 1`] = `
 Array [
   Object {

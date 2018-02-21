@@ -1,5 +1,3 @@
-import util from 'util'
-
 const URL_PATTERN = /(?:([a-z][a-z0-9+.-]*):)?(.*)/
 
 function parse(link) {

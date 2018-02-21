@@ -25,6 +25,7 @@ function toHAST(tree, options) {
   const settings = options || {}
   const meta = tree.meta || {}
   h.handlers = Object.assign(handlers, settings.handlers || {})
+  h.footnoteSection = settings.footnoteSection || `footnotes`
   const eTags = meta.exclude_tags
   if (eTags) {
     h.excludeTags = eTags.split(/\s+/)

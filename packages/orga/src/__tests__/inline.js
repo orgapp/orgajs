@@ -27,4 +27,8 @@ describe('Inline Parsing', () => {
     expect(parse(`hello [[image/logo.png]]`)).toMatchSnapshot()
     expect(parse(`hello [[image/logo.png][logo]]`)).toMatchSnapshot()
   })
+
+  it('recon footnote reference', () => {
+    expect(parse(`hello[fn:1] world.`)).toMatchSnapshot()
+  })
 })

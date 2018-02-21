@@ -2,6 +2,7 @@ import Node from './node'
 import uri from './uri'
 
 const LINK_PATTERN = /(.*?)\[\[([^\]]*)\](?:\[([^\]]*)\])?\](.*)/m; // \1 => link, \2 => text
+const FOOTNOTE_PATTERN = /(.*?)\[fn:(\w+)\](.*)/
 
 const PRE = `(?:[\\s\\({'"]|^)`
 const POST = `(?:[\\s-\\.,:!?'\\)}]|$)`
@@ -17,6 +18,11 @@ function parse(text) {
       .with({ uri: uri(captures[0]), desc: captures[1] })
   })
 
+  text = _parse(FOOTNOTE_PATTERN, text, (captures) => {
+    console.log(`got footnote`, captures)
+    return new Node(`footnote.reference`)
+      .with({ label: captures[0] })
+  })
 
   const markups = [
     { name: `bold`, marker: `\\*` },
