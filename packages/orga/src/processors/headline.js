@@ -22,7 +22,7 @@ function parseDrawer() {
 }
 
 function process(token, section) {
-  if (section.type === `footnote`) return section // headline breaks footnote
+  if (section.type === `footnote.definition`) return section // headline breaks footnote
   const { level, keyword, priority, tags, content } = token.data
   const currentLevel = section.level || 0
   if (level <= currentLevel) { return section }

@@ -13,7 +13,7 @@ function process(token, section) {
       const { indent, content, ordered, checked } = token.data
       if (indent <= level) break
       self.consume()
-      const item = new Node(`listItem`, [ inlineParse(content) ]).with({ ordered })
+      const item = new Node(`list.item`, [ inlineParse(content) ]).with({ ordered })
       if (checked !== undefined) {
         item.checked = checked
       }

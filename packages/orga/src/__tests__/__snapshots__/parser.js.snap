@@ -239,7 +239,7 @@ Object {
       ],
       "label": "1",
       "parent": [Circular],
-      "type": "footnote",
+      "type": "footnote.definition",
     },
   ],
   "meta": Object {},
@@ -307,7 +307,7 @@ Object {
       ],
       "label": "1",
       "parent": [Circular],
-      "type": "footnote",
+      "type": "footnote.definition",
     },
   ],
   "meta": Object {},
@@ -424,7 +424,7 @@ Object {
       ],
       "label": "1",
       "parent": [Circular],
-      "type": "footnote",
+      "type": "footnote.definition",
     },
   ],
   "meta": Object {},
@@ -629,7 +629,7 @@ Object {
                   ],
                   "ordered": false,
                   "parent": [Circular],
-                  "type": "listItem",
+                  "type": "list.item",
                 },
                 Object {
                   "children": Array [
@@ -642,7 +642,7 @@ Object {
                   ],
                   "ordered": false,
                   "parent": [Circular],
-                  "type": "listItem",
+                  "type": "list.item",
                 },
               ],
               "ordered": false,
@@ -652,7 +652,7 @@ Object {
           ],
           "ordered": true,
           "parent": [Circular],
-          "type": "listItem",
+          "type": "list.item",
         },
         Object {
           "children": Array [
@@ -665,7 +665,7 @@ Object {
           ],
           "ordered": true,
           "parent": [Circular],
-          "type": "listItem",
+          "type": "list.item",
         },
         Object {
           "children": Array [
@@ -678,7 +678,7 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
-          "type": "listItem",
+          "type": "list.item",
         },
       ],
       "ordered": true,
@@ -707,7 +707,7 @@ Object {
           ],
           "ordered": true,
           "parent": [Circular],
-          "type": "listItem",
+          "type": "list.item",
         },
         Object {
           "children": Array [
@@ -720,7 +720,7 @@ Object {
           ],
           "ordered": true,
           "parent": [Circular],
-          "type": "listItem",
+          "type": "list.item",
         },
         Object {
           "children": Array [
@@ -733,7 +733,7 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
-          "type": "listItem",
+          "type": "list.item",
         },
       ],
       "ordered": true,
@@ -784,7 +784,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -796,7 +796,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -808,7 +808,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -820,16 +820,16 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
           ],
           "parent": [Circular],
-          "type": "tableRow",
+          "type": "table.row",
         },
         Object {
           "children": Array [],
           "parent": [Circular],
-          "type": "tableSeparator",
+          "type": "table.separator",
         },
         Object {
           "children": Array [
@@ -843,7 +843,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -855,7 +855,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -867,7 +867,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -879,11 +879,11 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
           ],
           "parent": [Circular],
-          "type": "tableRow",
+          "type": "table.row",
         },
         Object {
           "children": Array [
@@ -897,7 +897,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -909,7 +909,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -921,7 +921,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -933,11 +933,11 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
           ],
           "parent": [Circular],
-          "type": "tableRow",
+          "type": "table.row",
         },
         Object {
           "children": Array [
@@ -951,7 +951,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -963,7 +963,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -975,7 +975,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -987,11 +987,11 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
           ],
           "parent": [Circular],
-          "type": "tableRow",
+          "type": "table.row",
         },
       ],
       "parent": [Circular],
@@ -1020,7 +1020,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1032,7 +1032,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1044,7 +1044,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1056,16 +1056,16 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
           ],
           "parent": [Circular],
-          "type": "tableRow",
+          "type": "table.row",
         },
         Object {
           "children": Array [],
           "parent": [Circular],
-          "type": "tableSeparator",
+          "type": "table.separator",
         },
         Object {
           "children": Array [
@@ -1085,7 +1085,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1109,7 +1109,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1121,7 +1121,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1138,11 +1138,11 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
           ],
           "parent": [Circular],
-          "type": "tableRow",
+          "type": "table.row",
         },
         Object {
           "children": Array [
@@ -1162,7 +1162,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1180,7 +1180,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1192,7 +1192,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1209,11 +1209,11 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
           ],
           "parent": [Circular],
-          "type": "tableRow",
+          "type": "table.row",
         },
         Object {
           "children": Array [
@@ -1233,7 +1233,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1251,7 +1251,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1263,7 +1263,7 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
             Object {
               "children": Array [
@@ -1280,11 +1280,11 @@ Object {
                 },
               ],
               "parent": [Circular],
-              "type": "tableCell",
+              "type": "table.cell",
             },
           ],
           "parent": [Circular],
-          "type": "tableRow",
+          "type": "table.row",
         },
       ],
       "parent": [Circular],
@@ -1312,7 +1312,7 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
-          "type": "listItem",
+          "type": "list.item",
         },
         Object {
           "children": Array [
@@ -1325,7 +1325,7 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
-          "type": "listItem",
+          "type": "list.item",
         },
         Object {
           "children": Array [
@@ -1338,7 +1338,7 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
-          "type": "listItem",
+          "type": "list.item",
         },
       ],
       "ordered": false,
@@ -1380,22 +1380,22 @@ Object {
           "parent": [Circular],
           "type": "paragraph",
         },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "This is not.",
+            },
+          ],
+          "parent": [Circular],
+          "type": "paragraph",
+        },
       ],
       "label": "1",
       "parent": [Circular],
-      "type": "footnote",
-    },
-    Object {
-      "children": Array [
-        Object {
-          "children": Array [],
-          "parent": [Circular],
-          "type": "text",
-          "value": "This is not.",
-        },
-      ],
-      "parent": [Circular],
-      "type": "paragraph",
+      "type": "footnote.definition",
     },
   ],
   "meta": Object {},
@@ -1423,7 +1423,7 @@ Object {
       ],
       "label": "1",
       "parent": [Circular],
-      "type": "footnote",
+      "type": "footnote.definition",
     },
     Object {
       "children": Array [
@@ -1442,7 +1442,7 @@ Object {
       ],
       "label": "2",
       "parent": [Circular],
-      "type": "footnote",
+      "type": "footnote.definition",
     },
   ],
   "meta": Object {},
@@ -1470,7 +1470,7 @@ Object {
       ],
       "label": "1",
       "parent": [Circular],
-      "type": "footnote",
+      "type": "footnote.definition",
     },
     Object {
       "children": Array [

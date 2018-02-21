@@ -12,12 +12,12 @@ function process(token, section) {
       if ( !token.name.startsWith(`table.`) ) break
       self.consume()
       if (token.name === `table.separator`) {
-        table.push(new Node(`tableSeparator`))
+        table.push(new Node(`table.separator`))
         continue
       }
       if ( token.name != `table.row` ) break
-      const cells = token.data.cells.map(c => new Node(`tableCell`, inlineParse(c)))
-      const row = new Node(`tableRow`, cells)
+      const cells = token.data.cells.map(c => new Node(`table.cell`, inlineParse(c)))
+      const row = new Node(`table.row`, cells)
       table.push(row)
     }
     return table
