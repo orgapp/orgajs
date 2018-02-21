@@ -309,7 +309,7 @@ Object {
     "label": "1",
   },
   "name": "footnote",
-  "raw": "[fn:1]: a footnote",
+  "raw": "[fn:1] a footnote",
 }
 `;
 
@@ -320,7 +320,7 @@ Object {
     "label": "word",
   },
   "name": "footnote",
-  "raw": "[fn:word]: a footnote",
+  "raw": "[fn:word] a footnote",
 }
 `;
 
@@ -331,7 +331,7 @@ Object {
     "label": "word_",
   },
   "name": "footnote",
-  "raw": "[fn:word_]: a footnote",
+  "raw": "[fn:word_] a footnote",
 }
 `;
 
@@ -342,7 +342,7 @@ Object {
     "label": "wor1d_",
   },
   "name": "footnote",
-  "raw": "[fn:wor1d_]: a footnote",
+  "raw": "[fn:wor1d_] a footnote",
 }
 `;
 
@@ -881,21 +881,28 @@ Object {
 exports[`Lexer knows these are not footnotes 1`] = `
 Object {
   "name": "line",
-  "raw": " [fn:1]: not a footnote",
+  "raw": "[fn:1]: not a footnote",
 }
 `;
 
 exports[`Lexer knows these are not footnotes 2`] = `
 Object {
   "name": "line",
-  "raw": "[[fn:1]: not a footnote",
+  "raw": " [fn:1] not a footnote",
 }
 `;
 
 exports[`Lexer knows these are not footnotes 3`] = `
 Object {
   "name": "line",
-  "raw": "	[fn:1]: not a footnote",
+  "raw": "[[fn:1] not a footnote",
+}
+`;
+
+exports[`Lexer knows these are not footnotes 4`] = `
+Object {
+  "name": "line",
+  "raw": "	[fn:1] not a footnote",
 }
 `;
 

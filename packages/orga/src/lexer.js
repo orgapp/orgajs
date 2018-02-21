@@ -96,7 +96,7 @@ org.define('horizontalRule', /^\s*-{5,}\s*$/)
 
 org.define('comment', /^\s*#\s.*$/)
 
-org.define('footnote', /^\[fn:(\w+)\]:\s*(.*)$/, m => {
+org.define('footnote', /^\[fn:(\w+)\]\s+(.*)$/, m => {
   const label = m[1]
   const content = m[2]
   return { label, content }

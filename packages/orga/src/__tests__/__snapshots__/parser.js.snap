@@ -249,6 +249,28 @@ key2: value 2",
 }
 `;
 
+exports[`Parser can handle footnote 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "parent": [Circular],
+          "type": "text",
+          "value": "Content of the footnote.",
+        },
+      ],
+      "label": "1",
+      "parent": [Circular],
+      "type": "footnote",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
 exports[`Parser can handle html export 1`] = `
 Object {
   "children": Array [
