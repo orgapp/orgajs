@@ -6,23 +6,26 @@ function Parser(options = require('./defaults')) {
   this.options = options
   this.lexer = new Lexer(this.options)
   this._aks = {}
+  this.prefix = []
 }
 
 Parser.prototype.peek = function() {
+  if (this.prefix.length > 0) return this.prefix[0]
   return this.getToken(this.cursor + 1)
 }
 
 Parser.prototype.hasNext = function() {
-  return this.cursor + 1 < this.lines.length
+  return this.prefix.length > 0 || this.cursor + 1 < this.lines.length
 }
 
 Parser.prototype.consume = function() {
+  if (this.prefix.length > 0) return this.prefix.shift()
   this.cursor++
+  return this.getToken(this.cursor)
 }
 
 Parser.prototype.next = function() {
-  this.consume()
-  return this.getToken(this.cursor)
+  return this.consume()
 }
 
 Parser.prototype.getToken = function(index) {
@@ -68,21 +71,17 @@ Parser.prototype.unagi = function(element) {
   return element
 }
 
-Parser.prototype.process = function(token, section) {
+Parser.prototype.parseSection = function(section, stopSigns = []) {
+  const token = this.peek()
   if (!token) return section
+  if (stopSigns.includes(token.name)) return section
   const p = this.processor[token.name]
   if (p) {
     return p.bind(this)(token, section)
   }
   this.consume()
   this._aks = {}
-  return this.parseSection(section)
-}
-
-Parser.prototype.parseSection = function(section) {
-  const token = this.peek()
-  if (!token) { return section }
-  return this.process(token, section)
+  return this.parseSection(section, stopSigns)
 }
 
 module.exports = Parser

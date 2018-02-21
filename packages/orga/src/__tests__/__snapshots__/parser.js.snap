@@ -255,10 +255,16 @@ Object {
     Object {
       "children": Array [
         Object {
-          "children": Array [],
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Content of the footnote.",
+            },
+          ],
           "parent": [Circular],
-          "type": "text",
-          "value": "Content of the footnote.",
+          "type": "paragraph",
         },
       ],
       "label": "1",
@@ -338,6 +344,34 @@ Object {
   "meta": Object {
     "nop": "code_block",
   },
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle multi line footnote 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Content of the footnote. And here is another line.",
+            },
+          ],
+          "parent": [Circular],
+          "type": "paragraph",
+        },
+      ],
+      "label": "1",
+      "parent": [Circular],
+      "type": "footnote",
+    },
+  ],
+  "meta": Object {},
   "type": "root",
 }
 `;

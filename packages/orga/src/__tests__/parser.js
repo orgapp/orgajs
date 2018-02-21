@@ -199,4 +199,12 @@ this is line three.
 `
     expect(parser.parse(content)).toMatchSnapshot()
   })
+
+  it('can handle multi line footnote', () => {
+    const content = `
+[fn:1] Content of the footnote.
+And here is another line.
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
 })

@@ -7,11 +7,10 @@ function process(token, section) {
 
   const parseFootnote = () => {
     const { label, content } = self.next().data
-    while (self.hasNext()) {
-      // const token = self.peek()
-      // if ([''])
-    }
-    return new Node(`footnote`, inlineParse(content)).with({ label })
+    var fn = new Node(`footnote`).with({ label })
+    self.prefix = [{ name: `line`, raw: content, data: { content: content.trim() } }]
+    fn = self.parseSection(fn, [`headline`, `footnote`])
+    return fn
   }
   section.push(parseFootnote())
   self._aks = {}
