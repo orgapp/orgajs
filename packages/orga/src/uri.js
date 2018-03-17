@@ -28,8 +28,8 @@ function processQuery(q) {
     return { ln }
   }
   if (q.startsWith(`*`)) {
-    const headline = q.replace(/^\*+/, '')
-    return { headline }
+    const heading = q.replace(/^\*+/, '')
+    return { heading }
   }
   return { text: q }
 }

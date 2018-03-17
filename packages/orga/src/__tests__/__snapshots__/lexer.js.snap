@@ -346,63 +346,63 @@ Object {
 }
 `;
 
-exports[`Lexer knows headlines 1`] = `
+exports[`Lexer knows headings 1`] = `
 Object {
   "data": Object {
-    "content": "a headline",
+    "content": "a heading",
     "keyword": undefined,
     "level": 2,
     "priority": undefined,
     "tags": Array [],
   },
   "name": "heading",
-  "raw": "** a headline",
+  "raw": "** a heading",
 }
 `;
 
-exports[`Lexer knows headlines 2`] = `
+exports[`Lexer knows headings 2`] = `
 Object {
   "data": Object {
-    "content": "_headline_",
+    "content": "_heading_",
     "keyword": undefined,
     "level": 2,
     "priority": undefined,
     "tags": Array [],
   },
   "name": "heading",
-  "raw": "** _headline_",
+  "raw": "** _heading_",
 }
 `;
 
-exports[`Lexer knows headlines 3`] = `
+exports[`Lexer knows headings 3`] = `
 Object {
   "data": Object {
-    "content": "a headline",
+    "content": "a heading",
     "keyword": undefined,
     "level": 2,
     "priority": undefined,
     "tags": Array [],
   },
   "name": "heading",
-  "raw": "**   a headline",
+  "raw": "**   a heading",
 }
 `;
 
-exports[`Lexer knows headlines 4`] = `
+exports[`Lexer knows headings 4`] = `
 Object {
   "data": Object {
-    "content": "a headline",
+    "content": "a heading",
     "keyword": undefined,
     "level": 5,
     "priority": undefined,
     "tags": Array [],
   },
   "name": "heading",
-  "raw": "***** a headline",
+  "raw": "***** a heading",
 }
 `;
 
-exports[`Lexer knows headlines 5`] = `
+exports[`Lexer knows headings 5`] = `
 Object {
   "data": Object {
     "content": "a 😀line",
@@ -416,10 +416,10 @@ Object {
 }
 `;
 
-exports[`Lexer knows headlines 6`] = `
+exports[`Lexer knows headings 6`] = `
 Object {
   "data": Object {
-    "content": "a headline",
+    "content": "a heading",
     "keyword": "TODO",
     "level": 1,
     "priority": "A",
@@ -429,7 +429,7 @@ Object {
     ],
   },
   "name": "heading",
-  "raw": "* TODO [#A] a headline     :tag1:tag2:",
+  "raw": "* TODO [#A] a heading     :tag1:tag2:",
 }
 `;
 
@@ -906,31 +906,31 @@ Object {
 }
 `;
 
-exports[`Lexer knows these are not headlines 1`] = `
+exports[`Lexer knows these are not headings 1`] = `
 Object {
   "name": "line",
-  "raw": "*not a headline",
+  "raw": "*not a heading",
 }
 `;
 
-exports[`Lexer knows these are not headlines 2`] = `
+exports[`Lexer knows these are not headings 2`] = `
 Object {
   "name": "line",
-  "raw": " * not a headline",
+  "raw": " * not a heading",
 }
 `;
 
-exports[`Lexer knows these are not headlines 3`] = `
+exports[`Lexer knows these are not headings 3`] = `
 Object {
   "name": "line",
-  "raw": "*_* not a headline",
+  "raw": "*_* not a heading",
 }
 `;
 
-exports[`Lexer knows these are not headlines 4`] = `
+exports[`Lexer knows these are not headings 4`] = `
 Object {
   "name": "line",
-  "raw": "not a headline",
+  "raw": "not a heading",
 }
 `;
 

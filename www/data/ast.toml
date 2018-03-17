@@ -6,16 +6,16 @@ desc = "Paragraph represents a consecutive lines of non-special lines."
 [[examples]]
 name = "Section"
 org = """
-* Headline 1
+* Heading 1
 And this is the content.
-** Headline 1.1
-*** Headline 1.1.1
-* Headline 2
+** Heading 1.1
+*** Heading 1.1.1
+* Heading 2
 """
-desc = "Section starts with a headline, and it can be nested."
+desc = "Section starts with a heading, and it can be nested."
 
 [[examples]]
-name = "Headline"
+name = "Heading"
 org = """
 * TODO [#A] Hello World   :tag1:tag2:
 DEADLINE: <2018-01-01 Mon>
@@ -24,7 +24,7 @@ key0: value0
 key1: value1
 :END:
 """
-desc = "Headline can have keyword, priority, tags, planning, drawers."
+desc = "Heading can have keyword, priority, tags, planning, drawers."
 
 [[examples]]
 name = "Blocks"

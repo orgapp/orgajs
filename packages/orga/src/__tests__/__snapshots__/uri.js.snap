@@ -32,7 +32,7 @@ Object {
   "location": "./hello.org",
   "protocol": "file",
   "query": Object {
-    "headline": "shopping list",
+    "heading": "shopping list",
   },
   "raw": "./hello.org::*shopping list",
 }
