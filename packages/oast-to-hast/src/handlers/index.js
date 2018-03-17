@@ -1,6 +1,6 @@
 import root from './root'
 import section from './section'
-import headline from './headline'
+import heading from './heading'
 import block from './block'
 import link from './link'
 import {
@@ -26,7 +26,7 @@ import {
 module.exports = {
   root,
   section,
-  headline,
+  heading,
   block,
   link,
   bold,
