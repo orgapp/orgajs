@@ -33,7 +33,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "headline",
+              "value": "heading",
             },
           ],
           "keyword": undefined,
@@ -41,7 +41,7 @@ Object {
           "parent": [Circular],
           "priority": undefined,
           "tags": Array [],
-          "type": "headline",
+          "type": "heading",
         },
         Object {
           "children": Array [],
@@ -76,7 +76,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "headline",
+              "value": "heading",
             },
           ],
           "keyword": undefined,
@@ -84,7 +84,7 @@ Object {
           "parent": [Circular],
           "priority": undefined,
           "tags": Array [],
-          "type": "headline",
+          "type": "heading",
         },
         Object {
           "children": Array [
@@ -120,7 +120,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "headline",
+              "value": "heading",
             },
           ],
           "keyword": undefined,
@@ -128,7 +128,7 @@ Object {
           "parent": [Circular],
           "priority": undefined,
           "tags": Array [],
-          "type": "headline",
+          "type": "heading",
         },
         Object {
           "children": Array [
@@ -164,7 +164,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "headline",
+              "value": "heading",
             },
           ],
           "keyword": undefined,
@@ -172,7 +172,7 @@ Object {
           "parent": [Circular],
           "priority": undefined,
           "tags": Array [],
-          "type": "headline",
+          "type": "heading",
         },
         Object {
           "children": Array [
@@ -406,7 +406,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "headline",
+              "value": "heading",
             },
             Object {
               "children": Array [],
@@ -422,7 +422,7 @@ key2: value 2",
           "parent": [Circular],
           "priority": undefined,
           "tags": Array [],
-          "type": "headline",
+          "type": "heading",
         },
       ],
       "level": 1,
@@ -635,7 +635,7 @@ Object {
 }
 `;
 
-exports[`Parser can handle nested headlines 1`] = `
+exports[`Parser can handle nested headings 1`] = `
 Object {
   "children": Array [
     Object {
@@ -646,7 +646,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "#HEADLINE# 1",
+              "value": "#HEADING# 1",
             },
           ],
           "keyword": undefined,
@@ -654,7 +654,7 @@ Object {
           "parent": [Circular],
           "priority": undefined,
           "tags": Array [],
-          "type": "headline",
+          "type": "heading",
         },
         Object {
           "children": Array [
@@ -676,7 +676,7 @@ Object {
                   "children": Array [],
                   "parent": [Circular],
                   "type": "text",
-                  "value": "#HEADLINE# 1.1",
+                  "value": "#HEADING# 1.1",
                 },
               ],
               "keyword": undefined,
@@ -684,7 +684,7 @@ Object {
               "parent": [Circular],
               "priority": undefined,
               "tags": Array [],
-              "type": "headline",
+              "type": "heading",
             },
             Object {
               "children": Array [
@@ -694,7 +694,7 @@ Object {
                       "children": Array [],
                       "parent": [Circular],
                       "type": "text",
-                      "value": "#HEADLINE# 1.1.1",
+                      "value": "#HEADING# 1.1.1",
                     },
                   ],
                   "keyword": undefined,
@@ -702,7 +702,7 @@ Object {
                   "parent": [Circular],
                   "priority": undefined,
                   "tags": Array [],
-                  "type": "headline",
+                  "type": "heading",
                 },
                 Object {
                   "children": Array [
@@ -734,7 +734,7 @@ Object {
                   "children": Array [],
                   "parent": [Circular],
                   "type": "text",
-                  "value": "#HEADLINE# 1.2",
+                  "value": "#HEADING# 1.2",
                 },
               ],
               "keyword": undefined,
@@ -742,7 +742,7 @@ Object {
               "parent": [Circular],
               "priority": undefined,
               "tags": Array [],
-              "type": "headline",
+              "type": "heading",
             },
           ],
           "level": 2,
@@ -762,7 +762,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "#HEADLINE# 2",
+              "value": "#HEADING# 2",
             },
           ],
           "keyword": undefined,
@@ -770,7 +770,7 @@ Object {
           "parent": [Circular],
           "priority": undefined,
           "tags": Array [],
-          "type": "headline",
+          "type": "heading",
         },
         Object {
           "children": Array [
@@ -780,7 +780,7 @@ Object {
                   "children": Array [],
                   "parent": [Circular],
                   "type": "text",
-                  "value": "#HEADLINE# 2.2",
+                  "value": "#HEADING# 2.2",
                 },
               ],
               "keyword": undefined,
@@ -788,7 +788,7 @@ Object {
               "parent": [Circular],
               "priority": undefined,
               "tags": Array [],
-              "type": "headline",
+              "type": "heading",
             },
           ],
           "level": 2,
@@ -1653,7 +1653,7 @@ Object {
 }
 `;
 
-exports[`Parser knows when headline can stop footnote 1`] = `
+exports[`Parser knows when heading can stop footnote 1`] = `
 Object {
   "children": Array [
     Object {
@@ -1683,7 +1683,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "A Headline",
+              "value": "A heading",
             },
           ],
           "keyword": undefined,
@@ -1691,7 +1691,7 @@ Object {
           "parent": [Circular],
           "priority": undefined,
           "tags": Array [],
-          "type": "headline",
+          "type": "heading",
         },
       ],
       "level": 1,
@@ -1715,7 +1715,7 @@ Object {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
-              "value": "headline one",
+              "value": "heading one",
             },
             Object {
               "children": Array [],
@@ -1738,7 +1738,7 @@ key: value",
           "parent": [Circular],
           "priority": undefined,
           "tags": Array [],
-          "type": "headline",
+          "type": "heading",
         },
         Object {
           "children": Array [

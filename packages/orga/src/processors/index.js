@@ -1,5 +1,5 @@
 import keyword from './keyword'
-import headline from './headline'
+import heading from './heading'
 import line from './line'
 import block from './block'
 import list from './list'
@@ -10,7 +10,7 @@ import blank from './blank'
 
 module.exports = {
   keyword,
-  headline,
+  heading,
   line,
   "block.begin": block,
   "list.item": list,

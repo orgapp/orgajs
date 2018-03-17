@@ -24,11 +24,11 @@ Syntax.prototype = {
 
 var org = new Syntax()
 
-function headlinePattern(todos = ['TODO', 'DONE']) {
+function headingPattern(todos = ['TODO', 'DONE']) {
   return RegExp(`^(\\*+)\\s+(?:(${todos.join('|')})\\s+)?(?:\\[#(A|B|C)\\]\\s+)?(.*?)\\s*(:(?:\\w+:)+)?$`)
 }
 
-org.define('headline', headlinePattern(), m => {
+org.define('heading', headingPattern(), m => {
   const level = m[1].length
   const keyword = m[2]
   const priority = m[3]
@@ -129,7 +129,7 @@ Lexer.prototype = {
   },
 
   updateTODOs: function(todos) {
-    this.syntax.update(`headline`, headlinePattern(todos))
+    this.syntax.update(`heading`, headingPattern(todos))
   }
 
 }

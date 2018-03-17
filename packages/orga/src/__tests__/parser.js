@@ -8,7 +8,7 @@ describe('Parser', () => {
 #+TODO: TODO NEXT | DONE
 #+DATE: 2018-01-01
 
-* NEXT headline one
+* NEXT heading one
 DEADLINE: <2018-01-01 Mon>
 :PROPERTIES:
 key: value
@@ -24,7 +24,7 @@ the round pegs in the +round+ square holes...
 
   it(`can handle blocks`, () => {
     const content = `
-* headline
+* heading
 #+BEGIN_SRC javascript
 console.log('hello')
 console.log('world')
@@ -35,7 +35,7 @@ console.log('world')
 
   it(`can handle broken blocks`, () => {
     const endLess = `
-* headline
+* heading
 #+BEGIN_SRC javascript
 console.log('hello')
 console.log('world')
@@ -43,7 +43,7 @@ console.log('world')
     expect(parser.parse(endLess)).toMatchSnapshot()
 
     const beginLess = `
-* headline
+* heading
 console.log('hello')
 console.log('world')
 #+END_SRC
@@ -53,7 +53,7 @@ console.log('world')
 
   it('can handle drawers', () => {
     const content = `
-* headline
+* heading
 :PROPERTIES:
 key1: value 1
 key2: value 2
@@ -64,7 +64,7 @@ key2: value 2
 
   it('can handle broken drawers', () => {
     const content = `
-* headline
+* heading
 :PROPERTIES:
 key: value
 key: value
@@ -74,17 +74,17 @@ Paragraph
     expect(parser.parse(content)).toMatchSnapshot()
   })
 
-  it('can handle nested headlines', () => {
+  it('can handle nested headings', () => {
     const content = `
-* #HEADLINE# 1
+* #HEADING# 1
 Paragraph
-** #HEADLINE# 1.1
-*** #HEADLINE# 1.1.1
+** #HEADING# 1.1
+*** #HEADING# 1.1.1
 content
 
-** #HEADLINE# 1.2
-* #HEADLINE# 2
-** #HEADLINE# 2.2
+** #HEADING# 1.2
+* #HEADING# 2
+** #HEADING# 2.2
 `
     expect(parser.parse(content)).toMatchSnapshot()
 
@@ -250,11 +250,11 @@ console.log('footnote with code block')
     expect(parser.parse(content)).toMatchSnapshot()
   })
 
-  it('knows when headline can stop footnote', () => {
+  it('knows when heading can stop footnote', () => {
     const content = `
 [fn:1] Content of the footnote.
 And here is another line.
-* A Headline
+* A heading
 `
     expect(parser.parse(content)).toMatchSnapshot()
   })

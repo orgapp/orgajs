@@ -355,7 +355,7 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "name": "headline",
+  "name": "heading",
   "raw": "** a headline",
 }
 `;
@@ -369,7 +369,7 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "name": "headline",
+  "name": "heading",
   "raw": "** _headline_",
 }
 `;
@@ -383,7 +383,7 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "name": "headline",
+  "name": "heading",
   "raw": "**   a headline",
 }
 `;
@@ -397,7 +397,7 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "name": "headline",
+  "name": "heading",
   "raw": "***** a headline",
 }
 `;
@@ -411,7 +411,7 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "name": "headline",
+  "name": "heading",
   "raw": "* a 😀line",
 }
 `;
@@ -428,7 +428,7 @@ Object {
       "tag2",
     ],
   },
-  "name": "headline",
+  "name": "heading",
   "raw": "* TODO [#A] a headline     :tag1:tag2:",
 }
 `;
