@@ -4,14 +4,14 @@
   "version": "1.0.0",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "dependencies": {
-    "gatsby": "^1.9.206",
-    "gatsby-link": "^1.6.37",
-    "gatsby-plugin-react-helmet": "^2.0.5",
-    "gatsby-plugin-sass": "^1.0.17",
-    "gatsby-plugin-typography": "^1.7.14",
-    "gatsby-source-filesystem": "^1.5.21",
-    "gatsby-transformer-orga": "0.4.1",
-    "gatsby-transformer-toml": "^1.1.8",
+    "gatsby": "^1.9.236",
+    "gatsby-link": "^1.6.39",
+    "gatsby-plugin-react-helmet": "^2.0.8",
+    "gatsby-plugin-sass": "^1.0.23",
+    "gatsby-plugin-typography": "^1.7.18",
+    "gatsby-source-filesystem": "^1.5.27",
+    "gatsby-transformer-orga": "0.5.0",
+    "gatsby-transformer-toml": "^1.1.9",
     "react-helmet": "^5.2.0",
     "typography-breakpoint-constants": "^0.15.10",
     "typography-plugin-code": "^0.16.11",
@@ -32,6 +32,6 @@
   },
   "devDependencies": {
     "gh-pages": "^1.1.0",
-    "prettier": "^1.10.2"
+    "prettier": "^1.11.1"
   }
 }
