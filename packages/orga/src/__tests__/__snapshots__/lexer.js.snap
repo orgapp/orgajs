@@ -346,10 +346,10 @@ Object {
 }
 `;
 
-exports[`Lexer knows headings 1`] = `
+exports[`Lexer knows headlines 1`] = `
 Object {
   "data": Object {
-    "content": "a heading",
+    "content": "a headline",
     "keyword": undefined,
     "level": 2,
     "priority": undefined,
@@ -360,10 +360,10 @@ Object {
 }
 `;
 
-exports[`Lexer knows headings 2`] = `
+exports[`Lexer knows headlines 2`] = `
 Object {
   "data": Object {
-    "content": "_heading_",
+    "content": "_headline_",
     "keyword": undefined,
     "level": 2,
     "priority": undefined,
@@ -374,10 +374,10 @@ Object {
 }
 `;
 
-exports[`Lexer knows headings 3`] = `
+exports[`Lexer knows headlines 3`] = `
 Object {
   "data": Object {
-    "content": "a heading",
+    "content": "a headline",
     "keyword": undefined,
     "level": 2,
     "priority": undefined,
@@ -388,10 +388,10 @@ Object {
 }
 `;
 
-exports[`Lexer knows headings 4`] = `
+exports[`Lexer knows headlines 4`] = `
 Object {
   "data": Object {
-    "content": "a heading",
+    "content": "a headline",
     "keyword": undefined,
     "level": 5,
     "priority": undefined,
@@ -402,7 +402,7 @@ Object {
 }
 `;
 
-exports[`Lexer knows headings 5`] = `
+exports[`Lexer knows headlines 5`] = `
 Object {
   "data": Object {
     "content": "a 😀line",
@@ -416,10 +416,10 @@ Object {
 }
 `;
 
-exports[`Lexer knows headings 6`] = `
+exports[`Lexer knows headlines 6`] = `
 Object {
   "data": Object {
-    "content": "a heading",
+    "content": "a headline",
     "keyword": "TODO",
     "level": 1,
     "priority": "A",
@@ -906,31 +906,31 @@ Object {
 }
 `;
 
-exports[`Lexer knows these are not headings 1`] = `
+exports[`Lexer knows these are not headlines 1`] = `
 Object {
   "name": "line",
-  "raw": "*not a heading",
+  "raw": "*not a headline",
 }
 `;
 
-exports[`Lexer knows these are not headings 2`] = `
+exports[`Lexer knows these are not headlines 2`] = `
 Object {
   "name": "line",
-  "raw": " * not a heading",
+  "raw": " * not a headline",
 }
 `;
 
-exports[`Lexer knows these are not headings 3`] = `
+exports[`Lexer knows these are not headlines 3`] = `
 Object {
   "name": "line",
-  "raw": "*_* not a heading",
+  "raw": "*_* not a headline",
 }
 `;
 
-exports[`Lexer knows these are not headings 4`] = `
+exports[`Lexer knows these are not headlines 4`] = `
 Object {
   "name": "line",
-  "raw": "not a heading",
+  "raw": "not a headline",
 }
 `;
 

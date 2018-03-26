@@ -21,20 +21,20 @@ describe('Lexer', () => {
     expect(lexer.tokenize(' a ')).toMatchSnapshot()
   })
 
-  it('knows headings', () => {
-    expect(lexer.tokenize('** a heading')).toMatchSnapshot()
-    expect(lexer.tokenize('** _heading_')).toMatchSnapshot()
-    expect(lexer.tokenize('**   a heading')).toMatchSnapshot()
-    expect(lexer.tokenize('***** a heading')).toMatchSnapshot()
+  it('knows headlines', () => {
+    expect(lexer.tokenize('** a headline')).toMatchSnapshot()
+    expect(lexer.tokenize('** _headline_')).toMatchSnapshot()
+    expect(lexer.tokenize('**   a headline')).toMatchSnapshot()
+    expect(lexer.tokenize('***** a headline')).toMatchSnapshot()
     expect(lexer.tokenize('* a 😀line')).toMatchSnapshot()
-    expect(lexer.tokenize('* TODO [#A] a heading     :tag1:tag2:')).toMatchSnapshot()
+    expect(lexer.tokenize('* TODO [#A] a headline     :tag1:tag2:')).toMatchSnapshot()
   })
 
-  it('knows these are not headings', () => {
-    expect(lexer.tokenize('*not a heading')).toMatchSnapshot()
-    expect(lexer.tokenize(' * not a heading')).toMatchSnapshot()
-    expect(lexer.tokenize('*_* not a heading')).toMatchSnapshot()
-    expect(lexer.tokenize('not a heading')).toMatchSnapshot()
+  it('knows these are not headlines', () => {
+    expect(lexer.tokenize('*not a headline')).toMatchSnapshot()
+    expect(lexer.tokenize(' * not a headline')).toMatchSnapshot()
+    expect(lexer.tokenize('*_* not a headline')).toMatchSnapshot()
+    expect(lexer.tokenize('not a headline')).toMatchSnapshot()
   })
 
   it('knows keywords', () => {
