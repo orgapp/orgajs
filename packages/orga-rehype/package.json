@@ -1,6 +1,6 @@
 {
   "name": "orga-rehype",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "rehype support for orga",
   "files": [
     "lib"
@@ -21,6 +21,6 @@
     "prepare": "cross-env NODE_ENV=production npm run build"
   },
   "dependencies": {
-    "oast-to-hast": "^0.5.0"
+    "oast-to-hast": "^0.5.1"
   }
 }
