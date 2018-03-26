@@ -1770,9 +1770,9 @@ cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
 
-clipboard@^1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-1.7.1.tgz#360d6d6946e99a7a1fef395e42ba92b5e9b5a16b"
+clipboard@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-2.0.0.tgz#4661dc972fb72a4c4770b8db78aa9b1caef52b50"
   dependencies:
     good-listener "^1.2.2"
     select "^1.1.2"
@@ -3237,9 +3237,9 @@ function-bind@^1.0.2:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
 
-gatsby-1-config-css-modules@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/gatsby-1-config-css-modules/-/gatsby-1-config-css-modules-1.0.10.tgz#56967add247213d56167715539229afe39d4ccf6"
+gatsby-1-config-css-modules@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/gatsby-1-config-css-modules/-/gatsby-1-config-css-modules-1.0.11.tgz#5a102c6b11f9a6963b3892ecc959511e1688e525"
   dependencies:
     babel-runtime "^6.26.0"
 
@@ -3250,9 +3250,9 @@ gatsby-1-config-extract-plugin@^1.0.2:
     babel-runtime "^6.26.0"
     extract-text-webpack-plugin "^1.0.1"
 
-gatsby-cli@^1.1.46:
-  version "1.1.46"
-  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-1.1.46.tgz#ebbca830805c63f6ef5be0a0c4d308dd597ad10b"
+gatsby-cli@^1.1.48:
+  version "1.1.48"
+  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-1.1.48.tgz#7ce1e15e5c02195ff4d8981a23a385e51e7d6cf0"
   dependencies:
     babel-code-frame "^6.26.0"
     babel-runtime "^6.26.0"
@@ -3295,12 +3295,12 @@ gatsby-plugin-react-helmet@^2.0.8:
   dependencies:
     babel-runtime "^6.26.0"
 
-gatsby-plugin-sass@^1.0.23:
-  version "1.0.23"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-sass/-/gatsby-plugin-sass-1.0.23.tgz#bc2039b87d76b996346db8a0ed53ab131d533a8f"
+gatsby-plugin-sass@^1.0.24:
+  version "1.0.24"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-sass/-/gatsby-plugin-sass-1.0.24.tgz#9024e7e339b51a2a6b14dde977001ecc27c57676"
   dependencies:
     babel-runtime "^6.26.0"
-    gatsby-1-config-css-modules "^1.0.10"
+    gatsby-1-config-css-modules "^1.0.11"
     gatsby-1-config-extract-plugin "^1.0.2"
     node-sass "^4.5.2"
     sass-loader "^4.1.1"
@@ -3314,9 +3314,9 @@ gatsby-plugin-typography@^1.7.18:
     react-typography "^0.16.1"
     typography "^0.16.0"
 
-gatsby-react-router-scroll@^1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/gatsby-react-router-scroll/-/gatsby-react-router-scroll-1.0.13.tgz#d1cfd43c334497ad174ae9409c24bb5d4dcda3aa"
+gatsby-react-router-scroll@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/gatsby-react-router-scroll/-/gatsby-react-router-scroll-1.0.14.tgz#7e3b59c2266772030c6bfeaa8914c71dd3c12c59"
   dependencies:
     babel-runtime "^6.26.0"
     scroll-behavior "^0.9.9"
@@ -3338,16 +3338,16 @@ gatsby-source-filesystem@^1.5.27:
     slash "^1.0.0"
     valid-url "^1.0.9"
 
-gatsby-transformer-orga@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/gatsby-transformer-orga/-/gatsby-transformer-orga-0.5.0.tgz#ba4653087377b206b4df72caa1523af334c9f77d"
+gatsby-transformer-orga@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-orga/-/gatsby-transformer-orga-0.5.1.tgz#06e178699068b057f99dcddf4f9abee12d4b85fd"
   dependencies:
     bluebird "^3.5.1"
-    graphql-type-json "^0.1.4"
+    graphql-type-json "^0.2.0"
     hast-util-to-html "^3.1.0"
     mime "^2.2.0"
-    oast-to-hast "^0.5.0"
-    orga "^0.5.0"
+    oast-to-hast "^0.5.1"
+    orga "^0.5.1"
     rehype-stringify "^3.0.0"
     unified "^6.1.6"
     unist-builder "^1.0.2"
@@ -3361,9 +3361,9 @@ gatsby-transformer-toml@^1.1.9:
     bluebird "^3.5.0"
     toml "^2.3.2"
 
-gatsby@^1.9.236:
-  version "1.9.236"
-  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-1.9.236.tgz#ece3784aac05be3ade58e6eb2e99c5557464e65c"
+gatsby@^1.9.241:
+  version "1.9.241"
+  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-1.9.241.tgz#550f04177851c44be3bb235adf8461d5b1d89624"
   dependencies:
     async "^2.1.2"
     babel-code-frame "^6.22.0"
@@ -3403,12 +3403,12 @@ gatsby@^1.9.236:
     friendly-errors-webpack-plugin "^1.6.1"
     front-matter "^2.1.0"
     fs-extra "^4.0.1"
-    gatsby-1-config-css-modules "^1.0.10"
+    gatsby-1-config-css-modules "^1.0.11"
     gatsby-1-config-extract-plugin "^1.0.2"
-    gatsby-cli "^1.1.46"
+    gatsby-cli "^1.1.48"
     gatsby-link "^1.6.39"
     gatsby-module-loader "^1.0.11"
-    gatsby-react-router-scroll "^1.0.13"
+    gatsby-react-router-scroll "^1.0.14"
     glob "^7.1.1"
     graphql "^0.11.7"
     graphql-relay "^0.5.1"
@@ -3740,9 +3740,9 @@ graphql-skip-limit@^1.0.11:
     babel-runtime "^6.26.0"
     graphql "^0.11.7"
 
-graphql-type-json@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.1.4.tgz#89f13f5d32ce08c9a76c79fdf9c1968384d81a4e"
+graphql-type-json@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.2.0.tgz#34c1a5fc2b7707a367c436482b253dbeebf1130e"
 
 graphql@^0.11.3, graphql@^0.11.7:
   version "0.11.7"
@@ -5569,12 +5569,12 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-oast-to-hast@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/oast-to-hast/-/oast-to-hast-0.5.0.tgz#009dd1da10bb37ab4d76c5a21d57abf7f403321f"
+oast-to-hast@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/oast-to-hast/-/oast-to-hast-0.5.1.tgz#e5f0b43eb20e15c3d40d35e4d24e09973985b494"
   dependencies:
     mime "^2.2.0"
-    prismjs "^1.11.0"
+    prismjs "^1.13.0"
     unist-builder "^1.0.2"
 
 oauth-sign@~0.8.1, oauth-sign@~0.8.2:
@@ -5689,9 +5689,9 @@ optimist@^0.6.1, optimist@~0.6.0, optimist@~0.6.1:
     minimist "~0.0.1"
     wordwrap "~0.0.2"
 
-orga@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/orga/-/orga-0.5.0.tgz#b148b3b508840b2f45a9124dee1e58b7e00d4f09"
+orga@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/orga/-/orga-0.5.1.tgz#1e2c908bbe0c503e60eb288d6c26148ec84f9256"
 
 original@>=0.0.5:
   version "1.0.0"
@@ -6540,11 +6540,11 @@ pretty-error@^2.1.1:
     renderkid "^2.0.1"
     utila "~0.4"
 
-prismjs@^1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.11.0.tgz#297aef33eb79421bfdb19273a5092ca515970d29"
+prismjs@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.13.0.tgz#edcc14a90bbd72a03e5ffd2bab81a04c79a607a6"
   optionalDependencies:
-    clipboard "^1.7.1"
+    clipboard "^2.0.0"
 
 private@^0.1.6, private@^0.1.7:
   version "0.1.8"
