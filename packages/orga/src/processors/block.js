@@ -6,7 +6,7 @@ function parseBlock() {
   var lines = []
   while (this.hasNext()) {
     const t = this.next()
-    if ( t.name === `heading` ) { return undefined }
+    if ( t.name === `headline` ) { return undefined }
     if (t.name === `block.end` && t.data.type.toUpperCase() === type.toUpperCase() ) {
       if (t.data.type.toUpperCase() === `EXPORT`) {
         const format = params[0]

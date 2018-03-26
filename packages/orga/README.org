@@ -20,7 +20,7 @@ Turns org-mode content into AST.
 #+BEGIN_SRC javascript
   { type: 'root',
     children:
-     [ { type: 'heading',
+     [ { type: 'headline',
          children: [ { type: 'text', children: [], value: 'remember the milk' } ],
          level: 1,
          keyword: 'TODO',

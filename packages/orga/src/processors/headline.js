@@ -12,7 +12,7 @@ function parseDrawer() {
   var lines = []
   while (this.hasNext()) {
     const t = this.next()
-    if ( t.name === `heading` ) { return undefined }
+    if ( t.name === `headline` ) { return undefined }
     if (t.name === `drawer.end` ) {
       return new Node('drawer').with({ name: begin.data.type, value: lines.join(`\n`) })
     }
@@ -22,18 +22,18 @@ function parseDrawer() {
 }
 
 function process(token, section) {
-  if (section.type === `footnote.definition`) return section // heading breaks footnote
+  if (section.type === `footnote.definition`) return section // headline breaks footnote
   const { level, keyword, priority, tags, content } = token.data
   const currentLevel = section.level || 0
   if (level <= currentLevel) { return section }
   this.consume()
   const text = inlineParse(content)
-  var heading = new Node('heading', text).with({
+  var headline = new Node('headline', text).with({
     level, keyword, priority, tags
   })
   const planning = this.tryTo(parsePlanning)
   if (planning) {
-    heading.push(planning)
+    headline.push(planning)
   }
 
   while (this.hasNext() && this.peek().name == `drawer.begin`) {
@@ -42,10 +42,10 @@ function process(token, section) {
       this.downgradeToLine(this.cursor + 1)
       break
     }
-    heading.push(drawer)
+    headline.push(drawer)
   }
   const newSection = new Node(`section`).with({ level })
-  newSection.push(heading)
+  newSection.push(headline)
   section.push(this.parseSection(this.unagi(newSection)))
   this._aks = {}
   return this.parseSection(section)

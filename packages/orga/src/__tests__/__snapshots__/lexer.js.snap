@@ -355,8 +355,8 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "name": "heading",
-  "raw": "** a heading",
+  "name": "headline",
+  "raw": "** a headline",
 }
 `;
 
@@ -369,8 +369,8 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "name": "heading",
-  "raw": "** _heading_",
+  "name": "headline",
+  "raw": "** _headline_",
 }
 `;
 
@@ -383,8 +383,8 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "name": "heading",
-  "raw": "**   a heading",
+  "name": "headline",
+  "raw": "**   a headline",
 }
 `;
 
@@ -397,8 +397,8 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "name": "heading",
-  "raw": "***** a heading",
+  "name": "headline",
+  "raw": "***** a headline",
 }
 `;
 
@@ -411,7 +411,7 @@ Object {
     "priority": undefined,
     "tags": Array [],
   },
-  "name": "heading",
+  "name": "headline",
   "raw": "* a 😀line",
 }
 `;
@@ -428,8 +428,8 @@ Object {
       "tag2",
     ],
   },
-  "name": "heading",
-  "raw": "* TODO [#A] a heading     :tag1:tag2:",
+  "name": "headline",
+  "raw": "* TODO [#A] a headline     :tag1:tag2:",
 }
 `;
 
