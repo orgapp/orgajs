@@ -8,19 +8,19 @@ const match = (left, right) => {
 
 function section(h, node) {
   const props = { className: `section` }
-  const heading = node.children.find(
-    n => n.type === `heading`
+  const headline = node.children.find(
+    n => n.type === `headline`
   )
 
-  function shouldExclude(heading) {
-    if (!heading) return false
+  function shouldExclude(headline) {
+    if (!headline) return false
     if (h.selectTags.length > 0) {
-      return !match(heading.tags, h.selectTags)
+      return !match(headline.tags, h.selectTags)
     }
 
-    return match(heading.tags, h.excludeTags)
+    return match(headline.tags, h.excludeTags)
   }
 
-  if (shouldExclude(heading)) return undefined
+  if (shouldExclude(headline)) return undefined
   return h(node, `div`, props, all(h, node))
 }
