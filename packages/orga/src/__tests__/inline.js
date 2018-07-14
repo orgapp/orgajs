@@ -29,4 +29,16 @@ describe('Inline Parsing', () => {
   it('recon footnote reference', () => {
     expect(parse(`hello[fn:1] world.`)).toMatchSnapshot()
   })
+
+  it('recon emphasises with 2 chars', () => {
+    expect(parse(`*12*`)).toMatchSnapshot()
+    expect(parse(`*1*`)).toMatchSnapshot()
+  })
+
+  it('recon invalid inline markups', () => {
+    [ ',', '\'', '"', ' ' ].forEach(c => {
+      expect(parse(`*${c}word*`)).toMatchSnapshot() // begin
+      expect(parse(`*word${c}*`)).toMatchSnapshot() // end
+    })
+  })
 })

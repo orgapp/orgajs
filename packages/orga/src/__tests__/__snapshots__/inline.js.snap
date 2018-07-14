@@ -68,6 +68,38 @@ Array [
 ]
 `;
 
+exports[`Inline Parsing recon emphasises with 2 chars 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "12",
+      },
+    ],
+    "type": "bold",
+  },
+]
+`;
+
+exports[`Inline Parsing recon emphasises with 2 chars 2`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "1",
+      },
+    ],
+    "type": "bold",
+  },
+]
+`;
+
 exports[`Inline Parsing recon footnote reference 1`] = `
 Array [
   Object {
@@ -84,6 +116,86 @@ Array [
     "children": Array [],
     "type": "text",
     "value": " world.",
+  },
+]
+`;
+
+exports[`Inline Parsing recon invalid inline markups 1`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "*,word*",
+  },
+]
+`;
+
+exports[`Inline Parsing recon invalid inline markups 2`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "*word,*",
+  },
+]
+`;
+
+exports[`Inline Parsing recon invalid inline markups 3`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "*'word*",
+  },
+]
+`;
+
+exports[`Inline Parsing recon invalid inline markups 4`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "*word'*",
+  },
+]
+`;
+
+exports[`Inline Parsing recon invalid inline markups 5`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "*\\"word*",
+  },
+]
+`;
+
+exports[`Inline Parsing recon invalid inline markups 6`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "*word\\"*",
+  },
+]
+`;
+
+exports[`Inline Parsing recon invalid inline markups 7`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "* word*",
+  },
+]
+`;
+
+exports[`Inline Parsing recon invalid inline markups 8`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "*word *",
   },
 ]
 `;

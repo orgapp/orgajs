@@ -9,7 +9,7 @@ const POST = `(?:[\\s-\\.,:!?'\\)}]|$)`
 const BORDER = `[^,'"\\s]`
 
 function markup(marker) {
-  return RegExp(`(.*?${PRE})${marker}(${BORDER}.+?${BORDER})${marker}(${POST}.*)`, 'm')
+  return RegExp(`(.*?${PRE})${marker}(${BORDER}.*?)(?<=${BORDER})${marker}(${POST}.*)`, 'm')
 }
 
 function parse(text) {
