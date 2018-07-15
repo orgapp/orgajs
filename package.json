@@ -2,15 +2,15 @@
   "private": true,
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.2",
-    "babel-jest": "^22.4.3",
-    "babel-preset-env": "^1.6.1",
-    "cross-env": "^5.1.4",
-    "eslint": "^4.19.1",
-    "eslint-plugin-react": "^7.7.0",
-    "jest": "^22.4.3",
-    "jest-cli": "^22.4.3",
-    "lerna": "^2.9.0"
+    "babel-eslint": "^8.2.6",
+    "babel-jest": "^23.4.0",
+    "babel-preset-env": "^1.7.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.1.0",
+    "eslint-plugin-react": "^7.10.0",
+    "jest": "^23.4.1",
+    "jest-cli": "^23.4.1",
+    "lerna": "^2.11.0"
   },
   "scripts": {
     "bootstrap": "yarn && lerna bootstrap",
