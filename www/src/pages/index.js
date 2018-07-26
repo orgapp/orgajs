@@ -7,7 +7,7 @@ class BlogIndex extends React.Component {
       <div>
         <center>
           <p>
-            Orga is the ultimate org-mode parser, writen in JavaScript.
+            Orga is the ultimate org-mode parser, written in JavaScript.
           </p>
         </center>
       </div>
