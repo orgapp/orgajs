@@ -32,7 +32,7 @@ yourself. Here are a couple of ideas:
 * How Does It Work
 
 - [[file:packages/orga/README.org][Learn about the parser itself and the definition of the AST]]
-- [[file:packages/example/README.org][Learn by example how to transform org-mode syntax into HTML]]
+- [[file:examples/example/README.org][Learn by example how to transform org-mode syntax into HTML]]
   
 * Documentation
 [[https://xiaoxinghu.github.io/orgajs/][Here]].
