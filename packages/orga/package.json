@@ -17,7 +17,7 @@
   "scripts": {
     "build": "babel src --out-dir lib --ignore __tests__",
     "watch": "babel -w src --out-dir lib --ignore __tests__",
-    "test": "yarn jest",
+    "test": "jest",
     "prepare": "cross-env NODE_ENV=production npm run build"
   }
 }

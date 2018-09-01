@@ -13,11 +13,11 @@
     "lerna": "^2.11.0"
   },
   "scripts": {
-    "bootstrap": "yarn && lerna bootstrap",
+    "bootstrap": "npm install && lerna bootstrap",
     "jest": "jest",
     "lerna": "lerna",
     "publish": "lerna publish",
-    "test": "yarn jest",
+    "test": "jest",
     "lint": "eslint --ext .js,.jsx packages/**/src",
     "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",

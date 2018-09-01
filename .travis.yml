@@ -5,13 +5,12 @@ node_js:
 os: [linux]
 dist: trusty
 sudo: required
-cache: yarn
 
 install:
-  - yarn run bootstrap
+  - npm run bootstrap
 
 script:
-  - yarn test
+  - npm test
 
 before_deploy:
   - scripts/build-site.sh
