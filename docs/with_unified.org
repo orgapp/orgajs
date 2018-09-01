@@ -8,27 +8,31 @@
 Install dependencies.
 
 #+BEGIN_SRC sh
-yarn add orga-unified oast-to-hast unified to-vfile vfile-reporter rehype-document rehype-stringify
+npm install unified unified-stream orga-unified orga-rehype rehype-stringify
 #+END_SRC
 
 * Usage
 
-#+BEGIN_SRC javascript
-  var vfile = require('to-vfile')
-  var report = require('vfile-reporter')
-  var unified = require('unified')
-  var parse = require('orga-unified')
-  var mutate = require('oast-to-hast')
-  var stringify = require('rehype-stringify')
-  var doc = require('rehype-document')
+Create an =index.js= file like this.
 
-  unified()
-    .use(parse)
-    .use(mutate)
-    .use(doc, {title: 'Hi!'})
-    .use(stringify)
-    .process(vfile.readSync('./GTD.org'), function (err, file) {
-      console.error(report(err || file))
-      console.log(String(file))
-    })
+#+BEGIN_SRC javascript
+const unified = require('unified')
+const stream = require('unified-stream')
+const parse = require('orga-unified')
+const mutate = require('orga-rehype')
+const html = require('rehype-stringify')
+
+const processor = unified()
+      .use(parse)
+      .use(mutate)
+      .use(html)
+
+process.stdin.pipe(stream(processor)).pipe(process.stdout)
 #+END_SRC
+
+Run command:
+
+#+BEGIN_SRC sh
+node index.js < README.org > readme.html
+#+END_SRC
+

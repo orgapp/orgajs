@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "node index.js < README.org > readme.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -12,10 +13,8 @@
   "dependencies": {
     "orga-rehype": "^0.5.2",
     "orga-unified": "^0.5.3",
-    "rehype-document": "^2.1.0",
     "rehype-stringify": "^4.0.0",
-    "to-vfile": "^5.0.1",
     "unified": "^7.0.0",
-    "vfile-reporter": "^5.0.0"
+    "unified-stream": "^1.0.2"
   }
 }
