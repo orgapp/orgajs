@@ -22,8 +22,17 @@ function process(token, section) {
   default:
     if (section.type === `root`) {
       let field = key.toLowerCase()
-      if (!section.meta[field]) section.meta[field] = [];
-      section.meta[field].push(value)
+        if (!section.meta[field]) {
+          section.meta[field] = value;
+        }
+        else {
+          if (!Array.isArray(section.meta[field])) {
+            let list = [];
+            list.push(section.meta[field])
+            section.meta[field] = list
+          }
+          section.meta[field].push(value)
+        }
     }
     break
   }
