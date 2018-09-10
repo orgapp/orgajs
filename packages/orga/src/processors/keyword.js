@@ -21,7 +21,18 @@ function process(token, section) {
     break
   default:
     if (section.type === `root`) {
-      section.meta[key.toLowerCase()] = value
+      let field = key.toLowerCase()
+        if (!section.meta[field]) {
+          section.meta[field] = value;
+        }
+        else {
+          if (!Array.isArray(section.meta[field])) {
+            let list = [];
+            list.push(section.meta[field])
+            section.meta[field] = list
+          }
+          section.meta[field].push(value)
+        }
     }
     break
   }
