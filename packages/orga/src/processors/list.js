@@ -6,9 +6,9 @@ function process(token, section) {
   var self = this
 
   const parseListItem = () => {
-    const { indent, content, ordered, checked } = self.next().data
+    const { data: { indent, content, ordered, checked }, line } = self.next()
     var lines = [content]
-    const item = new Node(`list.item`).with({ ordered })
+    const item = new Node(`list.item`).with({ ordered, line })
     if (checked !== undefined) {
       item.checked = checked
     }
@@ -24,7 +24,7 @@ function process(token, section) {
   }
 
   const parseList = level => {
-    const list = new Node(`list`)
+    const list = new Node(`list`).with({ line: token.line })
     while (self.hasNext()) {
       const token = self.peek()
       if ( token.name != `list.item` ) break

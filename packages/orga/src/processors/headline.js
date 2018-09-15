@@ -23,13 +23,13 @@ function parseDrawer() {
 
 function process(token, section) {
   if (section.type === `footnote.definition`) return section // headline breaks footnote
-  const { level, keyword, priority, tags, content } = token.data
+  const { data: { level, keyword, priority, tags, content }, line } = token
   const currentLevel = section.level || 0
   if (level <= currentLevel) { return section }
   this.consume()
   const text = inlineParse(content)
   var headline = new Node('headline', text).with({
-    level, keyword, priority, tags
+    level, keyword, priority, tags, line
   })
   const planning = this.tryTo(parsePlanning)
   if (planning) {

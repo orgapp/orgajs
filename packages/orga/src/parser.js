@@ -34,7 +34,9 @@ Parser.prototype.getToken = function(index) {
   if (index >= self.tokens.length) {
     const start = self.tokens.length
     for (var i = start; i <= index; i++) {
-      self.tokens.push(self.lexer.tokenize(self.lines[i]))
+      const token = self.lexer.tokenize(self.lines[i])
+      token.line = i
+      self.tokens.push(token)
     }
   }
   return self.tokens[index]
