@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "example",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "orga-rehype": "^0.5.2",
-    "orga-unified": "^0.5.3",
+    "orga-rehype": "^0.5.4",
+    "orga-unified": "^0.5.4",
     "rehype-stringify": "^4.0.0",
     "unified": "^7.0.0",
     "unified-stream": "^1.0.2"
