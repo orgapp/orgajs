@@ -17,6 +17,7 @@
     "jest": "jest",
     "lerna": "lerna",
     "publish": "lerna publish",
+    "publish-next": "lerna publish --npm-tag=next --bump=prerelease",
     "test": "jest",
     "lint": "eslint --ext .js,.jsx packages/**/src",
     "test:update": "jest --updateSnapshot",
