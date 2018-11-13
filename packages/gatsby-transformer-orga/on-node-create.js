@@ -1,14 +1,14 @@
 const crypto = require(`crypto`)
 
 module.exports = async function onCreateNode(
-  { node, loadNodeContent, boundActionCreators }) {
+  { node, loadNodeContent, actions }) {
 
   // We only care about org content. The mime is not useful for us. Use extension directly
   if (node.extension !== `org`) {
     return
   }
 
-  const { createNode, createParentChildLink } = boundActionCreators
+  const { createNode, createParentChildLink } = actions
   const content = await loadNodeContent(node)
 
   const contentDigest = crypto
