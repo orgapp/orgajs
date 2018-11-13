@@ -41,7 +41,7 @@ const newPath = (linkNode, destinationDir) => {
 }
 
 module.exports = (
-  { type, store, pathPrefix, getNode, cache },
+  { type, store, pathPrefix, getNode, getNodesByType, cache },
   pluginOptions
 ) => {
   if (type.name !== `Orga`) {
@@ -56,14 +56,9 @@ module.exports = (
       newFileName(linkNode))
   }
 
+  const files = getNodesByType(`File`)
 
-  const files = Object.values(store.getState().nodes).filter(
-    n => n.internal.type === `File`
-  )
-
-  const orgFiles = Object.values(store.getState().nodes).filter(
-    n => n.internal.type === `Orga`
-  )
+  const orgFiles = getNodesByType(`Orga`)
 
   async function getAST(orgNode) {
     return new Promise(resolve => {
