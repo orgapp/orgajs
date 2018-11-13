@@ -24,7 +24,7 @@ console.log("hello world")
 #+END_SRC
 `
     // Make some fake functions its expecting.
-    const loadNodeContent = node => Promise.resolve(node.content) 
+    const loadNodeContent = node => Promise.resolve(node.content)
 
     node.content = content
     const createNode = jest.fn()
@@ -43,4 +43,3 @@ console.log("hello world")
 
   })
 })
-
