@@ -10,7 +10,7 @@ function unknown(h, node) {
     return u('text', node.value)
   }
 
-  return h(node, 'div', all(h, node))
+  return h(node, 'p', all(h, node))
 }
 
 function transform(h, node, parent) {
