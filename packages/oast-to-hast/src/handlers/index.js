@@ -16,6 +16,7 @@ import listItem from './listItem'
 import { table, tableRow, tableCell } from './table'
 import horizontalRule from './horizontal-rule'
 import html from './html'
+import paragraph from './paragraph'
 
 import {
   definition as fnDef,
@@ -27,6 +28,7 @@ module.exports = {
   root,
   section,
   headline,
+  paragraph,
   block,
   link,
   bold,

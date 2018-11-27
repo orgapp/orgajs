@@ -50,7 +50,7 @@ Object {
             },
           ],
           "properties": Object {},
-          "tagName": "div",
+          "tagName": "p",
           "type": "element",
         },
       ],
