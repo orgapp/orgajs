@@ -1,12 +1,10 @@
-module.exports = section
-
 import { all } from '../transform'
 
 const match = (left, right) => {
   return left.some(e => right.includes(e))
 }
 
-function section(h, node) {
+export default (h, node) => {
   const props = { className: `section` }
   const headline = node.children.find(
     n => n.type === `headline`

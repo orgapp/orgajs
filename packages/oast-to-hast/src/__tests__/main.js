@@ -9,10 +9,15 @@ describe('Main', () => {
           u('text', 'remember the '),
           u('bold', [ u('text', 'milk') ])
         ]),
+        u('paragraph', [
+          u('text', 'This is a paragraph'),
+          u('bold', [ u('text', 'something bold') ]),
+          u('text', 'Some more text.'),
+        ])
       ]),
       u('block', { name: 'SRC', params: ['javascript'] }, 'console.log("hello world")')
     ])
+
     expect(toHAST(org)).toMatchSnapshot()
   })
-
 })

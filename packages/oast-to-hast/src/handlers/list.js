@@ -1,9 +1,7 @@
-module.exports = list
-
 import { all } from '../transform'
 
 /* Transform a list. */
-function list(h, node) {
+export default (h, node) => {
   var props = {}
   var name = node.ordered ? 'ol' : 'ul'
 

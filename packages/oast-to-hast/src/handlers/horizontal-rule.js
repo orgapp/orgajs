@@ -1,1 +1,1 @@
-module.exports = (h, node) => { return h(node, 'hr') }
+export default (h, node) => { return h(node, 'hr') }

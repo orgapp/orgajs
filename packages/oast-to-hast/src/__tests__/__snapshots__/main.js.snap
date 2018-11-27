@@ -27,6 +27,32 @@ Object {
           "tagName": "h1",
           "type": "element",
         },
+        Object {
+          "children": Array [
+            Object {
+              "type": "text",
+              "value": "This is a paragraph",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "type": "text",
+                  "value": "something bold",
+                },
+              ],
+              "properties": Object {},
+              "tagName": "strong",
+              "type": "element",
+            },
+            Object {
+              "type": "text",
+              "value": "Some more text.",
+            },
+          ],
+          "properties": Object {},
+          "tagName": "div",
+          "type": "element",
+        },
       ],
       "properties": Object {
         "className": "section",

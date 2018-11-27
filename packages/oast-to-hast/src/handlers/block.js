@@ -1,9 +1,7 @@
-module.exports = block
-
 import u from 'unist-builder'
 import highlight from './_highlight'
 
-function block(h, node) {
+export default (h, node) => {
   const name = node.name.toUpperCase()
   switch(name) {
   case `SRC`:

@@ -1,9 +1,7 @@
 import u from 'unist-builder'
 import mime from 'mime'
 
-module.exports = link
-
-function link(h, node) {
+export default (h, node) => {
   const { uri, desc } = node
   var props = { href: uri.raw }
 

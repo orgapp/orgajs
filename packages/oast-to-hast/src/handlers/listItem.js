@@ -1,8 +1,6 @@
-module.exports = listItem
-
 import { all } from '../transform'
 
-function listItem(h, node) {
+export default (h, node) => {
   var props = {}
   var result = all(h, node)
   if (typeof node.checked === `boolean`) {

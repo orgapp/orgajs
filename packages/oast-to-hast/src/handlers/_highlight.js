@@ -1,9 +1,7 @@
 import Prism from 'prismjs'
 import loadPrismLanguage from './_load-prism-language'
 
-module.exports = highlight
-
-function highlight(language, code) {
+export default (language, code) => {
   if (!Prism.languages[language]) {
     try {
       loadPrismLanguage(language)
@@ -16,4 +14,3 @@ function highlight(language, code) {
   const highlighted = Prism.highlight(code, lang)
   return highlighted
 }
-
