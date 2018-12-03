@@ -1,7 +1,7 @@
 import Prism from 'prismjs'
 import languageDependencies from '../prism-language-dependencies'
 
-export default (language) => {
+function loadPrismLanguage(language) {
   if (Prism.languages[language]) {
     // Don't load already loaded language
     return
@@ -28,3 +28,5 @@ export default (language) => {
 
   require(`prismjs/components/prism-${language}.js`)
 }
+
+export default loadPrismLanguage
