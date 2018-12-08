@@ -6,6 +6,8 @@ const toHAST = require('oast-to-hast')
 const hastToHTML = require('hast-util-to-html')
 const mime = require('mime')
 const fsExtra = require('fs-extra')
+const { selectAll, select } = require('unist-util-select')
+const moment = require('moment')
 
 const {
   GraphQLObjectType,
@@ -46,6 +48,98 @@ module.exports = (
 ) => {
   if (type.name !== `Orga`) {
     return {}
+  }
+
+
+  return new Promise((resolve, reject) => {
+
+    const OrgSectionType = new GraphQLObjectType({
+      name: `OrgSection`,
+      fields: {
+        title: {
+          type: GraphQLString,
+          resolve(section) {
+            return section.title
+          },
+        },
+        category: {
+          type: GraphQLString,
+          resolve(section) {
+            return section.category
+          },
+        },
+        date: {
+          type: GraphQLString,
+          resolve(section) {
+            return `${section.date}`
+          },
+        },
+        html: {
+          type: GraphQLString,
+          resolve(section) {
+            return section.html
+          },
+        },
+      }
+    })
+
+    return resolve({
+      content: {
+        type: new GraphQLList(OrgSectionType),
+        resolve(orgaNode) {
+          return getContent(orgaNode)
+        }
+      }
+    })
+  })
+
+  function getProperties(headline) {
+    const drawer = selectAll(`drawer`, headline).find(d => d.name === `PROPERTIES`)
+    if (!drawer) return {}
+    const regex = /\s*:(.+):\s*(.+)\s*$/
+    return drawer.value.split(`\n`).reduce((accu, current) => {
+      let m = current.match(regex)
+      accu[m[1]] = m[2]
+      return accu
+    }, {})
+  }
+
+  function getTimestamp(timestamp) {
+    const format = `YYYY-MM-DD ddd HH:mm`
+    return moment(timestamp, format)
+  }
+
+  function getSection(ast, { category }) {
+    var title, date
+    if (ast.type === `section`) {
+      // use the first headline for title
+      const headline = ast.children.shift()
+      if (headline.type !== `headline`) throw `section's first child is not headline`
+      title = select(`text`, headline).value
+      // date
+      const { EXPORT_DATE } = getProperties(headline)
+      const closedDate = (select(`planning`, headline) || {}).timestamp
+      date = getTimestamp(EXPORT_DATE || closedDate)
+    } else {
+      ({ title, date } = ast.meta || {})
+    }
+    return {
+      title,
+      date,
+      category,
+      html: hastToHTML(toHAST(ast), { allowDangerousHTML: true }),
+    }
+  }
+
+  async function getContent(orgaNode) {
+    // TODO: caching
+    const ast = await getAST(orgaNode)
+    const { orga_publish_keyword, category } = ast.meta
+    if (orga_publish_keyword) {
+      return selectAll(`[keyword=${orga_publish_keyword}]`, ast)
+        .map(n => getSection(n.parent, { category }))
+    }
+    return [ getSection(ast) ]
   }
 
   const newLinkURL = (linkNode, destinationDir) => {
@@ -149,6 +243,7 @@ module.exports = (
       return ast.meta
     })
   }
+
 
   return new Promise(resolve => {
     return resolve({
