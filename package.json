@@ -16,7 +16,8 @@
     "lerna": "^3.4.3"
   },
   "scripts": {
-    "bootstrap": "npm install && lerna bootstrap",
+    "prebootstrap": "yarn",
+    "bootstrap": "yarn install && lerna bootstrap",
     "jest": "jest",
     "lerna": "lerna",
     "publish": "lerna publish",
@@ -27,5 +28,5 @@
     "test:watch": "jest --watch",
     "watch": "lerna run watch --no-sort --stream --concurrency 999"
   },
-  "name": "orgajs"
+  "workspaces": ["packages/*", "examples/*"]
 }

@@ -13,7 +13,7 @@ end_of_line = crlf
 indent_style = space
 indent_size = 2
 
-[{package.json,*.yml}]
+[{*.json,*.yml}]
 indent_style = space
 indent_size = 2
 
