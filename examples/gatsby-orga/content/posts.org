@@ -1,7 +1,7 @@
 #+ORGA_PUBLISH_KEYWORD: DONE
 #+CATEGORY: post
 
-* DONE First Post
+* DONE First Post                                           :javascript:orga:
   CLOSED: [2018-12-08 Sat 22:43]
   This is the first post.
 * DONE Second Post

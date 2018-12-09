@@ -8,6 +8,7 @@ const mime = require('mime')
 const fsExtra = require('fs-extra')
 const { selectAll, select } = require('unist-util-select')
 const moment = require('moment')
+const util = require('util')
 
 const {
   GraphQLObjectType,
@@ -74,6 +75,12 @@ module.exports = (
             return `${section.date}`
           },
         },
+        tags: {
+          type: GraphQLList(GraphQLString),
+          resolve(section) {
+            return section.tags || []
+          },
+        },
         html: {
           type: GraphQLString,
           resolve(section) {
@@ -104,29 +111,33 @@ module.exports = (
     }, {})
   }
 
-  function getTimestamp(timestamp) {
-    const format = `YYYY-MM-DD ddd HH:mm`
-    return moment(timestamp, format)
+  const getTimestamp = timestamp => moment(timestamp, `YYYY-MM-DD ddd HH:mm`)
+
+  function getContentFromSection(ast, { category }) {
+    // use the first headline for title
+    const headline = ast.children.shift()
+    if (headline.type !== `headline`) throw `section's first child is not headline`
+    const title = select(`text`, headline).value
+    // date
+    const { EXPORT_DATE, CATEGORY } = getProperties(headline)
+    const closedDate = (select(`planning`, headline) || {}).timestamp
+    const date = getTimestamp(EXPORT_DATE || closedDate)
+    return {
+      title,
+      date,
+      category: CATEGORY || category,
+      tags: headline.tags,
+      html: hastToHTML(toHAST(ast), { allowDangerousHTML: true }),
+    }
   }
 
-  function getSection(ast, { category }) {
-    var title, date
-    if (ast.type === `section`) {
-      // use the first headline for title
-      const headline = ast.children.shift()
-      if (headline.type !== `headline`) throw `section's first child is not headline`
-      title = select(`text`, headline).value
-      // date
-      const { EXPORT_DATE } = getProperties(headline)
-      const closedDate = (select(`planning`, headline) || {}).timestamp
-      date = getTimestamp(EXPORT_DATE || closedDate)
-    } else {
-      ({ title, date } = ast.meta || {})
-    }
+  function getContentFromRoot(ast) {
+    const { title, date, category, tags } = ast.meta || {}
     return {
       title,
       date,
       category,
+      tags,
       html: hastToHTML(toHAST(ast), { allowDangerousHTML: true }),
     }
   }
@@ -137,9 +148,9 @@ module.exports = (
     const { orga_publish_keyword, category } = ast.meta
     if (orga_publish_keyword) {
       return selectAll(`[keyword=${orga_publish_keyword}]`, ast)
-        .map(n => getSection(n.parent, { category }))
+        .map(n => getContentFromSection(n.parent, { category }))
     }
-    return [ getSection(ast) ]
+    return [ getContentFromRoot(ast) ]
   }
 
   const newLinkURL = (linkNode, destinationDir) => {
