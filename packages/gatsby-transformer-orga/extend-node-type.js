@@ -66,33 +66,27 @@ module.exports = (
       fields: {
         title: {
           type: GraphQLString,
-          resolve(section) {
-            return section.title
-          },
+          resolve(section) { return section.title },
         },
         category: {
           type: GraphQLString,
-          resolve(section) {
-            return section.category
-          },
+          resolve(section) { return section.category },
         },
         date: {
           type: GraphQLString,
-          resolve(section) {
-            return `${section.date}`
-          },
+          resolve(section) { return section.date },
         },
         tags: {
           type: GraphQLList(GraphQLString),
-          resolve(section) {
-            return section.tags || []
-          },
+          resolve(section) { return section.tags || [] },
+        },
+        exportFileName: {
+          type: GraphQLString,
+          resolve(section) { return section.exportFileName },
         },
         html: {
           type: GraphQLString,
-          resolve(section) {
-            return section.html
-          },
+          resolve(section) { return section.html },
         },
       }
     })
@@ -122,23 +116,30 @@ module.exports = (
     return moment(timestamp, `YYYY-MM-DD ddd HH:mm`)
   }
 
+  function sanitise(title) {
+    return title.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase()
+  }
 
-  function getContentFromSection(ast, { category }) {
+  function getContentFromSection(ast, patch) {
     // use the first headline for title
     const { headline, body } = decapitate(ast)
     if (headline.type !== `headline`) throw `section's first child is not headline`
     const title = select(`text`, headline).value
     // date
-    const { EXPORT_DATE, CATEGORY } = getProperties(headline)
+    const { EXPORT_DATE, CATEGORY, EXPORT_FILE_NAME } = getProperties(headline)
     const closedDate = (select(`planning`, headline) || {}).timestamp
     const date = getTimestamp(EXPORT_DATE || closedDate)
-    return {
+    var content = {
+      ...patch,
       title,
       date,
-      category: CATEGORY || category,
       tags: headline.tags,
+      exportFileName: EXPORT_FILE_NAME || sanitise(title),
       html: getHTML(body),
     }
+
+    if (CATEGORY) content.category = CATEGORY
+    return content
 
     function decapitate(ast) {
       const headline = ast.children[0]
@@ -150,13 +151,15 @@ module.exports = (
     }
   }
 
-  function getContentFromRoot(ast) {
-    const { title, date, category, tags } = ast.meta || {}
+  function getContentFromRoot(ast, patch) {
+    const { title, date, category, tags, export_file_name } = ast.meta || {}
     return {
+      ...patch,
       title,
       date,
       category,
       tags,
+      exportFileName: export_file_name || patch.exportFileName,
       html: getHTML(ast),
     }
   }
@@ -171,7 +174,9 @@ module.exports = (
       content = selectAll(`[keyword=${orga_publish_keyword}]`, ast)
         .map(n => getContentFromSection(n.parent, { category }))
     } else {
-      content = [ getContentFromRoot(ast) ]
+      content = [
+        getContentFromRoot(ast, {
+          exportFileName: path.basename(orgNode.fileAbsolutePath, '.org') }) ]
     }
     cache.set(contentCacheKey(orgNode), content)
     return content
