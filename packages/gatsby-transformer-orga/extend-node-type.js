@@ -27,6 +27,11 @@ const astCacheKey = node =>
     node.internal.contentDigest
   }-${pluginsCacheStr}`
 
+const contentCacheKey = node =>
+      `transformer-orga-content-${
+    node.internal.contentDigest
+  }-${pluginsCacheStr}`
+
 function isRelative(path) {
   return !path.startsWith(`/`)
 }
@@ -42,6 +47,8 @@ const newPath = (linkNode, destinationDir) => {
     newFileName(linkNode)
   )
 }
+
+const ASTPromiseMap = new Map()
 
 module.exports = (
   { type, store, pathPrefix, getNode, getNodesByType, cache },
@@ -93,8 +100,8 @@ module.exports = (
     return resolve({
       content: {
         type: new GraphQLList(OrgSectionType),
-        resolve(orgaNode) {
-          return getContent(orgaNode)
+        resolve(orgNode) {
+          return getContent(orgNode)
         }
       }
     })
@@ -111,11 +118,14 @@ module.exports = (
     }, {})
   }
 
-  const getTimestamp = timestamp => moment(timestamp, `YYYY-MM-DD ddd HH:mm`)
+  function getTimestamp(timestamp) {
+    return moment(timestamp, `YYYY-MM-DD ddd HH:mm`)
+  }
+
 
   function getContentFromSection(ast, { category }) {
     // use the first headline for title
-    const headline = ast.children.shift()
+    const { headline, body } = decapitate(ast)
     if (headline.type !== `headline`) throw `section's first child is not headline`
     const title = select(`text`, headline).value
     // date
@@ -127,7 +137,16 @@ module.exports = (
       date,
       category: CATEGORY || category,
       tags: headline.tags,
-      html: hastToHTML(toHAST(ast), { allowDangerousHTML: true }),
+      html: getHTML(body),
+    }
+
+    function decapitate(ast) {
+      const headline = ast.children[0]
+      const children = ast.children.slice(1)
+      return {
+        headline,
+        body: Object.assign({}, ast, { children }),
+      }
     }
   }
 
@@ -138,19 +157,24 @@ module.exports = (
       date,
       category,
       tags,
-      html: hastToHTML(toHAST(ast), { allowDangerousHTML: true }),
+      html: getHTML(ast),
     }
   }
 
-  async function getContent(orgaNode) {
-    // TODO: caching
-    const ast = await getAST(orgaNode)
+  async function getContent(orgNode) {
+    const cachedContent = await cache.get(contentCacheKey(orgNode))
+    if (cachedContent) return cachedContent
+    const ast = await getAST(orgNode)
     const { orga_publish_keyword, category } = ast.meta
+    let content
     if (orga_publish_keyword) {
-      return selectAll(`[keyword=${orga_publish_keyword}]`, ast)
+      content = selectAll(`[keyword=${orga_publish_keyword}]`, ast)
         .map(n => getContentFromSection(n.parent, { category }))
+    } else {
+      content = [ getContentFromRoot(ast) ]
     }
-    return [ getContentFromRoot(ast) ]
+    cache.set(contentCacheKey(orgNode), content)
+    return content
   }
 
   const newLinkURL = (linkNode, destinationDir) => {
@@ -166,34 +190,40 @@ module.exports = (
   const orgFiles = getNodesByType(`Orga`)
 
   async function getAST(orgNode) {
+    const cacheKey = astCacheKey(orgNode)
+    const cachedAST = await cache.get(cacheKey)
+    if (cachedAST) {
+      return cachedAST
+    }
+    if (ASTPromiseMap.has(cacheKey)) return await ASTPromiseMap.get(cacheKey)
+    const ASTGenerationPromise = getOrgAST(orgNode)
+    ASTGenerationPromise.then(ast => {
+      cache.set(cacheKey, ast)
+      ASTPromiseMap.delete(cacheKey)
+    }).catch(err => {
+      ASTPromiseMap.delete(cacheKey)
+      return err
+    })
+
+    // Save new AST to cache and return
+    // We can now release promise, as we cached result
+    ASTPromiseMap.set(cacheKey, ASTGenerationPromise)
+    return ASTGenerationPromise
+  }
+
+  async function getOrgAST(orgNode) {
     return new Promise(resolve => {
       const parser = new Parser()
       const ast = parser.parse(orgNode.internal.content)
-      // cache.set(astCacheKey(orgNode), ast)
       resolve(ast)
     })
-
-
-    // const cachedAST = await cache.get(astCacheKey(orgNode))
-    // if (cachedAST) {
-    //   return cachedAST
-    // } else {
-    //   return new Promise((resolve, reject) => {
-    //     const parser = new Parser()
-    //     const ast = parser.parse(orgNode.internal.content)
-    //     cache.set(astCacheKey(orgNode), ast)
-    //     resolve(ast)
-    //   })
-    // }
   }
 
-  async function getHTML(orgNode) {
+  function getHTML(ast) {
     const highlight = pluginOptions.noHighlight !== true
-    return getAST(orgNode).then(ast => {
-      const handlers = { link: handleLink }
-      const html = hastToHTML(toHAST(ast, { highlight, handlers }), { allowDangerousHTML: true })
-      return html
-    })
+    const handlers = { link: handleLink }
+    const html = hastToHTML(toHAST(ast, { highlight, handlers }), { allowDangerousHTML: true })
+    return html
 
     function copyOnDemand(file) {
       const publicPath = newPath(file)
@@ -248,30 +278,4 @@ module.exports = (
       }
     }
   }
-
-  async function getMeta(orgNode) {
-    return getAST(orgNode).then(ast => {
-      return ast.meta
-    })
-  }
-
-
-  return new Promise(resolve => {
-    return resolve({
-      html: {
-        type: GraphQLString,
-        resolve(orgNode) {
-          return getHTML(orgNode)
-        }
-      },
-
-      meta: {
-        type: GraphQLJSON,
-        resolve(orgNode) {
-          return getMeta(orgNode)
-        }
-      },
-
-    })
-  })
 }
