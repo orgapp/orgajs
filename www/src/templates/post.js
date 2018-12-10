@@ -1,31 +1,20 @@
-import React from "react"
-import style from "./_style.module.scss"
+import React from 'react'
 
-
-class BlogPostTemplate extends React.Component {
-  render() {
-    const post = this.props.data.orga
-    const { title, date } = post.meta
-
+export default (props) => {
+    const file = props.data.orga
+    console.log(`>>>>> `, props)
     return (
-      <div>
-        <center>
-          <h1 className={style.title}>{title}</h1>
-          <small>{date}</small>
-        </center>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      </div>
+	<h2>Hello</h2>
     )
-  }
 }
 
-export default BlogPostTemplate
-
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
-    orga(fields: { slug: { eq: $slug }}) {
-      html
-      meta
+  query OrgaNodeById($nodeId: String!, $exportFIleName: String!) {
+    orga( id: { eq: $nodeId }) {
+      id
+      content( filter: { exportFileName: { eq: $exportFileName } }) {
+        title
+      }
     }
   }
 `

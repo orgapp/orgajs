@@ -1,67 +1,64 @@
-const path = require(`path`)
-const slash = require(`slash`)
+const path = require('path')
+const { createFilePath } = require('gatsby-source-filesystem')
 
-exports.createPages = ({ graphql, boundActionCreators }) => {
-  const { createPage } = boundActionCreators
+const queryAllOrga = `
+{
+  allOrga {
+    edges {
+      node {
+        id
+        content {
+          title
+          category
+          date
+          exportFileName
+          html
+        }
+      }
+    }
+  }
+}
+`
+
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions
 
   return new Promise((resolve, reject) => {
-    const blogPostTemplate = path.resolve(`src/templates/post.js`)
-    graphql(
-      `
-        {
-          allOrga(
-            limit: 1000
-          ) {
-            edges {
-              node {
-                fields {
-                  slug
-                }
-              }
-            }
-          }
+    const template = path.resolve('./src/templates/post.js')
+    resolve(
+      graphql(queryAllOrga).then(result => {
+        if (result.errors) {
+          console.log(result.errors)
+          reject(result.errors)
         }
-      `
-    ).then(result => {
-      if (result.errors) {
-        console.log(result.errors)
-      }
 
-      // Create blog posts pages.
-      result.data.allOrga.edges.forEach(edge => {
-        createPage({
-          path: edge.node.fields.slug, // required
-          component: slash(blogPostTemplate),
-          context: {
-            slug: edge.node.fields.slug,
-          },
+        const files = result.data.allOrga.edges
+        files.forEach(file => {
+          file.node.content.forEach(post => {
+            createPage({
+              path: `${post.category || 'p'}/${post.exportFileName}`,
+              component: template,
+              context: {
+                nodeId: `${file.node.id}`,
+                exportFileName: post.exportFileName,
+              },
+            })
+          })
         })
       })
-
-      resolve()
-    })
+    )
   })
 }
 
-// Add custom url pathname for blog posts.
-exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
-  const { createNodeField } = boundActionCreators
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
 
-  if (node.internal.type === `File`) {
-    const parsedFilePath = path.parse(node.absolutePath)
-    // const slug = `/${parsedFilePath.dir.split(`---`)[1]}/`
-    const slug = `/${parsedFilePath.name}/`
-    createNodeField({ node, name: `slug`, value: slug })
-  } else if (
-    node.internal.type === `Orga` &&
-      typeof node.slug === `undefined`
-  ) {
-    const fileNode = getNode(node.parent)
+  if (node.internal.type === `Orga`) {
+    const value = createFilePath({ node, getNode })
     createNodeField({
-      node,
       name: `slug`,
-      value: fileNode.fields.slug,
+      node,
+      value,
     })
-
   }
 }
