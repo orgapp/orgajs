@@ -54,10 +54,9 @@ module.exports = (
   { type, store, pathPrefix, getNode, getNodesByType, cache },
   pluginOptions
 ) => {
-  if (type.name !== `Orga`) {
+  if (type.name !== `OrgContent`) {
     return {}
   }
-
 
   return new Promise((resolve, reject) => {
 
@@ -92,12 +91,14 @@ module.exports = (
     })
 
     return resolve({
-      content: {
-        type: new GraphQLList(OrgSectionType),
-        resolve(orgNode) {
-          return getContent(orgNode)
-        }
-      }
+      html: {
+        type: GraphQLString,
+        resolve(node) { return getHTML(node.ast) },
+      },
+      title: {
+        type: GraphQLString,
+        resolve(node) { return getTitle(node.ast) },
+      },
     })
   })
 
@@ -167,7 +168,8 @@ module.exports = (
   async function getContent(orgNode) {
     const cachedContent = await cache.get(contentCacheKey(orgNode))
     if (cachedContent) return cachedContent
-    const ast = await getAST(orgNode)
+    // const ast = await getAST(orgNode)
+    const ast = orgNode.ast
     const { orga_publish_keyword, category } = ast.meta
     let content
     if (orga_publish_keyword) {
@@ -222,6 +224,17 @@ module.exports = (
       const ast = parser.parse(orgNode.internal.content)
       resolve(ast)
     })
+  }
+
+  function getTitle(ast) {
+    const { title } = ast.meta || {}
+    if (title) return title
+    if (ast.type === `section`) {
+      const headline = ast.children[0]
+      if (headline.type !== `headlien`) throw `expect headline here`
+      return select(`text`, headline).value
+    }
+    throw `something is wrong`
   }
 
   function getHTML(ast) {
