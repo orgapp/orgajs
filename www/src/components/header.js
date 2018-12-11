@@ -13,7 +13,7 @@ align-items: center;
 }
 `
 
-const MenuItem = styled.a`
+const MenuItem = styled(Link)`
 display: block;
 text-decoration: none;
 border-radius: 0.4rem;
@@ -34,9 +34,9 @@ const Header = ({ siteTitle }) => (
   <Container>
     <h1>{ siteTitle }</h1>
     <Menu>
-      <MenuItem href="/">HOME</MenuItem>
-      <MenuItem href="/docs">DOCS</MenuItem>
-      <MenuItem href="/github">GITHUB</MenuItem>
+      <MenuItem to="/">HOME</MenuItem>
+      <MenuItem to="/docs">DOCS</MenuItem>
+      <MenuItem to="/github">GITHUB</MenuItem>
     </Menu>
   </Container>
 )

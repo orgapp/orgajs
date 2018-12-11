@@ -1,5 +1,6 @@
 import React from 'react'
 import Layout from '../components/layout'
+import { graphql } from 'gatsby'
 
 export default (props) => {
   const content = props.data.orgContent

@@ -38,6 +38,12 @@ module.exports = {
         // if you don't want to have server side prism code highlight
         // noHighlight: true,
       },
-    }
+    },
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `src/utils/typography`,
+      }
+    },
   ],
 }
