@@ -110,13 +110,12 @@ module.exports = (
 
   function merge(defaultObj, obj) {
     return Object.keys(obj).reduce((result, k) => {
-      if (obj[k]) return { ...result, k: obj[k] }
+      if (obj[k]) return { ...result, [k]: obj[k] }
       return result
     }, defaultObj)
   }
 
   function getContentFromSection(ast, defaultContent) {
-    console.log(`>> section: ${util.inspect(path, false, null, true)}`)
     // use the first headline for title
     const { headline, body } = decapitate(ast)
     if (headline.type !== `headline`) throw `section's first child is not headline`

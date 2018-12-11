@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-default",
-  "description": "Gatsby default starter",
+  "name": "gatsby-starter-orga",
+  "description": "Gatsby orga starter",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "dependencies": {
     "gatsby": "^2.0.53",
     "gatsby-image": "^2.0.20",
@@ -31,9 +31,5 @@
   },
   "devDependencies": {
     "prettier": "^1.15.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
   }
 }

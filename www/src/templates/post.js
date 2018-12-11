@@ -1,20 +1,17 @@
 import React from 'react'
 
 export default (props) => {
-    // const file = props.data.orga
-    console.log(`>>>>> `, props)
+    const content = props.data.orgContent
     return (
-	<h2>Hello</h2>
+	<h2>{ content.title }</h2>
     )
 }
 
-// export const pageQuery = graphql`
-//   query OrgaNodeById($nodeId: String!) {
-//     orga( id: { eq: $nodeId }) {
-//       id
-//       content {
-//         title
-//       }
-//     }
-//   }
-// `
+export const pageQuery = graphql`
+  query OrgaNodeById($orga_id: String!) {
+    orgContent(orga_id: { eq: $orga_id }) {
+      id
+      title
+    }
+  }
+`

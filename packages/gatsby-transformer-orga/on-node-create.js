@@ -79,6 +79,7 @@ module.exports = async function onCreateNode(
 
     content.map((ast, index) => ({
       id: `${orgFileNode.id} >>> OrgContent[${index}]`,
+      orga_id: `${orgFileNode.id} >>> OrgContent[${index}]`,
       children: [],
       parent: orgFileNode.id,
       ast,
