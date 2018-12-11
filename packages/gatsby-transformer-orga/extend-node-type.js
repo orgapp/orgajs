@@ -58,46 +58,33 @@ module.exports = (
     return {}
   }
 
-  return new Promise((resolve, reject) => {
 
-    const OrgSectionType = new GraphQLObjectType({
-      name: `OrgSection`,
-      fields: {
-        title: {
-          type: GraphQLString,
-          resolve(section) { return section.title },
-        },
-        category: {
-          type: GraphQLString,
-          resolve(section) { return section.category },
-        },
-        date: {
-          type: GraphQLString,
-          resolve(section) { return section.date },
-        },
-        tags: {
-          type: GraphQLList(GraphQLString),
-          resolve(section) { return section.tags || [] },
-        },
-        exportFileName: {
-          type: GraphQLString,
-          resolve(section) { return section.exportFileName },
-        },
-        html: {
-          type: GraphQLString,
-          resolve(section) { return section.html },
-        },
-      }
-    })
+  return new Promise((resolve, reject) => {
 
     return resolve({
       html: {
         type: GraphQLString,
-        resolve(node) { return getHTML(node.ast) },
+        resolve(node) { return getContent(node).then(c => c.html) },
       },
       title: {
         type: GraphQLString,
-        resolve(node) { return getTitle(node.ast) },
+        resolve(node) { return getContent(node).then(c => c.title) },
+      },
+      category: {
+        type: GraphQLString,
+        resolve(node) { return getContent(node).then(c => c.category) },
+      },
+      date: {
+        type: GraphQLString,
+        resolve(node) { return getContent(node).then(c => c.date) },
+      },
+      tags: {
+        type: GraphQLList(GraphQLString),
+        resolve(node) { return getContent(node).then(c => c.tags) },
+      },
+      exportFileName: {
+        type: GraphQLString,
+        resolve(node) { return getContent(node).then(c => c.exportFileName) },
       },
     })
   })
@@ -121,7 +108,15 @@ module.exports = (
     return title.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase()
   }
 
-  function getContentFromSection(ast, patch) {
+  function merge(defaultObj, obj) {
+    return Object.keys(obj).reduce((result, k) => {
+      if (obj[k]) return { ...result, k: obj[k] }
+      return result
+    }, defaultObj)
+  }
+
+  function getContentFromSection(ast, defaultContent) {
+    console.log(`>> section: ${util.inspect(path, false, null, true)}`)
     // use the first headline for title
     const { headline, body } = decapitate(ast)
     if (headline.type !== `headline`) throw `section's first child is not headline`
@@ -130,17 +125,15 @@ module.exports = (
     const { EXPORT_DATE, CATEGORY, EXPORT_FILE_NAME } = getProperties(headline)
     const closedDate = (select(`planning`, headline) || {}).timestamp
     const date = getTimestamp(EXPORT_DATE || closedDate)
-    var content = {
-      ...patch,
+
+    return merge(defaultContent, {
       title,
       date,
       tags: headline.tags,
+      category: CATEGORY,
       exportFileName: EXPORT_FILE_NAME || sanitise(title),
       html: getHTML(body),
-    }
-
-    if (CATEGORY) content.category = CATEGORY
-    return content
+    })
 
     function decapitate(ast) {
       const headline = ast.children[0]
@@ -152,34 +145,29 @@ module.exports = (
     }
   }
 
-  function getContentFromRoot(ast, patch) {
+  function getContentFromRoot(ast, defaultContent = {}) {
     const { title, date, category, tags, export_file_name } = ast.meta || {}
-    return {
-      ...patch,
+    return merge(defaultContent, {
       title,
       date,
       category,
       tags,
-      exportFileName: export_file_name || patch.exportFileName,
+      exportFileName: export_file_name,
       html: getHTML(ast),
-    }
+    })
   }
 
   async function getContent(orgNode) {
     const cachedContent = await cache.get(contentCacheKey(orgNode))
     if (cachedContent) return cachedContent
-    // const ast = await getAST(orgNode)
     const ast = orgNode.ast
-    const { orga_publish_keyword, category } = ast.meta
-    let content
-    if (orga_publish_keyword) {
-      content = selectAll(`[keyword=${orga_publish_keyword}]`, ast)
-        .map(n => getContentFromSection(n.parent, { category }))
-    } else {
-      content = [
-        getContentFromRoot(ast, {
-          exportFileName: path.basename(orgNode.fileAbsolutePath, '.org') }) ]
-    }
+    const content = ast.type === `section` ?
+          getContentFromSection(ast, {
+            category: getNode(orgNode.parent).fileName,
+          }) :
+          getContentFromRoot(ast, {
+            exportFileName: getNode(orgNode.parent).fileName,
+          })
     cache.set(contentCacheKey(orgNode), content)
     return content
   }
@@ -195,47 +183,6 @@ module.exports = (
   const files = getNodesByType(`File`)
 
   const orgFiles = getNodesByType(`Orga`)
-
-  async function getAST(orgNode) {
-    const cacheKey = astCacheKey(orgNode)
-    const cachedAST = await cache.get(cacheKey)
-    if (cachedAST) {
-      return cachedAST
-    }
-    if (ASTPromiseMap.has(cacheKey)) return await ASTPromiseMap.get(cacheKey)
-    const ASTGenerationPromise = getOrgAST(orgNode)
-    ASTGenerationPromise.then(ast => {
-      cache.set(cacheKey, ast)
-      ASTPromiseMap.delete(cacheKey)
-    }).catch(err => {
-      ASTPromiseMap.delete(cacheKey)
-      return err
-    })
-
-    // Save new AST to cache and return
-    // We can now release promise, as we cached result
-    ASTPromiseMap.set(cacheKey, ASTGenerationPromise)
-    return ASTGenerationPromise
-  }
-
-  async function getOrgAST(orgNode) {
-    return new Promise(resolve => {
-      const parser = new Parser()
-      const ast = parser.parse(orgNode.internal.content)
-      resolve(ast)
-    })
-  }
-
-  function getTitle(ast) {
-    const { title } = ast.meta || {}
-    if (title) return title
-    if (ast.type === `section`) {
-      const headline = ast.children[0]
-      if (headline.type !== `headlien`) throw `expect headline here`
-      return select(`text`, headline).value
-    }
-    throw `something is wrong`
-  }
 
   function getHTML(ast) {
     const highlight = pluginOptions.noHighlight !== true
