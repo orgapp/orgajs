@@ -1,6 +1,8 @@
 const { Parser } = require('orga')
 const crypto = require(`crypto`)
 const util = require('util')
+const { selectAll } = require('unist-util-select')
+const { getProperties } = require('./orga-util')
 
 const astCacheKey = node =>
       `transformer-orga-ast-${
@@ -83,6 +85,7 @@ module.exports = async function onCreateNode(
       children: [],
       parent: orgFileNode.id,
       ast,
+      meta: ast.meta || getProperties(ast.children[0]), // TODO: this is not safe
       internal: {
         contentDigest: crypto.createHash(`md5`)
                              .update(JSON.stringify(ast, getCircularReplacer()))

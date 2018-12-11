@@ -9,6 +9,7 @@ const fsExtra = require('fs-extra')
 const { selectAll, select } = require('unist-util-select')
 const moment = require('moment')
 const util = require('util')
+const { getProperties } = require('./orga-util')
 
 const {
   GraphQLObjectType,
@@ -89,16 +90,6 @@ module.exports = (
     })
   })
 
-  function getProperties(headline) {
-    const drawer = selectAll(`drawer`, headline).find(d => d.name === `PROPERTIES`)
-    if (!drawer) return {}
-    const regex = /\s*:(.+):\s*(.+)\s*$/
-    return drawer.value.split(`\n`).reduce((accu, current) => {
-      let m = current.match(regex)
-      accu[m[1]] = m[2]
-      return accu
-    }, {})
-  }
 
   function getTimestamp(timestamp) {
     return moment(timestamp, `YYYY-MM-DD ddd HH:mm`)
@@ -121,16 +112,16 @@ module.exports = (
     if (headline.type !== `headline`) throw `section's first child is not headline`
     const title = select(`text`, headline).value
     // date
-    const { EXPORT_DATE, CATEGORY, EXPORT_FILE_NAME } = getProperties(headline)
+    const { export_date, category, export_file_name } = getProperties(headline)
     const closedDate = (select(`planning`, headline) || {}).timestamp
-    const date = getTimestamp(EXPORT_DATE || closedDate)
+    const date = getTimestamp(export_date || closedDate)
 
     return merge(defaultContent, {
       title,
       date,
       tags: headline.tags,
-      category: CATEGORY,
-      exportFileName: EXPORT_FILE_NAME || sanitise(title),
+      category,
+      exportFileName: export_file_name || sanitise(title),
       html: getHTML(body),
     })
 
@@ -185,7 +176,8 @@ module.exports = (
 
   function getHTML(ast) {
     const highlight = pluginOptions.noHighlight !== true
-    const handlers = { link: handleLink }
+    // const handlers = { link: handleLink }
+    const handlers = {}
     const html = hastToHTML(toHAST(ast, { highlight, handlers }), { allowDangerousHTML: true })
     return html
 
@@ -213,7 +205,7 @@ module.exports = (
       var src = uri.raw
       if (isRelative(uri.location)) {
         const linkPath = path.posix.join(
-          getNode(orgNode.parent).dir,
+          getNode(node.parent).dir,
           path.normalize(uri.location)
         )
 
