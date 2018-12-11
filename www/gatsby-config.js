@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby Orga Starter',
+    title: 'Orga',
   },
   plugins: [
     'gatsby-plugin-react-helmet',

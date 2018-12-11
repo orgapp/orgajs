@@ -1,6 +1,6 @@
 {
   "name": "gatsby-starter-orga",
-  "description": "Gatsby orga starter",
+  "description": "Orga",
   "version": "1.0.0",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "dependencies": {
@@ -15,7 +15,8 @@
     "gatsby-transformer-sharp": "^2.1.8",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-helmet": "^5.2.0"
+    "react-helmet": "^5.2.0",
+    "styled-components": "^4.1.2"
   },
   "keywords": [
     "gatsby"
