@@ -1,18 +1,19 @@
 import React from 'react'
-import util from 'util'
+// import util from 'util'
 import Layout from '../../components/layout'
 import { graphql } from 'gatsby'
 
-const Doc = ({ node: { title } }) => (
+const Doc = ({ node: { title, tags } }) => (
   <div key={title}>
     <h2>{ title }</h2>
+    <p>{ tags }</p>
   </div>
 )
 
-const debug = (data) => {
-  console.log(util.inspect(data, false, null, true))
-  return data
-}
+// const debug = (data) => {
+//   console.log(util.inspect(data, false, null, true))
+//   return data
+// }
 
 export default ({ data }) => (
   <Layout>
@@ -29,6 +30,7 @@ export const pageQuery = graphql`
         node {
           meta {
             title
+            tags
           }
           html
         }

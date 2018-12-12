@@ -1,14 +1,11 @@
 const u = require('unist-builder')
 const path = require('path')
 const Promise = require('bluebird')
-const { Parser } = require('orga')
 const toHAST = require('oast-to-hast')
 const hastToHTML = require('hast-util-to-html')
 const mime = require('mime')
 const fsExtra = require('fs-extra')
-const { selectAll, select } = require('unist-util-select')
 const util = require('util')
-const { getProperties } = require('./orga-util')
 
 const {
   GraphQLObjectType,
@@ -20,17 +17,6 @@ const {
 const GraphQLJSON = require('graphql-type-json')
 
 const DEPLOY_DIR = `public`
-
-let pluginsCacheStr = ``
-const astCacheKey = node =>
-      `transformer-orga-ast-${
-    node.internal.contentDigest
-  }-${pluginsCacheStr}`
-
-const contentCacheKey = node =>
-      `transformer-orga-content-${
-    node.internal.contentDigest
-  }-${pluginsCacheStr}`
 
 function isRelative(path) {
   return !path.startsWith(`/`)
@@ -62,66 +48,10 @@ module.exports = (
     return resolve({
       html: {
         type: GraphQLString,
-        resolve(node) { return getContent(node).then(c => c.html) },
-      },
-      date: {
-        type: GraphQLString,
-        resolve(node) { return getContent(node).then(c => c.date) },
-      },
-      tags: {
-        type: GraphQLList(GraphQLString),
-        resolve(node) { return getContent(node).then(c => c.tags) },
+        resolve(node) { return getHTML(node.ast) },
       },
     })
   })
-
-
-
-  function merge(defaultObj, obj) {
-    return Object.keys(obj).reduce((result, k) => {
-      if (obj[k]) return { ...result, [k]: obj[k] }
-      return result
-    }, defaultObj)
-  }
-
-  function getContentFromSection(ast, defaultContent) {
-    // use the first headline for title
-    const { headline, body } = decapitate(ast)
-    if (headline.type !== `headline`) throw `section's first child is not headline`
-
-    return merge(defaultContent, {
-      tags: headline.tags,
-      html: getHTML(body),
-    })
-
-    function decapitate(ast) {
-      const headline = ast.children[0]
-      const children = ast.children.slice(1)
-      return {
-        headline,
-        body: Object.assign({}, ast, { children }),
-      }
-    }
-  }
-
-  function getContentFromRoot(ast, defaultContent = {}) {
-    const { tags } = ast.meta || {}
-    return merge(defaultContent, {
-      tags,
-      html: getHTML(ast),
-    })
-  }
-
-  async function getContent(orgNode) {
-    const cachedContent = await cache.get(contentCacheKey(orgNode))
-    if (cachedContent) return cachedContent
-    const ast = orgNode.ast
-    const content = ast.type === `section` ?
-          getContentFromSection(ast) :
-          getContentFromRoot(ast)
-    cache.set(contentCacheKey(orgNode), content)
-    return content
-  }
 
   const newLinkURL = (linkNode, destinationDir) => {
     return path.posix.join(
@@ -136,10 +66,14 @@ module.exports = (
   const orgFiles = getNodesByType(`Orga`)
 
   function getHTML(ast) {
+    let body = ast
+    if (ast.type === `section`) {
+      body = { ...ast, children: ast.children.slice(1) }
+    }
     const highlight = pluginOptions.noHighlight !== true
     // const handlers = { link: handleLink }
     const handlers = {}
-    const html = hastToHTML(toHAST(ast, { highlight, handlers }), { allowDangerousHTML: true })
+    const html = hastToHTML(toHAST(body, { highlight, handlers }), { allowDangerousHTML: true })
     return html
 
     function copyOnDemand(file) {

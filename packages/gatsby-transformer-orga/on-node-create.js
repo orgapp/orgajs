@@ -2,7 +2,11 @@ const { Parser } = require('orga')
 const crypto = require(`crypto`)
 const util = require('util')
 const { selectAll, select } = require('unist-util-select')
-const { getProperties, sanitise, getTimestamp } = require('./orga-util')
+const {
+  getProperties,
+  sanitise,
+  processMeta,
+  getTimestamp } = require('./orga-util')
 
 const astCacheKey = node =>
       `transformer-orga-ast-${
@@ -80,13 +84,12 @@ module.exports = async function onCreateNode(
             title,
             export_file_name: sanitise(title),
             category: orgFileNode.fileName,
+            tags: ast.tags,
             ...getProperties(ast),
           }
           meta.date = getTimestamp(meta.date ||
                                    meta.export_date ||
                                    (select(`planning`, ast) || {}).timestamp)
-
-          console.log(`+++ date: ${meta.date}`)
           return {
             meta,
             ast: ast.parent, // we need the section of the headline
@@ -94,8 +97,9 @@ module.exports = async function onCreateNode(
         })
     } else { // root
         let meta = {
+          tags: ['file'],
           export_file_name: orgFileNode.fileName,
-          ...ast.meta }
+          ...processMeta(ast.meta) }
       meta.title = meta.title || 'Untitled'
       content = [ {
         meta,
