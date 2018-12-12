@@ -10,3 +10,7 @@ exports.getProperties = headline => {
     return accu
   }, {})
 }
+
+exports.sanitise = title => {
+  return title.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase()
+}

@@ -1,8 +1,8 @@
 const { Parser } = require('orga')
 const crypto = require(`crypto`)
 const util = require('util')
-const { selectAll } = require('unist-util-select')
-const { getProperties } = require('./orga-util')
+const { selectAll, select } = require('unist-util-select')
+const { getProperties, sanitise } = require('./orga-util')
 
 const astCacheKey = node =>
       `transformer-orga-ast-${
@@ -70,29 +70,66 @@ module.exports = async function onCreateNode(
     // const ast = orgFileNode.ast
     const ast = await getAST(orgFileNode)
     // console.log(`>>> ${util.inspect(orgFileNode, false, null, true)}`)
-    const { orga_publish_keyword, category } = ast.meta
+    const { orga_publish_keyword } = ast.meta
     let content
-    if (orga_publish_keyword) {
+    if (orga_publish_keyword) { // section
       content = selectAll(`[keyword=${orga_publish_keyword}]`, ast)
-        .map(n => n.parent)
-    } else {
-      content = [ ast ]
+        .map(ast => {
+          const title = select(`text`, ast).value
+          let meta = {
+            title,
+            export_file_name: sanitise(title),
+            ...getProperties(ast),
+          }
+
+          console.log(`>>> meta: ${meta}`)
+          return {
+            meta,
+            ast: ast.parent, // we need the section of the headline
+          }
+        })
+    } else { // root
+        let meta = {
+          export_file_name: orgFileNode.fileName,
+          ...ast.meta }
+      meta.title = meta.title || 'Untitled'
+      content = [ {
+        meta,
+        ast,
+      } ]
     }
 
-    content.map((ast, index) => ({
-      id: `${orgFileNode.id} >>> OrgContent[${index}]`,
-      orga_id: `${orgFileNode.id} >>> OrgContent[${index}]`,
-      children: [],
-      parent: orgFileNode.id,
-      ast,
-      meta: ast.meta || getProperties(ast.children[0]), // TODO: this is not safe
-      internal: {
-        contentDigest: crypto.createHash(`md5`)
-                             .update(JSON.stringify(ast, getCircularReplacer()))
-                             .digest(`hex`),
-        type: `OrgContent`,
-      },
-    })).forEach(n => {
+    content.map((node, index) => {
+      // let meta
+      // if (ast.type === `root`) {
+      //   meta = {
+      //     export_file_name: sanitise(`title here`),
+      //     ...ast.meta }
+      // } else {
+      //   meta = {
+      //     export_file_name: sanitise(`title here`),
+      //     ...getProperties(ast.children[0]) }
+      // }
+      // meta.category = meta.category || orgFileNode.fileName
+      // if (ast.type === `root` && !meta.exportFileName)
+      //   meta.exportFileName = orgFileNode.fileName
+      const id = `${orgFileNode.id} >>> OrgContent[${index}]`
+      const contentDigest =
+            crypto.createHash(`md5`)
+                  .update(JSON.stringify(node.ast, getCircularReplacer()))
+                  .digest(`hex`)
+      return {
+        id,
+        orga_id: id,
+        children: [],
+        parent: orgFileNode.id,
+        internal: {
+          contentDigest,
+          type: `OrgContent`,
+        },
+        ...node,
+      }
+    }).forEach(n => {
       createNode(n)
       createParentChildLink({ parent: orgFileNode, child: n })
     })

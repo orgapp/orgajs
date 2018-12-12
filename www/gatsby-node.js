@@ -49,18 +49,23 @@ exports.createPages = ({ graphql, actions }) => {
   })
 }
 
-// exports.onCreateNode = ({ node, actions, getNode }) => {
-//   const { createNodeField } = actions
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
 
-//   if (node.internal.type === `OrgContent`) {
-//     // console.log(`++ onCreateNode ++`)
-//     console.log(`++`, util.inspect(node, false, null, true))
+  if (node.internal.type === `OrgContent`) {
+    // console.log(`++ onCreateNode ++`)
+    // console.log(`++`, util.inspect(node, false, null, true))
 
-//     const value = `/${node.category}/${node.exportFileName}/`
-//     createNodeField({
-//       name: `slug`,
-//       node,
-//       value,
-//     })
-//   }
-// }
+    // const { category, exportFileName } = node.meta
+    const slug = path.resolve(
+      '/',
+      category || '',
+      exportFileName || '')
+    // const value = `/${node.category}/${node.exportFileName}/`
+    createNodeField({
+      name: `slug`,
+      node,
+      value: slug,
+    })
+  }
+}

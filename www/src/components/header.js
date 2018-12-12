@@ -6,11 +6,6 @@ import React from 'react'
 const Container = styled.header`
 padding-top: 3rem;
 padding-bottom: 2rem;
-display: flex;
-align-items: center;
-@media print {
-  display: none !important;
-}
 `
 
 const MenuItem = styled(Link)`
@@ -28,11 +23,20 @@ text-align: center;
 
 const Menu = styled.div`
 display: flex;
+justify-content: center;
+`
+
+const Title = styled.h1`
+color: gray;
+margin: 0 auto;
+padding-bottom: 1rem;
+text-align: center;
+border-bottom: none;
 `
 
 const Header = ({ siteTitle }) => (
   <Container>
-    <h1>{ siteTitle }</h1>
+    <Title>{ siteTitle }</Title>
     <Menu>
       <MenuItem to="/">HOME</MenuItem>
       <MenuItem to="/docs">DOCS</MenuItem>

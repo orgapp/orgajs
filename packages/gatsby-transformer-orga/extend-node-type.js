@@ -9,7 +9,7 @@ const fsExtra = require('fs-extra')
 const { selectAll, select } = require('unist-util-select')
 const moment = require('moment')
 const util = require('util')
-const { getProperties } = require('./orga-util')
+const { getProperties, sanitise } = require('./orga-util')
 
 const {
   GraphQLObjectType,
@@ -71,10 +71,10 @@ module.exports = (
         type: GraphQLString,
         resolve(node) { return getContent(node).then(c => c.title) },
       },
-      category: {
-        type: GraphQLString,
-        resolve(node) { return getContent(node).then(c => c.category) },
-      },
+      // category: {
+      //   type: GraphQLString,
+      //   resolve(node) { return getContent(node).then(c => c.category) },
+      // },
       date: {
         type: GraphQLString,
         resolve(node) { return getContent(node).then(c => c.date) },
@@ -95,9 +95,6 @@ module.exports = (
     return moment(timestamp, `YYYY-MM-DD ddd HH:mm`)
   }
 
-  function sanitise(title) {
-    return title.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase()
-  }
 
   function merge(defaultObj, obj) {
     return Object.keys(obj).reduce((result, k) => {
@@ -112,7 +109,7 @@ module.exports = (
     if (headline.type !== `headline`) throw `section's first child is not headline`
     const title = select(`text`, headline).value
     // date
-    const { export_date, category, export_file_name } = getProperties(headline)
+    const { export_date, export_file_name } = getProperties(headline)
     const closedDate = (select(`planning`, headline) || {}).timestamp
     const date = getTimestamp(export_date || closedDate)
 
@@ -120,7 +117,6 @@ module.exports = (
       title,
       date,
       tags: headline.tags,
-      category,
       exportFileName: export_file_name || sanitise(title),
       html: getHTML(body),
     })
@@ -136,11 +132,10 @@ module.exports = (
   }
 
   function getContentFromRoot(ast, defaultContent = {}) {
-    const { title, date, category, tags, export_file_name } = ast.meta || {}
+    const { title, date, tags, export_file_name } = ast.meta || {}
     return merge(defaultContent, {
       title,
       date,
-      category,
       tags,
       exportFileName: export_file_name,
       html: getHTML(ast),
