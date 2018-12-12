@@ -4,19 +4,22 @@ import { graphql } from 'gatsby'
 
 export default (props) => {
   const content = props.data.orgContent
+  const { title } = content.meta
   return (
     <Layout>
-      <h1>{ content.title }</h1>
+      <h1>{ title }</h1>
       <div dangerouslySetInnerHTML={{ __html: content.html }} />
     </Layout>
   )
 }
 
 export const pageQuery = graphql`
-  query OrgaNodeById($orga_id: String!) {
-    orgContent(orga_id: { eq: $orga_id }) {
+  query OrgaNodeBySlug($slug: String!) {
+    orgContent(fields: { slug: { eq: $slug }}) {
       id
-      title
+      meta {
+        title
+      }
       html
     }
   }

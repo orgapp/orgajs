@@ -1,3 +1,4 @@
+const moment = require('moment')
 const { selectAll } = require('unist-util-select')
 
 exports.getProperties = headline => {
@@ -13,4 +14,8 @@ exports.getProperties = headline => {
 
 exports.sanitise = title => {
   return title.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase()
+}
+
+exports.getTimestamp = timestamp => {
+  return moment(timestamp, `YYYY-MM-DD ddd HH:mm`).format()
 }

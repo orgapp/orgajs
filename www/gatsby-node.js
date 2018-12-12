@@ -7,10 +7,12 @@ const queryAllOrga = `
   allOrgContent {
     edges {
       node {
-        title
-        category
-        date
-        exportFileName
+        fields {
+          slug
+        }
+        meta {
+          title
+        }
         orga_id
       }
     }
@@ -31,16 +33,11 @@ exports.createPages = ({ graphql, actions }) => {
         }
 
         result.data.allOrgContent.edges.forEach(post => {
-          const { category, exportFileName, orga_id } = post.node
-          const slug = path.resolve(
-            '/',
-            category || '',
-            exportFileName || '')
           createPage({
-            path: slug,
+            path: post.node.fields.slug,
             component: template,
             context: {
-              orga_id,
+              slug: post.node.fields.slug,
             },
           })
         })
@@ -56,11 +53,11 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     // console.log(`++ onCreateNode ++`)
     // console.log(`++`, util.inspect(node, false, null, true))
 
-    // const { category, exportFileName } = node.meta
+    const { category, export_file_name } = node.meta
     const slug = path.resolve(
       '/',
       category || '',
-      exportFileName || '')
+      export_file_name || '')
     // const value = `/${node.category}/${node.exportFileName}/`
     createNodeField({
       name: `slug`,

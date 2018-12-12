@@ -7,9 +7,8 @@ const hastToHTML = require('hast-util-to-html')
 const mime = require('mime')
 const fsExtra = require('fs-extra')
 const { selectAll, select } = require('unist-util-select')
-const moment = require('moment')
 const util = require('util')
-const { getProperties, sanitise } = require('./orga-util')
+const { getProperties } = require('./orga-util')
 
 const {
   GraphQLObjectType,
@@ -49,8 +48,6 @@ const newPath = (linkNode, destinationDir) => {
   )
 }
 
-const ASTPromiseMap = new Map()
-
 module.exports = (
   { type, store, pathPrefix, getNode, getNodesByType, cache },
   pluginOptions
@@ -67,14 +64,6 @@ module.exports = (
         type: GraphQLString,
         resolve(node) { return getContent(node).then(c => c.html) },
       },
-      title: {
-        type: GraphQLString,
-        resolve(node) { return getContent(node).then(c => c.title) },
-      },
-      // category: {
-      //   type: GraphQLString,
-      //   resolve(node) { return getContent(node).then(c => c.category) },
-      // },
       date: {
         type: GraphQLString,
         resolve(node) { return getContent(node).then(c => c.date) },
@@ -83,17 +72,9 @@ module.exports = (
         type: GraphQLList(GraphQLString),
         resolve(node) { return getContent(node).then(c => c.tags) },
       },
-      exportFileName: {
-        type: GraphQLString,
-        resolve(node) { return getContent(node).then(c => c.exportFileName) },
-      },
     })
   })
 
-
-  function getTimestamp(timestamp) {
-    return moment(timestamp, `YYYY-MM-DD ddd HH:mm`)
-  }
 
 
   function merge(defaultObj, obj) {
@@ -107,17 +88,9 @@ module.exports = (
     // use the first headline for title
     const { headline, body } = decapitate(ast)
     if (headline.type !== `headline`) throw `section's first child is not headline`
-    const title = select(`text`, headline).value
-    // date
-    const { export_date, export_file_name } = getProperties(headline)
-    const closedDate = (select(`planning`, headline) || {}).timestamp
-    const date = getTimestamp(export_date || closedDate)
 
     return merge(defaultContent, {
-      title,
-      date,
       tags: headline.tags,
-      exportFileName: export_file_name || sanitise(title),
       html: getHTML(body),
     })
 
@@ -132,12 +105,9 @@ module.exports = (
   }
 
   function getContentFromRoot(ast, defaultContent = {}) {
-    const { title, date, tags, export_file_name } = ast.meta || {}
+    const { tags } = ast.meta || {}
     return merge(defaultContent, {
-      title,
-      date,
       tags,
-      exportFileName: export_file_name,
       html: getHTML(ast),
     })
   }
@@ -147,12 +117,8 @@ module.exports = (
     if (cachedContent) return cachedContent
     const ast = orgNode.ast
     const content = ast.type === `section` ?
-          getContentFromSection(ast, {
-            category: getNode(orgNode.parent).fileName,
-          }) :
-          getContentFromRoot(ast, {
-            exportFileName: getNode(orgNode.parent).fileName,
-          })
+          getContentFromSection(ast) :
+          getContentFromRoot(ast)
     cache.set(contentCacheKey(orgNode), content)
     return content
   }

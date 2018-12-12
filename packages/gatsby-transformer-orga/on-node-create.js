@@ -2,7 +2,7 @@ const { Parser } = require('orga')
 const crypto = require(`crypto`)
 const util = require('util')
 const { selectAll, select } = require('unist-util-select')
-const { getProperties, sanitise } = require('./orga-util')
+const { getProperties, sanitise, getTimestamp } = require('./orga-util')
 
 const astCacheKey = node =>
       `transformer-orga-ast-${
@@ -79,10 +79,14 @@ module.exports = async function onCreateNode(
           let meta = {
             title,
             export_file_name: sanitise(title),
+            category: orgFileNode.fileName,
             ...getProperties(ast),
           }
+          meta.date = getTimestamp(meta.date ||
+                                   meta.export_date ||
+                                   (select(`planning`, ast) || {}).timestamp)
 
-          console.log(`>>> meta: ${meta}`)
+          console.log(`+++ date: ${meta.date}`)
           return {
             meta,
             ast: ast.parent, // we need the section of the headline
@@ -100,19 +104,6 @@ module.exports = async function onCreateNode(
     }
 
     content.map((node, index) => {
-      // let meta
-      // if (ast.type === `root`) {
-      //   meta = {
-      //     export_file_name: sanitise(`title here`),
-      //     ...ast.meta }
-      // } else {
-      //   meta = {
-      //     export_file_name: sanitise(`title here`),
-      //     ...getProperties(ast.children[0]) }
-      // }
-      // meta.category = meta.category || orgFileNode.fileName
-      // if (ast.type === `root` && !meta.exportFileName)
-      //   meta.exportFileName = orgFileNode.fileName
       const id = `${orgFileNode.id} >>> OrgContent[${index}]`
       const contentDigest =
             crypto.createHash(`md5`)

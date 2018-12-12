@@ -23,11 +23,13 @@ export default ({ data }) => (
 export const pageQuery = graphql`
   query AllDocs {
     allOrgContent(
-      filter: { category: { eq: "docs" } }
+      filter: { meta: { category: { eq: "docs" } } }
   ) {
       edges {
         node {
-          title
+          meta {
+            title
+          }
           html
         }
       }
