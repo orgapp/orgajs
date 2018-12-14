@@ -1,20 +1,20 @@
-const u = require('unist-builder')
-const path = require('path')
-const Promise = require('bluebird')
-const toHAST = require('oast-to-hast')
-const hastToHTML = require('hast-util-to-html')
-const mime = require('mime')
-const fsExtra = require('fs-extra')
-const util = require('util')
+import u from 'unist-builder'
+import path from 'path'
+import Promise from 'bluebird'
+import toHAST from 'oast-to-hast'
+import hastToHTML from 'hast-util-to-html'
+import mime from 'mime'
+import fsExtra from 'fs-extra'
+import util from 'util'
 
-const {
+import {
   GraphQLObjectType,
   GraphQLList,
   GraphQLString,
   GraphQLInt,
   GraphQLEnumType,
-} = require('gatsby/graphql')
-const GraphQLJSON = require('graphql-type-json')
+} from 'gatsby/graphql'
+import GraphQLJSON from 'graphql-type-json'
 
 const DEPLOY_DIR = `public`
 

@@ -11,6 +11,9 @@ console.log(` -> root babel config found`)
 module.exports = {
   sourceMaps: true,
   presets: ["@babel/preset-env"],
-  plugins: ["@babel/plugin-proposal-export-default-from"],
+  plugins: [
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-transform-runtime",
+  ],
   ignore,
 }
