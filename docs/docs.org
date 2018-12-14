@@ -119,3 +119,7 @@ Find the complete definition of AST [[/ast][here]].
  #+BEGIN_SRC sh
  node index.js < README.org > readme.html
  #+END_SRC
+* PUBLISHED With Gatsby
+  CLOSED: [2018-12-14 Fri 11:00]
+** Setup
+** Data Mapping Table

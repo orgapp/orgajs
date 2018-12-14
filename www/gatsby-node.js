@@ -10,10 +10,6 @@ const queryAllOrga = `
         fields {
           slug
         }
-        meta {
-          title
-        }
-        orga_id
       }
     }
   }

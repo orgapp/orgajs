@@ -1,23 +1,23 @@
 import React from 'react'
-// import util from 'util'
+import styled from 'styled-components'
 import Layout from '../../components/layout'
+import { StyledLink } from '../../components/styled'
 import { graphql } from 'gatsby'
 
-const Doc = ({ node: { title, tags } }) => (
-  <div key={title}>
-    <h2>{ title }</h2>
-    <p>{ tags }</p>
-  </div>
-)
+const Desc = styled.p`
+color: gray;
+`
 
-// const debug = (data) => {
-//   console.log(util.inspect(data, false, null, true))
-//   return data
-// }
+const DocLink = ({ node: { meta: { title, description }, fields: { slug } } }) => (
+  <StyledLink to={slug} key={`doc-link-${slug}`}>
+    <h3>{ title }</h3>
+    <Desc>{ description }</Desc>
+  </StyledLink>
+)
 
 export default ({ data }) => (
   <Layout>
-    <div>{ data.allOrgContent.edges.map(Doc) }</div>
+    <div>{ data.allOrgContent.edges.map(DocLink) }</div>
   </Layout>
 )
 
@@ -30,9 +30,11 @@ export const pageQuery = graphql`
         node {
           meta {
             title
-            tags
+            description
           }
-          html
+          fields {
+            slug
+          }
         }
       }
     }
