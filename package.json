@@ -28,5 +28,9 @@
     "test:watch": "jest --watch",
     "watch": "lerna run watch --no-sort --stream --concurrency 999"
   },
-  "workspaces": ["packages/*", "examples/*", "www"]
+  "workspaces": [
+    "packages/*",
+    "examples/*",
+    "www"
+  ]
 }
