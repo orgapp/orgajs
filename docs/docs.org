@@ -85,7 +85,7 @@ Find the complete definition of AST [[/ast][here]].
   :DESCRIPTION: How to use orga with unified, to do great things.
   :END:
 
-[[https://unifiedjs.github.io][Unified]] is an awesome ecosystem for text processing. Here is how to plug orga into it.
+[[https://unifiedjs.github.io][Unified]] is an awesome ecosystem for text processing. Here is how to plug =orga= into it.
 
 ** Setup
 
@@ -119,7 +119,83 @@ Find the complete definition of AST [[/ast][here]].
  #+BEGIN_SRC sh
  node index.js < README.org > readme.html
  #+END_SRC
-* PUBLISHED With Gatsby
+* PUBLISHED Generate Static Website With Gatsby
   CLOSED: [2018-12-14 Fri 11:00]
+  :PROPERTIES:
+  :DESCRIPTION: Learn how to generate static website with gatsbyjs, using org-mode files as source.
+  :END:
+
 ** Setup
-** Data Mapping Table
+   Install the plugin.
+
+   #+BEGIN_SRC sh
+   npm install gatsby-transformer-orga
+   #+END_SRC
+
+   Add it to your ~plugins~ list.
+   #+BEGIN_SRC javascript
+     // In your gatsby-config.js
+     plugins: [`gatsby-transformer-orga`]
+   #+END_SRC
+
+** Parsing
+   Files with ~.org~ extension will be considered org files. Each org file is parsed into a node of type ~OrgFile~. Each ~OrgFile~ node will have one or more ~OrgContent~ nodes, depending on the mode (section or file based).
+** Modes
+   =gatsby-transformer-orga= plugin provides 2 ways to generate your content from your org-mode source files.
+   - one document per org-mode file
+   - one document per section (sub-tree)
+
+   The former is the default option. To enable section based generation, add =ORGA_PUBLISH_KEYWORD= to your org file, and sections with matching keyword will be transformed into a standalone document. E.g.
+   #+BEGIN_SRC org
+     ,#+ORGA_PUBLISH_KEYWORD: DONE
+
+     ,* DONE My First Post
+       CLOSED: [2018-12-14 Fri 15:44]
+
+       ...
+
+     ,* TODO A Draft
+   #+END_SRC
+
+   In this case, the first section will become a post. The second won't.
+
+*** Data Mapping Table (File Based)
+    | meta field       | first option       | second option |
+    |------------------+--------------------+---------------|
+    | ~title~            | ~#+TITLE~            | "Untitled"    |
+    | ~export_file_name~ | ~#+EXPORT_FILE_NAME~ | the file name |
+    | ~category~         | ~#+CATEGORY~         | N/A           |
+    | ~tags~             | ~#+TAGS~             | N/A           |
+
+    All the rest of the [[https://orgmode.org/manual/In_002dbuffer-settings.html][In-buffer Settings]] will be automatically added to the ~meta~ field. And they are queryable from Gatsby's graphql interface. They are lower-cased for consistency purpose.
+
+*** Data Mapping Table (Section Based)
+    | meta field       | first option              | second option   |
+    |------------------+---------------------------+-----------------|
+    | ~title~            | first headline text       | N/A             |
+    | ~export_file_name~ | ~EXPORT_FIEL_NAME~ property | sanitised ~title~ |
+    | ~category~         | ~CATEGORY~ property         | the file name   |
+    | ~tags~             | headline tags             | N/A             |
+
+    All the rest of the [[https://orgmode.org/manual/Property-syntax.html][Properties]] of the headline will be automatically added to the ~meta~ field. And they are queryable from Gatsby's graphql interface. They are lower-cased for consistency purpose.
+
+** Query Examples
+
+   To get all content node (~OrgContent~):
+
+   #+BEGIN_SRC graphql
+     {
+       allOrgContent: {
+	 edges: {
+	   node: {
+	     html
+	     meta {
+	       title
+	       tags
+	       category
+	     }
+	   }
+	 }
+       }
+     }
+   #+END_SRC

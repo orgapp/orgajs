@@ -19,6 +19,7 @@ module.exports = {
       },
     },
     'gatsby-transformer-sharp',
+    'gatsby-transformer-toml',
     'gatsby-plugin-sharp',
     {
       resolve: `gatsby-plugin-manifest`,

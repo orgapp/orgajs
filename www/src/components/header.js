@@ -1,7 +1,9 @@
 import styled from 'styled-components'
-import { Link } from 'gatsby'
+import Link from './link'
 import PropTypes from 'prop-types'
 import React from 'react'
+import typography from '../utils/typography'
+const { rhythm } = typography
 
 const Container = styled.header`
 padding-top: 3rem;
@@ -29,18 +31,24 @@ justify-content: center;
 const Title = styled.h1`
 color: gray;
 margin: 0 auto;
-padding-bottom: 1rem;
+padding-bottom: ${rhythm(1.5)};
 text-align: center;
 border-bottom: none;
 `
 
+const Logo = styled(Link)`
+`
+
+
 const Header = ({ siteTitle }) => (
   <Container>
-    <Title>{ siteTitle }</Title>
+    <Logo to='/'>
+      <Title>{ siteTitle }</Title>
+    </Logo>
     <Menu>
-      <MenuItem to="/">HOME</MenuItem>
       <MenuItem to="/docs">DOCS</MenuItem>
-      <MenuItem to="/github">GITHUB</MenuItem>
+      <MenuItem to="/ast">AST</MenuItem>
+      <MenuItem to="https://github.com/xiaoxinghu/orgajs">CODE</MenuItem>
     </Menu>
   </Container>
 )

@@ -97,7 +97,6 @@ module.exports = async function onCreateNode(
         })
     } else { // root
         let meta = {
-          tags: ['file'],
           export_file_name: orgFileNode.fileName,
           ...processMeta(ast.meta) }
       meta.title = meta.title || 'Untitled'
