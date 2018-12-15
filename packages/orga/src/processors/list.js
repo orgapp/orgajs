@@ -14,7 +14,7 @@ function process(token, section) {
     }
     while (self.hasNext()) {
       const { name, raw } = self.peek()
-      if (name != `line`) break
+      if (name !== `line`) break
       const lineIndent = raw.search(/\S/)
       if (lineIndent <= indent) break
       lines.push(self.next().raw.trim())
@@ -27,7 +27,7 @@ function process(token, section) {
     const list = new Node(`list`)
     while (self.hasNext()) {
       const token = self.peek()
-      if ( token.name != `list.item` ) break
+      if ( token.name !== `list.item` ) break
       const { indent } = token.data
       if (indent <= level) break
       const item = parseListItem()

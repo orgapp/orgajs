@@ -4,7 +4,7 @@ function process(token, section) {
   const { key, value } = token.data
   switch (key) {
   case `TODO`:
-    if (section.type != `root`) break
+    if (section.type !== `root`) break
     const todos = value.split(/\s|\|/g).filter(String)
     section.meta.todos = todos
     this.lexer.updateTODOs(todos)

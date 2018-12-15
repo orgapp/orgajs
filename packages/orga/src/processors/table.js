@@ -15,7 +15,7 @@ function process(token, section) {
         table.push(new Node(`table.separator`))
         continue
       }
-      if ( token.name != `table.row` ) break
+      if ( token.name !== `table.row` ) break
       const cells = token.data.cells.map(c => new Node(`table.cell`, inlineParse(c)))
       const row = new Node(`table.row`, cells)
       table.push(row)

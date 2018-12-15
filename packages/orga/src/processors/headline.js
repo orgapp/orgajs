@@ -3,7 +3,7 @@ import { parse as inlineParse } from '../inline'
 
 function parsePlanning() {
   const token = this.next()
-  if (!token || token.name != `planning`) { return undefined }
+  if (!token || token.name !== `planning`) { return undefined }
   return new Node('planning').with(token.data)
 }
 
@@ -36,7 +36,7 @@ function process(token, section) {
     headline.push(planning)
   }
 
-  while (this.hasNext() && this.peek().name == `drawer.begin`) {
+  while (this.hasNext() && this.peek().name === `drawer.begin`) {
     let drawer = this.tryTo(parseDrawer)
     if (!drawer) { // broken drawer
       this.downgradeToLine(this.cursor + 1)
