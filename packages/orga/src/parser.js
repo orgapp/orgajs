@@ -1,5 +1,5 @@
-import Lexer from './lexer'
-import Node from './node'
+const Lexer = require('./lexer')
+const Node = require('./node')
 
 function Parser(options = require('./defaults')) {
   this.options = options
@@ -74,7 +74,7 @@ Parser.prototype.unagi = function(element) {
 Parser.prototype.parseSection = function(section) {
   const token = this.peek()
   if (!token) return section
-  if (token.name != `blank`) this._cel = 0 // reset consecutive empty lines
+  if (token.name !== `blank`) this._cel = 0 // reset consecutive empty lines
   const p = this.processor[token.name]
   if (p) {
     return p.bind(this)(token, section)

@@ -1,4 +1,4 @@
-import { escape } from './utils'
+const { escape } = require('./utils')
 
 function Syntax() {
   this.rules = []
@@ -14,9 +14,9 @@ Syntax.prototype = {
   },
 
   update: function(name, pattern) {
-    const i = this.rules.findIndex(r => r.name == name)
+    const i = this.rules.findIndex(r => r.name === name)
     var newRule = { name, post: () => {} }
-    if (i != -1) {
+    if (i !== -1) {
       newRule = this.rules.splice(i, 1)[0]
     }
     newRule.pattern = pattern
@@ -81,7 +81,7 @@ org.define('list.item', /^(\s*)([-+]|\d+[.)])\s+(?:\[(x|X|-| )\])?(.*)$/, m => {
 
   var result = { indent, ordered, content }
   if (m[3]) {
-    var checked = m[3] != ' '
+    var checked = m[3] !== ' '
     result.checked = checked
   }
   return result

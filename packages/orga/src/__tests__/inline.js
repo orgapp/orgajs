@@ -1,4 +1,4 @@
-import { parse } from '../inline'
+const { parse } = require('../inline')
 
 describe('Inline Parsing', () => {
   it('recon single emphasis', () => {

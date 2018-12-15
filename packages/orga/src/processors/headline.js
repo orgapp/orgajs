@@ -1,5 +1,5 @@
-import Node from '../node'
-import { parse as inlineParse } from '../inline'
+const Node = require('../node')
+const inlineParse = require('../inline').parse
 
 function parsePlanning() {
   const token = this.next()

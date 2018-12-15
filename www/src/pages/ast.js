@@ -1,6 +1,7 @@
 import React from 'react'
 import { Parser } from 'orga'
 import Layout from '../components/layout'
+import { graphql } from 'gatsby'
 
 export default class AST extends React.Component {
   render() {

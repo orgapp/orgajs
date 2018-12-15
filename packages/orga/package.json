@@ -3,19 +3,10 @@
   "version": "0.6.0",
   "description": "org-mode parser",
   "files": [
-    "lib"
+    "src"
   ],
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "license": "MIT",
-  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga",
-  "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "cross-env": "^5.2.0"
-  },
-  "scripts": {
-    "build": "babel --root-mode upward src --out-dir lib",
-    "watch": "babel --root-mode upward -w src --out-dir lib",
-    "prepare": "cross-env NODE_ENV=production npm run build"
-  }
+  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga"
 }

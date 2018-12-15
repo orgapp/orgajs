@@ -1,4 +1,4 @@
-import Lexer from '../lexer'
+const Lexer = require('../lexer')
 
 describe('Lexer', () => {
   var lexer = new Lexer()

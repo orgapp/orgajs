@@ -1,4 +1,4 @@
-import Parser from '../parser'
+const Parser = require('../parser')
 
 describe('Parser', () => {
   let parser = new Parser()

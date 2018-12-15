@@ -1,4 +1,4 @@
-import Node from '../node'
+const Node = require('../node')
 
 function parseBlock() {
   const t = this.next()

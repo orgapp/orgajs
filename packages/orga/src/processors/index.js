@@ -1,12 +1,12 @@
-import keyword from './keyword'
-import headline from './headline'
-import line from './line'
-import block from './block'
-import list from './list'
-import table from './table'
-import horizontalRule from './horizontal-rule'
-import footnote from './footnote'
-import blank from './blank'
+const keyword = require('./keyword')
+const headline = require('./headline')
+const line = require('./line')
+const block = require('./block')
+const list = require('./list')
+const table = require('./table')
+const horizontalRule = require('./horizontal-rule')
+const footnote = require('./footnote')
+const blank = require('./blank')
 
 module.exports = {
   keyword,

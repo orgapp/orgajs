@@ -12,4 +12,3 @@ pids
 node_modules
 *.un~
 yarn.lock
-src

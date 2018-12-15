@@ -1,5 +1,5 @@
-import Node from './node'
-import uri from './uri'
+const Node = require('./node')
+const uri = require('./uri')
 
 const LINK_PATTERN = /(.*?)\[\[([^\]]*)\](?:\[([^\]]*)\])?\](.*)/m; // \1 => link, \2 => text
 const FOOTNOTE_PATTERN = /(.*?)\[fn:(\w+)\](.*)/
@@ -63,7 +63,7 @@ function _parse(pattern, text, post) {
 
   if (Array.isArray(text)) {
     return text.reduce((all, node) => {
-      if (node.hasOwnProperty(`type`) && node.type != `text`) {
+      if (node.hasOwnProperty(`type`) && node.type !== `text`) {
         return all.concat(node)
       }
       return all.concat(_parse(pattern, node, post))
