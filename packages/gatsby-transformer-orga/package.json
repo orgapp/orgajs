@@ -24,14 +24,5 @@
   "license": "MIT",
   "peerDependencies": {
     "gatsby": "2.x"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.2.0",
-    "cross-env": "^5.2.0"
-  },
-  "scripts": {
-    "build": "babel --root-mode upward src --out-dir .",
-    "prepare": "cross-env NODE_ENV=production npm run build",
-    "watch": "babel --root-mode upward -w src --out-dir ."
   }
 }

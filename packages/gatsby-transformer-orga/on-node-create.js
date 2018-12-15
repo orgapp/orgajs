@@ -1,12 +1,12 @@
-import { Parser } from 'orga'
-import crypto from 'crypto'
-import util from 'util'
-import { selectAll, select } from 'unist-util-select'
-import {
+const { Parser } = require('orga')
+const crypto = require(`crypto`)
+const util = require('util')
+const { selectAll, select } = require('unist-util-select')
+const {
   getProperties,
   sanitise,
   processMeta,
-  getTimestamp } from './orga-util'
+  getTimestamp } = require('./orga-util')
 
 const astCacheKey = node =>
       `transformer-orga-ast-${
