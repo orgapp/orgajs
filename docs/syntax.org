@@ -1,0 +1,132 @@
+#+TITLE: Orga with Gatsby
+#+DATE: 2018-01-01
+
+* Emphasis (can be in _headline_ too)
+
+[[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,
+the round pegs in the +round+ square holes...
+
+* Horizontal Rule
+
+------
+
+* Footnote
+
+This[fn:1] is a footnote.
+
+* Blocks
+
+Code Blocks.
+#+BEGIN_SRC javascript
+  Console.log(`Hello Org`)
+#+END_SRC
+
+Block Quote.
+#+BEGIN_QUOTE
+I think if you do something and it turns out pretty good, then you should go do
+something else wonderful, not dwell on it for too long. Just figure out what’s
+next.
+#+END_QUOTE
+
+Example Block.
+#+BEGIN_EXAMPLE
+npm install orga
+#+END_EXAMPLE
+
+Comments (you are not expected to see anything here).
+#+BEGIN_COMMENT
+You are not suppose to see this.
+#+END_COMMENT
+
+Center.
+#+BEGIN_CENTER
+This line should be centered.
+#+END_CENTER
+
+Verse.
+#+BEGIN_VERSE
+Great clouds overhead
+ Tiny black birds rise and fall
+ Snow covers Emacs
+
+     -- AlexSchroeder
+#+END_VERSE
+
+* List
+** Ordered List
+
+1. Apple
+2. Orange
+3. Banana
+
+** Unordered List
+
+- Apple
+- Orange
+- Banana
+
+** Nested List
+
+- Apple
+  1) iPhone
+  2) Mac
+     1) MacBook Pro
+     2) iMac
+     3) iMac Pro
+     4) Mac Pro
+     5) +MacBook Air+
+- Banana
+- Orange
+
+** With Checkbox
+
+- [X] Design
+- [x] Write Code
+- [-] Test
+- [ ] Ship
+
+
+** Multi-line List Items
+- *Apple* is an American multinational technology company headquartered in
+  Cupertino, California that designs, develops, and sells consumer electronics,
+  computer software, and online services.
+- Orange
+- Banana
+
+* Table
+
+| Name         | Species    | Gender | Role         |
+|--------------+------------+--------+--------------|
+| *Bruce Wayne*  | +Bat+ Human  | M      | [[https://en.wikipedia.org/wiki/Batman][Batman]]       |
+| _Clark Kent_   | =Kryptonian= | M      | [[https://en.wikipedia.org/wiki/Superman][Superman]]     |
+| /Diana Prince/ | ~Amazonian~  | F      | [[https://en.wikipedia.org/wiki/Wonder_Woman][Wonder Woman]] |
+* Export
+
+#+HTML: <small>small text</small>
+
+#+BEGIN_EXPORT html
+<h3>A Headline</h3>
+<p>And a Paragraph.</p>
+#+END_EXPORT
+
+* Links
+
+[[https://upload.wikimedia.org/wikipedia/commons/a/a6/Org-mode-unicorn.svg][image from URL]]
+
+[[file:logo.svg][image from local file]]
+
+[[./logo.svg][image with relative path]]
+
+[[./syntax.pdf][pdf file from local path]]
+
+[[file:docs.org::*With%20Unified][link to another org file]]
+
+[[file:docs.org::*With%20Unified][link to another article generated from section]]
+
+* Footnotes
+
+[fn:1] And this is the content of the footnote.
+And this is another line.
+#+BEGIN_SRC swift
+console.log(`code block works too`)
+#+END_SRC

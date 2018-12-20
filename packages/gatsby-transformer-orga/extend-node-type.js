@@ -1,4 +1,5 @@
 const u = require('unist-builder')
+const isRelativeUrl = require(`is-relative-url`)
 const path = require('path')
 const Promise = require('bluebird')
 const toHAST = require('oast-to-hast')
@@ -18,10 +19,6 @@ const GraphQLJSON = require('graphql-type-json')
 
 const DEPLOY_DIR = `public`
 
-function isRelative(path) {
-  return !path.startsWith(`/`)
-}
-
 const newFileName = linkNode =>
       `${linkNode.name}-${linkNode.internal.contentDigest}.${linkNode.extension}`
 
@@ -34,6 +31,20 @@ const newPath = (linkNode, destinationDir) => {
   )
 }
 
+const newLinkURL = ({ linkNode, destinationDir, pathPrefix }) => {
+  const linkPaths = [
+    `/`,
+    pathPrefix,
+    destinationDir || `static`,
+    newFileName(linkNode),
+  ].filter(function(lpath) {
+    if (lpath) return true
+    return false
+  })
+
+  return path.posix.join(...linkPaths)
+}
+
 module.exports = (
   { type, store, pathPrefix, getNode, getNodesByType, cache },
   pluginOptions
@@ -42,37 +53,27 @@ module.exports = (
     return {}
   }
 
+  const files = getNodesByType(`File`)
+
+  const orgFiles = getNodesByType(`OrgContent`)
 
   return new Promise((resolve, reject) => {
 
     return resolve({
       html: {
         type: GraphQLString,
-        resolve(node) { return getHTML(node.ast) },
+        resolve(node) { return getHTML(node) },
       },
     })
   })
 
-  const newLinkURL = (linkNode, destinationDir) => {
-    return path.posix.join(
-      `/`,
-      pathPrefix,
-      destinationDir || `static`,
-      newFileName(linkNode))
-  }
-
-  const files = getNodesByType(`File`)
-
-  const orgFiles = getNodesByType(`Orga`)
-
-  function getHTML(ast) {
-    let body = ast
-    if (ast.type === `section`) {
-      body = { ...ast, children: ast.children.slice(1) }
+  function getHTML(orgContentNode) {
+    let body = orgContentNode.ast
+    if (body.type === `section`) {
+      body = { ...body, children: body.children.slice(1) }
     }
     const highlight = pluginOptions.noHighlight !== true
-    // const handlers = { link: handleLink }
-    const handlers = {}
+    const handlers = { link: handleLink }
     const html = hastToHTML(toHAST(body, { highlight, handlers }), { allowDangerousHTML: true })
     return html
 
@@ -91,20 +92,24 @@ module.exports = (
         })
       }
 
-      return newLinkURL(file)
+      return newLinkURL({ linkNode: file, pathPrefix })
     }
 
     function handleLink(h, node) {
       const { uri, desc } = node
 
       var src = uri.raw
-      if (isRelative(uri.location)) {
-        const linkPath = path.posix.join(
-          getNode(node.parent).dir,
+      if (isRelativeUrl(uri.location)) {
+        let linkPath = path.posix.join(
+          getNode(getNode(orgContentNode.parent).parent).dir,
           path.normalize(uri.location)
         )
 
-        const linkToOrg = orgFiles.find(f => f.fileAbsolutePath === linkPath)
+        const { headline } = uri.query || {}
+        if (headline) linkPath = `${linkPath}::*${decodeURIComponent(headline)}`
+
+        console.log(`headline: ${headline}`)
+        const linkToOrg = orgFiles.find(f => f.absolutePath === linkPath)
         if (linkToOrg) {
           src = linkToOrg.fields.slug
         } else {

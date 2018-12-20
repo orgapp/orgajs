@@ -90,9 +90,11 @@ module.exports = async function onCreateNode(
           meta.date = getTimestamp(meta.date ||
                                    meta.export_date ||
                                    (select(`planning`, ast) || {}).timestamp)
+          const absolutePath = `${orgFileNode.fileAbsolutePath}::*${title}`
           return {
             meta,
             ast: ast.parent, // we need the section of the headline
+            absolutePath,
           }
         })
     } else { // root
@@ -100,9 +102,11 @@ module.exports = async function onCreateNode(
           export_file_name: orgFileNode.fileName,
           ...processMeta(ast.meta) }
       meta.title = meta.title || 'Untitled'
+      const absolutePath = `${orgFileNode.fileAbsolutePath}`
       content = [ {
         meta,
         ast,
+        absolutePath,
       } ]
     }
 

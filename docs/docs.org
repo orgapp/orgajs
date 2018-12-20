@@ -10,6 +10,8 @@
 This documentation explains how to use orga to parse org-mode content into AST.
 Find the complete definition of AST [[/ast][here]].
 
+See the syntax [[file:syntax.org][here]].
+
 ** Install
 
  #+BEGIN_SRC sh
