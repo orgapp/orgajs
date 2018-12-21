@@ -116,6 +116,7 @@ module.exports = (
         }
       }
 
+      // TODO: transform internal link of file based content to anchor? i.e. can't find the linkToOrg
       if (uri.protocol === `internal`) {
         let linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${uri.location}`
         const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
