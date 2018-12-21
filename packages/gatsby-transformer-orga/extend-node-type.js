@@ -55,67 +55,71 @@ module.exports = (
 
   const files = getNodesByType(`File`)
 
-  const orgFiles = getNodesByType(`OrgContent`)
+  const orgContent = getNodesByType(`OrgContent`)
 
   return new Promise((resolve, reject) => {
 
     return resolve({
       html: {
         type: GraphQLString,
-        resolve(node) { return getHTML(node) },
+        async resolve(node) { return await getHTML(node) },
       },
     })
   })
 
-  function getHTML(orgContentNode) {
+  async function getHTML(orgContentNode) {
     let body = orgContentNode.ast
     if (body.type === `section`) {
       body = { ...body, children: body.children.slice(1) }
     }
+    const filesToCopy = new Map()
     const highlight = pluginOptions.noHighlight !== true
     const handlers = { link: handleLink }
     const html = hastToHTML(toHAST(body, { highlight, handlers }), { allowDangerousHTML: true })
-    return html
-
-    function copyOnDemand(file) {
-      const publicPath = newPath(file)
-      if (!fsExtra.existsSync(publicPath)) {
-        fsExtra.copy(file.absolutePath, publicPath, err => {
-          if (err) {
-            console.error(
-              `error copying file from ${
-                  file.absolutePath
-                } to ${publicPath}`,
-              err
-            )
-          }
-        })
+    await Promise.all(Array.from(filesToCopy, async ([linkPath, newFilePath]) => {
+      // Don't copy anything is the file already exists at the location.
+      if (!fsExtra.existsSync(newFilePath)) {
+        try {
+          await fsExtra.ensureDir(path.dirname(newFilePath))
+          await fsExtra.copy(linkPath, newFilePath)
+        } catch (err) {
+          console.error(`error copying file`, err)
+        }
       }
-
-      return newLinkURL({ linkNode: file, pathPrefix })
-    }
+    }))
+    return html
 
     function handleLink(h, node) {
       const { uri, desc } = node
 
       var src = uri.raw
-      if (isRelativeUrl(uri.location)) {
+      // console.log(`URI: ${util.inspect(uri, false, null, true)}`)
+      if (uri.protocol === `file`) {
         let linkPath = path.posix.join(
           getNode(getNode(orgContentNode.parent).parent).dir,
           path.normalize(uri.location)
         )
-
         const { headline } = uri.query || {}
         if (headline) linkPath = `${linkPath}::*${decodeURIComponent(headline)}`
-
-        console.log(`headline: ${headline}`)
-        const linkToOrg = orgFiles.find(f => f.absolutePath === linkPath)
+        const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
         if (linkToOrg) {
           src = linkToOrg.fields.slug
         } else {
           const linkNode = files.find(f => f.absolutePath === linkPath)
-          if (linkNode) src = copyOnDemand(linkNode)
+          if (linkNode && linkNode.absolutePath) {
+            const newFilePath = newPath(linkNode)
+            if (linkPath !== newFilePath) {
+              src = newLinkURL({ linkNode, pathPrefix })
+              filesToCopy.set(linkPath, newFilePath)
+            }
+          }
         }
+      }
+
+      if (uri.protocol === `internal`) {
+        let linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${uri.location}`
+        const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
+        if (linkToOrg) src = linkToOrg.fields.slug
       }
 
       const type = mime.getType(src)

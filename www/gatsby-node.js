@@ -1,5 +1,4 @@
 const path = require('path')
-const { createFilePath } = require('gatsby-source-filesystem')
 const util = require('util')
 
 const queryAllOrga = `
@@ -40,25 +39,4 @@ exports.createPages = ({ graphql, actions }) => {
       })
     )
   })
-}
-
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
-
-  if (node.internal.type === `OrgContent`) {
-    // console.log(`++ onCreateNode ++`)
-    // console.log(`++`, util.inspect(node, false, null, true))
-
-    const { category, export_file_name } = node.meta
-    const slug = path.resolve(
-      '/',
-      category || '',
-      export_file_name || '')
-    // const value = `/${node.category}/${node.exportFileName}/`
-    createNodeField({
-      name: `slug`,
-      node,
-      value: slug,
-    })
-  }
 }

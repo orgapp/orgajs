@@ -1,5 +1,6 @@
 const { Parser } = require('orga')
-const crypto = require(`crypto`)
+const crypto = require('crypto')
+const path = require('path')
 const util = require('util')
 const { selectAll, select } = require('unist-util-select')
 const {
@@ -29,9 +30,9 @@ const getCircularReplacer = () => {
 }
 
 module.exports = async function onCreateNode(
-  { node, loadNodeContent, actions, cache }) {
+  { node, loadNodeContent, actions, cache, pathPrefix }) {
 
-  const { createNode, createParentChildLink } = actions
+  const { createNode, createParentChildLink, createNodeField } = actions
   // We only care about org content. The mime is not useful for us. Use extension directly
   if (node.extension === `org`) {
     await createOrgFileNode(node)
@@ -128,7 +129,21 @@ module.exports = async function onCreateNode(
         ...node,
       }
     }).forEach(n => {
+      // creating slug
+      const { category, export_file_name } = n.meta
+      const paths = [
+        `/`,
+        pathPrefix,
+        category,
+        export_file_name,
+      ].filter(lpath => lpath)
+      const slug = path.posix.join(...paths)
       createNode(n)
+      createNodeField({
+        node: n,
+        name: `slug`,
+        value: slug,
+      })
       createParentChildLink({ parent: orgFileNode, child: n })
     })
   }

@@ -12,6 +12,8 @@ Find the complete definition of AST [[/ast][here]].
 
 See the syntax [[file:syntax.org][here]].
 
+An [[Generate Static Website With Gatsby][Internal Link]].
+
 ** Install
 
  #+BEGIN_SRC sh

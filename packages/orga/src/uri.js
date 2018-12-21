@@ -4,9 +4,13 @@ function parse(link) {
   var result = { raw: link }
   const m = URL_PATTERN.exec(link)
   if (!m) return result
-  result.protocol = (m[1] || `file`).toLowerCase()
+  result.protocol = (m[1] || isFilePath(m[2]) ? `file` : `internal`).toLowerCase()
   result.location = m[2]
   return processFilePath(result)
+
+  function isFilePath(str) {
+    return str.match(/^\.{0,2}\//)
+  }
 }
 
 function processFilePath(link) {
