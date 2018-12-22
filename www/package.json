@@ -1,5 +1,6 @@
 {
-  "name": "gatsby-starter-orga",
+  "private": true,
+  "name": "orgajs-website",
   "description": "Orga",
   "version": "1.0.0",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
