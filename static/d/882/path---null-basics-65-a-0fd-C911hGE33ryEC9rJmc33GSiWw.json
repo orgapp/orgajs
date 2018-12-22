@@ -1,1 +1,0 @@
-{"errors":[{"message":"Variable \"$id\" is never used in operation \"OrgaNodeById\".","locations":[{"line":2,"column":3}]}],"pageContext":{"id":"undefined"}}
