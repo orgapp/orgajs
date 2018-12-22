@@ -1,0 +1,2 @@
+webpackJsonp([0x7733ec7aff49],{357:function(e,t){e.exports={data:{site:{siteMetadata:{title:"Orga"}},allOrga:{edges:[{node:{fields:{slug:"/with_unified/"},meta:{title:"Orga + Unified",desc:"How to use orga with unified, to do great things."}}},{node:{fields:{slug:"/basics/"},meta:{title:"Basic Usage",desc:"The basic usage of package orga. Explains how to parse org-mode string into AST."}}}]}},pathContext:{}}}});
+//# sourceMappingURL=path---docs-6cb851f166ba179dd822.js.map

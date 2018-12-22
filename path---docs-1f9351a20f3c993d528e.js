@@ -1,0 +1,2 @@
+webpackJsonp([0x7733ec7aff49],{379:function(a,e){a.exports={data:{site:{siteMetadata:{title:"Orga"}},allOrga:{edges:[{node:{fields:{slug:"/basics/"},meta:{title:"Basic Usage",desc:"The basic usage of package orga. Explains how to parse org-mode string into AST."}}}]}},pathContext:{}}}});
+//# sourceMappingURL=path---docs-1f9351a20f3c993d528e.js.map
