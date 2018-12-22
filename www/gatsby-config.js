@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: "/orgajs",
   siteMetadata: {
     title: 'Orga',
   },

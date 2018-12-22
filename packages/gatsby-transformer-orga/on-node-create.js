@@ -133,7 +133,6 @@ module.exports = async function onCreateNode(
       const { category, export_file_name } = n.meta
       const paths = [
         `/`,
-        pathPrefix,
         category,
         export_file_name,
       ].filter(lpath => lpath)

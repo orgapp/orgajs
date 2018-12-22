@@ -15,7 +15,6 @@ export default class AST extends React.Component {
     const examples = d.examples.map(e => {
       const obj = parser.parse(e.org)
       const json = JSON.stringify(obj.children[0], replacer, 2)
-      console.log(json)
       return (
         <div>
           <h2>{ e.name }</h2>
