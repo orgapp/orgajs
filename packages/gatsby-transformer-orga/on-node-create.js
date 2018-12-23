@@ -7,7 +7,7 @@ const {
   getProperties,
   sanitise,
   processMeta,
-  getTimestamp } = require('./orga-util')
+} = require('./orga-util')
 
 const astCacheKey = node =>
       `transformer-orga-ast-${
@@ -88,9 +88,9 @@ module.exports = async function onCreateNode(
             tags: ast.tags,
             ...getProperties(ast),
           }
-          meta.date = getTimestamp(meta.date ||
-                                   meta.export_date ||
-                                   (select(`planning`, ast) || {}).timestamp)
+          meta.date = meta.date ||
+            meta.export_date ||
+            (select(`planning`, ast) || {}).timestamp
           const absolutePath = `${orgFileNode.fileAbsolutePath}::*${title}`
           return {
             meta,
@@ -101,7 +101,7 @@ module.exports = async function onCreateNode(
     } else { // root
         let meta = {
           export_file_name: orgFileNode.fileName,
-          ...processMeta(ast.meta) }
+          ...ast.meta }
       meta.title = meta.title || 'Untitled'
       const absolutePath = `${orgFileNode.fileAbsolutePath}`
       content = [ {
@@ -127,6 +127,7 @@ module.exports = async function onCreateNode(
           type: `OrgContent`,
         },
         ...node,
+        meta: processMeta(node.meta),
       }
     }).forEach(n => {
       // creating slug

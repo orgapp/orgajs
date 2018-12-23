@@ -14,19 +14,20 @@ exports.getProperties = headline => {
 
 const shouldBeArray = key => [`tags`].includes(key)
 
+function tryToParseTimestamp(str) {
+  let m = moment(str, `YYYY-MM-DD ddd HH:mm`)
+  return m.isValid() ? m.format() : str
+}
+
 exports.processMeta = settings => {
   return Object.keys(settings).reduce((result, k) => {
-    if (shouldBeArray(k))
+    if (shouldBeArray(k) && typeof settings[k] === `string`)
       return { ...result, [k]: settings[k].match(/[^ ]+/g) }
-    return result
+    return { ...result, [k]: tryToParseTimestamp(settings[k])}
   }, settings)
 }
 
 
 exports.sanitise = title => {
   return title.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase()
-}
-
-exports.getTimestamp = timestamp => {
-  return moment(timestamp, `YYYY-MM-DD ddd HH:mm`).format()
 }
