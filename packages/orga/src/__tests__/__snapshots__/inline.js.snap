@@ -212,9 +212,9 @@ Array [
     "desc": undefined,
     "type": "link",
     "uri": Object {
-      "location": "image/logo.png",
+      "location": "./image/logo.png",
       "protocol": "file",
-      "raw": "image/logo.png",
+      "raw": "./image/logo.png",
     },
   },
 ]
@@ -229,12 +229,32 @@ Array [
   },
   Object {
     "children": Array [],
+    "desc": "link",
+    "type": "link",
+    "uri": Object {
+      "location": "Internal Link",
+      "protocol": "internal",
+      "raw": "Internal Link",
+    },
+  },
+]
+`;
+
+exports[`Inline Parsing recon link 3`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "hello ",
+  },
+  Object {
+    "children": Array [],
     "desc": "logo",
     "type": "link",
     "uri": Object {
-      "location": "image/logo.png",
+      "location": "../image/logo.png",
       "protocol": "file",
-      "raw": "image/logo.png",
+      "raw": "../image/logo.png",
     },
   },
 ]
