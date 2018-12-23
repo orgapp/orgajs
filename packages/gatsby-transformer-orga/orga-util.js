@@ -14,8 +14,16 @@ exports.getProperties = headline => {
 
 const shouldBeArray = key => [`tags`].includes(key)
 
+const cleanup = str => {
+  if (typeof str !== `string`) return str
+  return str.trim().replace(/[<>\[\]]/g, '')
+}
+
 function tryToParseTimestamp(str) {
-  let m = moment(str, `YYYY-MM-DD ddd HH:mm`)
+  let m = moment(cleanup(str), [
+    `YYYY-MM-DD ddd HH:mm`,
+    `YYYY-MM-DD ddd`,
+    `YYYY-MM-DD`], true)
   return m.isValid() ? m.format() : str
 }
 
