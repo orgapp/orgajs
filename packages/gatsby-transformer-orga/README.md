@@ -16,3 +16,5 @@ plugins: [`gatsby-transformer-orga`]
 ```
 
 To see a working starter project [here](https://github.com/xiaoxinghu/gatsby-orga).
+
+[Detailed Doc Here](https://xiaoxinghu.github.io/orgajs/docs/generate-static-website-with-gatsby).
