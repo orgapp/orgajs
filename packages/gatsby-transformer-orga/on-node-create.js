@@ -94,7 +94,7 @@ module.exports = async function onCreateNode(
           const absolutePath = `${orgFileNode.fileAbsolutePath}::*${title}`
           return {
             meta,
-            ast: ast.parent, // we need the section of the headline
+            getAST: () => ast.parent, // we need the secion of the headline
             absolutePath,
           }
         })
@@ -106,7 +106,7 @@ module.exports = async function onCreateNode(
       const absolutePath = `${orgFileNode.fileAbsolutePath}`
       content = [ {
         meta,
-        ast,
+        getAST: () => ast,
         absolutePath,
       } ]
     }
@@ -115,7 +115,7 @@ module.exports = async function onCreateNode(
       const id = `${orgFileNode.id} >>> OrgContent[${index}]`
       const contentDigest =
             crypto.createHash(`md5`)
-                  .update(JSON.stringify(node.ast, getCircularReplacer()))
+                  .update(JSON.stringify(node.getAST(), getCircularReplacer()))
                   .digest(`hex`)
       return {
         id,

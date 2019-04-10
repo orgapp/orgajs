@@ -13,7 +13,7 @@
   "dependencies": {
     "orga-rehype": "^1.0.0",
     "orga-unified": "^1.1.1-alpha.0",
-    "rehype-stringify": "^4.0.0",
+    "rehype-stringify": "^5.0.0",
     "unified": "^7.0.0",
     "unified-stream": "^1.0.2"
   }

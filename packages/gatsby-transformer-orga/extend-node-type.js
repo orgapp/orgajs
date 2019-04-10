@@ -68,7 +68,7 @@ module.exports = (
   })
 
   async function getHTML(orgContentNode) {
-    let body = orgContentNode.ast
+    let body = orgContentNode.getAST()
     if (body.type === `section`) {
       body = { ...body, children: body.children.slice(1) }
     }
