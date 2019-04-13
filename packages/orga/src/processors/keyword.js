@@ -5,7 +5,10 @@ function process(token, section) {
   switch (key) {
   case `TODO`:
     if (section.type !== `root`) break
-    const todos = value.split(/\s|\|/g).filter(String)
+    const todos = value
+      .split(/\s|\|/g)
+      .filter(String)
+      .map((val) => /(.*?)(?:\(.*?\))?$/.exec(val)[1])
     section.meta.todos = todos
     this.lexer.updateTODOs(todos)
     break
