@@ -11,7 +11,7 @@ Turns org-mode content into AST.
 ** Usage
 
 #+BEGIN_SRC javascript
-  const parse = require('orga')
+  const { parse } = require('orga')
   const ast = parse(`* TODO remember the milk    :shopping:`)
 #+END_SRC
 
