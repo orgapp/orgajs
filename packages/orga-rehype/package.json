@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga-rehype",
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
+    "@babel/cli": "^7.5.5",
     "cross-env": "^5.2.0"
   },
   "scripts": {

@@ -1,19 +1,19 @@
 {
   "private": true,
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
-    "@babel/plugin-proposal-export-default-from": "^7.0.0",
-    "@babel/preset-env": "^7.1.6",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-export-default-from": "^7.5.2",
+    "@babel/preset-env": "^7.5.5",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^8.2.6",
-    "babel-jest": "^23.6.0",
+    "babel-eslint": "^10.0.2",
+    "babel-jest": "^24.8.0",
     "cross-env": "^5.2.0",
-    "eslint": "^5.1.0",
-    "eslint-plugin-react": "^7.10.0",
-    "jest": "^23.6.0",
-    "jest-cli": "^23.6.0",
-    "lerna": "^3.4.3"
+    "eslint": "^6.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "jest": "^24.8.0",
+    "jest-cli": "^24.8.0",
+    "lerna": "^3.16.4"
   },
   "scripts": {
     "prebootstrap": "yarn",
