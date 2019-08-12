@@ -5,17 +5,17 @@
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "dependencies": {
     "bluebird": "^3.5.5",
-    "hast-util-to-html": "^5.0.0",
+    "hast-util-to-html": "^6.0.2",
     "is-relative-url": "^3.0.0",
-    "mime": "^2.4.2",
+    "mime": "^2.4.4",
     "moment": "^2.24.0",
     "oast-to-hast": "^1.1.1",
     "orga": "^1.1.1",
-    "rehype-stringify": "^5.0.0",
-    "unified": "^7.0.0",
-    "unist-builder": "^1.0.2",
-    "unist-util-select": "^2.0.0",
-    "unist-util-visit": "^1.3.1"
+    "rehype-stringify": "^6.0.0",
+    "unified": "^8.3.2",
+    "unist-builder": "^1.0.4",
+    "unist-util-select": "^2.0.2",
+    "unist-util-visit": "^2.0.0"
   },
   "keywords": [
     "gatsby",
