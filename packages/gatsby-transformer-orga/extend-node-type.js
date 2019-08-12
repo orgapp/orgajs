@@ -17,6 +17,10 @@ const {
 } = require('gatsby/graphql')
 const GraphQLJSON = require('graphql-type-json')
 
+const {
+  getAST,
+} = require('./orga-util')
+
 const DEPLOY_DIR = `public`
 
 const newFileName = linkNode =>
@@ -68,7 +72,7 @@ module.exports = (
   })
 
   async function getHTML(orgContentNode) {
-    let body = orgContentNode.getAST()
+    let body = await getAST({ node: orgContentNode, cache })
     if (body.type === `section`) {
       body = { ...body, children: body.children.slice(1) }
     }

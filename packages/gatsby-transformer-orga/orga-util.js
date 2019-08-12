@@ -1,7 +1,8 @@
 const moment = require('moment')
 const { selectAll } = require('unist-util-select')
+const { Parser } = require('orga')
 
-exports.getProperties = headline => {
+const getProperties = headline => {
   const drawer = selectAll(`drawer`, headline).find(d => d.name === `PROPERTIES`)
   if (!drawer) return {}
   const regex = /\s*:(.+):\s*(.+)\s*$/
@@ -27,7 +28,7 @@ function tryToParseTimestamp(str) {
   return m.isValid() ? m.format() : str
 }
 
-exports.processMeta = settings => {
+const processMeta = settings => {
   return Object.keys(settings).reduce((result, k) => {
     if (shouldBeArray(k) && typeof settings[k] === `string`)
       return { ...result, [k]: settings[k].match(/[^ ]+/g) }
@@ -36,6 +37,56 @@ exports.processMeta = settings => {
 }
 
 
-exports.sanitise = title => {
+const sanitise = title => {
   return title.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase()
+}
+
+const astCacheKey = node =>
+      `transformer-orga-ast-${
+    node.internal.contentDigest
+  }`
+
+const ASTPromiseMap = new Map()
+
+const getAST = async ({ node, cache }) => {
+  const cacheKey = astCacheKey(node)
+  const cachedAST = await cache.get(cacheKey)
+  if (cachedAST) {
+    return cachedAST
+  }
+  if (ASTPromiseMap.has(cacheKey)) return await ASTPromiseMap.get(cacheKey)
+  const ASTGenerationPromise = getOrgAST(node)
+  ASTGenerationPromise.then(ast => {
+    cache.set(cacheKey, ast)
+    ASTPromiseMap.delete(cacheKey)
+  }).catch(err => {
+    ASTPromiseMap.delete(cacheKey)
+    return err
+  })
+
+  // Save new AST to cache and return
+  // We can now release promise, as we cached result
+  ASTPromiseMap.set(cacheKey, ASTGenerationPromise)
+  return ASTGenerationPromise
+}
+
+async function getOrgAST(node) {
+  return new Promise(resolve => {
+    const parser = new Parser()
+    const ast = parser.parse(node.internal.content)
+    resolve(ast)
+  })
+}
+
+const cacheAST = ({ node, cache, ast }) => {
+  const cacheKey = astCacheKey(node)
+  cache.set(cacheKey, ast)
+}
+
+module.exports = {
+  getProperties,
+  processMeta,
+  sanitise,
+  getAST,
+  cacheAST,
 }

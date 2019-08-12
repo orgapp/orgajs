@@ -7,14 +7,9 @@ const {
   getProperties,
   sanitise,
   processMeta,
+  getAST,
+  cacheAST,
 } = require('./orga-util')
-
-const astCacheKey = node =>
-      `transformer-orga-ast-${
-    node.internal.contentDigest
-  }`
-
-const ASTPromiseMap = new Map()
 
 const getCircularReplacer = () => {
   const seen = new WeakSet()
@@ -73,7 +68,7 @@ module.exports = async function onCreateNode(
 
   async function createOrgContentNodes(orgFileNode) {
     // const ast = orgFileNode.ast
-    const ast = await getAST(orgFileNode)
+    const ast = await getAST({ node: orgFileNode, cache })
     // console.log(`>>> ${util.inspect(orgFileNode, false, null, true)}`)
     const { orga_publish_keyword } = ast.meta
     let content
@@ -111,13 +106,14 @@ module.exports = async function onCreateNode(
       } ]
     }
 
-    content.map((node, index) => {
+    content.forEach((node, index) => {
       const id = `${orgFileNode.id} >>> OrgContent[${index}]`
+      const ast = node.getAST()
       const contentDigest =
             crypto.createHash(`md5`)
-                  .update(JSON.stringify(node.getAST(), getCircularReplacer()))
+                  .update(JSON.stringify(ast, getCircularReplacer()))
                   .digest(`hex`)
-      return {
+      const n = {
         id,
         orga_id: id,
         children: [],
@@ -129,7 +125,8 @@ module.exports = async function onCreateNode(
         ...node,
         meta: processMeta(node.meta),
       }
-    }).forEach(n => {
+      cacheAST({ ast, node: n, cache })
+
       // creating slug
       const { category, export_file_name } = n.meta
       const paths = [
@@ -145,37 +142,6 @@ module.exports = async function onCreateNode(
         value: slug,
       })
       createParentChildLink({ parent: orgFileNode, child: n })
-    })
-  }
-
-  // get AST from `OrgFile` node
-  async function getAST(node) {
-    const cacheKey = astCacheKey(node)
-    const cachedAST = await cache.get(cacheKey)
-    if (cachedAST) {
-      return cachedAST
-    }
-    if (ASTPromiseMap.has(cacheKey)) return await ASTPromiseMap.get(cacheKey)
-    const ASTGenerationPromise = getOrgAST(node)
-    ASTGenerationPromise.then(ast => {
-      cache.set(cacheKey, ast)
-      ASTPromiseMap.delete(cacheKey)
-    }).catch(err => {
-      ASTPromiseMap.delete(cacheKey)
-      return err
-    })
-
-    // Save new AST to cache and return
-    // We can now release promise, as we cached result
-    ASTPromiseMap.set(cacheKey, ASTGenerationPromise)
-    return ASTGenerationPromise
-  }
-
-  async function getOrgAST(node) {
-    return new Promise(resolve => {
-      const parser = new Parser()
-      const ast = parser.parse(node.internal.content)
-      resolve(ast)
     })
   }
 }
