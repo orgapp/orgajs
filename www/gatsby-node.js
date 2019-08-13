@@ -40,3 +40,20 @@ exports.createPages = ({ graphql, actions }) => {
     )
   })
 }
+
+exports.onCreateNode = ({ node, actions }) => {
+  if (node.internal.type !== `OrgContent`) return
+  const { createNodeField } = actions
+  const { category, export_file_name } = node.meta
+  const paths = [
+    `/`,
+    category,
+    export_file_name,
+  ].filter(lpath => lpath)
+  const slug = path.posix.join(...paths)
+  createNodeField({
+    node,
+    name: `slug`,
+    value: slug,
+  })
+}

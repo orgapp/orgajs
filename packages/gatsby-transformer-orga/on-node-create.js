@@ -126,21 +126,7 @@ module.exports = async function onCreateNode(
         meta: processMeta(node.meta),
       }
       cacheAST({ ast, node: n, cache })
-
-      // creating slug
-      const { category, export_file_name } = n.meta
-      const paths = [
-        `/`,
-        category,
-        export_file_name,
-      ].filter(lpath => lpath)
-      const slug = path.posix.join(...paths)
       createNode(n)
-      createNodeField({
-        node: n,
-        name: `slug`,
-        value: slug,
-      })
       createParentChildLink({ parent: orgFileNode, child: n })
     })
   }

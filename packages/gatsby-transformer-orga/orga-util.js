@@ -13,7 +13,7 @@ const getProperties = headline => {
   }, {})
 }
 
-const shouldBeArray = key => [`tags`].includes(key)
+const shouldBeArray = key => [`tags`, `keywords`].includes(key)
 
 const cleanup = str => {
   if (typeof str !== `string`) return str
