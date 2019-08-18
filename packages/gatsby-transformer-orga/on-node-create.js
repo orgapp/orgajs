@@ -70,16 +70,21 @@ module.exports = async function onCreateNode(
     // const ast = orgFileNode.ast
     const ast = await getAST({ node: orgFileNode, cache })
     // console.log(`>>> ${util.inspect(orgFileNode, false, null, true)}`)
-    const { orga_publish_keyword } = ast.meta
+    const { orga_publish_keyword = ``, category } = ast.meta
     let content
-    if (orga_publish_keyword) { // section
-      content = selectAll(`[keyword=${orga_publish_keyword}]`, ast)
+    const _keywords = orga_publish_keyword
+          .split(' ').map(k => k.trim()).filter(k => k.length > 0)
+
+    if (_keywords.length > 0) { // section
+      const selector = _keywords.map(k => `[keyword=${k}]`).join(`,`)
+      content = selectAll(selector, ast)
         .map(ast => {
           const title = select(`text`, ast).value
           let meta = {
             title,
             export_file_name: sanitise(title),
-            category: orgFileNode.fileName,
+            category: category || orgFileNode.fileName,
+            keyword: ast.keyword,
             tags: ast.tags,
             ...getProperties(ast),
           }
