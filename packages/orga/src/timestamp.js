@@ -1,3 +1,5 @@
+const { DateTime } = require('luxon')
+
 const _timestamp = {
   date: `\\d{4}-\\d{2}-\\d{2}`,
   time: `\\d{2}:\\d{2}`,
@@ -25,7 +27,6 @@ const parse = (
   input,
   { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone } = {},
 ) => {
-  console.log(timezone)
   let m = input
   if (typeof input === 'string') {
     m = RegExp(_timestamp.full, 'i').exec(m)
@@ -38,10 +39,13 @@ const parse = (
   } = m.groups
 
   const _parseDate = (date, time) => {
-    let str = date
-    if (time) str += ` ${time}:00`
-    str += ` (${timezone})`
-    return new Date(str)
+    let text = date
+    let format = `yyyy-MM-dd`
+    if (time) {
+      text += ` ${time}`
+      format += ` HH:mm`
+    }
+    return DateTime.fromFormat(text, format, { zone: timezone }).toJSDate()
   }
 
 

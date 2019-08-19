@@ -8,5 +8,8 @@
   "main": "src/index.js",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "license": "MIT",
-  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga"
+  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga",
+  "dependencies": {
+    "luxon": "^1.17.2"
+  }
 }
