@@ -649,7 +649,7 @@ Object {
 exports[`Lexer knows plannings 1`] = `
 Object {
   "data": Object {
-    "date": 1514718000000,
+    "date": 2017-12-31T11:00:00.000Z,
     "end": undefined,
     "keyword": "DEADLINE",
   },
@@ -661,7 +661,7 @@ Object {
 exports[`Lexer knows plannings 2`] = `
 Object {
   "data": Object {
-    "date": 1514718000000,
+    "date": 2017-12-31T11:00:00.000Z,
     "end": undefined,
     "keyword": "DEADLINE",
   },
@@ -673,7 +673,7 @@ Object {
 exports[`Lexer knows plannings 3`] = `
 Object {
   "data": Object {
-    "date": 1514718000000,
+    "date": 2017-12-31T11:00:00.000Z,
     "end": undefined,
     "keyword": "DEADLINE",
   },
@@ -685,7 +685,7 @@ Object {
 exports[`Lexer knows plannings 4`] = `
 Object {
   "data": Object {
-    "date": 1514718000000,
+    "date": 2017-12-31T11:00:00.000Z,
     "end": undefined,
     "keyword": "DEADLINE",
   },
@@ -1051,7 +1051,7 @@ Object {
 exports[`Lexer knows these are timestamps 1`] = `
 Object {
   "data": Object {
-    "date": 1566129600000,
+    "date": 2019-08-18T12:00:00.000Z,
     "end": undefined,
   },
   "name": "timestamp",
@@ -1062,7 +1062,7 @@ Object {
 exports[`Lexer knows these are timestamps 2`] = `
 Object {
   "data": Object {
-    "date": 1566177600000,
+    "date": 2019-08-19T01:20:00.000Z,
     "end": undefined,
   },
   "name": "timestamp",
@@ -1073,8 +1073,8 @@ Object {
 exports[`Lexer knows these are timestamps 3`] = `
 Object {
   "data": Object {
-    "date": 1566177600000,
-    "end": 1566180000000,
+    "date": 2019-08-19T01:20:00.000Z,
+    "end": 2019-08-19T02:00:00.000Z,
   },
   "name": "timestamp",
   "raw": "<2019-08-19 Mon 13:20-14:00>",
@@ -1084,8 +1084,8 @@ Object {
 exports[`Lexer knows these are timestamps 4`] = `
 Object {
   "data": Object {
-    "date": 1566129600000,
-    "end": 1566216000000,
+    "date": 2019-08-18T12:00:00.000Z,
+    "end": 2019-08-19T12:00:00.000Z,
   },
   "name": "timestamp",
   "raw": "<2019-08-19 Mon>--<2019-08-20 Tue>",

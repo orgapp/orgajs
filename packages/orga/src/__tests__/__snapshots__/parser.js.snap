@@ -1514,8 +1514,8 @@ Object {
             },
             Object {
               "children": Array [],
-              "date": 1566129600000,
-              "end": 1566216000000,
+              "date": 2019-08-18T12:00:00.000Z,
+              "end": 2019-08-19T12:00:00.000Z,
               "parent": [Circular],
               "type": "timestamp",
             },
@@ -1770,7 +1770,7 @@ Object {
             },
             Object {
               "children": Array [],
-              "date": 1514718000000,
+              "date": 2017-12-31T11:00:00.000Z,
               "end": undefined,
               "keyword": "DEADLINE",
               "parent": [Circular],

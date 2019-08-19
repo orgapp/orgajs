@@ -38,7 +38,7 @@ const parse = input => {
     let str = date
     if (time) str += ` ${time}:00`
     str += ` (${timezone})`
-    return Date.parse(str)
+    return new Date(str)
   }
 
 
