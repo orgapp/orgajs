@@ -1,6 +1,6 @@
 const moment = require('moment')
 const { selectAll } = require('unist-util-select')
-const { Parser } = require('orga')
+const { Parser, parseTimestamp } = require('orga')
 
 const getProperties = headline => {
   const drawer = selectAll(`drawer`, headline).find(d => d.name === `PROPERTIES`)
@@ -14,6 +14,7 @@ const getProperties = headline => {
 }
 
 const shouldBeArray = key => [`tags`, `keywords`].includes(key)
+const shouldBeDate = key => [`date`].includes(key)
 
 const cleanup = str => {
   if (typeof str !== `string`) return str
@@ -32,6 +33,10 @@ const processMeta = settings => {
   return Object.keys(settings).reduce((result, k) => {
     if (shouldBeArray(k) && typeof settings[k] === `string`)
       return { ...result, [k]: settings[k].match(/[^ ]+/g) }
+
+    // parse date
+    if (shouldBeDate(k) && typeof settings[k] === `string`)
+      return { ...result, [k]: parseTimestamp(settings[k]) }
     return { ...result, [k]: tryToParseTimestamp(settings[k])}
   }, settings)
 }

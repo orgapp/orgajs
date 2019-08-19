@@ -71,7 +71,7 @@ module.exports = async function onCreateNode(
     const ast = await getAST({ node: orgFileNode, cache })
     // console.log(`>>> ${util.inspect(orgFileNode, false, null, true)}`)
     const { orga_publish_keyword = ``, category } = ast.meta
-    let content
+    let content = []
     const _keywords = orga_publish_keyword
           .split(' ').map(k => k.trim()).filter(k => k.length > 0)
 
@@ -88,9 +88,9 @@ module.exports = async function onCreateNode(
             tags: ast.tags,
             ...getProperties(ast),
           }
-          meta.date = meta.date ||
-            meta.export_date ||
-            (select(`planning`, ast) || {}).timestamp
+          meta.date = meta.date || meta.export_date ||
+                (select(`planning`, ast) || select(`timestamp`, ast) || {}).date
+
           const absolutePath = `${orgFileNode.fileAbsolutePath}::*${title}`
           return {
             meta,

@@ -21,6 +21,12 @@ function parseDrawer() {
   return undefined
 }
 
+function parseTimestamp() {
+  const token = this.next()
+  if (!token || token.name !== `timestamp`) { return undefined }
+  return new Node('timestamp').with(token.data)
+}
+
 function process(token, section) {
   if (section.type === `footnote.definition`) return section // headline breaks footnote
   const { level, keyword, priority, tags, content } = token.data
@@ -34,6 +40,10 @@ function process(token, section) {
   const planning = this.tryTo(parsePlanning)
   if (planning) {
     headline.push(planning)
+  }
+  const timestamp = this.tryTo(parseTimestamp)
+  if (timestamp) {
+    headline.push(timestamp)
   }
 
   while (this.hasNext() && this.peek().name === `drawer.begin`) {

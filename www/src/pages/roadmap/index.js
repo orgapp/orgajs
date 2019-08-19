@@ -16,10 +16,11 @@ const Title = styled.h3`
 margin-top: 0.2em;
 `
 
-const DocLink = ({ node: { meta: { title, description, keyword }, fields: { slug } } }) => (
+const DocLink = ({ node: { meta: { title, date, description, keyword }, fields: { slug } } }) => (
   <StyledLink to={slug} key={`roadmap-link-${slug}`}>
     <Keyword>{ keyword }</Keyword>
     <Title>{ title }</Title>
+    <small>{ date ? `${new Date(date)}` : null }</small>
     <Desc>{ description }</Desc>
   </StyledLink>
 )
@@ -41,6 +42,7 @@ export const pageQuery = graphql`
             title
             description
             keyword
+            date
           }
           fields {
             slug

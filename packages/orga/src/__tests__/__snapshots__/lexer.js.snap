@@ -649,8 +649,9 @@ Object {
 exports[`Lexer knows plannings 1`] = `
 Object {
   "data": Object {
+    "date": 1514718000000,
+    "end": undefined,
     "keyword": "DEADLINE",
-    "timestamp": "<2018-01-01 Mon>",
   },
   "name": "planning",
   "raw": "DEADLINE: <2018-01-01 Mon>",
@@ -660,8 +661,9 @@ Object {
 exports[`Lexer knows plannings 2`] = `
 Object {
   "data": Object {
+    "date": 1514718000000,
+    "end": undefined,
     "keyword": "DEADLINE",
-    "timestamp": "<2018-01-01 Mon>",
   },
   "name": "planning",
   "raw": "  DEADLINE: <2018-01-01 Mon>",
@@ -671,8 +673,9 @@ Object {
 exports[`Lexer knows plannings 3`] = `
 Object {
   "data": Object {
+    "date": 1514718000000,
+    "end": undefined,
     "keyword": "DEADLINE",
-    "timestamp": "<2018-01-01 Mon>",
   },
   "name": "planning",
   "raw": " 	DEADLINE: <2018-01-01 Mon>",
@@ -682,8 +685,9 @@ Object {
 exports[`Lexer knows plannings 4`] = `
 Object {
   "data": Object {
+    "date": 1514718000000,
+    "end": undefined,
     "keyword": "DEADLINE",
-    "timestamp": "<2018-01-01 Mon>",
   },
   "name": "planning",
   "raw": " 	 DEADLINE: <2018-01-01 Mon>",
@@ -1041,5 +1045,49 @@ exports[`Lexer knows these are not table separators 1`] = `
 Object {
   "name": "line",
   "raw": "----+---+----|",
+}
+`;
+
+exports[`Lexer knows these are timestamps 1`] = `
+Object {
+  "data": Object {
+    "date": 1566129600000,
+    "end": undefined,
+  },
+  "name": "timestamp",
+  "raw": "<2019-08-19 Mon>",
+}
+`;
+
+exports[`Lexer knows these are timestamps 2`] = `
+Object {
+  "data": Object {
+    "date": 1566177600000,
+    "end": undefined,
+  },
+  "name": "timestamp",
+  "raw": "<2019-08-19 Mon 13:20>",
+}
+`;
+
+exports[`Lexer knows these are timestamps 3`] = `
+Object {
+  "data": Object {
+    "date": 1566177600000,
+    "end": 1566180000000,
+  },
+  "name": "timestamp",
+  "raw": "<2019-08-19 Mon 13:20-14:00>",
+}
+`;
+
+exports[`Lexer knows these are timestamps 4`] = `
+Object {
+  "data": Object {
+    "date": 1566129600000,
+    "end": 1566216000000,
+  },
+  "name": "timestamp",
+  "raw": "<2019-08-19 Mon>--<2019-08-20 Tue>",
 }
 `;

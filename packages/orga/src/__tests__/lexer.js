@@ -206,4 +206,11 @@ describe('Lexer', () => {
     expect(lexer.tokenize(':ENDed')).toMatchSnapshot()
   })
 
+  it('knows these are timestamps', () => {
+    expect(lexer.tokenize('<2019-08-19 Mon>')).toMatchSnapshot()
+    expect(lexer.tokenize('<2019-08-19 Mon 13:20>')).toMatchSnapshot()
+    expect(lexer.tokenize('<2019-08-19 Mon 13:20-14:00>')).toMatchSnapshot()
+    expect(lexer.tokenize('<2019-08-19 Mon>--<2019-08-20 Tue>')).toMatchSnapshot()
+  })
+
 })

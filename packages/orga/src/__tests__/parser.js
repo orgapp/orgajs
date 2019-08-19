@@ -74,6 +74,16 @@ Paragraph
     expect(parser.parse(content)).toMatchSnapshot()
   })
 
+  it('can handle timestamp after headline', () => {
+    const content = `
+* headline
+<2019-08-19 Mon>--<2019-08-20 Tue>
+
+Paragraph
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
+
   it('can handle nested headlines', () => {
     const content = `
 * #HEADLINE# 1

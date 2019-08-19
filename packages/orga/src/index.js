@@ -1,4 +1,5 @@
 const Parser = require('./parser')
+const timestamp = require('./timestamp')
 
 function parse(string, options = require('./defaults')) {
   const parser = new Parser(options)
@@ -8,4 +9,5 @@ function parse(string, options = require('./defaults')) {
 module.exports = {
   Parser,
   parse,
+  parseTimestamp: timestamp.parse,
 }

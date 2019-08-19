@@ -1,4 +1,5 @@
 const { escape } = require('./utils')
+const timestamp = require('./timestamp')
 
 function Syntax() {
   this.rules = []
@@ -48,8 +49,11 @@ org.define('keyword', /^\s*#\+(\w+):\s*(.*)$/, m => {
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 org.define('planning', RegExp(`^\\s*(${PLANNING_KEYWORDS.join('|')}):\\s*(.+)$`), m => {
   const keyword = m[1]
-  const timestamp = m[2]
-  return { keyword, timestamp }
+  return { keyword, ...timestamp.parse(m[2]) }
+})
+
+org.define('timestamp', RegExp(timestamp.pattern, 'i'), m => {
+  return timestamp.parse(m)
 })
 
 org.define('block.begin', /^\s*#\+begin_(\w+)(.*)$/i, m => {

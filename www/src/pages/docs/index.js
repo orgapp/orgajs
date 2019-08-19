@@ -8,9 +8,10 @@ const Desc = styled.p`
 color: gray;
 `
 
-const DocLink = ({ node: { meta: { title, description }, fields: { slug } } }) => (
+const DocLink = ({ node: { meta: { title, description, date }, fields: { slug } } }) => (
   <StyledLink to={slug} key={`doc-link-${slug}`}>
     <h3>{ title }</h3>
+    <small>{ `${new Date(date)}` }</small>
     <Desc>{ description }</Desc>
   </StyledLink>
 )
@@ -31,6 +32,7 @@ export const pageQuery = graphql`
           meta {
             title
             description
+            date
           }
           fields {
             slug

@@ -1499,6 +1499,57 @@ Object {
 }
 `;
 
+exports[`Parser can handle timestamp after headline 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "headline",
+            },
+            Object {
+              "children": Array [],
+              "date": 1566129600000,
+              "end": 1566216000000,
+              "parent": [Circular],
+              "type": "timestamp",
+            },
+          ],
+          "keyword": undefined,
+          "level": 1,
+          "parent": [Circular],
+          "priority": undefined,
+          "tags": Array [],
+          "type": "headline",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Paragraph",
+            },
+          ],
+          "parent": [Circular],
+          "type": "paragraph",
+        },
+      ],
+      "level": 1,
+      "parent": [Circular],
+      "type": "section",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
 exports[`Parser can handle unordered list 1`] = `
 Object {
   "children": Array [
@@ -1719,9 +1770,10 @@ Object {
             },
             Object {
               "children": Array [],
+              "date": 1514718000000,
+              "end": undefined,
               "keyword": "DEADLINE",
               "parent": [Circular],
-              "timestamp": "<2018-01-01 Mon>",
               "type": "planning",
             },
             Object {
