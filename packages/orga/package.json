@@ -1,6 +1,6 @@
 {
   "name": "orga",
-  "version": "1.4.1",
+  "version": "1.4.3",
   "description": "org-mode parser",
   "files": [
     "src"
