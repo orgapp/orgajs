@@ -20,9 +20,12 @@ _timestamp.full = `^\\s*\
 (?:--${_timestamp.single('end')})?\
 \\s*$\
 `
-const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
-const parse = input => {
+const parse = (
+  input,
+  { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone } = {},
+) => {
+  console.log(timezone)
   let m = input
   if (typeof input === 'string') {
     m = RegExp(_timestamp.full, 'i').exec(m)

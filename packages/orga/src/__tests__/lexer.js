@@ -1,7 +1,7 @@
 const Lexer = require('../lexer')
 
 describe('Lexer', () => {
-  var lexer = new Lexer()
+  var lexer = new Lexer({ timezone: `Pacific/Auckland` })
 
   it('knows table row', () => {
     expect(lexer.tokenize('| batman | superman | wonder woman |')).toMatchSnapshot()

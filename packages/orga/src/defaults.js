@@ -1,3 +1,4 @@
 exports = {
-  todos: [`TODO`, `DONE`]
+  todos: [`TODO`, `DONE`],
+  timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 }

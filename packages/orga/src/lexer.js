@@ -47,13 +47,14 @@ org.define('keyword', /^\s*#\+(\w+):\s*(.*)$/, m => {
 })
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
-org.define('planning', RegExp(`^\\s*(${PLANNING_KEYWORDS.join('|')}):\\s*(.+)$`), m => {
+org.define('planning', RegExp(`^\\s*(${PLANNING_KEYWORDS.join('|')}):\\s*(.+)$`), (m, options) => {
   const keyword = m[1]
-  return { keyword, ...timestamp.parse(m[2]) }
+  return { keyword, ...timestamp.parse(m[2], options) }
 })
 
-org.define('timestamp', RegExp(timestamp.pattern, 'i'), m => {
-  return timestamp.parse(m)
+org.define('timestamp', RegExp(timestamp.pattern, 'i'), (m, options) => {
+  // console.log(options)
+  return timestamp.parse(m, options)
 })
 
 org.define('block.begin', /^\s*#\+begin_(\w+)(.*)$/i, m => {
@@ -110,7 +111,8 @@ org.define('footnote', /^\[fn:(\w+)\]\s+(.*)$/, m => {
 
 function Lexer(options = require('./defaults')) {
   this.syntax = org
-  const { todos } = options
+  this.options = { ...require('./defaults'), ...options }
+  const { todos } = this.options
   if (todos) {
     this.updateTODOs(todos)
   }
@@ -122,7 +124,7 @@ Lexer.prototype = {
       const m = pattern.exec(input)
       if (!m) { continue }
       var token = { name, raw: input }
-      token.data = post(m)
+      token.data = post(m, this.options)
       return token
     }
 
