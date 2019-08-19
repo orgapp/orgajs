@@ -25,7 +25,7 @@ function tryToParseTimestamp(str) {
     `YYYY-MM-DD ddd HH:mm`,
     `YYYY-MM-DD ddd`,
     `YYYY-MM-DD`], true)
-  return m.isValid() ? m.format() : str
+  return m.isValid() ? m.toDate() : str
 }
 
 const processMeta = settings => {
