@@ -14,7 +14,6 @@ const getProperties = headline => {
 }
 
 const shouldBeArray = key => [`tags`, `keywords`].includes(key)
-const shouldBeDate = key => [`date`].includes(key)
 
 const cleanup = str => {
   if (typeof str !== `string`) return str
@@ -35,8 +34,6 @@ const processMeta = settings => {
       return { ...result, [k]: settings[k].match(/[^ ]+/g) }
 
     // parse date
-    if (shouldBeDate(k) && typeof settings[k] === `string`)
-      return { ...result, [k]: parseTimestamp(settings[k]) }
     return { ...result, [k]: tryToParseTimestamp(settings[k])}
   }, settings)
 }

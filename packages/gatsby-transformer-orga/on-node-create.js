@@ -1,4 +1,4 @@
-const { Parser } = require('orga')
+const { Parser, parseTimestamp } = require('orga')
 const crypto = require('crypto')
 const path = require('path')
 const util = require('util')
@@ -80,16 +80,23 @@ module.exports = async function onCreateNode(
       content = selectAll(selector, ast)
         .map(ast => {
           const title = select(`text`, ast).value
+          const { date, export_date, ...properties } = getProperties(ast)
+
+          const getDate = () =>
+                parseTimestamp(date) ||
+                parseTimestamp(export_date) ||
+                select(`timestamp`, ast) ||
+                select(`planning[keyword=CLOSED]`, ast)
+
           let meta = {
             title,
             export_file_name: sanitise(title),
             category: category || orgFileNode.fileName,
             keyword: ast.keyword,
             tags: ast.tags,
-            ...getProperties(ast),
+            ...properties,
+            ...getDate(),
           }
-          meta.date = meta.date || meta.export_date ||
-                (select(`planning`, ast) || select(`timestamp`, ast) || {}).date
 
           const absolutePath = `${orgFileNode.fileAbsolutePath}::*${title}`
           return {

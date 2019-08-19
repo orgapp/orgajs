@@ -18,7 +18,7 @@ ${_timestamp.close}\
 _timestamp.full = `^\\s*\
 (${_timestamp.single('begin')})\
 (?:--${_timestamp.single('end')})?\
-\\s*\
+\\s*$\
 `
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
