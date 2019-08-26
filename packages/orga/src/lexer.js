@@ -96,8 +96,8 @@ org.define('list.item', /^(\s*)([-+]|\d+[.)])\s+(?:\[(x|X|-| )\][ \t]+)?(?:([^\n
 
 org.define('table.separator', /^\s*\|-/)
 
-org.define('table.row', /^\s*\|(\s*.+\|)+\s*$/, m => {
-  const cells = m[1].split('|').map( str => str.trim()).filter(String)
+org.define('table.row', /^\s*\|([^-].*\|.*)\|[ \t]*$/, m => {
+  const cells = m[1].split('|').map( str => str.trim())
   return { cells }
 })
 

@@ -177,6 +177,8 @@ describe('Lexer', () => {
     expect(lexer.tokenize('| hello | world | y\'all |')).toMatchSnapshot()
     expect(lexer.tokenize('   | hello | world | y\'all |')).toMatchSnapshot()
     expect(lexer.tokenize('|    hello |  world   |y\'all |')).toMatchSnapshot()
+    // with empty cell
+    expect(lexer.tokenize('||  world   | |')).toMatchSnapshot()
   })
 
   it('knows these are not table rows', () => {

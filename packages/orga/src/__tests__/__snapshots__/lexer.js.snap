@@ -795,6 +795,20 @@ Object {
 }
 `;
 
+exports[`Lexer knows table rows 4`] = `
+Object {
+  "data": Object {
+    "cells": Array [
+      "",
+      "world",
+      "",
+    ],
+  },
+  "name": "table.row",
+  "raw": "||  world   | |",
+}
+`;
+
 exports[`Lexer knows table separators 1`] = `
 Object {
   "data": Object {},
