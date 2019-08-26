@@ -4,6 +4,9 @@ import { all } from '../transform'
 export default (h, node) => {
   var props = {}
   var name = node.ordered ? 'ol' : 'ul'
+  if (node.descriptive) {
+    name = 'dl'
+  }
 
   if (typeof node.start === 'number' && node.start !== 1) {
     props.start = node.start

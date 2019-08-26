@@ -6,9 +6,9 @@ function process(token, section) {
   var self = this
 
   const parseListItem = () => {
-    const { indent, content, ordered, checked } = self.next().data
+    const { indent, content, ordered, checked, tag } = self.next().data
     var lines = [content]
-    const item = new Node(`list.item`).with({ ordered })
+    const item = new Node(`list.item`).with({ ordered, tag })
     if (checked !== undefined) {
       item.checked = checked
     }
@@ -36,6 +36,7 @@ function process(token, section) {
     }
     if (list.children.length > 0) { // list
       list.ordered = list.children[0].ordered
+      list.descriptive = typeof list.children[0].tag === `string`
       return list
     }
     return undefined
