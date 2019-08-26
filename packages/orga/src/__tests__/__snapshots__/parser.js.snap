@@ -225,9 +225,11 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
       ],
+      "descriptive": false,
       "ordered": false,
       "parent": [Circular],
       "type": "list",
@@ -257,6 +259,7 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
         Object {
@@ -270,9 +273,11 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
       ],
+      "descriptive": false,
       "ordered": false,
       "parent": [Circular],
       "type": "list",
@@ -299,9 +304,11 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
       ],
+      "descriptive": false,
       "ordered": false,
       "parent": [Circular],
       "type": "list",
@@ -331,6 +338,7 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
         Object {
@@ -344,9 +352,11 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
       ],
+      "descriptive": false,
       "ordered": false,
       "parent": [Circular],
       "type": "list",
@@ -388,6 +398,96 @@ Object {
       "label": "1",
       "parent": [Circular],
       "type": "footnote.definition",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle descriptive list 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "it's apple",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "tag": "Apple",
+          "type": "list.item",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Orange",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "tag": undefined,
+          "type": "list.item",
+        },
+      ],
+      "descriptive": true,
+      "ordered": false,
+      "parent": [Circular],
+      "type": "list",
+    },
+  ],
+  "meta": Object {},
+  "type": "root",
+}
+`;
+
+exports[`Parser can handle descriptive list 2`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Orange",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "tag": undefined,
+          "type": "list.item",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "it's apple",
+            },
+          ],
+          "ordered": false,
+          "parent": [Circular],
+          "tag": "Apple",
+          "type": "list.item",
+        },
+      ],
+      "descriptive": false,
+      "ordered": false,
+      "parent": [Circular],
+      "type": "list",
     },
   ],
   "meta": Object {},
@@ -596,6 +696,7 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
         Object {
@@ -609,6 +710,7 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
         Object {
@@ -622,9 +724,11 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
       ],
+      "descriptive": false,
       "ordered": false,
       "parent": [Circular],
       "type": "list",
@@ -832,6 +936,7 @@ Object {
                   ],
                   "ordered": false,
                   "parent": [Circular],
+                  "tag": undefined,
                   "type": "list.item",
                 },
                 Object {
@@ -845,9 +950,11 @@ Object {
                   ],
                   "ordered": false,
                   "parent": [Circular],
+                  "tag": undefined,
                   "type": "list.item",
                 },
               ],
+              "descriptive": false,
               "ordered": false,
               "parent": [Circular],
               "type": "list",
@@ -855,6 +962,7 @@ Object {
           ],
           "ordered": true,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
         Object {
@@ -868,6 +976,7 @@ Object {
           ],
           "ordered": true,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
         Object {
@@ -881,9 +990,11 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
       ],
+      "descriptive": false,
       "ordered": true,
       "parent": [Circular],
       "type": "list",
@@ -910,6 +1021,7 @@ Object {
           ],
           "ordered": true,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
         Object {
@@ -923,6 +1035,7 @@ Object {
           ],
           "ordered": true,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
         Object {
@@ -936,9 +1049,11 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
       ],
+      "descriptive": false,
       "ordered": true,
       "parent": [Circular],
       "type": "list",
@@ -1566,6 +1681,7 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
         Object {
@@ -1579,6 +1695,7 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
         Object {
@@ -1592,9 +1709,11 @@ Object {
           ],
           "ordered": false,
           "parent": [Circular],
+          "tag": undefined,
           "type": "list.item",
         },
       ],
+      "descriptive": false,
       "ordered": false,
       "parent": [Circular],
       "type": "list",

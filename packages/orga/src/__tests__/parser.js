@@ -161,6 +161,21 @@ Cupertino, California that designs, develops, and sells consumer electronics,
     expect(parser.parse(brokenByIndent)).toMatchSnapshot()
   })
 
+
+  it('can handle descriptive list', () => {
+    const descriptive = `
+- Apple :: it's apple
+- Orange
+`
+    expect(parser.parse(descriptive)).toMatchSnapshot()
+
+    const normal = `
+- Orange
+- Apple :: it's apple
+`
+    expect(parser.parse(normal)).toMatchSnapshot()
+  })
+
   it('can handle table', () => {
     const content = `
 | Name         | Species    | Gender | Role         |

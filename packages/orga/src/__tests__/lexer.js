@@ -133,6 +133,10 @@ describe('Lexer', () => {
     expect(lexer.tokenize('- [ ] buy milk unchecked')).toMatchSnapshot()
     // indent
     expect(lexer.tokenize('  - buy milk')).toMatchSnapshot()
+    // tag
+    expect(lexer.tokenize('- item1 :: description here')).toMatchSnapshot()
+    expect(lexer.tokenize('- item2\n :: description here')).toMatchSnapshot()
+    expect(lexer.tokenize('- [x] item3 :: description here')).toMatchSnapshot()
   })
 
   it('knows these are not list items', () => {

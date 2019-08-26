@@ -528,6 +528,7 @@ Object {
     "content": "buy milk",
     "indent": 0,
     "ordered": false,
+    "tag": undefined,
   },
   "name": "list.item",
   "raw": "- buy milk",
@@ -540,6 +541,7 @@ Object {
     "content": "buy milk",
     "indent": 0,
     "ordered": false,
+    "tag": undefined,
   },
   "name": "list.item",
   "raw": "+ buy milk",
@@ -552,6 +554,7 @@ Object {
     "content": "buy milk",
     "indent": 0,
     "ordered": true,
+    "tag": undefined,
   },
   "name": "list.item",
   "raw": "1. buy milk",
@@ -564,6 +567,7 @@ Object {
     "content": "buy milk",
     "indent": 0,
     "ordered": true,
+    "tag": undefined,
   },
   "name": "list.item",
   "raw": "12. buy milk",
@@ -576,6 +580,7 @@ Object {
     "content": "buy milk",
     "indent": 0,
     "ordered": true,
+    "tag": undefined,
   },
   "name": "list.item",
   "raw": "123) buy milk",
@@ -586,9 +591,10 @@ exports[`Lexer knows list items 6`] = `
 Object {
   "data": Object {
     "checked": true,
-    "content": " buy milk checked",
+    "content": "buy milk checked",
     "indent": 0,
     "ordered": false,
+    "tag": undefined,
   },
   "name": "list.item",
   "raw": "- [x] buy milk checked",
@@ -599,9 +605,10 @@ exports[`Lexer knows list items 7`] = `
 Object {
   "data": Object {
     "checked": true,
-    "content": " buy milk checked",
+    "content": "buy milk checked",
     "indent": 0,
     "ordered": false,
+    "tag": undefined,
   },
   "name": "list.item",
   "raw": "- [X] buy milk checked",
@@ -612,9 +619,10 @@ exports[`Lexer knows list items 8`] = `
 Object {
   "data": Object {
     "checked": true,
-    "content": " buy milk checked",
+    "content": "buy milk checked",
     "indent": 0,
     "ordered": false,
+    "tag": undefined,
   },
   "name": "list.item",
   "raw": "- [-] buy milk checked",
@@ -625,9 +633,10 @@ exports[`Lexer knows list items 9`] = `
 Object {
   "data": Object {
     "checked": false,
-    "content": " buy milk unchecked",
+    "content": "buy milk unchecked",
     "indent": 0,
     "ordered": false,
+    "tag": undefined,
   },
   "name": "list.item",
   "raw": "- [ ] buy milk unchecked",
@@ -640,9 +649,45 @@ Object {
     "content": "buy milk",
     "indent": 2,
     "ordered": false,
+    "tag": undefined,
   },
   "name": "list.item",
   "raw": "  - buy milk",
+}
+`;
+
+exports[`Lexer knows list items 11`] = `
+Object {
+  "data": Object {
+    "content": "description here",
+    "indent": 0,
+    "ordered": false,
+    "tag": "item1",
+  },
+  "name": "list.item",
+  "raw": "- item1 :: description here",
+}
+`;
+
+exports[`Lexer knows list items 12`] = `
+Object {
+  "name": "line",
+  "raw": "- item2
+ :: description here",
+}
+`;
+
+exports[`Lexer knows list items 13`] = `
+Object {
+  "data": Object {
+    "checked": true,
+    "content": "description here",
+    "indent": 0,
+    "ordered": false,
+    "tag": "item3",
+  },
+  "name": "list.item",
+  "raw": "- [x] item3 :: description here",
 }
 `;
 
@@ -951,6 +996,7 @@ Object {
     "content": "----",
     "indent": 0,
     "ordered": false,
+    "tag": undefined,
   },
   "name": "list.item",
   "raw": "- ----",
