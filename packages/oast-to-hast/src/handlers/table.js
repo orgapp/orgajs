@@ -17,8 +17,10 @@ export function table(h, node) {
   }
 
   result.push(
-    h(node, 'tbody', rows.slice(separatorIndex + 1)
-                         .map(row => h(row, 'tr', all(h, row))))
+    h(node, 'tbody',
+      rows.slice(separatorIndex + 1)
+          .filter(row => row.type === `table.row`)
+          .map(row => h(row, 'tr', all(h, row))))
   )
 
 
