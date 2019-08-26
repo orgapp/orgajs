@@ -36,4 +36,25 @@ describe('Main', () => {
 
     expect(toHAST(org)).toMatchSnapshot()
   })
+
+  it('can parse table', () => {
+    const org = u('table', [
+      u('table.row', [
+        u('table.cell', [ u('text', 'name') ]),
+        u('table.cell', [ u('text', 'gender') ]),
+      ]),
+      u('table.separator'),
+      u('table.row', [
+        u('table.cell', [ u('text', 'Superman') ]),
+        u('table.cell', [ u('text', 'Male') ]),
+      ]),
+      u('table.row', [
+        u('table.cell', [ u('text', 'Wonderwoman') ]),
+        u('table.cell', [ u('text', 'Famale') ]),
+      ]),
+    ])
+
+    console.log(inspect(toHAST(org), false, null, true))
+    // expect(toHAST(org)).toMatchSnapshot()
+  })
 })
