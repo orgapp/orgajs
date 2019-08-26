@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{237:function(e,n,t){"use strict";t.r(n);var a=t(0),r=t.n(a),l=t(232);n.default=function(){return r.a.createElement(l.a,null,r.a.createElement("center",null,r.a.createElement("p",null,"Orga is the ultimate org-mode parser, written in JavaScript.")))}}}]);
+//# sourceMappingURL=component---src-pages-index-js-048a52dbd6004f5c6a21.js.map
