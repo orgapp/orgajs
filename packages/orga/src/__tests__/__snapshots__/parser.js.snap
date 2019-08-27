@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Parser can handle TODO keywords 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Some Headline",
+            },
+          ],
+          "keyword": "NEXT",
+          "level": 1,
+          "parent": [Circular],
+          "priority": undefined,
+          "tags": Array [],
+          "type": "headline",
+        },
+      ],
+      "level": 1,
+      "parent": [Circular],
+      "type": "section",
+    },
+  ],
+  "meta": Object {
+    "todos": Array [
+      "TODO",
+      "NEXT",
+      "DONE",
+    ],
+  },
+  "type": "root",
+}
+`;
+
 exports[`Parser can handle affiliated keywords 1`] = `
 Object {
   "children": Array [

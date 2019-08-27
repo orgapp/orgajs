@@ -305,4 +305,13 @@ This is not.
 `
     expect(parser.parse(content)).toMatchSnapshot()
   })
+
+  it('can handle TODO keywords', () => {
+    const content = `
+#+TODO: TODO NEXT | DONE
+
+* NEXT Some Headline
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
 })

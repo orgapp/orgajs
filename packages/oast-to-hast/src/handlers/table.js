@@ -23,10 +23,6 @@ export function table(h, node) {
           .map(row => h(row, 'tr', all(h, row))))
   )
 
-
-  // console.log(rows)
-
-  // return u('table', result)
   return h(node, 'table', result)
 }
 export function tableRow(h, node) { return h(node, 'tr', all(h, node)) }
