@@ -777,6 +777,48 @@ Object {
 }
 `;
 
+exports[`Parser can handle multiple TODO keywords 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "parent": [Circular],
+              "type": "text",
+              "value": "Some Headline",
+            },
+          ],
+          "keyword": "DRAFT",
+          "level": 1,
+          "parent": [Circular],
+          "priority": undefined,
+          "tags": Array [],
+          "type": "headline",
+        },
+      ],
+      "level": 1,
+      "parent": [Circular],
+      "type": "section",
+    },
+  ],
+  "meta": Object {
+    "todos": Array [
+      "TODO",
+      "NEXT",
+      "DONE",
+      "DRAFT",
+      "PUBLISHED",
+      "BUG",
+      "FEATURE",
+    ],
+  },
+  "type": "root",
+}
+`;
+
 exports[`Parser can handle nested headlines 1`] = `
 Object {
   "children": Array [

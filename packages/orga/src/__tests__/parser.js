@@ -314,4 +314,15 @@ This is not.
 `
     expect(parser.parse(content)).toMatchSnapshot()
   })
+
+  it('can handle multiple TODO keywords', () => {
+    const content = `
+#+TODO: TODO NEXT | DONE
+#+TODO: DRAFT PUBLISHED
+#+TODO: BUG FEATURE | DONE
+
+* DRAFT Some Headline
+`
+    expect(parser.parse(content)).toMatchSnapshot()
+  })
 })

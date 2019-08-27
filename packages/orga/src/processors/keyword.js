@@ -9,8 +9,8 @@ function process(token, section) {
       .split(/\s|\|/g)
       .filter(String)
       .map((val) => /(.*?)(?:\(.*?\))?$/.exec(val)[1])
-    section.meta.todos = todos
-    this.lexer.updateTODOs(todos)
+    section.meta.todos = [...new Set((section.meta.todos || []).concat(todos))]
+    this.lexer.updateTODOs(section.meta.todos)
     break
   case `HTML`:
     section.push(new Node(`html`).with({ value }))
