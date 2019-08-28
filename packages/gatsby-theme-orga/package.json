@@ -1,0 +1,14 @@
+{
+  "name": "gatsby-theme-orga",
+  "version": "1.5.3",
+  "main": "index.js",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org> (@xiaoxinghu)",
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": "^2.6.0"
+  },
+  "dependencies": {
+    "gatsby-source-filesystem": "^2.1.18",
+    "gatsby-transformer-orga": "^1.5.3"
+  }
+}
