@@ -69,7 +69,6 @@ module.exports = async function onCreateNode(
   async function createOrgContentNodes(orgFileNode) {
     // const ast = orgFileNode.ast
     const ast = await getAST({ node: orgFileNode, cache })
-    // console.log(`>>> ${util.inspect(orgFileNode, false, null, true)}`)
     const { orga_publish_keyword = ``, category } = ast.meta
     let content = []
     const _keywords = orga_publish_keyword
@@ -77,10 +76,8 @@ module.exports = async function onCreateNode(
 
     if (_keywords.length > 0) { // section
       const selector = `:matches(${_keywords.map(k => `[keyword=${k}]`).join(`,`)})headline`
-      console.log(selector)
       content = selectAll(selector, ast)
         .map(ast => {
-          console.log(`>> ${ast.type} - ${ast.keyword}`)
           const title = select(`text`, ast).value
           const { date, export_date, ...properties } = getProperties(ast)
 
