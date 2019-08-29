@@ -76,14 +76,15 @@ module.exports = async function onCreateNode(
           .split(' ').map(k => k.trim()).filter(k => k.length > 0)
 
     if (_keywords.length > 0) { // section
-      const selector = _keywords.map(k => `[keyword=${k}]`).join(`,`)
+      const selector = `:matches(${_keywords.map(k => `[keyword=${k}]`).join(`,`)})headline`
+      console.log(selector)
       content = selectAll(selector, ast)
         .map(ast => {
+          console.log(`>> ${ast.type} - ${ast.keyword}`)
           const title = select(`text`, ast).value
           const { date, export_date, ...properties } = getProperties(ast)
 
-          const getDate = () =>
-                parseTimestamp(date) ||
+          const d = parseTimestamp(date) ||
                 parseTimestamp(export_date) ||
                 select(`timestamp`, ast) ||
                 select(`planning[keyword=CLOSED]`, ast)
@@ -95,8 +96,10 @@ module.exports = async function onCreateNode(
             keyword: ast.keyword,
             tags: ast.tags,
             ...properties,
-            ...getDate(),
           }
+
+          if (d && d.date) { meta.date = d.date }
+          if (d && d.end) { meta.end = d.end }
 
           const absolutePath = `${orgFileNode.fileAbsolutePath}::*${title}`
           return {
