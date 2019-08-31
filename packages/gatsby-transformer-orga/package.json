@@ -14,6 +14,7 @@
     "rehype-stringify": "^6.0.0",
     "unified": "^8.3.2",
     "unist-builder": "^1.0.4",
+    "unist-util-map": "^1.0.5",
     "unist-util-select": "^2.0.2",
     "unist-util-visit": "^2.0.0"
   },

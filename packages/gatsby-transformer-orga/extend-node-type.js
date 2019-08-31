@@ -7,6 +7,8 @@ const hastToHTML = require('hast-util-to-html')
 const mime = require('mime')
 const fsExtra = require('fs-extra')
 const util = require('util')
+const map = require('unist-util-map')
+const { select } = require('unist-util-select')
 
 const {
   GraphQLObjectType,
@@ -79,7 +81,19 @@ module.exports = (
     const filesToCopy = new Map()
     const highlight = pluginOptions.noHighlight !== true
     const handlers = { link: handleLink }
-    const html = hastToHTML(toHAST(body, { highlight, handlers }), { allowDangerousHTML: true })
+
+    // offset the levels
+    const firstHeadline = select('headline', body)
+    const offset = firstHeadline ? firstHeadline.level - 1 : 0
+    if (offset > 0) {
+      body = map(body, node => {
+        if (node.type !== `headline`) return node
+        return { ...node, level: node.level - offset }
+      })
+    }
+
+    const hast = toHAST(body, { highlight, handlers })
+    const html = hastToHTML(hast, { allowDangerousHTML: true })
     await Promise.all(Array.from(filesToCopy, async ([linkPath, newFilePath]) => {
       // Don't copy anything is the file already exists at the location.
       if (!fsExtra.existsSync(newFilePath)) {
