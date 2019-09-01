@@ -78,8 +78,8 @@ module.exports = async function onCreateNode(
       const selector = `:matches(${_keywords.map(k => `[keyword=${k}]`).join(`,`)})headline`
       content = selectAll(selector, ast)
         .map(ast => {
-          const title = select(`text`, ast).value
-          const { date, export_date, ...properties } = getProperties(ast)
+          const { date, export_date, export_title, ...properties } = getProperties(ast)
+          const title = export_title || select(`text`, ast).value
 
           const d = parseTimestamp(date) ||
                 parseTimestamp(export_date) ||
