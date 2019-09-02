@@ -42,4 +42,11 @@ describe('Inline Parsing', () => {
       expect(parse(`*word${c}*`)).toMatchSnapshot() // end
     })
   })
+
+  it('can handle something more complicated', () => {
+    const content = `
+Special characters =~= and =!=. Also =~/.this/path= and ~that~ thing.
+`
+    expect(parse(content)).toMatchSnapshot()
+  })
 })

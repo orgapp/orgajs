@@ -1,5 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Inline Parsing can handle something more complicated 1`] = `
+Array [
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": "Special characters ",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "~",
+      },
+    ],
+    "type": "verbatim",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " and ",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "!",
+      },
+    ],
+    "type": "verbatim",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": ". Also ",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "~/.this/path",
+      },
+    ],
+    "type": "verbatim",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " and ",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parent": [Circular],
+        "type": "text",
+        "value": "that",
+      },
+    ],
+    "type": "code",
+  },
+  Object {
+    "children": Array [],
+    "type": "text",
+    "value": " thing.",
+  },
+]
+`;
+
 exports[`Inline Parsing recon emphasises at different locations 1`] = `
 Array [
   Object {
