@@ -4,7 +4,7 @@
   "version": "1.5.8",
   "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
   "dependencies": {
-    "bluebird": "^3.5.5",
+    "bluebird": "^3.7.0",
     "hast-util-to-html": "^6.0.2",
     "is-relative-url": "^3.0.0",
     "mime": "^2.4.4",
@@ -12,7 +12,7 @@
     "oast-to-hast": "^1.5.3",
     "orga": "^1.5.8",
     "rehype-stringify": "^6.0.0",
-    "unified": "^8.3.2",
+    "unified": "^8.4.1",
     "unist-builder": "^1.0.4",
     "unist-util-map": "^1.0.5",
     "unist-util-select": "^2.0.2",

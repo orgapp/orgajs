@@ -15,8 +15,8 @@
     "unist-builder": "^1.0.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "cross-env": "^5.2.0"
+    "@babel/cli": "^7.6.2",
+    "cross-env": "^6.0.3"
   },
   "scripts": {
     "build": "babel --root-mode upward src --out-dir lib",

@@ -10,6 +10,6 @@
   "license": "MIT",
   "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga",
   "dependencies": {
-    "luxon": "^1.17.2"
+    "luxon": "^1.19.3"
   }
 }
