@@ -1,4 +1,4 @@
-import toHAST from 'oast-to-hast'
+import toHAST from '@orga/oast-to-hast'
 
 module.exports = orga2rehype
 

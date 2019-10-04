@@ -1,6 +1,6 @@
 const moment = require('moment')
 const { selectAll } = require('unist-util-select')
-const { Parser, parseTimestamp } = require('orga')
+const { Parser, parseTimestamp } = require('@orga/parser')
 
 const getProperties = headline => {
   const drawer = selectAll(`drawer`, headline).find(d => d.name === `PROPERTIES`)

@@ -1,5 +1,5 @@
 {
-  "name": "orga-rehype",
+  "name": "@orga/to-rehype",
   "version": "1.5.3",
   "description": "rehype support for orga",
   "files": [
@@ -19,6 +19,6 @@
     "prepare": "cross-env NODE_ENV=production npm run build"
   },
   "dependencies": {
-    "oast-to-hast": "^1.5.3"
+    "@orga/oast-to-hast": "^1.5.3"
   }
 }
