@@ -10,12 +10,9 @@
   "license": "MIT",
   "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga-unified",
   "scripts": {
-    "build": "babel --root-mode upward src --out-dir lib",
-    "watch": "babel --root-mode upward -w src --out-dir lib",
+    "build": "tsc",
+    "watch": "tsc -w",
     "prepare": "cross-env NODE_ENV=production npm run build"
-  },
-  "devDependencies": {
-    "cross-env": "^6.0.3"
   },
   "dependencies": {
     "@orga/parser": "^1.5.8"
