@@ -84,4 +84,4 @@ Parser.prototype.parseSection = function(section) {
   return this.parseSection(section)
 }
 
-module.exports = Parser
+export default Parser

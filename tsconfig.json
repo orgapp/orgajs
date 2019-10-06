@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "declaration": true,
     "noImplicitAny": false,
     "removeComments": true,
     "noLib": false,
@@ -11,6 +10,7 @@
     "sourceMap": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
+    "noImplicitUseStrict": true,
     "lib": [
       "es6"
     ]
