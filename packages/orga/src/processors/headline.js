@@ -1,4 +1,4 @@
-const Node = require('../node')
+import Node from '../node'
 const inlineParse = require('../inline').parse
 
 function parsePlanning() {

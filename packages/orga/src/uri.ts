@@ -1,7 +1,7 @@
 const URL_PATTERN = /(?:([a-z][a-z0-9+.-]*):)?(.*)/
 
-function parse(link) {
-  var result = { raw: link }
+export default (link: string) => {
+  var result = { raw: link, protocol: undefined, location: undefined }
   const m = URL_PATTERN.exec(link)
   if (!m) return result
   result.protocol = (m[1] || (isFilePath(m[2]) ? `file` : `internal`)).toLowerCase()
@@ -37,5 +37,3 @@ function processQuery(q) {
   }
   return { text: q }
 }
-
-module.exports = parse

@@ -1,5 +1,5 @@
-const Node = require('./node')
-const uri = require('./uri')
+import Node from './node'
+import uri from './uri'
 
 const LINK_PATTERN = /(.*?)\[\[([^\]]*)\](?:\[([^\]]*)\])?\](.*)/m; // \1 => link, \2 => text
 const FOOTNOTE_PATTERN = /(.*?)\[fn:(\w+)\](.*)/
@@ -8,11 +8,11 @@ const PRE = `(?:[\\s\\({'"]|^)`
 const POST = `(?:[\\s-\\.,:!?'\\)}]|$)`
 const BORDER = `[^,'"\\s]`
 
-function markup(marker) {
+function markup(marker: string) {
   return RegExp(`(.*?${PRE})${marker}(${BORDER}(?:.*?(?:${BORDER}))??)${marker}(${POST}.*)`, 'm')
 }
 
-function parse(text) {
+export const parse = (text: string) => {
   text = _parse(LINK_PATTERN, text, (captures) => {
     return new Node(`link`)
       .with({ uri: uri(captures[0]), desc: captures[1] })
@@ -74,8 +74,4 @@ function _parse(pattern, text, post) {
     return _parse(pattern, text.value, post)
   }
   return undefined
-}
-
-module.exports = {
-  parse,
 }

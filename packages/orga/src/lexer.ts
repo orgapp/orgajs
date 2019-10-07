@@ -1,22 +1,33 @@
-const { escape } = require('./utils')
-const timestamp = require('./timestamp')
+import defaultOptions, { ParseOptions } from './options'
+import { escape } from './utils'
+import { parse as parseTimestamp, pattern as timestampPattern } from './timestamp'
 
-function Syntax() {
-  this.rules = []
+type Rule = {
+  name: string
+  pattern: RegExp
+  post: (m: any, options?: ParseOptions) => void
 }
 
-Syntax.prototype = {
-  define: function(name, pattern, post = () => { return {} }) {
+class Syntax {
+  rules: Rule[]
+
+  constructor() {
+    this.rules = []
+  }
+
+  define(name: string,
+         pattern: RegExp,
+         post = (_: any, _opitons?: ParseOptions) => { return {} }) {
     this.rules.push({
       name,
       pattern,
       post,
     })
-  },
+  }
 
-  update: function(name, pattern) {
+  update(name: string, pattern: RegExp) {
     const i = this.rules.findIndex(r => r.name === name)
-    var newRule = { name, post: () => {} }
+    var newRule = { name, post: (_: any) => {}, pattern: undefined }
     if (i !== -1) {
       newRule = this.rules.splice(i, 1)[0]
     }
@@ -36,7 +47,7 @@ org.define('headline', headlinePattern(), m => {
   const keyword = m[2]
   const priority = m[3]
   const content = m[4]
-  const tags = (m[5] || '').split(':').map( str => str.trim()).filter(String)
+  const tags = (m[5] || '').split(':').map((str: string) => str.trim()).filter(String)
   return { level, keyword, priority, content, tags }
 })
 
@@ -49,12 +60,12 @@ org.define('keyword', /^\s*#\+(\w+):\s*(.*)$/, m => {
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 org.define('planning', RegExp(`^\\s*(${PLANNING_KEYWORDS.join('|')}):\\s*(.+)$`), (m, options) => {
   const keyword = m[1]
-  return { keyword, ...timestamp.parse(m[2], options) }
+  return { keyword, ...parseTimestamp(m[2], options) }
 })
 
-org.define('timestamp', RegExp(timestamp.pattern, 'i'), (m, options) => {
+org.define('timestamp', RegExp(timestampPattern, 'i'), (m, options) => {
   // console.log(options)
-  return timestamp.parse(m, options)
+  return parseTimestamp(m, options)
 })
 
 org.define('block.begin', /^\s*#\+begin_(\w+)(.*)$/i, m => {
@@ -86,7 +97,12 @@ org.define('list.item', /^(\s*)([-+]|\d+[.)])\s+(?:\[(x|X|-| )\][ \t]+)?(?:([^\n
     ordered = false
   }
 
-  var result = { indent, ordered, content, tag }
+  var result = {
+    indent,
+    ordered,
+    content,
+    tag,
+    checked: undefined }
   if (m[3]) {
     var checked = m[3] !== ' '
     result.checked = checked
@@ -111,23 +127,27 @@ org.define('footnote', /^\[fn:(\w+)\]\s+(.*)$/, m => {
   return { label, content }
 })
 
-function Lexer(options = require('./defaults')) {
-  this.syntax = org
-  this.options = { ...require('./defaults'), ...options }
-  const { todos } = this.options
-  if (todos) {
-    this.updateTODOs(todos)
-  }
-}
+export default class Lexer {
+  syntax: any
+  options: ParseOptions
 
-Lexer.prototype = {
-  tokenize: function (input) {
+  constructor(options: ParseOptions) {
+    this.syntax = org
+    this.options = { ...defaultOptions, ...options }
+    const { todos } = this.options
+    if (todos) {
+      this.updateTODOs(todos)
+    }
+  }
+
+  tokenize(input: string): any {
     for ( const { name, pattern, post } of this.syntax.rules ) {
       const m = pattern.exec(input)
       if (!m) { continue }
-      var token = { name, raw: input }
-      token.data = post(m, this.options)
-      return token
+      return {
+        name,
+        raw: input,
+        data: post(m, this.options) }
     }
 
     const trimed = input.trim()
@@ -136,12 +156,9 @@ Lexer.prototype = {
     }
 
     return { name: `line`, raw: input }
-  },
-
-  updateTODOs: function(todos) {
-    this.syntax.update(`headline`, headlinePattern(todos))
   }
 
+  updateTODOs(todos: string[]) {
+    this.syntax.update(`headline`, headlinePattern(todos))
+  }
 }
-
-module.exports = Lexer

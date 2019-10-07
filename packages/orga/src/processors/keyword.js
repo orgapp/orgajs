@@ -1,4 +1,4 @@
-const Node = require('../node')
+import Node from '../node'
 
 function process(token, section) {
   const { key, value } = token.data
