@@ -2,7 +2,7 @@ import { all } from '../transform'
 
 /* Transform a list. */
 export default (h, node) => {
-  var props = {}
+  var props: any = {}
   var name = node.ordered ? 'ol' : 'ul'
   if (node.descriptive) {
     name = 'dl'

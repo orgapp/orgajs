@@ -1,14 +1,25 @@
 import Node from '../node'
 const inlineParse = require('../inline').parse
 
-function process(token, section) {
+class List extends Node {
+  ordered: boolean
+  descriptive: boolean
+}
+
+class ListItem extends Node {
+  ordered: boolean
+  checked: boolean
+  tag?: string
+}
+
+export default function(token, section: Node): Node {
 
   var self = this
 
   const parseListItem = () => {
     const { indent, content, ordered, checked, tag } = self.next().data
     var lines = [content]
-    const item = new Node(`list.item`).with({ ordered, tag })
+    const item = new ListItem(`list.item`).with({ ordered, tag })
     if (checked !== undefined) {
       item.checked = checked
     }
@@ -24,7 +35,7 @@ function process(token, section) {
   }
 
   const parseList = level => {
-    const list = new Node(`list`)
+    const list = new List(`list`)
     while (self.hasNext()) {
       const token = self.peek()
       if ( token.name !== `list.item` ) break
@@ -35,8 +46,8 @@ function process(token, section) {
       list.push(item)
     }
     if (list.children.length > 0) { // list
-      list.ordered = list.children[0].ordered
-      list.descriptive = typeof list.children[0].tag === `string`
+      list.ordered = (list.children[0] as ListItem).ordered
+      list.descriptive = typeof (list.children[0] as ListItem).tag === `string`
       return list
     }
     return undefined
@@ -46,5 +57,3 @@ function process(token, section) {
   this._aks = {}
   return this.parseSection(section)
 }
-
-module.exports = process

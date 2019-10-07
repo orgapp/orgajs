@@ -21,23 +21,22 @@ function h(node, tagName, props, children) {
   }
 }
 
-function toHAST(tree, options) {
-  const settings = options || {}
+function toHAST(tree, options: any = {}) {
   const meta = tree.meta || {}
-  h.handlers = Object.assign(handlers, settings.handlers || {})
-  h.footnoteSection = settings.footnoteSection || `footnotes`
+  h.handlers = Object.assign(handlers, options.handlers || {})
+  h.footnoteSection = options.footnoteSection || `footnotes`
   const eTags = meta.exclude_tags
   if (eTags) {
     h.excludeTags = eTags.split(/\s+/)
   } else {
-    h.excludeTags = settings.excludeTags || [`noexport`]
+    h.excludeTags = options.excludeTags || [`noexport`]
   }
   const sTags = meta.select_tags
   if (sTags) {
     h.selectTags = sTags.split(/\s+/)
   } else {
-    h.selectTags = settings.selectTags || []
+    h.selectTags = options.selectTags || []
   }
-  h.highlight = settings.highlight || false
+  h.highlight = options.highlight || false
   return transform(h, tree)
 }

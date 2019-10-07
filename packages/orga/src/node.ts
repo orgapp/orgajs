@@ -28,7 +28,7 @@ class Node {
     }
   }
 
-  with(data: object): Node {
+  with(data: object) {
     var newNode = this
     newNode = Object.assign(this, data)
     return newNode
