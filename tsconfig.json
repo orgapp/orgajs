@@ -11,9 +11,14 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "noImplicitUseStrict": true,
+    "esModuleInterop": true,
     "lib": [
       "es6"
-    ]
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@orga/*": ["./packages/*/src"]
+    }
   },
   "exclude": [
     "node_modules",

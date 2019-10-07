@@ -24,7 +24,7 @@ import {
 } from './footnote'
 
 
-module.exports = {
+export default {
   root,
   section,
   headline,

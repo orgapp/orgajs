@@ -1,4 +1,4 @@
-const Lexer = require('../lexer')
+import Lexer from '../lexer'
 
 describe('Lexer', () => {
   var lexer = new Lexer({ timezone: `Pacific/Auckland` })

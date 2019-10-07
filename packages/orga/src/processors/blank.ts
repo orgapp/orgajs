@@ -1,4 +1,4 @@
-function process(token, section) {
+function _process(token, section) {
   var self = this
   self._cel++
   self.consume()
@@ -7,4 +7,4 @@ function process(token, section) {
   return self.parseSection(section)
 }
 
-module.exports = process
+module.exports = _process

@@ -1,4 +1,4 @@
-const parse = require('../uri')
+import parse from '../uri'
 
 describe('Parsing Link', () => {
 

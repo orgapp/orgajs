@@ -2,14 +2,14 @@
 
 exports[`Inline Parsing can handle something more complicated 1`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "Special characters ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -18,14 +18,14 @@ Array [
     ],
     "type": "verbatim",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": " and ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -34,14 +34,14 @@ Array [
     ],
     "type": "verbatim",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": ". Also ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -50,14 +50,14 @@ Array [
     ],
     "type": "verbatim",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": " and ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -66,7 +66,7 @@ Array [
     ],
     "type": "code",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": " thing.",
@@ -76,14 +76,14 @@ Array [
 
 exports[`Inline Parsing recon emphasises at different locations 1`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "one ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -92,7 +92,7 @@ Array [
     ],
     "type": "bold",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": " three",
@@ -102,9 +102,9 @@ Array [
 
 exports[`Inline Parsing recon emphasises at different locations 2`] = `
 Array [
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -113,7 +113,7 @@ Array [
     ],
     "type": "bold",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": " two three",
@@ -123,14 +123,14 @@ Array [
 
 exports[`Inline Parsing recon emphasises at different locations 3`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "one two ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -144,9 +144,9 @@ Array [
 
 exports[`Inline Parsing recon emphasises with 2 chars 1`] = `
 Array [
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -160,9 +160,9 @@ Array [
 
 exports[`Inline Parsing recon emphasises with 2 chars 2`] = `
 Array [
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -176,17 +176,17 @@ Array [
 
 exports[`Inline Parsing recon footnote reference 1`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "hello",
   },
-  Object {
+  Node {
     "children": Array [],
     "label": "1",
     "type": "footnote.reference",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": " world.",
@@ -196,7 +196,7 @@ Array [
 
 exports[`Inline Parsing recon invalid inline markups 1`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "*,word*",
@@ -206,7 +206,7 @@ Array [
 
 exports[`Inline Parsing recon invalid inline markups 2`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "*word,*",
@@ -216,7 +216,7 @@ Array [
 
 exports[`Inline Parsing recon invalid inline markups 3`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "*'word*",
@@ -226,7 +226,7 @@ Array [
 
 exports[`Inline Parsing recon invalid inline markups 4`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "*word'*",
@@ -236,7 +236,7 @@ Array [
 
 exports[`Inline Parsing recon invalid inline markups 5`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "*\\"word*",
@@ -246,7 +246,7 @@ Array [
 
 exports[`Inline Parsing recon invalid inline markups 6`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "*word\\"*",
@@ -256,7 +256,7 @@ Array [
 
 exports[`Inline Parsing recon invalid inline markups 7`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "* word*",
@@ -266,7 +266,7 @@ Array [
 
 exports[`Inline Parsing recon invalid inline markups 8`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "*word *",
@@ -276,12 +276,12 @@ Array [
 
 exports[`Inline Parsing recon link 1`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "hello ",
   },
-  Object {
+  Node {
     "children": Array [],
     "desc": undefined,
     "type": "link",
@@ -296,12 +296,12 @@ Array [
 
 exports[`Inline Parsing recon link 2`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "hello ",
   },
-  Object {
+  Node {
     "children": Array [],
     "desc": "link",
     "type": "link",
@@ -316,12 +316,12 @@ Array [
 
 exports[`Inline Parsing recon link 3`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "hello ",
   },
-  Object {
+  Node {
     "children": Array [],
     "desc": "logo",
     "type": "link",
@@ -336,7 +336,7 @@ Array [
 
 exports[`Inline Parsing recon mixed emphasis 1`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "desc": "Here's",
     "type": "link",
@@ -346,14 +346,14 @@ Array [
       "raw": "https://github.com/xiaoxinghu/orgajs",
     },
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": " to the ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -362,14 +362,14 @@ Array [
     ],
     "type": "bold",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": " ones, the ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -378,14 +378,14 @@ Array [
     ],
     "type": "italic",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": ", the ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -394,14 +394,14 @@ Array [
     ],
     "type": "underline",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": ", the ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -410,14 +410,14 @@ Array [
     ],
     "type": "code",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": ", the round pegs in the ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -426,7 +426,7 @@ Array [
     ],
     "type": "strikeThrough",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": " square holes...",
@@ -436,14 +436,14 @@ Array [
 
 exports[`Inline Parsing recon single emphasis 1`] = `
 Array [
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": "hello ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -452,14 +452,14 @@ Array [
     ],
     "type": "bold",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": ", welcome to ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -468,14 +468,14 @@ Array [
     ],
     "type": "bold",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": ". Have a nice ",
   },
-  Object {
+  Node {
     "children": Array [
-      Object {
+      Node {
         "children": Array [],
         "parent": [Circular],
         "type": "text",
@@ -484,7 +484,7 @@ Array [
     ],
     "type": "bold",
   },
-  Object {
+  Node {
     "children": Array [],
     "type": "text",
     "value": ".",

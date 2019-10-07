@@ -1,7 +1,7 @@
-const Parser = require('../parser')
+import Parser from '../parser'
 
 describe('Parser', () => {
-  let parser = new Parser({ timezone: 'Pacific/Auckland' })
+  let parser = new Parser({ todos: ['TODO', 'DONE'], timezone: 'Pacific/Auckland' })
   it('works', () => {
     const content = `
 #+TITLE: hello world

@@ -525,6 +525,7 @@ Object {
 exports[`Lexer knows list items 1`] = `
 Object {
   "data": Object {
+    "checked": undefined,
     "content": "buy milk",
     "indent": 0,
     "ordered": false,
@@ -538,6 +539,7 @@ Object {
 exports[`Lexer knows list items 2`] = `
 Object {
   "data": Object {
+    "checked": undefined,
     "content": "buy milk",
     "indent": 0,
     "ordered": false,
@@ -551,6 +553,7 @@ Object {
 exports[`Lexer knows list items 3`] = `
 Object {
   "data": Object {
+    "checked": undefined,
     "content": "buy milk",
     "indent": 0,
     "ordered": true,
@@ -564,6 +567,7 @@ Object {
 exports[`Lexer knows list items 4`] = `
 Object {
   "data": Object {
+    "checked": undefined,
     "content": "buy milk",
     "indent": 0,
     "ordered": true,
@@ -577,6 +581,7 @@ Object {
 exports[`Lexer knows list items 5`] = `
 Object {
   "data": Object {
+    "checked": undefined,
     "content": "buy milk",
     "indent": 0,
     "ordered": true,
@@ -646,6 +651,7 @@ Object {
 exports[`Lexer knows list items 10`] = `
 Object {
   "data": Object {
+    "checked": undefined,
     "content": "buy milk",
     "indent": 2,
     "ordered": false,
@@ -659,6 +665,7 @@ Object {
 exports[`Lexer knows list items 11`] = `
 Object {
   "data": Object {
+    "checked": undefined,
     "content": "description here",
     "indent": 0,
     "ordered": false,
@@ -1007,6 +1014,7 @@ Object {
 exports[`Lexer knows these are not horizontal rules 2`] = `
 Object {
   "data": Object {
+    "checked": undefined,
     "content": "----",
     "indent": 0,
     "ordered": false,

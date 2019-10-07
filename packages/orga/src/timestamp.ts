@@ -1,33 +1,36 @@
-import { DateTime } from 'luxon'
+const { DateTime } = require('luxon')
 
-enum TimestampPattern {
-  date = '\\d{4}-\\d{2}-\\d{2}',
-  time = '\\d{2}:\\d{2}',
-  day = '[a-zA-Z]+',
-  open = '[<\\[]',
-  close = '[>\\]]',
+const _timestamp = {
+  date: `\\d{4}-\\d{2}-\\d{2}`,
+  time: `\\d{2}:\\d{2}`,
+  day: `[a-zA-Z]+`,
+  open: `[<\\[]`,
+  close: `[>\\]]`,
 }
 
-const single = (prefix: string) => `\
-${TimestampPattern.open}\
-(?<${prefix}Date>${TimestampPattern.date})\
-\\s+${TimestampPattern.day}\
-(?:\\s+(?<${prefix}TimeBegin>${TimestampPattern.time})\
-(?:-(?<${prefix}TimeEnd>${TimestampPattern.time}))?)?\
-${TimestampPattern.close}\
+_timestamp.single = prefix => `\
+${_timestamp.open}\
+(?<${prefix}Date>${_timestamp.date})\
+\\s+${_timestamp.day}\
+(?:\\s+(?<${prefix}TimeBegin>${_timestamp.time})\
+(?:-(?<${prefix}TimeEnd>${_timestamp.time}))?)?\
+${_timestamp.close}\
 `
 
-export const pattern = `^\\s*\
-(${single('begin')})\
-(?:--${single('end')})?\
+_timestamp.full = `^\\s*\
+(${_timestamp.single('begin')})\
+(?:--${_timestamp.single('end')})?\
 \\s*$\
 `
 
-export const parse = (
-  input: string,
+const parse = (
+  input,
   { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone } = {},
 ) => {
-  const m = RegExp(pattern, 'i').exec(input)
+  let m = input
+  if (typeof input === 'string') {
+    m = RegExp(_timestamp.full, 'i').exec(m)
+  }
   if (!m) return null
 
   const {
@@ -35,7 +38,7 @@ export const parse = (
     endDate, endTimeBegin
   } = m.groups
 
-  const _parseDate = (date: string, time: string) => {
+  const _parseDate = (date, time) => {
     let text = date
     let format = `yyyy-MM-dd`
     if (time) {
@@ -47,7 +50,7 @@ export const parse = (
 
 
   const date = _parseDate(beginDate, beginTimeBegin)
-  let end: string
+  let end
   if (beginTimeEnd) {
     end = _parseDate(beginDate, beginTimeEnd)
   } else if (endDate) {
@@ -55,4 +58,9 @@ export const parse = (
   }
 
   return { date, end }
+}
+
+module.exports = {
+  parse,
+  pattern: _timestamp.full,
 }

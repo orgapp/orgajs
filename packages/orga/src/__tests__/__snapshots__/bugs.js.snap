@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`bug fixes fixes issue #5 1`] = `
-Object {
+Node {
   "children": Array [
-    Object {
+    Node {
       "children": Array [
-        Object {
+        Node {
           "children": Array [
-            Object {
+            Node {
               "children": Array [],
               "parent": [Circular],
               "type": "text",
@@ -26,11 +26,11 @@ Object {
       "parent": [Circular],
       "type": "section",
     },
-    Object {
+    Node {
       "children": Array [
-        Object {
+        Node {
           "children": Array [
-            Object {
+            Node {
               "children": Array [],
               "parent": [Circular],
               "type": "text",

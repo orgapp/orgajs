@@ -1,10 +1,5 @@
 import u from 'unist-builder'
 
-module.exports = {
-  transform,
-  all,
-}
-
 function unknown(h, node) {
   if (text(node)) {
     return u('text', node.value)
@@ -13,7 +8,7 @@ function unknown(h, node) {
   return h(node, 'div', all(h, node))
 }
 
-function transform(h, node, parent) {
+export function transform(h, node, parent) {
   var type = node && node.type
   var fn = h.handlers.hasOwnProperty(type) ? h.handlers[type] : null
 
@@ -25,7 +20,7 @@ function transform(h, node, parent) {
   return (typeof fn === 'function' ? fn : unknown)(h, node, parent)
 }
 
-function all(h, parent) {
+export function all(h, parent) {
   var nodes = parent.children || []
   var length = nodes.length
   var values = []

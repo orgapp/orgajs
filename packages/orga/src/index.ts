@@ -1,7 +1,9 @@
 import Parser from './parser'
 import { parse as parseTimestamp } from './timestamp'
 
-export const parse = (string: string, options = require('./defaults')) => {
+import defaultOptions from './options'
+
+export const parse = (string: string, options = defaultOptions) => {
   const parser = new Parser(options)
   return parser.parse(string)
 }

@@ -1,6 +1,6 @@
 export interface ParseOptions {
-  todos: string[];
-  timezone: string;
+  todos?: string[];
+  timezone?: string;
 }
 
 export default {
