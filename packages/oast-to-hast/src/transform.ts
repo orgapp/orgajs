@@ -8,7 +8,7 @@ function unknown(h, node) {
   return h(node, 'div', all(h, node))
 }
 
-export function transform(h, node, parent) {
+export function transform(h, node, parent?) {
   var type = node && node.type
   var fn = h.handlers.hasOwnProperty(type) ? h.handlers[type] : null
 

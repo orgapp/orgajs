@@ -1,27 +1,29 @@
 import handlers from './handlers'
 import { transform } from './transform'
 
-module.exports = toHAST
+const h = (() => {
+  const _h: any = function(node, tagName, props, children) {
+    if (
+      (children === undefined || children === null) &&
+        typeof props === 'object' &&
+        'length' in props
+    ) {
+      children = props
+      props = {}
+    }
 
-function h(node, tagName, props, children) {
-  if (
-    (children === undefined || children === null) &&
-      typeof props === 'object' &&
-      'length' in props
-  ) {
-    children = props
-    props = {}
+    return {
+      type: 'element',
+      tagName,
+      properties: props || {},
+      children: children || []
+    }
   }
 
-  return {
-    type: 'element',
-    tagName,
-    properties: props || {},
-    children: children || []
-  }
-}
+  return _h
+})()
 
-function toHAST(tree, options: any = {}) {
+export default function toHAST(tree, options: any = {}) {
   const meta = tree.meta || {}
   h.handlers = Object.assign(handlers, options.handlers || {})
   h.footnoteSection = options.footnoteSection || `footnotes`

@@ -10,9 +10,9 @@ module.exports = {
     `__tests__/fixtures`,
   ],
   // Disabling diagnostics, TODO: turn this back on
-  globals: {
-    'ts-jest': {
-      diagnostics: false
-    }
-  },
+  // globals: {
+  //   'ts-jest': {
+  //     diagnostics: false
+  //   }
+  // },
 }

@@ -1,4 +1,4 @@
-class Node {
+export default class Node {
   type: string
   children: Node[]
   parent?: Node
@@ -35,4 +35,3 @@ class Node {
   }
 }
 
-export default Node
