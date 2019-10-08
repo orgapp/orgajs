@@ -1,5 +1,5 @@
 {
-  "name": "@orga/to-rehype",
+  "name": "@orga/rehype",
   "version": "1.5.3",
   "description": "rehype support for orga",
   "files": [

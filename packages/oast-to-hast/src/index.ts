@@ -23,7 +23,7 @@ const h = (() => {
   return _h
 })()
 
-export default function toHAST(tree, options: any = {}) {
+export = function toHAST(tree, options: any = {}) {
   const meta = tree.meta || {}
   h.handlers = Object.assign(handlers, options.handlers || {})
   h.footnoteSection = options.footnoteSection || `footnotes`
