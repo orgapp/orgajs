@@ -1,6 +1,6 @@
 {
   "name": "@orga/oast-to-hast",
-  "version": "1.5.3",
+  "version": "1.5.9",
   "description": "Transform OAST to HAST",
   "files": [
     "lib"

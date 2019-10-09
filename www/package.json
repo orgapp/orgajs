@@ -2,7 +2,7 @@
   "private": true,
   "name": "orgajs-website",
   "description": "Orga",
-  "version": "1.5.8",
+  "version": "1.5.9",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "devDependencies": {
     "gatsby": "^2.15.28",
@@ -13,9 +13,11 @@
     "gatsby-plugin-sharp": "^2.2.27",
     "gatsby-plugin-typography": "^2.3.10",
     "gatsby-source-filesystem": "^2.1.28",
-    "gatsby-transformer-orga": "^1.5.8",
+    "gatsby-transformer-orga": "^1.5.9",
     "gatsby-transformer-sharp": "^2.2.19",
     "gatsby-transformer-toml": "^2.2.11",
+    "gh-pages": "^2.1.1",
+    "prettier": "^1.18.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-helmet": "^5.2.1",
@@ -23,9 +25,7 @@
     "styled-components": "^4.4.0",
     "typography": "^0.16.19",
     "typography-plugin-code": "^0.16.19",
-    "typography-theme-github": "^0.16.19",
-    "gh-pages": "^2.1.1",
-    "prettier": "^1.18.2"
+    "typography-theme-github": "^0.16.19"
   },
   "keywords": [
     "gatsby"

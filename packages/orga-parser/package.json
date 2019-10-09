@@ -1,6 +1,6 @@
 {
   "name": "@orga/parser",
-  "version": "1.5.8",
+  "version": "1.5.9",
   "description": "org-mode parser",
   "files": [
     "lib"
