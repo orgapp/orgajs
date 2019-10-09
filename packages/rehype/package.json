@@ -6,7 +6,7 @@
     "lib"
   ],
   "main": "lib/index.js",
-  "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
   "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga-rehype",
   "devDependencies": {
@@ -14,10 +14,9 @@
     "cross-env": "^6.0.3"
   },
   "scripts": {
-    "build": "babel --root-mode upward src --out-dir lib",
-    "clean": "rm -rf ./lib",
-    "watch": "babel --root-mode upward -w src --out-dir lib",
-    "prepare": "cross-env NODE_ENV=production npm run build"
+    "build": "npm run clean && npm run compile",
+    "compile": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf ./lib"
   },
   "dependencies": {
     "@orga/oast-to-hast": "^1.5.3"

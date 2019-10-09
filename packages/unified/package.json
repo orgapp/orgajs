@@ -6,7 +6,7 @@
     "lib"
   ],
   "main": "lib/index.js",
-  "author": "Xiaoxing Hu <dawnstar.hu@gmail.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
   "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga-unified",
   "scripts": {

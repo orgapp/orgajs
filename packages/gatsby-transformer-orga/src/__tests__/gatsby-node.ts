@@ -1,12 +1,10 @@
-const Promise = require(`bluebird`)
-
 // TODO: find a way to test this
 // const { onCreateNode } = require("../gatsby-node")
 var onCreateNode
 
 describe.skip('gatsby transformer', () => {
   it('Works', async () => {
-    const node = {
+    const node: any = {
       id: `whatever`,
       children: [],
       internal: {
