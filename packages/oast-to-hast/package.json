@@ -8,7 +8,7 @@
   "main": "lib/index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
-  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/oast-to-hast",
+  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/oast-to-hast",
   "dependencies": {
     "mime": "^2.4.4",
     "prismjs": "^1.17.1",

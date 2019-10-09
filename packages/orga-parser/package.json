@@ -8,7 +8,7 @@
   "main": "lib/index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
-  "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga",
+  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/orga-parser",
   "scripts": {
     "build": "npm run clean && npm run compile",
     "compile": "tsc -p tsconfig.build.json",
