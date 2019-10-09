@@ -1,6 +1,6 @@
 {
   "name": "@orga/unified",
-  "version": "1.5.9",
+  "version": "1.5.10",
   "description": "orga parser for unifiedjs",
   "files": [
     "lib"
@@ -19,6 +19,6 @@
     "clean": "rm -rf ./lib"
   },
   "dependencies": {
-    "@orga/parser": "^1.5.9"
+    "@orga/parser": "^1.5.10"
   }
 }
