@@ -1,16 +1,35 @@
 import Prism from 'prismjs'
-import languageDependencies from '../prism-language-dependencies'
+import prismComponents from 'prismjs/components'
 
-function loadPrismLanguage(language) {
-  if (Prism.languages[language]) {
+// Get the real name of a language given it or an alias
+const getBaseLanguageName = (nameOrAlias, components = prismComponents) => {
+  if (components.languages[nameOrAlias]) {
+    return nameOrAlias
+  }
+  return Object.keys(components.languages).find(language => {
+    const { alias } = components.languages[language]
+    if (!alias) return false
+    if (Array.isArray(alias)) {
+      return alias.includes(nameOrAlias)
+    } else {
+      return alias === nameOrAlias
+    }
+  })
+}
+
+export default function loadPrismLanguage(language) {
+  const baseLanguage = getBaseLanguageName(language)
+
+  if (!baseLanguage) {
+    throw new Error(`Prism doesn't support language '${language}'.`)
+  }
+
+  if (Prism.languages[baseLanguage]) {
     // Don't load already loaded language
     return
   }
 
-  const languageData = languageDependencies[language]
-  if (!languageData) {
-    throw new Error(`Prism doesn't support language '${language}'.`)
-  }
+  const languageData = prismComponents.languages[baseLanguage]
 
   if (languageData.option === `default`) {
     // Default language has already been loaded by Prism
@@ -26,7 +45,5 @@ function loadPrismLanguage(language) {
     }
   }
 
-  require(`prismjs/components/prism-${language}.js`)
+  require(`prismjs/components/prism-${baseLanguage}.js`)
 }
-
-export default loadPrismLanguage

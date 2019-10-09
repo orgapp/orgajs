@@ -12,6 +12,7 @@
     "skipLibCheck": true,
     "noImplicitUseStrict": true,
     "esModuleInterop": true,
+    "declaration": true,
     "lib": [
       "es6"
     ],
