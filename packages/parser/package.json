@@ -10,9 +10,9 @@
   "license": "MIT",
   "repository": "https://github.com/xiaoxinghu/orgajs/tree/master/packages/orga",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "prepare": "cross-env NODE_ENV=production npm run build"
+    "build": "npm run clean && npm run compile",
+    "compile": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf ./lib"
   },
   "dependencies": {
     "luxon": "^1.19.3"

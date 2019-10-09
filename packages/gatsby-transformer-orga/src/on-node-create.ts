@@ -24,7 +24,7 @@ const getCircularReplacer = () => {
   }
 }
 
-module.exports = async function onCreateNode(
+export = async function onCreateNode(
   { node, loadNodeContent, actions, cache, pathPrefix }) {
 
   const { createNode, createParentChildLink, createNodeField } = actions
@@ -44,7 +44,7 @@ module.exports = async function onCreateNode(
           .createHash(`md5`)
           .update(content)
           .digest(`hex`)
-    const orgFileNode = {
+    const orgFileNode: any = {
       id: `${fileNode.id} >>> OrgFile`,
       children: [],
       parent: fileNode.id,

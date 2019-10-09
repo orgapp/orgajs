@@ -15,6 +15,7 @@
   },
   "scripts": {
     "build": "babel --root-mode upward src --out-dir lib",
+    "clean": "rm -rf ./lib",
     "watch": "babel --root-mode upward -w src --out-dir lib",
     "prepare": "cross-env NODE_ENV=production npm run build"
   },

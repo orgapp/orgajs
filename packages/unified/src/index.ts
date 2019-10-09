@@ -9,7 +9,7 @@ Parser.prototype.parse = function() {
   return this._parser.parse(String(this.file))
 }
 
-module.exports = parse
+export = parse
 parse.Parser = Parser
 
 function parse(options) {

@@ -2,7 +2,7 @@ const moment = require('moment')
 const { selectAll } = require('unist-util-select')
 const { Parser, parseTimestamp } = require('@orga/parser')
 
-const getProperties = headline => {
+export const getProperties = headline => {
   const drawer = selectAll(`drawer`, headline).find(d => d.name === `PROPERTIES`)
   if (!drawer) return {}
   const regex = /\s*:(.+):\s*(.+)\s*$/
@@ -28,7 +28,7 @@ function tryToParseTimestamp(str) {
   return m.isValid() ? m.toDate() : str
 }
 
-const processMeta = settings => {
+export const processMeta = settings => {
   return Object.keys(settings).reduce((result, k) => {
     if (shouldBeArray(k) && typeof settings[k] === `string`)
       return { ...result, [k]: settings[k].match(/[^ ]+/g) }
@@ -39,7 +39,7 @@ const processMeta = settings => {
 }
 
 
-const sanitise = title => {
+export const sanitise = title => {
   return title.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase()
 }
 
@@ -50,7 +50,7 @@ const astCacheKey = node =>
 
 const ASTPromiseMap = new Map()
 
-const getAST = async ({ node, cache }) => {
+export const getAST = async ({ node, cache }) => {
   const cacheKey = astCacheKey(node)
   const cachedAST = await cache.get(cacheKey)
   if (cachedAST) {
@@ -80,15 +80,7 @@ async function getOrgAST(node) {
   })
 }
 
-const cacheAST = ({ node, cache, ast }) => {
+export const cacheAST = ({ node, cache, ast }) => {
   const cacheKey = astCacheKey(node)
   cache.set(cacheKey, ast)
-}
-
-module.exports = {
-  getProperties,
-  processMeta,
-  sanitise,
-  getAST,
-  cacheAST,
 }

@@ -1,14 +1,13 @@
-const u = require('unist-builder')
-const isRelativeUrl = require(`is-relative-url`)
-const path = require('path')
-const Promise = require('bluebird')
-const toHAST = require('@orga/oast-to-hast')
-const hastToHTML = require('hast-util-to-html')
-const mime = require('mime')
-const fsExtra = require('fs-extra')
-const util = require('util')
-const map = require('unist-util-map')
-const { select } = require('unist-util-select')
+import u from 'unist-builder'
+import isRelativeUrl from 'is-relative-url'
+import { posix, dirname, normalize } from 'path'
+import toHAST from '@orga/oast-to-hast'
+import hastToHTML from 'hast-util-to-html'
+import mime from 'mime'
+import fsExtra from 'fs-extra'
+import util from 'util'
+import map from 'unist-util-map'
+import { select } from 'unist-util-select'
 
 const {
   GraphQLObjectType,
@@ -28,27 +27,27 @@ const DEPLOY_DIR = `public`
 const newFileName = linkNode =>
       `${linkNode.name}-${linkNode.internal.contentDigest}.${linkNode.extension}`
 
-const newPath = (linkNode, destinationDir) => {
-  return path.posix.join(
+const newPath = (linkNode, destinationDir = `static`) => {
+  return posix.join(
     process.cwd(),
     DEPLOY_DIR,
-    destinationDir || `static`,
+    destinationDir,
     newFileName(linkNode)
   )
 }
 
-const newLinkURL = ({ linkNode, destinationDir, pathPrefix }) => {
+const newLinkURL = ({ linkNode, destinationDir = `static`, pathPrefix }) => {
   const linkPaths = [
     `/`,
     pathPrefix,
-    destinationDir || `static`,
+    destinationDir,
     newFileName(linkNode),
   ].filter(function(lpath) {
     if (lpath) return true
     return false
   })
 
-  return path.posix.join(...linkPaths)
+  return posix.join(...linkPaths)
 }
 
 module.exports = (
@@ -98,7 +97,7 @@ module.exports = (
       // Don't copy anything is the file already exists at the location.
       if (!fsExtra.existsSync(newFilePath)) {
         try {
-          await fsExtra.ensureDir(path.dirname(newFilePath))
+          await fsExtra.ensureDir(dirname(newFilePath))
           await fsExtra.copy(linkPath, newFilePath)
         } catch (err) {
           console.error(`error copying file`, err)
@@ -113,9 +112,9 @@ module.exports = (
       var src = uri.raw
       // console.log(`URI: ${util.inspect(uri, false, null, true)}`)
       if (uri.protocol === `file`) {
-        let linkPath = path.posix.join(
+        let linkPath = posix.join(
           getNode(getNode(orgContentNode.parent).parent).dir,
-          path.normalize(uri.location)
+          normalize(uri.location)
         )
         const { headline } = uri.query || {}
         if (headline) linkPath = `${linkPath}::*${decodeURIComponent(headline)}`

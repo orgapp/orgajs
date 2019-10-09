@@ -15,8 +15,8 @@
     "unist-builder": "^1.0.4"
   },
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "prepare": "cross-env NODE_ENV=production npm run build"
+    "build": "npm run clean && npm run compile",
+    "compile": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf ./lib"
   }
 }

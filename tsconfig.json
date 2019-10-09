@@ -1,29 +1,12 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitAny": false,
-    "removeComments": true,
-    "noLib": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es6",
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "noImplicitUseStrict": true,
-    "esModuleInterop": true,
-    "declaration": true,
-    "lib": [
-      "es6"
-    ],
-    "baseUrl": "./",
-    "paths": {
-      "@orga/*": ["./packages/*/src"]
-    }
-  },
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
+  "extends": "./tsconfig.build.json",
 
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@orga/parser": ["./packages/parser/src"],
+      "@orga/oast-to-hast": ["./packages/oast-to-hast/src"],
+      "@orga/unified": ["./packages/unified/src"]
+    }
+  }
 }
