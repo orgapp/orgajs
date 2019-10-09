@@ -17,7 +17,7 @@
     "lerna": "lerna",
     "clean": "lerna run clean",
     "build": "lerna run build",
-    "lerna-prepare": "lerna run prepare",
+    "prepare": "lerna run prepare",
     "publish": "lerna publish",
     "publish-next": "lerna publish --npm-tag=next --bump=prerelease",
     "test": "jest",
