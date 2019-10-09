@@ -24,6 +24,9 @@
     "org-mode"
   ],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "gatsby": "2.x"
   },
@@ -31,6 +34,6 @@
     "build": "npm run clean && npm run compile",
     "compile": "tsc -p tsconfig.build.json",
     "prepare": "cross-env NODE_ENV=production npm run build",
-    "clean": "rm -rf ./lib"
+    "clean": "rm -rf *.js"
   }
 }
