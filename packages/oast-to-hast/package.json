@@ -1,5 +1,5 @@
 {
-  "name": "@orga/oast-to-hast",
+  "name": "oast-to-hast",
   "version": "1.5.10",
   "description": "Transform OAST to HAST",
   "files": [

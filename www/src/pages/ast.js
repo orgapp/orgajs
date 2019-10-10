@@ -1,5 +1,5 @@
 import React from 'react'
-import { Parser } from '@orga/parser'
+import { Parser } from 'orga'
 import Layout from '../components/layout'
 import { graphql } from 'gatsby'
 

@@ -1,7 +1,7 @@
 import u from 'unist-builder'
 import isRelativeUrl from 'is-relative-url'
 import { posix, dirname, normalize } from 'path'
-import toHAST from '@orga/oast-to-hast'
+import toHAST from 'oast-to-hast'
 import hastToHTML from 'hast-util-to-html'
 import mime from 'mime'
 import fsExtra from 'fs-extra'

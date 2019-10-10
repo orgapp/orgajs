@@ -4,9 +4,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@orga/parser": ["./packages/parser/src"],
-      "@orga/oast-to-hast": ["./packages/oast-to-hast/src"],
-      "@orga/unified": ["./packages/unified/src"]
+      "orga": ["./packages/parser/src"],
+      "oast-to-hast": ["./packages/oast-to-hast/src"],
+      "orga-unified": ["./packages/unified/src"]
     }
   }
 }

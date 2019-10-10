@@ -1,4 +1,4 @@
-import { Parser as OrgaParser } from '@orga/parser'
+import { Parser as OrgaParser } from 'orga'
 
 function Parser(doc, file) {
   this.file = file

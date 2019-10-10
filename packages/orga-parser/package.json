@@ -1,5 +1,5 @@
 {
-  "name": "@orga/parser",
+  "name": "orga",
   "version": "1.5.10",
   "description": "org-mode parser",
   "files": [

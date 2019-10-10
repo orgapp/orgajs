@@ -1,4 +1,4 @@
-const { Parser, parseTimestamp } = require('@orga/parser')
+const { Parser, parseTimestamp } = require('orga')
 const crypto = require('crypto')
 const path = require('path')
 const util = require('util')

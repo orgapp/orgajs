@@ -1,4 +1,4 @@
-import toHAST from '@orga/oast-to-hast'
+import toHAST from 'oast-to-hast'
 
 export = function orga2rehype(destination, options) {
   if (destination && !destination.process) {

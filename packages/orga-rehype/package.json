@@ -1,5 +1,5 @@
 {
-  "name": "@orga/rehype",
+  "name": "orga-rehype",
   "version": "1.5.10",
   "description": "rehype support for orga",
   "files": [
@@ -23,6 +23,6 @@
     "clean": "rm -rf ./lib"
   },
   "dependencies": {
-    "@orga/oast-to-hast": "^1.5.10"
+    "oast-to-hast": "^1.5.10"
   }
 }
