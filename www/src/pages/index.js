@@ -15,6 +15,17 @@ padding: 1em;
 `
 
 const Input = styled.textarea`
+width: 100%;
+height: 100%;
+border: none;
+outline: none;
+background-color: #eee8d5;
+padding: 1em;
+border-radius: .5em;
+`
+
+const Half = styled.div`
+width: 50%;
 `
 
 const print = ast => {
@@ -30,10 +41,14 @@ export default () => {
   return (
     <Layout>
       <Container>
-        <Input cols="50" rows="10" onChange={e => setText(e.target.value)}>
-          { text }
-        </Input>
-        <Preview dangerouslySetInnerHTML={{ __html: html }} />
+        <Half>
+          <Input rows="10" onChange={e => setText(e.target.value)}>
+            { text }
+          </Input>
+        </Half>
+        <Half>
+          <Preview dangerouslySetInnerHTML={{ __html: html }} />
+        </Half>
       </Container>
       <h1>OAST</h1>
       <p>Org Abstract Syntax Tree</p>
