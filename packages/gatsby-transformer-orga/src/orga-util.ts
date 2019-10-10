@@ -8,7 +8,7 @@ export const getProperties = headline => {
   const regex = /\s*:(.+):\s*(.+)\s*$/
 
   return drawer.value.split(`\n`).reduce((accu, current) => {
-    let m = current.match(regex)
+    const m = current.match(regex)
     return { ...accu, [m[1].toLowerCase()]: m[2] }
   }, {})
 }
@@ -21,7 +21,7 @@ const cleanup = str => {
 }
 
 function tryToParseTimestamp(str) {
-  let m = moment(cleanup(str), [
+  const m = moment(cleanup(str), [
     `YYYY-MM-DD ddd HH:mm`,
     `YYYY-MM-DD ddd`,
     `YYYY-MM-DD`], true)

@@ -14,11 +14,11 @@ class ListItem extends Node {
 
 export default function(token, section: Node): Node {
 
-  var self = this
+  const self = this
 
   const parseListItem = () => {
     const { indent, content, ordered, checked, tag } = self.next().data
-    var lines = [content]
+    const lines = [content]
     const item = new ListItem(`list.item`).with({ ordered, tag })
     if (checked !== undefined) {
       item.checked = checked

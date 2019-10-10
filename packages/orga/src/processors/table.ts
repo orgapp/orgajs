@@ -3,7 +3,7 @@ const inlineParse = require('../inline').parse
 
 function process(token, section) {
 
-  var self = this
+  const self = this
 
   const parseTable = () => {
     const table = new Node(`table`)

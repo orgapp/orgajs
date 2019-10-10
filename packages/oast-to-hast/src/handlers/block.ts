@@ -28,14 +28,14 @@ function center(h, node) {
 
 function src(h, node) {
   const lang = node.params[0].toLowerCase()
-  var props: any = {}
+  const props: any = {}
   if (lang) {
     props.className = ['language-' + lang]
   }
 
   const code = node.value
 
-  var body = u(`text`, code)
+  let body = u(`text`, code)
   if (h.highlight) {
     const highlighted = highlight(lang, code)
     body = u(`raw`, highlighted)

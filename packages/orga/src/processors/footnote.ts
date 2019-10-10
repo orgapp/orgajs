@@ -3,7 +3,7 @@ import Node from '../node'
 function process(token, section) {
 
   if (section.type === `footnote.definition`) return section // footnote breaks footnote
-  var self = this
+  const self = this
 
   const parseFootnote = () => {
     const { label, content } = self.next().data

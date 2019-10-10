@@ -86,7 +86,7 @@ export = async function onCreateNode(
                 select(`timestamp`, ast) ||
                 select(`planning[keyword=CLOSED]`, ast)
 
-          let meta = {
+          const meta = {
             title,
             export_file_name: sanitise(title),
             category: category || orgFileNode.fileName,
@@ -106,7 +106,7 @@ export = async function onCreateNode(
           }
         })
     } else { // root
-        let meta = {
+        const meta = {
           export_file_name: orgFileNode.fileName,
           ...ast.meta }
       meta.title = meta.title || 'Untitled'

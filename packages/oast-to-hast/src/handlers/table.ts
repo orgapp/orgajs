@@ -6,7 +6,7 @@ export function table(h, node) {
   const rows = node.children
   const separatorIndex = rows.findIndex(row => row.type === `table.separator`)
 
-  let result = []
+  const result = []
 
   if (separatorIndex > 0) {
     result.push(

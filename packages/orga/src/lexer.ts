@@ -27,7 +27,7 @@ class Syntax {
 
   update(name: string, pattern: RegExp) {
     const i = this.rules.findIndex(r => r.name === name)
-    var newRule = { name, post: (_: any) => {}, pattern: undefined }
+    let newRule = { name, post: (_: any) => {}, pattern: undefined }
     if (i !== -1) {
       newRule = this.rules.splice(i, 1)[0]
     }
@@ -36,7 +36,7 @@ class Syntax {
   }
 }
 
-var org = new Syntax()
+const org = new Syntax()
 
 function headlinePattern(todos = ['TODO', 'DONE']) {
   return RegExp(`^(\\*+)\\s+(?:(${todos.map(escape).join('|')})\\s+)?(?:\\[#(A|B|C)\\]\\s+)?(.*?)\\s*(:(?:\\w+:)+)?$`)
@@ -92,19 +92,19 @@ org.define('list.item', /^(\s*)([-+]|\d+[.)])\s+(?:\[(x|X|-| )\][ \t]+)?(?:([^\n
   const tag = m[4]
   const content = m[5]
 
-  var ordered = true
+  let ordered = true
   if ( [`-`, `+`].includes(bullet) ) {
     ordered = false
   }
 
-  var result = {
+  const result = {
     indent,
     ordered,
     content,
     tag,
     checked: undefined }
   if (m[3]) {
-    var checked = m[3] !== ' '
+    const checked = m[3] !== ' '
     result.checked = checked
   }
   return result

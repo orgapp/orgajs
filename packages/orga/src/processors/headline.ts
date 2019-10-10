@@ -9,7 +9,7 @@ function parsePlanning() {
 
 function parseDrawer() {
   const begin = this.next()
-  var lines = []
+  const lines = []
   while (this.hasNext()) {
     const t = this.next()
     if ( t.name === `headline` ) { return undefined }
@@ -34,7 +34,7 @@ function process(token, section) {
   if (level <= currentLevel) { return section }
   this.consume()
   const text = inlineParse(content)
-  var headline = new Node('headline', text).with({
+  const headline = new Node('headline', text).with({
     level, keyword, priority, tags
   })
   const planning = this.tryTo(parsePlanning)
@@ -47,7 +47,7 @@ function process(token, section) {
   }
 
   while (this.hasNext() && this.peek().name === `drawer.begin`) {
-    let drawer = this.tryTo(parseDrawer)
+    const drawer = this.tryTo(parseDrawer)
     if (!drawer) { // broken drawer
       this.downgradeToLine(this.cursor + 1)
       break

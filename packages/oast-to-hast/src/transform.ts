@@ -9,8 +9,8 @@ function unknown(h, node) {
 }
 
 export function transform(h, node, parent?) {
-  var type = node && node.type
-  var fn = h.handlers.hasOwnProperty(type) ? h.handlers[type] : null
+  const type = node && node.type
+  const fn = h.handlers.hasOwnProperty(type) ? h.handlers[type] : null
 
   /* Fail on non-nodes. */
   if (!type) {
@@ -21,11 +21,11 @@ export function transform(h, node, parent?) {
 }
 
 export function all(h, parent) {
-  var nodes = parent.children || []
-  var length = nodes.length
-  var values = []
-  var index = -1
-  var result
+  const nodes = parent.children || []
+  const length = nodes.length
+  let values = []
+  let index = -1
+  let result
 
   while (++index < length) {
     result = transform(h, nodes[index], parent)
@@ -39,7 +39,7 @@ export function all(h, parent) {
 }
 
 function text(node) {
-  var data = node.data || {}
+  const data = node.data || {}
 
   if (data.hasOwnProperty('hName') ||
       data.hasOwnProperty('hProperties') ||

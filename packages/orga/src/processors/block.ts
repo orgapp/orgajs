@@ -3,7 +3,7 @@ import Node from '../node'
 function parseBlock() {
   const t = this.next()
   const { data: { type, params } } = t
-  var lines = []
+  const lines = []
   while (this.hasNext()) {
     const t = this.next()
     if ( t.name === `headline` ) { return undefined }

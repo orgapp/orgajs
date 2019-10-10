@@ -2,8 +2,8 @@ import { all } from '../transform'
 
 /* Transform a list. */
 export default (h, node) => {
-  var props: any = {}
-  var name = node.ordered ? 'ol' : 'ul'
+  const props: any = {}
+  let name = node.ordered ? 'ol' : 'ul'
   if (node.descriptive) {
     name = 'dl'
   }

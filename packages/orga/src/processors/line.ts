@@ -3,7 +3,7 @@ const inlineParse = require('../inline').parse
 
 function process(token, section) {
 
-  var nodes = []
+  let nodes = []
   while (this.hasNext()) {
     const token = this.peek()
     // also eats broken block/drawer ends
@@ -17,14 +17,14 @@ function process(token, section) {
   return this.parseSection(section)
 
   function push(line) {
-    let newNodes = inlineParse(line)
+    const newNodes = inlineParse(line)
     // merge text newNodes
     if (nodes.length > 0 &&
         nodes[nodes.length - 1].type === `text` &&
         newNodes.length > 0 &&
         newNodes[0].type === `text`) {
       const n = newNodes.shift()
-      let last = nodes.pop()
+      const last = nodes.pop()
       last.value = `${last.value} ${n.value}`
       nodes.push(last)
     }

@@ -1,5 +1,5 @@
 function _process(token, section) {
-  var self = this
+  const self = this
   self._cel++
   self.consume()
   if (section.type === `footnote` && self._cel > 1) return section

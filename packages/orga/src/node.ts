@@ -22,14 +22,14 @@ export default class Node {
       node.parent = this
       this.children.push(node)
     } else if (typeof node === `string`) {
-      var newNode = new Node(`text`).with({ value: node })
+      const newNode = new Node(`text`).with({ value: node })
       newNode.parent = this
       this.children.push(newNode)
     }
   }
 
   with(data: object) {
-    var newNode = this
+    let newNode = this
     newNode = Object.assign(this, data)
     return newNode
   }

@@ -3,7 +3,7 @@ import mime from 'mime'
 
 export default (h, node) => {
   const { uri, desc } = node
-  var props: any = { href: uri.raw }
+  let props: any = { href: uri.raw }
 
   if (node.title !== null && node.title !== undefined) {
     props.title = node.title

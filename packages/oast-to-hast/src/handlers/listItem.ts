@@ -2,9 +2,9 @@ import u from 'unist-builder'
 import { all } from '../transform'
 
 export default (h, node, parent) => {
-  var props = {}
+  const props = {}
   const { descriptive } = parent
-  var result = all(h, node)
+  const result = all(h, node)
   if (descriptive) {
     return [
       h(node, 'dt', props, [u(`text`, node.tag || '(no item)')]),

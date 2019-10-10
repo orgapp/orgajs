@@ -32,7 +32,7 @@ class OrgaParser implements orga.Parser {
   }
 
   parse(text: string): Node {
-    var self = this
+    const self = this
     const document = new Node('root').with({ meta: {} })
     self.cursor = -1
     self.lines = text.split('\n') // TODO: more robust lines?
@@ -60,11 +60,11 @@ class OrgaParser implements orga.Parser {
   }
 
   getToken(index: number) {
-    var self = this
+    const self = this
     if (index >= self.lines.length) { return undefined }
     if (index >= self.tokens.length) {
       const start = self.tokens.length
-      for (var i = start; i <= index; i++) {
+      for (let i = start; i <= index; i++) {
         self.tokens.push(self.lexer.tokenize(self.lines[i]))
       }
     }

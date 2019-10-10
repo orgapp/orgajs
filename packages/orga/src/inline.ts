@@ -42,12 +42,12 @@ export const parse = (text: string) => {
 
 function _parse(pattern, text, post) {
   if (typeof text === `string`) {
-    var m = pattern.exec(text)
+    const m = pattern.exec(text)
     if (!m) return [new Node(`text`).with({ value: text })]
     m.shift()
-    let before = m.shift()
-    let after = m.pop()
-    var nodes = []
+    const before = m.shift()
+    const after = m.pop()
+    let nodes = []
     if ( before.length > 0 ) {
       nodes.push(new Node(`text`).with({ value: before }))
     }

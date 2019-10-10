@@ -1,7 +1,7 @@
 import Parser from '../parser'
 
 describe('Parser', () => {
-  let parser = new Parser({ todos: ['TODO', 'DONE'], timezone: 'Pacific/Auckland' })
+  const parser = new Parser({ todos: ['TODO', 'DONE'], timezone: 'Pacific/Auckland' })
   it('works', () => {
     const content = `
 #+TITLE: hello world

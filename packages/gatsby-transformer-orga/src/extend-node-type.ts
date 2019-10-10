@@ -109,7 +109,7 @@ module.exports = (
     function handleLink(h, node) {
       const { uri, desc } = node
 
-      var src = uri.raw
+      let src = uri.raw
       // console.log(`URI: ${util.inspect(uri, false, null, true)}`)
       if (uri.protocol === `file`) {
         let linkPath = posix.join(
@@ -135,14 +135,14 @@ module.exports = (
 
       // TODO: transform internal link of file based content to anchor? i.e. can't find the linkToOrg
       if (uri.protocol === `internal`) {
-        let linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${uri.location}`
+        const linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${uri.location}`
         const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
         if (linkToOrg) src = linkToOrg.fields.slug
       }
 
       const type = mime.getType(src)
       if (type && type.startsWith(`image`)) {
-        var elements = [
+        const elements = [
           h(node, `img`, { src, alt: desc })
         ]
         if (desc) {
