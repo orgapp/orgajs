@@ -26,7 +26,10 @@
     "styled-components": "^4.4.0",
     "typography": "^0.16.19",
     "typography-plugin-code": "^0.16.19",
-    "typography-theme-github": "^0.16.19"
+    "typography-theme-github": "^0.16.19",
+    "hast-util-to-html": "^6.0.2",
+    "oast-to-hast": "^1.6.0",
+    "orga-unified": "^1.6.0"
   },
   "keywords": [
     "gatsby"
