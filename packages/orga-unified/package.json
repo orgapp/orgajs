@@ -8,9 +8,6 @@
   "main": "lib/index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/orga-unified",
   "scripts": {
     "build": "npm run clean && npm run compile",

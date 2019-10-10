@@ -24,9 +24,6 @@
     "org-mode"
   ],
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "peerDependencies": {
     "gatsby": "2.x"
   },
