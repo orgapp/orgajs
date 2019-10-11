@@ -33,6 +33,21 @@ yourself. Here are a couple of ideas:
 
 - [[file:packages/orga/README.org][Learn about the parser itself and the definition of the AST]]
 - [[file:examples/example/][Learn by example how to transform org-mode syntax into HTML]]
-  
+
 * Documentation
 [[https://xiaoxinghu.github.io/orgajs/][Here]].
+* Contribute
+
+After you clone the code.
+
+#+begin_src shell
+# Bootstrap the Project
+yarn run bootstrap
+
+# Run Unit Tests
+yarn test
+
+# Play with the Website
+cd www
+yarn run develop
+#+end_src
