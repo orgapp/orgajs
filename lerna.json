@@ -1,8 +1,8 @@
 {
   "packages": [
+    "packages/*",
     "examples/*",
-    "www",
-    "packages/*"
+    "www"
   ],
   "npmClient": "yarn",
   "version": "1.6.0",

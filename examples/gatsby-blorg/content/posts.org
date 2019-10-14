@@ -1,0 +1,8 @@
+#+ORGA_PUBLISH_KEYWORD: PUBLISHED
+#+TODO: TODO NEXT | DONE
+#+TODO: DRAFT | PUBLISHED
+
+* PUBLISHED Hello World
+CLOSED: [2019-10-14 Mon 13:34]
+
+Hi, this is the content from org-mode.
