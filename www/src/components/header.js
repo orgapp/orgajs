@@ -50,7 +50,7 @@ const Header = ({ siteTitle }) => (
       <MenuItem to="/ast">AST</MenuItem>
       <MenuItem to="/syntax">SYNTAX</MenuItem>
       <MenuItem to="/roadmap">ROADMAP</MenuItem>
-      <MenuItem to="https://github.com/xiaoxinghu/orgajs">CODE</MenuItem>
+      <MenuItem to="https://github.com/orgapp/orgajs">CODE</MenuItem>
     </Menu>
   </Container>
 )
