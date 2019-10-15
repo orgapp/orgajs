@@ -4,6 +4,7 @@ const mkdirp = require(`mkdirp`)
 const withDefaults = require('./utis/default-options')
 const { paginate, createPages } = require('./paginate')
 const _ = require('lodash/fp')
+const reduce = _.reduce.convert({ cap: false })
 
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
@@ -28,8 +29,15 @@ const PostsTemplate = require.resolve(`./src/templates/posts-query`)
 
 exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const { createPage } = actions
+  const options = withDefaults(themeOptions)
+  console.log(options)
 
-  console.log(themeOptions)
+  const { filter, basePath, pagination } = options
+
+  // generate meta query base on filter
+  const meta = _.keys(filter)
+
+  const metaQuery = meta.length > 0 ? `meta { ${meta.join(' ')} }` : ''
 
   // create note pages
   const result = await graphql(`
@@ -40,7 +48,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
       edges {
         node {
           id
-          meta { category }
+          ${ metaQuery }
           fields { slug }
         }
       }
@@ -51,19 +59,24 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     reporter.panic(result.errors)
   }
 
-
-  const notes = result.data.allOrgContent.edges
+  const items = result.data.allOrgContent.edges.filter(e => {
+    const { meta } = e.node
+    return reduce((final, v, k) => {
+      const d = meta[k]
+      return final && d === v
+    }, true)(filter)
+  })
 
   paginate({
-    items: notes,
+    items,
     createPage,
-    pageLength: 10,
-    pathPrefix: `notes`,
+    pageLength: pagination,
+    basePath,
     component: PostsTemplate,
   })
 
   createPages({
-    items: notes,
+    items,
     createPage,
     getPath: _.get(['fields', 'slug']),
     getId: _.get('id'),
@@ -73,19 +86,16 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 
 // Add custom url pathname for blog posts.
 
-exports.onCreateNode = ({ node, actions }) => {
+exports.onCreateNode = ({ node, actions }, themeOptions) => {
+  const { basePath, slug } = withDefaults(themeOptions)
   if (node.internal.type !== `OrgContent`) return
   const { createNodeField } = actions
-  const { category, export_file_name } = node.meta
-  const paths = [
-    `/`,
-    category,
-    export_file_name,
-  ].filter(lpath => lpath)
-  const slug = path.posix.join(...paths)
+  const paths = [ basePath ]
+        .concat(slug.map(k => _.get(k)(node.meta)))
+        .filter(lpath => lpath)
   createNodeField({
     node,
     name: `slug`,
-    value: slug,
+    value: path.posix.join(...paths),
   })
 }

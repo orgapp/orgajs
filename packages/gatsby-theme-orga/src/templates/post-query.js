@@ -1,7 +1,10 @@
 import { graphql } from 'gatsby'
 import PostPage from '../components/post'
 
-export default PostPage
+const mapProps = Component => ({ data }) =>
+      Component({ post: data.orgContent })
+
+export default mapProps(PostPage)
 
 export const pageQuery = graphql`
 query BlogPostBySlug($id: String!) {

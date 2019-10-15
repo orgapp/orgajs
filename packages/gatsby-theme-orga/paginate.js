@@ -3,13 +3,13 @@ exports.paginate = ({
   createPage,
   pageLength = 10,
   component,
-  pathPrefix = ``,
+  basePath,
 }) => {
   const numPages = Math.ceil(items.length / pageLength)
 
   const getPath = index => {
-    if (index === 0) return `/`
-    return `/${pathPrefix}/${index}`
+    if (index === 0) return basePath
+    return `${basePath}/${index}`
   }
 
   Array.from({ length: numPages }).forEach((_, i) => {
