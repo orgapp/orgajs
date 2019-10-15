@@ -30,7 +30,6 @@ const PostsTemplate = require.resolve(`./src/templates/posts-query`)
 exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const { createPage } = actions
   const options = withDefaults(themeOptions)
-  console.log(options)
 
   const { filter, basePath, pagination } = options
 
