@@ -42,9 +42,10 @@ export default () => {
     <Layout>
       <Container>
         <Half>
-          <Input rows="10" onChange={e => setText(e.target.value)}>
-            { text }
-          </Input>
+          <Input
+            rows="10"
+            value={text}
+            onChange={e => setText(e.target.value)}/>
         </Half>
         <Half>
           <Preview dangerouslySetInnerHTML={{ __html: html }} />

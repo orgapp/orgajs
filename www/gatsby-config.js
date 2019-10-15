@@ -3,14 +3,17 @@ module.exports = {
     title: 'Orga',
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-theme-orga`,
       options: {
-        name: `pages`,
-        path: `${__dirname}/../docs/`,
+        // basePath: '/docs',
+        contentPath: `../docs`,
+        // filter: {
+        //   category: `docs`,
+        // },
       },
     },
+    'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -18,6 +21,7 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    `gatsby-plugin-styled-components`,
     'gatsby-transformer-sharp',
     'gatsby-transformer-toml',
     'gatsby-plugin-sharp',
@@ -31,13 +35,6 @@ module.exports = {
         theme_color: '#663399',
         display: 'minimal-ui',
         icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
-      },
-    },
-    {
-      resolve: `gatsby-transformer-orga`,
-      options: {
-        // if you don't want to have server side prism code highlight
-        // noHighlight: true,
       },
     },
     {

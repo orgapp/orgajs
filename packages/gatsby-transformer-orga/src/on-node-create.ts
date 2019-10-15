@@ -86,7 +86,7 @@ export = async function onCreateNode(
                 select(`timestamp`, ast) ||
                 select(`planning[keyword=CLOSED]`, ast)
 
-          const meta = {
+          const metadata = {
             title,
             export_file_name: sanitise(title),
             category: category || orgFileNode.fileName,
@@ -95,24 +95,24 @@ export = async function onCreateNode(
             ...properties,
           }
 
-          if (d && d.date) { meta.date = d.date }
-          if (d && d.end) { meta.end = d.end }
+          if (d && d.date) { metadata.date = d.date }
+          if (d && d.end) { metadata.end = d.end }
 
           const absolutePath = `${orgFileNode.fileAbsolutePath}::*${title}`
           return {
-            meta,
+            metadata,
             getAST: () => ast.parent, // we need the secion of the headline
             absolutePath,
           }
         })
     } else { // root
-        const meta = {
+        const metadata = {
           export_file_name: orgFileNode.fileName,
           ...ast.meta }
-      meta.title = meta.title || 'Untitled'
+      metadata.title = metadata.title || 'Untitled'
       const absolutePath = `${orgFileNode.fileAbsolutePath}`
       content = [ {
-        meta,
+        metadata,
         getAST: () => ast,
         absolutePath,
       } ]
@@ -135,7 +135,7 @@ export = async function onCreateNode(
           type: `OrgContent`,
         },
         ...node,
-        meta: processMeta(node.meta),
+        metadata: processMeta(node.metadata),
       }
       cacheAST({ ast, node: n, cache })
       createNode(n)

@@ -2,7 +2,7 @@ const fs = require(`fs`)
 const path = require(`path`)
 const mkdirp = require(`mkdirp`)
 const withDefaults = require('./utis/default-options')
-const { paginate, createPages } = require('./paginate')
+const { createPages, createIndexPage } = require('./paginate')
 const _ = require('lodash/fp')
 const reduce = _.reduce.convert({ cap: false })
 
@@ -31,23 +31,16 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const { createPage } = actions
   const options = withDefaults(themeOptions)
 
-  const { filter, basePath, pagination } = options
-
-  // generate meta query base on filter
-  const meta = _.keys(filter)
-
-  const metaQuery = meta.length > 0 ? `meta { ${meta.join(' ')} }` : ''
+  const { filter, basePath, pagination, buildIndexPage, buildCategoryIndexPage } = options
 
   // create note pages
   const result = await graphql(`
   {
-    allOrgContent(
-      sort: { fields: [meta___date], order: DESC }
-    ) {
+    allOrgContent {
       edges {
         node {
           id
-          ${ metaQuery }
+          metadata
           fields { slug }
         }
       }
@@ -59,20 +52,42 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   }
 
   const items = result.data.allOrgContent.edges.filter(e => {
-    const { meta } = e.node
+    const { metadata } = e.node
     return reduce((final, v, k) => {
-      const d = meta[k]
+      const d = metadata[k]
       return final && d === v
     }, true)(filter)
   })
 
-  paginate({
-    items,
-    createPage,
-    pageLength: pagination,
-    basePath,
-    component: PostsTemplate,
-  })
+  if (buildIndexPage) {
+    createIndexPage({
+      items,
+      createPage,
+      pageLength: pagination,
+      basePath,
+      component: PostsTemplate,
+    })
+  }
+
+
+  if (buildCategoryIndexPage) {
+    _.flow([
+      _.groupBy(_.get('node.metadata.category')),
+      _.toPairs,
+      _.map(([category, _items]) => {
+        // const bp =
+        // console.log(category, basePath)
+        createIndexPage({
+          items: _items,
+          createPage,
+          pageLength: pagination,
+          basePath: path.posix.join(...[basePath, `${category}`]),
+          component: PostsTemplate,
+        })
+      })
+    ])(items)
+  }
+
 
   createPages({
     items,
@@ -90,7 +105,7 @@ exports.onCreateNode = ({ node, actions }, themeOptions) => {
   if (node.internal.type !== `OrgContent`) return
   const { createNodeField } = actions
   const paths = [ basePath ]
-        .concat(slug.map(k => _.get(k)(node.meta)))
+        .concat(slug.map(k => _.get(k)(node.metadata)))
         .filter(lpath => lpath)
   createNodeField({
     node,

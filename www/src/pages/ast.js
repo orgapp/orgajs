@@ -12,11 +12,11 @@ export default class AST extends React.Component {
       if (Array.isArray(value) && value.length === 0) return
       return value
     }
-    const examples = d.examples.map(e => {
+    const examples = d.examples.map((e, i) => {
       const obj = parser.parse(e.org)
       const json = JSON.stringify(obj.children[0], replacer, 2)
       return (
-        <div>
+        <div key={`ast-item-${i}`}>
           <h2>{ e.name }</h2>
           <p>{ e.desc }</p>
           <pre><code>{ e.org }</code></pre>

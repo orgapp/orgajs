@@ -50,7 +50,7 @@ const newLinkURL = ({ linkNode, destinationDir = `static`, pathPrefix }) => {
   return posix.join(...linkPaths)
 }
 
-module.exports = (
+module.exports = async (
   { type, store, pathPrefix, getNode, getNodesByType, cache },
   pluginOptions
 ) => {
@@ -58,19 +58,27 @@ module.exports = (
     return {}
   }
 
+  const { strongTypedMetadata = true } = pluginOptions
+
   const files = getNodesByType(`File`)
 
   const orgContent = getNodesByType(`OrgContent`)
 
-  return new Promise((resolve, reject) => {
+  let t: any = {
+    html: {
+      type: GraphQLString,
+      resolve: async (node) => { return await getHTML(node) },
+    },
+  }
 
-    return resolve({
-      html: {
-        type: GraphQLString,
-        async resolve(node) { return await getHTML(node) },
-      },
-    })
-  })
+  if (strongTypedMetadata === false) {
+    t.metadata = {
+      type: GraphQLJSON,
+      resolve: node => { return node.metadata }
+    }
+  }
+
+  return t
 
   async function getHTML(orgContentNode) {
     let body = await getAST({ node: orgContentNode, cache })

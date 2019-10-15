@@ -9,7 +9,12 @@ module.exports = themeOptions => {
       description: `Description placeholder`,
     },
     plugins: [
-      `gatsby-transformer-orga`,
+      {
+        resolve: `gatsby-transformer-orga`,
+        options: {
+          strongTypedMetadata: false,
+        },
+      },
       {
         resolve: `gatsby-source-filesystem`,
         options: {

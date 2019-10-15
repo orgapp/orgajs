@@ -1,4 +1,4 @@
-exports.paginate = ({
+exports.createIndexPage = ({
   items,
   createPage,
   pageLength = 10,

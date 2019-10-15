@@ -10,5 +10,7 @@ module.exports = options => {
     filter: options.filter || {},
     pagination: options.pagination || 10,
     slug: toArray(options.slug) || ['category', 'export_file_name'],
+    buildIndexPage: options.buildIndexPage || true,
+    buildCategoryIndexPage: options.buildCategoryIndexPage || true,
   }
 }
