@@ -8,7 +8,7 @@ module.exports = {
     {
       resolve: `gatsby-theme-orga`,
       options: {
-        basePath: `/blog`,
+        basePath: `/`,
         contentPath: `content`,
         pagination: 5,
         filter: {
