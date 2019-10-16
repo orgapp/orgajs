@@ -4,10 +4,6 @@
 org-mode with JavaScript
 #+END_QUOTE
 
-Are you sick of the fact that every body is supporting markdown format, like
-it's the best thing in the world, and no body cares about the mighty [[https://orgmode.org][org-mode]]?
-Well, Orga is here to change that.
-
 * What Is It
 
 Orga is a flexible org-mode syntax parser. It parses org content into AST
@@ -33,9 +29,10 @@ yourself. Here are a couple of ideas:
 
 - [[file:packages/orga/README.org][Learn about the parser itself and the definition of the AST]]
 - [[file:examples/example/][Learn by example how to transform org-mode syntax into HTML]]
+- [[file:examples/gatsby-blorg/][Learn how to build a gatsby blog backed by org-mode files]]
 
 * Documentation
-[[https://xiaoxinghu.github.io/orgajs/][Here]].
+[[https://orga.js.org][Here]].
 * Contribute
 
 After you clone the code.

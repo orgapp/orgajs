@@ -1,7 +1,8 @@
 #+ORGA_PUBLISH_KEYWORD: ENHANCEMENT FEATURE
 #+TODO: ENHANCEMENT FEATURE BUG | DONE
 
-* ENHANCEMENT Support Multiple Keywords When Export
+* DONE Support Multiple Keywords When Export
+CLOSED: [2019-10-16 Wed 13:26]
   <2019-08-19 Mon>--<2019-08-20 Tue>
 
   There's a need for this.
@@ -12,5 +13,7 @@
 * DONE Maximum call stack size exceeded with orga transformer on gatsbyjs 2.3.4
   CLOSED: [2019-04-10 Wed 09:58]
 
-* BUG Empty table cells are dropped
+* DONE Empty table cells are dropped
+CLOSED: [2019-10-16 Wed 13:27]
   If I parse a table with empty cells, these are simply dropped and never make it to the ast.
+

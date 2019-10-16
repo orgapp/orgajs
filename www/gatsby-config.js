@@ -8,6 +8,7 @@ module.exports = {
       options: {
         // basePath: '/docs',
         contentPath: `../docs`,
+        buildIndexPage: false,
         // filter: {
         //   category: `docs`,
         // },
