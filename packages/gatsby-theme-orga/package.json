@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-orga",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "> TODO: description",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "homepage": "https://github.com/orgapp/orgajs#readme",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "gatsby-plugin-sharp": "^2.2.29",
-    "gatsby-transformer-orga": "^1.6.0",
+    "gatsby-transformer-orga": "^1.7.0",
     "gatsby-transformer-sharp": "^2.2.21"
   },
   "peerDependencies": {
