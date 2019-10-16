@@ -1,31 +1,22 @@
 import React from 'react'
-import styled from 'styled-components'
 import Layout from '../../components/layout'
-import { StyledLink } from '../../components/styled'
-
-const Desc = styled.p`
-color: gray;
-`
-
-const Keyword = styled.small`
-color: gray;
-`
-
-const Title = styled.h3`
-margin-top: 0.2em;
-`
+import { Link } from 'gatsby'
+import { List } from 'semantic-ui-react'
 
 const DocLink = ({ metadata: { title, description, date, keyword }, fields: { slug } }) => (
-  <StyledLink to={slug} key={`doc-link-${slug}`}>
-    <Keyword>{ keyword }</Keyword>
-    <Title>{ title }</Title>
-    <small>{ `${new Date(date)}` }</small>
-    <Desc>{ description }</Desc>
-  </StyledLink>
+  <List.Item as={Link} to={slug} key={`doc-link-${slug}`}>
+    <List.Content>
+      <List.Header>{ title }</List.Header>
+      <List.Description>{ `${new Date(date)}` }</List.Description>
+      <List.Description>{ description }</List.Description>
+    </List.Content>
+  </List.Item>
 )
 
 export default ({ posts }) => (
   <Layout>
-    <div>{ posts.map(DocLink) }</div>
+    <List divided relaxed>
+      { posts.map(DocLink) }
+    </List>
   </Layout>
 )

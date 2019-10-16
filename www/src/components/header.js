@@ -3,29 +3,12 @@ import Link from './link'
 import PropTypes from 'prop-types'
 import React from 'react'
 import typography from '../utils/typography'
+import { Menu } from 'semantic-ui-react'
 const { rhythm } = typography
 
 const Container = styled.header`
 padding-top: 3rem;
 padding-bottom: 2rem;
-`
-
-const MenuItem = styled(Link)`
-display: block;
-text-decoration: none;
-border-radius: 0.4rem;
-padding: .5rem 1.5rem;
-text-align: center;
-&:hover {
-  text-decoration: none;
-  cursor: pointer;
-  background-color: #f1f1f1;
-}
-`
-
-const Menu = styled.div`
-display: flex;
-justify-content: center;
 `
 
 const Title = styled.h1`
@@ -46,11 +29,18 @@ const Header = ({ siteTitle }) => (
       <Title>{ siteTitle }</Title>
     </Logo>
     <Menu>
-      <MenuItem to="/docs">DOCS</MenuItem>
-      <MenuItem to="/ast">AST</MenuItem>
-      <MenuItem to="/syntax">SYNTAX</MenuItem>
-      <MenuItem to="/roadmap">ROADMAP</MenuItem>
-      <MenuItem to="https://github.com/orgapp/orgajs">CODE</MenuItem>
+      <Menu.Item as={Link} to='/docs'>
+        DOCS
+      </Menu.Item>
+      <Menu.Item as={Link} to="/ast">AST</Menu.Item>
+      <Menu.Item as={Link} to="/syntax">SYNTAX</Menu.Item>
+      <Menu.Item as={Link} to="/roadmap">ROADMAP</Menu.Item>
+      <Menu.Item
+        position='right'
+        as={Link}
+        to="https://github.com/orgapp/orgajs">
+        CODE
+      </Menu.Item>
     </Menu>
   </Container>
 )

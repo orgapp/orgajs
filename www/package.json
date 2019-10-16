@@ -31,7 +31,9 @@
     "styled-components": "^4.4.0",
     "typography": "^0.16.19",
     "typography-plugin-code": "^0.16.19",
-    "typography-theme-github": "^0.16.19"
+    "typography-theme-github": "^0.16.19",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.1"
   },
   "keywords": [
     "gatsby"
