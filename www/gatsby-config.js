@@ -6,22 +6,18 @@ module.exports = {
     {
       resolve: `gatsby-theme-orga`,
       options: {
-        // basePath: '/docs',
         contentPath: `../docs`,
         buildIndexPage: false,
-        // filter: {
-        //   category: `docs`,
-        // },
       },
     },
-    'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
+        name: `assets`,
+        path: `${__dirname}/../assets/`,
       },
     },
+    'gatsby-plugin-react-helmet',
     `gatsby-plugin-styled-components`,
     'gatsby-transformer-sharp',
     'gatsby-transformer-toml',
@@ -29,13 +25,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'gatsby-starter-default',
-        short_name: 'starter',
+        name: 'orgajs',
+        short_name: 'orgajs',
         start_url: '/',
         background_color: '#663399',
         theme_color: '#663399',
         display: 'minimal-ui',
-        icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
+        icon: '../assets/logo.png',
       },
     },
     {

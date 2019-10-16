@@ -1,5 +1,7 @@
 #+TITLE: Orga
 
+[[file:assets/logo.png]]
+
 #+BEGIN_QUOTE
 org-mode with JavaScript
 #+END_QUOTE

@@ -7,7 +7,6 @@ const DocLink = ({ metadata: { title, description, date, keyword }, fields: { sl
   <List.Item as={Link} to={slug} key={`doc-link-${slug}`}>
     <List.Content>
       <List.Header>{ title }</List.Header>
-      <List.Description>{ `${new Date(date)}` }</List.Description>
       <List.Description>{ description }</List.Description>
     </List.Content>
   </List.Item>
