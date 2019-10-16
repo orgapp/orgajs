@@ -1,7 +1,7 @@
 {
   "name": "gatsby-theme-orga",
   "version": "1.7.0",
-  "description": "> TODO: description",
+  "description": "gatsby theme for orga.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "homepage": "https://github.com/orgapp/orgajs#readme",
   "license": "MIT",
@@ -12,6 +12,11 @@
   },
   "files": [
     "lib"
+  ],
+  "keywords": [
+    "gatsby",
+    "org-mode",
+    "orga"
   ],
   "repository": {
     "type": "git",
@@ -24,9 +29,7 @@
     "url": "https://github.com/orgapp/orgajs/issues"
   },
   "dependencies": {
-    "gatsby-plugin-sharp": "^2.2.29",
-    "gatsby-transformer-orga": "^1.7.0",
-    "gatsby-transformer-sharp": "^2.2.21"
+    "gatsby-transformer-orga": "^1.7.0"
   },
   "peerDependencies": {
     "gatsby": "^2.16.3",

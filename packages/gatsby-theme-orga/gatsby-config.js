@@ -22,8 +22,6 @@ module.exports = themeOptions => {
           path: options.contentPath,
         },
       },
-      `gatsby-transformer-sharp`,
-      `gatsby-plugin-sharp`,
     ]
   }
 }
