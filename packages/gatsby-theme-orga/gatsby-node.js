@@ -105,7 +105,12 @@ exports.onCreateNode = ({ node, actions }, themeOptions) => {
   if (node.internal.type !== `OrgContent`) return
   const { createNodeField } = actions
   const paths = [ basePath ]
-        .concat(slug.map(k => _.get(k)(node.metadata)))
+        .concat(slug.map(k => {
+          if (k.startsWith('$')) {
+            return _.get(k.substring(1))(node.metadata)
+          }
+          return k
+        }))
         .filter(lpath => lpath)
   createNodeField({
     node,
