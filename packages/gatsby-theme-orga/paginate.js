@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 exports.createIndexPage = ({
   items,
   createPage,
@@ -12,12 +14,12 @@ exports.createIndexPage = ({
     return `${basePath}/${index}`
   }
 
-  Array.from({ length: numPages }).forEach((_, i) => {
+  _.chunk(items, pageLength).forEach((posts, i) => {
     createPage({
       path: getPath(i),
       component,
       context: {
-        posts: items.map(i => i.node),
+        posts: posts.map(p => p.node),
         limit: pageLength,
         skip: i * pageLength,
         prev: i === 0 ? undefined : getPath(i - 1),
