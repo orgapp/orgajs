@@ -17,7 +17,7 @@ const PaginationLink = ({ url, children }) => {
   )
 }
 
-export default ({ posts, prev, next }) => {
+export default ({ pageContext: { posts, prev, next } }) => {
   return (
     <Layout>
       <div>
