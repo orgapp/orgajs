@@ -22,7 +22,7 @@
     "gatsby-transformer-orga": "^1.7.0"
   },
   "peerDependencies": {
-    "gatsby": "^2.16.3",
+    "gatsby": "^2.x",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   }

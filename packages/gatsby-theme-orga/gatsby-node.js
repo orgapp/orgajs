@@ -27,8 +27,8 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
 }
 
 // These templates are simply data-fetching wrappers that import components
-const PostTemplate = require.resolve(`./src/components/post`)
-const PostsTemplate = require.resolve(`./src/components/posts`)
+const PostTemplate = require.resolve(`./src/templates/post-query`)
+const PostsTemplate = require.resolve(`./src/templates/posts-query`)
 
 exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const { createPage } = actions
@@ -56,7 +56,6 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
           id
           ${ metadataQuery }
           fields { slug }
-          html
         }
       }
     }

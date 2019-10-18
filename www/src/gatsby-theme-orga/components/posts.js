@@ -3,7 +3,7 @@ import Layout from '../../components/layout'
 import { Link } from 'gatsby'
 import { List } from 'semantic-ui-react'
 
-const DocLink = ({ metadata: { title, description, date, keyword }, fields: { slug } }) => (
+const DocLink = ({ title, description, date, keyword, slug }) => (
   <List.Item as={Link} to={slug} key={`doc-link-${slug}`}>
     <List.Content>
       <List.Header>{ title }</List.Header>
@@ -12,7 +12,7 @@ const DocLink = ({ metadata: { title, description, date, keyword }, fields: { sl
   </List.Item>
 )
 
-export default ({ pageContext: { posts } }) => (
+export default ({ posts }) => (
   <Layout>
     <List divided relaxed>
       { posts.map(DocLink) }

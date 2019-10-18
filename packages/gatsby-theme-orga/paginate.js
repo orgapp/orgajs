@@ -39,7 +39,8 @@ exports.createPages = ({
       path: getPath(node),
       component,
       context: {
-        post: node,
+        id: getId(node),
+        metadata: node.metadata,
       },
     })
   })
