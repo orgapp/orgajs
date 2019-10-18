@@ -17,7 +17,7 @@ exports.createIndexPage = ({
       path: getPath(i),
       component,
       context: {
-        ids: items.map(i => i.node.id),
+        posts: items.map(i => i.node),
         limit: pageLength,
         skip: i * pageLength,
         prev: i === 0 ? undefined : getPath(i - 1),
@@ -39,7 +39,7 @@ exports.createPages = ({
       path: getPath(node),
       component,
       context: {
-        id: getId(node),
+        post: node,
       },
     })
   })

@@ -6,12 +6,12 @@ const mapProps = Component => ({ data }) =>
 
 export default mapProps(PostPage)
 
-export const pageQuery = graphql`
-query BlogPostBySlug($id: String!) {
-  orgContent(id: { eq: $id }) {
-    html
-    metadata
-    fields { slug }
-  }
-}
-`
+// export const pageQuery = graphql`
+// query BlogPostBySlug($id: String!) {
+//   orgContent(id: { eq: $id }) {
+//     html
+//     metadata
+//     fields { slug }
+//   }
+// }
+// `

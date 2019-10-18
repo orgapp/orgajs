@@ -1,10 +1,13 @@
 const fs = require(`fs`)
 const path = require(`path`)
 const mkdirp = require(`mkdirp`)
+const Debug = require(`debug`)
 const withDefaults = require('./utis/default-options')
 const { createPages, createIndexPage } = require('./paginate')
 const _ = require('lodash/fp')
 const reduce = _.reduce.convert({ cap: false })
+
+const debug = Debug(`gatsby-theme-orga`)
 
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
@@ -16,7 +19,7 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
   ]
 
   dirs.forEach(dir => {
-    // debug(`Initializing ${dir} directory`)
+    debug(`Initializing ${dir} directory`)
     if (!fs.existsSync(dir)) {
       mkdirp.sync(dir)
     }
@@ -24,14 +27,25 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
 }
 
 // These templates are simply data-fetching wrappers that import components
-const PostTemplate = require.resolve(`./src/templates/post-query`)
-const PostsTemplate = require.resolve(`./src/templates/posts-query`)
+const PostTemplate = require.resolve(`./src/components/post`)
+const PostsTemplate = require.resolve(`./src/components/posts`)
 
 exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const { createPage } = actions
   const options = withDefaults(themeOptions)
 
-  const { filter, basePath, pagination, buildIndexPage, buildCategoryIndexPage } = options
+  const { filter, basePath, pagination, buildIndexPage, buildCategoryIndexPage, metadata } = options
+
+
+  const metadataQuery = _.flow([
+    _.concat(_.keys(filter)),
+    m => buildCategoryIndexPage ? _.concat('category')(m) : m,
+    _.uniq,
+    _.join(' '),
+    q => `metadata { ${ q } }`,
+  ])(metadata)
+
+  debug(`metadata query: ${metadataQuery}`)
 
   // create note pages
   const result = await graphql(`
@@ -40,8 +54,9 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
       edges {
         node {
           id
-          metadata
+          ${ metadataQuery }
           fields { slug }
+          html
         }
       }
     }

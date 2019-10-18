@@ -11,21 +11,21 @@ const mapProps = Component => ({ data, pageContext }) =>
 
 export default mapProps(PostsPage)
 
-export const query = graphql`
-  query notes($ids: [String]!, $skip: Int!, $limit: Int!) {
-    allOrgContent(
-      filter: { id: { in: $ids } }
-      limit: $limit
-      skip: $skip
-    ) {
-      edges {
-        node {
-          fields {
-            slug
-          }
-          metadata
-        }
-      }
-    }
-  }
-`
+// export const query = graphql`
+//   query notes($ids: [String]!, $skip: Int!, $limit: Int!) {
+//     allOrgContent(
+//       filter: { id: { in: $ids } }
+//       limit: $limit
+//       skip: $skip
+//     ) {
+//       edges {
+//         node {
+//           fields {
+//             slug
+//           }
+//           metadata
+//         }
+//       }
+//     }
+//   }
+// `

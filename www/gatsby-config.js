@@ -8,6 +8,7 @@ module.exports = {
       options: {
         contentPath: `../docs`,
         buildIndexPage: false,
+        metadata: [ 'title', 'description', 'date' ],
       },
     },
     {

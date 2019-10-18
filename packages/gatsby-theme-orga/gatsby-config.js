@@ -11,9 +11,7 @@ module.exports = themeOptions => {
     plugins: [
       {
         resolve: `gatsby-transformer-orga`,
-        options: {
-          strongTypedMetadata: false,
-        },
+        options: {},
       },
       {
         resolve: `gatsby-source-filesystem`,

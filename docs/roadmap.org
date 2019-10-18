@@ -10,6 +10,7 @@ CLOSED: [2019-10-16 Wed 13:26]
 * FEATURE Inline Parsing in Blocks
   Currently the content of blocks are ignored. Not cool.
 
+* ENHANCEMENT Use Real Date Type
 * DONE Maximum call stack size exceeded with orga transformer on gatsbyjs 2.3.4
   CLOSED: [2019-04-10 Wed 09:58]
 

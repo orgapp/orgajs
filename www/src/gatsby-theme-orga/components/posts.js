@@ -12,7 +12,7 @@ const DocLink = ({ metadata: { title, description, date, keyword }, fields: { sl
   </List.Item>
 )
 
-export default ({ posts }) => (
+export default ({ pageContext: { posts } }) => (
   <Layout>
     <List divided relaxed>
       { posts.map(DocLink) }

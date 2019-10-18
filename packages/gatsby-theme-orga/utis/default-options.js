@@ -9,8 +9,9 @@ module.exports = options => {
     contentPath: options.contentPath || `content`,
     filter: options.filter || {},
     pagination: options.pagination || 10,
-    slug: toArray(options.slug) || ['category', 'export_file_name'],
+    slug: toArray(options.slug) || ['$category', '$export_file_name'],
     buildIndexPage: options.buildIndexPage || true,
     buildCategoryIndexPage: options.buildCategoryIndexPage || true,
+    metadata: options.metadata || ['title', 'category'],
   }
 }
