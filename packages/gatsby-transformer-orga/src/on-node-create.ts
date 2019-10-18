@@ -1,15 +1,13 @@
-const { Parser, parseTimestamp } = require('orga')
-const crypto = require('crypto')
-const path = require('path')
-const util = require('util')
-const { selectAll, select } = require('unist-util-select')
-const {
+import { parseTimestamp } from 'orga'
+import { selectAll, select } from 'unist-util-select'
+import {
   getProperties,
   sanitise,
   processMeta,
   getAST,
   cacheAST,
-} = require('./orga-util')
+} from './orga-util'
+import crypto from 'crypto'
 
 const getCircularReplacer = () => {
   const seen = new WeakSet()
