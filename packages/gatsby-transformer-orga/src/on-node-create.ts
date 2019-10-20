@@ -64,6 +64,7 @@ export = async function onCreateNode(
     createParentChildLink({ parent: fileNode, child: orgFileNode })
   }
 
+
   async function createOrgContentNodes(orgFileNode) {
     // const ast = orgFileNode.ast
     const ast = await getAST({ node: orgFileNode, cache })
@@ -109,6 +110,9 @@ export = async function onCreateNode(
           ...ast.meta }
       metadata.title = metadata.title || 'Untitled'
       const absolutePath = `${orgFileNode.fileAbsolutePath}`
+      const d = parseTimestamp(metadata.date) ||
+            parseTimestamp(metadata.export_date)
+      if (d && d.date) { metadata.date = d.date }
       content = [ {
         metadata,
         getAST: () => ast,

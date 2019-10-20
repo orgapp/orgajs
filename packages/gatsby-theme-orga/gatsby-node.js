@@ -34,7 +34,16 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const { createPage } = actions
   const options = withDefaults(themeOptions)
 
-  const { filter, basePath, pagination, buildIndexPage, buildCategoryIndexPage, metadata } = options
+  const {
+    filter,
+    basePath,
+    pagination,
+    buildIndexPage,
+    buildCategoryIndexPage,
+    metadata,
+    sortBy,
+    order,
+  } = options
 
 
   const metadataQuery = _.flow([
@@ -47,10 +56,17 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 
   debug(`metadata query: ${metadataQuery}`)
 
+  const sort = `
+sort: {
+  fields: [${sortBy.map(i => `metadata___${i}`).join(`,`)}]
+  order: ${order}
+}
+`
+
   // create note pages
   const result = await graphql(`
   {
-    allOrgContent {
+    allOrgContent(${sort}) {
       edges {
         node {
           id

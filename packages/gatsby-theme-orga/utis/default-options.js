@@ -13,5 +13,7 @@ module.exports = options => {
     buildIndexPage: options.buildIndexPage || true,
     buildCategoryIndexPage: options.buildCategoryIndexPage || true,
     metadata: options.metadata || ['title', 'category'],
+    sortBy: toArray(options.sortBy) || [`date`],
+    order: options.order || `DESC`,
   }
 }

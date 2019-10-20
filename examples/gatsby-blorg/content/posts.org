@@ -3,47 +3,46 @@
 #+TODO: DRAFT | PUBLISHED
 
 * PUBLISHED Hello World :hello:
-CLOSED: [2019-10-14 Mon 13:34]
 
 Hi, this is the content from org-mode.
 
 * PUBLISHED Post 1
-CLOSED: [2019-10-14 Mon 19:42]
+CLOSED: [2019-10-14 Mon 11:42]
 
 Hi, this is the content from org-mode.
 
 * PUBLISHED Post 2
-CLOSED: [2019-10-14 Mon 19:42]
+CLOSED: [2019-10-14 Mon 12:42]
 
 Hi, this is the content from org-mode.
 
 * PUBLISHED Post 3
-CLOSED: [2019-10-14 Mon 19:42]
+CLOSED: [2019-10-14 Mon 13:42]
 
 Hi, this is the content from org-mode.
 
 * PUBLISHED Post 4
-CLOSED: [2019-10-14 Mon 19:42]
+CLOSED: [2019-10-14 Mon 14:42]
 
 Hi, this is the content from org-mode.
 
 * PUBLISHED Post 5
-CLOSED: [2019-10-14 Mon 19:42]
+CLOSED: [2019-10-14 Mon 15:42]
 
 Hi, this is the content from org-mode.
 
 * PUBLISHED Post 6
-CLOSED: [2019-10-14 Mon 19:42]
+CLOSED: [2019-10-14 Mon 16:42]
 
 Hi, this is the content from org-mode.
 
 * PUBLISHED Post 7
-CLOSED: [2019-10-14 Mon 19:42]
+CLOSED: [2019-10-14 Mon 17:42]
 
 Hi, this is the content from org-mode.
 
 * PUBLISHED Post 8
-CLOSED: [2019-10-14 Mon 19:42]
+CLOSED: [2019-10-14 Mon 18:42]
 
 Hi, this is the content from org-mode.
 
@@ -53,17 +52,17 @@ CLOSED: [2019-10-14 Mon 19:42]
 Hi, this is the content from org-mode.
 
 * PUBLISHED Post 10
-CLOSED: [2019-10-14 Mon 19:42]
+CLOSED: [2019-10-14 Mon 20:42]
 
 Hi, this is the content from org-mode.
 
 * PUBLISHED Post 11
-CLOSED: [2019-10-14 Mon 19:42]
+CLOSED: [2019-10-14 Mon 21:42]
 
 Hi, this is the content from org-mode.
 
 * PUBLISHED Post 12
-CLOSED: [2019-10-14 Mon 19:42]
+CLOSED: [2019-10-14 Mon 22:42]
 
 Hi, this is the content from org-mode.
 

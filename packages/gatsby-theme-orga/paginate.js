@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const path = require('path')
 
 exports.createIndexPage = ({
   items,
@@ -11,7 +12,7 @@ exports.createIndexPage = ({
 
   const getPath = index => {
     if (index === 0) return basePath
-    return `${basePath}/${index}`
+    return path.posix.join(...[basePath, `${index}`])
   }
 
   _.chunk(items, pageLength).forEach((posts, i) => {
