@@ -13,7 +13,7 @@ export const getProperties = headline => {
   }, {})
 }
 
-const shouldBeArray = (key: string) => [`keywords`].includes(key)
+const shouldBeArray = (key: string) => [`keywords`, `tags`].includes(key)
 
 export const processMeta = _.mapValues.convert({ cap: false })((v, k) => {
   if (shouldBeArray(k) && typeof v === `string`) {
