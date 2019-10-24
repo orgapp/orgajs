@@ -32,7 +32,7 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
     d => ({
       ...d,
       tags: `[String!]`,
-      date: `Date`,
+      date: `Date @dateformat`,
     }),
     _.toPairs,
     _.map(([k, v]) => `${k}: ${v}`),

@@ -10,6 +10,7 @@ module.exports = options => {
         },
       },
       `gatsby-plugin-react-helmet`,
+      `gatsby-plugin-emotion`,
     ],
   }
 }

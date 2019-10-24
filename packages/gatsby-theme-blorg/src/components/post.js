@@ -6,7 +6,7 @@ const print = o => {
 }
 
 export default props => {
-  const { title, date, body, siteMetadata } = props
+  const { title, body, siteMetadata } = props
   return (
     <Layout title={ siteMetadata.title }>
       <h1>{ title }</h1>

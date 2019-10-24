@@ -13,5 +13,11 @@
   "license": "MIT",
   "peerDependencies": {
     "gatsby": "^2.6.0"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.22",
+    "@emotion/styled": "^10.0.22",
+    "emotion-theming": "^10.0.19",
+    "gatsby-plugin-emotion": "^4.1.12"
   }
 }

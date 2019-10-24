@@ -1,4 +1,5 @@
-import PostsPage from "../components/posts"
+import PostsPage from '../components/posts'
+import { graphql } from 'gatsby'
 
 const mapProps = Component => ({ data, pageContext }) =>
       Component({
