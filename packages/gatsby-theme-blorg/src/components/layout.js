@@ -1,5 +1,7 @@
 import React from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
 import Header from './header'
+import Footer from './footer'
 import { Global } from '@emotion/core'
 import { ThemeProvider } from 'emotion-theming'
 
@@ -15,7 +17,17 @@ const theme = {
   maxWidth: 700,
 }
 
-export default ({ title, children }) => {
+export default ({ children }) => {
+
+  const data = useStaticQuery(graphql`
+query layoutQuery {
+  site {
+    siteMetadata { title author }
+  }
+}
+`)
+
+  const { title, author } = data.site.siteMetadata
   return (
     <ThemeProvider theme={theme}>
       <Global styles={theme => ({
@@ -38,6 +50,11 @@ export default ({ title, children }) => {
       })}>
         { children }
       </main>
+      <Footer>
+        <p>
+          All materials &copy; <script>document.write(Date().getFullYear());</script>, {author}.
+        </p>
+      </Footer>
     </ThemeProvider>
   )
 }
