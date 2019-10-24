@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Layout from '../../components/layout'
+import Layout from './layout'
 
 const Post = ({ title, slug }) => (
   <div key={slug}>
@@ -17,9 +17,9 @@ const PaginationLink = ({ url, children }) => {
   )
 }
 
-export default ({ posts, prev, next }) => {
+export default ({ posts, prev, next, siteMetadata }) => {
   return (
-    <Layout>
+    <Layout title={siteMetadata.title}>
       <div>
         { posts.map(Post) }
       </div>

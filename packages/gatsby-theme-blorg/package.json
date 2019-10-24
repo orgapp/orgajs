@@ -1,0 +1,17 @@
+{
+  "name": "gatsby-theme-blorg",
+  "version": "1.0.0",
+  "description": "gatsby org-mode theme for blog",
+  "main": "index.js",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "homepage": "https://github.com/orgapp/orgajs#readme",
+  "keywords": [
+    "gatsby",
+    "org-mode",
+    "orga"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": "^2.6.0"
+  }
+}

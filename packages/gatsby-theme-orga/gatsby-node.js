@@ -26,6 +26,31 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
   })
 }
 
+exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
+  const def = _.pipe([
+    _.reduce((o, m) => ({ ...o, [m]: 'String' }), {}),
+    d => ({
+      ...d,
+      tags: `[String!]`,
+      date: `Date`,
+    }),
+    _.toPairs,
+    _.map(([k, v]) => `${k}: ${v}`),
+    _.join(` `),
+  ])(themeOptions.metadata)
+
+  const { createTypes } = actions
+  const typeDefs = `
+    type OrgContent implements Node {
+      metadata: Metadata
+    }
+    type Metadata {
+      ${ def }
+    }
+  `
+  createTypes(typeDefs)
+}
+
 // These templates are simply data-fetching wrappers that import components
 const PostTemplate = require.resolve(`./src/templates/post-query`)
 const PostsTemplate = require.resolve(`./src/templates/posts-query`)
