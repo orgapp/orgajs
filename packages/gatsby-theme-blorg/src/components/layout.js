@@ -1,21 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import Header from './header'
 import Footer from './footer'
 import { Global } from '@emotion/core'
 import { ThemeProvider } from 'emotion-theming'
-
-const theme = {
-  color: {
-    text: '#000',
-    background: '#fff',
-    primary: '#07c',
-    secondary: '#05a',
-    accent: '#609',
-    muted: '#f6f6f6f',
-  },
-  maxWidth: 700,
-}
+import { ThemeContext } from 'gatsby-plugin-themes'
 
 export default ({ children }) => {
 
@@ -26,6 +15,14 @@ query layoutQuery {
   }
 }
 `)
+
+  const { theme, next } = useContext(ThemeContext)
+
+  try {
+    require(`prismjs/themes/prism-${theme.code}.css`)
+  } catch {
+    require(`prismjs/themes/prism.css`)
+  }
 
   const { title, author } = data.site.siteMetadata
   return (
@@ -42,7 +39,9 @@ query layoutQuery {
           },
         }
       })}/>
-      <Header title={title}/>
+      <Header title={title}>
+        <button onClick={() => next() }>switch</button>
+      </Header>
       <main css={theme => ({
         maxWidth: theme.maxWidth,
         margin: '0 auto',

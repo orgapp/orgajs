@@ -6,6 +6,12 @@
 
 Hi, this is the content from org-mode.
 
+#+begin_src javascript
+function hello() {
+    console.log(`hello world.`)
+}
+#+end_src
+
 * PUBLISHED Post 1
 CLOSED: [2019-10-14 Mon 11:42]
 
