@@ -26,6 +26,8 @@ module.exports = options => {
       },
       `gatsby-plugin-react-helmet`,
       `gatsby-plugin-emotion`,
+      `gatsby-transformer-sharp`,
+      `gatsby-plugin-sharp`,
       {
         resolve: `gatsby-plugin-typography`,
         options: {
@@ -37,7 +39,15 @@ module.exports = options => {
         options: {
           pathToConfig: withThemePath(`./src/themes`),
         },
-      }
+      },
+      {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          name: `assets`,
+          path: `${__dirname}/assets`,
+          ignore: [`**/\.*`], // ignore files starting with a dot
+        },
+      },
     ],
   }
 }

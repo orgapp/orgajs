@@ -6,7 +6,7 @@ import { Global } from '@emotion/core'
 import { ThemeProvider } from 'emotion-theming'
 import { ThemeContext } from 'gatsby-plugin-themes'
 
-export default ({ children }) => {
+export default ({ children, ...props }) => {
 
   const data = useStaticQuery(graphql`
 query layoutQuery {
@@ -39,7 +39,7 @@ query layoutQuery {
           },
         }
       })}/>
-      <Header title={title}>
+      <Header title={title} {...props}>
         <button onClick={() => next() }>switch</button>
       </Header>
       <main css={theme => ({

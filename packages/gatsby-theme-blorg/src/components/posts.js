@@ -17,9 +17,9 @@ const PaginationLink = ({ url, children }) => {
   )
 }
 
-export default ({ posts, prev, next, siteMetadata }) => {
+export default ({ posts, prev, next, location }) => {
   return (
-    <Layout title={siteMetadata.title}>
+    <Layout location={location}>
       <div>
         { posts.map(Post) }
       </div>

@@ -8411,6 +8411,31 @@ gatsby-plugin-sharp@^2.2.27:
     svgo "^1.3.0"
     uuid "^3.3.3"
 
+gatsby-plugin-sharp@^2.2.32:
+  version "2.2.32"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-sharp/-/gatsby-plugin-sharp-2.2.32.tgz#54719b27886efd7f7c21f9bbd871ab51a9beee18"
+  integrity sha512-ArHxmFDnP3nVSeapwAyxcvY8Yx0WOjP7kTsODj0E299VMgWMgQ/Out10otgGW7rqKZRxxndptPM3C6uKAGcnyw==
+  dependencies:
+    "@babel/runtime" "^7.6.3"
+    async "^2.6.3"
+    bluebird "^3.7.0"
+    fs-extra "^8.1.0"
+    gatsby-core-utils "^1.0.15"
+    got "^8.3.2"
+    imagemin "^6.1.0"
+    imagemin-mozjpeg "^8.0.0"
+    imagemin-pngquant "^6.0.1"
+    imagemin-webp "^5.1.0"
+    lodash "^4.17.15"
+    mini-svg-data-uri "^1.1.3"
+    potrace "^2.1.2"
+    probe-image-size "^4.1.1"
+    progress "^2.0.3"
+    semver "^5.7.1"
+    sharp "^0.23.1"
+    svgo "^1.3.0"
+    uuid "^3.3.3"
+
 gatsby-plugin-styled-components@^3.1.11:
   version "3.1.11"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-styled-components/-/gatsby-plugin-styled-components-3.1.11.tgz#8e249f9451e64cf8e882aad9f007e3a8741acfd4"
@@ -8550,6 +8575,19 @@ gatsby-transformer-sharp@^2.2.19:
   dependencies:
     "@babel/runtime" "^7.6.2"
     bluebird "^3.5.5"
+    fs-extra "^8.1.0"
+    potrace "^2.1.2"
+    probe-image-size "^4.1.1"
+    semver "^5.7.1"
+    sharp "^0.23.1"
+
+gatsby-transformer-sharp@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-sharp/-/gatsby-transformer-sharp-2.3.0.tgz#15fed043a73a43d8b7e7512a6de72614ed28b11b"
+  integrity sha512-AW8Ds4CiJEcqKjCjbKfnrqRcwRAX2scybe5Lvv+9klSZcSTlDtsB4sSpKQbBOrLeMOmrRan4zoC0vPc1Ccut9g==
+  dependencies:
+    "@babel/runtime" "^7.6.3"
+    bluebird "^3.7.0"
     fs-extra "^8.1.0"
     potrace "^2.1.2"
     probe-image-size "^4.1.1"

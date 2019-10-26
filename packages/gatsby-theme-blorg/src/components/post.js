@@ -1,17 +1,10 @@
 import React from 'react'
 import Layout from './layout'
-import { inspect } from 'util'
-const print = o => {
-  return inspect(o, false, null, false)
-}
 
-export default props => {
-  const { title, body, siteMetadata } = props
+export default ({ title, body, location }) => {
   return (
-    <Layout title={ siteMetadata.title }>
+    <Layout location={location}>
       <h1>{ title }</h1>
-      <h5>props</h5>
-      <pre>{ print(props) }</pre>
       <div dangerouslySetInnerHTML={{ __html: body }} />
     </Layout>
   )
