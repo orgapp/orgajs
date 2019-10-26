@@ -1,5 +1,5 @@
 const common = {
-  maxWidth: 740,
+  maxWidth: 672,
 }
 
 module.exports = [
@@ -24,6 +24,7 @@ module.exports = [
       background: `hsl(10, 10%, 98%)`,
       primary: `hsl(10, 80%, 50%)`,
       secondary: `hsl(10, 60%, 50%)`,
+      accent: `hsl(10, 60%, 50%)`,
       muted: `hsl(10, 20%, 50%)`,
       gray: `hsl(10, 20%, 50%)`,
     },

@@ -34,8 +34,10 @@ query layoutQuery {
         },
         a: {
           color: theme.color.primary,
+          textDecoration: 'none',
           '&:hover': {
             color: theme.color.accent,
+            textDecoration: 'none',
           },
         }
       })}/>
