@@ -12,37 +12,39 @@ export default () => {
   } = useStaticQuery(bioQuery)
 
   return (
-    <div css={{
-      display: 'flex',
-      marginBottom: 4,
-      alignItems: 'center',
-    }}>
-      {avatar ? (
-        <Image
-          fixed={avatar.childImageSharp.fixed}
-          alt={author}
-          css={{
-            marginRight: `.4em`,
-            marginBottom: 0,
-            width: 48,
-            flexShrink: 0,
-            borderRadius: 99999,
-          }}
-        />
-      ) : (
-        <div
-          css={{
-            marginRight: `.4em`,
-            marginBottom: 0,
-            width: 48,
-            flexShrink: 0,
-            borderRadius: 99999,
-          }}
-          role="presentation"
-        />
-      )}
-      <div>
-        <BioContent />
+    <div>
+      <div css={{
+        display: 'flex',
+        marginBottom: 4,
+        alignItems: 'center',
+      }}>
+        {avatar ? (
+          <Image
+            fixed={avatar.childImageSharp.fixed}
+            alt={author}
+            css={{
+              marginRight: `.4em`,
+              marginBottom: 0,
+              width: 48,
+              flexShrink: 0,
+              borderRadius: 99999,
+            }}
+          />
+        ) : (
+          <div
+            css={{
+              marginRight: `.4em`,
+              marginBottom: 0,
+              width: 48,
+              flexShrink: 0,
+              borderRadius: 99999,
+            }}
+            role="presentation"
+          />
+        )}
+        <div>
+          <BioContent />
+        </div>
       </div>
     </div>
   )

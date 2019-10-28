@@ -8603,6 +8603,15 @@ gatsby-transformer-toml@^2.2.11:
     bluebird "^3.5.5"
     toml "^2.3.6"
 
+gatsby-transformer-toml@^2.2.15:
+  version "2.2.15"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-toml/-/gatsby-transformer-toml-2.2.15.tgz#cf68d39117d04b744f6d1a956da40712d6715688"
+  integrity sha512-tuX6EbWHB6YZeEn3XxoviYOudG9KseXsd+AyLoI5WR44DuBGyJi51jbdjN6SPsLLC7bieqvzKVWA2OoW7RmjfA==
+  dependencies:
+    "@babel/runtime" "^7.6.3"
+    bluebird "^3.7.0"
+    toml "^2.3.6"
+
 gatsby@^2.15.28:
   version "2.15.28"
   resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.15.28.tgz#064b49a7811838077f53056a8315c632e76ed431"
@@ -14516,6 +14525,13 @@ react-hot-loader@^4.12.15:
     react-lifecycles-compat "^3.0.4"
     shallowequal "^1.1.0"
     source-map "^0.7.3"
+
+react-icons@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-3.8.0.tgz#229de5904809696c9f46932bd9b6126b2522866e"
+  integrity sha512-rA/8GRKjPulft8BSBSMsHkE1AGPqJ7LjNsyk0BE7XjG70Iz62zOled2SJk7LDo8x9z86a3xOstDlKlMZ4pAy7A==
+  dependencies:
+    camelcase "^5.0.0"
 
 react-is@^16.6.0:
   version "16.6.3"

@@ -16,17 +16,23 @@ const withThemePath = relativePath => {
 module.exports = options => {
 
   return {
+    siteMetadata: {
+      title: `Blog Title Placeholder`,
+      author: `Name Placeholder`,
+      description: `Description placeholder`,
+    },
     plugins: [
       {
         resolve: `gatsby-theme-orga`,
         options: {
-          metadata: [ 'title', 'date', 'tags', 'description' ],
           ...options,
+          metadata: [ 'title', 'date', 'tags', 'description', ...options.metadata || [] ],
         },
       },
       `gatsby-plugin-react-helmet`,
       `gatsby-plugin-emotion`,
       `gatsby-transformer-sharp`,
+      `gatsby-transformer-toml`,
       `gatsby-plugin-sharp`,
       {
         resolve: `gatsby-plugin-typography`,
@@ -45,6 +51,14 @@ module.exports = options => {
         options: {
           name: `assets`,
           path: `${__dirname}/assets`,
+          ignore: [`**/\.*`], // ignore files starting with a dot
+        },
+      },
+      {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          name: `data`,
+          path: `${__dirname}/src/data`,
           ignore: [`**/\.*`], // ignore files starting with a dot
         },
       },

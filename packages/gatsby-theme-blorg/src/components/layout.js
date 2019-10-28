@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import Header from './header'
-import Footer from './footer'
 import { Global } from '@emotion/core'
 import { ThemeProvider } from 'emotion-theming'
 import { ThemeContext } from 'gatsby-plugin-themes'
@@ -51,11 +50,6 @@ query layoutQuery {
       })}>
         { children }
       </main>
-      <Footer>
-        <p>
-          All materials &copy; <script>document.write(Date().getFullYear());</script>, {author}.
-        </p>
-      </Footer>
     </ThemeProvider>
   )
 }

@@ -8,12 +8,6 @@ export default ({ children }) => {
       flexDirection: `column`,
       alignItems: `center`,
     })}>
-      {/* <div css={theme => ({ */}
-      {/*   display: 'flex', */}
-      {/*   maxWidth: theme.maxWidth, */}
-      {/*   margin: '0 auto', */}
-      {/* })}> */}
-      {/* </div> */}
       { children }
     </footer>
   )

@@ -1,36 +1,47 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import Layout from './layout'
+import Footer from './footer'
 
-const Post = ({ title, slug }) => (
+const Post = ({ title, slug, description }) => (
   <div key={slug}>
-    <Link to={slug}>
-      { title }
-    </Link>
+    <h2>
+      <Link to={slug}>
+        { title }
+      </Link>
+    </h2>
+    <p>{ description }</p>
   </div>
 )
 
 const PaginationLink = ({ url, children }) => {
-  if (!url) return null
+  if (!url) return <div></div>
   return (
     <Link to={url}>{ children }</Link>
   )
 }
 
-export default ({ posts, prev, next, location }) => {
+export default ({ posts, prev, next, location, siteMetadata }) => {
   return (
     <Layout location={location}>
-      <div>
+      <main>
         { posts.map(Post) }
-      </div>
-      <div style={{ display: 'flex' }}>
+      </main>
+      <div css={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '3em 1em 0 1em',
+      }}>
         <PaginationLink url={prev}>
-          ◄ See more recent notes
+          ◄ more recent
         </PaginationLink>
         <PaginationLink url={next}>
-          See older notes ►
+          older ►
         </PaginationLink>
       </div>
+      <Footer>
+        © {new Date().getFullYear()} {siteMetadata.author}
+      </Footer>
     </Layout>
   )
 }
