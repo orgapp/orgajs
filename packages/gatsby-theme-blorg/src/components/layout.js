@@ -5,7 +5,7 @@ import { ThemeProvider } from 'emotion-theming'
 import { ThemeContext } from 'gatsby-plugin-themes'
 import { useSiteMetadata } from '../hooks'
 import { FaAdjust } from 'react-icons/fa'
-import Button from './button'
+import { likeButton } from '../utils/styles'
 
 export default ({ children, ...props }) => {
 
@@ -35,9 +35,11 @@ export default ({ children, ...props }) => {
         }
       })}/>
       <Header title={title} {...props}>
-        <Button onClick={() => next() }>
+        <button
+          css={likeButton}
+          onClick={() => next() }>
           <FaAdjust/>
-        </Button>
+        </button>
       </Header>
       <main css={theme => ({
         maxWidth: theme.maxWidth,

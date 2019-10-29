@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import Layout from './layout'
 import Footer from './footer'
 import { useSiteMetadata } from '../hooks'
-import Tag from './tag'
+import { compose, withTintedBackground } from '../utils/styles'
 
 const Post = ({ title, date, category, slug, description }) => (
   <div key={slug}>
@@ -11,10 +11,18 @@ const Post = ({ title, date, category, slug, description }) => (
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center' }}>
-      <time css={theme => ({ color: theme.color.gray })}>
+      <time css={theme => ({ color: theme.color.text })}>
         <small>{ date }</small>
       </time>
-      <Tag to={`/${category}`}>{ category }</Tag>
+      <Link
+        to={`/${category}`}
+        css={compose({
+          borderRadius: '0.3em',
+          padding: '0 .2em',
+          fontSize: '.8em',
+        }, withTintedBackground)}>
+        { category }
+      </Link>
     </div>
     <h2 css={{ marginBottom: '.1em' }}>
       <Link to={slug} css={theme => ({
@@ -52,10 +60,10 @@ export default ({ posts, prev, next, location }) => {
         padding: '3em 1em 0 1em',
       }}>
         <PaginationLink url={prev}>
-          ◄ more recent
+          ◄ more recent posts
         </PaginationLink>
         <PaginationLink url={next}>
-          older ►
+          older posts ►
         </PaginationLink>
       </div>
       <Footer>

@@ -4,6 +4,7 @@ import Bio from './bio'
 import Footer from './footer'
 import { useSiteMetadata } from '../hooks'
 import { readableColor } from 'polished'
+import { compose, withTintedBackground } from '../utils/styles'
 
 const tint = amount => color =>
       readableColor(
@@ -28,7 +29,7 @@ const TweetThisButton = ({ title, slug }) => {
   })
 
   return (
-    <a href={link} css={theme => ({
+    <a href={link} css={compose({
       display: 'block',
       width: '100%',
       textAlign: 'center',
@@ -36,11 +37,7 @@ const TweetThisButton = ({ title, slug }) => {
       fontSize: '1.4em',
       padding: '16px 0',
       borderRadius: '0.3em',
-      backgroundColor: tint(0.1)(theme.color.background),
-      '&:hover': {
-        backgroundColor: tint(0.2)(theme.color.background),
-      }
-    })}>
+    }, withTintedBackground)}>
       Tweet this.
     </a>
   )
