@@ -4,6 +4,8 @@ import { Global } from '@emotion/core'
 import { ThemeProvider } from 'emotion-theming'
 import { ThemeContext } from 'gatsby-plugin-themes'
 import { useSiteMetadata } from '../hooks'
+import { FaAdjust } from 'react-icons/fa'
+import Button from './button'
 
 export default ({ children, ...props }) => {
 
@@ -27,13 +29,15 @@ export default ({ children, ...props }) => {
           color: theme.color.primary,
           textDecoration: 'none',
           '&:hover': {
-            color: theme.color.accent,
+            color: theme.color.secondary,
             textDecoration: 'none',
           },
         }
       })}/>
       <Header title={title} {...props}>
-        <button onClick={() => next() }>switch</button>
+        <Button onClick={() => next() }>
+          <FaAdjust/>
+        </Button>
       </Header>
       <main css={theme => ({
         maxWidth: theme.maxWidth,

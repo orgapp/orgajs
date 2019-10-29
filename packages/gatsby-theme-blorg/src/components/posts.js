@@ -7,7 +7,12 @@ import { useSiteMetadata } from '../hooks'
 const Post = ({ title, slug, description }) => (
   <div key={slug}>
     <h2>
-      <Link to={slug}>
+      <Link to={slug} css={theme => ({
+        color: 'inherit',
+        '&:hover': {
+          color: theme.color.primary,
+        },
+      })}>
         { title }
       </Link>
     </h2>
