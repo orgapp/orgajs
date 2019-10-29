@@ -28,7 +28,10 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
 
 exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
   const def = _.pipe([
-    _.reduce((o, m) => ({ ...o, [m]: 'String' }), {}),
+    _.reduce((o, m) => {
+      if (m.startsWith(`date(formatString:`)) return o
+      return { ...o, [m]: 'String' }
+    }, {}),
     d => ({
       ...d,
       tags: `[String!]`,

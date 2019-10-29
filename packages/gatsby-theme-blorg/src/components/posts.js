@@ -3,10 +3,20 @@ import { Link } from 'gatsby'
 import Layout from './layout'
 import Footer from './footer'
 import { useSiteMetadata } from '../hooks'
+import Tag from './tag'
 
-const Post = ({ title, slug, description }) => (
+const Post = ({ title, date, category, slug, description }) => (
   <div key={slug}>
-    <h2>
+    <div css={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center' }}>
+      <time css={theme => ({ color: theme.color.gray })}>
+        <small>{ date }</small>
+      </time>
+      <Tag to={`/${category}`}>{ category }</Tag>
+    </div>
+    <h2 css={{ marginBottom: '.1em' }}>
       <Link to={slug} css={theme => ({
         color: 'inherit',
         '&:hover': {
@@ -16,7 +26,9 @@ const Post = ({ title, slug, description }) => (
         { title }
       </Link>
     </h2>
-    <p>{ description }</p>
+    <p css={theme => ({
+      color: theme.color.gray,
+    })}>{ description }</p>
   </div>
 )
 

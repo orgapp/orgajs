@@ -30,7 +30,7 @@ module.exports = options => {
         resolve: `gatsby-theme-orga`,
         options: {
           ...options,
-          metadata: [ 'title', 'date', 'tags', 'description', ...options.metadata || [] ],
+          metadata: [ 'title', `date(formatString: "MMMM Do, YYYY")`, 'tags', 'description', ...options.metadata || [] ],
         },
       },
       `gatsby-plugin-react-helmet`,
