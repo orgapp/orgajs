@@ -29,6 +29,7 @@
     "prismjs": "^1.17.1",
     "react-icons": "^3.8.0",
     "react-typography": "^0.16.19",
-    "typography": "^0.16.19"
+    "typography": "^0.16.19",
+    "typography-plugin-code": "^0.16.19"
   }
 }
