@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import Layout from './layout'
 import Footer from './footer'
+import { useSiteMetadata } from '../hooks'
 
 const Post = ({ title, slug, description }) => (
   <div key={slug}>
@@ -21,7 +22,8 @@ const PaginationLink = ({ url, children }) => {
   )
 }
 
-export default ({ posts, prev, next, location, siteMetadata }) => {
+export default ({ posts, prev, next, location }) => {
+  const { author } = useSiteMetadata()
   return (
     <Layout location={location}>
       <main>
@@ -40,7 +42,7 @@ export default ({ posts, prev, next, location, siteMetadata }) => {
         </PaginationLink>
       </div>
       <Footer>
-        © {new Date().getFullYear()} {siteMetadata.author}
+        © {new Date().getFullYear()} {author}
       </Footer>
     </Layout>
   )

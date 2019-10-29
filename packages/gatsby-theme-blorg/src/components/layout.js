@@ -1,19 +1,11 @@
 import React, { useContext } from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
 import Header from './header'
 import { Global } from '@emotion/core'
 import { ThemeProvider } from 'emotion-theming'
 import { ThemeContext } from 'gatsby-plugin-themes'
+import { useSiteMetadata } from '../hooks'
 
 export default ({ children, ...props }) => {
-
-  const data = useStaticQuery(graphql`
-query layoutQuery {
-  site {
-    siteMetadata { title author }
-  }
-}
-`)
 
   const { theme, next } = useContext(ThemeContext)
 
@@ -23,7 +15,7 @@ query layoutQuery {
     require(`prismjs/themes/prism.css`)
   }
 
-  const { title, author } = data.site.siteMetadata
+  const { title } = useSiteMetadata()
   return (
     <ThemeProvider theme={theme}>
       <Global styles={theme => ({

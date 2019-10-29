@@ -18,8 +18,12 @@ module.exports = options => {
   return {
     siteMetadata: {
       title: `Blog Title Placeholder`,
+      siteUrl: `https://orga.js.org`,
       author: `Name Placeholder`,
       description: `Description placeholder`,
+      twitter: '',
+      github: '',
+      email: '',
     },
     plugins: [
       {
@@ -49,16 +53,8 @@ module.exports = options => {
       {
         resolve: `gatsby-source-filesystem`,
         options: {
-          name: `assets`,
-          path: `${__dirname}/assets`,
-          ignore: [`**/\.*`], // ignore files starting with a dot
-        },
-      },
-      {
-        resolve: `gatsby-source-filesystem`,
-        options: {
           name: `data`,
-          path: `${__dirname}/src/data`,
+          path: `src`,
           ignore: [`**/\.*`], // ignore files starting with a dot
         },
       },
