@@ -5,7 +5,6 @@ const Debug = require(`debug`)
 const withDefaults = require('./utis/default-options')
 const { createPages, createIndexPage } = require('./paginate')
 const _ = require('lodash/fp')
-const reduce = _.reduce.convert({ cap: false })
 
 const debug = Debug(`gatsby-theme-orga`)
 
@@ -27,7 +26,7 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
 }
 
 exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
-  const def = _.pipe([
+  const def = _.flow(
     _.reduce((o, m) => {
       if (m.startsWith(`date(formatString:`)) return o
       return { ...o, [m]: 'String' }
@@ -40,7 +39,7 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
     _.toPairs,
     _.map(([k, v]) => `${k}: ${v}`),
     _.join(` `),
-  ])(themeOptions.metadata)
+  )(themeOptions.metadata)
 
   const { createTypes } = actions
   const typeDefs = `
@@ -60,7 +59,6 @@ const PostsTemplate = require.resolve(`./src/templates/posts-query`)
 
 exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const { createPage } = actions
-  const options = withDefaults(themeOptions)
 
   const {
     filter,
@@ -71,16 +69,15 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     metadata,
     sortBy,
     order,
-  } = options
+  } = withDefaults(themeOptions)
 
 
-  const metadataQuery = _.flow([
-    _.concat(_.keys(filter)),
+  const metadataQuery = _.flow(
     m => buildCategoryIndexPage ? _.concat('category')(m) : m,
     _.uniq,
     _.join(' '),
     q => `metadata { ${ q } }`,
-  ])(metadata)
+  )(metadata)
 
   debug(`metadata query: ${metadataQuery}`)
 
@@ -91,7 +88,6 @@ sort: {
 }
 `
 
-  // create note pages
   const result = await graphql(`
   {
     allOrgContent(${sort}) {
@@ -109,13 +105,10 @@ sort: {
     reporter.panic(result.errors)
   }
 
-  const items = result.data.allOrgContent.edges.filter(e => {
-    const { metadata } = e.node
-    return reduce((final, v, k) => {
-      const d = metadata[k]
-      return final && d === v
-    }, true)(filter)
-  })
+  const items = _.flow([
+    _.get(`data.allOrgContent.edges`),
+    filter && typeof filter === `function` &&  _.filter(e => filter(e.node.metadata)),
+  ].filter(Boolean))(result)
 
   if (buildIndexPage) {
     createIndexPage({
@@ -133,8 +126,6 @@ sort: {
       _.groupBy(_.get('node.metadata.category')),
       _.toPairs,
       _.map(([category, _items]) => {
-        // const bp =
-        // console.log(category, basePath)
         createIndexPage({
           items: _items,
           createPage,

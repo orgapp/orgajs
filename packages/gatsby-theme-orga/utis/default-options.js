@@ -7,7 +7,7 @@ module.exports = options => {
   return {
     basePath: options.basePath || `/`,
     contentPath: options.contentPath || `content`,
-    filter: options.filter || {},
+    filter: options.filter || undefined,
     pagination: options.pagination || 10,
     slug: toArray(options.slug) || ['$category', '$export_file_name'],
     buildIndexPage: options.buildIndexPage || true,
