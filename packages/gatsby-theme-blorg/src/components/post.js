@@ -4,7 +4,7 @@ import Bio from './bio'
 import Footer from './footer'
 import { useSiteMetadata } from '../hooks'
 import { readableColor } from 'polished'
-import { compose, withTintedBackground } from '../utils/styles'
+import { compose, highlighted } from '../utils/styles'
 
 const tint = amount => color =>
       readableColor(
@@ -37,7 +37,7 @@ const TweetThisButton = ({ title, slug }) => {
       fontSize: '1.4em',
       padding: '16px 0',
       borderRadius: '0.3em',
-    }, withTintedBackground)}>
+    }, highlighted({ highlightOnHover: true }))}>
       Tweet this.
     </a>
   )

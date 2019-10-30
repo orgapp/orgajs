@@ -1,8 +1,6 @@
 import Typography from "typography"
 import CodePlugin from 'typography-plugin-code'
 
-const gray = amount => `rgba(0, 0, 0, ${amount})`
-
 const theme = {
   title: 'dawn',
   baseFontSize: "16px",

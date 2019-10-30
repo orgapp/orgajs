@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import Layout from './layout'
 import Footer from './footer'
 import { useSiteMetadata } from '../hooks'
-import { compose, withTintedBackground } from '../utils/styles'
+import { compose, highlighted } from '../utils/styles'
 
 const rootPath = `${__PATH_PREFIX__}/`
 
@@ -22,7 +22,7 @@ const Post = ({ title, date, category, slug, description }) => (
           borderRadius: '0.3em',
           padding: '0 .2em',
           fontSize: '.8em',
-        }, withTintedBackground)}>
+        }, highlighted({ highlightOnHover: true }))}>
         { category }
       </Link>
     </div>
@@ -58,12 +58,13 @@ export default ({ posts, prev, next, location }) => {
         { category && category.length > 0 && isNaN(category) && (
           <h1 css={theme => ({
             color: theme.color.gray,
+            fontStyle: 'italic',
             fontWeight: 300,
           })}>
             About <span css={compose({
               padding: '0 .4em',
               borderRadius: '.2em',
-            }, withTintedBackground)}>{ category }</span>
+            }, highlighted() )}>{ category }</span>
           </h1>
         )}
         { posts.map(Post) }

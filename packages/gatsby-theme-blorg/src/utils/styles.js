@@ -1,17 +1,27 @@
-import { readableColor } from 'polished'
+import { readableColor, lighten, darken } from 'polished'
 
-const tint = amount => color =>
-      readableColor(
-        color,
-        `rgba(0, 0, 0, ${amount})`,
-        `rgba(255, 255, 255, ${amount})`)
-
-export const withTintedBackground = theme => ({
-  backgroundColor: tint(0.1)(theme.color.background),
-  '&:hover': {
-    backgroundColor: tint(0.2)(theme.color.background),
+export const highlighted = ({ highlightOnHover = false } = {}) => theme => {
+  const { highlight } = theme.color
+  const style = {
+    backgroundColor: highlight,
   }
-})
+  return highlightOnHover ? {
+    ...style,
+    '&:hover': {
+      ...tinted({ color: highlight })(theme)
+    }
+  } : style
+}
+
+export const tinted = ({ amount = 0.1, color } = {}) => theme => {
+  const _color = color || theme.color.background
+  return {
+    backgroundColor: readableColor(
+      _color,
+      darken(amount, _color),
+      lighten(amount, _color))
+  }
+}
 
 export const likeButton = theme => ({
   textAlign: 'center',

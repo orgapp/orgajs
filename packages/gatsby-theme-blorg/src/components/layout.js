@@ -5,7 +5,7 @@ import { ThemeProvider } from 'emotion-theming'
 import { ThemeContext } from 'gatsby-plugin-themes'
 import { useSiteMetadata } from '../hooks'
 import { FaAdjust } from 'react-icons/fa'
-import { likeButton } from '../utils/styles'
+import { likeButton, tinted } from '../utils/styles'
 
 export default ({ children, ...props }) => {
 
@@ -32,6 +32,9 @@ export default ({ children, ...props }) => {
             color: theme.color.secondary,
             textDecoration: 'none',
           },
+        },
+        'tt,code,pre': {
+          ...tinted()(theme),
         }
       })}/>
       <Header title={title} {...props}>
