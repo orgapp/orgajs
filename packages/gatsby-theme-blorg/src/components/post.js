@@ -44,6 +44,7 @@ const TweetThisButton = ({ title, slug }) => {
 }
 
 export default ({ title, date, slug, body, location }) => {
+  const { author } = useSiteMetadata()
   return (
     <Layout location={location}>
       <main>
@@ -68,6 +69,9 @@ export default ({ title, date, slug, body, location }) => {
           backgroundColor: tint(0.3)(theme.color.background),
           width: '100%' }) }/>
         <Bio/>
+        <p>
+          © {new Date().getFullYear()} {author}
+        </p>
       </Footer>
     </Layout>
   )

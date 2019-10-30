@@ -33,6 +33,7 @@ module.exports = options => {
           metadata: [ 'title', `date(formatString: "MMMM Do, YYYY")`, 'tags', 'description', ...options.metadata || [] ],
         },
       },
+      `gatsby-plugin-offline`,
       `gatsby-plugin-react-helmet`,
       `gatsby-plugin-emotion`,
       `gatsby-transformer-sharp`,
