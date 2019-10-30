@@ -15,7 +15,7 @@ const theme = {
     "Arial",
     "sans-serif",
   ],
-  bodyFontFamily: ["Georgia", "serif"],
+  bodyFontFamily: ["system-ui", "sans-serif"],
   scaleRatio: 2,
   bodyColor: "hsla(0,0%,0%,0.8)",
   headerWeight: 700,

@@ -5,6 +5,8 @@ import Footer from './footer'
 import { useSiteMetadata } from '../hooks'
 import { compose, withTintedBackground } from '../utils/styles'
 
+const rootPath = `${__PATH_PREFIX__}/`
+
 const Post = ({ title, date, category, slug, description }) => (
   <div key={slug}>
     <div css={{
@@ -49,9 +51,21 @@ const PaginationLink = ({ url, children }) => {
 
 export default ({ posts, prev, next, location }) => {
   const { author } = useSiteMetadata()
+  const category = location.pathname.replace(new RegExp(`^${rootPath}`), '')
   return (
     <Layout location={location}>
       <main>
+        { category && category.length > 0 && (
+          <h1 css={theme => ({
+            color: theme.color.gray,
+            fontWeight: 300,
+          })}>
+            About <span css={compose({
+              padding: '0 .4em',
+              borderRadius: '.2em',
+            }, withTintedBackground)}>{ category }</span>
+          </h1>
+        )}
         { posts.map(Post) }
       </main>
       <div css={{

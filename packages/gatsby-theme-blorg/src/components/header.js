@@ -17,7 +17,6 @@ const Title = ({ children, locaiton }) => {
 }
 
 export default ({ children, title, ...props }) => {
-  console.log(props)
   return (
     <header>
       <div css={theme => ({
