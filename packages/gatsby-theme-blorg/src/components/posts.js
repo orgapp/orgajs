@@ -55,7 +55,7 @@ export default ({ posts, prev, next, location }) => {
   return (
     <Layout location={location}>
       <main>
-        { category && category.length > 0 && (
+        { category && category.length > 0 && isNaN(category) && (
           <h1 css={theme => ({
             color: theme.color.gray,
             fontWeight: 300,

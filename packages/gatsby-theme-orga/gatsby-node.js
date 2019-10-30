@@ -138,7 +138,7 @@ sort: {
         createIndexPage({
           items: _items,
           createPage,
-          pageLength: pagination,
+          pageLength: 0,
           basePath: path.posix.join(...[basePath, `${category}`]),
           component: PostsTemplate,
         })
