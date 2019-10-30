@@ -43,11 +43,23 @@ const TweetThisButton = ({ title, slug }) => {
   )
 }
 
-export default ({ title, slug, body, location }) => {
+export default ({ title, date, slug, body, location }) => {
   return (
     <Layout location={location}>
       <main>
-        <h1>{ title }</h1>
+        <div css={{
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '1em 2em 0',
+          textAlign: 'center',
+        }}>
+          <time css={theme => ({
+            color: theme.color.gray,
+            marginBottom: '-2em',
+          })}>{ date }</time>
+          <h1 css={{ fontSize: '40px' }}>{ title }</h1>
+          <hr css={theme => ({ backgroundColor: theme.color.gray })}/>
+        </div>
         <div dangerouslySetInnerHTML={{ __html: body }} />
       </main>
       <Footer>

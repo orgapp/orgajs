@@ -24,7 +24,7 @@ const Post = ({ title, date, category, slug, description }) => (
         { category }
       </Link>
     </div>
-    <h2 css={{ marginBottom: '.1em' }}>
+    <h2 css={{ marginBottom: '.1em', marginTop: 0 }}>
       <Link to={slug} css={theme => ({
         color: 'inherit',
         '&:hover': {

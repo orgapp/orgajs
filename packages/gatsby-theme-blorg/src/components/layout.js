@@ -44,7 +44,7 @@ export default ({ children, ...props }) => {
       <main css={theme => ({
         maxWidth: theme.maxWidth,
         margin: '0 auto',
-        padding: '2rem 1.5rem',
+        padding: '0 1.5em 2em',
       })}>
         { children }
       </main>

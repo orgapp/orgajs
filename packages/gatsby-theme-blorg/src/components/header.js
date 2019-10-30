@@ -9,6 +9,7 @@ const Title = ({ children, locaiton }) => {
     <h1 css={{
       fontSize: `1.5em`,
       marginBottom: 0,
+      marginTop: 0,
     }}>
       <Link to='/'>{ children }</Link>
     </h1>
