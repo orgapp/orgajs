@@ -27,6 +27,12 @@ module.exports = options => {
     },
     plugins: [
       {
+        resolve: `gatsby-plugin-themes`,
+        options: {
+          pathToConfig: withThemePath(`./src/themes`),
+        },
+      },
+      {
         resolve: `gatsby-theme-orga`,
         options: {
           ...options,
@@ -43,12 +49,6 @@ module.exports = options => {
         resolve: `gatsby-plugin-typography`,
         options: {
           pathToConfigModule: withThemePath(`./src/typography`),
-        },
-      },
-      {
-        resolve: `gatsby-plugin-themes`,
-        options: {
-          pathToConfig: withThemePath(`./src/themes`),
         },
       },
       {
