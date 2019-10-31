@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from './layout'
 import Bio from './bio'
+import SEO from "./seo"
 import Footer from './footer'
 import { useSiteMetadata } from '../hooks'
 import { readableColor } from 'polished'
@@ -43,10 +44,23 @@ const TweetThisButton = ({ title, slug }) => {
   )
 }
 
-export default ({ title, date, slug, body, location }) => {
+export default ({
+  title,
+  date,
+  description,
+  category,
+  slug,
+  body,
+  location,
+  tags,
+}) => {
   const { author } = useSiteMetadata()
   return (
     <Layout location={location}>
+      <SEO
+        title={title}
+        description={description}
+        keywords={[category, ...tags]} />
       <main>
         <div css={{
           display: 'flex',
