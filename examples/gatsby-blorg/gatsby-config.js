@@ -10,12 +10,7 @@ module.exports = {
     {
       resolve: `gatsby-theme-blorg`,
       options: {
-        basePath: `/`,
-        contentPath: `content`,
-        pagination: 5,
-        filter: {
-          category: `posts`,
-        },
+        filter: ({ category }) => category === 'posts',
       },
     },
   ],
