@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import Bio from "./bio"
+import _ from 'lodash/fp'
 
 const rootPath = `${__PATH_PREFIX__}/`
 
@@ -33,7 +34,7 @@ export default ({ children, title, ...props }) => {
           <Title>{ title }</Title>
           { children }
         </div>
-        {props.location.pathname === rootPath && <Bio />}
+        {_.get('location.pathname')(props) === rootPath && <Bio />}
       </div>
     </header>
   )
