@@ -8276,6 +8276,15 @@ gatsby-image@^2.2.23:
     object-fit-images "^3.2.4"
     prop-types "^15.7.2"
 
+gatsby-image@^2.2.30:
+  version "2.2.30"
+  resolved "https://registry.yarnpkg.com/gatsby-image/-/gatsby-image-2.2.30.tgz#3ca58adb1814a759dcaf26d742ae90e89c7144de"
+  integrity sha512-WANouedEFeqLsaDwZbTHlYKTPqV0Htr2A1BiP921SVaR3GrMwtuBoBzpDSXHF+0q9TE2w885gKdNIG/GgzgKaQ==
+  dependencies:
+    "@babel/runtime" "^7.6.3"
+    object-fit-images "^3.2.4"
+    prop-types "^15.7.2"
+
 gatsby-link@^2.2.17:
   version "2.2.17"
   resolved "https://registry.yarnpkg.com/gatsby-link/-/gatsby-link-2.2.17.tgz#60a96418d370b46df1ddff8b8ccc32c2e57426ae"
@@ -8463,10 +8472,10 @@ gatsby-plugin-styled-components@^3.1.11:
   dependencies:
     "@babel/runtime" "^7.6.3"
 
-gatsby-plugin-themes@^0.3.8:
-  version "0.3.8"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-themes/-/gatsby-plugin-themes-0.3.8.tgz#a8d14dec0af79e5f46f48ac0287de28472b578e4"
-  integrity sha512-uNATog3oQ4tC+64TKwxcKWj9K6vQIoxNHpsDASnriXp69LvU2P9XzM/YsSvUck9iHRDXgmYFtuglbzA3oLWYmw==
+gatsby-plugin-themes@^0.3.9:
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-themes/-/gatsby-plugin-themes-0.3.9.tgz#655179f143d847bd55ec46025a8ac5992be7a313"
+  integrity sha512-ufawdXHGq5+7I/G+gIP04o6gg8lpU/wfaAlj+sZDNFuX356kCEfxQGddIXtkzDvs6gSWHSYq3s73p5S11yIrVA==
 
 gatsby-plugin-typography@^2.3.10:
   version "2.3.10"
