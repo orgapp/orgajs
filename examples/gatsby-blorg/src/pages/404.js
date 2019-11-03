@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from 'gatsby-theme-blorg/src/components/layout'
+import { Layout } from 'gatsby-theme-blorg'
 
 export default () => {
   return (
