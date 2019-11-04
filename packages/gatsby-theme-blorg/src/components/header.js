@@ -19,7 +19,9 @@ const Title = ({ children, locaiton }) => {
 
 export default ({ children, title, ...props }) => {
   return (
-    <header>
+    <header css={{
+      '@media print': { display: 'none' },
+    }}>
       <div css={theme => ({
         maxWidth: theme.maxWidth,
         margin: '0 auto',

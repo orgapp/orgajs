@@ -7,6 +7,7 @@ export default ({ children }) => {
       display: `flex`,
       flexDirection: `column`,
       alignItems: `center`,
+      '@media print': { display: 'none' },
     })}>
       { children }
     </footer>
