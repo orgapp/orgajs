@@ -25,8 +25,6 @@ export default ({ posts, prev, next, location }) => {
     _.compact,
   )(posts)
 
-  console.log(keywords)
-
   return (
     <Layout location={location}>
       <SEO title='Home' keywords={keywords} />

@@ -6,16 +6,11 @@ import { ThemeContext } from 'gatsby-plugin-themes'
 import { useSiteMetadata } from '../hooks'
 import { FaAdjust } from 'react-icons/fa'
 import { likeButton, tinted } from '../utils/styles'
+import 'prism-themes/themes/prism-dracula.css'
 
 export default ({ children, ...props }) => {
 
   const { theme, next } = useContext(ThemeContext)
-
-  try {
-    require(`prismjs/themes/prism-${theme.code}.css`)
-  } catch {
-    require(`prismjs/themes/prism.css`)
-  }
 
   const { title } = useSiteMetadata()
   return (
@@ -34,7 +29,7 @@ export default ({ children, ...props }) => {
           },
         },
         'tt,code,pre': {
-          ...tinted()(theme),
+          backgroundColor: `rgba(40, 41, 54, 1)`,
         }
       })}/>
       <Header title={title} {...props}>
