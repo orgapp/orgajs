@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import Header from './header'
-import { Global } from '@emotion/core'
+import { Global, css } from '@emotion/core'
 import { ThemeProvider } from 'emotion-theming'
 import { ThemeContext } from 'gatsby-plugin-themes'
+import { getLuminance } from 'polished'
 import { useSiteMetadata } from '../hooks'
 import { FaAdjust } from 'react-icons/fa'
 import { likeButton, tinted } from '../utils/styles'
-import 'prism-themes/themes/prism-dracula.css'
+import { light, dark } from '../utils/prism-themes'
 
 export default ({ children, ...props }) => {
 
@@ -29,9 +30,10 @@ export default ({ children, ...props }) => {
           },
         },
         'tt,code,pre': {
-          backgroundColor: `rgba(40, 41, 54, 1)`,
-        }
+          ...tinted()(theme),
+        },
       })}/>
+      <Global styles={css(getLuminance(theme.color.background) > 0.179 ? light : dark)}/>
       <Header title={title} {...props}>
         <button
           css={likeButton}
