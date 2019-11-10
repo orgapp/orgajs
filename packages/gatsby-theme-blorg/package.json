@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-blorg",
-  "version": "1.8.9",
+  "version": "1.8.11",
   "description": "gatsby org-mode theme for blog",
   "main": "index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",

@@ -5,13 +5,7 @@ import SEO from "./seo"
 import Footer from './footer'
 import { useSiteMetadata } from '../hooks'
 import { readableColor } from 'polished'
-import { compose, highlighted } from '../utils/styles'
-
-const tint = amount => color =>
-      readableColor(
-        color,
-        `rgba(0, 0, 0, ${amount})`,
-        `rgba(255, 255, 255, ${amount})`)
+import { compose, highlighted, tinted } from '../utils/styles'
 
 const objectToGetParams = object => {
   return '?' + Object.keys(object)
@@ -80,7 +74,7 @@ export default ({
       <Footer>
         <TweetThisButton title={title} slug={slug} />
         <hr css={ theme => ({
-          backgroundColor: tint(0.3)(theme.color.background),
+          ...tinted({ amount: 0.3 })(theme),
           width: '100%' }) }/>
         <Bio css={{ paddingBottom: '2em' }}/>
         <p>
