@@ -82,7 +82,7 @@ export default ({
         <hr css={ theme => ({
           backgroundColor: tint(0.3)(theme.color.background),
           width: '100%' }) }/>
-        <Bio/>
+        <Bio css={{ paddingBottom: '2em' }}/>
         <p>
           © {new Date().getFullYear()} {author}
         </p>

@@ -31,7 +31,7 @@ const SocialBadges = () => {
   )
 }
 
-export default () => {
+export default (props) => {
   const {
     avatar,
   } = useStaticQuery(bioQuery)
@@ -39,7 +39,7 @@ export default () => {
   const { author } = useSiteMetadata()
 
   return (
-    <div>
+    <div {...props}>
       <div css={{
         display: 'flex',
         marginBottom: 4,
