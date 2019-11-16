@@ -4,7 +4,6 @@ import Bio from './bio'
 import SEO from "./seo"
 import Footer from './footer'
 import { useSiteMetadata } from '../hooks'
-import { readableColor } from 'polished'
 import { compose, highlighted, tinted } from '../utils/styles'
 
 const objectToGetParams = object => {
@@ -54,7 +53,7 @@ export default ({
       <SEO
         title={title}
         description={description}
-        keywords={[category, ...tags]} />
+        keywords={[category, ...(tags || [])]} />
       <main>
         <div css={{
           display: 'flex',

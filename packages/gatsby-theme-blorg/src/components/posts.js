@@ -20,7 +20,7 @@ export default ({ posts, prev, next, location }) => {
   const { author } = useSiteMetadata()
   const category = location.pathname.replace(new RegExp(`^${rootPath}`), '')
   const keywords = _.flow(
-    _.reduce((all, p) => [...all, p.category, ...p.tags], []),
+    _.reduce((all, p) => [...all, p.category, ...(p.tags || [])], []),
     _.uniq,
     _.compact,
   )(posts)
