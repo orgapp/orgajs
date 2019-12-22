@@ -9,11 +9,10 @@ import { FaAdjust } from 'react-icons/fa'
 import { likeButton, tinted } from '../utils/styles'
 import { light, dark } from '../utils/prism-themes'
 
-export default ({ children, ...props }) => {
+export default ({ children, title, ...props }) => {
 
   const { theme, next } = useContext(ThemeContext)
-
-  const { title } = useSiteMetadata()
+  const _title = title || useSiteMetadata().title
   return (
     <ThemeProvider theme={theme}>
       <Global styles={theme => ({
@@ -34,7 +33,7 @@ export default ({ children, ...props }) => {
         },
       })}/>
       <Global styles={css(getLuminance(theme.color.background) > 0.179 ? light : dark)}/>
-      <Header title={title} {...props}>
+      <Header title={_title} {...props}>
         <button
           css={likeButton}
           onClick={() => next() }>
