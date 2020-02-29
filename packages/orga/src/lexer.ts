@@ -1,6 +1,7 @@
 import defaultOptions, { ParseOptions } from './options'
 import { escape } from './utils'
 import { parse as parseTimestamp, pattern as timestampPattern } from './timestamp'
+const XRegExp = require('xregexp');
 
 type Rule = {
   name: string
@@ -63,7 +64,7 @@ org.define('planning', RegExp(`^\\s*(${PLANNING_KEYWORDS.join('|')}):\\s*(.+)$`)
   return { keyword, ...parseTimestamp(m[2], options) }
 })
 
-org.define('timestamp', RegExp(timestampPattern, 'i'), (m, options) => {
+org.define('timestamp', XRegExp(timestampPattern, 'i'), (m, options) => {
   // console.log(options)
   return parseTimestamp(m, options)
 })

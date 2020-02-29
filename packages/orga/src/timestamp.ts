@@ -1,4 +1,5 @@
 const { DateTime } = require('luxon')
+const XRegExp = require('xregexp');
 
 namespace Timestamp {
   const date = `\\d{4}-\\d{2}-\\d{2}`
@@ -31,14 +32,16 @@ export const parse = (
 ) => {
   let m = input
   if (typeof input === 'string') {
-    m = RegExp(Timestamp.full, 'i').exec(m)
+    m = XRegExp(Timestamp.full, 'i').exec(m)
   }
   if (!m) return null
 
-  const {
-    beginDate, beginTimeBegin, beginTimeEnd,
-    endDate, endTimeBegin
-  } = m.groups
+  const beginDate = m[2];
+  const beginTimeBegin = m[3];
+  const beginTimeEnd = m[4];
+  const endDate = m[5];
+  const endTimeBegin = m[6];
+  const endTimeEnd = m[7];
 
   const _parseDate = (date, time) => {
     let text = date
