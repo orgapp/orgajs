@@ -17,6 +17,7 @@
     "clean": "rm -rf ./lib"
   },
   "dependencies": {
-    "luxon": "^1.19.3"
+    "luxon": "^1.19.3",
+    "xregexp": "^4.3.0"
   }
 }
