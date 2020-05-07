@@ -1,6 +1,6 @@
 # gatsby-transformer-orga
 
-Parses [org-mode](https://orgmode.org) files using [Orga](https://github.com/xiaoxinghu/orgajs).
+Parses [org-mode](https://orgmode.org) files using [Orga](https://github.com/orgaapp/orgajs).
 
 ## Install
 
@@ -15,6 +15,6 @@ npm install --save gatsby-transformer-orga
 plugins: [`gatsby-transformer-orga`]
 ```
 
-To see a working starter project [here](https://github.com/xiaoxinghu/gatsby-orga).
+To see a working starter project [here](https://github.com/orgapp/gatsby-orga).
 
-[Detailed Doc Here](https://xiaoxinghu.github.io/orgajs/docs/generate-static-website-with-gatsby).
+[Detailed Doc Here](https://orga.js.org/docs/generate-static-website-with-gatsby).
