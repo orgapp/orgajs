@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../../components/layout'
 
-export default ({ body, pathContext: metadata }) => {
+export default ({ body, pageContext: metadata }) => {
   const { title } = metadata
   return (
     <Layout>
