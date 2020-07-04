@@ -12,7 +12,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "gatsby": "^2.6.0"
+    "gatsby": "^2.x"
   },
   "dependencies": {
     "@emotion/core": "^10.0.22",
