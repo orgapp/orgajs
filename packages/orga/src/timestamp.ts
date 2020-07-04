@@ -41,7 +41,6 @@ export const parse = (
   const beginTimeEnd = m[4];
   const endDate = m[5];
   const endTimeBegin = m[6];
-  const endTimeEnd = m[7];
 
   const _parseDate = (date, time) => {
     let text = date
