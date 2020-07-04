@@ -20,7 +20,6 @@ ${close}\
   export const full = `^\\s*\
 (${single('begin')})\
 (?:--${single('end')})?\
-\\s*$\
 `
 }
 
