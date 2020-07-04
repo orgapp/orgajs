@@ -37,9 +37,10 @@ function process(token, section) {
   const headline = new Node('headline', text).with({
     level, keyword, priority, tags
   })
-  const planning = this.tryTo(parsePlanning)
-  if (planning) {
+  var planning = this.tryTo(parsePlanning)
+  while (planning) {
     headline.push(planning)
+    planning = this.tryTo(parsePlanning)
   }
   const timestamp = this.tryTo(parseTimestamp)
   if (timestamp) {
