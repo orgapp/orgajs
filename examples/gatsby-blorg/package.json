@@ -2,11 +2,11 @@
   "name": "gatsby-blorg",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "1.8.15",
+  "version": "1.8.16",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "dependencies": {
     "gatsby": "^2.15.36",
-    "gatsby-theme-blorg": "^1.8.15",
+    "gatsby-theme-blorg": "^1.8.16",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",

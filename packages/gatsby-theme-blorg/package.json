@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-blorg",
-  "version": "1.8.15",
+  "version": "1.8.16",
   "description": "gatsby org-mode theme for blog",
   "main": "index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
@@ -26,7 +26,7 @@
     "gatsby-plugin-themes": "^0.3.9",
     "gatsby-plugin-typography": "^2.3.14",
     "gatsby-source-filesystem": "^2.1.33",
-    "gatsby-theme-orga": "^1.8.15",
+    "gatsby-theme-orga": "^1.8.16",
     "gatsby-transformer-sharp": "^2.3.0",
     "gatsby-transformer-toml": "^2.2.15",
     "polished": "^3.4.1",
