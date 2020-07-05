@@ -67,8 +67,12 @@ class OrgaParser implements orga.Parser {
     while (self.linecursor < self.lines.length && index >= self.tokens.length) {
       let nextLine = self.lines[++self.linecursor];
       if (nextLine === undefined) return undefined;
-      let newToken = self.lexer.tokenize(nextLine);
-      if (newToken) self.tokens.push(newToken)
+      while ( nextLine !== undefined ) {
+        let newToken = self.lexer.tokenize(nextLine);
+        if ( Array.isArray(newToken) ) { [newToken, nextLine] = newToken }
+        else { nextLine = undefined }
+        if (newToken) self.tokens.push(newToken)
+      }
     }
     return self.tokens[index]
   }

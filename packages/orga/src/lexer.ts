@@ -61,7 +61,10 @@ org.define('keyword', /^\s*#\+(\w+):\s*(.*)$/, m => {
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 org.define('planning', RegExp(`^\\s*(${PLANNING_KEYWORDS.join('|')}):\\s*(.+)$`), (m, options) => {
   const keyword = m[1]
-  return { keyword, ...parseTimestamp(m[2], options) }
+  let timestamp = parseTimestamp(m[2], options)
+  let rest = timestamp.rest.length === 0 ? undefined : timestamp.rest
+  delete timestamp.rest
+  return [{ keyword, ...timestamp }, rest]
 })
 
 org.define('timestamp', XRegExp(timestampPattern, 'i'), (m, options) => {
@@ -145,10 +148,13 @@ export default class Lexer {
     for ( const { name, pattern, post } of this.syntax.rules ) {
       const m = pattern.exec(input)
       if (!m) { continue }
-      return {
+      let data = post(m, this.options)
+      let rest = undefined
+      if ( Array.isArray(data) ) { [data, rest] = data }
+      return [{
         name,
         raw: input,
-        data: post(m, this.options) }
+        data }, rest]
     }
 
     const trimed = input.trim()

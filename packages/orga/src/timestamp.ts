@@ -20,7 +20,6 @@ ${close}\
   export const full = `^\\s*\
 (${single('begin')})\
 (?:--${single('end')})?\
-\\s*$\
 `
 }
 
@@ -36,6 +35,7 @@ export const parse = (
   }
   if (!m) return null
 
+  const rest = input.substr(m[0].length)
   const beginDate = m[2];
   const beginTimeBegin = m[3];
   const beginTimeEnd = m[4];
@@ -61,5 +61,5 @@ export const parse = (
     end = _parseDate(endDate, endTimeBegin)
   }
 
-  return { date, end }
+  return { date, end, rest }
 }
