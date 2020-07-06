@@ -30,12 +30,13 @@ export const parse = (
   { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone } = {},
 ) => {
   let m = input
+  let rest = undefined
   if (typeof input === 'string') {
     m = XRegExp(Timestamp.full, 'i').exec(m)
+    rest = input.substr(m[0].length)
   }
   if (!m) return null
 
-  const rest = input.substr(m[0].length)
   const beginDate = m[2];
   const beginTimeBegin = m[3];
   const beginTimeEnd = m[4];

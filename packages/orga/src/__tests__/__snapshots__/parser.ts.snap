@@ -1712,6 +1712,7 @@ Node {
               "date": 2019-08-18T12:00:00.000Z,
               "end": 2019-08-19T12:00:00.000Z,
               "parent": [Circular],
+              "rest": undefined,
               "type": "timestamp",
             },
           ],
