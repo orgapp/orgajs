@@ -40,7 +40,7 @@ class Syntax {
 const org = new Syntax()
 
 function headlinePattern(todos = ['TODO', 'DONE']) {
-  return RegExp(`^(\\*+)\\s+(?:(${todos.map(escape).join('|')})\\s+)?(?:\\[#(A|B|C)\\]\\s+)?(.*?)\\s*(:(?:\\w+:)+)?$`)
+  return RegExp(`^(\\*+)\\s+(?:(${todos.map(escape).join('|')})\\s+)?(?:\\[#(A|B|C)\\]\\s+)?(.*?)\\s*(:(?:[\\w@]+:)+)?$`)
 }
 
 org.define('headline', headlinePattern(), m => {
