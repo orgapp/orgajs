@@ -1,7 +1,7 @@
 const URL_PATTERN = /(?:([a-z][a-z0-9+.-]*):)?(.*)/
 
 export default (link: string) => {
-  const result = { raw: link, protocol: undefined, location: undefined }
+  const result: any = { raw: link, protocol: undefined, location: undefined }
   const m = URL_PATTERN.exec(link)
   if (!m) return result
   result.protocol = (m[1] || (isFilePath(m[2]) ? `file` : `internal`)).toLowerCase()

@@ -1,7 +1,9 @@
 import defaultOptions, { ParseOptions } from './options'
 import { escape } from './utils'
 import { parse as parseTimestamp, pattern as timestampPattern } from './timestamp'
-const XRegExp = require('xregexp');
+import XRegExp from 'xregexp'
+import { read } from './reader'
+import { tokenize as inlineTok } from './inline'
 
 type Rule = {
   name: string
@@ -18,7 +20,7 @@ class Syntax {
 
   define(name: string,
          pattern: RegExp,
-         post = (_: any, _opitons?: ParseOptions) => { return {} }) {
+         post = (_: any, _opitons?: ParseOptions) => { return {} }) : void {
     this.rules.push({
       name,
       pattern,
@@ -27,13 +29,13 @@ class Syntax {
   }
 
   update(name: string, pattern: RegExp) {
-    const i = this.rules.findIndex(r => r.name === name)
-    let newRule = { name, post: (_: any) => {}, pattern: undefined }
-    if (i !== -1) {
-      newRule = this.rules.splice(i, 1)[0]
-    }
-    newRule.pattern = pattern
-    this.rules.splice(i, 0, newRule)
+    // const i = this.rules.findIndex(r => r.name === name)
+    // let newRule = { name, post: (_: any) => {}, pattern: undefined }
+    // if (i !== -1) {
+    //   newRule = this.rules.splice(i, 1)[0]
+    // }
+    // newRule.pattern = pattern
+    // this.rules.splice(i, 0, newRule)
   }
 }
 
@@ -64,10 +66,10 @@ org.define('planning', RegExp(`^\\s*(${PLANNING_KEYWORDS.join('|')}):\\s*(.+)$`)
   return { keyword, ...parseTimestamp(m[2], options) }
 })
 
-org.define('timestamp', XRegExp(timestampPattern, 'i'), (m, options) => {
-  // console.log(options)
-  return parseTimestamp(m, options)
-})
+// org.define('timestamp', XRegExp(timestampPattern, 'i'), (m, options) => {
+//   // console.log(options)
+//   return parseTimestamp(m, options)
+// })
 
 org.define('block.begin', /^\s*#\+begin_(\w+)(.*)$/i, m => {
   const type = m[1]
@@ -103,7 +105,7 @@ org.define('list.item', /^(\s*)([-+]|\d+[.)])\s+(?:\[(x|X|-| )\][ \t]+)?(?:([^\n
     ordered,
     content,
     tag,
-    checked: undefined }
+    checked: false }
   if (m[3]) {
     const checked = m[3] !== ' '
     result.checked = checked
@@ -161,5 +163,135 @@ export default class Lexer {
 
   updateTODOs(todos: string[]) {
     this.syntax.update(`headline`, headlinePattern(todos))
+  }
+}
+
+export const tokenize = (text: string) => {
+
+  const {
+    isStartOfLine,
+    skipWhitespaces,
+    currentChar,
+    getLine,
+    eatLine,
+    match,
+    advance,
+    EOF,
+    position,
+    substring,
+    isLastLine,
+    adv,
+  } = read(text)
+
+  let todoKeywords = ['TODO', 'DONE']
+
+  let buffer: Token[] = []
+
+  const generateHeadlinePattern = (todos: string[]) => {
+    return RegExp(`^(\\*+)\\s+(?:(${todos.map(escape).join('|')})\\s+)?(?:\\[#(A|B|C)\\]\\s+)?(.*?)\\s*(:(?:[\\w@]+:)+)?$`)
+  }
+
+  let headlinePattern = generateHeadlinePattern(todoKeywords)
+
+  const tokenizeHeadline = () => {
+    const stars = match(/^\*+(?=\s)/, { advance: true })
+    if (!stars) throw Error('not gonna happen')
+    buffer.push({
+      name: 'stars',
+      data: { level: stars.match[0].length },
+      position: stars.position,
+    })
+    skipWhitespaces()
+    const keyword = match(RegExp(`^${todoKeywords.map(escape).join('|')}(?=\\s)`), { advance: true })
+    if (keyword) {
+      buffer.push({
+        name: 'keyword',
+        position: keyword.position,
+      })
+    }
+    skipWhitespaces()
+    const priority = match(/^\[#(A|B|C)\](?=\s)/, { advance: true })
+    if (priority) {
+      buffer.push({
+        name: 'priority',
+        position: priority.position,
+      })
+    }
+
+    skipWhitespaces()
+    let content = getLine()
+
+    const tags = match(/\s+(:(?:[\w@]+:)+)[ \t]*$/gm)
+    if (tags) {
+      console.log('tags:', { tags: tags })
+      content = substring({ start: position(), end: tags.position.start }) as string
+      // content = content.substring(0, tags.match.index)
+    }
+
+    if (content.length === 0) return
+    const tokens = inlineTok(content, position())
+
+    buffer = buffer.concat(tokens)
+
+    adv(content.length)
+
+    if (tags) {
+      skipWhitespaces()
+      buffer.push({
+        name: 'tags',
+        position: adv(/\s/),
+      })
+    }
+    eatLine()
+  }
+
+  const next = () : Token | undefined => {
+    if (buffer.length > 0) {
+      return buffer.shift()
+    }
+    if (EOF()) return undefined
+
+    if (getLine().trim() === '') {
+      return { name: 'blank', position: eatLine() }
+    }
+
+    // skipWhitespaces()
+
+    if (isStartOfLine() && match(/^\*+\s+/)) {
+      tokenizeHeadline()
+      return next()
+    }
+    // TODO: planning
+    // TODO: drawer
+    // TODO: block
+    // TODO: settings
+    // TODO: list
+    // TODO: table
+    // TODO: comment
+    // TODO: footnote
+    // TODO: horizontal rule
+
+    // last resort
+    console.log('--------- inline text')
+    buffer = inlineTok(getLine(), position())
+    eatLine()
+    return next()
+  }
+
+  const all = () : Token[] => {
+    const tokens: Token[] = []
+    let token
+    do {
+      token = next()
+      if (token) {
+        tokens.push(token)
+      }
+    } while(token)
+    return tokens
+  }
+
+  return {
+    next,
+    all,
   }
 }

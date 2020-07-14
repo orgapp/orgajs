@@ -47,7 +47,7 @@ function _parse(pattern, text, post) {
     m.shift()
     const before = m.shift()
     const after = m.pop()
-    let nodes = []
+    let nodes: Node[] = []
     if ( before.length > 0 ) {
       nodes.push(new Node(`text`).with({ value: before }))
     }
@@ -74,4 +74,33 @@ function _parse(pattern, text, post) {
     return _parse(pattern, text.value, post)
   }
   return undefined
+}
+
+const shift = (point: Point, offset: Point) => {
+  return {
+    line: point.line + offset.line,
+    column: point.column + offset.column,
+  }
+}
+
+const shiftPosition = (position: Position, offset: Point) => {
+  return {
+    start: shift(position.start, offset),
+    end: shift(position.end, offset),
+  }
+}
+
+export const tokenize = (text: string, offset: Point | undefined) : Token[] => {
+  const start = { line: 0, column: 0 }
+  const end = { line: 0, column: text.length }
+  const tokens = [
+    { name: 'text.plain', position: { start, end } }
+  ]
+  if (offset) {
+    return tokens.map(token => ({
+      name: token.name,
+      position: shiftPosition(token.position, offset)
+    }))
+  }
+  return tokens
 }

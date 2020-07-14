@@ -1,40 +1,62 @@
-import Lexer from '../lexer'
+import Lexer, { tokenize } from '../lexer'
+import { read } from '../reader'
 
 describe('Lexer', () => {
   const lexer = new Lexer({ timezone: `Pacific/Auckland` })
+
+  it.only('works', () => {
+    const text = `* TODO [#A] headline one :tag1:tag2:  \n* DONE headline two
+a paragrph.
+another line
+** level 2 headline
+
+`
+
+    const { substring } = read(text)
+
+    const { all } = tokenize(text)
+
+    const tokens = all()
+
+    tokens.forEach(token => {
+      const content = token.position ? substring(token.position) : ''
+      console.log('-->', { token, content })
+    })
+
+  })
 
   it('knows table row', () => {
     expect(lexer.tokenize('| batman | superman | wonder woman |')).toMatchSnapshot()
   })
 
   it('knows blank', () => {
-    expect(lexer.tokenize('')).toMatchSnapshot()
-    expect(lexer.tokenize(' ')).toMatchSnapshot()
-    expect(lexer.tokenize('    ')).toMatchSnapshot()
-    expect(lexer.tokenize('\t')).toMatchSnapshot()
-    expect(lexer.tokenize(' \t')).toMatchSnapshot()
-    expect(lexer.tokenize('\t ')).toMatchSnapshot()
-    expect(lexer.tokenize(' \t  ')).toMatchSnapshot()
+    expect(tokenize('').all()).toMatchSnapshot()
+    expect(tokenize(' ').all()).toMatchSnapshot()
+    expect(tokenize('    ').all()).toMatchSnapshot()
+    expect(tokenize('\t').all()).toMatchSnapshot()
+    expect(tokenize(' \t').all()).toMatchSnapshot()
+    expect(tokenize('\t ').all()).toMatchSnapshot()
+    expect(tokenize(' \t  ').all()).toMatchSnapshot()
   })
 
   it('knows these are not blanks', () => {
-    expect(lexer.tokenize(' a ')).toMatchSnapshot()
+    expect(tokenize(' a ').all()).toMatchSnapshot()
   })
 
   it('knows headlines', () => {
-    expect(lexer.tokenize('** a headline')).toMatchSnapshot()
-    expect(lexer.tokenize('** _headline_')).toMatchSnapshot()
-    expect(lexer.tokenize('**   a headline')).toMatchSnapshot()
-    expect(lexer.tokenize('***** a headline')).toMatchSnapshot()
-    expect(lexer.tokenize('* a 😀line')).toMatchSnapshot()
-    expect(lexer.tokenize('* TODO [#A] a headline     :tag1:tag2:')).toMatchSnapshot()
+    expect(tokenize('** a headline').all()).toMatchSnapshot()
+    expect(tokenize('** _headline_').all()).toMatchSnapshot()
+    expect(tokenize('**   a headline').all()).toMatchSnapshot()
+    expect(tokenize('***** a headline').all()).toMatchSnapshot()
+    expect(tokenize('* a 😀line').all()).toMatchSnapshot()
+    expect(tokenize('* TODO [#A] a headline     :tag1:tag2:').all()).toMatchSnapshot()
   })
 
   it('knows these are not headlines', () => {
-    expect(lexer.tokenize('*not a headline')).toMatchSnapshot()
-    expect(lexer.tokenize(' * not a headline')).toMatchSnapshot()
-    expect(lexer.tokenize('*_* not a headline')).toMatchSnapshot()
-    expect(lexer.tokenize('not a headline')).toMatchSnapshot()
+    expect(tokenize('*not a headline').all()).toMatchSnapshot()
+    expect(tokenize(' * not a headline').all()).toMatchSnapshot()
+    expect(tokenize('*_* not a headline').all()).toMatchSnapshot()
+    expect(tokenize('not a headline').all()).toMatchSnapshot()
   })
 
   it('knows keywords', () => {

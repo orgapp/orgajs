@@ -1,52 +1,113 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Lexer knows blank 1`] = `
-Object {
-  "name": "blank",
-  "raw": "",
-}
-`;
+exports[`Lexer knows blank 1`] = `Array []`;
 
 exports[`Lexer knows blank 2`] = `
-Object {
-  "name": "blank",
-  "raw": " ",
-}
+Array [
+  Object {
+    "name": "blank",
+    "position": Object {
+      "end": Object {
+        "column": 0,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows blank 3`] = `
-Object {
-  "name": "blank",
-  "raw": "    ",
-}
+Array [
+  Object {
+    "name": "blank",
+    "position": Object {
+      "end": Object {
+        "column": 0,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows blank 4`] = `
-Object {
-  "name": "blank",
-  "raw": "	",
-}
+Array [
+  Object {
+    "name": "blank",
+    "position": Object {
+      "end": Object {
+        "column": 0,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows blank 5`] = `
-Object {
-  "name": "blank",
-  "raw": " 	",
-}
+Array [
+  Object {
+    "name": "blank",
+    "position": Object {
+      "end": Object {
+        "column": 0,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows blank 6`] = `
-Object {
-  "name": "blank",
-  "raw": "	 ",
-}
+Array [
+  Object {
+    "name": "blank",
+    "position": Object {
+      "end": Object {
+        "column": 0,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows blank 7`] = `
-Object {
-  "name": "blank",
-  "raw": " 	  ",
-}
+Array [
+  Object {
+    "name": "blank",
+    "position": Object {
+      "end": Object {
+        "column": 0,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows block begins 1`] = `
@@ -347,90 +408,246 @@ Object {
 `;
 
 exports[`Lexer knows headlines 1`] = `
-Object {
-  "data": Object {
-    "content": "a headline",
-    "keyword": undefined,
-    "level": 2,
-    "priority": undefined,
-    "tags": Array [],
+Array [
+  Object {
+    "data": Object {
+      "level": 2,
+    },
+    "name": "stars",
+    "position": Object {
+      "end": Object {
+        "column": 2,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "headline",
-  "raw": "** a headline",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows headlines 2`] = `
-Object {
-  "data": Object {
-    "content": "_headline_",
-    "keyword": undefined,
-    "level": 2,
-    "priority": undefined,
-    "tags": Array [],
+Array [
+  Object {
+    "data": Object {
+      "level": 2,
+    },
+    "name": "stars",
+    "position": Object {
+      "end": Object {
+        "column": 2,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "headline",
-  "raw": "** _headline_",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows headlines 3`] = `
-Object {
-  "data": Object {
-    "content": "a headline",
-    "keyword": undefined,
-    "level": 2,
-    "priority": undefined,
-    "tags": Array [],
+Array [
+  Object {
+    "data": Object {
+      "level": 2,
+    },
+    "name": "stars",
+    "position": Object {
+      "end": Object {
+        "column": 2,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "headline",
-  "raw": "**   a headline",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 15,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 5,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows headlines 4`] = `
-Object {
-  "data": Object {
-    "content": "a headline",
-    "keyword": undefined,
-    "level": 5,
-    "priority": undefined,
-    "tags": Array [],
+Array [
+  Object {
+    "data": Object {
+      "level": 5,
+    },
+    "name": "stars",
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "headline",
-  "raw": "***** a headline",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 16,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows headlines 5`] = `
-Object {
-  "data": Object {
-    "content": "a 😀line",
-    "keyword": undefined,
-    "level": 1,
-    "priority": undefined,
-    "tags": Array [],
+Array [
+  Object {
+    "data": Object {
+      "level": 1,
+    },
+    "name": "stars",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "headline",
-  "raw": "* a 😀line",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows headlines 6`] = `
-Object {
-  "data": Object {
-    "content": "a headline",
-    "keyword": "TODO",
-    "level": 1,
-    "priority": "A",
-    "tags": Array [
-      "tag1",
-      "tag2",
-    ],
+Array [
+  Object {
+    "data": Object {
+      "level": 1,
+    },
+    "name": "stars",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "headline",
-  "raw": "* TODO [#A] a headline     :tag1:tag2:",
-}
+  Object {
+    "name": "keyword",
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "priority",
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 7,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 11,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "tags",
+    "position": Object {
+      "end": Object {
+        "column": 38,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 22,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows horizontal rules 1`] = `
@@ -865,10 +1082,21 @@ Object {
 `;
 
 exports[`Lexer knows these are not blanks 1`] = `
-Object {
-  "name": "line",
-  "raw": " a ",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 3,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not block begins 1`] = `
@@ -977,31 +1205,75 @@ Object {
 `;
 
 exports[`Lexer knows these are not headlines 1`] = `
-Object {
-  "name": "line",
-  "raw": "*not a headline",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 15,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not headlines 2`] = `
-Object {
-  "name": "line",
-  "raw": " * not a headline",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 17,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not headlines 3`] = `
-Object {
-  "name": "line",
-  "raw": "*_* not a headline",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 18,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not headlines 4`] = `
-Object {
-  "name": "line",
-  "raw": "not a headline",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 14,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not horizontal rules 1`] = `

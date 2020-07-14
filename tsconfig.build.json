@@ -11,8 +11,10 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "noImplicitUseStrict": true,
+    "noImplicitReturns": true,
     "esModuleInterop": true,
     "declaration": true,
+    "strictNullChecks": true,
     "lib": [
       "es7"
     ]
