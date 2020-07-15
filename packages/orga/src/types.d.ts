@@ -1,3 +1,8 @@
+interface Range {
+  start: number;
+  end: number;
+}
+
 interface Point {
   line: number;
   column: number;
@@ -10,7 +15,7 @@ interface Position {
 
 interface Token {
   name: string;
-  position?: Position;
+  position: Position;
   data?: any;
 }
 

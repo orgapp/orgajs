@@ -174,10 +174,10 @@ export const tokenize = (text: string) => {
     currentChar,
     getLine,
     eatLine,
+    now,
     match,
     advance,
     EOF,
-    position,
     substring,
     isLastLine,
     adv,
@@ -224,12 +224,12 @@ export const tokenize = (text: string) => {
     const tags = match(/\s+(:(?:[\w@]+:)+)[ \t]*$/gm)
     if (tags) {
       console.log('tags:', { tags: tags })
-      content = substring({ start: position(), end: tags.position.start }) as string
+      content = substring({ start: now(), end: tags.position.start }) as string
       // content = content.substring(0, tags.match.index)
     }
 
     if (content.length === 0) return
-    const tokens = inlineTok(content, position())
+    const tokens = inlineTok(content, now())
 
     buffer = buffer.concat(tokens)
 
@@ -273,7 +273,7 @@ export const tokenize = (text: string) => {
 
     // last resort
     console.log('--------- inline text')
-    buffer = inlineTok(getLine(), position())
+    buffer = inlineTok(getLine(), now())
     eatLine()
     return next()
   }

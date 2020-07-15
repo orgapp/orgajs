@@ -1,54 +1,17 @@
-interface Range {
-  start: number;
-  end: number;
-}
+import { map } from './position'
 
 export const read = (text: string) => {
 
-  const getLineRangeByIndex = (start: number) : Range => {
-    const end = text.indexOf('\n', start)
-    return {
-      start,
-      end: end >= 0 ? end + 1 : text.length,
-    }
-  }
-
-  const lines: Range[] = [
-    getLineRangeByIndex(0), // first line
-  ]
+  const {
+    getLineRangeByLineNumber,
+    isLastLine,
+    getLine,
+    substring } = map(text)
 
   let line = 0
   let column = 0
 
   const isStartOfLine = () => column === 0
-
-  const getLineRangeByLineNumber = (ln: number): Range | undefined => {
-    if (ln < lines.length) { return lines[ln] }
-    let startOfNextLine = lines[lines.length - 1].end
-    while (ln >= lines.length) {
-      if (startOfNextLine < text.length) {
-        const nextLine = getLineRangeByIndex(startOfNextLine)
-        lines.push(nextLine)
-        startOfNextLine = nextLine.end
-      } else {
-        return undefined
-      }
-    }
-    return lines[ln]
-  }
-
-  const getLine = (ln: number = line) => {
-    const range = getLineRangeByLineNumber(ln)
-    if (!range) {
-      console.log(`>>>>>> cant get line range`)
-      return ''
-    }
-    const l = text.substring(range.start + column, range.end)
-    if (!l) {
-      console.log('>>>', { l, range })
-    }
-    return l
-  }
 
   const currentChar = () => {
     const lr = getLineRangeByLineNumber(line)
@@ -59,29 +22,11 @@ export const read = (text: string) => {
   const nextLine = () : Position => {
 
     const start = { line, column }
-
     column = 0
-    if (line < lines.length - 1) {
-      line += 1
-      return { start, end: { line, column } }
-    }
-
-    const startOfNextLine = lines[lines.length - 1].end
-    if (startOfNextLine < text.length) {
-      lines.push(getLineRangeByIndex(startOfNextLine))
-    }
     line += 1
-
     return {
       start,
       end: { line, column }
-    }
-  }
-
-  const eatChar = () => {
-    column += 1
-    if (column >= lines[line].end) {
-      nextLine()
     }
   }
 
@@ -104,11 +49,11 @@ export const read = (text: string) => {
       column += param // TODO: crossing the line?
     }
     if (typeof param == 'string') {
-      const i = getLine().indexOf(param)
+      const i = getLine(line, column).indexOf(param)
       if (i > 0) column += i
     }
     if (param instanceof RegExp) {
-      const m = param.exec(getLine())
+      const m = param.exec(getLine(line, column))
       if (m) {
         column += m.index
       }
@@ -128,7 +73,7 @@ export const read = (text: string) => {
     match: RegExpExecArray,
     position: Position;
   } | undefined => {
-    const l = getLine()
+    const l = getLine(line, column)
     if (!l) return undefined
     const match = pattern.exec(l)
     if (!match) return undefined
@@ -150,7 +95,7 @@ export const read = (text: string) => {
     match?: RegExpExecArray,
     position?: Position;
   } => {
-    const l = getLine()
+    const l = getLine(line, column)
     if (!l) return {}
     const match = pattern.exec(l)
     if (!match) return {}
@@ -172,37 +117,34 @@ export const read = (text: string) => {
     return lr.start + column >= text.length
   }
 
-  const substring = (position: Position) : string | undefined => {
-    const startLine = getLineRangeByLineNumber(position.start.line)
-    const endLine = getLineRangeByLineNumber(position.end.line)
-    if (!startLine || !endLine) return undefined
-    const start = startLine.start + position.start.column
-    const end = endLine.start + position.end.column
-    return text.substring(start, end)
-  }
+  const now = () => ({ line, column })
 
-  const isLastLine = () => {
-    return lines[line].end === text.length
-  }
+  const position = ({ offset, range }: { offset?: Point, range?: Range } = {}): Position => {
+    const firstLine = getLineRangeByLineNumber(0)
+    let ln = 0
+    while (getLineRangeByLineNumber(ln)) {
+      ln += 1
+    }
 
-  const debug = () => ({
-    lines,
-  })
+    return {
+      start: { line: 0, column: 0 },
+      end: { line: ln, column: 0 }
+    }
+  }
 
   return {
     isStartOfLine,
     currentChar,
-    getLine,
+    getLine: () => getLine(line, column),
     skipWhitespaces,
     match,
     advance,
     nextLine,
-    position: () => ({ line, column }),
+    now,
     eatLine,
     substring,
     EOF,
     adv,
     isLastLine,
-    debug,
   }
 }

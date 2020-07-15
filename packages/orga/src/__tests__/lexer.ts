@@ -5,7 +5,9 @@ describe('Lexer', () => {
   const lexer = new Lexer({ timezone: `Pacific/Auckland` })
 
   it.only('works', () => {
-    const text = `* TODO [#A] headline one :tag1:tag2:  \n* DONE headline two
+    const text = `
+* TODO [#A] headline *one* :tag1:tag2:
+* DONE headline two
 a paragrph.
 another line
 ** level 2 headline
