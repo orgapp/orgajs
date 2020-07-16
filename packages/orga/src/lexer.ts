@@ -4,6 +4,7 @@ import { parse as parseTimestamp, pattern as timestampPattern } from './timestam
 import XRegExp from 'xregexp'
 import { read } from './reader'
 import { tokenize as inlineTok } from './inline'
+import tokenizeHeadline from './tokenize/headline'
 
 type Rule = {
   name: string
@@ -33,6 +34,7 @@ class Syntax {
     // let newRule = { name, post: (_: any) => {}, pattern: undefined }
     // if (i !== -1) {
     //   newRule = this.rules.splice(i, 1)[0]
+
     // }
     // newRule.pattern = pattern
     // this.rules.splice(i, 0, newRule)
@@ -168,103 +170,67 @@ export default class Lexer {
 
 export const tokenize = (text: string) => {
 
+  const reader = read(text)
+
   const {
     isStartOfLine,
-    skipWhitespaces,
-    currentChar,
+    eat,
     getLine,
-    eatLine,
+    getChar,
     now,
     match,
-    advance,
     EOF,
-    substring,
-    isLastLine,
-    adv,
-  } = read(text)
+    skipWhitespaces,
+  } = reader
 
   let todoKeywords = ['TODO', 'DONE']
 
   let buffer: Token[] = []
 
-  const generateHeadlinePattern = (todos: string[]) => {
-    return RegExp(`^(\\*+)\\s+(?:(${todos.map(escape).join('|')})\\s+)?(?:\\[#(A|B|C)\\]\\s+)?(.*?)\\s*(:(?:[\\w@]+:)+)?$`)
-  }
+  const whenMatch = (
+    pattern: RegExp,
+    action: (m: { captures: string[], position: Position }) => void
+  ) => {
 
-  let headlinePattern = generateHeadlinePattern(todoKeywords)
-
-  const tokenizeHeadline = () => {
-    const stars = match(/^\*+(?=\s)/, { advance: true })
-    if (!stars) throw Error('not gonna happen')
-    buffer.push({
-      name: 'stars',
-      data: { level: stars.match[0].length },
-      position: stars.position,
-    })
-    skipWhitespaces()
-    const keyword = match(RegExp(`^${todoKeywords.map(escape).join('|')}(?=\\s)`), { advance: true })
-    if (keyword) {
-      buffer.push({
-        name: 'keyword',
-        position: keyword.position,
-      })
-    }
-    skipWhitespaces()
-    const priority = match(/^\[#(A|B|C)\](?=\s)/, { advance: true })
-    if (priority) {
-      buffer.push({
-        name: 'priority',
-        position: priority.position,
-      })
-    }
-
-    skipWhitespaces()
-    let content = getLine()
-
-    const tags = match(/\s+(:(?:[\w@]+:)+)[ \t]*$/gm)
-    if (tags) {
-      console.log('tags:', { tags: tags })
-      content = substring({ start: now(), end: tags.position.start }) as string
-      // content = content.substring(0, tags.match.index)
-    }
-
-    if (content.length === 0) return
-    const tokens = inlineTok(content, now())
-
-    buffer = buffer.concat(tokens)
-
-    adv(content.length)
-
-    if (tags) {
-      skipWhitespaces()
-      buffer.push({
-        name: 'tags',
-        position: adv(/\s/),
-      })
-    }
-    eatLine()
+    const m = match(pattern)
+    console.log({ line: getLine(), pattern, m, })
+    if (!m) return
+    action(m)
   }
 
   const next = () : Token | undefined => {
     if (buffer.length > 0) {
       return buffer.shift()
     }
+
+    skipWhitespaces()
+
     if (EOF()) return undefined
 
-    if (getLine().trim() === '') {
-      return { name: 'blank', position: eatLine() }
+    if (getChar() === '\n') {
+      return {
+        name: 'newline',
+        position: eat('char'),
+      }
     }
-
-    // skipWhitespaces()
 
     if (isStartOfLine() && match(/^\*+\s+/)) {
-      tokenizeHeadline()
+      buffer = buffer.concat(tokenizeHeadline({ reader, todoKeywords }))
       return next()
     }
+    const keyword = match(/^\s*#\+(\w+):\s*(.*)$/)
+    if (keyword) {
+      eat('line')
+      return {
+        name: 'keyword',
+        data: { key: keyword.captures[1], value: keyword.captures[2] },
+        position: keyword.position,
+      }
+    }
+
     // TODO: planning
     // TODO: drawer
     // TODO: block
-    // TODO: settings
     // TODO: list
     // TODO: table
     // TODO: comment
@@ -272,19 +238,21 @@ export const tokenize = (text: string) => {
     // TODO: horizontal rule
 
     // last resort
-    console.log('--------- inline text')
     buffer = inlineTok(getLine(), now())
-    eatLine()
+    eat('line')
     return next()
   }
 
-  const all = () : Token[] => {
+  const all = (max: number | undefined = undefined) : Token[] => {
     const tokens: Token[] = []
     let token
     do {
       token = next()
       if (token) {
         tokens.push(token)
+      }
+      if (max && tokens.length >= max) {
+        break
       }
     } while(token)
     return tokens

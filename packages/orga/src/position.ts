@@ -1,3 +1,11 @@
+export const isEqual = (p1: Point, p2: Point) => {
+  return p1.line === p2.line && p1.column === p2.column
+}
+
+export const isEmpty = (position: Position) => {
+  return isEqual(position.start, position.end)
+}
+
 export const map = (text: string) => {
 
   let cursor = 0
@@ -29,7 +37,8 @@ export const map = (text: string) => {
   }
 
   const toIndex = ({ line, column }: Point) : number => {
-    return lines[line] + column
+    if (line >= lines.length) return text.length
+    return Math.min(lines[line] + column, text.length)
   }
 
   const substring = (position: Position) : string => {
@@ -67,13 +76,21 @@ export const map = (text: string) => {
     }
   }
 
-  const getLine = (ln: number, offset: number = 0) => {
-    const range = getLineRangeByLineNumber(ln)
-    if (!range) {
-      console.log(`>>>>>> cant get line range`)
-      return ''
+  const endOfLine = (ln: number): Point => {
+    const i = text.indexOf('\n', lines[ln])
+    const _i = i >= 0 ? i : text.length
+    return {
+      line: ln,
+      column: _i - lines[ln],
     }
-    return text.substring(range.start + offset, range.end)
+  }
+
+  const getLine = (ln: number, offset: number = 0) => {
+    if (ln >= lines.length) return ''
+    const start = lines[ln]
+    const nextLine = lines[ln + 1]
+    const end = nextLine ? nextLine - 1 : text.length
+    return text.substring(start + offset, end)
   }
 
   const match = (
@@ -95,6 +112,10 @@ export const map = (text: string) => {
     }
   }
 
+  const shift = (point: Point, offset: number) : Point => {
+    return location(toIndex(point) + offset)
+  }
+
   const debug = () => {
     console.log({
       lines,
@@ -105,11 +126,13 @@ export const map = (text: string) => {
     getLineRangeByLineNumber,
     isLastLine,
     substring,
+    endOfLine,
     getLine,
     location,
     position,
     match,
     toIndex,
+    shift,
     debug,
   }
 }

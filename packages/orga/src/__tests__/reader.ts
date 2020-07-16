@@ -4,21 +4,14 @@ describe('Reader', () => {
   it.only('works', () => {
     const text = `
 * TODO headline one
-* DONE headline two
-a paragrph.
-another line
-
-  - here is something with indentation
 
 `
     const {
-      currentLine,
-      nextLine,
-      skipWhitespaces,
-      isStartOfLine,
       EOF,
-      advance,
-      debug,
+      eat,
+      getChar,
+      getLine,
+      substring,
     } = read(text)
 
     // console.log({
@@ -28,29 +21,19 @@ another line
     // console.log({
     //   currentLine: currentLine(),
     // })
+
+    const chars: string[] = []
     while (!EOF()) {
-      skipWhitespaces()
-
-      const m = advance(/\*+(?=\s)/)
-
-      console.log({
-        currentLine: currentLine(),
-        isStartOfLine: isStartOfLine(),
-        m,
-      })
-      nextLine()
+      if (getChar() === '\n') {
+        console.log('- found new line', { nl: substring(eat('char')) })
+        continue
+      }
+      const c = getLine()
+      chars.push(c)
+      console.log({ char: c })
+      eat('line')
     }
 
-    console.log(debug())
-
-    const emptyLine = '\n'
-
-
-    console.log({
-      line: emptyLine,
-      char: emptyLine.charAt(0),
-      firstShit: emptyLine.indexOf('\n', 0),
-    })
-
+    console.log({ content: chars.join('') })
   })
 })

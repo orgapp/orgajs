@@ -1,8 +1,8 @@
 {
   "private": true,
   "devDependencies": {
-    "@types/jest": "^25.2.1",
-    "@types/node": "^12.7.11",
+    "@types/jest": "^26.0.4",
+    "@types/node": "^14.0.23",
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
     "cross-env": "^7.0.2",
@@ -10,8 +10,8 @@
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.1",
-    "jest": "^25.3.0",
-    "jest-cli": "^25.3.0",
+    "jest": "^26.1.0",
+    "jest-cli": "^26.1.0",
     "lerna": "^3.20.2",
     "prettier": "^1.18.2",
     "ts-jest": "^24.1.0",

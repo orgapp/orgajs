@@ -1,10 +1,22 @@
 import Lexer, { tokenize } from '../lexer'
-import { read } from '../reader'
+import { map } from '../position'
+import { inspect } from 'util'
+
+const debug = (text: string) => {
+  const { substring } = map(text)
+  const { all } = tokenize(text)
+  const data = all().map(token => ({
+    ...token,
+    content: substring(token.position)
+  }))
+
+  console.log(inspect(data, false, null, true))
+}
 
 describe('Lexer', () => {
   const lexer = new Lexer({ timezone: `Pacific/Auckland` })
 
-  it.only('works', () => {
+  it('works', () => {
     const text = `
 * TODO [#A] headline *one* :tag1:tag2:
 * DONE headline two
@@ -13,17 +25,7 @@ another line
 ** level 2 headline
 
 `
-
-    const { substring } = read(text)
-
-    const { all } = tokenize(text)
-
-    const tokens = all()
-
-    tokens.forEach(token => {
-      const content = token.position ? substring(token.position) : ''
-      console.log('-->', { token, content })
-    })
+    debug(text)
 
   })
 
@@ -61,15 +63,15 @@ another line
     expect(tokenize('not a headline').all()).toMatchSnapshot()
   })
 
-  it('knows keywords', () => {
-    expect(lexer.tokenize('#+KEY: Value')).toMatchSnapshot()
-    expect(lexer.tokenize('#+KEY: Another Value')).toMatchSnapshot()
-    expect(lexer.tokenize('#+KEY: value : Value')).toMatchSnapshot()
+  it.only('knows keywords', () => {
+    expect(tokenize('#+KEY: Value').all()).toMatchSnapshot()
+    expect(tokenize('#+KEY: Another Value').all()).toMatchSnapshot()
+    expect(tokenize('#+KEY: value : Value').all()).toMatchSnapshot()
   })
 
-  it('knows these are not keywords', () => {
-    expect(lexer.tokenize('#+KEY : Value')).toMatchSnapshot()
-    expect(lexer.tokenize('#+KE Y: Value')).toMatchSnapshot()
+  it.only('knows these are not keywords', () => {
+    expect(tokenize('#+KEY : Value').all()).toMatchSnapshot()
+    expect(tokenize('#+KE Y: Value').all()).toMatchSnapshot()
   })
 
   it('knows plannings', () => {

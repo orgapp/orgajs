@@ -2,113 +2,17 @@
 
 exports[`Lexer knows blank 1`] = `Array []`;
 
-exports[`Lexer knows blank 2`] = `
-Array [
-  Object {
-    "name": "blank",
-    "position": Object {
-      "end": Object {
-        "column": 0,
-        "line": 1,
-      },
-      "start": Object {
-        "column": 0,
-        "line": 0,
-      },
-    },
-  },
-]
-`;
+exports[`Lexer knows blank 2`] = `Array []`;
 
-exports[`Lexer knows blank 3`] = `
-Array [
-  Object {
-    "name": "blank",
-    "position": Object {
-      "end": Object {
-        "column": 0,
-        "line": 1,
-      },
-      "start": Object {
-        "column": 0,
-        "line": 0,
-      },
-    },
-  },
-]
-`;
+exports[`Lexer knows blank 3`] = `Array []`;
 
-exports[`Lexer knows blank 4`] = `
-Array [
-  Object {
-    "name": "blank",
-    "position": Object {
-      "end": Object {
-        "column": 0,
-        "line": 1,
-      },
-      "start": Object {
-        "column": 0,
-        "line": 0,
-      },
-    },
-  },
-]
-`;
+exports[`Lexer knows blank 4`] = `Array []`;
 
-exports[`Lexer knows blank 5`] = `
-Array [
-  Object {
-    "name": "blank",
-    "position": Object {
-      "end": Object {
-        "column": 0,
-        "line": 1,
-      },
-      "start": Object {
-        "column": 0,
-        "line": 0,
-      },
-    },
-  },
-]
-`;
+exports[`Lexer knows blank 5`] = `Array []`;
 
-exports[`Lexer knows blank 6`] = `
-Array [
-  Object {
-    "name": "blank",
-    "position": Object {
-      "end": Object {
-        "column": 0,
-        "line": 1,
-      },
-      "start": Object {
-        "column": 0,
-        "line": 0,
-      },
-    },
-  },
-]
-`;
+exports[`Lexer knows blank 6`] = `Array []`;
 
-exports[`Lexer knows blank 7`] = `
-Array [
-  Object {
-    "name": "blank",
-    "position": Object {
-      "end": Object {
-        "column": 0,
-        "line": 1,
-      },
-      "start": Object {
-        "column": 0,
-        "line": 0,
-      },
-    },
-  },
-]
-`;
+exports[`Lexer knows blank 7`] = `Array []`;
 
 exports[`Lexer knows block begins 1`] = `
 Object {
@@ -460,7 +364,7 @@ Array [
     },
   },
   Object {
-    "name": "text.plain",
+    "name": "text.underline",
     "position": Object {
       "end": Object {
         "column": 13,
@@ -629,7 +533,7 @@ Array [
         "line": 0,
       },
       "start": Object {
-        "column": 11,
+        "column": 12,
         "line": 0,
       },
     },
@@ -642,7 +546,7 @@ Array [
         "line": 0,
       },
       "start": Object {
-        "column": 22,
+        "column": 27,
         "line": 0,
       },
     },
@@ -707,36 +611,69 @@ Object {
 `;
 
 exports[`Lexer knows keywords 1`] = `
-Object {
-  "data": Object {
-    "key": "KEY",
-    "value": "Value",
+Array [
+  Object {
+    "data": Object {
+      "key": "KEY",
+      "value": "Value",
+    },
+    "name": "keyword",
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "keyword",
-  "raw": "#+KEY: Value",
-}
+]
 `;
 
 exports[`Lexer knows keywords 2`] = `
-Object {
-  "data": Object {
-    "key": "KEY",
-    "value": "Another Value",
+Array [
+  Object {
+    "data": Object {
+      "key": "KEY",
+      "value": "Another Value",
+    },
+    "name": "keyword",
+    "position": Object {
+      "end": Object {
+        "column": 20,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "keyword",
-  "raw": "#+KEY: Another Value",
-}
+]
 `;
 
 exports[`Lexer knows keywords 3`] = `
-Object {
-  "data": Object {
-    "key": "KEY",
-    "value": "value : Value",
+Array [
+  Object {
+    "data": Object {
+      "key": "KEY",
+      "value": "value : Value",
+    },
+    "name": "keyword",
+    "position": Object {
+      "end": Object {
+        "column": 20,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "keyword",
-  "raw": "#+KEY: value : Value",
-}
+]
 `;
 
 exports[`Lexer knows list items 1`] = `
@@ -1091,7 +1028,7 @@ Array [
         "line": 0,
       },
       "start": Object {
-        "column": 0,
+        "column": 1,
         "line": 0,
       },
     },
@@ -1232,7 +1169,7 @@ Array [
         "line": 0,
       },
       "start": Object {
-        "column": 0,
+        "column": 1,
         "line": 0,
       },
     },
@@ -1243,6 +1180,19 @@ Array [
 exports[`Lexer knows these are not headlines 3`] = `
 Array [
   Object {
+    "name": "text.bold",
+    "position": Object {
+      "end": Object {
+        "column": 3,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+  Object {
     "name": "text.plain",
     "position": Object {
       "end": Object {
@@ -1250,7 +1200,7 @@ Array [
         "line": 0,
       },
       "start": Object {
-        "column": 0,
+        "column": 3,
         "line": 0,
       },
     },
@@ -1319,17 +1269,39 @@ Object {
 `;
 
 exports[`Lexer knows these are not keywords 1`] = `
-Object {
-  "name": "line",
-  "raw": "#+KEY : Value",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not keywords 2`] = `
-Object {
-  "name": "line",
-  "raw": "#+KE Y: Value",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not list items 1`] = `

@@ -4,58 +4,52 @@ export const read = (text: string) => {
 
   const {
     getLineRangeByLineNumber,
+    shift,
     isLastLine,
+    endOfLine,
     getLine,
-    substring } = map(text)
+    substring,
+    toIndex,
+    match, location,
+  } = map(text)
 
   let line = 0
   let column = 0
 
   const isStartOfLine = () => column === 0
 
-  const currentChar = () => {
-    const lr = getLineRangeByLineNumber(line)
-    if (!lr) return undefined
-    return text.charAt(lr.start + column)
-  }
-
-  const nextLine = () : Position => {
-
-    const start = { line, column }
-    column = 0
-    line += 1
-    return {
-      start,
-      end: { line, column }
-    }
-  }
-
-  const eatLine = () => {
-    return nextLine()
+  const getChar = () => {
+    return text.charAt(toIndex({ line, column }))
   }
 
   const skipWhitespaces = () : number => {
-    let count = 0
-    while (/[ \t]/.test(currentChar() || 'a')) {
-      column += 1
-      count += 1
-    }
-    return count
+    const a = eat(/^\s+/)
+    return 0
+    // const count = getLine(line, column).search(/[^ \t]/)
+    // if (count > 0) {
+    //   column += count
+    // }
+    // return Math.max(0, count)
   }
 
-  const adv = (param: number | string | RegExp) : Position => {
-    const start = { line, column }
-    if (typeof param === 'number') {
-      column += param // TODO: crossing the line?
-    }
-    if (typeof param == 'string') {
-      const i = getLine(line, column).indexOf(param)
-      if (i > 0) column += i
-    }
-    if (param instanceof RegExp) {
+  const now = () => ({ line, column })
+
+  const eat = (param: 'char' | 'line' | RegExp | number) : Position => {
+    const start = now()
+    if (param === 'char') {
+      const n = shift(start, 1)
+      line = n.line
+      column = n.column
+    } else if (param === 'line') {
+      column = endOfLine(line).column
+    } else if (typeof param === 'number') {
+      const n = shift(start, param)
+      line = n.line
+      column = n.column
+    } else {
       const m = param.exec(getLine(line, column))
       if (m) {
-        column += m.index
+        column += m.index + m[0].length
       }
     }
 
@@ -63,61 +57,16 @@ export const read = (text: string) => {
       start,
       end: { line, column }
     }
-
   }
 
-  const match = (
-    pattern: RegExp,
-    { advance = false }: { advance: boolean } = { advance: false }
-  ) : {
-    match: RegExpExecArray,
-    position: Position;
-  } | undefined => {
-    const l = getLine(line, column)
-    if (!l) return undefined
-    const match = pattern.exec(l)
-    if (!match) return undefined
-    const startColumn = column + match.index
-    const endColumn = startColumn + match[0].length
-    if (advance) {
-      column += match.index + match[0].length
-    }
-    return {
-      match,
-      position: {
-        start: { line, column: startColumn },
-        end: { line, column: endColumn },
-      }
-    }
-  }
-
-  const advance = (pattern: RegExp) : {
-    match?: RegExpExecArray,
-    position?: Position;
-  } => {
-    const l = getLine(line, column)
-    if (!l) return {}
-    const match = pattern.exec(l)
-    if (!match) return {}
-    const startColumn = column + match.index
-    const endColumn = startColumn + match[0].length
-    column += match.index + match[0].length
-    return {
-      match,
-      position: {
-        start: { line, column: startColumn },
-        end: { line, column: endColumn },
-      }
-    }
-  }
+  const eol = () => ({ line: line + 1, column: 0 })
 
   const EOF = () => {
-    const lr = getLineRangeByLineNumber(line)
-    if (!lr) return true
-    return lr.start + column >= text.length
+    const index = toIndex(now())
+    // console.log({ index, length: text.length, now: now() })
+    return index >= text.length - 1
   }
 
-  const now = () => ({ line, column })
 
   const position = ({ offset, range }: { offset?: Point, range?: Range } = {}): Position => {
     const firstLine = getLineRangeByLineNumber(0)
@@ -132,19 +81,45 @@ export const read = (text: string) => {
     }
   }
 
-  return {
+  const distance = ({ start, end }: Position) : number => {
+    return toIndex(end) - toIndex(start)
+  }
+
+  const jump = (point: Point) => {
+    line = point.line
+    column = point.column
+  }
+
+  const reader: Reader = {
     isStartOfLine,
-    currentChar,
+    getChar,
     getLine: () => getLine(line, column),
     skipWhitespaces,
-    match,
-    advance,
-    nextLine,
-    now,
-    eatLine,
     substring,
+    now,
+    distance,
     EOF,
-    adv,
-    isLastLine,
+    eat,
+    jump,
+    match: (pattern: RegExp) => match(pattern, { start: now(), end: eol() }),
   }
+
+  return reader
+}
+
+export interface Reader {
+  isStartOfLine: () => boolean;
+  getChar: () => string;
+  getLine: () => string;
+  skipWhitespaces: () => number;
+  substring: (position: Position) => string;
+  now: () => Point;
+  EOF: () => boolean;
+  eat: (param: 'char' | 'line' | number | RegExp) => Position;
+  jump: (point: Point) => void;
+  distance: (position: Position) => number;
+  match: (pattern: RegExp) => {
+    captures: string[],
+    position: Position;
+  } | undefined;
 }
