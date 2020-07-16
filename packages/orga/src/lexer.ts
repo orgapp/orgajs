@@ -5,6 +5,7 @@ import XRegExp from 'xregexp'
 import { read } from './reader'
 import { tokenize as inlineTok } from './inline'
 import tokenizeHeadline from './tokenize/headline'
+import tokenizePlanning from './tokenize/planning'
 
 type Rule = {
   name: string
@@ -168,7 +169,9 @@ export default class Lexer {
   }
 }
 
-export const tokenize = (text: string) => {
+export const tokenize = (text: string, options: ParseOptions = defaultOptions) => {
+
+  const { timezone, todos } = { ...defaultOptions, ...options }
 
   const reader = read(text)
 
@@ -183,7 +186,7 @@ export const tokenize = (text: string) => {
     skipWhitespaces,
   } = reader
 
-  let todoKeywords = ['TODO', 'DONE']
+  let todoKeywords = todos
 
   let buffer: Token[] = []
 
@@ -228,7 +231,14 @@ export const tokenize = (text: string) => {
       }
     }
 
-    // TODO: planning
+    const l = getLine()
+    if (PLANNING_KEYWORDS.some((k) => l.startsWith(k))) {
+      buffer = buffer.concat(tokenizePlanning({
+        reader,
+        keywords: PLANNING_KEYWORDS,
+        timezone }))
+      return next()
+    }
     // TODO: drawer
     // TODO: block
     // TODO: list

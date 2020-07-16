@@ -853,51 +853,155 @@ Object {
 `;
 
 exports[`Lexer knows plannings 1`] = `
-Object {
-  "data": Object {
-    "date": 2017-12-31T11:00:00.000Z,
-    "end": undefined,
-    "keyword": "DEADLINE",
+Array [
+  Object {
+    "data": Object {
+      "keyword": "DEADLINE",
+    },
+    "name": "planning.keyword",
+    "position": Object {
+      "end": Object {
+        "column": 9,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "planning",
-  "raw": "DEADLINE: <2018-01-01 Mon>",
-}
+  Object {
+    "data": Object {
+      "date": 2017-12-31T11:00:00.000Z,
+      "end": undefined,
+    },
+    "name": "planning.timestamp",
+    "position": Object {
+      "end": Object {
+        "column": 26,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 9,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows plannings 2`] = `
-Object {
-  "data": Object {
-    "date": 2017-12-31T11:00:00.000Z,
-    "end": undefined,
-    "keyword": "DEADLINE",
+Array [
+  Object {
+    "data": Object {
+      "keyword": "DEADLINE",
+    },
+    "name": "planning.keyword",
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
   },
-  "name": "planning",
-  "raw": "  DEADLINE: <2018-01-01 Mon>",
-}
+  Object {
+    "data": Object {
+      "date": 2017-12-31T11:00:00.000Z,
+      "end": undefined,
+    },
+    "name": "planning.timestamp",
+    "position": Object {
+      "end": Object {
+        "column": 28,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 11,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows plannings 3`] = `
-Object {
-  "data": Object {
-    "date": 2017-12-31T11:00:00.000Z,
-    "end": undefined,
-    "keyword": "DEADLINE",
+Array [
+  Object {
+    "data": Object {
+      "keyword": "DEADLINE",
+    },
+    "name": "planning.keyword",
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
   },
-  "name": "planning",
-  "raw": " 	DEADLINE: <2018-01-01 Mon>",
-}
+  Object {
+    "data": Object {
+      "date": 2017-12-31T11:00:00.000Z,
+      "end": undefined,
+    },
+    "name": "planning.timestamp",
+    "position": Object {
+      "end": Object {
+        "column": 28,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 11,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows plannings 4`] = `
-Object {
-  "data": Object {
-    "date": 2017-12-31T11:00:00.000Z,
-    "end": undefined,
-    "keyword": "DEADLINE",
+Array [
+  Object {
+    "data": Object {
+      "keyword": "DEADLINE",
+    },
+    "name": "planning.keyword",
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 0,
+      },
+    },
   },
-  "name": "planning",
-  "raw": " 	 DEADLINE: <2018-01-01 Mon>",
-}
+  Object {
+    "data": Object {
+      "date": 2017-12-31T11:00:00.000Z,
+      "end": undefined,
+    },
+    "name": "planning.timestamp",
+    "position": Object {
+      "end": Object {
+        "column": 29,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 12,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows table row 1`] = `
@@ -1333,10 +1437,21 @@ Object {
 `;
 
 exports[`Lexer knows these are not plannings 1`] = `
-Object {
-  "name": "line",
-  "raw": "dEADLINE: <2018-01-01 Mon>",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 26,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not table rows 1`] = `

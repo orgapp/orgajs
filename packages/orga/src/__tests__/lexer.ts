@@ -33,7 +33,7 @@ another line
     expect(lexer.tokenize('| batman | superman | wonder woman |')).toMatchSnapshot()
   })
 
-  it('knows blank', () => {
+  it.only('knows blank', () => {
     expect(tokenize('').all()).toMatchSnapshot()
     expect(tokenize(' ').all()).toMatchSnapshot()
     expect(tokenize('    ').all()).toMatchSnapshot()
@@ -56,7 +56,7 @@ another line
     expect(tokenize('* TODO [#A] a headline     :tag1:tag2:').all()).toMatchSnapshot()
   })
 
-  it('knows these are not headlines', () => {
+  it.only('knows these are not headlines', () => {
     expect(tokenize('*not a headline').all()).toMatchSnapshot()
     expect(tokenize(' * not a headline').all()).toMatchSnapshot()
     expect(tokenize('*_* not a headline').all()).toMatchSnapshot()
@@ -74,15 +74,15 @@ another line
     expect(tokenize('#+KE Y: Value').all()).toMatchSnapshot()
   })
 
-  it('knows plannings', () => {
-    expect(lexer.tokenize('DEADLINE: <2018-01-01 Mon>')).toMatchSnapshot()
-    expect(lexer.tokenize('  DEADLINE: <2018-01-01 Mon>')).toMatchSnapshot()
-    expect(lexer.tokenize(' \tDEADLINE: <2018-01-01 Mon>')).toMatchSnapshot()
-    expect(lexer.tokenize(' \t DEADLINE: <2018-01-01 Mon>')).toMatchSnapshot()
+  it.only('knows plannings', () => {
+    expect(tokenize('DEADLINE: <2018-01-01 Mon>').all()).toMatchSnapshot()
+    expect(tokenize('  DEADLINE: <2018-01-01 Mon>').all()).toMatchSnapshot()
+    expect(tokenize(' \tDEADLINE: <2018-01-01 Mon>').all()).toMatchSnapshot()
+    expect(tokenize(' \t DEADLINE: <2018-01-01 Mon>').all()).toMatchSnapshot()
   })
 
-  it('knows these are not plannings', () => {
-    expect(lexer.tokenize('dEADLINE: <2018-01-01 Mon>')).toMatchSnapshot()
+  it.only('knows these are not plannings', () => {
+    expect(tokenize('dEADLINE: <2018-01-01 Mon>').all()).toMatchSnapshot()
   })
 
   it('knows block begins', () => {
