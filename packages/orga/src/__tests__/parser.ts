@@ -1,8 +1,11 @@
 import Parser from '../parser'
+import { parse } from '../parse'
+import { tokenize } from '../lexer'
+import { inspect } from 'util'
 
 describe('Parser', () => {
   const parser = new Parser({ todos: ['TODO', 'DONE'], timezone: 'Pacific/Auckland' })
-  it('works', () => {
+  it.only('works', () => {
     const content = `
 #+TITLE: hello world
 #+TODO: TODO NEXT | DONE
@@ -20,6 +23,10 @@ the round pegs in the +round+ square holes...
 `
     const document = parser.parse(content)
     expect(document).toMatchSnapshot()
+
+    const tree = parse(tokenize(content))
+
+    inspect(tree, false, null, true)
   })
 
   it(`can handle blocks`, () => {

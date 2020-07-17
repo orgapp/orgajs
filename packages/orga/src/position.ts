@@ -2,10 +2,18 @@ export const isEqual = (p1: Point, p2: Point) => {
   return p1.line === p2.line && p1.column === p2.column
 }
 
-export const isGreaterThan = (p1: Point, p2: Point) => {
+const compare = (p1: Point, p2: Point): boolean => {
   if (p1.line > p2.line) return true
   if (p1.line === p2.line && p1.column > p2.column) return true
   return false
+}
+
+export const after = (p1: Point) => (p2: Point) => {
+  return compare(p2, p1)
+}
+
+export const before = (p1: Point) => (p2: Point) => {
+  return compare(p1, p2)
 }
 
 export const isEmpty = (position: Position) => {

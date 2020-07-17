@@ -1,6 +1,5 @@
-import Node from '../node'
 import uri from '../uri'
-import { map, isGreaterThan } from '../position'
+import { map, after } from '../position'
 import { Reader } from '../reader'
 
 
@@ -64,7 +63,7 @@ export const tokenize = ({ reader, start, end } : Props) => {
       if (token.name !== DEFAULT_TOKEN_NAME) return all.concat(token)
       const m = match(pattern, token.position)
       if (!m) return all.concat(token)
-      if (isGreaterThan(m.position.start, token.position.start)) {
+      if (after(token.position.start)(m.position.start)) {
         all.push({ name: DEFAULT_TOKEN_NAME, position: {
           start: token.position.start,
           end: m.position.start,
@@ -77,7 +76,7 @@ export const tokenize = ({ reader, start, end } : Props) => {
         data: data(m.captures),
       })
 
-      if (isGreaterThan(token.position.end, m.position.end)) {
+      if (after(m.position.end)(token.position.end)) {
         const rest = parse(name, pattern, [
           {name: DEFAULT_TOKEN_NAME,
           position: {

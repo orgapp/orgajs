@@ -18,6 +18,12 @@ type Rule = {
   post: (m: any, options?: ParseOptions) => void
 }
 
+export interface Lexer {
+  next: () => Token | undefined;
+  peek: () => Token | undefined;
+  all: () => Token[];
+}
+
 class Syntax {
   rules: Rule[]
 
@@ -138,7 +144,7 @@ org.define('footnote', /^\[fn:(\w+)\]\s+(.*)$/, m => {
   return { label, content }
 })
 
-export default class Lexer {
+export default class OldLexer {
   syntax: any
   options: ParseOptions
 
@@ -195,34 +201,27 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
 
   let buffer: Token[] = []
 
-  const next = () : Token | undefined => {
-    if (buffer.length > 0) {
-      return buffer.shift()
-    }
-
+  const tok = (): Token[] => {
     skipWhitespaces()
-
-    if (EOF()) return undefined
+    if (EOF()) return []
 
     if (getChar() === '\n') {
-      return {
+      return [{
         name: 'newline',
         position: eat('char'),
-      }
+      }]
     }
 
     if (isStartOfLine() && match(/^\*+\s+/)) {
-      buffer = buffer.concat(tokenizeHeadline({ reader, todoKeywords }))
-      return next()
+      return tokenizeHeadline({ reader, todoKeywords })
     }
 
     const l = getLine()
     if (PLANNING_KEYWORDS.some((k) => l.startsWith(k))) {
-      buffer = buffer.concat(tokenizePlanning({
+      return tokenizePlanning({
         reader,
         keywords: PLANNING_KEYWORDS,
-        timezone }))
-      return next()
+        timezone })
     }
 
     if (l.startsWith('#+')) {
@@ -230,62 +229,61 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
       const keyword = match(/^\s*#\+(\w+):\s*(.*)$/)
       if (keyword) {
         eat('line')
-        return {
+        return [{
           name: 'keyword',
           data: { key: keyword.captures[1], value: keyword.captures[2] },
           position: keyword.position,
-        }
+        }]
       }
 
       const block = tokenizeBlock({ reader })
-      if (block.length > 0) {
-        buffer = buffer.concat(block)
-        return next()
-      }
+      if (block.length > 0) return block
     }
 
     const list = tokenizeListItem({ reader })
-    if (list.length > 0) {
-      buffer = buffer.concat(list)
-      return next()
-    }
-
-// /^(\s*)([-+]|\d+[.)])\s+(?:\[(x|X|-| )\][ \t]+)?(?:([^\n]+)[ \t]+::[ \t]*)?(.*)$/
+    if (list.length > 0) return list
 
     if (l.startsWith('# ')) {
       const comment = eat(/^#\s.*$/)
       if (!isEmpty(comment)) {
-        return { name: 'comment', position: comment }
+        return [ { name: 'comment', position: comment } ]
       }
     }
 
     const drawer = tokenizeDrawer({ reader })
-    if (drawer.length > 0) {
-      buffer = buffer.concat(drawer)
-      return next()
-    }
+    if (drawer.length > 0) return drawer
     // TODO: table
 
     const hr = eat(/^\s*-{5,}\s*$/)
     if (!isEmpty(hr)) {
-      return {
+      return [{
         name: 'hr',
         position: hr,
-      }
+      }]
     }
 
     if (now().column === 0) {
       const footnote = tokenizeFootnote({ reader })
-      if (footnote.length > 0) {
-        buffer = buffer.concat(footnote)
-        return next()
-      }
+      if (footnote.length > 0) return footnote
     }
 
     // last resort
-    buffer = inlineTok({ reader })
-    eat('line')
-    return next()
+    return inlineTok({ reader })
+  }
+
+  const peek = () : Token | undefined => {
+    if (buffer.length === 0) {
+      buffer = tok()
+    }
+    return buffer[0]
+  }
+
+
+  const next = () : Token | undefined => {
+    if (buffer.length === 0) {
+      buffer = tok()
+    }
+    return buffer.shift()
   }
 
   const all = (max: number | undefined = undefined) : Token[] => {
@@ -305,6 +303,8 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
 
   return {
     next,
+    peek,
     all,
-  }
+  } as Lexer
 }
+
