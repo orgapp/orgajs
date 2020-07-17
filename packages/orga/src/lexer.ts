@@ -7,6 +7,7 @@ import { tokenize as inlineTok } from './inline'
 import tokenizeHeadline from './tokenize/headline'
 import tokenizePlanning from './tokenize/planning'
 import tokenizeBlock from './tokenize/block'
+import { isEmpty } from './position'
 
 type Rule = {
   name: string
@@ -250,12 +251,25 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
         return next()
       }
     }
+
+    if (l.startsWith('# ')) {
+      const comment = eat(/^#\s.*$/)
+      if (!isEmpty(comment)) {
+        return { name: 'comment', position: comment }
+      }
+    }
     // TODO: drawer
     // TODO: list
     // TODO: table
-    // TODO: comment
     // TODO: footnote
-    // TODO: horizontal rule
+
+    const hr = eat(/^\s*-{5,}\s*$/)
+    if (!isEmpty(hr)) {
+      return {
+        name: 'hr',
+        position: hr,
+      }
+    }
 
     // last resort
     buffer = inlineTok(getLine(), now())

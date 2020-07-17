@@ -18,8 +18,8 @@ export const read = (text: string) => {
 
   const isStartOfLine = () => column === 0
 
-  const getChar = () => {
-    return text.charAt(toIndex({ line, column }))
+  const getChar = (offset: number = 0) => {
+    return text.charAt(toIndex({ line, column }) + offset)
   }
 
   const skipWhitespaces = () : number => {
@@ -109,7 +109,7 @@ export const read = (text: string) => {
 
 export interface Reader {
   isStartOfLine: () => boolean;
-  getChar: () => string;
+  getChar: (offset?: number) => string;
   getLine: () => string;
   skipWhitespaces: () => number;
   substring: (position: Position) => string;

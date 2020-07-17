@@ -110,32 +110,32 @@ another line
     expect(tokenize('#+end_src param').all()).toMatchSnapshot()
   })
 
-  it('knows horizontal rules', () => {
-    expect(lexer.tokenize('-----')).toMatchSnapshot()
-    expect(lexer.tokenize('------')).toMatchSnapshot()
-    expect(lexer.tokenize('--------')).toMatchSnapshot()
-    expect(lexer.tokenize('  -----')).toMatchSnapshot()
-    expect(lexer.tokenize('-----   ')).toMatchSnapshot()
-    expect(lexer.tokenize('  -----   ')).toMatchSnapshot()
-    expect(lexer.tokenize('  -----  \t ')).toMatchSnapshot()
+  it.only('knows horizontal rules', () => {
+    expect(tokenize('-----').all()).toMatchSnapshot()
+    expect(tokenize('------').all()).toMatchSnapshot()
+    expect(tokenize('--------').all()).toMatchSnapshot()
+    expect(tokenize('  -----').all()).toMatchSnapshot()
+    expect(tokenize('-----   ').all()).toMatchSnapshot()
+    expect(tokenize('  -----   ').all()).toMatchSnapshot()
+    expect(tokenize('  -----  \t ').all()).toMatchSnapshot()
   })
 
-  it('knows these are not horizontal rules', () => {
-    expect(lexer.tokenize('----')).toMatchSnapshot()
-    expect(lexer.tokenize('- ----')).toMatchSnapshot()
-    expect(lexer.tokenize('-----a')).toMatchSnapshot()
-    expect(lexer.tokenize('_-----')).toMatchSnapshot()
-    expect(lexer.tokenize('-----    a')).toMatchSnapshot()
+  it.only('knows these are not horizontal rules', () => {
+    expect(tokenize('----').all()).toMatchSnapshot()
+    expect(tokenize('- ----').all()).toMatchSnapshot()
+    expect(tokenize('-----a').all()).toMatchSnapshot()
+    expect(tokenize('_-----').all()).toMatchSnapshot()
+    expect(tokenize('-----    a').all()).toMatchSnapshot()
   })
 
-  it('knows comments', () => {
-    expect(lexer.tokenize('# a comment')).toMatchSnapshot()
-    expect(lexer.tokenize('# ')).toMatchSnapshot()
-    expect(lexer.tokenize('# a comment😯')).toMatchSnapshot()
-    expect(lexer.tokenize(' # a comment')).toMatchSnapshot()
-    expect(lexer.tokenize('  \t  # a comment')).toMatchSnapshot()
-    expect(lexer.tokenize('#   a comment')).toMatchSnapshot()
-    expect(lexer.tokenize('#    \t a comment')).toMatchSnapshot()
+  it.only('knows comments', () => {
+    expect(tokenize('# a comment').all()).toMatchSnapshot()
+    expect(tokenize('# ').all()).toMatchSnapshot()
+    expect(tokenize('# a comment😯').all()).toMatchSnapshot()
+    expect(tokenize(' # a comment').all()).toMatchSnapshot()
+    expect(tokenize('  \t  # a comment').all()).toMatchSnapshot()
+    expect(tokenize('#   a comment').all()).toMatchSnapshot()
+    expect(tokenize('#    \t a comment').all()).toMatchSnapshot()
   })
 
   it('knows these are not comments', () => {

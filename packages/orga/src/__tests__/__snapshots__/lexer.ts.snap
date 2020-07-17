@@ -238,59 +238,129 @@ Array [
 `;
 
 exports[`Lexer knows comments 1`] = `
-Object {
-  "data": Object {},
-  "name": "comment",
-  "raw": "# a comment",
-}
+Array [
+  Object {
+    "name": "comment",
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows comments 2`] = `
-Object {
-  "data": Object {},
-  "name": "comment",
-  "raw": "# ",
-}
+Array [
+  Object {
+    "name": "comment",
+    "position": Object {
+      "end": Object {
+        "column": 2,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows comments 3`] = `
-Object {
-  "data": Object {},
-  "name": "comment",
-  "raw": "# a comment😯",
-}
+Array [
+  Object {
+    "name": "comment",
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows comments 4`] = `
-Object {
-  "data": Object {},
-  "name": "comment",
-  "raw": " # a comment",
-}
+Array [
+  Object {
+    "name": "comment",
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows comments 5`] = `
-Object {
-  "data": Object {},
-  "name": "comment",
-  "raw": "  	  # a comment",
-}
+Array [
+  Object {
+    "name": "comment",
+    "position": Object {
+      "end": Object {
+        "column": 16,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 5,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows comments 6`] = `
-Object {
-  "data": Object {},
-  "name": "comment",
-  "raw": "#   a comment",
-}
+Array [
+  Object {
+    "name": "comment",
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows comments 7`] = `
-Object {
-  "data": Object {},
-  "name": "comment",
-  "raw": "#    	 a comment",
-}
+Array [
+  Object {
+    "name": "comment",
+    "position": Object {
+      "end": Object {
+        "column": 16,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows drawer begins 1`] = `
@@ -653,59 +723,129 @@ Array [
 `;
 
 exports[`Lexer knows horizontal rules 1`] = `
-Object {
-  "data": Object {},
-  "name": "horizontalRule",
-  "raw": "-----",
-}
+Array [
+  Object {
+    "name": "hr",
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows horizontal rules 2`] = `
-Object {
-  "data": Object {},
-  "name": "horizontalRule",
-  "raw": "------",
-}
+Array [
+  Object {
+    "name": "hr",
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows horizontal rules 3`] = `
-Object {
-  "data": Object {},
-  "name": "horizontalRule",
-  "raw": "--------",
-}
+Array [
+  Object {
+    "name": "hr",
+    "position": Object {
+      "end": Object {
+        "column": 8,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows horizontal rules 4`] = `
-Object {
-  "data": Object {},
-  "name": "horizontalRule",
-  "raw": "  -----",
-}
+Array [
+  Object {
+    "name": "hr",
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows horizontal rules 5`] = `
-Object {
-  "data": Object {},
-  "name": "horizontalRule",
-  "raw": "-----   ",
-}
+Array [
+  Object {
+    "name": "hr",
+    "position": Object {
+      "end": Object {
+        "column": 8,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows horizontal rules 6`] = `
-Object {
-  "data": Object {},
-  "name": "horizontalRule",
-  "raw": "  -----   ",
-}
+Array [
+  Object {
+    "name": "hr",
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows horizontal rules 7`] = `
-Object {
-  "data": Object {},
-  "name": "horizontalRule",
-  "raw": "  -----  	 ",
-}
+Array [
+  Object {
+    "name": "hr",
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows keywords 1`] = `
@@ -1462,45 +1602,93 @@ Array [
 `;
 
 exports[`Lexer knows these are not horizontal rules 1`] = `
-Object {
-  "name": "line",
-  "raw": "----",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 4,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not horizontal rules 2`] = `
-Object {
-  "data": Object {
-    "checked": undefined,
-    "content": "----",
-    "indent": 0,
-    "ordered": false,
-    "tag": undefined,
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "- ----",
-}
+]
 `;
 
 exports[`Lexer knows these are not horizontal rules 3`] = `
-Object {
-  "name": "line",
-  "raw": "-----a",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not horizontal rules 4`] = `
-Object {
-  "name": "line",
-  "raw": "_-----",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not horizontal rules 5`] = `
-Object {
-  "name": "line",
-  "raw": "-----    a",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not keywords 1`] = `
