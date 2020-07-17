@@ -59,7 +59,7 @@ export const read = (text: string) => {
     }
   }
 
-  const eol = () => ({ line: line + 1, column: 0 })
+  const eol = () => endOfLine(line)
 
   const EOF = () => {
     const index = toIndex(now())
@@ -100,8 +100,9 @@ export const read = (text: string) => {
     distance,
     EOF,
     eat,
+    eol,
     jump,
-    match: (pattern: RegExp) => match(pattern, { start: now(), end: eol() }),
+    match: (pattern: RegExp, position: Position = { start: now(), end: eol() }) => match(pattern, position),
   }
 
   return reader
@@ -114,11 +115,12 @@ export interface Reader {
   skipWhitespaces: () => number;
   substring: (position: Position) => string;
   now: () => Point;
+  eol: () => Point;
   EOF: () => boolean;
   eat: (param: 'char' | 'line' | number | RegExp) => Position;
   jump: (point: Point) => void;
   distance: (position: Position) => number;
-  match: (pattern: RegExp) => {
+  match: (pattern: RegExp, position?: Position) => {
     captures: string[],
     position: Position;
   } | undefined;

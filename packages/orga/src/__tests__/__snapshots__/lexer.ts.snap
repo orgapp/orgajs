@@ -915,179 +915,590 @@ Array [
 `;
 
 exports[`Lexer knows list items 1`] = `
-Object {
-  "data": Object {
-    "checked": undefined,
-    "content": "buy milk",
-    "indent": 0,
-    "ordered": false,
-    "tag": undefined,
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "- buy milk",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 2`] = `
-Object {
-  "data": Object {
-    "checked": undefined,
-    "content": "buy milk",
-    "indent": 0,
-    "ordered": false,
-    "tag": undefined,
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "+ buy milk",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 3`] = `
-Object {
-  "data": Object {
-    "checked": undefined,
-    "content": "buy milk",
-    "indent": 0,
-    "ordered": true,
-    "tag": undefined,
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": true,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 2,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "1. buy milk",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 4`] = `
-Object {
-  "data": Object {
-    "checked": undefined,
-    "content": "buy milk",
-    "indent": 0,
-    "ordered": true,
-    "tag": undefined,
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": true,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 3,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "12. buy milk",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 4,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 5`] = `
-Object {
-  "data": Object {
-    "checked": undefined,
-    "content": "buy milk",
-    "indent": 0,
-    "ordered": true,
-    "tag": undefined,
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": true,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 4,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "123) buy milk",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 5,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 6`] = `
-Object {
-  "data": Object {
-    "checked": true,
-    "content": "buy milk checked",
-    "indent": 0,
-    "ordered": false,
-    "tag": undefined,
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "- [x] buy milk checked",
-}
+  Object {
+    "data": Object {
+      "checked": true,
+    },
+    "name": "list.item.checkbox",
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 7`] = `
-Object {
-  "data": Object {
-    "checked": true,
-    "content": "buy milk checked",
-    "indent": 0,
-    "ordered": false,
-    "tag": undefined,
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "- [X] buy milk checked",
-}
+  Object {
+    "data": Object {
+      "checked": true,
+    },
+    "name": "list.item.checkbox",
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 8`] = `
-Object {
-  "data": Object {
-    "checked": true,
-    "content": "buy milk checked",
-    "indent": 0,
-    "ordered": false,
-    "tag": undefined,
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "- [-] buy milk checked",
-}
+  Object {
+    "data": Object {
+      "checked": true,
+    },
+    "name": "list.item.checkbox",
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 9`] = `
-Object {
-  "data": Object {
-    "checked": false,
-    "content": "buy milk unchecked",
-    "indent": 0,
-    "ordered": false,
-    "tag": undefined,
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "- [ ] buy milk unchecked",
-}
+  Object {
+    "data": Object {
+      "checked": false,
+    },
+    "name": "list.item.checkbox",
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 24,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 10`] = `
-Object {
-  "data": Object {
-    "checked": undefined,
-    "content": "buy milk",
-    "indent": 2,
-    "ordered": false,
-    "tag": undefined,
+Array [
+  Object {
+    "data": Object {
+      "indent": 2,
+      "ordered": false,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 3,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "  - buy milk",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 4,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 11`] = `
-Object {
-  "data": Object {
-    "checked": undefined,
-    "content": "description here",
-    "indent": 0,
-    "ordered": false,
-    "tag": "item1",
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "- item1 :: description here",
-}
+  Object {
+    "name": "list.item.tag",
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 27,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 11,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 12`] = `
-Object {
-  "name": "line",
-  "raw": "- item2
- :: description here",
-}
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "newline",
+    "position": Object {
+      "end": Object {
+        "column": 0,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 7,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 20,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows list items 13`] = `
-Object {
-  "data": Object {
-    "checked": true,
-    "content": "description here",
-    "indent": 0,
-    "ordered": false,
-    "tag": "item3",
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "list.item",
-  "raw": "- [x] item3 :: description here",
-}
+  Object {
+    "data": Object {
+      "checked": true,
+    },
+    "name": "list.item.checkbox",
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "list.item.tag",
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 31,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 15,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows plannings 1`] = `
@@ -1433,17 +1844,39 @@ Array [
 `;
 
 exports[`Lexer knows these are not comments 1`] = `
-Object {
-  "name": "line",
-  "raw": "#not a comment",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 14,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not comments 2`] = `
-Object {
-  "name": "line",
-  "raw": "  #not a comment",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 16,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not drawer begins 1`] = `
@@ -1555,6 +1988,7 @@ Array [
 exports[`Lexer knows these are not headlines 3`] = `
 Array [
   Object {
+    "data": undefined,
     "name": "text.bold",
     "position": Object {
       "end": Object {
@@ -1622,6 +2056,23 @@ Array [
 exports[`Lexer knows these are not horizontal rules 2`] = `
 Array [
   Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "name": "list.item.bullet",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+  Object {
     "name": "text.plain",
     "position": Object {
       "end": Object {
@@ -1629,7 +2080,7 @@ Array [
         "line": 0,
       },
       "start": Object {
-        "column": 0,
+        "column": 2,
         "line": 0,
       },
     },
@@ -1728,31 +2179,75 @@ Array [
 `;
 
 exports[`Lexer knows these are not list items 1`] = `
-Object {
-  "name": "line",
-  "raw": "-not item",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 9,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not list items 2`] = `
-Object {
-  "name": "line",
-  "raw": "1.not item",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not list items 3`] = `
-Object {
-  "name": "line",
-  "raw": "8)not item",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not list items 4`] = `
-Object {
-  "name": "line",
-  "raw": "8a) not item",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not plannings 1`] = `

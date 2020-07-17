@@ -1,5 +1,11 @@
-import { parse, tokenize  } from '../inline'
+import { tokenize as tok } from '../tokenize/inline'
+import { read } from '../reader'
 import { map } from '../position'
+
+const tokenize = (text: string) => {
+  const { location } = map(text)
+  return tok({ reader: read(text), end: location(text.length) })
+}
 
 const debug = (text: string) => {
   const { substring } = map(text)

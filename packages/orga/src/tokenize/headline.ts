@@ -1,4 +1,4 @@
-import { tokenize } from '../inline'
+import { tokenize } from './inline'
 import { Reader } from '../reader'
 import { isEmpty } from '../position'
 
@@ -15,6 +15,7 @@ export default ({ reader, todoKeywords }: Props) : Token[] => {
     getLine,
     substring,
     now,
+    eol,
     distance,
     eat,
     jump,
@@ -47,19 +48,16 @@ export default ({ reader, todoKeywords }: Props) : Token[] => {
   }
 
   skipWhitespaces()
-  let content = getLine()
 
   const tags = match(/\s+(:(?:[\w@]+:)+)[ \t]*$/gm)
+  let contentEnd = eol()
   if (tags) {
-    content = substring({ start: now(), end: tags.position.start }) as string
+    contentEnd = tags.position.start
   }
 
-  if (content.length === 0) return buffer
-  const tokens = tokenize(content, now())
+  const tokens = tokenize({ reader, end: contentEnd })
 
   buffer = buffer.concat(tokens)
-
-  eat(content.length)
 
   if (tags) {
     skipWhitespaces()

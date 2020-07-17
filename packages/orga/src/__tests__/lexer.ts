@@ -138,37 +138,37 @@ another line
     expect(tokenize('#    \t a comment').all()).toMatchSnapshot()
   })
 
-  it('knows these are not comments', () => {
-    expect(lexer.tokenize('#not a comment')).toMatchSnapshot()
-    expect(lexer.tokenize('  #not a comment')).toMatchSnapshot()
+  it.only('knows these are not comments', () => {
+    expect(tokenize('#not a comment').all()).toMatchSnapshot()
+    expect(tokenize('  #not a comment').all()).toMatchSnapshot()
   })
 
-  it('knows list items', () => {
+  it.only('knows list items', () => {
     // unordered
-    expect(lexer.tokenize('- buy milk')).toMatchSnapshot()
-    expect(lexer.tokenize('+ buy milk')).toMatchSnapshot()
+    expect(tokenize('- buy milk').all()).toMatchSnapshot()
+    expect(tokenize('+ buy milk').all()).toMatchSnapshot()
     // ordered
-    expect(lexer.tokenize('1. buy milk')).toMatchSnapshot()
-    expect(lexer.tokenize('12. buy milk')).toMatchSnapshot()
-    expect(lexer.tokenize('123) buy milk')).toMatchSnapshot()
+    expect(tokenize('1. buy milk').all()).toMatchSnapshot()
+    expect(tokenize('12. buy milk').all()).toMatchSnapshot()
+    expect(tokenize('123) buy milk').all()).toMatchSnapshot()
     // checkbox
-    expect(lexer.tokenize('- [x] buy milk checked')).toMatchSnapshot()
-    expect(lexer.tokenize('- [X] buy milk checked')).toMatchSnapshot()
-    expect(lexer.tokenize('- [-] buy milk checked')).toMatchSnapshot()
-    expect(lexer.tokenize('- [ ] buy milk unchecked')).toMatchSnapshot()
+    expect(tokenize('- [x] buy milk checked').all()).toMatchSnapshot()
+    expect(tokenize('- [X] buy milk checked').all()).toMatchSnapshot()
+    expect(tokenize('- [-] buy milk checked').all()).toMatchSnapshot()
+    expect(tokenize('- [ ] buy milk unchecked').all()).toMatchSnapshot()
     // indent
-    expect(lexer.tokenize('  - buy milk')).toMatchSnapshot()
+    expect(tokenize('  - buy milk').all()).toMatchSnapshot()
     // tag
-    expect(lexer.tokenize('- item1 :: description here')).toMatchSnapshot()
-    expect(lexer.tokenize('- item2\n :: description here')).toMatchSnapshot()
-    expect(lexer.tokenize('- [x] item3 :: description here')).toMatchSnapshot()
+    expect(tokenize('- item1 :: description here').all()).toMatchSnapshot()
+    expect(tokenize('- item2\n :: description here').all()).toMatchSnapshot()
+    expect(tokenize('- [x] item3 :: description here').all()).toMatchSnapshot()
   })
 
-  it('knows these are not list items', () => {
-    expect(lexer.tokenize('-not item')).toMatchSnapshot()
-    expect(lexer.tokenize('1.not item')).toMatchSnapshot()
-    expect(lexer.tokenize('8)not item')).toMatchSnapshot()
-    expect(lexer.tokenize('8a) not item')).toMatchSnapshot()
+  it.only('knows these are not list items', () => {
+    expect(tokenize('-not item').all()).toMatchSnapshot()
+    expect(tokenize('1.not item').all()).toMatchSnapshot()
+    expect(tokenize('8)not item').all()).toMatchSnapshot()
+    expect(tokenize('8a) not item').all()).toMatchSnapshot()
   })
 
   it('knows footnotes', () => {

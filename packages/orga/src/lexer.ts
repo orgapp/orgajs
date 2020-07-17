@@ -3,10 +3,11 @@ import { escape } from './utils'
 import { parse as parseTimestamp, pattern as timestampPattern } from './timestamp'
 import XRegExp from 'xregexp'
 import { read } from './reader'
-import { tokenize as inlineTok } from './inline'
+import { tokenize as inlineTok } from './tokenize/inline'
 import tokenizeHeadline from './tokenize/headline'
 import tokenizePlanning from './tokenize/planning'
 import tokenizeBlock from './tokenize/block'
+import tokenizeListItem from './tokenize/list'
 import { isEmpty } from './position'
 
 type Rule = {
@@ -192,17 +193,6 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
 
   let buffer: Token[] = []
 
-  const whenMatch = (
-    pattern: RegExp,
-    action: (m: { captures: string[], position: Position }) => void
-  ) => {
-
-    const m = match(pattern)
-    console.log({ line: getLine(), pattern, m, })
-    if (!m) return
-    action(m)
-  }
-
   const next = () : Token | undefined => {
     if (buffer.length > 0) {
       return buffer.shift()
@@ -252,6 +242,14 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
       }
     }
 
+    const list = tokenizeListItem({ reader })
+    if (list.length > 0) {
+      buffer = buffer.concat(list)
+      return next()
+    }
+
+// /^(\s*)([-+]|\d+[.)])\s+(?:\[(x|X|-| )\][ \t]+)?(?:([^\n]+)[ \t]+::[ \t]*)?(.*)$/
+
     if (l.startsWith('# ')) {
       const comment = eat(/^#\s.*$/)
       if (!isEmpty(comment)) {
@@ -272,7 +270,7 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
     }
 
     // last resort
-    buffer = inlineTok(getLine(), now())
+    buffer = inlineTok({ reader })
     eat('line')
     return next()
   }
