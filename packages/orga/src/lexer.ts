@@ -9,6 +9,7 @@ import tokenizePlanning from './tokenize/planning'
 import tokenizeBlock from './tokenize/block'
 import tokenizeListItem from './tokenize/list'
 import tokenizeFootnote from './tokenize/footnote'
+import tokenizeDrawer from './tokenize/drawer'
 import { isEmpty } from './position'
 
 type Rule = {
@@ -257,9 +258,13 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
         return { name: 'comment', position: comment }
       }
     }
-    // TODO: drawer
+
+    const drawer = tokenizeDrawer({ reader })
+    if (drawer.length > 0) {
+      buffer = buffer.concat(drawer)
+      return next()
+    }
     // TODO: table
-    // TODO: footnote
 
     const hr = eat(/^\s*-{5,}\s*$/)
     if (!isEmpty(hr)) {

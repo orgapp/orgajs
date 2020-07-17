@@ -211,11 +211,11 @@ another line
     expect(lexer.tokenize('|+')).toMatchSnapshot()
   })
 
-  it('knows drawer begins', () => {
-    expect(lexer.tokenize(':PROPERTIES:')).toMatchSnapshot()
-    expect(lexer.tokenize('  :properties:')).toMatchSnapshot()
-    expect(lexer.tokenize('  :properties:  ')).toMatchSnapshot()
-    expect(lexer.tokenize('  :prop_erties:  ')).toMatchSnapshot()
+  it.only('knows drawer begins', () => {
+    expect(tokenize(':PROPERTIES:').all()).toMatchSnapshot()
+    expect(tokenize('  :properties:').all()).toMatchSnapshot()
+    expect(tokenize('  :properties:  ').all()).toMatchSnapshot()
+    expect(tokenize('  :prop_erties:  ').all()).toMatchSnapshot()
   })
 
   it('knows these are not drawer begins', () => {
@@ -224,11 +224,11 @@ another line
     expect(lexer.tokenize(':PR OPERTIES:')).toMatchSnapshot()
   })
 
-  it('knows drawer ends', () => {
-    expect(lexer.tokenize(':END:')).toMatchSnapshot()
-    expect(lexer.tokenize('  :end:')).toMatchSnapshot()
-    expect(lexer.tokenize('  :end:  ')).toMatchSnapshot()
-    expect(lexer.tokenize('  :end:  ')).toMatchSnapshot()
+  it.only('knows drawer ends', () => {
+    expect(tokenize(':END:').all()).toMatchSnapshot()
+    expect(tokenize('  :end:').all()).toMatchSnapshot()
+    expect(tokenize('  :end:  ').all()).toMatchSnapshot()
+    expect(tokenize('  :end:  ').all()).toMatchSnapshot()
   })
 
   it('knows these are not drawer ends', () => {

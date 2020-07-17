@@ -364,75 +364,163 @@ Array [
 `;
 
 exports[`Lexer knows drawer begins 1`] = `
-Object {
-  "data": Object {
-    "type": "PROPERTIES",
+Array [
+  Object {
+    "data": Object {
+      "type": "PROPERTIES",
+    },
+    "name": "drawer.begin",
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "drawer.begin",
-  "raw": ":PROPERTIES:",
-}
+]
 `;
 
 exports[`Lexer knows drawer begins 2`] = `
-Object {
-  "data": Object {
-    "type": "properties",
+Array [
+  Object {
+    "data": Object {
+      "type": "properties",
+    },
+    "name": "drawer.begin",
+    "position": Object {
+      "end": Object {
+        "column": 14,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
   },
-  "name": "drawer.begin",
-  "raw": "  :properties:",
-}
+]
 `;
 
 exports[`Lexer knows drawer begins 3`] = `
-Object {
-  "data": Object {
-    "type": "properties",
+Array [
+  Object {
+    "data": Object {
+      "type": "properties",
+    },
+    "name": "drawer.begin",
+    "position": Object {
+      "end": Object {
+        "column": 14,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
   },
-  "name": "drawer.begin",
-  "raw": "  :properties:  ",
-}
+]
 `;
 
 exports[`Lexer knows drawer begins 4`] = `
-Object {
-  "data": Object {
-    "type": "prop_erties",
+Array [
+  Object {
+    "data": Object {
+      "type": "prop_erties",
+    },
+    "name": "drawer.begin",
+    "position": Object {
+      "end": Object {
+        "column": 15,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
   },
-  "name": "drawer.begin",
-  "raw": "  :prop_erties:  ",
-}
+]
 `;
 
 exports[`Lexer knows drawer ends 1`] = `
-Object {
-  "data": Object {},
-  "name": "drawer.end",
-  "raw": ":END:",
-}
+Array [
+  Object {
+    "data": Object {},
+    "name": "drawer.end",
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows drawer ends 2`] = `
-Object {
-  "data": Object {},
-  "name": "drawer.end",
-  "raw": "  :end:",
-}
+Array [
+  Object {
+    "data": Object {},
+    "name": "drawer.end",
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows drawer ends 3`] = `
-Object {
-  "data": Object {},
-  "name": "drawer.end",
-  "raw": "  :end:  ",
-}
+Array [
+  Object {
+    "data": Object {},
+    "name": "drawer.end",
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows drawer ends 4`] = `
-Object {
-  "data": Object {},
-  "name": "drawer.end",
-  "raw": "  :end:  ",
-}
+Array [
+  Object {
+    "data": Object {},
+    "name": "drawer.end",
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows footnotes 1`] = `
