@@ -436,47 +436,139 @@ Object {
 `;
 
 exports[`Lexer knows footnotes 1`] = `
-Object {
-  "data": Object {
-    "content": "a footnote",
-    "label": "1",
+Array [
+  Object {
+    "data": Object {
+      "label": "1",
+    },
+    "name": "footnote.label",
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "footnote",
-  "raw": "[fn:1] a footnote",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 17,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 7,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows footnotes 2`] = `
-Object {
-  "data": Object {
-    "content": "a footnote",
-    "label": "word",
+Array [
+  Object {
+    "data": Object {
+      "label": "word",
+    },
+    "name": "footnote.label",
+    "position": Object {
+      "end": Object {
+        "column": 9,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "footnote",
-  "raw": "[fn:word] a footnote",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 20,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 10,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows footnotes 3`] = `
-Object {
-  "data": Object {
-    "content": "a footnote",
-    "label": "word_",
+Array [
+  Object {
+    "data": Object {
+      "label": "word_",
+    },
+    "name": "footnote.label",
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "footnote",
-  "raw": "[fn:word_] a footnote",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 21,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 11,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows footnotes 4`] = `
-Object {
-  "data": Object {
-    "content": "a footnote",
-    "label": "wor1d_",
+Array [
+  Object {
+    "data": Object {
+      "label": "wor1d_",
+    },
+    "name": "footnote.label",
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "footnote",
-  "raw": "[fn:wor1d_] a footnote",
-}
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 12,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows headlines 1`] = `
@@ -1922,31 +2014,152 @@ Object {
 `;
 
 exports[`Lexer knows these are not footnotes 1`] = `
-Object {
-  "name": "line",
-  "raw": "[fn:1]: not a footnote",
-}
+Array [
+  Object {
+    "data": Object {
+      "label": "1",
+    },
+    "name": "text.footnote",
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not footnotes 2`] = `
-Object {
-  "name": "line",
-  "raw": " [fn:1] not a footnote",
-}
+Array [
+  Object {
+    "data": Object {
+      "label": "1",
+    },
+    "name": "text.footnote",
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 7,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not footnotes 3`] = `
-Object {
-  "name": "line",
-  "raw": "[[fn:1] not a footnote",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "data": Object {
+      "label": "1",
+    },
+    "name": "text.footnote",
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 7,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not footnotes 4`] = `
-Object {
-  "name": "line",
-  "raw": "	[fn:1] not a footnote",
-}
+Array [
+  Object {
+    "data": Object {
+      "label": "1",
+    },
+    "name": "text.footnote",
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 0,
+      },
+    },
+  },
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 7,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not headlines 1`] = `

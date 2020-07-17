@@ -45,7 +45,7 @@ interface Props {
 }
 
 export const tokenize = ({ reader, start, end } : Props) => {
-  const { now, eol, match, substring } = reader
+  const { now, eol, match, jump } = reader
   const s = start || now()
   const e = end || eol()
 
@@ -107,5 +107,7 @@ export const tokenize = ({ reader, start, end } : Props) => {
   tokens = parse('text.strikeThrough', markup('\\+'), tokens)
   tokens = parse('text.underline', markup('_'), tokens)
   tokens = parse('text.code', markup('~'), tokens)
+
+  jump(e)
   return tokens
 }

@@ -171,18 +171,18 @@ another line
     expect(tokenize('8a) not item').all()).toMatchSnapshot()
   })
 
-  it('knows footnotes', () => {
-    expect(lexer.tokenize('[fn:1] a footnote')).toMatchSnapshot()
-    expect(lexer.tokenize('[fn:word] a footnote')).toMatchSnapshot()
-    expect(lexer.tokenize('[fn:word_] a footnote')).toMatchSnapshot()
-    expect(lexer.tokenize('[fn:wor1d_] a footnote')).toMatchSnapshot()
+  it.only('knows footnotes', () => {
+    expect(tokenize('[fn:1] a footnote').all()).toMatchSnapshot()
+    expect(tokenize('[fn:word] a footnote').all()).toMatchSnapshot()
+    expect(tokenize('[fn:word_] a footnote').all()).toMatchSnapshot()
+    expect(tokenize('[fn:wor1d_] a footnote').all()).toMatchSnapshot()
   })
 
-  it('knows these are not footnotes', () => {
-    expect(lexer.tokenize('[fn:1]: not a footnote')).toMatchSnapshot()
-    expect(lexer.tokenize(' [fn:1] not a footnote')).toMatchSnapshot()
-    expect(lexer.tokenize('[[fn:1] not a footnote')).toMatchSnapshot()
-    expect(lexer.tokenize('\t[fn:1] not a footnote')).toMatchSnapshot()
+  it.only('knows these are not footnotes', () => {
+    expect(tokenize('[fn:1]: not a footnote').all()).toMatchSnapshot()
+    expect(tokenize(' [fn:1] not a footnote').all()).toMatchSnapshot()
+    expect(tokenize('[[fn:1] not a footnote').all()).toMatchSnapshot()
+    expect(tokenize('\t[fn:1] not a footnote').all()).toMatchSnapshot()
   })
 
   it('knows table separators', () => {

@@ -8,6 +8,7 @@ import tokenizeHeadline from './tokenize/headline'
 import tokenizePlanning from './tokenize/planning'
 import tokenizeBlock from './tokenize/block'
 import tokenizeListItem from './tokenize/list'
+import tokenizeFootnote from './tokenize/footnote'
 import { isEmpty } from './position'
 
 type Rule = {
@@ -257,7 +258,6 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
       }
     }
     // TODO: drawer
-    // TODO: list
     // TODO: table
     // TODO: footnote
 
@@ -266,6 +266,14 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
       return {
         name: 'hr',
         position: hr,
+      }
+    }
+
+    if (now().column === 0) {
+      const footnote = tokenizeFootnote({ reader })
+      if (footnote.length > 0) {
+        buffer = buffer.concat(footnote)
+        return next()
       }
     }
 
