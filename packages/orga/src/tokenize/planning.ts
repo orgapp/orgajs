@@ -1,5 +1,5 @@
 import { Reader } from '../reader'
-import { inspect }  from 'util'
+// import { inspect }  from 'util'
 import { parse as parseTimestamp } from '../timestamp'
 
 interface Props {
@@ -22,7 +22,7 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
     line, column: column + offset,
   })
 
-  const all: any[] = []
+  const all: Token[] = []
 
   const parseLastTimestamp = (end: number) => {
     if (all.length == 0) return
@@ -57,14 +57,5 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
   eat('line')
 
   // console.log(inspect(all, false, null, true))
-  // const timestamp = () => {
-
-  // }
-
-  // const planning = () => {
-  //   const keyword = getKeyword()
-  //   if (!keyword) return
-  //   eat(keyword.length)
-  // }
   return all
 }

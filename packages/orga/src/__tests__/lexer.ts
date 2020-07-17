@@ -85,30 +85,29 @@ another line
     expect(tokenize('dEADLINE: <2018-01-01 Mon>').all()).toMatchSnapshot()
   })
 
-  it('knows block begins', () => {
-    expect(lexer.tokenize('#+BEGIN_SRC swift')).toMatchSnapshot()
-    expect(lexer.tokenize(' #+BEGIN_SRC swift')).toMatchSnapshot()
-    expect(lexer.tokenize('#+begin_src swift')).toMatchSnapshot()
-    expect(lexer.tokenize('#+begin_example')).toMatchSnapshot()
-    expect(lexer.tokenize('#+begin_ex😀mple')).toMatchSnapshot()
-    expect(lexer.tokenize('#+begin_src swift :tangle code.swift')).toMatchSnapshot()
+  it.only('knows block begins', () => {
+    expect(tokenize('#+BEGIN_SRC swift').all()).toMatchSnapshot()
+    expect(tokenize('#+begin_src swift').all()).toMatchSnapshot()
+    expect(tokenize('#+begin_example').all()).toMatchSnapshot()
+    expect(tokenize('#+begin_ex😀mple').all()).toMatchSnapshot()
+    expect(tokenize('#+begin_src swift :tangle code.swift').all()).toMatchSnapshot()
   })
 
   it('knows these are not block begins', () => {
-    expect(lexer.tokenize('#+begi😀n_src swift')).toMatchSnapshot()
+    expect(tokenize('#+begi😀n_src swift').all()).toMatchSnapshot()
   })
 
-  it('knows block ends', () => {
-    expect(lexer.tokenize('#+END_SRC')).toMatchSnapshot()
-    expect(lexer.tokenize('  #+END_SRC')).toMatchSnapshot()
-    expect(lexer.tokenize('#+end_src')).toMatchSnapshot()
-    expect(lexer.tokenize('#+end_SRC')).toMatchSnapshot()
-    expect(lexer.tokenize('#+end_S😀RC')).toMatchSnapshot()
+  it.only('knows block ends', () => {
+    expect(tokenize('#+END_SRC').all()).toMatchSnapshot()
+    expect(tokenize('  #+END_SRC').all()).toMatchSnapshot()
+    expect(tokenize('#+end_src').all()).toMatchSnapshot()
+    expect(tokenize('#+end_SRC').all()).toMatchSnapshot()
+    expect(tokenize('#+end_S😀RC').all()).toMatchSnapshot()
   })
 
-  it('knows these are not block ends', () => {
-    expect(lexer.tokenize('#+end_SRC ')).toMatchSnapshot()
-    expect(lexer.tokenize('#+end_src param')).toMatchSnapshot()
+  it.only('knows these are not block ends', () => {
+    expect(tokenize('#+end_SRC ').all()).toMatchSnapshot()
+    expect(tokenize('#+end_src param').all()).toMatchSnapshot()
   })
 
   it('knows horizontal rules', () => {

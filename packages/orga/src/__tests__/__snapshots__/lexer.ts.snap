@@ -15,128 +15,226 @@ exports[`Lexer knows blank 6`] = `Array []`;
 exports[`Lexer knows blank 7`] = `Array []`;
 
 exports[`Lexer knows block begins 1`] = `
-Object {
-  "data": Object {
-    "params": Array [
-      "swift",
-    ],
-    "type": "SRC",
+Array [
+  Object {
+    "data": Object {
+      "params": Array [
+        "swift",
+      ],
+      "type": "SRC",
+    },
+    "name": "block.begin",
+    "position": Object {
+      "end": Object {
+        "column": 17,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "block.begin",
-  "raw": "#+BEGIN_SRC swift",
-}
+]
 `;
 
 exports[`Lexer knows block begins 2`] = `
-Object {
-  "data": Object {
-    "params": Array [
-      "swift",
-    ],
-    "type": "SRC",
+Array [
+  Object {
+    "data": Object {
+      "params": Array [
+        "swift",
+      ],
+      "type": "src",
+    },
+    "name": "block.begin",
+    "position": Object {
+      "end": Object {
+        "column": 17,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "block.begin",
-  "raw": " #+BEGIN_SRC swift",
-}
+]
 `;
 
 exports[`Lexer knows block begins 3`] = `
-Object {
-  "data": Object {
-    "params": Array [
-      "swift",
-    ],
-    "type": "src",
+Array [
+  Object {
+    "data": Object {
+      "params": Array [],
+      "type": "example",
+    },
+    "name": "block.begin",
+    "position": Object {
+      "end": Object {
+        "column": 15,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "block.begin",
-  "raw": "#+begin_src swift",
-}
+]
 `;
 
 exports[`Lexer knows block begins 4`] = `
-Object {
-  "data": Object {
-    "params": Array [],
-    "type": "example",
+Array [
+  Object {
+    "data": Object {
+      "params": Array [],
+      "type": "ex😀mple",
+    },
+    "name": "block.begin",
+    "position": Object {
+      "end": Object {
+        "column": 16,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "block.begin",
-  "raw": "#+begin_example",
-}
+]
 `;
 
 exports[`Lexer knows block begins 5`] = `
-Object {
-  "data": Object {
-    "params": Array [
-      "😀mple",
-    ],
-    "type": "ex",
+Array [
+  Object {
+    "data": Object {
+      "params": Array [
+        "swift",
+        ":tangle",
+        "code.swift",
+      ],
+      "type": "src",
+    },
+    "name": "block.begin",
+    "position": Object {
+      "end": Object {
+        "column": 36,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "block.begin",
-  "raw": "#+begin_ex😀mple",
-}
-`;
-
-exports[`Lexer knows block begins 6`] = `
-Object {
-  "data": Object {
-    "params": Array [
-      "swift",
-      ":tangle",
-      "code.swift",
-    ],
-    "type": "src",
-  },
-  "name": "block.begin",
-  "raw": "#+begin_src swift :tangle code.swift",
-}
+]
 `;
 
 exports[`Lexer knows block ends 1`] = `
-Object {
-  "data": Object {
-    "type": "SRC",
+Array [
+  Object {
+    "data": Object {
+      "type": "SRC",
+    },
+    "name": "block.end",
+    "position": Object {
+      "end": Object {
+        "column": 9,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "block.end",
-  "raw": "#+END_SRC",
-}
+]
 `;
 
 exports[`Lexer knows block ends 2`] = `
-Object {
-  "data": Object {
-    "type": "SRC",
+Array [
+  Object {
+    "data": Object {
+      "type": "SRC",
+    },
+    "name": "block.end",
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
   },
-  "name": "block.end",
-  "raw": "  #+END_SRC",
-}
+]
 `;
 
 exports[`Lexer knows block ends 3`] = `
-Object {
-  "data": Object {
-    "type": "src",
+Array [
+  Object {
+    "data": Object {
+      "type": "src",
+    },
+    "name": "block.end",
+    "position": Object {
+      "end": Object {
+        "column": 9,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "block.end",
-  "raw": "#+end_src",
-}
+]
 `;
 
 exports[`Lexer knows block ends 4`] = `
-Object {
-  "data": Object {
-    "type": "SRC",
+Array [
+  Object {
+    "data": Object {
+      "type": "SRC",
+    },
+    "name": "block.end",
+    "position": Object {
+      "end": Object {
+        "column": 9,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
   },
-  "name": "block.end",
-  "raw": "#+end_SRC",
-}
+]
 `;
 
 exports[`Lexer knows block ends 5`] = `
-Object {
-  "name": "line",
-  "raw": "#+end_S😀RC",
-}
+Array [
+  Object {
+    "data": Object {
+      "type": "S😀RC",
+    },
+    "name": "block.end",
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows comments 1`] = `
@@ -1141,24 +1239,57 @@ Array [
 `;
 
 exports[`Lexer knows these are not block begins 1`] = `
-Object {
-  "name": "line",
-  "raw": "#+begi😀n_src swift",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 19,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not block ends 1`] = `
-Object {
-  "name": "line",
-  "raw": "#+end_SRC ",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not block ends 2`] = `
-Object {
-  "name": "line",
-  "raw": "#+end_src param",
-}
+Array [
+  Object {
+    "name": "text.plain",
+    "position": Object {
+      "end": Object {
+        "column": 15,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+  },
+]
 `;
 
 exports[`Lexer knows these are not comments 1`] = `

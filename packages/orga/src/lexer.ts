@@ -6,6 +6,7 @@ import { read } from './reader'
 import { tokenize as inlineTok } from './inline'
 import tokenizeHeadline from './tokenize/headline'
 import tokenizePlanning from './tokenize/planning'
+import tokenizeBlock from './tokenize/block'
 
 type Rule = {
   name: string
@@ -221,15 +222,6 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
       buffer = buffer.concat(tokenizeHeadline({ reader, todoKeywords }))
       return next()
     }
-    const keyword = match(/^\s*#\+(\w+):\s*(.*)$/)
-    if (keyword) {
-      eat('line')
-      return {
-        name: 'keyword',
-        data: { key: keyword.captures[1], value: keyword.captures[2] },
-        position: keyword.position,
-      }
-    }
 
     const l = getLine()
     if (PLANNING_KEYWORDS.some((k) => l.startsWith(k))) {
@@ -239,8 +231,26 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
         timezone }))
       return next()
     }
+
+    if (l.startsWith('#+')) {
+
+      const keyword = match(/^\s*#\+(\w+):\s*(.*)$/)
+      if (keyword) {
+        eat('line')
+        return {
+          name: 'keyword',
+          data: { key: keyword.captures[1], value: keyword.captures[2] },
+          position: keyword.position,
+        }
+      }
+
+      const block = tokenizeBlock({ reader })
+      if (block.length > 0) {
+        buffer = buffer.concat(block)
+        return next()
+      }
+    }
     // TODO: drawer
-    // TODO: block
     // TODO: list
     // TODO: table
     // TODO: comment
