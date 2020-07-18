@@ -26,13 +26,13 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
 
   const parseLastTimestamp = (end: number) => {
     if (all.length == 0) return
-    const { name, position } = all[all.length - 1]
-    if (name !== 'planning.keyword') return
+    const { type, position } = all[all.length - 1]
+    if (type !== 'planning.keyword') return
     const endLocation = getLocation(end)
     const timestampPosition = { start: position.end, end: endLocation }
     const value = substring(timestampPosition)
     all.push({
-      name: 'planning.timestamp',
+      type: 'planning.timestamp',
       data: parseTimestamp(value, { timezone }),
       position: timestampPosition,
     })
@@ -43,7 +43,7 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
     parseLastTimestamp(m.index)
 
     all.push({
-      name: 'planning.keyword',
+      type: 'planning.keyword',
       data: {
         keyword: m[1],
       },

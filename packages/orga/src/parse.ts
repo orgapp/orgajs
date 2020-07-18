@@ -10,7 +10,7 @@ export const parse = ({ next, peek }: Lexer) => {
     const token = peek()
     // if (!token) return container
     // if (token.name === 'newline') return container
-    if (!token || !token.name.startsWith('text.')) return container
+    if (!token || !token.type.startsWith('text.')) return container
     a(token)
     next()
     return collectContent(container)
@@ -21,12 +21,12 @@ export const parse = ({ next, peek }: Lexer) => {
 
     const token = peek()
     if (!token) return headline
-    if (token.name === 'newline') {
+    if (token.type === 'newline') {
       next()
       return headline
     }
 
-    if (['stars', 'keyword', 'priority'].includes(token.name)) {
+    if (['stars', 'keyword', 'priority'].includes(token.type)) {
       a(token)
       next()
       return parseHeadline(headline)
@@ -44,13 +44,13 @@ export const parse = ({ next, peek }: Lexer) => {
 
   const parsePlanning = (section: Node): Node => {
     const token = peek()
-    if (!token || token.name !== 'planning.keyword') return section
+    if (!token || token.type !== 'planning.keyword') return section
     const planning = newNode('planning')
     const collect = push(planning)
     collect(token)
     next()
     const timestamp = peek()
-    if (timestamp && timestamp.name === 'planning.timestamp') {
+    if (timestamp && timestamp.type === 'planning.timestamp') {
       collect(timestamp)
       next()
     }
@@ -69,12 +69,12 @@ export const parse = ({ next, peek }: Lexer) => {
   const main = () => {
     const token = peek()
     if (!token) return
-    if (token.name === 'stars') {
+    if (token.type === 'stars') {
       push(tree)(parseSection())
     }
 
     // lose the token
-    console.log('discard', { token: token.name })
+    console.log('discard', { token: token.type })
     next()
 
     main()

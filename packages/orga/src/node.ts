@@ -36,21 +36,9 @@ import { after, before, isEmpty } from './position'
 //   }
 // }
 
-export interface Node {
-  type: string;
-  data?: any;
-  position: Position;
+export interface Node extends Token {
   children: Node[];
   parent?: Node;
-}
-
-export const fromToken = (token: Token): Node => {
-  return {
-    type: token.name,
-    position: token.position,
-    data: token.data,
-    children: [],
-  }
 }
 
 export const newNode = (type: string): Node => {
@@ -86,12 +74,9 @@ const adjustPosition = (parent: Node) => (child: Node): void => {
   }
 }
 
-const isToken = (o: Node | Token): boolean => {
-  return (o as Token).name !== undefined
-}
-
-export const push = (p: Node) => (n: Node | Token): Node => {
-  const node: Node = isToken(n) ? fromToken(n as Token) : n as Node
+export const push = (p: Node) => (n: Token): Node => {
+  console.log('pushing', { n })
+  const node: Node = { children: [], ...n }
   adjustPosition(p)(node)
   node.parent = p
   p.children.push(node)

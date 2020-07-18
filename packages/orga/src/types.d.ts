@@ -14,7 +14,7 @@ interface Position {
 }
 
 interface Token {
-  name: string;
+  type: string;
   position: Position;
   data?: any;
 }

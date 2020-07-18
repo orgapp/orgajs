@@ -43,42 +43,42 @@ interface Props {
   end?: Point;
 }
 
-export const tokenize = ({ reader, start, end } : Props) => {
+export const tokenize = ({ reader, start, end } : Props): Token[] => {
   const { now, eol, match, jump } = reader
   const s = start || now()
   const e = end || eol()
 
-  let tokens = [
-    { name: DEFAULT_TOKEN_NAME, position: { start: s, end: e } }
+  let tokens: Token[] = [
+    { type: DEFAULT_TOKEN_NAME, position: { start: s, end: e } }
   ]
 
   const parse = (
-    name: string,
+    type: string,
     pattern: RegExp,
     content: Token[],
     data: (captures: string[]) => any = () => undefined,
   ): Token[] => {
 
     return content.reduce((all, token) => {
-      if (token.name !== DEFAULT_TOKEN_NAME) return all.concat(token)
+      if (token.type !== DEFAULT_TOKEN_NAME) return all.concat(token)
       const m = match(pattern, token.position)
       if (!m) return all.concat(token)
       if (after(token.position.start)(m.position.start)) {
-        all.push({ name: DEFAULT_TOKEN_NAME, position: {
+        all.push({ type: DEFAULT_TOKEN_NAME, position: {
           start: token.position.start,
           end: m.position.start,
         } })
       }
 
       all.push({
-        name,
+        type,
         position: m.position,
         data: data(m.captures),
       })
 
       if (after(m.position.end)(token.position.end)) {
-        const rest = parse(name, pattern, [
-          {name: DEFAULT_TOKEN_NAME,
+        const rest = parse(type, pattern, [
+          {type: DEFAULT_TOKEN_NAME,
           position: {
             start: m.position.end,
             end: token.position.end,

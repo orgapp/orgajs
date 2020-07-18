@@ -12,7 +12,7 @@ export default ({ reader }: Props) : Token[] => {
     eat('line')
     const params = m.captures[2].split(' ').map(p => p.trim()).filter(String)
     return [{
-      name: 'block.begin',
+      type: 'block.begin',
       data: { type: m.captures[1], params },
       position: m.position,
     }]
@@ -22,7 +22,7 @@ export default ({ reader }: Props) : Token[] => {
   if (m) {
     eat('line')
     return [{
-      name: 'block.end',
+      type: 'block.end',
       data: { type: m.captures[1] },
       position: m.position,
     }]

@@ -18,7 +18,7 @@ export default ({ reader }: Props) : Token[] => {
       }
     }
     return [{
-      name: name.toLowerCase() === 'end' ? 'drawer.end' : 'drawer.begin',
+      type: name.toLowerCase() === 'end' ? 'drawer.end' : 'drawer.begin',
       data,
       position: m.position,
     }]

@@ -207,7 +207,7 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
 
     if (getChar() === '\n') {
       return [{
-        name: 'newline',
+        type: 'newline',
         position: eat('char'),
       }]
     }
@@ -230,7 +230,7 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
       if (keyword) {
         eat('line')
         return [{
-          name: 'keyword',
+          type: 'keyword',
           data: { key: keyword.captures[1], value: keyword.captures[2] },
           position: keyword.position,
         }]
@@ -246,7 +246,7 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
     if (l.startsWith('# ')) {
       const comment = eat(/^#\s.*$/)
       if (!isEmpty(comment)) {
-        return [ { name: 'comment', position: comment } ]
+        return [ { type: 'comment', position: comment } ]
       }
     }
 
@@ -257,7 +257,7 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
     const hr = eat(/^\s*-{5,}\s*$/)
     if (!isEmpty(hr)) {
       return [{
-        name: 'hr',
+        type: 'hr',
         position: hr,
       }]
     }

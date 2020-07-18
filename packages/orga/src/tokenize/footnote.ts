@@ -11,7 +11,7 @@ export default ({ reader }: Props) : Token[] => {
   const m = match(/^\[fn:([^\]]+)\](?=\s)/)
   if (!m) return []
   tokens.push({
-    name: 'footnote.label',
+    type: 'footnote.label',
     data: { label: m.captures[1] },
     position: m.position,
   })

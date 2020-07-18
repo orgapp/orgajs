@@ -17,7 +17,7 @@ export default ({ reader }: Props) : Token[] => {
   const bullet = match(/^([-+]|\d+[.)])(?=\s)/)
   if (!bullet) return []
   tokens.push({
-    name: 'list.item.bullet',
+    type: 'list.item.bullet',
     data: { indent, ordered: /^\d/.test(bullet.captures[1]) },
     position: bullet.position,
   })
@@ -28,7 +28,7 @@ export default ({ reader }: Props) : Token[] => {
   const checkbox = match(/^\[(x|X|-| )\](?=\s)/)
   if (checkbox) {
     tokens.push({
-      name: 'list.item.checkbox',
+      type: 'list.item.checkbox',
       data: { checked: checkbox.captures[1] !== ' ' },
       position: checkbox.position,
     })
@@ -40,7 +40,7 @@ export default ({ reader }: Props) : Token[] => {
   const tagMark = match(/\s+::\s+/)
   if (tagMark) {
     tokens.push({
-      name: 'list.item.tag',
+      type: 'list.item.tag',
       position: { start: now(), end: tagMark.position.start },
     })
     jump(tagMark.position.end)

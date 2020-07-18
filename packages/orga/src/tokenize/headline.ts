@@ -26,7 +26,7 @@ export default ({ reader, todoKeywords }: Props) : Token[] => {
   const stars = eat(/^\*+(?=\s)/)
   if (isEmpty(stars)) throw Error('not gonna happen')
   buffer.push({
-    name: 'stars',
+    type: 'stars',
     data: { level: distance(stars) },
     position: stars,
   })
@@ -34,7 +34,7 @@ export default ({ reader, todoKeywords }: Props) : Token[] => {
   const keyword = eat(RegExp(`^${todoKeywords.map(escape).join('|')}(?=\\s)`))
   if (!isEmpty(keyword)) {
     buffer.push({
-      name: 'keyword',
+      type: 'keyword',
       position: keyword,
     })
   }
@@ -42,7 +42,7 @@ export default ({ reader, todoKeywords }: Props) : Token[] => {
   const priority = eat(/^\[#(A|B|C)\](?=\s)/)
   if (!isEmpty(priority)) {
     buffer.push({
-      name: 'priority',
+      type: 'priority',
       position: priority,
     })
   }
@@ -62,7 +62,7 @@ export default ({ reader, todoKeywords }: Props) : Token[] => {
   if (tags) {
     skipWhitespaces()
     buffer.push({
-      name: 'tags',
+      type: 'tags',
       position: { start: now(), end: tags.position.end },
     })
     jump(tags.position.end)
