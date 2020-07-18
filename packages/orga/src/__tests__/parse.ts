@@ -1,10 +1,16 @@
 import { parse } from '../parse'
 import { tokenize } from '../lexer'
-import { map } from '../position'
+import { map } from '../node'
+import { map as locate } from '../position'
 import { inspect } from 'util'
 
 const debug = (text: string, tree) => {
-  console.log(inspect(tree, false, null, true))
+  const { substring } = locate(text)
+  const data = map(node => ({
+    raw: substring(node.position),
+    data: node.data,
+  }))(tree)
+  console.log(inspect(data, false, null, true))
 }
 
 describe('Parser', () => {
@@ -23,6 +29,9 @@ key: value
 
 [[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,
 the round pegs in the +round+ square holes...
+
+* DONE second headline :tag1:tag2:
+some content
 `
     // const thing = parse(tokenize(content))
     const lexer = tokenize(content)

@@ -1,32 +1,68 @@
 import { Lexer } from './lexer'
 import { newNode, push, Node } from './node'
-import { map } from './position'
 import { inspect } from 'util'
 
 export const parse = ({ next, peek }: Lexer) => {
   const tree = newNode('document')
 
-  const parseHeadline = (): Node => {
-    const headline = newNode('headline')
-    const a = push(headline)
-    let token: Token | undefined
+  const collectContent = (container: Node): Node => {
+    const a = push(container)
+    const token = peek()
+    // if (!token) return container
+    // if (token.name === 'newline') return container
+    if (!token || !token.name.startsWith('text.')) return container
+    a(token)
+    next()
+    return collectContent(container)
+  }
 
-    while ((token = peek()) != null) {
-      if (['stars', 'keyword', 'priority'].includes(token.name)) {
-        a(token)
-        next()
-      } else {
-        break
-      }
+  const parseHeadline = (headline: Node = newNode('headline')): Node => {
+    const a = push(headline)
+
+    const token = peek()
+    if (!token) return headline
+    if (token.name === 'newline') {
+      next()
+      return headline
     }
 
-    return headline
+    if (['stars', 'keyword', 'priority'].includes(token.name)) {
+      a(token)
+      next()
+      return parseHeadline(headline)
+    }
+
+    const content = collectContent(newNode('content'))
+    if (content.children.length > 0) {
+      a(content)
+      return parseHeadline(headline)
+    }
+
+    next()
+    return parseHeadline(headline)
+  }
+
+  const parsePlanning = (section: Node): Node => {
+    const token = peek()
+    if (!token || token.name !== 'planning.keyword') return section
+    const planning = newNode('planning')
+    const collect = push(planning)
+    collect(token)
+    next()
+    const timestamp = peek()
+    if (timestamp && timestamp.name === 'planning.timestamp') {
+      collect(timestamp)
+      next()
+    }
+
+    push(section)(planning)
+    return parsePlanning(section)
   }
 
   const parseSection = (): Node => {
-    console.log('parseSection')
     const section = newNode('section')
     push(section)(parseHeadline())
+    parsePlanning(section)
     return section
   }
 

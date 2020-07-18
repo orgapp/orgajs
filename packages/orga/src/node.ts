@@ -71,7 +71,7 @@ const adjustPosition = (parent: Node) => (child: Node): void => {
   const aboveUpperBound = after(parent.position.end)
 
   if (isEmpty(parent.position)) {
-    parent.position = child.position
+    parent.position = { ...child.position }
     dirty = true
   } else if (belowLowerBound(child.position.start)) {
     parent.position.start = child.position.start
@@ -86,10 +86,22 @@ const adjustPosition = (parent: Node) => (child: Node): void => {
   }
 }
 
+const isToken = (o: Node | Token): boolean => {
+  return (o as Token).name !== undefined
+}
+
 export const push = (p: Node) => (n: Node | Token): Node => {
-  const node = n as Node || fromToken(n as Token)
+  const node: Node = isToken(n) ? fromToken(n as Token) : n as Node
   adjustPosition(p)(node)
   node.parent = p
   p.children.push(node)
   return p
+}
+
+export const map = (transform: (node: Node) => any) => (tree: Node) => {
+  return {
+    type: tree.type,
+    ...transform(tree),
+    children: (tree.children || []).map(map(transform))
+  }
 }
