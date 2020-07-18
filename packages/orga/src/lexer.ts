@@ -22,6 +22,7 @@ export interface Lexer {
   next: () => Token | undefined;
   peek: () => Token | undefined;
   all: () => Token[];
+  setTodoKeywords: (keywords: string[]) => void;
 }
 
 class Syntax {
@@ -271,40 +272,29 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
     return inlineTok({ reader })
   }
 
-  const peek = () : Token | undefined => {
-    if (buffer.length === 0) {
-      buffer = tok()
-    }
-    return buffer[0]
-  }
-
-
-  const next = () : Token | undefined => {
-    if (buffer.length === 0) {
-      buffer = tok()
-    }
-    return buffer.shift()
-  }
-
-  const all = (max: number | undefined = undefined) : Token[] => {
-    const tokens: Token[] = []
-    let token
-    do {
-      token = next()
-      if (token) {
-        tokens.push(token)
-      }
-      if (max && tokens.length >= max) {
-        break
-      }
-    } while(token)
-    return tokens
-  }
-
   return {
-    next,
-    peek,
-    all,
+    peek: () : Token | undefined => {
+      if (buffer.length === 0) {
+        buffer = tok()
+      }
+      return buffer[0]
+    },
+
+    next: () : Token | undefined => {
+      if (buffer.length === 0) {
+        buffer = tok()
+      }
+      return buffer.shift()
+    },
+
+    all: (max: number | undefined = undefined) : Token[] => {
+      let _all: Token[] = []
+      let tokens = tok()
+      while (tokens.length > 0) {
+        _all = _all.concat(tokens)
+        tokens = tok()
+      }
+      return _all
+    }
   } as Lexer
 }
-
