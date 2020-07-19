@@ -1,7 +1,7 @@
-import { parse } from '../parse'
-import { tokenize } from '../lexer'
-import { map, dump } from '../node'
-import { map as locate } from '../position'
+import { parse } from '../index'
+import { tokenize } from '../../lexer'
+import { map, dump } from '../../node'
+import { map as locate } from '../../position'
 import { inspect } from 'util'
 
 const debug = (text: string, tree) => {
@@ -14,7 +14,7 @@ const debug = (text: string, tree) => {
   // console.log(dump(text)(tree).join('\n'))
 }
 
-describe('Parser', () => {
+describe('Parse Paragraph', () => {
   it('works', () => {
 //     const content = `
 // #+TITLE: hello world
@@ -51,40 +51,8 @@ some other content
     const lexer = tokenize(content)
 
     const tree = parse(tokenize(content))
-    // debug(content, tree)
-  })
 
-  it('can handle nested headlines', () => {
-    const content = `
-* #HEADLINE# 1
-Paragraph
-** #HEADLINE# 1.1
-*** #HEADLINE# 1.1.1
-content
-
-** #HEADLINE# 1.2
-* #HEADLINE# 2
-** #HEADLINE# 2.2
-`
-    const tree = parse(tokenize(content))
-    // debug(content, tree)
     expect(tree).toMatchSnapshot()
-
-  })
-
-  // list
-  it('can handle unordered list', () => {
-    const content = `
-- apple
-  1. green apple
-  - red apple
-- banana
-- orange
-`
-    const lexer = tokenize(content)
-    const tree = parse(lexer)
-
     debug(content, tree)
-    // console.log(inspect(lexer.all(), false, null, true))
   })
 })

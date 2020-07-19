@@ -1,4 +1,4 @@
-import { after, before, isEmpty } from './position'
+import { after, before, isEmpty, map as locate } from './position'
 // export default class Node {
 //   type: string
 //   children: Node[]
@@ -88,4 +88,18 @@ export const map = (transform: (node: Node) => any) => (tree: Node) => {
     ...transform(tree),
     children: (tree.children || []).map(map(transform))
   }
+}
+
+interface DumpContext {
+  text: string;
+  lines?: string[];
+  indent?: number;
+}
+
+export const dump = (text: string, indent: number = 0) => (tree: Node): string[] => {
+  const { substring } = locate(text)
+  const spaces = '  '.repeat(indent)
+  const line = `${spaces}- ${tree.type}`
+  const rest = tree.children.flatMap(dump(text, indent + 1))
+  return [line].concat(rest)
 }

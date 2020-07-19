@@ -16,7 +16,7 @@
     "declaration": true,
     "strictNullChecks": true,
     "lib": [
-      "es7"
+      "es7", "es2019"
     ]
   },
   "exclude": [
