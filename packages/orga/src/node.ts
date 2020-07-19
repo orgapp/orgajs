@@ -75,7 +75,6 @@ const adjustPosition = (parent: Node) => (child: Node): void => {
 }
 
 export const push = (p: Node) => (n: Token): Node => {
-  console.log('pushing', { n })
   const node: Node = { children: [], ...n }
   adjustPosition(p)(node)
   node.parent = p

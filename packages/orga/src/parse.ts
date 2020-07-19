@@ -5,15 +5,44 @@ import { inspect } from 'util'
 export const parse = ({ next, peek }: Lexer) => {
   const tree = newNode('document')
 
-  const collectContent = (container: Node): Node => {
-    const a = push(container)
+  const collect = (stop: (n: Token) => boolean) => (container: Node): Node => {
     const token = peek()
-    // if (!token) return container
-    // if (token.name === 'newline') return container
-    if (!token || !token.type.startsWith('text.')) return container
-    a(token)
+    if (!token || stop(token)) return container
     next()
-    return collectContent(container)
+    push(container)(token)
+    return collect(stop)(container)
+  }
+
+  const paragraph = (
+    p: Node = newNode('paragraph'),
+    { eolCount }: { eolCount: number } = { eolCount: 0 })
+  : Node | null => {
+    const token = peek()
+    if (!token || eolCount >= 2) {
+      if (p.children.length === 0) return null
+      return p
+    }
+    if (token.type === 'newline') {
+      next()
+      return paragraph(p, { eolCount: eolCount + 1 })
+    }
+
+    if (token.type.startsWith('text.')) {
+      push(p)(token)
+      next()
+      return paragraph(p)
+    }
+    return p
+  }
+
+  const skip = (predicate: (token: Token) => boolean): void => {
+    const token = peek()
+    if (token && predicate(token)) {
+      next()
+      skip(predicate)
+      return
+    }
+    return
   }
 
   const parseHeadline = (headline: Node = newNode('headline')): Node => {
@@ -27,12 +56,13 @@ export const parse = ({ next, peek }: Lexer) => {
     }
 
     if (['stars', 'keyword', 'priority'].includes(token.type)) {
+      headline.data = { ...headline.data, ...token.data }
       a(token)
       next()
       return parseHeadline(headline)
     }
 
-    const content = collectContent(newNode('content'))
+    const content = collect(t => !t.type.startsWith('text.'))(newNode('content'))
     if (content.children.length > 0) {
       a(content)
       return parseHeadline(headline)
@@ -59,18 +89,48 @@ export const parse = ({ next, peek }: Lexer) => {
     return parsePlanning(section)
   }
 
-  const parseSection = (): Node => {
-    const section = newNode('section')
-    push(section)(parseHeadline())
-    parsePlanning(section)
-    return section
+  const parseSection = (section: Node): Node => {
+    const token = peek()
+    if (!token) return section
+    if (!section.data) {
+      const headline = parseHeadline()
+      section.data = { level: headline.data.level }
+      push(section)(headline)
+      parsePlanning(section)
+      return parseSection(section)
+    }
+
+    if (token.type === 'stars') {
+      if (token.data.level > section.data.level) {
+        push(section)(parseSection(newNode('section')))
+        return parseSection(section)
+      } else {
+        return section
+      }
+    }
+
+    if (token.type.startsWith('text.')) {
+      const p = paragraph()
+      if (p) {
+        push(section)(p)
+        return parseSection(section)
+      }
+    }
+
+    // skip(t => t.type === 'newline')
+    // push(section)(token)
+    next()
+
+    return parseSection(section)
   }
 
   const main = () => {
     const token = peek()
     if (!token) return
     if (token.type === 'stars') {
-      push(tree)(parseSection())
+      push(tree)(parseSection(newNode('section')))
+      main()
+      return
     }
 
     // lose the token
