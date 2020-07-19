@@ -665,7 +665,6 @@ Array [
     "data": Object {
       "level": 2,
     },
-    "name": "stars",
     "position": Object {
       "end": Object {
         "column": 2,
@@ -676,9 +675,9 @@ Array [
         "line": 0,
       },
     },
+    "type": "stars",
   },
   Object {
-    "name": "text.plain",
     "position": Object {
       "end": Object {
         "column": 13,
@@ -689,6 +688,7 @@ Array [
         "line": 0,
       },
     },
+    "type": "text.plain",
   },
 ]
 `;
@@ -699,7 +699,6 @@ Array [
     "data": Object {
       "level": 2,
     },
-    "name": "stars",
     "position": Object {
       "end": Object {
         "column": 2,
@@ -710,9 +709,10 @@ Array [
         "line": 0,
       },
     },
+    "type": "stars",
   },
   Object {
-    "name": "text.underline",
+    "data": undefined,
     "position": Object {
       "end": Object {
         "column": 13,
@@ -723,6 +723,7 @@ Array [
         "line": 0,
       },
     },
+    "type": "text.underline",
   },
 ]
 `;
@@ -733,7 +734,6 @@ Array [
     "data": Object {
       "level": 2,
     },
-    "name": "stars",
     "position": Object {
       "end": Object {
         "column": 2,
@@ -744,9 +744,9 @@ Array [
         "line": 0,
       },
     },
+    "type": "stars",
   },
   Object {
-    "name": "text.plain",
     "position": Object {
       "end": Object {
         "column": 15,
@@ -757,6 +757,7 @@ Array [
         "line": 0,
       },
     },
+    "type": "text.plain",
   },
 ]
 `;
@@ -767,7 +768,6 @@ Array [
     "data": Object {
       "level": 5,
     },
-    "name": "stars",
     "position": Object {
       "end": Object {
         "column": 5,
@@ -778,9 +778,9 @@ Array [
         "line": 0,
       },
     },
+    "type": "stars",
   },
   Object {
-    "name": "text.plain",
     "position": Object {
       "end": Object {
         "column": 16,
@@ -791,6 +791,7 @@ Array [
         "line": 0,
       },
     },
+    "type": "text.plain",
   },
 ]
 `;
@@ -801,7 +802,6 @@ Array [
     "data": Object {
       "level": 1,
     },
-    "name": "stars",
     "position": Object {
       "end": Object {
         "column": 1,
@@ -812,9 +812,9 @@ Array [
         "line": 0,
       },
     },
+    "type": "stars",
   },
   Object {
-    "name": "text.plain",
     "position": Object {
       "end": Object {
         "column": 10,
@@ -825,6 +825,7 @@ Array [
         "line": 0,
       },
     },
+    "type": "text.plain",
   },
 ]
 `;
@@ -835,7 +836,6 @@ Array [
     "data": Object {
       "level": 1,
     },
-    "name": "stars",
     "position": Object {
       "end": Object {
         "column": 1,
@@ -846,9 +846,9 @@ Array [
         "line": 0,
       },
     },
+    "type": "stars",
   },
   Object {
-    "name": "keyword",
     "position": Object {
       "end": Object {
         "column": 6,
@@ -859,9 +859,9 @@ Array [
         "line": 0,
       },
     },
+    "type": "keyword",
   },
   Object {
-    "name": "priority",
     "position": Object {
       "end": Object {
         "column": 11,
@@ -872,9 +872,9 @@ Array [
         "line": 0,
       },
     },
+    "type": "priority",
   },
   Object {
-    "name": "text.plain",
     "position": Object {
       "end": Object {
         "column": 22,
@@ -885,9 +885,9 @@ Array [
         "line": 0,
       },
     },
+    "type": "text.plain",
   },
   Object {
-    "name": "tags",
     "position": Object {
       "end": Object {
         "column": 38,
@@ -898,6 +898,7 @@ Array [
         "line": 0,
       },
     },
+    "type": "tags",
   },
 ]
 `;
@@ -1954,7 +1955,6 @@ Object {
 exports[`Lexer knows these are not blanks 1`] = `
 Array [
   Object {
-    "name": "text.plain",
     "position": Object {
       "end": Object {
         "column": 3,
@@ -1965,6 +1965,7 @@ Array [
         "line": 0,
       },
     },
+    "type": "text.plain",
   },
 ]
 `;
@@ -1972,7 +1973,6 @@ Array [
 exports[`Lexer knows these are not block begins 1`] = `
 Array [
   Object {
-    "name": "text.plain",
     "position": Object {
       "end": Object {
         "column": 19,
@@ -1983,6 +1983,7 @@ Array [
         "line": 0,
       },
     },
+    "type": "text.plain",
   },
 ]
 `;

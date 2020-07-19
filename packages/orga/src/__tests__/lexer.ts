@@ -25,7 +25,7 @@ another line
 ** level 2 headline
 
 `
-    debug(text)
+    // debug(text)
 
   })
 
@@ -33,7 +33,7 @@ another line
     expect(lexer.tokenize('| batman | superman | wonder woman |')).toMatchSnapshot()
   })
 
-  it.only('knows blank', () => {
+  it('knows blank', () => {
     expect(tokenize('').all()).toMatchSnapshot()
     expect(tokenize(' ').all()).toMatchSnapshot()
     expect(tokenize('    ').all()).toMatchSnapshot()
@@ -56,36 +56,36 @@ another line
     expect(tokenize('* TODO [#A] a headline     :tag1:tag2:').all()).toMatchSnapshot()
   })
 
-  it.only('knows these are not headlines', () => {
+  it('knows these are not headlines', () => {
     expect(tokenize('*not a headline').all()).toMatchSnapshot()
     expect(tokenize(' * not a headline').all()).toMatchSnapshot()
     expect(tokenize('*_* not a headline').all()).toMatchSnapshot()
     expect(tokenize('not a headline').all()).toMatchSnapshot()
   })
 
-  it.only('knows keywords', () => {
+  it('knows keywords', () => {
     expect(tokenize('#+KEY: Value').all()).toMatchSnapshot()
     expect(tokenize('#+KEY: Another Value').all()).toMatchSnapshot()
     expect(tokenize('#+KEY: value : Value').all()).toMatchSnapshot()
   })
 
-  it.only('knows these are not keywords', () => {
+  it('knows these are not keywords', () => {
     expect(tokenize('#+KEY : Value').all()).toMatchSnapshot()
     expect(tokenize('#+KE Y: Value').all()).toMatchSnapshot()
   })
 
-  it.only('knows plannings', () => {
+  it('knows plannings', () => {
     expect(tokenize('DEADLINE: <2018-01-01 Mon>').all()).toMatchSnapshot()
     expect(tokenize('  DEADLINE: <2018-01-01 Mon>').all()).toMatchSnapshot()
     expect(tokenize(' \tDEADLINE: <2018-01-01 Mon>').all()).toMatchSnapshot()
     expect(tokenize(' \t DEADLINE: <2018-01-01 Mon>').all()).toMatchSnapshot()
   })
 
-  it.only('knows these are not plannings', () => {
+  it('knows these are not plannings', () => {
     expect(tokenize('dEADLINE: <2018-01-01 Mon>').all()).toMatchSnapshot()
   })
 
-  it.only('knows block begins', () => {
+  it('knows block begins', () => {
     expect(tokenize('#+BEGIN_SRC swift').all()).toMatchSnapshot()
     expect(tokenize('#+begin_src swift').all()).toMatchSnapshot()
     expect(tokenize('#+begin_example').all()).toMatchSnapshot()
@@ -97,7 +97,7 @@ another line
     expect(tokenize('#+begi😀n_src swift').all()).toMatchSnapshot()
   })
 
-  it.only('knows block ends', () => {
+  it('knows block ends', () => {
     expect(tokenize('#+END_SRC').all()).toMatchSnapshot()
     expect(tokenize('  #+END_SRC').all()).toMatchSnapshot()
     expect(tokenize('#+end_src').all()).toMatchSnapshot()
@@ -105,12 +105,12 @@ another line
     expect(tokenize('#+end_S😀RC').all()).toMatchSnapshot()
   })
 
-  it.only('knows these are not block ends', () => {
+  it('knows these are not block ends', () => {
     expect(tokenize('#+end_SRC ').all()).toMatchSnapshot()
     expect(tokenize('#+end_src param').all()).toMatchSnapshot()
   })
 
-  it.only('knows horizontal rules', () => {
+  it('knows horizontal rules', () => {
     expect(tokenize('-----').all()).toMatchSnapshot()
     expect(tokenize('------').all()).toMatchSnapshot()
     expect(tokenize('--------').all()).toMatchSnapshot()
@@ -120,7 +120,7 @@ another line
     expect(tokenize('  -----  \t ').all()).toMatchSnapshot()
   })
 
-  it.only('knows these are not horizontal rules', () => {
+  it('knows these are not horizontal rules', () => {
     expect(tokenize('----').all()).toMatchSnapshot()
     expect(tokenize('- ----').all()).toMatchSnapshot()
     expect(tokenize('-----a').all()).toMatchSnapshot()
@@ -128,7 +128,7 @@ another line
     expect(tokenize('-----    a').all()).toMatchSnapshot()
   })
 
-  it.only('knows comments', () => {
+  it('knows comments', () => {
     expect(tokenize('# a comment').all()).toMatchSnapshot()
     expect(tokenize('# ').all()).toMatchSnapshot()
     expect(tokenize('# a comment😯').all()).toMatchSnapshot()
@@ -138,12 +138,12 @@ another line
     expect(tokenize('#    \t a comment').all()).toMatchSnapshot()
   })
 
-  it.only('knows these are not comments', () => {
+  it('knows these are not comments', () => {
     expect(tokenize('#not a comment').all()).toMatchSnapshot()
     expect(tokenize('  #not a comment').all()).toMatchSnapshot()
   })
 
-  it.only('knows list items', () => {
+  it('knows list items', () => {
     // unordered
     expect(tokenize('- buy milk').all()).toMatchSnapshot()
     expect(tokenize('+ buy milk').all()).toMatchSnapshot()
@@ -164,28 +164,28 @@ another line
     expect(tokenize('- [x] item3 :: description here').all()).toMatchSnapshot()
   })
 
-  it.only('knows these are not list items', () => {
+  it('knows these are not list items', () => {
     expect(tokenize('-not item').all()).toMatchSnapshot()
     expect(tokenize('1.not item').all()).toMatchSnapshot()
     expect(tokenize('8)not item').all()).toMatchSnapshot()
     expect(tokenize('8a) not item').all()).toMatchSnapshot()
   })
 
-  it.only('knows footnotes', () => {
+  it('knows footnotes', () => {
     expect(tokenize('[fn:1] a footnote').all()).toMatchSnapshot()
     expect(tokenize('[fn:word] a footnote').all()).toMatchSnapshot()
     expect(tokenize('[fn:word_] a footnote').all()).toMatchSnapshot()
     expect(tokenize('[fn:wor1d_] a footnote').all()).toMatchSnapshot()
   })
 
-  it.only('knows these are not footnotes', () => {
+  it('knows these are not footnotes', () => {
     expect(tokenize('[fn:1]: not a footnote').all()).toMatchSnapshot()
     expect(tokenize(' [fn:1] not a footnote').all()).toMatchSnapshot()
     expect(tokenize('[[fn:1] not a footnote').all()).toMatchSnapshot()
     expect(tokenize('\t[fn:1] not a footnote').all()).toMatchSnapshot()
   })
 
-  it('knows table separators', () => {
+  it.skip('knows table separators', () => {
     expect(lexer.tokenize('|----+---+----|')).toMatchSnapshot()
     expect(lexer.tokenize('|--=-+---+----|')).toMatchSnapshot()
     expect(lexer.tokenize('  |----+---+----|')).toMatchSnapshot()
@@ -194,11 +194,11 @@ another line
     expect(lexer.tokenize('|-')).toMatchSnapshot()
   })
 
-  it('knows these are not table separators', () => {
+  it.skip('knows these are not table separators', () => {
     expect(lexer.tokenize('----+---+----|')).toMatchSnapshot()
   })
 
-  it('knows table rows', () => {
+  it.skip('knows table rows', () => {
     expect(lexer.tokenize('| hello | world | y\'all |')).toMatchSnapshot()
     expect(lexer.tokenize('   | hello | world | y\'all |')).toMatchSnapshot()
     expect(lexer.tokenize('|    hello |  world   |y\'all |')).toMatchSnapshot()
@@ -206,12 +206,12 @@ another line
     expect(lexer.tokenize('||  world   | |')).toMatchSnapshot()
   })
 
-  it('knows these are not table rows', () => {
+  it.skip('knows these are not table rows', () => {
     expect(lexer.tokenize(' hello | world | y\'all |')).toMatchSnapshot()
     expect(lexer.tokenize('|+')).toMatchSnapshot()
   })
 
-  it.only('knows drawer begins', () => {
+  it('knows drawer begins', () => {
     expect(tokenize(':PROPERTIES:').all()).toMatchSnapshot()
     expect(tokenize('  :properties:').all()).toMatchSnapshot()
     expect(tokenize('  :properties:  ').all()).toMatchSnapshot()
@@ -224,7 +224,7 @@ another line
     expect(lexer.tokenize(':PR OPERTIES:')).toMatchSnapshot()
   })
 
-  it.only('knows drawer ends', () => {
+  it('knows drawer ends', () => {
     expect(tokenize(':END:').all()).toMatchSnapshot()
     expect(tokenize('  :end:').all()).toMatchSnapshot()
     expect(tokenize('  :end:  ').all()).toMatchSnapshot()
@@ -237,7 +237,7 @@ another line
     expect(lexer.tokenize(':ENDed')).toMatchSnapshot()
   })
 
-  it('knows these are timestamps', () => {
+  it.skip('knows these are timestamps', () => {
     expect(lexer.tokenize('<2019-08-19 Mon>')).toMatchSnapshot()
     expect(lexer.tokenize('<2019-08-19 Mon 13:20>')).toMatchSnapshot()
     expect(lexer.tokenize('<2019-08-19 Mon 13:20-14:00>')).toMatchSnapshot()
