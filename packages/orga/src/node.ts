@@ -103,3 +103,13 @@ export const dump = (text: string, indent: number = 0) => (tree: Node): string[]
   const rest = tree.children.flatMap(dump(text, indent + 1))
   return [line].concat(rest)
 }
+
+export const level = (node: Node): number => {
+  let count = 0
+  let parent = node.parent
+  while (parent) {
+    count += 1
+    parent = parent.parent
+  }
+  return count
+}

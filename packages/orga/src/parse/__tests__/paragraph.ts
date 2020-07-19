@@ -50,7 +50,7 @@ some other content
     // const thing = parse(tokenize(content))
     const lexer = tokenize(content)
 
-    const tree = parse(tokenize(content))
+    const tree = parse(lexer)
 
     expect(tree).toMatchSnapshot()
     debug(content, tree)

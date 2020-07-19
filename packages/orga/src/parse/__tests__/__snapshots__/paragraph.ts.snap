@@ -138,9 +138,6 @@ Object {
           },
           "parent": Object {
             "children": [Circular],
-            "data": Object {
-              "level": 1,
-            },
             "position": Object {
               "end": Object {
                 "column": 18,
@@ -262,9 +259,6 @@ Object {
           ],
           "parent": Object {
             "children": [Circular],
-            "data": Object {
-              "level": 1,
-            },
             "position": Object {
               "end": Object {
                 "column": 18,
@@ -322,9 +316,6 @@ Object {
           ],
           "parent": Object {
             "children": [Circular],
-            "data": Object {
-              "level": 1,
-            },
             "position": Object {
               "end": Object {
                 "column": 18,
@@ -453,9 +444,6 @@ Object {
               },
               "parent": Object {
                 "children": [Circular],
-                "data": Object {
-                  "level": 2,
-                },
                 "position": Object {
                   "end": Object {
                     "column": 18,
@@ -513,9 +501,6 @@ Object {
               ],
               "parent": Object {
                 "children": [Circular],
-                "data": Object {
-                  "level": 2,
-                },
                 "position": Object {
                   "end": Object {
                     "column": 18,
@@ -541,14 +526,8 @@ Object {
               "type": "paragraph",
             },
           ],
-          "data": Object {
-            "level": 2,
-          },
           "parent": Object {
             "children": [Circular],
-            "data": Object {
-              "level": 1,
-            },
             "position": Object {
               "end": Object {
                 "column": 18,
@@ -574,9 +553,6 @@ Object {
           "type": "section",
         },
       ],
-      "data": Object {
-        "level": 1,
-      },
       "parent": [Circular],
       "position": Object {
         "end": Object {
