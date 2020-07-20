@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tokenize hr knows horizontal rules 1`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "hr",
+  },
+]
+`;
+
+exports[`tokenize hr knows horizontal rules 2`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "hr",
+  },
+]
+`;
+
+exports[`tokenize hr knows horizontal rules 3`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 8,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "hr",
+  },
+]
+`;
+
+exports[`tokenize hr knows horizontal rules 4`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "hr",
+  },
+]
+`;
+
+exports[`tokenize hr knows horizontal rules 5`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 8,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "hr",
+  },
+]
+`;
+
+exports[`tokenize hr knows horizontal rules 6`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "hr",
+  },
+]
+`;
+
+exports[`tokenize hr knows horizontal rules 7`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "hr",
+  },
+]
+`;
+
+exports[`tokenize hr knows these are not horizontal rules 1`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 4,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize hr knows these are not horizontal rules 2`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize hr knows these are not horizontal rules 3`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize hr knows these are not horizontal rules 4`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize hr knows these are not horizontal rules 5`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;

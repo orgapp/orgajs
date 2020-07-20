@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tokenize keywords knows keywords 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "key": "KEY",
+      "value": "Value",
+    },
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "keyword",
+  },
+]
+`;
+
+exports[`tokenize keywords knows keywords 2`] = `
+Array [
+  Object {
+    "data": Object {
+      "key": "KEY",
+      "value": "Another Value",
+    },
+    "position": Object {
+      "end": Object {
+        "column": 20,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "keyword",
+  },
+]
+`;
+
+exports[`tokenize keywords knows keywords 3`] = `
+Array [
+  Object {
+    "data": Object {
+      "key": "KEY",
+      "value": "value : Value",
+    },
+    "position": Object {
+      "end": Object {
+        "column": 20,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "keyword",
+  },
+]
+`;
+
+exports[`tokenize keywords knows these are not keywords 1`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize keywords knows these are not keywords 2`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;

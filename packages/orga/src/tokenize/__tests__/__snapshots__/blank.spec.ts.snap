@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tokenize Blanks knows blank 1`] = `Array []`;
+
+exports[`Tokenize Blanks knows blank 2`] = `Array []`;
+
+exports[`Tokenize Blanks knows blank 3`] = `Array []`;
+
+exports[`Tokenize Blanks knows blank 4`] = `Array []`;
+
+exports[`Tokenize Blanks knows blank 5`] = `Array []`;
+
+exports[`Tokenize Blanks knows blank 6`] = `Array []`;
+
+exports[`Tokenize Blanks knows blank 7`] = `Array []`;
+
+exports[`Tokenize Blanks knows these are not blanks 1`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 3,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;

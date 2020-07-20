@@ -1,0 +1,331 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tokenize headline knows headlines 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "level": 2,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 2,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "stars",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize headline knows headlines 2`] = `
+Array [
+  Object {
+    "data": Object {
+      "level": 2,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 2,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "stars",
+  },
+  Object {
+    "data": undefined,
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 0,
+      },
+    },
+    "type": "text.underline",
+  },
+]
+`;
+
+exports[`tokenize headline knows headlines 3`] = `
+Array [
+  Object {
+    "data": Object {
+      "level": 2,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 2,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "stars",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 15,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 5,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize headline knows headlines 4`] = `
+Array [
+  Object {
+    "data": Object {
+      "level": 5,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "stars",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 16,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize headline knows headlines 5`] = `
+Array [
+  Object {
+    "data": Object {
+      "level": 1,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "stars",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize headline knows headlines 6`] = `
+Array [
+  Object {
+    "data": Object {
+      "level": 1,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "stars",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "keyword",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 7,
+        "line": 0,
+      },
+    },
+    "type": "priority",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 12,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 38,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 27,
+        "line": 0,
+      },
+    },
+    "type": "tags",
+  },
+]
+`;
+
+exports[`tokenize headline knows these are not headlines 1`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 15,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize headline knows these are not headlines 2`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 17,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize headline knows these are not headlines 3`] = `
+Array [
+  Object {
+    "data": undefined,
+    "position": Object {
+      "end": Object {
+        "column": 3,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.bold",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 18,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize headline knows these are not headlines 4`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 14,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;

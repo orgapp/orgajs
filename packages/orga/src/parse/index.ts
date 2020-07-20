@@ -1,4 +1,4 @@
-import { Lexer } from '../lexer'
+import { Lexer } from '../tokenize'
 import { newNode, Node } from '../node'
 import section from './section'
 

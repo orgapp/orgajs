@@ -1,18 +1,6 @@
+import { tokenize } from '../../tokenize'
 import { parse } from '../index'
-import { tokenize } from '../../lexer'
-import { map, dump } from '../../node'
-import { map as locate } from '../../position'
-import { inspect } from 'util'
-
-const debug = (text: string, tree) => {
-  const { substring } = locate(text)
-  const data = map(node => ({
-    raw: substring(node.position),
-    data: node.data,
-  }))(tree)
-  console.log(inspect(data, false, null, true))
-  // console.log(dump(text)(tree).join('\n'))
-}
+import debug from './debug'
 
 describe('Parse Paragraph', () => {
   it('works', () => {
@@ -53,6 +41,6 @@ some other content
     const tree = parse(lexer)
 
     expect(tree).toMatchSnapshot()
-    debug(content, tree)
+    debug(content)
   })
 })

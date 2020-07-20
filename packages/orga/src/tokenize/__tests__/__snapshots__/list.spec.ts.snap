@@ -1,0 +1,660 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tokenize list item knows list items 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 2`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 3`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": true,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 2,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 4`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": true,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 3,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 4,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 5`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": true,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 4,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 5,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 6`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "data": Object {
+      "checked": true,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "list.item.checkbox",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 7`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "data": Object {
+      "checked": true,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "list.item.checkbox",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 8`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "data": Object {
+      "checked": true,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "list.item.checkbox",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 22,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 9`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "data": Object {
+      "checked": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "list.item.checkbox",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 24,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 10`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 2,
+      "ordered": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 3,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 4,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 11`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "list.item.tag",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 27,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 11,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 12`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 0,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 7,
+        "line": 0,
+      },
+    },
+    "type": "newline",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 20,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows list items 13`] = `
+Array [
+  Object {
+    "data": Object {
+      "indent": 0,
+      "ordered": false,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 1,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "list.item.bullet",
+  },
+  Object {
+    "data": Object {
+      "checked": true,
+    },
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "list.item.checkbox",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 6,
+        "line": 0,
+      },
+    },
+    "type": "list.item.tag",
+  },
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 31,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 15,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows these are not list items 1`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 9,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows these are not list items 2`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows these are not list items 3`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 10,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize list item knows these are not list items 4`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;

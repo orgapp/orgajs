@@ -9,6 +9,9 @@ module.exports = {
     `/node_modules/`,
     `__tests__/fixtures`,
   ],
+  testMatch: [
+    '**/__tests__/**/*.spec.ts',
+  ],
   // Disabling diagnostics, TODO: turn this back on
   // globals: {
   //   'ts-jest': {

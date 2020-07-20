@@ -1,0 +1,269 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tokenize drawer knows drawer begins 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "type": "PROPERTIES",
+    },
+    "position": Object {
+      "end": Object {
+        "column": 12,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "drawer.begin",
+  },
+]
+`;
+
+exports[`tokenize drawer knows drawer begins 2`] = `
+Array [
+  Object {
+    "data": Object {
+      "type": "properties",
+    },
+    "position": Object {
+      "end": Object {
+        "column": 14,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "drawer.begin",
+  },
+]
+`;
+
+exports[`tokenize drawer knows drawer begins 3`] = `
+Array [
+  Object {
+    "data": Object {
+      "type": "properties",
+    },
+    "position": Object {
+      "end": Object {
+        "column": 14,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "drawer.begin",
+  },
+]
+`;
+
+exports[`tokenize drawer knows drawer begins 4`] = `
+Array [
+  Object {
+    "data": Object {
+      "type": "prop_erties",
+    },
+    "position": Object {
+      "end": Object {
+        "column": 15,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "drawer.begin",
+  },
+]
+`;
+
+exports[`tokenize drawer knows drawer ends 1`] = `
+Array [
+  Object {
+    "data": Object {},
+    "position": Object {
+      "end": Object {
+        "column": 5,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "drawer.end",
+  },
+]
+`;
+
+exports[`tokenize drawer knows drawer ends 2`] = `
+Array [
+  Object {
+    "data": Object {},
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "drawer.end",
+  },
+]
+`;
+
+exports[`tokenize drawer knows drawer ends 3`] = `
+Array [
+  Object {
+    "data": Object {},
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "drawer.end",
+  },
+]
+`;
+
+exports[`tokenize drawer knows drawer ends 4`] = `
+Array [
+  Object {
+    "data": Object {},
+    "position": Object {
+      "end": Object {
+        "column": 7,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 2,
+        "line": 0,
+      },
+    },
+    "type": "drawer.end",
+  },
+]
+`;
+
+exports[`tokenize drawer knows these are not drawer begins 1`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize drawer knows these are not drawer begins 2`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 11,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize drawer knows these are not drawer begins 3`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 13,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize drawer knows these are not drawer ends 1`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 4,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize drawer knows these are not drawer ends 2`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 4,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
+
+exports[`tokenize drawer knows these are not drawer ends 3`] = `
+Array [
+  Object {
+    "position": Object {
+      "end": Object {
+        "column": 6,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 0,
+        "line": 0,
+      },
+    },
+    "type": "text.plain",
+  },
+]
+`;
