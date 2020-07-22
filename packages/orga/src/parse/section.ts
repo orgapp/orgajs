@@ -4,6 +4,7 @@ import headline from './headline'
 import paragraph from './paragraph'
 import planning from './planning'
 import parseDrawer from './drawer'
+import parseBlock from './block'
 import list from './list'
 import utils from './utils'
 
@@ -55,6 +56,16 @@ export default (lexer: Lexer) => (root: Node): Node => {
     if (token.type === 'list.item.bullet') {
       push(section)(list(lexer))
       return parse(section)
+    }
+
+    // block
+    if (token.type === 'block.begin') {
+      const block = tryTo(parseBlock)
+      if (block) push(section)(block)
+    }
+
+    if (token.type == 'hr') {
+      push(section)(token)
     }
 
     // skip(t => t.type === 'newline')

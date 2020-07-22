@@ -19,8 +19,8 @@ Object {
                 },
                 "position": Object {
                   "end": Object {
-                    "column": 22,
-                    "line": 1,
+                    "column": 0,
+                    "line": 2,
                   },
                   "start": Object {
                     "column": 0,
@@ -50,8 +50,8 @@ Object {
                 },
                 "position": Object {
                   "end": Object {
-                    "column": 22,
-                    "line": 1,
+                    "column": 0,
+                    "line": 2,
                   },
                   "start": Object {
                     "column": 0,
@@ -110,8 +110,8 @@ Object {
                 },
                 "position": Object {
                   "end": Object {
-                    "column": 22,
-                    "line": 1,
+                    "column": 0,
+                    "line": 2,
                   },
                   "start": Object {
                     "column": 0,
@@ -131,6 +131,37 @@ Object {
                 },
               },
               "type": "content",
+            },
+            Object {
+              "children": Array [],
+              "parent": Object {
+                "children": [Circular],
+                "data": Object {
+                  "level": 1,
+                },
+                "position": Object {
+                  "end": Object {
+                    "column": 0,
+                    "line": 2,
+                  },
+                  "start": Object {
+                    "column": 0,
+                    "line": 1,
+                  },
+                },
+                "type": "headline",
+              },
+              "position": Object {
+                "end": Object {
+                  "column": 0,
+                  "line": 2,
+                },
+                "start": Object {
+                  "column": 34,
+                  "line": 1,
+                },
+              },
+              "type": "newline",
             },
           ],
           "data": Object {
@@ -152,8 +183,8 @@ Object {
           },
           "position": Object {
             "end": Object {
-              "column": 22,
-              "line": 1,
+              "column": 0,
+              "line": 2,
             },
             "start": Object {
               "column": 0,
@@ -356,8 +387,8 @@ Object {
                     },
                     "position": Object {
                       "end": Object {
-                        "column": 19,
-                        "line": 7,
+                        "column": 0,
+                        "line": 8,
                       },
                       "start": Object {
                         "column": 0,
@@ -416,8 +447,8 @@ Object {
                     },
                     "position": Object {
                       "end": Object {
-                        "column": 19,
-                        "line": 7,
+                        "column": 0,
+                        "line": 8,
                       },
                       "start": Object {
                         "column": 0,
@@ -437,6 +468,37 @@ Object {
                     },
                   },
                   "type": "content",
+                },
+                Object {
+                  "children": Array [],
+                  "parent": Object {
+                    "children": [Circular],
+                    "data": Object {
+                      "level": 2,
+                    },
+                    "position": Object {
+                      "end": Object {
+                        "column": 0,
+                        "line": 8,
+                      },
+                      "start": Object {
+                        "column": 0,
+                        "line": 7,
+                      },
+                    },
+                    "type": "headline",
+                  },
+                  "position": Object {
+                    "end": Object {
+                      "column": 0,
+                      "line": 8,
+                    },
+                    "start": Object {
+                      "column": 19,
+                      "line": 7,
+                    },
+                  },
+                  "type": "newline",
                 },
               ],
               "data": Object {
@@ -458,8 +520,8 @@ Object {
               },
               "position": Object {
                 "end": Object {
-                  "column": 19,
-                  "line": 7,
+                  "column": 0,
+                  "line": 8,
                 },
                 "start": Object {
                   "column": 0,

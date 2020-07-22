@@ -10,10 +10,10 @@ export default (lexer: Lexer): Node => {
   const parse = (headline: Node): Node => {
     const a = push(headline)
 
-
     const token = peek()
     if (!token) return headline
     if (token.type === 'newline') {
+      push(headline)(token)
       eat()
       return headline
     }
