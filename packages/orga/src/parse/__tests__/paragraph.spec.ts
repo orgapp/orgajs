@@ -15,6 +15,9 @@ describe('Parse Paragraph', () => {
 // key: value
 // key: value
 // :END:
+// :LOGS:
+// log: hello world
+// :END:
 
 // [[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,
 // the round pegs in the +round+ square holes...
@@ -41,6 +44,6 @@ some other content
     const tree = parse(lexer)
 
     expect(tree).toMatchSnapshot()
-    debug(content)
+    // debug(content)
   })
 })

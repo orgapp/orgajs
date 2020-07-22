@@ -1,7 +1,7 @@
-import { Lexer } from '../lexer'
+import { Lexer } from '../tokenize'
 import { newNode, push, Node } from '../node'
 
-export default ({ peek, next }: Lexer): Node | null => {
+export default ({ peek, eat }: Lexer): Node | null => {
   let eolCount = 0
 
   const build = (p: Node): Node | null => {
@@ -11,14 +11,14 @@ export default ({ peek, next }: Lexer): Node | null => {
       return p
     }
     if (token.type === 'newline') {
-      next()
+      eat()
       eolCount += 1
       return build(p)
     }
 
     if (token.type.startsWith('text.')) {
       push(p)(token)
-      next()
+      eat()
       return build(p)
     }
     return p

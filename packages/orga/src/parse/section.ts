@@ -1,13 +1,16 @@
-import { Lexer } from '../lexer'
+import { Lexer } from '../tokenize'
 import { newNode, Node, push, level } from '../node'
 import headline from './headline'
 import paragraph from './paragraph'
 import planning from './planning'
+import parseDrawer from './drawer'
 import list from './list'
+import utils from './utils'
 
 export default (lexer: Lexer) => (root: Node): Node => {
 
-  const { peek, next } = lexer
+  const { peek, eat } = lexer
+  const { tryTo } = utils(lexer)
 
   const newSection = (): Node => {
     const section = newNode('section')
@@ -15,6 +18,12 @@ export default (lexer: Lexer) => (root: Node): Node => {
     push(section)(h)
     const plannings = planning(lexer)
     plannings.forEach(push(section))
+
+    let drawer: Node | undefined
+    while ((drawer = tryTo(parseDrawer)) != null) {
+      push(section)(drawer)
+    }
+
     return section
   }
 
@@ -24,7 +33,6 @@ export default (lexer: Lexer) => (root: Node): Node => {
 
     // section
     if (token.type === 'stars') {
-      console.log({ section: section })
       if (section.type === 'document' || token.data.level > level(section)) {
         const ns = newSection()
         push(section)(parse(ns))
@@ -51,7 +59,7 @@ export default (lexer: Lexer) => (root: Node): Node => {
 
     // skip(t => t.type === 'newline')
     // push(section)(token)
-    next()
+    eat()
 
     return parse(section)
   }

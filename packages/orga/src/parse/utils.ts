@@ -1,11 +1,12 @@
-import { Lexer } from '../lexer'
+import { Lexer } from '../tokenize'
 import { Node, push } from '../node'
 
-export default ({ peek, next }: Lexer) => {
+export default (lexer: Lexer) => {
+  const { peek, eat, save, restore } = lexer
   const collect = (stop: (n: Token) => boolean) => (container: Node): Node => {
     const token = peek()
     if (!token || stop(token)) return container
-    next()
+    eat()
     push(container)(token)
     return collect(stop)(container)
   }
@@ -13,15 +14,23 @@ export default ({ peek, next }: Lexer) => {
   const skip = (predicate: (token: Token) => boolean): void => {
     const token = peek()
     if (token && predicate(token)) {
-      next()
+      eat()
       skip(predicate)
       return
     }
     return
   }
 
+  const tryTo = (parse: (lexer: Lexer) => Node | undefined): Node | undefined => {
+    const savePoint = save()
+    const n = parse(lexer)
+    if (!n) restore(savePoint)
+    return n
+  }
+
   return {
     collect,
     skip,
+    tryTo,
   }
 }

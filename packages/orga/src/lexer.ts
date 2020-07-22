@@ -18,13 +18,6 @@ type Rule = {
   post: (m: any, options?: ParseOptions) => void
 }
 
-export interface Lexer {
-  next: () => Token | undefined;
-  peek: () => Token | undefined;
-  all: () => Token[];
-  setTodoKeywords: (keywords: string[]) => void;
-}
-
 class Syntax {
   rules: Rule[]
 

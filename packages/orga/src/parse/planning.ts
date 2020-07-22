@@ -1,9 +1,9 @@
-import { Lexer } from '../lexer'
+import { Lexer } from '../tokenize'
 import { newNode, Node, push } from '../node'
 
 export default (lexer: Lexer): Node[] => {
 
-  const { peek, next } = lexer
+  const { peek, eat } = lexer
 
   const all: Node[] = []
 
@@ -13,16 +13,18 @@ export default (lexer: Lexer): Node[] => {
     const planning = newNode('planning')
     const collect = push(planning)
     collect(token)
-    next()
+    eat()
     const timestamp = peek()
     if (timestamp && timestamp.type === 'planning.timestamp') {
       collect(timestamp)
-      next()
+      eat()
     }
 
     all.push(planning)
   }
 
   parse()
+  const nl = peek()
+  if (nl && nl.type === 'newline') eat()
   return all
 }

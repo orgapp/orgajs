@@ -15,9 +15,11 @@ import { isEmpty } from '../position'
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
 export interface Lexer {
-  next: () => Token | undefined;
+  eat: (type?: string) => Token | undefined;
   peek: () => Token | undefined;
   all: () => Token[];
+  save: () => number;
+  restore: (number) => void;
   setTodoKeywords: (keywords: string[]) => void;
 }
 
@@ -40,7 +42,9 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
 
   let todoKeywords = todos
 
-  let buffer: Token[] = []
+  let tokens: Token[] = []
+
+  let cursor = 0
 
   const tok = (): Token[] => {
     skipWhitespaces()
@@ -112,19 +116,24 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
     return inlineTok({ reader })
   }
 
-  return {
-    peek: () : Token | undefined => {
-      if (buffer.length === 0) {
-        buffer = tok()
-      }
-      return buffer[0]
-    },
+  const peek = () : Token | undefined => {
+    if (cursor >= tokens.length) {
+      tokens = tokens.concat(tok())
+    }
+    return tokens[cursor]
+  }
 
-    next: () : Token | undefined => {
-      if (buffer.length === 0) {
-        buffer = tok()
+  return {
+    peek,
+
+    eat: (type: string | undefined = undefined) : Token | undefined => {
+      const t = peek()
+      if (t) {
+        if (!type || type === t.type) {
+          cursor += 1
+        }
       }
-      return buffer.shift()
+      return t
     },
 
     all: (max: number | undefined = undefined) : Token[] => {
@@ -135,6 +144,11 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
         tokens = tok()
       }
       return _all
-    }
+    },
+
+    save: () => cursor,
+
+    restore: (point) => { cursor = point },
+
   } as Lexer
 }

@@ -1,10 +1,10 @@
-import { Lexer } from '../lexer'
+import { Lexer } from '../tokenize'
 import { newNode, Node, push } from '../node'
 import utils from './utils'
 
 export default (lexer: Lexer): Node => {
 
-  const { peek, next } = lexer
+  const { peek, eat } = lexer
   const { collect } = utils(lexer)
 
   const parse = (headline: Node): Node => {
@@ -14,14 +14,14 @@ export default (lexer: Lexer): Node => {
     const token = peek()
     if (!token) return headline
     if (token.type === 'newline') {
-      next()
+      eat()
       return headline
     }
 
     if (['stars', 'keyword', 'priority'].includes(token.type)) {
       headline.data = { ...headline.data, ...token.data }
       a(token)
-      next()
+      eat()
       return parse(headline)
     }
 
@@ -31,7 +31,7 @@ export default (lexer: Lexer): Node => {
       return parse(headline)
     }
 
-    next()
+    eat()
     return parse(headline)
   }
 
