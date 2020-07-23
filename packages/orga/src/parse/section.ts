@@ -1,11 +1,12 @@
+import { level, newNode, Node, push } from '../node'
 import { Lexer } from '../tokenize'
-import { newNode, Node, push, level } from '../node'
-import headline from './headline'
-import paragraph from './paragraph'
-import planning from './planning'
-import parseDrawer from './drawer'
 import parseBlock from './block'
-import list from './list'
+import parseDrawer from './drawer'
+import parseHeadline from './headline'
+import parseList from './list'
+import parseParagraph from './paragraph'
+import parsePlanning from './planning'
+import parseKeyword from './keyword'
 import utils from './utils'
 
 export default (lexer: Lexer) => (root: Node): Node => {
@@ -15,20 +16,17 @@ export default (lexer: Lexer) => (root: Node): Node => {
 
   const newSection = (): Node => {
     const section = newNode('section')
-    const h = headline(lexer)
+    const h = parseHeadline(lexer)
     push(section)(h)
-    const plannings = planning(lexer)
+    const plannings = parsePlanning(lexer)
     plannings.forEach(push(section))
 
-    let drawer: Node | undefined
-    while ((drawer = tryTo(parseDrawer)) != null) {
-      push(section)(drawer)
-    }
-
+    while (tryTo(parseDrawer)(section)) continue
     return section
   }
 
   const parse = (section: Node): Node => {
+
     const token = peek()
     if (!token) return section
 
@@ -44,24 +42,23 @@ export default (lexer: Lexer) => (root: Node): Node => {
     }
 
     // paragraph
-    if (token.type.startsWith('text.')) {
-      const p = paragraph(lexer)
-      if (p) {
-        push(section)(p)
-        return parse(section)
-      }
+    if (tryTo(parseParagraph)(section)) {
+      return parse(section)
     }
 
     // list
-    if (token.type === 'list.item.bullet') {
-      push(section)(list(lexer))
+    if (tryTo(parseList)(section)) {
       return parse(section)
     }
 
     // block
-    if (token.type === 'block.begin') {
-      const block = tryTo(parseBlock)
-      if (block) push(section)(block)
+    if (tryTo(parseBlock)(section)) {
+      return parse(section)
+    }
+
+    // keyword
+    if (tryTo(parseKeyword)(section)) {
+      return parse(section)
     }
 
     if (token.type == 'hr') {
@@ -70,6 +67,7 @@ export default (lexer: Lexer) => (root: Node): Node => {
 
     // skip(t => t.type === 'newline')
     // push(section)(token)
+    // console.log(`skip: ${token.type}`)
     eat()
 
     return parse(section)

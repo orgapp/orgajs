@@ -190,6 +190,9 @@ Array [
     "type": "stars",
   },
   Object {
+    "data": Object {
+      "actionable": true,
+    },
     "position": Object {
       "end": Object {
         "column": 6,

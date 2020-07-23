@@ -1,26 +1,32 @@
 import { tokenize } from './inline'
 import { Reader } from '../reader'
 import { isEmpty } from '../position'
+import { TodoKeywordSet } from '../todo-keyword-set'
 
 interface Props {
   reader: Reader;
-  todoKeywords: string[];
+  todoKeywordSets: TodoKeywordSet[];
 }
 
-export default ({ reader, todoKeywords }: Props) : Token[] => {
+export default ({ reader, todoKeywordSets }: Props) : Token[] => {
 
   const {
     match,
     skipWhitespaces,
-    getLine,
-    substring,
     now,
     eol,
     distance,
     eat,
     jump,
+    substring,
   } = reader
 
+  // TODO: cache this, for performance sake
+  const todos = todoKeywordSets.flatMap(s => s.keywords)
+
+  const isActionable = (keyword: string): boolean => {
+    return !!todoKeywordSets.find(s => s.actionables.includes(keyword))
+  }
 
   let buffer: Token[] = []
   const stars = eat(/^\*+(?=\s)/)
@@ -31,10 +37,11 @@ export default ({ reader, todoKeywords }: Props) : Token[] => {
     position: stars,
   })
   skipWhitespaces()
-  const keyword = eat(RegExp(`^${todoKeywords.map(escape).join('|')}(?=\\s)`))
+  const keyword = eat(RegExp(`^${todos.map(escape).join('|')}(?=\\s)`))
   if (!isEmpty(keyword)) {
     buffer.push({
       type: 'keyword',
+      data: { actionable: isActionable(substring(keyword)) },
       position: keyword,
     })
   }

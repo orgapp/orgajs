@@ -1,26 +1,25 @@
 import defaultOptions, { ParseOptions } from '../options'
-import { escape } from '../utils'
-import { parse as parseTimestamp, pattern as timestampPattern } from '../timestamp'
-import XRegExp from 'xregexp'
-import { read } from '../reader'
-import { tokenize as inlineTok } from './inline'
-import tokenizeHeadline from './headline'
-import tokenizePlanning from './planning'
-import tokenizeBlock from './block'
-import tokenizeListItem from './list'
-import tokenizeFootnote from './footnote'
-import tokenizeDrawer from './drawer'
 import { isEmpty } from '../position'
+import { read } from '../reader'
+import todoKeywordSet, { TodoKeywordSet } from '../todo-keyword-set'
+import tokenizeBlock from './block'
+import tokenizeDrawer from './drawer'
+import tokenizeFootnote from './footnote'
+import tokenizeHeadline from './headline'
+import { tokenize as inlineTok } from './inline'
+import tokenizeListItem from './list'
+import tokenizePlanning from './planning'
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
 export interface Lexer {
   eat: (type?: string) => Token | undefined;
   peek: () => Token | undefined;
+  match: (cond: RegExp | string, offset?: number) => boolean;
   all: () => Token[];
   save: () => number;
-  restore: (number) => void;
-  setTodoKeywords: (keywords: string[]) => void;
+  restore: (point: number) => void;
+  addInBufferTodoKeywords: (text: string) => void;
 }
 
 export const tokenize = (text: string, options: ParseOptions = defaultOptions) => {
@@ -40,7 +39,14 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
     skipWhitespaces,
   } = reader
 
-  let todoKeywords = todos
+  const globalTodoKeywordSets = todos.map(todoKeywordSet)
+
+  const inBufferTodoKeywordSets: TodoKeywordSet[] = []
+
+  const todoKeywordSets = () => {
+    return inBufferTodoKeywordSets.length === 0
+      ? globalTodoKeywordSets : inBufferTodoKeywordSets
+  }
 
   let tokens: Token[] = []
 
@@ -58,7 +64,10 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
     }
 
     if (isStartOfLine() && match(/^\*+\s+/)) {
-      return tokenizeHeadline({ reader, todoKeywords })
+      return tokenizeHeadline({
+        reader,
+        todoKeywordSets: todoKeywordSets(),
+      })
     }
 
     const l = getLine()
@@ -136,6 +145,15 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
       return t
     },
 
+    match: (cond, offset = 0) => {
+      const token = peek()
+      if (!token) return false
+      if (typeof cond === 'string') {
+        return token.type === cond
+      }
+      return cond.test(token.type)
+    },
+
     all: (max: number | undefined = undefined) : Token[] => {
       let _all: Token[] = []
       let tokens = tok()
@@ -149,6 +167,10 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
     save: () => cursor,
 
     restore: (point) => { cursor = point },
+
+    addInBufferTodoKeywords: (text) => {
+      inBufferTodoKeywordSets.push(todoKeywordSet(text))
+    }
 
   } as Lexer
 }

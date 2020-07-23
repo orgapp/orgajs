@@ -1,4 +1,5 @@
 import { Lexer } from '../tokenize'
+import { Parse } from './'
 import { Node, push } from '../node'
 
 export default (lexer: Lexer) => {
@@ -21,11 +22,15 @@ export default (lexer: Lexer) => {
     return
   }
 
-  const tryTo = (parse: (lexer: Lexer) => Node | undefined): Node | undefined => {
+  const tryTo = (parse: Parse) => (section: Node): boolean => {
     const savePoint = save()
-    const n = parse(lexer)
-    if (!n) restore(savePoint)
-    return n
+    const node = parse(lexer)
+    if (!node) {
+      restore(savePoint)
+      return false
+    }
+    push(section)(node)
+    return true
   }
 
   return {

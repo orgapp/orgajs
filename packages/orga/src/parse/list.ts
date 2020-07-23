@@ -1,18 +1,20 @@
-import { Lexer } from '../lexer'
+import { Lexer } from '../tokenize'
 import { newNode, push, Node } from '../node'
 import utils from './utils'
 
-export default (lexer: Lexer): Node => {
+export default (lexer: Lexer): Node | undefined => {
+  const { match, peek, eat } = lexer
+
+  if (!match('list.item.bullet')) return undefined
 
   let eolCount = 0
-  const { peek, next } = lexer
   const { collect } = utils(lexer)
 
   const parse = (list: Node): Node => {
     const token = peek()
     if (!token || eolCount > 1) return list
     if (token.type === 'newline') {
-      next()
+      eat()
       eolCount += 1
       return parse(list)
     }

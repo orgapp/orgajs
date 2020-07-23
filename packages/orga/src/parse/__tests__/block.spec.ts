@@ -9,6 +9,6 @@ const string = 'hello world'
 console.log(string)
 #+END_SRC
 `
-    debug(content)
+    // debug(content)
   })
 })

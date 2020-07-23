@@ -4,6 +4,6 @@ export interface ParseOptions {
 }
 
 export default {
-  todos: [`TODO`, `DONE`],
+  todos: ['TODO | DONE'],
   timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 }

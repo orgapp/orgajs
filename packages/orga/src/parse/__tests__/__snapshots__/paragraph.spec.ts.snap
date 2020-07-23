@@ -15,6 +15,7 @@ Object {
               "parent": Object {
                 "children": [Circular],
                 "data": Object {
+                  "actionable": false,
                   "level": 1,
                 },
                 "position": Object {
@@ -43,9 +44,13 @@ Object {
             },
             Object {
               "children": Array [],
+              "data": Object {
+                "actionable": false,
+              },
               "parent": Object {
                 "children": [Circular],
                 "data": Object {
+                  "actionable": false,
                   "level": 1,
                 },
                 "position": Object {
@@ -106,6 +111,7 @@ Object {
               "parent": Object {
                 "children": [Circular],
                 "data": Object {
+                  "actionable": false,
                   "level": 1,
                 },
                 "position": Object {
@@ -137,6 +143,7 @@ Object {
               "parent": Object {
                 "children": [Circular],
                 "data": Object {
+                  "actionable": false,
                   "level": 1,
                 },
                 "position": Object {
@@ -165,6 +172,7 @@ Object {
             },
           ],
           "data": Object {
+            "actionable": false,
             "level": 1,
           },
           "parent": Object {

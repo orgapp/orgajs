@@ -1,13 +1,15 @@
-import { Lexer } from '../tokenize'
 import { newNode, push, Node } from '../node'
+import { Parse } from './'
 
-export default ({ peek, eat }: Lexer): Node | null => {
+const parseParagraph: Parse = ({ peek, match, eat }) => {
   let eolCount = 0
 
-  const build = (p: Node): Node | null => {
+  if (!match(/^text\./)) return undefined
+
+  const build = (p: Node): Node | undefined => {
     const token = peek()
     if (!token || eolCount >= 2) {
-      if (p.children.length === 0) return null
+      if (p.children.length === 0) return undefined
       return p
     }
     if (token.type === 'newline') {
@@ -27,3 +29,5 @@ export default ({ peek, eat }: Lexer): Node | null => {
   return build(newNode('paragraph'))
 
 }
+
+export default parseParagraph

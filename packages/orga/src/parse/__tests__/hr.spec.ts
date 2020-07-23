@@ -8,6 +8,6 @@ some text here
 some other text here
 some more
 `
-    debug(content)
+    // debug(content)
   })
 })
