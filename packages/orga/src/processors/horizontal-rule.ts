@@ -1,10 +1,10 @@
-import Node from '../node'
+// import Node from '../node'
 
-function process(token, section) {
-  this.consume()
-  section.push(new Node(`horizontalRule`))
-  this._aks = {}
-  return this.parseSection(section)
-}
+// function process(token, section) {
+//   this.consume()
+//   section.push(new Node(`horizontalRule`))
+//   this._aks = {}
+//   return this.parseSection(section)
+// }
 
-module.exports = process
+// module.exports = process

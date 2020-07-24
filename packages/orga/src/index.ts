@@ -1,12 +1,15 @@
-import Parser from './parser'
 import { parse as parseTimestamp } from './timestamp'
+import { parse as _parse } from './parse'
+import { tokenize } from './tokenize'
+import { Node } from './node'
 
 import defaultOptions from './options'
 
-export const parse = (string: string, options = defaultOptions) => {
-  const parser = new Parser(options)
-  return parser.parse(string)
+export const parse = (text: string, options = defaultOptions): Node => {
+  return _parse(tokenize(text, options))
 }
 
-export { Parser }
-export { parseTimestamp }
+export {
+  parseTimestamp,
+  Node,
+}

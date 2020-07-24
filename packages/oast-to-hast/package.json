@@ -11,6 +11,7 @@
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/oast-to-hast",
   "dependencies": {
     "mime": "^2.4.4",
+    "orga": "^1.8.16",
     "prismjs": "^1.17.1",
     "unist-builder": "^1.0.4"
   },

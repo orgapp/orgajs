@@ -1,42 +1,55 @@
 import u from 'unist-builder'
+import { Node } from 'orga'
+import { getHandler } from './handlers'
+import { Context } from './'
 
-function unknown(h, node) {
-  if (text(node)) {
-    return u('text', node.value)
-  }
+// function unknown(h, node) {
+//   if (text(node)) {
+//     return u('text', node.value)
+//   }
 
-  return h(node, 'div', all(h, node))
-}
+//   return h(node, 'div', all(h, node))
+// }
 
-export function transform(h, node, parent?) {
-  const type = node && node.type
-  const fn = h.handlers.hasOwnProperty(type) ? h.handlers[type] : null
+// export const _transform({ node }) => {
+//   const
+// }
 
-  /* Fail on non-nodes. */
-  if (!type) {
-    throw new Error('Expected node, got `' + node + '`')
-  }
+// export function transform(h, node, parent?) {
+//   const type = node && node.type
+//   const fn = h.handlers.hasOwnProperty(type) ? h.handlers[type] : null
 
-  return (typeof fn === 'function' ? fn : unknown)(h, node, parent)
-}
+//   /* Fail on non-nodes. */
+//   if (!type) {
+//     throw new Error('Expected node, got `' + node + '`')
+//   }
 
-export function all(h, parent) {
-  const nodes = parent.children || []
-  const length = nodes.length
-  let values = []
-  let index = -1
-  let result
+//   return (typeof fn === 'function' ? fn : unknown)(h, node, parent)
+// }
 
-  while (++index < length) {
-    result = transform(h, nodes[index], parent)
+// export function all(h, parent) {
+//   const nodes = parent.children || []
+//   const length = nodes.length
+//   let values = []
+//   let index = -1
+//   let result
 
-    if (result) {
-      values = values.concat(result)
-    }
-  }
+//   while (++index < length) {
+//     result = transform(h, nodes[index], parent)
 
-  return values
-}
+//     if (result) {
+//       values = values.concat(result)
+//     }
+//   }
+
+//   return values
+// }
+
+// const unknown = (node: Node: context: Context): Element => {
+//   if (node.type === 'text') {
+//     return u('text', node.value)
+//   }
+// }
 
 function text(node) {
   const data = node.data || {}
@@ -48,4 +61,17 @@ function text(node) {
   }
 
   return 'value' in node
+}
+
+export const one = (node: Node, context: Context): Element => {
+  const handler = getHandler(node.type)
+  if (handler) {
+    return handler(node, context)
+  }
+  return u('text')
+}
+
+export const all = (node: Node, context: Context): Element[] => {
+  const nodes = node.children
+  return nodes.map(n => one(n, context))
 }

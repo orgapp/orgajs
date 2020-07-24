@@ -55,6 +55,8 @@ export const newNode = (type: string): Node => {
 const adjustPosition = (parent: Node) => (child: Node): void => {
   let dirty = false
 
+  if (!parent.position || !child.position) return
+
   const belowLowerBound = before(parent.position.start)
   const aboveUpperBound = after(parent.position.end)
 
