@@ -35,7 +35,7 @@ interface Literal extends UnistLiteral {
   value: string;
 }
 
-type Token =
+export type Token =
   | Keyword
   | Todo
   | SimpleToken
@@ -51,13 +51,13 @@ type Token =
   | FootnoteLabel
   | BlockBegin
   | DrawerBegin
-  | DrawerEnd
+  | BlockEnd
   | Comment
 
-type PhrasingContent =
+export type PhrasingContent =
   | StyledText | Link | Footnote
 
-interface StyledText extends Node {
+export interface StyledText extends Node {
   type:
     | 'text.plain'
     | 'text.bold'
@@ -72,22 +72,29 @@ interface SimpleToken extends Node {
   type:
     | 'newline'
     | 'hr'
-    | 'block.end'
-    | 'drawer.end'
 }
 
 interface Link extends Node {
   type: 'text.link';
+  uri: string;
+  description: string;
 }
 
 interface Footnote extends Node {
   type: 'text.footnote';
+  label: string;
 }
 
 // headline tokens
 interface Stars extends Node {
   type: 'stars';
   level: number;
+}
+
+interface Todo extends Node {
+  type: 'todo';
+  keyword: string;
+  actionable: boolean;
 }
 
 interface Priority extends Literal {
@@ -106,21 +113,18 @@ interface BlockBegin extends Node {
   params: string[];
 }
 
+interface BlockEnd extends Node {
+  type: 'block.end' | 'drawer.end';
+}
+
 // drawer tokens
 interface DrawerBegin extends Node {
   type: 'drawer.begin';
-}
-
-interface DrawerEnd extends Node {
-  type: 'drawer.end';
+  name: string;
 }
 
 interface Comment extends Literal {
   type: 'comment';
-}
-
-interface Todo extends Node {
-  type: 'todo';
 }
 
 interface Keyword extends Node {
@@ -130,7 +134,7 @@ interface Keyword extends Node {
 }
 
 interface FootnoteLabel extends Node {
-  type: 'footnote.label'
+  type: 'footnote.label';
 }
 
 interface PlanningKeyword extends Node {

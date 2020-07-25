@@ -41,9 +41,11 @@ export default ({ reader, todoKeywordSets }: Props) : Token[] => {
   skipWhitespaces()
   const keyword = eat(RegExp(`^${todos.map(escape).join('|')}(?=\\s)`))
   if (!isEmpty(keyword)) {
+    const value = substring(keyword)
     buffer.push({
       type: 'todo',
-      data: { actionable: isActionable(substring(keyword)) },
+      keyword: value,
+      actionable: isActionable(value),
       position: keyword,
     })
   }

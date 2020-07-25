@@ -1,7 +1,7 @@
 import { Point, Position } from 'unist';
 import { after } from '../position';
 import { Reader } from '../reader';
-import { Token, PhrasingContent } from '../types';
+import { Token, PhrasingContent, StyledText } from '../types';
 import uri from '../uri';
 
 
@@ -23,13 +23,6 @@ const shift = (point: Point, offset: Point) => {
   }
 }
 
-// const shiftRange = (range: Range, offset: number) => {
-//   return {
-//     start: range.start + offset,
-//     end: range.end + offset,
-//   }
-// }
-
 const shiftPosition = (position: Position, offset: Point) => {
   return {
     start: shift(position.start, offset),
@@ -43,21 +36,23 @@ interface Props {
   end?: Point;
 }
 
+
+
 export const tokenize = ({ reader, start, end } : Props): Token[] => {
   const { now, eol, match, jump } = reader
   const s = start || now()
   const e = end || eol()
 
-  let tokens: Token[] = [
+  let tokens: PhrasingContent[] = [
     { type: 'text.plain', position: { start: s, end: e } }
   ]
 
-  const parse = (
-    type: PhrasingContent['type'],
+  const parse = <T extends PhrasingContent>(
+    type: T['type'],
     pattern: RegExp,
-    content: Token[],
-    data: (captures: string[]) => any = () => undefined,
-  ): Token[] => {
+    content: PhrasingContent[],
+    build: (match: { captures: string[], position: Position }) => PhrasingContent,
+  ): PhrasingContent[] => {
 
     return content.reduce((all, token) => {
       if (token.type !== 'text.plain') return all.concat(token)
@@ -73,11 +68,7 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
         } })
       }
 
-      all.push({
-        type,
-        position: m.position,
-        data: data(m.captures),
-      })
+      all.push(build(m))
 
       if (after(m.position.end)(token.position.end)) {
         const rest = parse(type, pattern, [
@@ -87,29 +78,34 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
               start: m.position.end,
               end: token.position.end,
             }}
-        ])
+        ], build)
         all = all.concat(rest)
       }
 
       return all
-    }, [] as Token[])
+    }, [] as PhrasingContent[])
   }
 
-  tokens = parse('text.link', LINK_PATTERN, tokens, (captures) => ({
+  const parseText = (type: StyledText['type'], pattern: RegExp, content: PhrasingContent[]) =>
+    parse(type, pattern, content, ({ position }) => ({ type: 'text.bold', position }))
+
+  tokens = parse('text.link', LINK_PATTERN, tokens, ({ captures }) => ({
+    type: 'text.link',
     uri: uri(captures[1]),
     description: captures[2],
   }))
 
-  tokens = parse('text.footnote', FOOTNOTE_PATTERN, tokens, (captures) => ({
+  tokens = parse('text.footnote', FOOTNOTE_PATTERN, tokens, ({ captures }) => ({
+    type: 'text.footnote',
     label: captures[1],
   }))
 
-  tokens = parse('text.bold', markup('\\*'), tokens)
-  tokens = parse('text.verbatim', markup('='), tokens)
-  tokens = parse('text.italic', markup('/'), tokens)
-  tokens = parse('text.strikeThrough', markup('\\+'), tokens)
-  tokens = parse('text.underline', markup('_'), tokens)
-  tokens = parse('text.code', markup('~'), tokens)
+  tokens = parseText('text.bold', markup('\\*'), tokens)
+  tokens = parseText('text.verbatim', markup('='), tokens)
+  tokens = parseText('text.italic', markup('/'), tokens)
+  tokens = parseText('text.strikeThrough', markup('\\+'), tokens)
+  tokens = parseText('text.underline', markup('_'), tokens)
+  tokens = parseText('text.code', markup('~'), tokens)
 
   jump(e)
   return tokens
