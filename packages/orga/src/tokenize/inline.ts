@@ -1,6 +1,8 @@
-import uri from '../uri'
-import { map, after } from '../position'
-import { Reader } from '../reader'
+import { Point, Position } from 'unist';
+import { after } from '../position';
+import { Reader } from '../reader';
+import { Token } from '../types';
+import uri from '../uri';
 
 
 const LINK_PATTERN = /\[\[([^\]]*)\](?:\[([^\]]*)\])?\]/m; // \1 => link, \2 => text
@@ -21,12 +23,12 @@ const shift = (point: Point, offset: Point) => {
   }
 }
 
-const shiftRange = (range: Range, offset: number) => {
-  return {
-    start: range.start + offset,
-    end: range.end + offset,
-  }
-}
+// const shiftRange = (range: Range, offset: number) => {
+//   return {
+//     start: range.start + offset,
+//     end: range.end + offset,
+//   }
+// }
 
 const shiftPosition = (position: Position, offset: Point) => {
   return {
@@ -63,6 +65,9 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
       if (token.type !== DEFAULT_TOKEN_NAME) return all.concat(token)
       const m = match(pattern, token.position)
       if (!m) return all.concat(token)
+      if (!token.position || !m.position) {
+        throw Error('not gonna happen')
+      }
       if (after(token.position.start)(m.position.start)) {
         all.push({ type: DEFAULT_TOKEN_NAME, position: {
           start: token.position.start,

@@ -1,4 +1,5 @@
 import { after, before, isEmpty, map as locate } from './position'
+import { Parent, Token } from './types'
 // export default class Node {
 //   type: string
 //   children: Node[]
@@ -36,12 +37,8 @@ import { after, before, isEmpty, map as locate } from './position'
 //   }
 // }
 
-export interface Node extends Token {
-  children: Node[];
-  parent?: Node;
-}
 
-export const newNode = (type: string): Node => {
+export const newNode = (type: string): Parent => {
   return {
     type,
     position: {
@@ -52,7 +49,7 @@ export const newNode = (type: string): Node => {
   }
 }
 
-const adjustPosition = (parent: Node) => (child: Node): void => {
+const adjustPosition = (parent: Parent) => (child: Parent): void => {
   let dirty = false
 
   if (!parent.position || !child.position) return
@@ -76,15 +73,15 @@ const adjustPosition = (parent: Node) => (child: Node): void => {
   }
 }
 
-export const push = (p: Node) => (n: Token): Node => {
-  const node: Node = { children: [], ...n }
+export const push = (p: Parent) => (n: Token): Parent => {
+  const node: Parent = { children: [], ...n }
   adjustPosition(p)(node)
   node.parent = p
   p.children.push(node)
   return p
 }
 
-export const map = (transform: (node: Node) => any) => (tree: Node) => {
+export const map = (transform: (node: Parent) => any) => (tree: Parent) => {
   return {
     type: tree.type,
     ...transform(tree),
@@ -98,7 +95,7 @@ interface DumpContext {
   indent?: number;
 }
 
-export const dump = (text: string, indent: number = 0) => (tree: Node): string[] => {
+export const dump = (text: string, indent: number = 0) => (tree: Parent): string[] => {
   const { substring } = locate(text)
   const spaces = '  '.repeat(indent)
   const line = `${spaces}- ${tree.type}`
@@ -106,7 +103,7 @@ export const dump = (text: string, indent: number = 0) => (tree: Node): string[]
   return [line].concat(rest)
 }
 
-export const level = (node: Node): number => {
+export const level = (node: Parent): number => {
   let count = 0
   let parent = node.parent
   while (parent) {

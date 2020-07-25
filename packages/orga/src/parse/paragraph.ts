@@ -1,4 +1,5 @@
-import { newNode, push, Node } from '../node'
+import { newNode, push } from '../node'
+import { Parent } from '../types'
 import { Parse } from './'
 
 const parseParagraph: Parse = ({ peek, match, eat }) => {
@@ -6,7 +7,7 @@ const parseParagraph: Parse = ({ peek, match, eat }) => {
 
   if (!match(/^text\./)) return undefined
 
-  const build = (p: Node): Node | undefined => {
+  const build = (p: Parent): Parent | undefined => {
     const token = peek()
     if (!token || eolCount >= 2) {
       if (p.children.length === 0) return undefined

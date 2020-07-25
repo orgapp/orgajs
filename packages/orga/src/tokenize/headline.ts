@@ -1,7 +1,8 @@
-import { tokenize } from './inline'
-import { Reader } from '../reader'
 import { isEmpty } from '../position'
+import { Reader } from '../reader'
 import { TodoKeywordSet } from '../todo-keyword-set'
+import { Token } from '../types'
+import { tokenize } from './inline'
 
 interface Props {
   reader: Reader;

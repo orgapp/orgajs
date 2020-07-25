@@ -1,5 +1,5 @@
 import { Reader } from '../reader'
-import { isEmpty } from '../position'
+import { Token } from '../types'
 import { tokenize as tokenizeInline } from './inline'
 
 interface Props {

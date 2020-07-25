@@ -1,6 +1,8 @@
+import { Point } from 'unist'
 import { Reader } from '../reader'
 // import { inspect }  from 'util'
 import { parse as parseTimestamp } from '../timestamp'
+import { Token } from '../types'
 
 interface Props {
   reader: Reader;
@@ -27,6 +29,7 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
   const parseLastTimestamp = (end: number) => {
     if (all.length == 0) return
     const { type, position } = all[all.length - 1]
+    if (!position) throw Error(`position is ${position}`)
     if (type !== 'planning.keyword') return
     const endLocation = getLocation(end)
     const timestampPosition = { start: position.end, end: endLocation }

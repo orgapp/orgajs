@@ -1,3 +1,5 @@
+import { Point, Position } from 'unist'
+
 export const isEqual = (p1: Point, p2: Point) => {
   return p1.line === p2.line && p1.column === p2.column
 }
@@ -38,13 +40,13 @@ export const map = (text: string) => {
   //   }
   // }
 
-  const getLineRangeByLineNumber = (ln: number): Range | undefined => {
-    if (ln + 1 >= lines.length) return undefined
-    return {
-      start: lines[ln],
-      end: lines[ln + 1],
-    }
-  }
+  // const getLineRangeByLineNumber = (ln: number): Range | undefined => {
+  //   if (ln + 1 >= lines.length) return undefined
+  //   return {
+  //     start: lines[ln],
+  //     end: lines[ln + 1],
+  //   }
+  // }
 
   const isLastLine = (ln: number) => {
     return ln >= lines.length
@@ -137,7 +139,7 @@ export const map = (text: string) => {
   }
 
   return {
-    getLineRangeByLineNumber,
+    // getLineRangeByLineNumber,
     isLastLine,
     substring,
     endOfLine,

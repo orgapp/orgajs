@@ -1,7 +1,8 @@
+import { newNode, push } from '../node'
 import { Lexer } from '../tokenize'
-import { newNode, push, Node } from '../node'
+import { Parent } from '../types'
 
-export default (lexer: Lexer): Node | undefined => {
+export default (lexer: Lexer): Parent | undefined => {
 
   const { peek, eat } = lexer
 
@@ -15,7 +16,7 @@ export default (lexer: Lexer): Node | undefined => {
   a(n)
   eat()
 
-  const parse = (): Node | undefined => {
+  const parse = (): Parent | undefined => {
     const n = peek()
     if (!n || n.type === 'stars') return undefined
     a(n)

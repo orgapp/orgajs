@@ -1,9 +1,9 @@
+import { Point, Position } from 'unist'
 import { map } from './position'
 
 export const read = (text: string) => {
 
   const {
-    getLineRangeByLineNumber,
     shift,
     isLastLine,
     endOfLine,
@@ -67,19 +67,18 @@ export const read = (text: string) => {
     return index >= text.length - 1
   }
 
+  // const position = ({ offset, range }: { offset?: Point, range?: Range } = {}): Position => {
+  //   const firstLine = getLineRangeByLineNumber(0)
+  //   let ln = 0
+  //   while (getLineRangeByLineNumber(ln)) {
+  //     ln += 1
+  //   }
 
-  const position = ({ offset, range }: { offset?: Point, range?: Range } = {}): Position => {
-    const firstLine = getLineRangeByLineNumber(0)
-    let ln = 0
-    while (getLineRangeByLineNumber(ln)) {
-      ln += 1
-    }
-
-    return {
-      start: { line: 0, column: 0 },
-      end: { line: ln, column: 0 }
-    }
-  }
+  //   return {
+  //     start: { line: 0, column: 0 },
+  //     end: { line: ln, column: 0 }
+  //   }
+  // }
 
   const distance = ({ start, end }: Position) : number => {
     return toIndex(end) - toIndex(start)

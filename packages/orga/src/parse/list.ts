@@ -1,8 +1,9 @@
+import { newNode, push } from '../node'
 import { Lexer } from '../tokenize'
-import { newNode, push, Node } from '../node'
+import { Parent } from '../types'
 import utils from './utils'
 
-export default (lexer: Lexer): Node | undefined => {
+export default (lexer: Lexer): Parent | undefined => {
   const { match, peek, eat } = lexer
 
   if (!match('list.item.bullet')) return undefined
@@ -10,7 +11,7 @@ export default (lexer: Lexer): Node | undefined => {
   let eolCount = 0
   const { collect } = utils(lexer)
 
-  const parse = (list: Node): Node => {
+  const parse = (list: Parent): Parent => {
     const token = peek()
     if (!token || eolCount > 1) return list
     if (token.type === 'newline') {

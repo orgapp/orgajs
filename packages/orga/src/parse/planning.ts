@@ -1,11 +1,12 @@
+import { newNode, push } from '../node'
 import { Lexer } from '../tokenize'
-import { newNode, Node, push } from '../node'
+import { Parent } from '../types'
 
-export default (lexer: Lexer): Node[] => {
+export default (lexer: Lexer): Parent[] => {
 
   const { peek, eat } = lexer
 
-  const all: Node[] = []
+  const all: Parent[] = []
 
   const parse = (): void => {
     const token = peek()

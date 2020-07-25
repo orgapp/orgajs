@@ -1,21 +1,41 @@
-interface Range {
-  start: number;
-  end: number;
+import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist';
+
+interface Token extends Node {
 }
 
-interface Point {
-  line: number;
-  column: number;
+type Content =
+  | Section
+
+interface Parent extends UnistParent {
+  children: Parent[];
+  parent?: Parent;
 }
 
-interface Position {
-  start: Point;
-  end: Point;
+interface Document extends Parent {
+  type: 'document';
 }
 
-interface Token {
-  type: string;
-  position: Position;
-  data?: any;
+interface Section extends Parent {
+  type: 'section';
 }
 
+interface Headline extends Parent {
+  type: 'headline';
+  level: number;
+}
+
+interface Paragraph extends Parent {
+  type: 'paragraph';
+}
+
+interface Literal extends UnistLiteral {
+  value: string;
+}
+
+interface Text extends Literal {
+  type: 'text.plain';
+}
+
+interface Bold extends Literal {
+  type: 'text.bold';
+}
