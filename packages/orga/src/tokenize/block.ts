@@ -14,7 +14,8 @@ export default ({ reader }: Props) : Token[] => {
     const params = m.captures[2].split(' ').map(p => p.trim()).filter(String)
     return [{
       type: 'block.begin',
-      data: { type: m.captures[1], params },
+      params,
+      data: { type: m.captures[1] },
       position: m.position,
     }]
   }

@@ -1,7 +1,8 @@
+import { Parent } from 'orga'
+import { Node } from 'unist'
 import u from 'unist-builder'
-import { Node } from 'orga'
-import { getHandler } from './handlers'
 import { Context } from './'
+import { getHandler } from './handlers'
 
 // function unknown(h, node) {
 //   if (text(node)) {
@@ -71,7 +72,7 @@ export const one = (node: Node, context: Context): Element => {
   return u('text')
 }
 
-export const all = (node: Node, context: Context): Element[] => {
+export const all = (node: Parent, context: Context): Element[] => {
   const nodes = node.children
   return nodes.map(n => one(n, context))
 }

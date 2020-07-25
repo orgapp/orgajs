@@ -1,7 +1,7 @@
 import { Point, Position } from 'unist';
 import { after } from '../position';
 import { Reader } from '../reader';
-import { Token } from '../types';
+import { Token, PhrasingContent } from '../types';
 import uri from '../uri';
 
 
@@ -37,8 +37,6 @@ const shiftPosition = (position: Position, offset: Point) => {
   }
 }
 
-const DEFAULT_TOKEN_NAME = 'text.plain'
-
 interface Props {
   reader: Reader;
   start?: Point;
@@ -51,25 +49,25 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
   const e = end || eol()
 
   let tokens: Token[] = [
-    { type: DEFAULT_TOKEN_NAME, position: { start: s, end: e } }
+    { type: 'text.plain', position: { start: s, end: e } }
   ]
 
   const parse = (
-    type: string,
+    type: PhrasingContent['type'],
     pattern: RegExp,
     content: Token[],
     data: (captures: string[]) => any = () => undefined,
   ): Token[] => {
 
     return content.reduce((all, token) => {
-      if (token.type !== DEFAULT_TOKEN_NAME) return all.concat(token)
+      if (token.type !== 'text.plain') return all.concat(token)
       const m = match(pattern, token.position)
       if (!m) return all.concat(token)
       if (!token.position || !m.position) {
         throw Error('not gonna happen')
       }
       if (after(token.position.start)(m.position.start)) {
-        all.push({ type: DEFAULT_TOKEN_NAME, position: {
+        all.push({ type: 'text.plain', position: {
           start: token.position.start,
           end: m.position.start,
         } })
@@ -83,11 +81,12 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
 
       if (after(m.position.end)(token.position.end)) {
         const rest = parse(type, pattern, [
-          {type: DEFAULT_TOKEN_NAME,
-          position: {
-            start: m.position.end,
-            end: token.position.end,
-          }}
+          {
+            type: 'text.plain',
+            position: {
+              start: m.position.end,
+              end: token.position.end,
+            }}
         ])
         all = all.concat(rest)
       }

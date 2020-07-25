@@ -86,7 +86,8 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
         eat('line')
         return [{
           type: 'keyword',
-          data: { key: keyword.captures[1], value: keyword.captures[2] },
+          key: keyword.captures[1],
+          value: keyword.captures[2],
           position: keyword.position,
         }]
       }
@@ -101,7 +102,11 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
     if (l.startsWith('# ')) {
       const comment = eat(/^#\s.*$/)
       if (!isEmpty(comment)) {
-        return [ { type: 'comment', position: comment } ]
+        return [ {
+          type: 'comment',
+          position: comment,
+          value: '',
+        } ]
       }
     }
 

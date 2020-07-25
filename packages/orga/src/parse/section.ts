@@ -33,7 +33,7 @@ export default (lexer: Lexer) => (root: Parent): Parent => {
 
     // section
     if (token.type === 'stars') {
-      if (section.type === 'document' || token.data.level > level(section)) {
+      if (section.type === 'document' || token.level > level(section)) {
         const ns = newSection()
         push(section)(parse(ns))
         return parse(section)

@@ -1,4 +1,4 @@
-import { Node } from 'orga'
+import { Node } from 'unist'
 import document from './root'
 
 // import root from './root'

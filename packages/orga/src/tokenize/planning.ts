@@ -36,7 +36,7 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
     const value = substring(timestampPosition)
     all.push({
       type: 'planning.timestamp',
-      data: parseTimestamp(value, { timezone }),
+      timestamp: parseTimestamp(value, { timezone }),
       position: timestampPosition,
     })
   }
@@ -47,9 +47,7 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
 
     all.push({
       type: 'planning.keyword',
-      data: {
-        keyword: m[1],
-      },
+      keyword: m[1],
       position: {
         start: getLocation(m.index),
         end: getLocation(p.lastIndex),

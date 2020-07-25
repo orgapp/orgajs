@@ -1,5 +1,5 @@
+import { Node } from 'unist'
 import { one } from './transform'
-import { Node } from 'orga'
 
 export type Context = {
   excludeTags: string[];

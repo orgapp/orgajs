@@ -1,5 +1,6 @@
 import { after, before, isEmpty, map as locate } from './position'
 import { Parent, Token } from './types'
+import { Node } from 'unist'
 // export default class Node {
 //   type: string
 //   children: Node[]
@@ -73,7 +74,7 @@ const adjustPosition = (parent: Parent) => (child: Parent): void => {
   }
 }
 
-export const push = (p: Parent) => (n: Token): Parent => {
+export const push = (p: Parent) => (n: Node): Parent => {
   const node: Parent = { children: [], ...n }
   adjustPosition(p)(node)
   node.parent = p

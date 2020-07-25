@@ -18,7 +18,8 @@ export default ({ reader }: Props) : Token[] => {
   if (!bullet) return []
   tokens.push({
     type: 'list.item.bullet',
-    data: { indent, ordered: /^\d/.test(bullet.captures[1]) },
+    indent,
+    ordered: /^\d/.test(bullet.captures[1]),
     position: bullet.position,
   })
 
@@ -29,7 +30,7 @@ export default ({ reader }: Props) : Token[] => {
   if (checkbox) {
     tokens.push({
       type: 'list.item.checkbox',
-      data: { checked: checkbox.captures[1] !== ' ' },
+      checked: checkbox.captures[1] !== ' ',
       position: checkbox.position,
     })
     jump(checkbox.position.end)
@@ -41,6 +42,7 @@ export default ({ reader }: Props) : Token[] => {
   if (tagMark) {
     tokens.push({
       type: 'list.item.tag',
+      value: tagMark.captures[0],
       position: { start: now(), end: tagMark.position.start },
     })
     jump(tagMark.position.end)

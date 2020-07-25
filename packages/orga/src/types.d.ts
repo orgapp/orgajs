@@ -1,14 +1,16 @@
 import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist';
 
-interface Token extends Node {
-}
-
 type Content =
   | Section
 
-interface Parent extends UnistParent {
+export interface Parent extends UnistParent {
   children: Parent[];
   parent?: Parent;
+}
+
+interface Timestamp {
+  date: Date;
+  end?: Date;
 }
 
 interface Document extends Parent {
@@ -24,6 +26,7 @@ interface Headline extends Parent {
   level: number;
 }
 
+
 interface Paragraph extends Parent {
   type: 'paragraph';
 }
@@ -32,10 +35,125 @@ interface Literal extends UnistLiteral {
   value: string;
 }
 
-interface Text extends Literal {
-  type: 'text.plain';
+type Token =
+  | Keyword
+  | Todo
+  | SimpleToken
+  | Stars
+  | Priority
+  | Tags
+  | PlanningKeyword
+  | PlanningTimestamp
+  | ListItemTag
+  | ListItemCheckbox
+  | ListItemBullet
+  | PhrasingContent
+  | FootnoteLabel
+  | BlockBegin
+  | DrawerBegin
+  | DrawerEnd
+  | Comment
+
+type PhrasingContent =
+  | StyledText | Link | Footnote
+
+interface StyledText extends Node {
+  type:
+    | 'text.plain'
+    | 'text.bold'
+    | 'text.verbatim'
+    | 'text.italic'
+    | 'text.strikeThrough'
+    | 'text.underline'
+    | 'text.code'
 }
 
-interface Bold extends Literal {
-  type: 'text.bold';
+interface SimpleToken extends Node {
+  type:
+    | 'newline'
+    | 'hr'
+    | 'block.end'
+    | 'drawer.end'
+}
+
+interface Link extends Node {
+  type: 'text.link';
+}
+
+interface Footnote extends Node {
+  type: 'text.footnote';
+}
+
+// headline tokens
+interface Stars extends Node {
+  type: 'stars';
+  level: number;
+}
+
+interface Priority extends Literal {
+  type: 'priority';
+  value: string;
+}
+
+interface Tags extends Node {
+  type: 'tags';
+  tags: string[];
+}
+
+// block tokens
+interface BlockBegin extends Node {
+  type: 'block.begin';
+  params: string[];
+}
+
+// drawer tokens
+interface DrawerBegin extends Node {
+  type: 'drawer.begin';
+}
+
+interface DrawerEnd extends Node {
+  type: 'drawer.end';
+}
+
+interface Comment extends Literal {
+  type: 'comment';
+}
+
+interface Todo extends Node {
+  type: 'todo';
+}
+
+interface Keyword extends Node {
+  type: 'keyword';
+  key: string;
+  value: string;
+}
+
+interface FootnoteLabel extends Node {
+  type: 'footnote.label'
+}
+
+interface PlanningKeyword extends Node {
+  type: 'planning.keyword';
+  keyword: string;
+}
+
+interface PlanningTimestamp extends Node {
+  type: 'planning.timestamp';
+  timestamp: Timestamp;
+}
+
+interface ListItemTag extends Literal {
+  type: 'list.item.tag';
+}
+
+interface ListItemCheckbox extends Node {
+  type: 'list.item.checkbox';
+  checked: boolean;
+}
+
+interface ListItemBullet extends Node {
+  type: 'list.item.bullet';
+  ordered: boolean;
+  indent: number;
 }
