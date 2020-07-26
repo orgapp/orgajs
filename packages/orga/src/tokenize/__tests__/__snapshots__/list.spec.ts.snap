@@ -3,10 +3,8 @@
 exports[`tokenize list item knows list items 1`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": false,
-    },
+    "indent": 0,
+    "ordered": false,
     "position": Object {
       "end": Object {
         "column": 1,
@@ -38,10 +36,8 @@ Array [
 exports[`tokenize list item knows list items 2`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": false,
-    },
+    "indent": 0,
+    "ordered": false,
     "position": Object {
       "end": Object {
         "column": 1,
@@ -73,10 +69,8 @@ Array [
 exports[`tokenize list item knows list items 3`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": true,
-    },
+    "indent": 0,
+    "ordered": true,
     "position": Object {
       "end": Object {
         "column": 2,
@@ -108,10 +102,8 @@ Array [
 exports[`tokenize list item knows list items 4`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": true,
-    },
+    "indent": 0,
+    "ordered": true,
     "position": Object {
       "end": Object {
         "column": 3,
@@ -143,10 +135,8 @@ Array [
 exports[`tokenize list item knows list items 5`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": true,
-    },
+    "indent": 0,
+    "ordered": true,
     "position": Object {
       "end": Object {
         "column": 4,
@@ -178,10 +168,8 @@ Array [
 exports[`tokenize list item knows list items 6`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": false,
-    },
+    "indent": 0,
+    "ordered": false,
     "position": Object {
       "end": Object {
         "column": 1,
@@ -195,9 +183,7 @@ Array [
     "type": "list.item.bullet",
   },
   Object {
-    "data": Object {
-      "checked": true,
-    },
+    "checked": true,
     "position": Object {
       "end": Object {
         "column": 5,
@@ -229,10 +215,8 @@ Array [
 exports[`tokenize list item knows list items 7`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": false,
-    },
+    "indent": 0,
+    "ordered": false,
     "position": Object {
       "end": Object {
         "column": 1,
@@ -246,9 +230,7 @@ Array [
     "type": "list.item.bullet",
   },
   Object {
-    "data": Object {
-      "checked": true,
-    },
+    "checked": true,
     "position": Object {
       "end": Object {
         "column": 5,
@@ -280,10 +262,8 @@ Array [
 exports[`tokenize list item knows list items 8`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": false,
-    },
+    "indent": 0,
+    "ordered": false,
     "position": Object {
       "end": Object {
         "column": 1,
@@ -297,9 +277,7 @@ Array [
     "type": "list.item.bullet",
   },
   Object {
-    "data": Object {
-      "checked": true,
-    },
+    "checked": true,
     "position": Object {
       "end": Object {
         "column": 5,
@@ -331,10 +309,8 @@ Array [
 exports[`tokenize list item knows list items 9`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": false,
-    },
+    "indent": 0,
+    "ordered": false,
     "position": Object {
       "end": Object {
         "column": 1,
@@ -348,9 +324,7 @@ Array [
     "type": "list.item.bullet",
   },
   Object {
-    "data": Object {
-      "checked": false,
-    },
+    "checked": false,
     "position": Object {
       "end": Object {
         "column": 5,
@@ -382,10 +356,8 @@ Array [
 exports[`tokenize list item knows list items 10`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 2,
-      "ordered": false,
-    },
+    "indent": 2,
+    "ordered": false,
     "position": Object {
       "end": Object {
         "column": 3,
@@ -417,10 +389,8 @@ Array [
 exports[`tokenize list item knows list items 11`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": false,
-    },
+    "indent": 0,
+    "ordered": false,
     "position": Object {
       "end": Object {
         "column": 1,
@@ -445,6 +415,7 @@ Array [
       },
     },
     "type": "list.item.tag",
+    "value": " :: ",
   },
   Object {
     "position": Object {
@@ -465,10 +436,8 @@ Array [
 exports[`tokenize list item knows list items 12`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": false,
-    },
+    "indent": 0,
+    "ordered": false,
     "position": Object {
       "end": Object {
         "column": 1,
@@ -526,10 +495,8 @@ Array [
 exports[`tokenize list item knows list items 13`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": false,
-    },
+    "indent": 0,
+    "ordered": false,
     "position": Object {
       "end": Object {
         "column": 1,
@@ -543,9 +510,7 @@ Array [
     "type": "list.item.bullet",
   },
   Object {
-    "data": Object {
-      "checked": true,
-    },
+    "checked": true,
     "position": Object {
       "end": Object {
         "column": 5,
@@ -570,6 +535,7 @@ Array [
       },
     },
     "type": "list.item.tag",
+    "value": " :: ",
   },
   Object {
     "position": Object {

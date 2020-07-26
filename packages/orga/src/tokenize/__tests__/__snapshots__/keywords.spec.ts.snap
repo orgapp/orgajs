@@ -3,10 +3,7 @@
 exports[`tokenize keywords knows keywords 1`] = `
 Array [
   Object {
-    "data": Object {
-      "key": "KEY",
-      "value": "Value",
-    },
+    "key": "KEY",
     "position": Object {
       "end": Object {
         "column": 12,
@@ -18,6 +15,7 @@ Array [
       },
     },
     "type": "keyword",
+    "value": "Value",
   },
 ]
 `;
@@ -25,10 +23,7 @@ Array [
 exports[`tokenize keywords knows keywords 2`] = `
 Array [
   Object {
-    "data": Object {
-      "key": "KEY",
-      "value": "Another Value",
-    },
+    "key": "KEY",
     "position": Object {
       "end": Object {
         "column": 20,
@@ -40,6 +35,7 @@ Array [
       },
     },
     "type": "keyword",
+    "value": "Another Value",
   },
 ]
 `;
@@ -47,10 +43,7 @@ Array [
 exports[`tokenize keywords knows keywords 3`] = `
 Array [
   Object {
-    "data": Object {
-      "key": "KEY",
-      "value": "value : Value",
-    },
+    "key": "KEY",
     "position": Object {
       "end": Object {
         "column": 20,
@@ -62,6 +55,7 @@ Array [
       },
     },
     "type": "keyword",
+    "value": "value : Value",
   },
 ]
 `;

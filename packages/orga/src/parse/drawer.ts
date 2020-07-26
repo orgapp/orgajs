@@ -11,7 +11,7 @@ export default (lexer: Lexer): Parent | undefined => {
   if (!n || n.type !== 'drawer.begin') return undefined
 
   const drawer = newNode('drawer')
-  drawer.data = { type: n.data.type }
+  drawer.data = { name: n.name }
   const a = push(drawer)
   a(n)
   eat()

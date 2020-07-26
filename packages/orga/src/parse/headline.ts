@@ -1,14 +1,14 @@
 import { newNode, push } from '../node'
 import { Lexer } from '../tokenize'
-import { Parent } from '../types'
+import { Parent, Headline } from '../types'
 import utils from './utils'
 
-export default (lexer: Lexer): Parent => {
+export default (lexer: Lexer): Headline => {
 
   const { peek, eat } = lexer
   const { collect } = utils(lexer)
 
-  const parse = (headline: Parent): Parent => {
+  const parse = (headline: Headline): Headline => {
     const a = push(headline)
 
     const token = peek()
@@ -17,6 +17,10 @@ export default (lexer: Lexer): Parent => {
       push(headline)(token)
       eat()
       return headline
+    }
+
+    if (token.type === 'stars') {
+      headline.level = token.level
     }
 
     if (['stars', 'keyword', 'priority'].includes(token.type)) {
@@ -36,5 +40,5 @@ export default (lexer: Lexer): Parent => {
     return parse(headline)
   }
 
-  return parse(newNode('headline'))
+  return parse({ type: 'headline', children: [], level: -1 })
 }

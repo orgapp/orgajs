@@ -1,6 +1,6 @@
-import { level, newNode, push } from '../node'
+import { push, level } from '../node'
 import { Lexer } from '../tokenize'
-import { Parent } from '../types'
+import { Document, Section } from '../types'
 import parseBlock from './block'
 import parseDrawer from './drawer'
 import parseHeadline from './headline'
@@ -10,15 +10,18 @@ import parseParagraph from './paragraph'
 import parsePlanning from './planning'
 import utils from './utils'
 
-export default (lexer: Lexer) => (root: Parent): Parent => {
+export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
 
   const { peek, eat } = lexer
   const { tryTo } = utils(lexer)
 
-  const newSection = (): Parent => {
-    const section = newNode('section')
-    const h = parseHeadline(lexer)
-    push(section)(h)
+  const newSection = (): Section => {
+    const section: Section = {
+      type: 'section',
+      headline: parseHeadline(lexer),
+      children: [],
+    }
+    push(section)(section.headline)
     const plannings = parsePlanning(lexer)
     plannings.forEach(push(section))
 
@@ -26,7 +29,7 @@ export default (lexer: Lexer) => (root: Parent): Parent => {
     return section
   }
 
-  const parse = (section: Parent): Parent => {
+  const parse = <T extends Document | Section>(section: T): T => {
 
     const token = peek()
     if (!token) return section

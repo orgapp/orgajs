@@ -13,7 +13,7 @@ export default ({ reader }: Props) : Token[] => {
   if (!m) return []
   tokens.push({
     type: 'footnote.label',
-    data: { label: m.captures[1] },
+    label: m.captures[1],
     position: m.position,
   })
   jump(m.position.end)

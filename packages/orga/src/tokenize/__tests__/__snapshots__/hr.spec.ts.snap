@@ -147,10 +147,8 @@ Array [
 exports[`tokenize hr knows these are not horizontal rules 2`] = `
 Array [
   Object {
-    "data": Object {
-      "indent": 0,
-      "ordered": false,
-    },
+    "indent": 0,
+    "ordered": false,
     "position": Object {
       "end": Object {
         "column": 1,

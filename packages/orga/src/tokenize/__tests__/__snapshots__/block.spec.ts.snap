@@ -4,11 +4,11 @@ exports[`tokenize block knows block begins 1`] = `
 Array [
   Object {
     "data": Object {
-      "params": Array [
-        "swift",
-      ],
       "type": "SRC",
     },
+    "params": Array [
+      "swift",
+    ],
     "position": Object {
       "end": Object {
         "column": 17,
@@ -28,11 +28,11 @@ exports[`tokenize block knows block begins 2`] = `
 Array [
   Object {
     "data": Object {
-      "params": Array [
-        "swift",
-      ],
       "type": "src",
     },
+    "params": Array [
+      "swift",
+    ],
     "position": Object {
       "end": Object {
         "column": 17,
@@ -52,9 +52,9 @@ exports[`tokenize block knows block begins 3`] = `
 Array [
   Object {
     "data": Object {
-      "params": Array [],
       "type": "example",
     },
+    "params": Array [],
     "position": Object {
       "end": Object {
         "column": 15,
@@ -74,9 +74,9 @@ exports[`tokenize block knows block begins 4`] = `
 Array [
   Object {
     "data": Object {
-      "params": Array [],
       "type": "ex😀mple",
     },
+    "params": Array [],
     "position": Object {
       "end": Object {
         "column": 16,
@@ -96,13 +96,13 @@ exports[`tokenize block knows block begins 5`] = `
 Array [
   Object {
     "data": Object {
-      "params": Array [
-        "swift",
-        ":tangle",
-        "code.swift",
-      ],
       "type": "src",
     },
+    "params": Array [
+      "swift",
+      ":tangle",
+      "code.swift",
+    ],
     "position": Object {
       "end": Object {
         "column": 36,

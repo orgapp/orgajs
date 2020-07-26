@@ -11,8 +11,9 @@ export default (text: string) => {
   const lexer = tokenize(text)
   const tree = parse(lexer)
   const data = map(node => ({
-    raw: substring(node.position),
+    // raw: substring(node.position),
     data: node.data,
+    position: node.position,
   }))(tree)
 
   const lines = [

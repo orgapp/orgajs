@@ -6,6 +6,7 @@ Array [
     "data": Object {
       "level": 2,
     },
+    "level": 2,
     "position": Object {
       "end": Object {
         "column": 2,
@@ -40,6 +41,7 @@ Array [
     "data": Object {
       "level": 2,
     },
+    "level": 2,
     "position": Object {
       "end": Object {
         "column": 2,
@@ -53,7 +55,6 @@ Array [
     "type": "stars",
   },
   Object {
-    "data": undefined,
     "position": Object {
       "end": Object {
         "column": 13,
@@ -75,6 +76,7 @@ Array [
     "data": Object {
       "level": 2,
     },
+    "level": 2,
     "position": Object {
       "end": Object {
         "column": 2,
@@ -109,6 +111,7 @@ Array [
     "data": Object {
       "level": 5,
     },
+    "level": 5,
     "position": Object {
       "end": Object {
         "column": 5,
@@ -143,6 +146,7 @@ Array [
     "data": Object {
       "level": 1,
     },
+    "level": 1,
     "position": Object {
       "end": Object {
         "column": 1,
@@ -177,6 +181,7 @@ Array [
     "data": Object {
       "level": 1,
     },
+    "level": 1,
     "position": Object {
       "end": Object {
         "column": 1,
@@ -190,9 +195,8 @@ Array [
     "type": "stars",
   },
   Object {
-    "data": Object {
-      "actionable": true,
-    },
+    "actionable": true,
+    "keyword": "TODO",
     "position": Object {
       "end": Object {
         "column": 6,
@@ -203,7 +207,7 @@ Array [
         "line": 0,
       },
     },
-    "type": "keyword",
+    "type": "todo",
   },
   Object {
     "position": Object {
@@ -217,6 +221,7 @@ Array [
       },
     },
     "type": "priority",
+    "value": "[#A]",
   },
   Object {
     "position": Object {
@@ -242,6 +247,12 @@ Array [
         "line": 0,
       },
     },
+    "tags": Array [
+      "",
+      "tag1",
+      "tag2",
+      "",
+    ],
     "type": "tags",
   },
 ]
@@ -286,7 +297,6 @@ Array [
 exports[`tokenize headline knows these are not headlines 3`] = `
 Array [
   Object {
-    "data": undefined,
     "position": Object {
       "end": Object {
         "column": 3,

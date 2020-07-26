@@ -87,17 +87,19 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
   }
 
   const parseText = (type: StyledText['type'], pattern: RegExp, content: PhrasingContent[]) =>
-    parse(type, pattern, content, ({ position }) => ({ type: 'text.bold', position }))
+    parse(type, pattern, content, ({ position }) => ({ type, position }))
 
-  tokens = parse('text.link', LINK_PATTERN, tokens, ({ captures }) => ({
+  tokens = parse('text.link', LINK_PATTERN, tokens, ({ position, captures }) => ({
     type: 'text.link',
     uri: uri(captures[1]),
     description: captures[2],
+    position,
   }))
 
-  tokens = parse('text.footnote', FOOTNOTE_PATTERN, tokens, ({ captures }) => ({
+  tokens = parse('text.footnote', FOOTNOTE_PATTERN, tokens, ({ position, captures }) => ({
     type: 'text.footnote',
     label: captures[1],
+    position,
   }))
 
   tokens = parseText('text.bold', markup('\\*'), tokens)

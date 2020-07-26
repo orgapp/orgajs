@@ -43,7 +43,7 @@ some other content
 
     const tree = parse(lexer)
 
-    expect(tree).toMatchSnapshot()
-    // debug(content)
+    // expect(tree).toMatchSnapshot()
+    debug(content)
   })
 })

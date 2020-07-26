@@ -8,7 +8,7 @@ export default (text: string): void => {
   const tokens = tokenize(text).all()
   const data = tokens.map(token => ({
     ...token,
-    _content: substring(token.position)
+    // _content: substring(token.position)
   }))
 
   const lines = [

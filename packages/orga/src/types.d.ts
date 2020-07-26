@@ -13,22 +13,30 @@ interface Timestamp {
   end?: Date;
 }
 
-interface Document extends Parent {
+export interface Document extends Parent {
   type: 'document';
 }
 
-interface Section extends Parent {
+export interface Section extends Parent {
   type: 'section';
+  headline: Headline;
 }
 
-interface Headline extends Parent {
+export interface Headline extends Parent {
   type: 'headline';
   level: number;
+  todo?: {
+    keyword: string;
+    actionable: boolean;
+  };
+  priority?: string;
+  tags?: string[];
 }
 
 
-interface Paragraph extends Parent {
+export interface Paragraph extends Parent {
   type: 'paragraph';
+  children: PhrasingContent[];
 }
 
 interface Literal extends UnistLiteral {
@@ -135,6 +143,7 @@ interface Keyword extends Node {
 
 interface FootnoteLabel extends Node {
   type: 'footnote.label';
+  label: string;
 }
 
 interface PlanningKeyword extends Node {

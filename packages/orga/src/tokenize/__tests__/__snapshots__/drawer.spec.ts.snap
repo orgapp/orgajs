@@ -3,9 +3,7 @@
 exports[`tokenize drawer knows drawer begins 1`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "PROPERTIES",
-    },
+    "name": "PROPERTIES",
     "position": Object {
       "end": Object {
         "column": 12,
@@ -24,9 +22,7 @@ Array [
 exports[`tokenize drawer knows drawer begins 2`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "properties",
-    },
+    "name": "properties",
     "position": Object {
       "end": Object {
         "column": 14,
@@ -45,9 +41,7 @@ Array [
 exports[`tokenize drawer knows drawer begins 3`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "properties",
-    },
+    "name": "properties",
     "position": Object {
       "end": Object {
         "column": 14,
@@ -66,9 +60,7 @@ Array [
 exports[`tokenize drawer knows drawer begins 4`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "prop_erties",
-    },
+    "name": "prop_erties",
     "position": Object {
       "end": Object {
         "column": 15,
@@ -87,7 +79,6 @@ Array [
 exports[`tokenize drawer knows drawer ends 1`] = `
 Array [
   Object {
-    "data": Object {},
     "position": Object {
       "end": Object {
         "column": 5,
@@ -106,7 +97,6 @@ Array [
 exports[`tokenize drawer knows drawer ends 2`] = `
 Array [
   Object {
-    "data": Object {},
     "position": Object {
       "end": Object {
         "column": 7,
@@ -125,7 +115,6 @@ Array [
 exports[`tokenize drawer knows drawer ends 3`] = `
 Array [
   Object {
-    "data": Object {},
     "position": Object {
       "end": Object {
         "column": 7,
@@ -144,7 +133,6 @@ Array [
 exports[`tokenize drawer knows drawer ends 4`] = `
 Array [
   Object {
-    "data": Object {},
     "position": Object {
       "end": Object {
         "column": 7,

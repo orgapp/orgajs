@@ -3,9 +3,7 @@
 exports[`tokenize footnote knows footnotes 1`] = `
 Array [
   Object {
-    "data": Object {
-      "label": "1",
-    },
+    "label": "1",
     "position": Object {
       "end": Object {
         "column": 6,
@@ -37,9 +35,7 @@ Array [
 exports[`tokenize footnote knows footnotes 2`] = `
 Array [
   Object {
-    "data": Object {
-      "label": "word",
-    },
+    "label": "word",
     "position": Object {
       "end": Object {
         "column": 9,
@@ -71,9 +67,7 @@ Array [
 exports[`tokenize footnote knows footnotes 3`] = `
 Array [
   Object {
-    "data": Object {
-      "label": "word_",
-    },
+    "label": "word_",
     "position": Object {
       "end": Object {
         "column": 10,
@@ -105,9 +99,7 @@ Array [
 exports[`tokenize footnote knows footnotes 4`] = `
 Array [
   Object {
-    "data": Object {
-      "label": "wor1d_",
-    },
+    "label": "wor1d_",
     "position": Object {
       "end": Object {
         "column": 11,
@@ -139,9 +131,7 @@ Array [
 exports[`tokenize footnote knows these are not footnotes 1`] = `
 Array [
   Object {
-    "data": Object {
-      "label": "1",
-    },
+    "label": "1",
     "position": Object {
       "end": Object {
         "column": 6,
@@ -173,9 +163,7 @@ Array [
 exports[`tokenize footnote knows these are not footnotes 2`] = `
 Array [
   Object {
-    "data": Object {
-      "label": "1",
-    },
+    "label": "1",
     "position": Object {
       "end": Object {
         "column": 7,
@@ -220,9 +208,7 @@ Array [
     "type": "text.plain",
   },
   Object {
-    "data": Object {
-      "label": "1",
-    },
+    "label": "1",
     "position": Object {
       "end": Object {
         "column": 7,
@@ -254,9 +240,7 @@ Array [
 exports[`tokenize footnote knows these are not footnotes 4`] = `
 Array [
   Object {
-    "data": Object {
-      "label": "1",
-    },
+    "label": "1",
     "position": Object {
       "end": Object {
         "column": 7,
