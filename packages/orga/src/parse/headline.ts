@@ -1,6 +1,7 @@
 import { newNode, push } from '../node'
 import { Lexer } from '../tokenize'
-import { Parent, Headline } from '../types'
+import { Headline } from '../types'
+import { isPhrasingContent } from '../utils'
 import utils from './utils'
 
 export default (lexer: Lexer): Headline => {
@@ -30,7 +31,7 @@ export default (lexer: Lexer): Headline => {
       return parse(headline)
     }
 
-    const content = collect(t => !t.type.startsWith('text.'))(newNode('content'))
+    const content = collect(isPhrasingContent)(newNode('content'))
     if (content.children.length > 0) {
       a(content)
       return parse(headline)

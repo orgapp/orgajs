@@ -12,12 +12,6 @@ export default ({ reader }: Props) : Token[] => {
   if (m) {
     eat('line')
     const name = m.captures[1]
-    let data = {}
-    if (name.toLowerCase() !== 'end') {
-      data = {
-        type: name
-      }
-    }
 
     if (name.toLowerCase() === 'end') {
       return [{

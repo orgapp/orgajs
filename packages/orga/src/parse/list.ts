@@ -1,17 +1,25 @@
-import { newNode, push } from '../node'
+import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { Parent } from '../types'
+import { List, ListItemBullet } from '../types'
 import utils from './utils'
 
-export default (lexer: Lexer): Parent | undefined => {
-  const { match, peek, eat } = lexer
+export default (lexer: Lexer): List | undefined => {
+  const { peek, eat } = lexer
 
-  if (!match('list.item.bullet')) return undefined
+  const token = peek()
+  if (!token || token.type !== 'list.item.bullet') return undefined
 
   let eolCount = 0
   const { collect } = utils(lexer)
 
-  const parse = (list: Parent): Parent => {
+  const newList = (token: ListItemBullet): List => ({
+    type: 'list',
+    indent: token.indent,
+    ordered: token.ordered,
+    children: [],
+  })
+
+  const parse = (list: List): List => {
     const token = peek()
     if (!token || eolCount > 1) return list
     if (token.type === 'newline') {
@@ -23,23 +31,22 @@ export default (lexer: Lexer): Parent | undefined => {
     eolCount = 0
 
     if (token.type === 'list.item.bullet') {
-      if (!list.data) {
-        list.data = token.data
-      } else if (list.data.indent > token.data.indent) {
+      if (list.indent > token.indent) {
         return list
-      } else if (list.data.indent < token.data.indent) {
-        push(list)(parse(newNode('list')))
+      } else if (list.indent < token.indent) {
+        push(list)(parse(newList(token)))
       } else {
-        const li = collect(t => t.type === 'newline')(newNode('list.item'))
+        const li = collect(t => t.type === 'newline')({
+          type: 'list.item',
+          children: [],
+        })
         push(list)(li)
       }
     }
 
     return parse(list)
-
-    // push(list)(li)
   }
 
-  return parse(newNode('list'))
+  return parse(newList(token))
 
 }

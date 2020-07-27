@@ -142,7 +142,7 @@ Array [
         "line": 0,
       },
     },
-    "type": "text.footnote",
+    "type": "footnote.reference",
   },
   Object {
     "position": Object {
@@ -174,7 +174,7 @@ Array [
         "line": 0,
       },
     },
-    "type": "text.footnote",
+    "type": "footnote.reference",
   },
   Object {
     "position": Object {
@@ -219,7 +219,7 @@ Array [
         "line": 0,
       },
     },
-    "type": "text.footnote",
+    "type": "footnote.reference",
   },
   Object {
     "position": Object {
@@ -251,7 +251,7 @@ Array [
         "line": 0,
       },
     },
-    "type": "text.footnote",
+    "type": "footnote.reference",
   },
   Object {
     "position": Object {

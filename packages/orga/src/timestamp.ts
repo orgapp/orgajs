@@ -1,7 +1,8 @@
-const { DateTime } = require('luxon')
-const XRegExp = require('xregexp');
+import { DateTime } from 'luxon'
+import XRegExp from 'xregexp'
+import { Timestamp } from './types'
 
-namespace Timestamp {
+const _timestampPattern = () => {
   const date = `\\d{4}-\\d{2}-\\d{2}`
   const time = `\\d{2}:\\d{2}`
   const day = `[a-zA-Z]+`
@@ -17,24 +18,27 @@ ${open}\
 ${close}\
 `
 
-  export const full = `^\\s*\
+  const pattern = `^\\s*\
 (${single('begin')})\
 (?:--${single('end')})?\
 \\s*$\
 `
+
+  return pattern
 }
 
-export const pattern = Timestamp.full
+const pattern = _timestampPattern()
 
-export const parse = (
-  input,
+
+const parse = (
+  input: string,
   { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone } = {},
-) => {
+): Timestamp | undefined => {
   let m = input
   if (typeof input === 'string') {
-    m = XRegExp(Timestamp.full, 'i').exec(m)
+    m = XRegExp(pattern, 'i').exec(m)
   }
-  if (!m) return null
+  if (!m) return undefined
 
   const beginDate = m[2];
   const beginTimeBegin = m[3];
@@ -62,4 +66,9 @@ export const parse = (
   }
 
   return { date, end }
+}
+
+export {
+  parse,
+  pattern,
 }

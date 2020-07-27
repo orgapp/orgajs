@@ -68,6 +68,7 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
         } })
       }
 
+
       all.push(build(m))
 
       if (after(m.position.end)(token.position.end)) {
@@ -89,15 +90,15 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
   const parseText = (type: StyledText['type'], pattern: RegExp, content: PhrasingContent[]) =>
     parse(type, pattern, content, ({ position }) => ({ type, position }))
 
-  tokens = parse('text.link', LINK_PATTERN, tokens, ({ position, captures }) => ({
-    type: 'text.link',
+  tokens = parse('link', LINK_PATTERN, tokens, ({ position, captures }) => ({
+    type: 'link',
     uri: uri(captures[1]),
     description: captures[2],
     position,
   }))
 
-  tokens = parse('text.footnote', FOOTNOTE_PATTERN, tokens, ({ position, captures }) => ({
-    type: 'text.footnote',
+  tokens = parse('footnote.reference', FOOTNOTE_PATTERN, tokens, ({ position, captures }) => ({
+    type: 'footnote.reference',
     label: captures[1],
     position,
   }))

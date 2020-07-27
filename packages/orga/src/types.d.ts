@@ -2,13 +2,16 @@ import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist';
 
 type Content =
   | Section
+  | Paragraph
+  | Block
+  | List
 
 export interface Parent extends UnistParent {
   children: Parent[];
   parent?: Parent;
 }
 
-interface Timestamp {
+export interface Timestamp {
   date: Date;
   end?: Date;
 }
@@ -20,6 +23,27 @@ export interface Document extends Parent {
 export interface Section extends Parent {
   type: 'section';
   headline: Headline;
+}
+
+export interface Footnote extends Parent {
+  type: 'footnote';
+  label: string;
+}
+
+export interface Block extends Parent {
+  type: 'block';
+  params: string[];
+}
+
+export interface List extends Parent {
+  type: 'list';
+  indent: number;
+  ordered: boolean;
+}
+
+export interface ListItem extends Parent {
+  type: 'list.item';
+  indent: number;
 }
 
 export interface Headline extends Parent {
@@ -63,7 +87,7 @@ export type Token =
   | Comment
 
 export type PhrasingContent =
-  | StyledText | Link | Footnote
+  | StyledText | Link | FootnoteReference
 
 export interface StyledText extends Node {
   type:
@@ -83,13 +107,13 @@ interface SimpleToken extends Node {
 }
 
 interface Link extends Node {
-  type: 'text.link';
+  type: 'link';
   uri: string;
   description: string;
 }
 
-interface Footnote extends Node {
-  type: 'text.footnote';
+interface FootnoteReference extends Node {
+  type: 'footnote.reference';
   label: string;
 }
 
@@ -165,7 +189,7 @@ interface ListItemCheckbox extends Node {
   checked: boolean;
 }
 
-interface ListItemBullet extends Node {
+export interface ListItemBullet extends Node {
   type: 'list.item.bullet';
   ordered: boolean;
   indent: number;

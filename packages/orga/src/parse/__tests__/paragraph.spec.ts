@@ -29,14 +29,7 @@ describe('Parse Paragraph', () => {
 // `
 
     const content = `
-* DONE level1 headline :tag1:tag2:
-
-[[https://github.com/xiaoxinghu/orgajs][Here's]] some content
-hello world
-
-another paragraph here
-** level 2 headline
-some other content
+[[https://github.com/xiaoxinghu/orgajs][Here's]] some /content/ hello world.
 `
     // const thing = parse(tokenize(content))
     const lexer = tokenize(content)
@@ -44,6 +37,6 @@ some other content
     const tree = parse(lexer)
 
     // expect(tree).toMatchSnapshot()
-    debug(content)
+    // debug(content)
   })
 })

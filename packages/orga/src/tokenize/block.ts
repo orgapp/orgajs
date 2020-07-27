@@ -15,7 +15,6 @@ export default ({ reader }: Props) : Token[] => {
     return [{
       type: 'block.begin',
       params,
-      data: { type: m.captures[1] },
       position: m.position,
     }]
   }
@@ -25,7 +24,6 @@ export default ({ reader }: Props) : Token[] => {
     eat('line')
     return [{
       type: 'block.end',
-      data: { type: m.captures[1] },
       position: m.position,
     }]
   }

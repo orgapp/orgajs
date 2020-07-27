@@ -9,6 +9,6 @@ describe('Parse List', () => {
 - vegetable
 - soup
 `
-    // debug(content)
+    debug(content)
   })
 })

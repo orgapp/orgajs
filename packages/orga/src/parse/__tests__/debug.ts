@@ -10,11 +10,13 @@ export default (text: string) => {
 
   const lexer = tokenize(text)
   const tree = parse(lexer)
-  const data = map(node => ({
-    // raw: substring(node.position),
-    data: node.data,
-    position: node.position,
-  }))(tree)
+  const data = map(node => {
+    const { parent, ...rest } = node
+    return {
+      raw: substring(node.position),
+      ...rest,
+    }
+  })(tree)
 
   const lines = [
     chalk.red('** DEBUG **'),

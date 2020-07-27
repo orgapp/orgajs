@@ -3,9 +3,6 @@
 exports[`tokenize block knows block begins 1`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "SRC",
-    },
     "params": Array [
       "swift",
     ],
@@ -27,9 +24,6 @@ Array [
 exports[`tokenize block knows block begins 2`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "src",
-    },
     "params": Array [
       "swift",
     ],
@@ -51,9 +45,6 @@ Array [
 exports[`tokenize block knows block begins 3`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "example",
-    },
     "params": Array [],
     "position": Object {
       "end": Object {
@@ -73,9 +64,6 @@ Array [
 exports[`tokenize block knows block begins 4`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "ex😀mple",
-    },
     "params": Array [],
     "position": Object {
       "end": Object {
@@ -95,9 +83,6 @@ Array [
 exports[`tokenize block knows block begins 5`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "src",
-    },
     "params": Array [
       "swift",
       ":tangle",
@@ -121,9 +106,6 @@ Array [
 exports[`tokenize block knows block ends 1`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "SRC",
-    },
     "position": Object {
       "end": Object {
         "column": 9,
@@ -142,9 +124,6 @@ Array [
 exports[`tokenize block knows block ends 2`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "SRC",
-    },
     "position": Object {
       "end": Object {
         "column": 11,
@@ -163,9 +142,6 @@ Array [
 exports[`tokenize block knows block ends 3`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "src",
-    },
     "position": Object {
       "end": Object {
         "column": 9,
@@ -184,9 +160,6 @@ Array [
 exports[`tokenize block knows block ends 4`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "SRC",
-    },
     "position": Object {
       "end": Object {
         "column": 9,
@@ -205,9 +178,6 @@ Array [
 exports[`tokenize block knows block ends 5`] = `
 Array [
   Object {
-    "data": Object {
-      "type": "S😀RC",
-    },
     "position": Object {
       "end": Object {
         "column": 11,

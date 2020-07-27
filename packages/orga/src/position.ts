@@ -19,7 +19,7 @@ export const before = (p1: Point) => (p2: Point) => {
 }
 
 export const isEmpty = (position: Position) => {
-  return isEqual(position.start, position.end)
+  return !position || isEqual(position.start, position.end)
 }
 
 export const map = (text: string) => {
