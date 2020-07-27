@@ -1,17 +1,17 @@
-import { newNode, push } from '../node'
+import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { Parent } from '../types'
+import { Planning } from '../types'
 
-export default (lexer: Lexer): Parent[] => {
+export default (lexer: Lexer): Planning[] => {
 
   const { peek, eat } = lexer
 
-  const all: Parent[] = []
+  const all: Planning[] = []
 
   const parse = (): void => {
     const token = peek()
     if (!token || token.type !== 'planning.keyword') return
-    const planning = newNode('planning')
+    const planning: Planning = { type: 'planning', children: [] }
     const collect = push(planning)
     collect(token)
     eat()

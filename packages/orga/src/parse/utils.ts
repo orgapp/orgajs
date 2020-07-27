@@ -1,7 +1,7 @@
+import { Node } from 'unist'
 import { push } from '../node'
 import { Lexer } from '../tokenize'
 import { Parent, Token } from '../types'
-import { Parse } from './'
 
 export default (lexer: Lexer) => {
   const { peek, eat, save, restore } = lexer
@@ -23,14 +23,17 @@ export default (lexer: Lexer) => {
     return
   }
 
-  const tryTo = (parse: Parse) => (section: Parent): boolean => {
+  const tryTo = <T extends Node>(
+    parse: (lexer: Lexer) => T | undefined,
+    action: (node: T) => void,
+  ): boolean => {
     const savePoint = save()
     const node = parse(lexer)
     if (!node) {
       restore(savePoint)
       return false
     }
-    push(section)(node)
+    action(node)
     return true
   }
 

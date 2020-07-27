@@ -1,7 +1,7 @@
 import { Lexer } from '../tokenize'
-import { Parent } from '../types'
+import { Keyword } from '../types'
 
-export default (lexer: Lexer): Parent | undefined => {
+export default (lexer: Lexer): Keyword | undefined => {
 
   const { peek, eat, addInBufferTodoKeywords } = lexer
 

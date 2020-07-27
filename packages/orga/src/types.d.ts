@@ -1,13 +1,7 @@
 import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist';
 
-type Content =
-  | Section
-  | Paragraph
-  | Block
-  | List
-
+// ---- Basic Types ----
 export interface Parent extends UnistParent {
-  children: Parent[];
   parent?: Parent;
 }
 
@@ -16,14 +10,30 @@ export interface Timestamp {
   end?: Date;
 }
 
+// ---- Syntax Tree Nodes ----
 export interface Document extends Parent {
   type: 'document';
+  children: TopLevelContent[];
 }
 
 export interface Section extends Parent {
   type: 'section';
   headline: Headline;
+  children: Content[];
 }
+
+type TopLevelContent =
+  | Content | keyword | Footnote
+
+type Content =
+  | Section
+  | Paragraph
+  | Block
+  | Drawer
+  | Planning
+  | List
+  | HorizontalRule
+  | Headline
 
 export interface Footnote extends Parent {
   type: 'footnote';
@@ -33,6 +43,15 @@ export interface Footnote extends Parent {
 export interface Block extends Parent {
   type: 'block';
   params: string[];
+}
+
+export interface Drawer extends Parent {
+  type: 'drawer';
+  name: string;
+}
+
+export interface Planning extends Parent {
+  type: 'planning';
 }
 
 export interface List extends Parent {
@@ -67,10 +86,12 @@ interface Literal extends UnistLiteral {
   value: string;
 }
 
+// ---- Tokens ----
 export type Token =
   | Keyword
   | Todo
-  | SimpleToken
+  | Newline
+  | HorizontalRule
   | Stars
   | Priority
   | Tags
@@ -89,6 +110,14 @@ export type Token =
 export type PhrasingContent =
   | StyledText | Link | FootnoteReference
 
+interface HorizontalRule extends Node {
+  type: 'hr'
+}
+
+interface Newline extends Node {
+  type: 'newline'
+}
+
 export interface StyledText extends Node {
   type:
     | 'text.plain'
@@ -98,12 +127,6 @@ export interface StyledText extends Node {
     | 'text.strikeThrough'
     | 'text.underline'
     | 'text.code'
-}
-
-interface SimpleToken extends Node {
-  type:
-    | 'newline'
-    | 'hr'
 }
 
 interface Link extends Node {
@@ -159,7 +182,7 @@ interface Comment extends Literal {
   type: 'comment';
 }
 
-interface Keyword extends Node {
+export interface Keyword extends Node {
   type: 'keyword';
   key: string;
   value: string;

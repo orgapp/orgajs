@@ -25,7 +25,7 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
     const plannings = parsePlanning(lexer)
     plannings.forEach(push(section))
 
-    while (tryTo(parseDrawer)(section)) continue
+    while (tryTo(parseDrawer, push(section))) continue
     return section
   }
 
@@ -46,22 +46,22 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
     }
 
     // paragraph
-    if (tryTo(parseParagraph)(section)) {
+    if (tryTo(parseParagraph, push(section))) {
       return parse(section)
     }
 
     // list
-    if (tryTo(parseList)(section)) {
+    if (tryTo(parseList, push(section))) {
       return parse(section)
     }
 
     // block
-    if (tryTo(parseBlock)(section)) {
+    if (tryTo(parseBlock, push(section))) {
       return parse(section)
     }
 
     // keyword
-    if (tryTo(parseKeyword)(section)) {
+    if (tryTo(parseKeyword, push(section))) {
       return parse(section)
     }
 

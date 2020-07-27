@@ -1,8 +1,8 @@
-import { newNode, push } from '../node'
+import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { Parent } from '../types'
+import { Drawer } from '../types'
 
-export default (lexer: Lexer): Parent | undefined => {
+export default (lexer: Lexer): Drawer | undefined => {
 
   const { peek, eat } = lexer
 
@@ -10,13 +10,12 @@ export default (lexer: Lexer): Parent | undefined => {
 
   if (!n || n.type !== 'drawer.begin') return undefined
 
-  const drawer = newNode('drawer')
-  drawer.data = { name: n.name }
+  const drawer: Drawer = { type: 'drawer', name: n.name, children: [] }
   const a = push(drawer)
   a(n)
   eat()
 
-  const parse = (): Parent | undefined => {
+  const parse = (): Drawer | undefined => {
     const n = peek()
     if (!n || n.type === 'stars') return undefined
     a(n)

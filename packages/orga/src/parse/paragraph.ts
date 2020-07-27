@@ -1,9 +1,8 @@
 import { push } from '../node'
-import { Paragraph, Parent } from '../types'
+import { Paragraph } from '../types'
 import { isPhrasingContent } from '../utils'
-import { Parse } from './'
 
-const parseParagraph: Parse = ({ peek, eat }): Parent | undefined => {
+const parseParagraph = ({ peek, eat }): Paragraph | undefined => {
   let eolCount = 0
 
   const build = (p: Paragraph): Paragraph | undefined => {
@@ -18,14 +17,14 @@ const parseParagraph: Parse = ({ peek, eat }): Parent | undefined => {
     }
 
     if (isPhrasingContent(token)) {
-      push(p as Parent)(token)
+      push(p)(token)
       eat()
       return build(p)
     }
     return p.children.length === 0 ? undefined : p
   }
 
-  return build({ type: 'paragraph', children: [] }) as Parent
+  return build({ type: 'paragraph', children: [] })
 
 }
 

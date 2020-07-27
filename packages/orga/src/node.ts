@@ -1,6 +1,6 @@
-import { after, before, isEmpty, map as locate } from './position'
-import { Parent, Token } from './types'
 import { Node } from 'unist'
+import { after, before, isEmpty } from './position'
+import { Parent } from './types'
 // export default class Node {
 //   type: string
 //   children: Node[]
@@ -50,7 +50,7 @@ export const newNode = (type: string): Parent => {
   }
 }
 
-const adjustPosition = (parent: Parent) => (child: Parent): void => {
+const adjustPosition = (parent: Parent) => (child: Node): void => {
   let dirty = false
 
   if (!child.position) return
@@ -78,11 +78,14 @@ const adjustPosition = (parent: Parent) => (child: Parent): void => {
   }
 }
 
-export const push = (p: Parent) => (n: Node): Parent => {
-  const node: Parent = { children: [], ...n }
-  adjustPosition(p)(node)
-  node.parent = p
-  p.children.push(node)
+
+export const push = <P extends Parent>(p: P) => (n: Node): P => {
+  adjustPosition(p)(n)
+  const node = n as Parent
+  if (node) {
+    node.parent = p
+  }
+  p.children.push(n)
   return p
 }
 
@@ -100,13 +103,13 @@ interface DumpContext {
   indent?: number;
 }
 
-export const dump = (text: string, indent: number = 0) => (tree: Parent): string[] => {
-  const { substring } = locate(text)
-  const spaces = '  '.repeat(indent)
-  const line = `${spaces}- ${tree.type}`
-  const rest = tree.children.flatMap(dump(text, indent + 1))
-  return [line].concat(rest)
-}
+// export const dump = (text: string, indent: number = 0) => <T extends Parent>(tree: T): string[] => {
+//   const { substring } = locate(text)
+//   const spaces = '  '.repeat(indent)
+//   const line = `${spaces}- ${tree.type}`
+//   const rest = tree.children.flatMap(dump(text, indent + 1))
+//   return [line].concat(rest)
+// }
 
 export const level = (node: Parent): number => {
   let count = 0
