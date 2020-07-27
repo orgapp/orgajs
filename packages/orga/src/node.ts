@@ -38,18 +38,6 @@ import { Parent } from './types'
 //   }
 // }
 
-
-export const newNode = (type: string): Parent => {
-  return {
-    type,
-    position: {
-      start: { line: 0, column: 0 },
-      end: { line: 0, column: 0 },
-    },
-    children: [],
-  }
-}
-
 const adjustPosition = (parent: Parent) => (child: Node): void => {
   let dirty = false
 
