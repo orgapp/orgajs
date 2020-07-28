@@ -18,10 +18,10 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
   const newSection = (): Section => {
     const section: Section = {
       type: 'section',
-      headline: parseHeadline(lexer),
       children: [],
     }
-    push(section)(section.headline)
+    const headline = parseHeadline(lexer)
+    push(section)(headline)
     const plannings = parsePlanning(lexer)
     plannings.forEach(push(section))
 

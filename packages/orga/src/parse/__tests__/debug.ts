@@ -1,9 +1,9 @@
-import { parse } from '../index'
-import { tokenize } from '../../tokenize'
-import { map, dump } from '../../node'
-import { map as locate } from '../../position'
-import { inspect } from 'util'
 import chalk from 'chalk'
+import { inspect } from 'util'
+import { map } from '../../node'
+import { map as locate } from '../../position'
+import { tokenize } from '../../tokenize'
+import { parse } from '../index'
 
 export default (text: string) => {
   const { substring } = locate(text)
@@ -11,9 +11,9 @@ export default (text: string) => {
   const lexer = tokenize(text)
   const tree = parse(lexer)
   const data = map(node => {
-    const { parent, ...rest } = node
+    const { parent, position, ...rest } = node
     return {
-      raw: substring(node.position),
+      raw: substring(position),
       ...rest,
     }
   })(tree)

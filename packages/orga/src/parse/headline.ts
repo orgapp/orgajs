@@ -1,13 +1,10 @@
 import { push } from '../node'
 import { Lexer } from '../tokenize'
 import { Headline } from '../types'
-import { isPhrasingContent } from '../utils'
-import utils from './utils'
 
 export default (lexer: Lexer): Headline => {
 
   const { peek, eat } = lexer
-  const { collect } = utils(lexer)
 
   const parse = (headline: Headline): Headline => {
     const a = push(headline)
@@ -25,18 +22,12 @@ export default (lexer: Lexer): Headline => {
     }
 
     if (['stars', 'keyword', 'priority'].includes(token.type)) {
-      headline.data = { ...headline.data, ...token.data }
       a(token)
       eat()
       return parse(headline)
     }
 
-    const content = collect(isPhrasingContent)({ type: 'content', children: [] })
-    if (content.children.length > 0) {
-      a(content)
-      return parse(headline)
-    }
-
+    a(token)
     eat()
     return parse(headline)
   }

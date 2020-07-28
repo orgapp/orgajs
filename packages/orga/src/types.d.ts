@@ -18,7 +18,6 @@ export interface Document extends Parent {
 
 export interface Section extends Parent {
   type: 'section';
-  headline: Headline;
   children: Content[];
 }
 

@@ -77,12 +77,17 @@ export const push = <P extends Parent>(p: P) => (n: Node): P => {
   return p
 }
 
-export const map = (transform: (node: Parent) => any) => (tree: Parent) => {
-  return {
-    type: tree.type,
-    ...transform(tree),
-    children: (tree.children || []).map(map(transform))
+export const map = (transform: (n: Node) => any) => (node: Node) => {
+
+  const result = {
+    type: node.type,
+    ...transform(node),
   }
+
+  if ((node as Parent).children) {
+    result.children = (node as Parent).children.map(map(transform))
+  }
+  return result
 }
 
 interface DumpContext {
