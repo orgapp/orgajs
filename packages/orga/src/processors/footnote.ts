@@ -1,4 +1,4 @@
-import Node from '../node'
+import Node, { NodeType } from '../node'
 
 function process(token, section) {
 
@@ -8,7 +8,7 @@ function process(token, section) {
   const parseFootnote = () => {
     const { label, content } = self.next().data
     self.prefix = [{ name: `line`, raw: content, data: { content: content.trim() } }]
-    return self.parseSection(new Node(`footnote.definition`).with({ label }))
+    return self.parseSection(new Node(NodeType.FootnoteDefinition).with({ label }))
   }
   section.push(parseFootnote())
   self._aks = {}

@@ -1,4 +1,4 @@
-import Node from '../node'
+import Node, { NodeType } from '../node'
 const inlineParse = require('../inline').parse
 
 class List extends Node {
@@ -19,7 +19,7 @@ export default function(token, section: Node): Node {
   const parseListItem = () => {
     const { indent, content, ordered, checked, tag } = self.next().data
     const lines = [content]
-    const item = new ListItem(`list.item`).with({ ordered, tag })
+    const item = new ListItem(NodeType.ListItem).with({ ordered, tag })
     if (checked !== undefined) {
       item.checked = checked
     }
@@ -35,7 +35,7 @@ export default function(token, section: Node): Node {
   }
 
   const parseList = level => {
-    const list = new List(`list`)
+    const list = new List(NodeType.List)
     while (self.hasNext()) {
       const token = self.peek()
       if ( token.name !== `list.item` ) break

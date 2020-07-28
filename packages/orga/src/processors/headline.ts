@@ -1,10 +1,10 @@
-import Node from '../node'
+import Node, { NodeType } from '../node'
 const inlineParse = require('../inline').parse
 
 function parsePlanning() {
   const token = this.next()
   if (!token || token.name !== `planning`) { return undefined }
-  return new Node('planning').with(token.data)
+  return new Node(NodeType.Planning).with(token.data)
 }
 
 function parseDrawer() {
@@ -14,7 +14,7 @@ function parseDrawer() {
     const t = this.next()
     if ( t.name === `headline` ) { return undefined }
     if (t.name === `drawer.end` ) {
-      return new Node('drawer').with({ name: begin.data.type, value: lines.join(`\n`) })
+      return new Node(NodeType.Drawer).with({ name: begin.data.type, value: lines.join(`\n`) })
     }
     lines.push(t.raw)
   }
@@ -24,7 +24,7 @@ function parseDrawer() {
 function parseTimestamp() {
   const token = this.next()
   if (!token || token.name !== `timestamp`) { return undefined }
-  return new Node('timestamp').with(token.data)
+  return new Node(NodeType.Timestamp).with(token.data)
 }
 
 function process(token, section) {
@@ -34,7 +34,7 @@ function process(token, section) {
   if (level <= currentLevel) { return section }
   this.consume()
   const text = inlineParse(content)
-  const headline = new Node('headline', text).with({
+  const headline = new Node(NodeType.Headline, text).with({
     level, keyword, priority, tags
   })
   const planning = this.tryTo(parsePlanning)
@@ -54,7 +54,7 @@ function process(token, section) {
     }
     headline.push(drawer)
   }
-  const newSection = new Node(`section`).with({ level })
+  const newSection = new Node(NodeType.Section).with({ level })
   newSection.push(headline)
   section.push(this.parseSection(this.unagi(newSection)))
   this._aks = {}

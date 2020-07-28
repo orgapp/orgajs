@@ -1,4 +1,4 @@
-import Node from '../node'
+import Node, { NodeType } from '../node'
 
 function process(token, section) {
   const { key, value } = token.data
@@ -13,7 +13,7 @@ function process(token, section) {
     this.lexer.updateTODOs(section.meta.todos)
     break
   case `HTML`:
-    section.push(new Node(`html`).with({ value }))
+    section.push(new Node(NodeType.Html).with({ value }))
     break
   case `CAPTION`:
   case `HEADER`:

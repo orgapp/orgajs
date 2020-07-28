@@ -1,4 +1,4 @@
-import Node from '../node'
+import Node, { NodeType } from '../node'
 const inlineParse = require('../inline').parse
 
 function process(token, section) {
@@ -11,7 +11,7 @@ function process(token, section) {
     this.consume()
     push(token.raw.trim())
   }
-  section.push(new Node(`paragraph`, nodes))
+  section.push(new Node(NodeType.Paragraph, nodes))
 
   this._aks = {}
   return this.parseSection(section)

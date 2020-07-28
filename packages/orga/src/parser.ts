@@ -1,7 +1,7 @@
 import defaultOptions, { ParseOptions } from './options'
 
 import Lexer from './lexer'
-import Node from './node'
+import Node, { NodeType } from './node'
 
 declare namespace orga {
 
@@ -33,7 +33,7 @@ class OrgaParser implements orga.Parser {
 
   parse(text: string): Node {
     const self = this
-    const document = new Node('root').with({ meta: {} })
+    const document = new Node(NodeType.Root).with({ meta: {} })
     self.cursor = -1
     self.lines = text.split('\n') // TODO: more robust lines?
       self.tokens = []

@@ -1,4 +1,4 @@
-import Node from '../node'
+import Node, { NodeType } from '../node'
 
 function parseBlock() {
   const t = this.next()
@@ -12,7 +12,7 @@ function parseBlock() {
         const format = params[0]
         return new Node(format).with({ value: lines.join(`\n`) })
       }
-      return new Node('block').with({ name: type.toUpperCase(), params, value: lines.join(`\n`) })
+      return new Node(NodeType.Block).with({ name: type.toUpperCase(), params, value: lines.join(`\n`) })
     }
     lines.push(t.raw)
   }
