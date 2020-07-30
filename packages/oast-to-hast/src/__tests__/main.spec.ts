@@ -1,6 +1,6 @@
 import { parse } from 'orga'
 import { inspect } from 'util'
-import { toHAST } from '../'
+import toHAST from '../'
 
 describe('Main', () => {
   it('works', () => {
@@ -12,6 +12,6 @@ describe('Main', () => {
 
     const tree = parse(text)
     const hast = toHAST(tree)
-    console.log(inspect(hast, false, null, true))
+    // console.log(inspect(hast, false, null, true))
   })
 })
