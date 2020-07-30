@@ -1,17 +1,5 @@
 import _ from 'lodash/fp'
-import { Parser } from 'orga'
-import { selectAll } from 'unist-util-select'
-
-export const getProperties = headline => {
-  const drawer = selectAll(`drawer`, headline).find(d => d.name === `PROPERTIES`)
-  if (!drawer) return {}
-  const regex = /\s*:(.+):\s*(.+)\s*$/
-
-  return drawer.value.split(`\n`).reduce((accu, current) => {
-    const m = current.match(regex)
-    return { ...accu, [m[1].toLowerCase()]: m[2] }
-  }, {})
-}
+import { parse } from 'orga'
 
 const shouldBeArray = (key: string) => [`keywords`, `tags`].includes(key)
 
@@ -57,8 +45,7 @@ export const getAST = async ({ node, cache }) => {
 
 async function getOrgAST(node) {
   return new Promise(resolve => {
-    const parser = new Parser()
-    const ast = parser.parse(node.internal.content)
+    const ast = parse(node.internal.content)
     resolve(ast)
   })
 }

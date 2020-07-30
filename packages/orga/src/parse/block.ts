@@ -6,14 +6,15 @@ export default (lexer: Lexer): Block | undefined => {
 
   const { peek, eat, substring } = lexer
 
-  const n = peek()
+  const begin = peek()
 
-  if (!n || n.type !== 'block.begin') return undefined
+  if (!begin || begin.type !== 'block.begin') return undefined
 
   const block: Block = {
     type: 'block',
-    name: n.name,
-    params: n.params,
+    name: begin.name,
+    params: begin.params,
+    position: begin.position,
     value: '',
   }
   // const a = push(block)
@@ -30,6 +31,7 @@ export default (lexer: Lexer): Block | undefined => {
       range.end = n.position.start
       eat('newline')
       block.value = substring(range).trim()
+      block.position.end = n.position.end
       return block
     } else {
       return parse()

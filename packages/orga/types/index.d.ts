@@ -13,16 +13,18 @@ export interface Timestamp {
 // ---- Syntax Tree Nodes ----
 export interface Document extends Parent {
   type: 'document';
+  properties: { [key: string]: string; };
   children: TopLevelContent[];
 }
 
 export interface Section extends Parent {
   type: 'section';
+  properties: { [key: string]: string; };
   children: Content[];
 }
 
 type TopLevelContent =
-  | Content | keyword | Footnote
+  | Content | Keyword | Footnote
 
 type Content =
   | Section
@@ -46,9 +48,10 @@ export interface Block extends Literal {
   value: string;
 }
 
-export interface Drawer extends Parent {
+export interface Drawer extends Literal {
   type: 'drawer';
   name: string;
+  value: string;
 }
 
 export interface Planning extends Parent {
@@ -69,10 +72,8 @@ export interface ListItem extends Parent {
 export interface Headline extends Parent {
   type: 'headline';
   level: number;
-  todo?: {
-    keyword: string;
-    actionable: boolean;
-  };
+  keyword?: string;
+  actionable: boolean;
   priority?: string;
   tags?: string[];
 }

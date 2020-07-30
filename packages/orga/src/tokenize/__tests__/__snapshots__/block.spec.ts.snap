@@ -3,6 +3,7 @@
 exports[`tokenize block knows block begins 1`] = `
 Array [
   Object {
+    "name": "SRC",
     "params": Array [
       "swift",
     ],
@@ -24,6 +25,7 @@ Array [
 exports[`tokenize block knows block begins 2`] = `
 Array [
   Object {
+    "name": "src",
     "params": Array [
       "swift",
     ],
@@ -45,6 +47,7 @@ Array [
 exports[`tokenize block knows block begins 3`] = `
 Array [
   Object {
+    "name": "example",
     "params": Array [],
     "position": Object {
       "end": Object {
@@ -64,6 +67,7 @@ Array [
 exports[`tokenize block knows block begins 4`] = `
 Array [
   Object {
+    "name": "ex😀mple",
     "params": Array [],
     "position": Object {
       "end": Object {
@@ -83,6 +87,7 @@ Array [
 exports[`tokenize block knows block begins 5`] = `
 Array [
   Object {
+    "name": "src",
     "params": Array [
       "swift",
       ":tangle",

@@ -1,13 +1,7 @@
-import { parseTimestamp } from 'orga'
-import { selectAll, select } from 'unist-util-select'
-import {
-  getProperties,
-  sanitise,
-  processMeta,
-  getAST,
-  cacheAST,
-} from './orga-util'
 import crypto from 'crypto'
+import { Headline, parseTimestamp, Section } from 'orga'
+import { select, selectAll } from 'unist-util-select'
+import { cacheAST, getAST, processMeta, sanitise } from './orga-util'
 
 const getCircularReplacer = () => {
   const seen = new WeakSet()
@@ -64,28 +58,34 @@ export = async function onCreateNode(
     createParentChildLink({ parent: fileNode, child: orgFileNode })
   }
 
-
   async function createOrgContentNodes(orgFileNode) {
     // const ast = orgFileNode.ast
     const ast = await getAST({ node: orgFileNode, cache })
-    const { orga_publish_keyword = ``, category } = ast.meta
+    const { orga_publish_keyword = ``, category } = ast.properties || {}
     let content = []
     const _keywords = orga_publish_keyword
           .split(' ').map(k => k.trim()).filter(k => k.length > 0)
 
     if (_keywords.length > 0) { // section
       const selector = `:matches(${_keywords.map(k => `[keyword=${k}]`).join(`,`)})headline`
-      content = selectAll(selector, ast)
-        .map(ast => {
-          const { date, export_date, export_title, ...properties } = getProperties(ast)
-          const title = export_title || select(`text`, ast).value
+
+      const sections = selectAll('section', ast).filter((s: Section) => {
+        const headline = s.children[0] as Headline
+        return _keywords.includes(headline.keyword)
+      })
+
+      // content = selectAll(selector, ast)
+      content = sections.map((ast: Section) => {
+          const { date, export_date, export_title, ...properties } = ast.properties
+          // const title = export_title || select(`text.plain`, ast).value
+          const title = export_title || 'untitled post'
 
           const d = parseTimestamp(date) ||
                 parseTimestamp(export_date) ||
                 select(`timestamp`, ast) ||
                 select(`planning[keyword=CLOSED]`, ast)
 
-          const metadata = {
+          const metadata: any = {
             title,
             export_file_name: sanitise(title),
             category: category || orgFileNode.fileName,
@@ -107,7 +107,7 @@ export = async function onCreateNode(
     } else { // root
         const metadata = {
           export_file_name: orgFileNode.fileName,
-          ...ast.meta }
+          ...ast.properties }
       metadata.title = metadata.title || 'Untitled'
       const absolutePath = `${orgFileNode.fileAbsolutePath}`
       const d = parseTimestamp(metadata.date) ||

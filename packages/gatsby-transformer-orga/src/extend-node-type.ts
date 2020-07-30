@@ -74,7 +74,7 @@ module.exports = async (
   if (strongTypedMetadata === false) {
     t.metadata = {
       type: GraphQLJSON,
-      resolve: node => { return node.metadata }
+      resolve: node => node.metadata
     }
   }
 

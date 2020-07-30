@@ -16,6 +16,6 @@ export default (lexer: Lexer): Keyword | undefined => {
   // console.log('keyword:', n)
 
   eat()
-  return undefined
+  return { type: 'keyword', key: n.key.toLowerCase(), value: n.value }
 
 }

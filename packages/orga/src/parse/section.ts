@@ -18,6 +18,7 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
   const newSection = (): Section => {
     const section: Section = {
       type: 'section',
+      properties: {},
       children: [],
     }
     const headline = parseHeadline(lexer)
@@ -25,7 +26,18 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
     const plannings = parsePlanning(lexer)
     plannings.forEach(push(section))
 
-    while (tryTo(parseDrawer, push(section))) continue
+    while (tryTo(parseDrawer, drawer => {
+      if (drawer.name.toLowerCase() === 'properties') {
+        section.properties = drawer.value.split('\n').reduce((accu, current) => {
+          const m = current.match(/\s*:(.+):\s*(.+)\s*$/)
+          if (m) {
+            return { ...accu, [m[1].toLowerCase()]: m[2] }
+          }
+          return accu
+        }, section.properties)
+      }
+      push(section)(drawer)
+    })) continue
     return section
   }
 
@@ -61,7 +73,10 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
     }
 
     // keyword
-    if (tryTo(parseKeyword, push(section))) {
+    if (tryTo(parseKeyword, keyword => {
+      section.properties[keyword.key] = keyword.value
+      push(section)
+    })) {
       return parse(section)
     }
 

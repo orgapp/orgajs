@@ -21,6 +21,11 @@ export default (lexer: Lexer): Headline => {
       headline.level = token.level
     }
 
+    if (token.type === 'todo') {
+      headline.keyword = token.keyword
+      headline.actionable = token.actionable
+    }
+
     if (['stars', 'keyword', 'priority'].includes(token.type)) {
       a(token)
       eat()
@@ -32,5 +37,8 @@ export default (lexer: Lexer): Headline => {
     return parse(headline)
   }
 
-  return parse({ type: 'headline', children: [], level: -1 })
+  return parse({
+    type: 'headline',
+    actionable: false,
+    children: [], level: -1 })
 }
