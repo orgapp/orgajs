@@ -1,13 +1,12 @@
-import u from 'unist-builder'
-import { inspect } from 'util'
 import { parse } from 'orga'
+import { inspect } from 'util'
 import { toHAST } from '../'
 
 describe('Main', () => {
   it('works', () => {
     const text = `
-* hello world
-this is a test
+* hello *world*
+[[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,
 ** some headline
 `
 

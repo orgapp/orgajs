@@ -31,6 +31,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "a headline",
   },
 ]
 `;
@@ -66,6 +67,7 @@ Array [
       },
     },
     "type": "text.underline",
+    "value": "headline",
   },
 ]
 `;
@@ -101,6 +103,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "a headline",
   },
 ]
 `;
@@ -136,6 +139,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "a headline",
   },
 ]
 `;
@@ -171,6 +175,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "a 😀line",
   },
 ]
 `;
@@ -235,6 +240,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "a headline",
   },
   Object {
     "position": Object {
@@ -272,6 +278,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "*not a headline",
   },
 ]
 `;
@@ -290,6 +297,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "* not a headline",
   },
 ]
 `;
@@ -308,6 +316,7 @@ Array [
       },
     },
     "type": "text.bold",
+    "value": "_",
   },
   Object {
     "position": Object {
@@ -321,6 +330,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": " not a headline",
   },
 ]
 `;
@@ -339,6 +349,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "not a headline",
   },
 ]
 `;

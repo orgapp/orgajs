@@ -1,7 +1,11 @@
+import { Element, Node } from 'hast'
 import u from 'unist-builder'
 import highlight from './_highlight'
+import { Block } from 'orga'
+import { _all, HNode } from '../transform'
+import { Context } from '../'
 
-export default (h, node) => {
+const a = (h, node) => {
   const name = node.name.toUpperCase()
   switch(name) {
   case `SRC`:
@@ -44,4 +48,24 @@ function src(h, node) {
   return h(node, `pre`, [
     h(node, `code`, props, [body])
   ])
+}
+
+export default (context: Context) => (node: Block): HNode => {
+
+  const e = (tagName: string) => (...children: HNode[]): HNode => {
+    return context.build({
+      tagName,
+      children,
+    })
+  }
+
+  if (node.name.toLowerCase() === 'src') {
+
+    return e('pre')(
+      e('code')(
+        u('text', node.value)
+      )
+    )
+  }
+  return undefined
 }

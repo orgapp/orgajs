@@ -74,6 +74,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "#+KEY : Value",
   },
 ]
 `;
@@ -92,6 +93,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "#+KE Y: Value",
   },
 ]
 `;

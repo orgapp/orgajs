@@ -1,24 +1,24 @@
-import { all } from '../transform'
+import { Element } from 'hast'
+import { Headline, Section } from 'orga'
+import { Context } from '../'
+import { _all } from '../transform'
 
-const match = (left, right) => {
-  return left.some(e => right.includes(e))
-}
+export default (context: Context) => (node: Section): Element => {
 
-export default (h, node) => {
-  const props = { className: `section` }
-  const headline = node.children.find(
-    n => n.type === `headline`
-  )
+  const { selectTags, excludeTags, build } = context
 
-  function shouldExclude(headline) {
-    if (!headline) return false
-    if (h.selectTags.length > 0) {
-      return !match(headline.tags, h.selectTags)
-    }
-
-    return match(headline.tags, h.excludeTags)
+  const headline = node.children.find(n => n.type === 'headline') as Headline
+  if (!headline) return undefined
+  if (selectTags.length > 0
+    && !selectTags.some((headline.tags || []).includes)) {
+    return undefined
+  }
+  if (excludeTags.some((headline.tags || []).includes)) {
+    return undefined
   }
 
-  if (shouldExclude(headline)) return undefined
-  return h(node, `div`, props, all(h, node))
+  return build({
+    tagName: 'div',
+    properties: { className: 'section' },
+    children: _all(context)(node.children) })
 }

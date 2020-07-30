@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import XRegExp from 'xregexp'
-import { Timestamp } from './types'
+import { Timestamp } from '../types'
 
 const _timestampPattern = () => {
   const date = `\\d{4}-\\d{2}-\\d{2}`

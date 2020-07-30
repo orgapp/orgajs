@@ -1,8 +1,15 @@
-import { Node } from 'unist'
-import { one } from './transform'
+import { Element, Root, Properties } from 'hast'
+import { Node, Parent } from 'unist'
+import { one, _all } from './transform'
+import u from 'unist-builder'
 
-export type Context = {
+interface Options {
   excludeTags: string[];
+  selectTags: string[];
+}
+
+export interface Context extends Options {
+  build: (props: ElementInfo) => Element;
 }
 
 // const build: Build = ({ tagName, props, children }) => {
@@ -59,11 +66,31 @@ const h = (() => {
 //   return transform(h, tree)
 // }
 
-export const toHAST = (tree: Node, options: any = {}): Element => {
+interface ElementInfo {
+  tagName: string;
+  properties?: Properties;
+  children?: Element['children'];
+}
+
+const build = ({
+  tagName,
+  properties,
+  children = [],
+} : ElementInfo): Element => {
+  return {
+    type: 'element',
+    tagName,
+    properties,
+    children,
+  }
+}
+
+export default (oast: Parent, options: any = {}): Root => {
   // TODO: get metadata
   const context: Context = {
-    excludeTags: []
+    excludeTags: [],
+    selectTags: [],
+    build,
   }
-  return one(tree, context)
-
+  return u('root', _all(context)(oast.children))
 }

@@ -39,9 +39,11 @@ export interface Footnote extends Parent {
   label: string;
 }
 
-export interface Block extends Parent {
+export interface Block extends Literal {
   type: 'block';
+  name: string;
   params: string[];
+  value: string;
 }
 
 export interface Drawer extends Parent {
@@ -117,7 +119,7 @@ interface Newline extends Node {
   type: 'newline'
 }
 
-export interface StyledText extends Node {
+export interface StyledText extends Literal {
   type:
     | 'text.plain'
     | 'text.bold'
@@ -164,6 +166,7 @@ interface Tags extends Node {
 // block tokens
 interface BlockBegin extends Node {
   type: 'block.begin';
+  name: string;
   params: string[];
 }
 

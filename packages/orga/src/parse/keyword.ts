@@ -1,5 +1,5 @@
 import { Lexer } from '../tokenize'
-import { Keyword } from '../types'
+import { Keyword } from '../../types'
 
 export default (lexer: Lexer): Keyword | undefined => {
 

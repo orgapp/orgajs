@@ -162,6 +162,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "PROPERTIES:",
   },
 ]
 `;
@@ -180,6 +181,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": ":PROPERTIES",
   },
 ]
 `;
@@ -198,6 +200,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": ":PR OPERTIES:",
   },
 ]
 `;
@@ -216,6 +219,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "END:",
   },
 ]
 `;
@@ -234,6 +238,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": ":END",
   },
 ]
 `;
@@ -252,6 +257,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": ":ENDed",
   },
 ]
 `;

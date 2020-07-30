@@ -2,7 +2,7 @@ import defaultOptions, { ParseOptions } from '../options'
 import { isEmpty } from '../position'
 import { read } from '../reader'
 import todoKeywordSet, { TodoKeywordSet } from '../todo-keyword-set'
-import { Token } from '../types'
+import { Token } from '../../types'
 import tokenizeBlock from './block'
 import tokenizeDrawer from './drawer'
 import tokenizeFootnote from './footnote'
@@ -10,6 +10,7 @@ import tokenizeHeadline from './headline'
 import { tokenize as inlineTok } from './inline'
 import tokenizeListItem from './list'
 import tokenizePlanning from './planning'
+import { Position } from 'unist'
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
@@ -21,6 +22,7 @@ export interface Lexer {
   save: () => number;
   restore: (point: number) => void;
   addInBufferTodoKeywords: (text: string) => void;
+  substring: (position: Position) => string;
 }
 
 export const tokenize = (text: string, options: ParseOptions = defaultOptions) => {
@@ -38,6 +40,7 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
     match,
     EOF,
     skipWhitespaces,
+    substring,
   } = reader
 
   const globalTodoKeywordSets = todos.map(todoKeywordSet)
@@ -176,7 +179,8 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
 
     addInBufferTodoKeywords: (text) => {
       inBufferTodoKeywordSets.push(todoKeywordSet(text))
-    }
+    },
+    substring,
 
   } as Lexer
 }

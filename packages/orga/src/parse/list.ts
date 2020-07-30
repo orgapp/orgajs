@@ -1,6 +1,6 @@
 import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { List, ListItemBullet } from '../types'
+import { List, ListItemBullet } from '../../types'
 import utils from './utils'
 
 export default (lexer: Lexer): List | undefined => {
@@ -43,6 +43,9 @@ export default (lexer: Lexer): List | undefined => {
         push(list)(li)
       }
     }
+
+    push(list)(token)
+    eat()
 
     return parse(list)
   }

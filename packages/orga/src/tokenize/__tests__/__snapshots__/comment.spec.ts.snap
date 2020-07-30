@@ -147,6 +147,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "#not a comment",
   },
 ]
 `;
@@ -165,6 +166,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "#not a comment",
   },
 ]
 `;

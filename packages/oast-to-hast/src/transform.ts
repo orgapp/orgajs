@@ -1,8 +1,11 @@
-import { Parent } from 'orga'
-import { Node } from 'unist'
+import { Element, Comment, Text } from 'hast'
+// import { Parent } from 'orga'
+import { Node, Parent } from 'unist'
 import u from 'unist-builder'
 import { Context } from './'
 import { getHandler } from './handlers'
+
+export type HNode = Element | Comment | Text
 
 // function unknown(h, node) {
 //   if (text(node)) {
@@ -28,51 +31,44 @@ import { getHandler } from './handlers'
 //   return (typeof fn === 'function' ? fn : unknown)(h, node, parent)
 // }
 
-// export function all(h, parent) {
-//   const nodes = parent.children || []
-//   const length = nodes.length
-//   let values = []
-//   let index = -1
-//   let result
+export function all(h, parent) {
+  const nodes = parent.children || []
+  const length = nodes.length
+  let values = []
+  let index = -1
+  let result
 
-//   while (++index < length) {
-//     result = transform(h, nodes[index], parent)
+  // while (++index < length) {
+  //   result = transform(h, nodes[index], parent)
 
-//     if (result) {
-//       values = values.concat(result)
-//     }
-//   }
+  //   if (result) {
+  //     values = values.concat(result)
+  //   }
+  // }
 
-//   return values
-// }
-
-// const unknown = (node: Node: context: Context): Element => {
-//   if (node.type === 'text') {
-//     return u('text', node.value)
-//   }
-// }
-
-function text(node) {
-  const data = node.data || {}
-
-  if (data.hasOwnProperty('hName') ||
-      data.hasOwnProperty('hProperties') ||
-      data.hasOwnProperty('hChildren') ) {
-    return false
-  }
-
-  return 'value' in node
+  return values
 }
 
-export const one = (node: Node, context: Context): Element => {
+export const _all = (context: Context) => (nodes: Node[]): HNode[] => {
+  return nodes.map(one(context)).filter(Boolean)
+}
+
+const unknown = (context: Context) => (node: Node): Element => {
+  // if (node.type === 'text') {
+  //   return u('text', node.value)
+  // }
+  const p = node as Parent
+  if (p && p.children) {
+    return context.build({
+      tagName: 'div',
+      children: _all(context)(p.children) })
+  } else if ('value' in node) {
+    return u('text', node.value)
+  }
+  return undefined
+}
+
+export const one = (context: Context) => (node: Node): HNode => {
   const handler = getHandler(node.type)
-  if (handler) {
-    return handler(node, context)
-  }
-  return u('text')
-}
-
-export const all = (node: Parent, context: Context): Element[] => {
-  const nodes = node.children
-  return nodes.map(n => one(n, context))
+  return (handler || unknown)(context)(node)
 }

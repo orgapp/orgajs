@@ -1,5 +1,5 @@
 import { Reader } from '../reader'
-import { Token } from '../types'
+import { Token } from '../../types'
 
 interface Props {
   reader: Reader;
@@ -14,6 +14,7 @@ export default ({ reader }: Props) : Token[] => {
     const params = m.captures[2].split(' ').map(p => p.trim()).filter(String)
     return [{
       type: 'block.begin',
+      name: m.captures[1],
       params,
       position: m.position,
     }]

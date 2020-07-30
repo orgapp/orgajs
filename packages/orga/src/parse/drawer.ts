@@ -1,6 +1,6 @@
 import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { Drawer } from '../types'
+import { Drawer } from '../../types'
 
 export default (lexer: Lexer): Drawer | undefined => {
 

@@ -1,6 +1,6 @@
 import { push, level } from '../node'
 import { Lexer } from '../tokenize'
-import { Document, Section } from '../types'
+import { Document, Section } from '../../types'
 import parseBlock from './block'
 import parseDrawer from './drawer'
 import parseHeadline from './headline'

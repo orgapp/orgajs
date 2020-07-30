@@ -1,7 +1,7 @@
 import { Node } from 'unist'
 import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { Parent, Token } from '../types'
+import { Parent, Token } from '../../types'
 
 export default (lexer: Lexer) => {
   const { peek, eat, save, restore } = lexer

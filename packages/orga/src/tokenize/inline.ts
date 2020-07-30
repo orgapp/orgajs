@@ -1,7 +1,7 @@
 import { Point, Position } from 'unist';
 import { after } from '../position';
 import { Reader } from '../reader';
-import { Token, PhrasingContent, StyledText } from '../types';
+import { Token, PhrasingContent, StyledText } from '../../types';
 import uri from '../uri';
 
 
@@ -39,12 +39,16 @@ interface Props {
 
 
 export const tokenize = ({ reader, start, end } : Props): Token[] => {
-  const { now, eol, match, jump } = reader
+  const { now, eol, match, jump, substring } = reader
   const s = start || now()
   const e = end || eol()
 
   let tokens: PhrasingContent[] = [
-    { type: 'text.plain', position: { start: s, end: e } }
+    {
+      type: 'text.plain',
+      value: substring({ start: s, end: e }),
+      position: { start: s, end: e },
+    }
   ]
 
   const parse = <T extends PhrasingContent>(
@@ -62,10 +66,15 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
         throw Error('not gonna happen')
       }
       if (after(token.position.start)(m.position.start)) {
-        all.push({ type: 'text.plain', position: {
+        const position = {
           start: token.position.start,
           end: m.position.start,
-        } })
+        }
+        all.push({
+          type: 'text.plain',
+          value: substring(position),
+          position,
+        })
       }
 
 
@@ -75,6 +84,10 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
         const rest = parse(type, pattern, [
           {
             type: 'text.plain',
+            value: substring({
+              start: m.position.end,
+              end: token.position.end,
+            }),
             position: {
               start: m.position.end,
               end: token.position.end,
@@ -88,7 +101,11 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
   }
 
   const parseText = (type: StyledText['type'], pattern: RegExp, content: PhrasingContent[]) =>
-    parse(type, pattern, content, ({ position }) => ({ type, position }))
+    parse(type, pattern, content, ({ position, captures }) => ({
+      type,
+      value: captures[2],
+      position,
+    }))
 
   tokens = parse('link', LINK_PATTERN, tokens, ({ position, captures }) => ({
     type: 'link',

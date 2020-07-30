@@ -21,5 +21,8 @@
     "compile:watch": "tsc -w -p tsconfig.build.json",
     "prepare": "cross-env NODE_ENV=production npm run build",
     "clean": "rm -rf ./lib"
+  },
+  "devDependencies": {
+    "@types/hast": "^2.3.1"
   }
 }

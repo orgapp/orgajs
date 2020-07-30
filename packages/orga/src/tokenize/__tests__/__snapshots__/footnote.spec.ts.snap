@@ -28,6 +28,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "a footnote",
   },
 ]
 `;
@@ -60,6 +61,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "a footnote",
   },
 ]
 `;
@@ -92,6 +94,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "a footnote",
   },
 ]
 `;
@@ -124,6 +127,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "a footnote",
   },
 ]
 `;
@@ -156,6 +160,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": ": not a footnote",
   },
 ]
 `;
@@ -188,6 +193,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": " not a footnote",
   },
 ]
 `;
@@ -206,6 +212,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "[",
   },
   Object {
     "label": "1",
@@ -233,6 +240,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": " not a footnote",
   },
 ]
 `;
@@ -265,6 +273,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": " not a footnote",
   },
 ]
 `;

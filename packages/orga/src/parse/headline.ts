@@ -1,6 +1,6 @@
 import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { Headline } from '../types'
+import { Headline } from '../../types'
 
 export default (lexer: Lexer): Headline => {
 

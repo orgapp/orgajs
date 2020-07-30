@@ -29,6 +29,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "buy milk",
   },
 ]
 `;
@@ -62,6 +63,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "buy milk",
   },
 ]
 `;
@@ -95,6 +97,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "buy milk",
   },
 ]
 `;
@@ -128,6 +131,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "buy milk",
   },
 ]
 `;
@@ -161,6 +165,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "buy milk",
   },
 ]
 `;
@@ -208,6 +213,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "buy milk checked",
   },
 ]
 `;
@@ -255,6 +261,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "buy milk checked",
   },
 ]
 `;
@@ -302,6 +309,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "buy milk checked",
   },
 ]
 `;
@@ -349,6 +357,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "buy milk unchecked",
   },
 ]
 `;
@@ -382,6 +391,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "buy milk",
   },
 ]
 `;
@@ -429,6 +439,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "description here",
   },
 ]
 `;
@@ -462,6 +473,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "item2",
   },
   Object {
     "position": Object {
@@ -488,6 +500,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": ":: description here",
   },
 ]
 `;
@@ -549,6 +562,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "description here",
   },
 ]
 `;
@@ -567,6 +581,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "-not item",
   },
 ]
 `;
@@ -585,6 +600,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "1.not item",
   },
 ]
 `;
@@ -603,6 +619,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "8)not item",
   },
 ]
 `;
@@ -621,6 +638,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "8a) not item",
   },
 ]
 `;

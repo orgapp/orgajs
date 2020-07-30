@@ -1,19 +1,22 @@
 import { Node } from 'unist'
-import document from './root'
+import { Element, Comment, Text } from 'hast'
+import section from './section'
+import headline from './headline'
+import { Context } from '../'
 
 // import root from './root'
 // import section from './section'
 // import headline from './headline'
-// import block from './block'
+import block from './block'
 // import link from './link'
-// import {
-//   bold,
-//   italic,
-//   code,
-//   underline,
-//   verbatim,
-//   strikeThrough,
-// } from './emphasis'
+import {
+  bold,
+  italic,
+  code,
+  underline,
+  verbatim,
+  strikeThrough,
+} from './text'
 // import list from './list'
 // import listItem from './listItem'
 // import { table, tableRow, tableCell } from './table'
@@ -26,17 +29,24 @@ import document from './root'
 //   reference as fnRef,
 // } from './footnote'
 
-type Context = {
-  excludeTags: string[];
-}
+type H = (context: Context) => (node: Node) => Element | Comment | Text
 
-const handlers: { [key: string]: Handle } = {
-  document,
+const handlers: { [key: string]: H } = {
+  section,
+  headline,
+  'text.bold': bold,
+  'text.italic': italic,
+  'text.code': code,
+  'text.verbatim': verbatim,
+  'text.strikeThrough': strikeThrough,
+  'text.underline': underline,
+  block,
+  drawer: () => () => undefined,
 }
 
 export type Handle = (node: Node, context: Context) => Element
 
-export const getHandler = (type: string): Handle | undefined => {
+export const getHandler = (type: string): H | undefined => {
   const handler = handlers[type]
   if (handler) return handler
   return undefined

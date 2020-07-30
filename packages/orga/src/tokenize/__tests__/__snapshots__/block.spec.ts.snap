@@ -207,6 +207,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "#+begi😀n_src swift",
   },
 ]
 `;
@@ -225,6 +226,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "#+end_SRC ",
   },
 ]
 `;
@@ -243,6 +245,7 @@ Array [
       },
     },
     "type": "text.plain",
+    "value": "#+end_src param",
   },
 ]
 `;

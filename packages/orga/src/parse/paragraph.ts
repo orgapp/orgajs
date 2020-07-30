@@ -1,5 +1,5 @@
 import { push } from '../node'
-import { Paragraph } from '../types'
+import { Paragraph } from '../../types'
 import { isPhrasingContent } from '../utils'
 
 const parseParagraph = ({ peek, eat }): Paragraph | undefined => {
