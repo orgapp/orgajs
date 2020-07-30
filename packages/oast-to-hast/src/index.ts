@@ -6,6 +6,7 @@ import u from 'unist-builder'
 interface Options {
   excludeTags: string[];
   selectTags: string[];
+  highlight: boolean;
 }
 
 export interface Context extends Options {
@@ -90,6 +91,7 @@ export default (oast: Parent, options: any = {}): Root => {
   const context: Context = {
     excludeTags: [],
     selectTags: [],
+    highlight: true,
     build,
   }
   return u('root', _all(context)(oast.children))

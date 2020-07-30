@@ -5,12 +5,11 @@ export const read = (text: string) => {
 
   const {
     shift,
-    isLastLine,
     endOfLine,
     getLine,
     substring,
     toIndex,
-    match, location,
+    match,
   } = map(text)
 
   let line = 0
@@ -24,7 +23,7 @@ export const read = (text: string) => {
 
   const skipWhitespaces = () : number => {
     const a = eat(/^\s+/)
-    return 0
+    return distance(a)
     // const count = getLine(line, column).search(/[^ \t]/)
     // if (count > 0) {
     //   column += count
