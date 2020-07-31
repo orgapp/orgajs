@@ -33,9 +33,9 @@ export = async function onCreateNode(
     const content = await loadNodeContent(fileNode)
 
     const contentDigest = crypto
-          .createHash(`md5`)
-          .update(content)
-          .digest(`hex`)
+      .createHash(`md5`)
+      .update(content)
+      .digest(`hex`)
     const orgFileNode: any = {
       id: `${fileNode.id} >>> OrgFile`,
       children: [],
@@ -64,7 +64,7 @@ export = async function onCreateNode(
     const { orga_publish_keyword = ``, category } = ast.properties || {}
     let content = []
     const _keywords = orga_publish_keyword
-          .split(' ').map(k => k.trim()).filter(k => k.length > 0)
+      .split(' ').map(k => k.trim()).filter(k => k.length > 0)
 
     if (_keywords.length > 0) { // section
       const selector = `:matches(${_keywords.map(k => `[keyword=${k}]`).join(`,`)})headline`
@@ -76,42 +76,44 @@ export = async function onCreateNode(
 
       // content = selectAll(selector, ast)
       content = sections.map((ast: Section) => {
-          const { date, export_date, export_title, ...properties } = ast.properties
-          // const title = export_title || select(`text.plain`, ast).value
-          const title = export_title || 'untitled post'
+        const { date, export_date, export_title, ...properties } = ast.properties
+        // const title = export_title || select(`text.plain`, ast).value
 
-          const d = parseTimestamp(date) ||
-                parseTimestamp(export_date) ||
-                select(`timestamp`, ast) ||
-                select(`planning[keyword=CLOSED]`, ast)
+        const headline: Headline = select('headline', ast)
+        const title = export_title || headline.content
 
-          const metadata: any = {
-            title,
-            export_file_name: sanitise(title),
-            category: category || orgFileNode.fileName,
-            keyword: ast.keyword,
-            tags: ast.tags,
-            ...properties,
-          }
+        const d = parseTimestamp(date) ||
+          parseTimestamp(export_date) ||
+          select(`timestamp`, ast) ||
+          select(`planning[keyword=CLOSED]`, ast)
 
-          if (d && d.date) { metadata.date = d.date }
-          if (d && d.end) { metadata.end = d.end }
+        const metadata: any = {
+          title,
+          export_file_name: sanitise(title),
+          category: category || orgFileNode.fileName,
+          keyword: ast.keyword,
+          tags: ast.tags,
+          ...properties,
+        }
 
-          const absolutePath = `${orgFileNode.fileAbsolutePath}::*${title}`
-          return {
-            metadata,
-            getAST: () => ast.parent, // we need the secion of the headline
-            absolutePath,
-          }
-        })
+        if (d && d.date) { metadata.date = d.date }
+        if (d && d.end) { metadata.end = d.end }
+
+        const absolutePath = `${orgFileNode.fileAbsolutePath}::*${title}`
+        return {
+          metadata,
+          getAST: () => ast.parent, // we need the secion of the headline
+          absolutePath,
+        }
+      })
     } else { // root
-        const metadata = {
-          export_file_name: orgFileNode.fileName,
-          ...ast.properties }
+      const metadata = {
+        export_file_name: orgFileNode.fileName,
+        ...ast.properties }
       metadata.title = metadata.title || 'Untitled'
       const absolutePath = `${orgFileNode.fileAbsolutePath}`
       const d = parseTimestamp(metadata.date) ||
-            parseTimestamp(metadata.export_date)
+        parseTimestamp(metadata.export_date)
       if (d && d.date) { metadata.date = d.date }
       content = [ {
         metadata,
@@ -124,9 +126,9 @@ export = async function onCreateNode(
       const id = `${orgFileNode.id} >>> OrgContent[${index}]`
       const ast = node.getAST()
       const contentDigest =
-            crypto.createHash(`md5`)
-                  .update(JSON.stringify(ast, getCircularReplacer()))
-                  .digest(`hex`)
+        crypto.createHash(`md5`)
+          .update(JSON.stringify(ast, getCircularReplacer()))
+          .digest(`hex`)
       const n = {
         id,
         orga_id: id,

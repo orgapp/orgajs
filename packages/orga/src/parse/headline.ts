@@ -26,6 +26,10 @@ export default (lexer: Lexer): Headline => {
       headline.actionable = token.actionable
     }
 
+    if (token.value) {
+      headline.content += token.value
+    }
+
     if (['stars', 'keyword', 'priority'].includes(token.type)) {
       a(token)
       eat()
@@ -40,5 +44,6 @@ export default (lexer: Lexer): Headline => {
   return parse({
     type: 'headline',
     actionable: false,
+    content: '',
     children: [], level: -1 })
 }
