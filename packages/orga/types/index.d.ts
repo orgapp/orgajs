@@ -62,11 +62,13 @@ export interface List extends Parent {
   type: 'list';
   indent: number;
   ordered: boolean;
+  children: ListItem[];
 }
 
 export interface ListItem extends Parent {
   type: 'list.item';
   indent: number;
+  tag?: string;
 }
 
 export interface Headline extends Parent {

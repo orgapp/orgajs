@@ -17,7 +17,9 @@ import {
   verbatim,
   strikeThrough,
 } from './text'
-// import list from './list'
+import list, {
+  item as listItem,
+  checkbox as listItemCheckbox } from './list'
 // import listItem from './listItem'
 // import { table, tableRow, tableCell } from './table'
 // import horizontalRule from './horizontal-rule'
@@ -41,6 +43,9 @@ const handlers: { [key: string]: H } = {
   'text.strikeThrough': strikeThrough,
   'text.underline': underline,
   block,
+  list,
+  'list.item': listItem,
+  'list.item.checkbox': listItemCheckbox,
   drawer: () => () => undefined,
 }
 

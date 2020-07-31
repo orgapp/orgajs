@@ -425,7 +425,7 @@ Array [
       },
     },
     "type": "list.item.tag",
-    "value": " :: ",
+    "value": "item1",
   },
   Object {
     "position": Object {
@@ -548,7 +548,7 @@ Array [
       },
     },
     "type": "list.item.tag",
-    "value": " :: ",
+    "value": "item3",
   },
   Object {
     "position": Object {

@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default ({ reader }: Props) : Token[] => {
-  const { now, match, eat, jump, skipWhitespaces, getLine } = reader
+  const { now, match, eat, jump, skipWhitespaces, substring } = reader
 
 // /^(\s*)([-+]|\d+[.)])\s+(?:\[(x|X|-| )\][ \t]+)?(?:([^\n]+)[ \t]+::[ \t]*)?(.*)$/
   let tokens: Token[] = []
@@ -40,10 +40,11 @@ export default ({ reader }: Props) : Token[] => {
 
   const tagMark = match(/\s+::\s+/)
   if (tagMark) {
+    const pos = { start: now(), end: tagMark.position.start }
     tokens.push({
       type: 'list.item.tag',
-      value: tagMark.captures[0],
-      position: { start: now(), end: tagMark.position.start },
+      value: substring(pos),
+      position: pos,
     })
     jump(tagMark.position.end)
   }
