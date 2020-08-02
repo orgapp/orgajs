@@ -1,20 +1,17 @@
-import u from 'unist-builder'
 import mime from 'mime'
+import { Link } from 'orga'
+import { Context, HNode } from '../'
 
-export default (h, node) => {
-  const { uri, desc } = node
-  let props: any = { href: uri.raw }
+export default (context: Context) => (node: Link): HNode => {
+  const { h, u } = context
+  const { value, description } = node
 
-  if (node.title !== null && node.title !== undefined) {
-    props.title = node.title
-  }
-
-  const type = mime.getType(uri.raw)
+  const type = mime.getType(value)
   if (type && type.startsWith(`image`)) {
-    props = { src: uri.raw, alt: desc }
-    return h(node, `img`, props)
+    return h('img', { src: value, alt: description })()
   }
-  return h(node, `a`, props, [
-    u(`text`, desc)
-  ])
+
+  return h('a', { href: value })(
+    u('text', description)
+  )
 }

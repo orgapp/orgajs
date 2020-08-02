@@ -1,11 +1,10 @@
 import { List, ListItem, ListItemCheckbox } from 'orga'
-import { Context } from '../'
-import { HNode, _all } from '../transform'
-import builder from './builder'
+import { Context, HNode } from '../'
+import { _all } from '../transform'
 
 /* Transform a list. */
 export default (context: Context) => (node: List): HNode => {
-  const { h } = builder(context)
+  const { h } = context
 
   let tagName = node.ordered ? 'ol' : 'ul'
   if (node.children.every(i => i.tag)) {
@@ -15,7 +14,7 @@ export default (context: Context) => (node: List): HNode => {
 }
 
 export const item = (context: Context) => (node: ListItem): HNode => {
-  const { h, u } = builder(context)
+  const { h, u } = context
   if (node.tag) {
     return h('div')(
       h('dt')(u('text', node.tag)),

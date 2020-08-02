@@ -1,39 +1,33 @@
-const URL_PATTERN = /(?:([a-z][a-z0-9+.-]*):)?(.*)/
+const URL_PATTERN = /(?:([a-z][a-z0-9+.-]*):)?(.*)/i
 
-export default (link: string) => {
-  const result: any = { raw: link, protocol: undefined, location: undefined }
+interface LinkInfo {
+  protocol: string;
+  value: string;
+  search?: string | number;
+}
+
+const isFilePath = (str: string): boolean => {
+  return str && /^\.{0,2}\//.test(str)
+}
+
+export default (link: string): LinkInfo | undefined => {
   const m = URL_PATTERN.exec(link)
-  if (!m) return result
-  result.protocol = (m[1] || (isFilePath(m[2]) ? `file` : `internal`)).toLowerCase()
-  result.location = m[2]
-  return processFilePath(result)
-
-  function isFilePath(str) {
-    return str.match(/^\.{0,2}\//)
+  if (!m) return undefined
+  const protocol = (m[1] || (isFilePath(m[2]) ? `file` : `internal`)).toLowerCase()
+  let value = m[2]
+  if (/https?/.test(protocol)) {
+    value = `${protocol}://${value}`
   }
+  let search: string | number | undefined
+  if (protocol === 'file') {
+    const m = /(.*?)::(.*)/.exec(value)
+    if (m && m[1] && m[2]) {
+      value = m[1]
+      search = parseInt(m[2])
+      search = Number.isInteger(search) ? search : m[2]
+    }
+  }
+  return { protocol, value, search }
+
 }
 
-function processFilePath(link) {
-  if (link.protocol !== `file`) return link
-  // const pattern = /([^:]*?)(?:::(.*))?/
-  const pattern = /(.*?)::(.*)/
-  const m = pattern.exec(link.location)
-  if (!m) return link
-  if (m[2]) {
-    link.location = m[1]
-    link.query = processQuery(m[2])
-  }
-  return link
-}
-
-function processQuery(q) {
-  const ln = parseInt(q)
-  if (ln) {
-    return { ln }
-  }
-  if (q.startsWith(`*`)) {
-    const headline = q.replace(/^\*+/, '')
-    return { headline }
-  }
-  return { text: q }
-}

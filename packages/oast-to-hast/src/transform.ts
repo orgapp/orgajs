@@ -2,10 +2,8 @@ import { Element, Comment, Text } from 'hast'
 // import { Parent } from 'orga'
 import { Node, Parent } from 'unist'
 import u from 'unist-builder'
-import { Context } from './'
+import { Context, HNode } from './'
 import { getHandler } from './handlers'
-
-export type HNode = Element | Comment | Text
 
 // function unknown(h, node) {
 //   if (text(node)) {

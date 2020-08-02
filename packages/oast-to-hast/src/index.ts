@@ -1,51 +1,17 @@
-import { Element, Root, Properties } from 'hast'
-import { Node, Parent } from 'unist'
-import { one, _all } from './transform'
+import { Comment, Element, Properties, Root, Text } from 'hast'
+import { Parent } from 'unist'
 import u from 'unist-builder'
+import { _all } from './transform'
 
-interface Options {
-  excludeTags: string[];
-  selectTags: string[];
-  highlight: boolean;
+export type HNode = Element | Comment | Text
+
+const defaultOptions = {
+  excludeTags: [] as string[],
+  selectTags: [] as string[],
+  highlight: true,
 }
 
-export interface Context extends Options {
-  build: (props: ElementInfo) => Element;
-}
-
-// const build: Build = ({ tagName, props, children }) => {
-//   console.log('building:', tagName)
-
-//   return {
-//     type: 'element',
-//     tagName,
-//     properties: props,
-//     children: children || [],
-//   }
-// }
-
-const h = (() => {
-  const _h: any = function(node, tagName, props, children) {
-    if (
-      (children === undefined || children === null) &&
-        typeof props === 'object' &&
-        'length' in props
-    ) {
-      children = props
-      props = {}
-    }
-
-    return {
-      type: 'element',
-      tagName,
-      properties: props || {},
-      children: children || []
-    }
-  }
-
-  return _h
-})()
-
+type Options = typeof defaultOptions
 
 // export = function toHAST(tree, options: any = {}) {
 //   const meta = tree.meta || {}
@@ -67,17 +33,20 @@ const h = (() => {
 //   return transform(h, tree)
 // }
 
-interface ElementInfo {
-  tagName: string;
-  properties?: Properties;
-  children?: Element['children'];
-}
+// interface ElementInfo {
+//   tagName: string;
+//   properties?: Properties;
+//   children?: Element['children'];
+// }
 
 const build = ({
   tagName,
   properties,
   children = [],
-} : ElementInfo): Element => {
+} : {
+  tagName: string;
+  properties?: Properties;
+  children?: Array<HNode>}): Element => {
   return {
     type: 'element',
     tagName,
@@ -86,13 +55,29 @@ const build = ({
   }
 }
 
-export default (oast: Parent, options: any = {}): Root => {
+const h = (
+  tagName: string,
+  properties: Properties | undefined = undefined
+) => (...children: HNode[]): HNode => {
+  return build({
+    tagName,
+    properties,
+    children,
+  })
+}
+
+const defaultContext = {
+  ...defaultOptions,
+  build,
+  h,
+  u,
+}
+
+export type Context = typeof defaultContext
+
+export default (oast: Parent, options: Partial<Options> = {}): Root => {
   // TODO: get metadata
-  const context: Context = {
-    excludeTags: [],
-    selectTags: [],
-    highlight: true,
-    build,
-  }
-  return u('root', _all(context)(oast.children))
+  return u('root', _all({
+    ...defaultContext,
+    ...options })(oast.children))
 }

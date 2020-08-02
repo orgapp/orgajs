@@ -107,12 +107,15 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
       position,
     }))
 
-  tokens = parse('link', LINK_PATTERN, tokens, ({ position, captures }) => ({
-    type: 'link',
-    uri: uri(captures[1]),
-    description: captures[2],
-    position,
-  }))
+  tokens = parse('link', LINK_PATTERN, tokens, ({ position, captures }) => {
+    const linkInfo = uri(captures[1])
+    return {
+      type: 'link',
+      description: captures[2],
+      ...linkInfo,
+      position,
+    }
+  })
 
   tokens = parse('footnote.reference', FOOTNOTE_PATTERN, tokens, ({ position, captures }) => ({
     type: 'footnote.reference',

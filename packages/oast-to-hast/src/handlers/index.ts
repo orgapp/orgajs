@@ -8,7 +8,7 @@ import { Context } from '../'
 // import section from './section'
 // import headline from './headline'
 import block from './block'
-// import link from './link'
+import link from './link'
 import {
   bold,
   italic,
@@ -42,6 +42,7 @@ const handlers: { [key: string]: H } = {
   'text.verbatim': verbatim,
   'text.strikeThrough': strikeThrough,
   'text.underline': underline,
+  link,
   block,
   list,
   'list.item': listItem,

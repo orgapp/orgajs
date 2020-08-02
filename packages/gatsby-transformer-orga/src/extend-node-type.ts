@@ -99,7 +99,8 @@ module.exports = async (
       })
     }
 
-    const hast = toHAST(body, { highlight, handlers })
+    // TODO: resume custom handlers
+    const hast = toHAST(body, { highlight, /* handlers */ })
     const html = hastToHTML(hast, { allowDangerousHTML: true })
     await Promise.all(Array.from(filesToCopy, async ([linkPath, newFilePath]) => {
       // Don't copy anything is the file already exists at the location.

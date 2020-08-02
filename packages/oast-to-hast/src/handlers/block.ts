@@ -1,12 +1,10 @@
 import { Block } from 'orga'
-import { Context } from '../'
-import { HNode } from '../transform'
-import builder from './builder'
+import { Context, HNode } from '../'
 import highlight from './_highlight'
 
 export default (context: Context) => (node: Block): HNode => {
 
-  const { h, u } = builder(context)
+  const { h, u } = context
 
   const name = node.name.toLowerCase()
 

@@ -134,10 +134,12 @@ export interface StyledText extends Literal {
     | 'text.code'
 }
 
-interface Link extends Node {
+interface Link extends Literal {
   type: 'link';
-  uri: string;
+  protocol: string;
   description: string;
+  value: string;
+  search?: string | number;
 }
 
 interface FootnoteReference extends Node {
