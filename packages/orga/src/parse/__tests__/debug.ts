@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import { inspect } from 'util'
 import { map } from '../../node'
-import { map as locate } from '../../position'
+import { read as locate } from 'text-kit'
 import { tokenize } from '../../tokenize'
 import { parse } from '../index'
 

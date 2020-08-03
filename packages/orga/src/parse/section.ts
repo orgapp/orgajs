@@ -6,6 +6,7 @@ import parseDrawer from './drawer'
 import parseHeadline from './headline'
 import parseKeyword from './keyword'
 import parseList from './list'
+import parseTable from './table'
 import parseParagraph from './paragraph'
 import parsePlanning from './planning'
 import utils from './utils'
@@ -64,6 +65,11 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
 
     // list
     if (tryTo(parseList, push(section))) {
+      return parse(section)
+    }
+
+    // table
+    if (tryTo(parseTable, push(section))) {
       return parse(section)
     }
 

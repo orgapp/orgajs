@@ -1,29 +1,19 @@
-import u from 'unist-builder'
-import { all } from '../transform'
+import { Table, TableCell, TableRow } from 'orga'
+import { Context, HNode } from '../'
+import { _all } from '../transform'
 
-export function table(h, node) {
-
-  const rows = node.children
-  const separatorIndex = rows.findIndex(row => row.type === `table.separator`)
-
-  const result = []
-
-  if (separatorIndex > 0) {
-    result.push(
-      h(node, 'thead',
-        rows.slice(0, separatorIndex)
-            .map(row => h(row, 'tr', all(h, { ...row, isHeader: true }))))
-    )
-  }
-
-  result.push(
-    h(node, 'tbody',
-      rows.slice(separatorIndex + 1)
-          .filter(row => row.type === `table.row`)
-          .map(row => h(row, 'tr', all(h, row))))
-  )
-
-  return h(node, 'table', result)
+export const tableRow = (context: Context) => (node: TableRow): HNode => {
+  return context.h('tr')(..._all(context)(node.children))
 }
-export function tableRow(h, node) { return h(node, 'tr', all(h, node)) }
-export function tableCell(h, node, parent) { return h(node, parent.isHeader ? 'th' : 'td', all(h, node)) }
+
+export const tableCell = (context: Context) => (node: TableCell): HNode => {
+  return context.h('td')(..._all(context)(node.children))
+}
+
+export const table = (context: Context) => (node: Table): HNode => {
+  const { h } = context
+
+  return h('table')(
+    h('tbody')(..._all(context)(node.children))
+  )
+}

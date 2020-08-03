@@ -21,7 +21,7 @@ import list, {
   item as listItem,
   checkbox as listItemCheckbox } from './list'
 // import listItem from './listItem'
-// import { table, tableRow, tableCell } from './table'
+import { table, tableRow, tableCell } from './table'
 // import horizontalRule from './horizontal-rule'
 // import html from './html'
 // import paragraph from './paragraph'
@@ -47,6 +47,10 @@ const handlers: { [key: string]: H } = {
   list,
   'list.item': listItem,
   'list.item.checkbox': listItemCheckbox,
+  table,
+  'table.row': tableRow,
+  'table.cell': tableCell,
+  hr: ({ h }) => () => h('hr')(),
   drawer: () => () => undefined,
 }
 

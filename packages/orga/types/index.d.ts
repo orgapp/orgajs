@@ -33,6 +33,7 @@ type Content =
   | Drawer
   | Planning
   | List
+  | Table
   | HorizontalRule
   | Headline
 
@@ -63,6 +64,23 @@ export interface List extends Parent {
   indent: number;
   ordered: boolean;
   children: ListItem[];
+}
+
+type TableContent = TableRow | TableRule
+
+export interface Table extends Parent {
+  type: 'table';
+  children: TableContent[];
+}
+
+export interface TableRow extends Parent {
+  type: 'table.row';
+  children: TableCell[];
+}
+
+export interface TableCell extends Parent {
+  type: 'table.cell';
+  children: PhrasingContent[];
 }
 
 export interface ListItem extends Parent {
@@ -117,7 +135,7 @@ export type Token =
 export type PhrasingContent =
   | StyledText | Link | FootnoteReference
 
-interface HorizontalRule extends Node {
+export interface HorizontalRule extends Node {
   type: 'hr'
 }
 
