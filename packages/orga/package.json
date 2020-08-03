@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "luxon": "^1.19.3",
+    "text-kit": "^1.0.0",
     "xregexp": "^4.3.0"
   }
 }

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib",
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "noImplicitUseStrict": true,
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "lib": [
+      "es7", "es2019"
+    ]
+  },
+  "include": ["./src"],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+
+}

@@ -1,97 +1,76 @@
+import { read as _read } from 'text-kit'
 import { Point, Position } from 'unist'
-import { map } from './position'
 
 export const read = (text: string) => {
 
   const {
     shift,
-    endOfLine,
-    getLine,
     substring,
+    linePosition,
     toIndex,
     match,
-  } = map(text)
+    location,
+  } = _read(text)
 
-  let line = 0
-  let column = 0
+  let cursor = { line: 0, column: 0 }
 
-  const isStartOfLine = () => column === 0
+  const isStartOfLine = () => cursor.column === 0
 
-  const getChar = (offset: number = 0) => {
-    return text.charAt(toIndex({ line, column }) + offset)
+  const getChar = (offset = 0) => {
+    return text.charAt(toIndex(cursor) + offset)
+  }
+
+  const endOfLine = (ln: number): Point => {
+    return location(toIndex(linePosition(ln).end))
   }
 
   const skipWhitespaces = () : number => {
     const a = eat(/^\s+/)
     return distance(a)
-    // const count = getLine(line, column).search(/[^ \t]/)
-    // if (count > 0) {
-    //   column += count
-    // }
-    // return Math.max(0, count)
   }
 
-  const now = () => ({ line, column })
+  const now = () => cursor
 
-  const eat = (param: 'char' | 'line' | RegExp | number) : Position => {
+  const eat = (param: 'char' | 'line' | RegExp | number = 'char') : Position => {
     const start = now()
     if (param === 'char') {
-      const n = shift(start, 1)
-      line = n.line
-      column = n.column
+      cursor = shift(start, 1)
     } else if (param === 'line') {
-      column = endOfLine(line).column
+      const lp = linePosition(cursor.line)
+      cursor = lp.end
     } else if (typeof param === 'number') {
-      const n = shift(start, param)
-      line = n.line
-      column = n.column
+      cursor = shift(start, param)
     } else {
-      const m = param.exec(getLine(line, column))
+      const m = param.exec(substring({ start: cursor }))
       if (m) {
-        column += m.index + m[0].length
+        cursor = location(toIndex(cursor) + m.index + m[0].length)
       }
     }
 
     return {
       start,
-      end: { line, column }
+      end: cursor,
     }
   }
 
-  const eol = () => endOfLine(line)
+  const eol = () => endOfLine(cursor.line)
 
   const EOF = () => {
-    const index = toIndex(now())
-    // console.log({ index, length: text.length, now: now() })
-    return index >= text.length - 1
+    return toIndex(now()) >= text.length - 1
   }
-
-  // const position = ({ offset, range }: { offset?: Point, range?: Range } = {}): Position => {
-  //   const firstLine = getLineRangeByLineNumber(0)
-  //   let ln = 0
-  //   while (getLineRangeByLineNumber(ln)) {
-  //     ln += 1
-  //   }
-
-  //   return {
-  //     start: { line: 0, column: 0 },
-  //     end: { line: ln, column: 0 }
-  //   }
-  // }
 
   const distance = ({ start, end }: Position) : number => {
     return toIndex(end) - toIndex(start)
   }
 
   const jump = (point: Point) => {
-    line = point.line
-    column = point.column
+    cursor = point
   }
 
   const reader: Reader = {
     isStartOfLine,
     getChar,
-    getLine: () => getLine(line, column),
+    getLine: () => substring({ start: cursor }),
     skipWhitespaces,
     substring,
     now,
@@ -115,7 +94,7 @@ export interface Reader {
   now: () => Point;
   eol: () => Point;
   EOF: () => boolean;
-  eat: (param: 'char' | 'line' | number | RegExp) => Position;
+  eat: (param?: 'char' | 'line' | number | RegExp) => Position;
   jump: (point: Point) => void;
   distance: (position: Position) => number;
   match: (pattern: RegExp, position?: Position) => {
