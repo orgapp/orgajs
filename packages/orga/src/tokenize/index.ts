@@ -10,6 +10,7 @@ import tokenizeHeadline from './headline'
 import { tokenize as inlineTok } from './inline'
 import tokenizeListItem from './list'
 import tokenizePlanning from './planning'
+import tokenizeTable from './table'
 import { Position } from 'unist'
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
@@ -115,7 +116,8 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
 
     const drawer = tokenizeDrawer({ reader })
     if (drawer.length > 0) return drawer
-    // TODO: table
+    const table = tokenizeTable({ reader })
+    if (table.length > 0) return table
 
     const hr = eat(/^\s*-{5,}\s*$/)
     if (!isEmpty(hr)) {

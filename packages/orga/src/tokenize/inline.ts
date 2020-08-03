@@ -131,5 +131,7 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
   tokens = parseText('text.code', markup('~'), tokens)
 
   jump(e)
-  return tokens
+  return tokens.filter(t => {
+    return t.type !== 'text.plain' || /\S/.test(t.value)
+  })
 }

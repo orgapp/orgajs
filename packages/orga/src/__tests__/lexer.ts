@@ -30,37 +30,6 @@ another line
 
   })
 
-  it('knows table row', () => {
-    expect(lexer.tokenize('| batman | superman | wonder woman |')).toMatchSnapshot()
-  })
-
-
-  it.skip('knows table separators', () => {
-    expect(lexer.tokenize('|----+---+----|')).toMatchSnapshot()
-    expect(lexer.tokenize('|--=-+---+----|')).toMatchSnapshot()
-    expect(lexer.tokenize('  |----+---+----|')).toMatchSnapshot()
-    expect(lexer.tokenize('|----+---+----')).toMatchSnapshot()
-    expect(lexer.tokenize('|---')).toMatchSnapshot()
-    expect(lexer.tokenize('|-')).toMatchSnapshot()
-  })
-
-  it.skip('knows these are not table separators', () => {
-    expect(lexer.tokenize('----+---+----|')).toMatchSnapshot()
-  })
-
-  it.skip('knows table rows', () => {
-    expect(lexer.tokenize('| hello | world | y\'all |')).toMatchSnapshot()
-    expect(lexer.tokenize('   | hello | world | y\'all |')).toMatchSnapshot()
-    expect(lexer.tokenize('|    hello |  world   |y\'all |')).toMatchSnapshot()
-    // with empty cell
-    expect(lexer.tokenize('||  world   | |')).toMatchSnapshot()
-  })
-
-  it.skip('knows these are not table rows', () => {
-    expect(lexer.tokenize(' hello | world | y\'all |')).toMatchSnapshot()
-    expect(lexer.tokenize('|+')).toMatchSnapshot()
-  })
-
   it.skip('knows these are timestamps', () => {
     expect(lexer.tokenize('<2019-08-19 Mon>')).toMatchSnapshot()
     expect(lexer.tokenize('<2019-08-19 Mon 13:20>')).toMatchSnapshot()

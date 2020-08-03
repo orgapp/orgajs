@@ -105,6 +105,8 @@ export type Token =
   | ListItemTag
   | ListItemCheckbox
   | ListItemBullet
+  | TableRule
+  | TableColumnSeparator
   | PhrasingContent
   | FootnoteLabel
   | BlockBegin
@@ -224,4 +226,12 @@ export interface ListItemBullet extends Node {
   type: 'list.item.bullet';
   ordered: boolean;
   indent: number;
+}
+
+export interface TableRule extends Node {
+  type: 'table.hr';
+}
+
+export interface TableColumnSeparator extends Node {
+  type: 'table.columnSeparator';
 }

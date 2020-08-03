@@ -1,14 +1,14 @@
-import { map } from '../../position'
+import { read } from 'text-kit'
 import { tokenize } from '../index'
 import { inspect } from 'util'
 import chalk from 'chalk'
 
 export default (text: string): void => {
-  const { substring } = map(text)
+  const { substring } = read(text)
   const tokens = tokenize(text).all()
   const data = tokens.map(token => ({
     ...token,
-    // _content: substring(token.position)
+    _content: substring(token.position)
   }))
 
   const lines = [
