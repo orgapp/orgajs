@@ -1,7 +1,7 @@
 import { Comment, Element, Properties, Root, Text } from 'hast'
 import { Parent } from 'unist'
 import u from 'unist-builder'
-import { _all } from './transform'
+import { all } from './transform'
 
 export type HNode = Element | Comment | Text
 
@@ -46,7 +46,7 @@ const build = ({
 } : {
   tagName: string;
   properties?: Properties;
-  children?: Array<HNode>}): Element => {
+  children?: Array<HNode>}): HNode => {
   return {
     type: 'element',
     tagName,
@@ -68,7 +68,6 @@ const h = (
 
 const defaultContext = {
   ...defaultOptions,
-  build,
   h,
   u,
 }
@@ -77,7 +76,10 @@ export type Context = typeof defaultContext
 
 export default (oast: Parent, options: Partial<Options> = {}): Root => {
   // TODO: get metadata
-  return u('root', _all({
+
+  const context = {
     ...defaultContext,
-    ...options })(oast.children))
+    ...options,
+  }
+  return u('root', all(context)(oast.children))
 }

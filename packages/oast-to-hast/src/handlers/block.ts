@@ -32,6 +32,7 @@ export default (context: Context) => (node: Block): HNode => {
       )
     case 'comment':
     default:
-      return undefined
+      return h('pre', { className: name })(
+        u('text', node.value))
   }
 }

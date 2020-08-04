@@ -1,11 +1,10 @@
-import { Element } from 'hast'
-import { _all } from '../transform'
 import { Headline } from 'orga'
-import { Context } from '../'
+import { Context, HNode } from '../'
+import { all } from '../transform'
 
-export default (context: Context) => (node: Headline): Element => {
-  return context.build({
-    tagName: `h${node.level}`,
-    children: _all(context)(node.children)
-  })
+export default (context: Context) => (node: Headline): HNode => {
+  const { h } = context
+  return h(`h${node.level}`)(
+    ...all(context)(node.children)
+  )
 }

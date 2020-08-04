@@ -1,5 +1,7 @@
+import { Paragraph } from 'orga'
+import { Context } from '../'
 import { all } from '../transform'
 
-export default (h, node) => {
-  return h(node, 'p', all(h, node))
+export default (context: Context) => (p: Paragraph) => {
+  return context.h('p')(...all(context)(p.children))
 }

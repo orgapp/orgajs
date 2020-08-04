@@ -1,30 +1,19 @@
+import { Comment, Element, Text } from 'hast'
 import { Node } from 'unist'
-import { Element, Comment, Text } from 'hast'
-import section from './section'
-import headline from './headline'
 import { Context } from '../'
-
 // import root from './root'
 // import section from './section'
 // import headline from './headline'
 import block from './block'
+import headline from './headline'
 import link from './link'
-import {
-  bold,
-  italic,
-  code,
-  underline,
-  verbatim,
-  strikeThrough,
-} from './text'
-import list, {
-  item as listItem,
-  checkbox as listItemCheckbox } from './list'
-// import listItem from './listItem'
-import { table, tableRow, tableCell } from './table'
-// import horizontalRule from './horizontal-rule'
+import list, { checkbox as listItemCheckbox, item as listItem } from './list'
 // import html from './html'
-// import paragraph from './paragraph'
+import paragraph from './paragraph'
+import section from './section'
+import { table, tableCell, tableRow } from './table'
+import { bold, code, italic, strikeThrough, underline, verbatim } from './text'
+
 
 // import {
 //   definition as fnDef,
@@ -42,6 +31,7 @@ const handlers: { [key: string]: H } = {
   'text.verbatim': verbatim,
   'text.strikeThrough': strikeThrough,
   'text.underline': underline,
+  paragraph,
   link,
   block,
   list,

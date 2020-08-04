@@ -1,6 +1,6 @@
 import { List, ListItem, ListItemCheckbox } from 'orga'
 import { Context, HNode } from '../'
-import { _all } from '../transform'
+import { all } from '../transform'
 
 /* Transform a list. */
 export default (context: Context) => (node: List): HNode => {
@@ -10,7 +10,7 @@ export default (context: Context) => (node: List): HNode => {
   if (node.children.every(i => i.tag)) {
     tagName = 'dl'
   }
-  return h(tagName)(..._all(context)(node.children))
+  return h(tagName)(...all(context)(node.children))
 }
 
 export const item = (context: Context) => (node: ListItem): HNode => {
@@ -18,20 +18,18 @@ export const item = (context: Context) => (node: ListItem): HNode => {
   if (node.tag) {
     return h('div')(
       h('dt')(u('text', node.tag)),
-      h('dd')(..._all(context)(node.children)),
+      h('dd')(...all(context)(node.children)),
     )
   }
-  return context.build({
-    tagName: 'li',
-    children: _all(context)(node.children) })
+  return h('li')(
+    ...all(context)(node.children)
+  )
 }
 
-export const checkbox = (context: Context) => (node: ListItemCheckbox): HNode => {
-  return context.build({
-    tagName: 'input',
-    properties: {
-      type: 'checkbox',
-      checked: node.checked,
-      disabled: true,
-    }})
+export const checkbox = ({ h }: Context) => (node: ListItemCheckbox): HNode => {
+  return h('input', {
+    type: 'checkbox',
+    checked: node.checked,
+    disabled: true,
+  })()
 }
