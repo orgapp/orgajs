@@ -16,27 +16,11 @@ function markup(marker: string) {
   return RegExp(`(?<=(${PRE}))${marker}(${BORDER}(?:.*?(?:${BORDER}))??)${marker}(?=(${POST}.*))`, 'm')
 }
 
-const shift = (point: Point, offset: Point) => {
-  return {
-    line: point.line + offset.line,
-    column: point.column + offset.column,
-  }
-}
-
-const shiftPosition = (position: Position, offset: Point) => {
-  return {
-    start: shift(position.start, offset),
-    end: shift(position.end, offset),
-  }
-}
-
 interface Props {
   reader: Reader;
   start?: Point;
   end?: Point;
 }
-
-
 
 export const tokenize = ({ reader, start, end } : Props): Token[] => {
   const { now, eol, match, jump, substring } = reader

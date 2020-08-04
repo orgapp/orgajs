@@ -1,5 +1,6 @@
 #+TODO: DRAFT | PUBLISHED
 #+ORGA_PUBLISH_KEYWORD: PUBLISHED
+#+EXCLUDE_TAGS: no
 
 * PUBLISHED Basics Usages
 CLOSED: [2018-12-11 Tue 19:39]
@@ -83,6 +84,9 @@ const ast = parser.parse(content)
 |-------+------------------+---------------+------------------|
 | todos | Array of Strings | TODO keywords | ['TODO', 'DONE'] |
 
+
+** Secret Section :no:
+You are not support to see this.
 * PUBLISHED With Unified
 CLOSED: [2018-12-11 Tue 19:40]
 :PROPERTIES:

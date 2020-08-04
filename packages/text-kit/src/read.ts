@@ -23,10 +23,6 @@ export default (text: string) => {
     return Math.min(lines[line] + column, text.length)
   }
 
-  const isLastLine = (ln: number) => {
-    return ln >= lines.length
-  }
-
   const middle = (start, end) => {
     return start + Math.floor((end - start) / 2)
   }

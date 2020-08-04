@@ -18,7 +18,7 @@ export default ({ reader }: { reader: Reader }) : Token[] => {
 
   const tokCells = (): void => {
     const m = match(/\|/)
-    const end = m && m.position.start || undefined
+    const end = m && m.position.start
     tokens = tokens.concat(tokenizeInline({ reader, end }))
     if (!m) return
     tokens.push({

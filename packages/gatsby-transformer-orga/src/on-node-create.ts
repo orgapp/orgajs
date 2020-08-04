@@ -102,7 +102,7 @@ export = async function onCreateNode(
         const absolutePath = `${orgFileNode.fileAbsolutePath}::*${title}`
         return {
           metadata,
-          getAST: () => ast.parent, // we need the secion of the headline
+          getAST: () => ast,
           absolutePath,
         }
       })

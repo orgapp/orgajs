@@ -78,7 +78,7 @@ export default ({ reader, todoKeywordSets }: Props) : Token[] => {
     const s = substring(tagsPosition)
     buffer.push({
       type: 'tags',
-      tags: s.split(':'),
+      tags: s.split(':').map(t => t.trim()).filter(Boolean),
       position: { start: now(), end: tags.position.end },
     })
     jump(tags.position.end)

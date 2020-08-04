@@ -9,6 +9,6 @@ describe('Parse Table', () => {
 | Clark Kent   | [[https://en.wikipedia.org/wiki/Kryptonian][Kryptonian]] | M      | *Superman*   |
 | Diana Prince | Amazonian  | F      | Wonder Woman |
 `
-    debug(content)
+    // debug(content)
   })
 })

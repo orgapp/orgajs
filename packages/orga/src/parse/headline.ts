@@ -30,10 +30,8 @@ export default (lexer: Lexer): Headline => {
       headline.content += token.value
     }
 
-    if (['stars', 'keyword', 'priority'].includes(token.type)) {
-      a(token)
-      eat()
-      return parse(headline)
+    if (token.type === 'tags') {
+      headline.tags = token.tags
     }
 
     a(token)

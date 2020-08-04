@@ -19,6 +19,7 @@ export interface Document extends Parent {
 
 export interface Section extends Parent {
   type: 'section';
+  level: number;
   properties: { [key: string]: string; };
   children: Content[];
 }

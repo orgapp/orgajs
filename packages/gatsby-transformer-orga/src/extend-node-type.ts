@@ -55,7 +55,7 @@ module.exports = async (
 
   const orgContent = getNodesByType(`OrgContent`)
 
-  const t = {
+  const t: any = {
     html: {
       type: GraphQLString,
       resolve: async (node) => { return await getHTML(node) },

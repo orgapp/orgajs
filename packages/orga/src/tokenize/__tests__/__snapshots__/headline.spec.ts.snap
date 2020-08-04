@@ -254,10 +254,8 @@ Array [
       },
     },
     "tags": Array [
-      "",
       "tag1",
       "tag2",
-      "",
     ],
     "type": "tags",
   },

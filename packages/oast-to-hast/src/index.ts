@@ -1,4 +1,5 @@
 import { Comment, Element, Properties, Root, Text } from 'hast'
+import { Document, Section } from 'orga'
 import { Parent } from 'unist'
 import u from 'unist-builder'
 import { all } from './transform'
@@ -7,7 +8,7 @@ import handlers, { Handler } from './handlers'
 export type HNode = Element | Comment | Text
 
 const defaultOptions = {
-  excludeTags: ['noexport'] as string[],
+  excludeTags: ['noexport'],
   selectTags: [] as string[],
   highlight: true,
   handlers: {} as { [key: string]: Handler },
@@ -78,14 +79,23 @@ export type Context = typeof defaultContext
 
 export { Handler }
 
-export default (oast: Parent, options: Partial<Options> = {}): Root => {
+export default (
+  oast: Document | Section,
+  options: Partial<Options> = {}
+): Root => {
   // TODO: get metadata
-
   const context = {
     ...defaultContext,
     ...options,
     handlers: { ...handlers, ...options.handlers },
   }
+
+  const eTags = oast.properties['exclude_tags']
+  if (eTags) {
+    context.excludeTags = eTags.split(/\s+/).filter(Boolean)
+  }
+
+  // console.log({ context })
 
   return u('root', all(context)(oast.children))
 }

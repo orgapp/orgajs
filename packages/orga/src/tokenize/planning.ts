@@ -27,7 +27,7 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
   const all: Token[] = []
 
   const parseLastTimestamp = (end: number) => {
-    if (all.length == 0) return
+    if (all.length === 0) return
     const { type, position } = all[all.length - 1]
     if (!position) throw Error(`position is ${position}`)
     if (type !== 'planning.keyword') return

@@ -1,14 +1,14 @@
-import { push, level } from '../node'
-import { Lexer } from '../tokenize'
 import { Document, Section } from '../../types'
+import { push } from '../node'
+import { Lexer } from '../tokenize'
 import parseBlock from './block'
 import parseDrawer from './drawer'
 import parseHeadline from './headline'
 import parseKeyword from './keyword'
 import parseList from './list'
-import parseTable from './table'
 import parseParagraph from './paragraph'
 import parsePlanning from './planning'
+import parseTable from './table'
 import utils from './utils'
 
 export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
@@ -16,13 +16,14 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
   const { peek, eat } = lexer
   const { tryTo } = utils(lexer)
 
-  const newSection = (): Section => {
+  const newSection = (props: { [key: string]: string } = {}): Section => {
+    const headline = parseHeadline(lexer)
     const section: Section = {
       type: 'section',
-      properties: {},
+      level: headline.level,
+      properties: { ...props },
       children: [],
     }
-    const headline = parseHeadline(lexer)
     push(section)(headline)
     const plannings = parsePlanning(lexer)
     plannings.forEach(push(section))
@@ -49,8 +50,8 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
 
     // section
     if (token.type === 'stars') {
-      if (section.type === 'document' || token.level > level(section)) {
-        const ns = newSection()
+      if (section.type === 'document' || token.level > section.level) {
+        const ns = newSection(section.properties)
         push(section)(parse(ns))
         return parse(section)
       } else {
@@ -86,7 +87,7 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
       return parse(section)
     }
 
-    if (token.type == 'hr') {
+    if (token.type === 'hr') {
       push(section)(token)
     }
 
