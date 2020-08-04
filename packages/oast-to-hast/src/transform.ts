@@ -1,7 +1,6 @@
 import { Node, Parent } from 'unist'
 import u from 'unist-builder'
 import { Context, HNode } from './'
-import { getHandler } from './handlers'
 
 const unknown = (context: Context) => (node: Node): HNode => {
   const p = node as Parent
@@ -16,8 +15,7 @@ const unknown = (context: Context) => (node: Node): HNode => {
 }
 
 export const one = (context: Context) => (node: Node): HNode => {
-  const handler = getHandler(node.type)
-  return (handler || unknown)(context)(node)
+  return (context.handlers[node.type] || unknown)(context)(node)
 }
 
 export const all = (context: Context) => (nodes: Node[]): HNode[] => {

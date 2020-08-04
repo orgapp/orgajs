@@ -1,31 +1,22 @@
-import u from 'unist-builder'
-import isRelativeUrl from 'is-relative-url'
-import { posix, dirname, normalize } from 'path'
-import toHAST from 'oast-to-hast'
+import fsExtra from 'fs-extra'
+import { GraphQLString } from 'gatsby/graphql'
+import GraphQLJSON from 'graphql-type-json'
 import hastToHTML from 'hast-util-to-html'
 import mime from 'mime'
-import fsExtra from 'fs-extra'
-import util from 'util'
+import toHAST, { Context } from 'oast-to-hast'
+import { Link } from 'orga'
+import { dirname, normalize, posix } from 'path'
+import u from 'unist-builder'
 import map from 'unist-util-map'
 import { select } from 'unist-util-select'
+import { getAST } from './orga-util'
 
-const {
-  GraphQLObjectType,
-  GraphQLList,
-  GraphQLString,
-  GraphQLInt,
-  GraphQLEnumType,
-} = require('gatsby/graphql')
-const GraphQLJSON = require('graphql-type-json')
 
-const {
-  getAST,
-} = require('./orga-util')
 
 const DEPLOY_DIR = `public`
 
 const newFileName = linkNode =>
-      `${linkNode.name}-${linkNode.internal.contentDigest}.${linkNode.extension}`
+  `${linkNode.name}-${linkNode.internal.contentDigest}.${linkNode.extension}`
 
 const newPath = (linkNode, destinationDir = `static`) => {
   return posix.join(
@@ -64,7 +55,7 @@ module.exports = async (
 
   const orgContent = getNodesByType(`OrgContent`)
 
-  let t: any = {
+  const t = {
     html: {
       type: GraphQLString,
       resolve: async (node) => { return await getHTML(node) },
@@ -99,8 +90,7 @@ module.exports = async (
       })
     }
 
-    // TODO: resume custom handlers
-    const hast = toHAST(body, { highlight, /* handlers */ })
+    const hast = toHAST(body, { highlight, handlers })
     const html = hastToHTML(hast, { allowDangerousHTML: true })
     await Promise.all(Array.from(filesToCopy, async ([linkPath, newFilePath]) => {
       // Don't copy anything is the file already exists at the location.
@@ -115,53 +105,60 @@ module.exports = async (
     }))
     return html
 
-    function handleLink(h, node) {
-      const { uri, desc } = node
+    function handleLink(context: Context) {
 
-      let src = uri.raw
-      // console.log(`URI: ${util.inspect(uri, false, null, true)}`)
-      if (uri.protocol === `file`) {
-        let linkPath = posix.join(
-          getNode(getNode(orgContentNode.parent).parent).dir,
-          normalize(uri.location)
-        )
-        const { headline } = uri.query || {}
-        if (headline) linkPath = `${linkPath}::*${decodeURIComponent(headline)}`
-        const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
-        if (linkToOrg) {
-          src = linkToOrg.fields.slug
-        } else {
-          const linkNode = files.find(f => f.absolutePath === linkPath)
-          if (linkNode && linkNode.absolutePath) {
-            const newFilePath = newPath(linkNode)
-            if (linkPath !== newFilePath) {
-              src = newLinkURL({ linkNode, pathPrefix })
-              filesToCopy.set(linkPath, newFilePath)
+      const { h } = context
+
+      return (node: Link) => {
+        let src = node.value
+        if (node.protocol === `file`) {
+          let linkPath = posix.join(
+            getNode(getNode(orgContentNode.parent).parent).dir,
+            normalize(node.value)
+          )
+
+          if (typeof node.search === 'string' && node.search.startsWith('*')) {
+            const headline = node.search.replace(/^\*+/, '')
+            linkPath = `${linkPath}::*${decodeURIComponent(headline)}`
+          }
+
+          const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
+          if (linkToOrg) {
+            src = linkToOrg.fields.slug
+          } else {
+            const linkNode = files.find(f => f.absolutePath === linkPath)
+            if (linkNode && linkNode.absolutePath) {
+              const newFilePath = newPath(linkNode)
+              if (linkPath !== newFilePath) {
+                src = newLinkURL({ linkNode, pathPrefix })
+                filesToCopy.set(linkPath, newFilePath)
+              }
             }
           }
         }
-      }
 
-      // TODO: transform internal link of file based content to anchor? i.e. can't find the linkToOrg
-      if (uri.protocol === `internal`) {
-        const linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${uri.location}`
-        const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
-        if (linkToOrg) src = linkToOrg.fields.slug
-      }
-
-      const type = mime.getType(src)
-      if (type && type.startsWith(`image`)) {
-        const elements = [
-          h(node, `img`, { src, alt: desc })
-        ]
-        if (desc) {
-          elements.push(h(node, `figcaption`, [u(`text`, desc)]))
+        // TODO: transform internal link of file based content to anchor? i.e. can't find the linkToOrg
+        if (node.protocol === `internal`) {
+          const linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${node.value}`
+          const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
+          if (linkToOrg) src = linkToOrg.fields.slug
         }
-        return h(node, `figure`, elements)
-      } else {
-        return h(node, `a`, { href: src }, [
-          u(`text`, desc)
-        ])
+
+        const type = mime.getType(src)
+        if (type && type.startsWith(`image`)) {
+          const elements = [
+            h('img', { src, alt: node.description })()
+          ]
+          if (node.description) {
+            elements.push(h('figcaption')(u(`text`, node.description)))
+          }
+          return h('figure')(...elements)
+        } else {
+          return h('a', { href: src })(
+            u('text', node.description)
+          )
+        }
+
       }
     }
   }

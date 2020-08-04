@@ -2,13 +2,15 @@ import { Comment, Element, Properties, Root, Text } from 'hast'
 import { Parent } from 'unist'
 import u from 'unist-builder'
 import { all } from './transform'
+import handlers, { Handler } from './handlers'
 
 export type HNode = Element | Comment | Text
 
 const defaultOptions = {
-  excludeTags: [] as string[],
+  excludeTags: ['noexport'] as string[],
   selectTags: [] as string[],
   highlight: true,
+  handlers: {} as { [key: string]: Handler },
 }
 
 type Options = typeof defaultOptions
@@ -74,12 +76,16 @@ const defaultContext = {
 
 export type Context = typeof defaultContext
 
+export { Handler }
+
 export default (oast: Parent, options: Partial<Options> = {}): Root => {
   // TODO: get metadata
 
   const context = {
     ...defaultContext,
     ...options,
+    handlers: { ...handlers, ...options.handlers },
   }
+
   return u('root', all(context)(oast.children))
 }
