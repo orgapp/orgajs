@@ -1,4 +1,4 @@
-import { Document, Section } from '../../types'
+import { Document, Section, Footnote } from '../../types'
 import { push } from '../node'
 import { Lexer } from '../tokenize'
 import parseBlock from './block'
@@ -43,20 +43,20 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
     return section
   }
 
-  const parse = <T extends Document | Section>(section: T): T => {
+  const parse = <T extends Document | Section | Footnote>(section: T): T => {
 
     const token = peek()
     if (!token) return section
 
     // section
     if (token.type === 'stars') {
-      if (section.type === 'document' || token.level > section.level) {
-        const ns = newSection(section.properties)
+      if (section.type === 'document' ||
+        (section.type === 'section' && token.level > section.level)) {
+        const ns = newSection(section.properties as { [key: string]: string; })
         push(section)(parse(ns))
         return parse(section)
-      } else {
-        return section
       }
+      return section
     }
 
     // paragraph
@@ -89,6 +89,19 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
 
     if (token.type === 'hr') {
       push(section)(token)
+    }
+
+    if (token.type === 'footnote.label') {
+      // footnote breaks sections
+      if (section.type !== 'document') return section
+      const footnote: Footnote = {
+        type: 'footnote',
+        label: token.label,
+        children: [],
+      }
+      eat()
+      push(section)(parse(footnote))
+      return parse(section)
     }
 
     // skip(t => t.type === 'newline')

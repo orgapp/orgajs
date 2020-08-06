@@ -10,12 +10,7 @@ import paragraph from './paragraph'
 import section from './section'
 import { table, tableCell, tableRow } from './table'
 import { bold, code, italic, strikeThrough, underline, verbatim } from './text'
-
-
-// import {
-//   definition as fnDef,
-//   reference as fnRef,
-// } from './footnote'
+import { footnoteReference, footnote } from './footnote'
 
 export type Handler = (context: Context) => (node: Node) => Element | Comment | Text
 
@@ -37,6 +32,8 @@ export default {
   table,
   'table.row': tableRow,
   'table.cell': tableCell,
+  footnote,
+  'footnote.reference': footnoteReference,
   hr: ({ h }) => () => h('hr')(),
   drawer: () => () => undefined,
 } as { [key: string]: Handler }

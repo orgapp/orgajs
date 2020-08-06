@@ -21,7 +21,10 @@ export default (lexer: Lexer): Block | undefined => {
   // a(n)
   eat()
 
-  const range: Position = peek().position
+  const range: Position = {
+    start: begin.position.end,
+    end: begin.position.end,
+  }
 
   const parse = (): Block | undefined => {
     const n = peek()

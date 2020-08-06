@@ -20,7 +20,7 @@ export default ({ reader }: Props) : Token[] => {
     }]
   }
 
-  m = match(/^\s*#\+end_([^\s]+)$/i)
+  m = match(/^\s*#\+end_([^\s]+)\s*$/i)
   if (m) {
     eat('line')
     return [{

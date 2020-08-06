@@ -1,21 +1,23 @@
-// import u from 'unist-builder'
-// import { all } from '../transform'
+import { Footnote, FootnoteReference } from 'orga'
+import { Context, HNode } from '../'
+import { all } from '../transform'
 
-// export function definition(h, node) {
-//   const { label } = node
-//   const props = {
-//     id: `fn-${label}`,
-//     className: `footnote`,
-//     dataLabel: label,
-//   }
-//   return h(node, `div`, props, all(h, node))
-// }
+export const footnoteReference = ({ h, u }: Context) => (node: FootnoteReference): HNode => {
+  return h('sup', { id: `fnref-${node.label}` })(
+    h('a', { href: `#fn-${node.label}` })(
+      u('text', node.label)
+    )
+  )
+}
 
-// export function reference(h, node) {
-//   const { label } = node
-//   return h(node, `sup`, { id: `fnref-${label}` }, [
-//     h(node, `a`, { href: `#fn-${label}` }, [
-//       u(`text`, label)
-//     ])
-//   ])
-// }
+export const footnote = (context: Context) => (node: Footnote): HNode => {
+  const { h } = context
+  return h('div', {
+    id: `fn-${node.label}`,
+    className: 'footnote',
+    dataLabel: node.label,
+  })(
+    ...all(context)(node.children)
+  )
+
+}
