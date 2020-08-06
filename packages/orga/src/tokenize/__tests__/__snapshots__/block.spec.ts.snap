@@ -230,8 +230,7 @@ Array [
         "line": 0,
       },
     },
-    "type": "text.plain",
-    "value": "#+end_SRC ",
+    "type": "block.end",
   },
 ]
 `;

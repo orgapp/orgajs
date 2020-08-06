@@ -30,6 +30,8 @@ export default (context: Context) => (node: Block): HNode => {
       return h('center')(
         u('text', node.value)
       )
+    case 'export':
+      return u('raw', node.value)
     case 'comment':
     default:
       return h('pre', { className: name })(

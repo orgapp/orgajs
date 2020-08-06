@@ -1,10 +1,9 @@
-import { Document, Section, Footnote } from '../../types'
+import { Document, Footnote, Section } from '../../types'
 import { push } from '../node'
 import { Lexer } from '../tokenize'
 import parseBlock from './block'
 import parseDrawer from './drawer'
 import parseHeadline from './headline'
-import parseKeyword from './keyword'
 import parseList from './list'
 import parseParagraph from './paragraph'
 import parsePlanning from './planning'
@@ -80,10 +79,24 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
     }
 
     // keyword
-    if (tryTo(parseKeyword, keyword => {
-      section.properties[keyword.key] = keyword.value
-      push(section)
-    })) {
+    if (token.type === 'keyword') {
+
+      const { key, value } = token
+      switch (key.toLowerCase()) {
+        case 'todo':
+          lexer.addInBufferTodoKeywords(value)
+          break
+        case 'html':
+          push(section)({ type: 'html', value })
+          break
+        default:
+          if (section.type === 'document') {
+            section.properties[key.toLowerCase()] = value
+          }
+          break
+      }
+
+      eat()
       return parse(section)
     }
 

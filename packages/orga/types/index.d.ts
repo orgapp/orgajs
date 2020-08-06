@@ -37,6 +37,7 @@ type Content =
   | Table
   | HorizontalRule
   | Headline
+  | HTML
 
 export interface Footnote extends Parent {
   type: 'footnote';
@@ -108,6 +109,10 @@ export interface Paragraph extends Parent {
 
 interface Literal extends UnistLiteral {
   value: string;
+}
+
+export interface HTML extends Literal {
+  type: 'html';
 }
 
 // ---- Tokens ----
