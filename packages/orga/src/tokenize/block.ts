@@ -26,6 +26,7 @@ export default ({ reader }: Props) : Token[] => {
     return [{
       type: 'block.end',
       position: m.position,
+      name: m.captures[1],
     }]
   }
 

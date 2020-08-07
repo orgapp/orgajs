@@ -1,31 +1,137 @@
-import { tokenize } from '../index'
+import tok from "./tok";
 
-describe('tokenize drawer', () => {
+describe("tokenize drawer", () => {
+  it("knows drawer begins", () => {
+    expect(tok(":PROPERTIES:")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":PROPERTIES:",
+          "name": "PROPERTIES",
+          "type": "drawer.begin",
+        },
+      ]
+    `);
+    expect(tok("  :properties:")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":properties:",
+          "name": "properties",
+          "type": "drawer.begin",
+        },
+      ]
+    `);
+    expect(tok("  :properties:  ")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":properties:",
+          "name": "properties",
+          "type": "drawer.begin",
+        },
+      ]
+    `);
+    expect(tok("  :prop_erties:  ")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":prop_erties:",
+          "name": "prop_erties",
+          "type": "drawer.begin",
+        },
+      ]
+    `);
+  });
 
-  it('knows drawer begins', () => {
-    expect(tokenize(':PROPERTIES:').all()).toMatchSnapshot()
-    expect(tokenize('  :properties:').all()).toMatchSnapshot()
-    expect(tokenize('  :properties:  ').all()).toMatchSnapshot()
-    expect(tokenize('  :prop_erties:  ').all()).toMatchSnapshot()
-  })
+  it("knows these are not drawer begins", () => {
+    expect(tok("PROPERTIES:")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "PROPERTIES:",
+          "type": "text.plain",
+          "value": "PROPERTIES:",
+        },
+      ]
+    `);
+    expect(tok(":PROPERTIES")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":PROPERTIES",
+          "type": "text.plain",
+          "value": ":PROPERTIES",
+        },
+      ]
+    `);
+    expect(tok(":PR OPERTIES:")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":PR OPERTIES:",
+          "type": "text.plain",
+          "value": ":PR OPERTIES:",
+        },
+      ]
+    `);
+  });
 
-  it('knows these are not drawer begins', () => {
-    expect(tokenize('PROPERTIES:').all()).toMatchSnapshot()
-    expect(tokenize(':PROPERTIES').all()).toMatchSnapshot()
-    expect(tokenize(':PR OPERTIES:').all()).toMatchSnapshot()
-  })
+  it("knows drawer ends", () => {
+    expect(tok(":END:")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":END:",
+          "type": "drawer.end",
+        },
+      ]
+    `);
+    expect(tok("  :end:")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":end:",
+          "type": "drawer.end",
+        },
+      ]
+    `);
+    expect(tok("  :end:  ")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":end:",
+          "type": "drawer.end",
+        },
+      ]
+    `);
+    expect(tok("  :end:  ")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":end:",
+          "type": "drawer.end",
+        },
+      ]
+    `);
+  });
 
-  it('knows drawer ends', () => {
-    expect(tokenize(':END:').all()).toMatchSnapshot()
-    expect(tokenize('  :end:').all()).toMatchSnapshot()
-    expect(tokenize('  :end:  ').all()).toMatchSnapshot()
-    expect(tokenize('  :end:  ').all()).toMatchSnapshot()
-  })
-
-  it('knows these are not drawer ends', () => {
-    expect(tokenize('END:').all()).toMatchSnapshot()
-    expect(tokenize(':END').all()).toMatchSnapshot()
-    expect(tokenize(':ENDed').all()).toMatchSnapshot()
-  })
-
-})
+  it("knows these are not drawer ends", () => {
+    expect(tok("END:")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "END:",
+          "type": "text.plain",
+          "value": "END:",
+        },
+      ]
+    `);
+    expect(tok(":END")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":END",
+          "type": "text.plain",
+          "value": ":END",
+        },
+      ]
+    `);
+    expect(tok(":ENDed")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": ":ENDed",
+          "type": "text.plain",
+          "value": ":ENDed",
+        },
+      ]
+    `);
+  });
+});

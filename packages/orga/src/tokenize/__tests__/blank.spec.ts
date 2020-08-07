@@ -1,20 +1,25 @@
-import { tokenize } from '../index'
+import tok from "./tok";
 
-describe('Tokenize Blanks', () => {
+describe("Tokenize Blanks", () => {
+  it("knows blank", () => {
+    expect(tok("")).toMatchInlineSnapshot(`Array []`);
+    expect(tok(" ")).toMatchInlineSnapshot(`Array []`);
+    expect(tok("    ")).toMatchInlineSnapshot(`Array []`);
+    expect(tok("\t")).toMatchInlineSnapshot(`Array []`);
+    expect(tok(" \t")).toMatchInlineSnapshot(`Array []`);
+    expect(tok("\t ")).toMatchInlineSnapshot(`Array []`);
+    expect(tok(" \t  ")).toMatchInlineSnapshot(`Array []`);
+  });
 
-  it('knows blank', () => {
-
-    expect(tokenize('').all()).toMatchSnapshot()
-    expect(tokenize(' ').all()).toMatchSnapshot()
-    expect(tokenize('    ').all()).toMatchSnapshot()
-    expect(tokenize('\t').all()).toMatchSnapshot()
-    expect(tokenize(' \t').all()).toMatchSnapshot()
-    expect(tokenize('\t ').all()).toMatchSnapshot()
-    expect(tokenize(' \t  ').all()).toMatchSnapshot()
-  })
-
-  it('knows these are not blanks', () => {
-    expect(tokenize(' a ').all()).toMatchSnapshot()
-  })
-
-})
+  it("knows these are not blanks", () => {
+    expect(tok(" a ")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "a ",
+          "type": "text.plain",
+          "value": "a ",
+        },
+      ]
+    `);
+  });
+});

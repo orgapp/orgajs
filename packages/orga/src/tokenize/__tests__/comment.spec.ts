@@ -1,20 +1,90 @@
-import { tokenize } from '../index'
+import tok from "./tok";
 
-describe('tokenize comment', () => {
+describe("tokenize comment", () => {
+  it("knows comments", () => {
+    expect(tok("# a comment")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "# a comment",
+          "type": "comment",
+          "value": "a comment",
+        },
+      ]
+    `);
+    expect(tok("# ")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "# ",
+          "type": "comment",
+          "value": "",
+        },
+      ]
+    `);
+    expect(tok("# a comment😯")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "# a comment😯",
+          "type": "comment",
+          "value": "a comment😯",
+        },
+      ]
+    `);
+    expect(tok(" # a comment")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "# a comment",
+          "type": "comment",
+          "value": "a comment",
+        },
+      ]
+    `);
+    expect(tok("  \t  # a comment")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "# a comment",
+          "type": "comment",
+          "value": "a comment",
+        },
+      ]
+    `);
+    expect(tok("#   a comment")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "#   a comment",
+          "type": "comment",
+          "value": "a comment",
+        },
+      ]
+    `);
+    expect(tok("#    \t a comment")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "#    	 a comment",
+          "type": "comment",
+          "value": "a comment",
+        },
+      ]
+    `);
+  });
 
-  it('knows comments', () => {
-    expect(tokenize('# a comment').all()).toMatchSnapshot()
-    expect(tokenize('# ').all()).toMatchSnapshot()
-    expect(tokenize('# a comment😯').all()).toMatchSnapshot()
-    expect(tokenize(' # a comment').all()).toMatchSnapshot()
-    expect(tokenize('  \t  # a comment').all()).toMatchSnapshot()
-    expect(tokenize('#   a comment').all()).toMatchSnapshot()
-    expect(tokenize('#    \t a comment').all()).toMatchSnapshot()
-  })
-
-  it('knows these are not comments', () => {
-    expect(tokenize('#not a comment').all()).toMatchSnapshot()
-    expect(tokenize('  #not a comment').all()).toMatchSnapshot()
-  })
-
-})
+  it("knows these are not comments", () => {
+    expect(tok("#not a comment")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "#not a comment",
+          "type": "text.plain",
+          "value": "#not a comment",
+        },
+      ]
+    `);
+    expect(tok("  #not a comment")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "#not a comment",
+          "type": "text.plain",
+          "value": "#not a comment",
+        },
+      ]
+    `);
+  });
+});

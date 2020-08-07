@@ -1,26 +1,16 @@
-import { read } from "text-kit";
-import { tokenize } from "../index";
+import tok from "./tok";
 
 describe("tokenize headline", () => {
-  const tok = (text: string) => {
-    const { substring } = read(text);
-    const tokens = tokenize(text).all();
-    return tokens.map(({ position, ...rest }) => ({
-      ...rest,
-      _content: substring(position)
-    }));
-  };
-
   it("knows headlines", () => {
     expect(tok("** a headline")).toMatchInlineSnapshot(`
       Array [
         Object {
-          "_content": "**",
+          "_text": "**",
           "level": 2,
           "type": "stars",
         },
         Object {
-          "_content": "a headline",
+          "_text": "a headline",
           "type": "text.plain",
           "value": "a headline",
         },
@@ -30,12 +20,12 @@ describe("tokenize headline", () => {
     expect(tok("** _headline_")).toMatchInlineSnapshot(`
       Array [
         Object {
-          "_content": "**",
+          "_text": "**",
           "level": 2,
           "type": "stars",
         },
         Object {
-          "_content": "_headline_",
+          "_text": "_headline_",
           "type": "text.underline",
           "value": "headline",
         },
@@ -45,12 +35,12 @@ describe("tokenize headline", () => {
     expect(tok("**   a headline")).toMatchInlineSnapshot(`
       Array [
         Object {
-          "_content": "**",
+          "_text": "**",
           "level": 2,
           "type": "stars",
         },
         Object {
-          "_content": "a headline",
+          "_text": "a headline",
           "type": "text.plain",
           "value": "a headline",
         },
@@ -60,12 +50,12 @@ describe("tokenize headline", () => {
     expect(tok("***** a headline")).toMatchInlineSnapshot(`
       Array [
         Object {
-          "_content": "*****",
+          "_text": "*****",
           "level": 5,
           "type": "stars",
         },
         Object {
-          "_content": "a headline",
+          "_text": "a headline",
           "type": "text.plain",
           "value": "a headline",
         },
@@ -75,12 +65,12 @@ describe("tokenize headline", () => {
     expect(tok("* a 😀line")).toMatchInlineSnapshot(`
       Array [
         Object {
-          "_content": "*",
+          "_text": "*",
           "level": 1,
           "type": "stars",
         },
         Object {
-          "_content": "a 😀line",
+          "_text": "a 😀line",
           "type": "text.plain",
           "value": "a 😀line",
         },
@@ -91,28 +81,28 @@ describe("tokenize headline", () => {
       .toMatchInlineSnapshot(`
       Array [
         Object {
-          "_content": "*",
+          "_text": "*",
           "level": 1,
           "type": "stars",
         },
         Object {
-          "_content": "TODO",
+          "_text": "TODO",
           "actionable": true,
           "keyword": "TODO",
           "type": "todo",
         },
         Object {
-          "_content": "[#A]",
+          "_text": "[#A]",
           "type": "priority",
           "value": "[#A]",
         },
         Object {
-          "_content": "a headline",
+          "_text": "a headline",
           "type": "text.plain",
           "value": "a headline",
         },
         Object {
-          "_content": ":tag1:tag2:",
+          "_text": ":tag1:tag2:",
           "tags": Array [
             "tag1",
             "tag2",
@@ -126,28 +116,28 @@ describe("tokenize headline", () => {
       .toMatchInlineSnapshot(`
       Array [
         Object {
-          "_content": "*",
+          "_text": "*",
           "level": 1,
           "type": "stars",
         },
         Object {
-          "_content": "TODO",
+          "_text": "TODO",
           "actionable": true,
           "keyword": "TODO",
           "type": "todo",
         },
         Object {
-          "_content": "[#A]",
+          "_text": "[#A]",
           "type": "priority",
           "value": "[#A]",
         },
         Object {
-          "_content": "a headline",
+          "_text": "a headline",
           "type": "text.plain",
           "value": "a headline",
         },
         Object {
-          "_content": ":tag1:tag2:",
+          "_text": ":tag1:tag2:",
           "tags": Array [
             "tag1",
             "tag2",
@@ -162,7 +152,7 @@ describe("tokenize headline", () => {
     expect(tok("*not a headline")).toMatchInlineSnapshot(`
       Array [
         Object {
-          "_content": "*not a headline",
+          "_text": "*not a headline",
           "type": "text.plain",
           "value": "*not a headline",
         },
@@ -172,7 +162,7 @@ describe("tokenize headline", () => {
     expect(tok(" * not a headline")).toMatchInlineSnapshot(`
       Array [
         Object {
-          "_content": "* not a headline",
+          "_text": "* not a headline",
           "type": "text.plain",
           "value": "* not a headline",
         },
@@ -181,12 +171,12 @@ describe("tokenize headline", () => {
     expect(tok("*_* not a headline")).toMatchInlineSnapshot(`
       Array [
         Object {
-          "_content": "*_*",
+          "_text": "*_*",
           "type": "text.bold",
           "value": "_",
         },
         Object {
-          "_content": " not a headline",
+          "_text": " not a headline",
           "type": "text.plain",
           "value": " not a headline",
         },
@@ -195,7 +185,7 @@ describe("tokenize headline", () => {
     expect(tok("not a headline")).toMatchInlineSnapshot(`
       Array [
         Object {
-          "_content": "not a headline",
+          "_text": "not a headline",
           "type": "text.plain",
           "value": "not a headline",
         },

@@ -30,7 +30,7 @@ export default (lexer: Lexer): Block | undefined => {
     const n = peek()
     if (!n || n.type === 'stars') return undefined
     eat()
-    if (n.type === 'block.end') {
+    if (n.type === 'block.end' && n.name.toLowerCase() === begin.name.toLowerCase()) {
       range.end = n.position.start
       eat('newline')
       block.value = substring(range).trim()

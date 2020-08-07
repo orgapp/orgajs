@@ -104,12 +104,13 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
     if (list.length > 0) return list
 
     if (l.startsWith('# ')) {
-      const comment = eat(/^#\s.*$/)
-      if (!isEmpty(comment)) {
+      const comment = match(/^#\s+(.*)$/)
+      if (comment) {
+        eat('line')
         return [ {
           type: 'comment',
-          position: comment,
-          value: '',
+          position: comment.position,
+          value: comment.captures[1],
         } ]
       }
     }

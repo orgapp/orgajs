@@ -134,8 +134,9 @@ export type Token =
   | PhrasingContent
   | FootnoteLabel
   | BlockBegin
-  | DrawerBegin
   | BlockEnd
+  | DrawerBegin
+  | DrawerEnd
   | Comment
 
 export type PhrasingContent =
@@ -203,13 +204,18 @@ interface BlockBegin extends Node {
 }
 
 interface BlockEnd extends Node {
-  type: 'block.end' | 'drawer.end';
+  type: 'block.end';
+  name: string;
 }
 
 // drawer tokens
 interface DrawerBegin extends Node {
   type: 'drawer.begin';
   name: string;
+}
+
+interface DrawerEnd extends Node {
+  type: 'drawer.end';
 }
 
 interface Comment extends Literal {
