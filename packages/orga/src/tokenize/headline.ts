@@ -35,7 +35,6 @@ export default ({ reader, todoKeywordSets }: Props) : Token[] => {
   buffer.push({
     type: 'stars',
     level: distance(stars),
-    data: { level: distance(stars) },
     position: stars,
   })
   skipWhitespaces()

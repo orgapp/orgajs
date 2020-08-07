@@ -1,21 +1,205 @@
-import { tokenize } from '../index'
+import { read } from "text-kit";
+import { tokenize } from "../index";
 
-describe('tokenize headline', () => {
+describe("tokenize headline", () => {
+  const tok = (text: string) => {
+    const { substring } = read(text);
+    const tokens = tokenize(text).all();
+    return tokens.map(({ position, ...rest }) => ({
+      ...rest,
+      _content: substring(position)
+    }));
+  };
 
-  it('knows headlines', () => {
-    expect(tokenize('** a headline').all()).toMatchSnapshot()
-    expect(tokenize('** _headline_').all()).toMatchSnapshot()
-    expect(tokenize('**   a headline').all()).toMatchSnapshot()
-    expect(tokenize('***** a headline').all()).toMatchSnapshot()
-    expect(tokenize('* a 😀line').all()).toMatchSnapshot()
-    expect(tokenize('* TODO [#A] a headline     :tag1:tag2:').all()).toMatchSnapshot()
-  })
+  it("knows headlines", () => {
+    expect(tok("** a headline")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_content": "**",
+          "level": 2,
+          "type": "stars",
+        },
+        Object {
+          "_content": "a headline",
+          "type": "text.plain",
+          "value": "a headline",
+        },
+      ]
+    `);
 
-  it('knows these are not headlines', () => {
-    expect(tokenize('*not a headline').all()).toMatchSnapshot()
-    expect(tokenize(' * not a headline').all()).toMatchSnapshot()
-    expect(tokenize('*_* not a headline').all()).toMatchSnapshot()
-    expect(tokenize('not a headline').all()).toMatchSnapshot()
-  })
+    expect(tok("** _headline_")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_content": "**",
+          "level": 2,
+          "type": "stars",
+        },
+        Object {
+          "_content": "_headline_",
+          "type": "text.underline",
+          "value": "headline",
+        },
+      ]
+    `);
 
-})
+    expect(tok("**   a headline")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_content": "**",
+          "level": 2,
+          "type": "stars",
+        },
+        Object {
+          "_content": "a headline",
+          "type": "text.plain",
+          "value": "a headline",
+        },
+      ]
+    `);
+
+    expect(tok("***** a headline")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_content": "*****",
+          "level": 5,
+          "type": "stars",
+        },
+        Object {
+          "_content": "a headline",
+          "type": "text.plain",
+          "value": "a headline",
+        },
+      ]
+    `);
+
+    expect(tok("* a 😀line")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_content": "*",
+          "level": 1,
+          "type": "stars",
+        },
+        Object {
+          "_content": "a 😀line",
+          "type": "text.plain",
+          "value": "a 😀line",
+        },
+      ]
+    `);
+
+    expect(tok("* TODO [#A] a headline     :tag1:tag2:"))
+      .toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_content": "*",
+          "level": 1,
+          "type": "stars",
+        },
+        Object {
+          "_content": "TODO",
+          "actionable": true,
+          "keyword": "TODO",
+          "type": "todo",
+        },
+        Object {
+          "_content": "[#A]",
+          "type": "priority",
+          "value": "[#A]",
+        },
+        Object {
+          "_content": "a headline",
+          "type": "text.plain",
+          "value": "a headline",
+        },
+        Object {
+          "_content": ":tag1:tag2:",
+          "tags": Array [
+            "tag1",
+            "tag2",
+          ],
+          "type": "tags",
+        },
+      ]
+    `);
+
+    expect(tok("* TODO [#A] a headline     :tag1:tag2:"))
+      .toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_content": "*",
+          "level": 1,
+          "type": "stars",
+        },
+        Object {
+          "_content": "TODO",
+          "actionable": true,
+          "keyword": "TODO",
+          "type": "todo",
+        },
+        Object {
+          "_content": "[#A]",
+          "type": "priority",
+          "value": "[#A]",
+        },
+        Object {
+          "_content": "a headline",
+          "type": "text.plain",
+          "value": "a headline",
+        },
+        Object {
+          "_content": ":tag1:tag2:",
+          "tags": Array [
+            "tag1",
+            "tag2",
+          ],
+          "type": "tags",
+        },
+      ]
+    `);
+  });
+
+  it("knows these are not headlines", () => {
+    expect(tok("*not a headline")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_content": "*not a headline",
+          "type": "text.plain",
+          "value": "*not a headline",
+        },
+      ]
+    `);
+
+    expect(tok(" * not a headline")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_content": "* not a headline",
+          "type": "text.plain",
+          "value": "* not a headline",
+        },
+      ]
+    `);
+    expect(tok("*_* not a headline")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_content": "*_*",
+          "type": "text.bold",
+          "value": "_",
+        },
+        Object {
+          "_content": " not a headline",
+          "type": "text.plain",
+          "value": " not a headline",
+        },
+      ]
+    `);
+    expect(tok("not a headline")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_content": "not a headline",
+          "type": "text.plain",
+          "value": "not a headline",
+        },
+      ]
+    `);
+  });
+});
