@@ -19,7 +19,7 @@ this is the end of the file`
     }
 
 
-    debug(linePosition(3))
+    // debug(linePosition(3))
 
     // console.log({
     //   numberOfLines,
