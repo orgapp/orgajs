@@ -12,7 +12,7 @@ export default ({ reader }: Props) : Token[] => {
 // /^(\s*)([-+]|\d+[.)])\s+(?:\[(x|X|-| )\][ \t]+)?(?:([^\n]+)[ \t]+::[ \t]*)?(.*)$/
   let tokens: Token[] = []
 
-  const indent = now().column
+  const indent = now().column - 1
 
   const bullet = match(/^([-+]|\d+[.)])(?=\s)/)
   if (!bullet) return []

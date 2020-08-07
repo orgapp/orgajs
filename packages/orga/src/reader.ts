@@ -12,9 +12,9 @@ export const read = (text: string) => {
     location,
   } = _read(text)
 
-  let cursor = { line: 0, column: 0 }
+  let cursor = { line: 1, column: 1 }
 
-  const isStartOfLine = () => cursor.column === 0
+  const isStartOfLine = () => cursor.column === 1
 
   const getChar = (offset = 0) => {
     return text.charAt(toIndex(cursor) + offset)

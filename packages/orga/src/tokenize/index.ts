@@ -128,7 +128,7 @@ export const tokenize = (text: string, options: ParseOptions = defaultOptions) =
       }]
     }
 
-    if (now().column === 0) {
+    if (now().column === 1) {
       const footnote = tokenizeFootnote({ reader })
       if (footnote.length > 0) return footnote
     }

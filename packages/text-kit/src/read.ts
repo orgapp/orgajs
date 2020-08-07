@@ -19,26 +19,28 @@ export default (text: string) => {
   } while (cursor > 0 && cursor < text.length)
 
   const toIndex = ({ line, column }: Point): number => {
-    if (line >= lines.length) return text.length
-    return Math.min(lines[line] + column, text.length)
+    if (line < 1) return 0
+    if (line > lines.length) return text.length
+    const index = lines[line - 1] + column - 1
+    return Math.max(0, Math.min(index, text.length))
   }
 
   const middle = (start, end) => {
     return start + Math.floor((end - start) / 2)
   }
 
-  const findLine = (index: number, left: number, right: number) => {
-    if (index < 0) return 0
-    if (index >= text.length) return lines.length - 1
-    const mid = middle(left, right)
-    if (lines[mid] > index) return findLine(index, left, mid)
-    if (lines[mid + 1] <= index) return findLine(index, mid, right)
+  const findLine = (index: number, start: number, end: number) => {
+    if (index < 0) return 1
+    if (index >= text.length) return lines.length
+    const mid = middle(start, end)
+    if (lines[mid - 1] > index) return findLine(index, start, mid)
+    if (lines[mid] <= index) return findLine(index, mid, end)
     return mid
   }
 
-  const location = (query: number): Point => {
-    const line = findLine(query, 0, lines.length)
-    const column = Math.min(query, text.length) - lines[line]
+  const location = (index: number): Point => {
+    const line = findLine(index, 1, lines.length + 1)
+    const column = Math.min(index, text.length) - toIndex({ line, column: 1 }) + 1
     return {
       line,
       column,
@@ -75,39 +77,33 @@ export default (text: string) => {
   }
 
   const linePosition = (ln: number): Position => {
-    if (ln < 0 || ln >= lines.length) return undefined
-    const nextLine = lines[ln + 1]
+    if (ln < 1 || ln > lines.length) return undefined
+    const nextLine = lines[ln]
     const endIndex = nextLine ? nextLine - 1 : text.length
+    // console.log({ nextLine, endIndex, end: location(endIndex) })
     return {
-      start: { line: ln, column: 0 },
+      start: { line: ln, column: 1 },
       end: location(endIndex),
     }
   }
 
   const substring = ({ start, end = 'EOL' }: {
-    start: Point | number,
-    end?: Point | number | 'EOL' | 'EOF' }): string => {
+    start: Point,
+    end?: Point | 'EOL' | 'EOF' }): string => {
 
-    const startPos = typeof start === 'number' ?
-      start :
-      lines[start.line] + (start.column || 0)
-
-    const startLine = typeof start === 'number' ?
-      start :
-      start.line
-
-    let endPos: number
+    let endIndex: number
     if (end === 'EOL') {
-      const { line, column = 0 } = linePosition(startLine).end
-      endPos = lines[line] + column
+      const lp = linePosition(start.line)
+      if (!lp) {
+        console.log({ start })
+      }
+      endIndex = toIndex(linePosition(start.line).end)
     } else if (end === 'EOF') {
-      endPos = text.length
-    } else if (typeof end === 'number') {
-      endPos = end
+      endIndex = text.length
     } else {
-      endPos = lines[end.line] + (end.column || 0)
+      endIndex = toIndex(end)
     }
-    return text.substring(startPos, endPos)
+    return text.substring(toIndex(start), endIndex)
   }
 
   return {

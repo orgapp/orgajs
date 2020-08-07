@@ -5,8 +5,11 @@ describe('read', () => {
     const text = `hello world
 this is another line
 this is the end of the file`
-    const { linePosition, numberOfLines, substring } = read(text)
+    const { linePosition, numberOfLines, substring, toIndex, location } = read(text)
 
+    // console.log({ loc: location(12) })
+    // console.log({ pos: linePosition(3) })
+    // console.log('to index', { pos: toIndex({ line: 1, column: 0 }) })
 
     const debug = (position) => {
       console.log({
@@ -16,10 +19,10 @@ this is the end of the file`
     }
 
 
-    debug(linePosition(2))
+    debug(linePosition(3))
 
-    console.log({
-      numberOfLines,
-    })
+    // console.log({
+    //   numberOfLines,
+    // })
   })
 })
