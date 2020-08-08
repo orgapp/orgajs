@@ -9,10 +9,9 @@ export default (context: Context) => (node: Block): HNode => {
   const name = node.name.toLowerCase()
 
   if (name === 'src') {
-    let body = u('text', node.value)
+    let body: HNode = u('text', node.value)
     const lang = node.params[0]
     if (lang && context.highlight) {
-      // @ts-ignore
       body = u('raw', highlight(lang, node.value))
     }
     return h('pre')(
@@ -32,7 +31,6 @@ export default (context: Context) => (node: Block): HNode => {
         u('text', node.value)
       )
     case 'export':
-      // @ts-ignore
       return u('raw', node.value)
     case 'comment':
     default:

@@ -4,7 +4,15 @@ import u from 'unist-builder'
 import handlers, { Handler } from './handlers'
 import { all } from './transform'
 
-export type HNode = Element | Comment | Text
+// the raw type is used to pass literal html directly
+// it's useful for things like code block with syntax highlight
+// or html exports. but it's not offically part of hast
+// it's more of a convention for plugins to pass html through
+// see details here: https://github.com/syntax-tree/hast/issues/20
+interface Raw extends Literal {
+    type: 'raw';
+}
+export type HNode = Element | Comment | Text | Raw
 
 const defaultOptions = {
   excludeTags: ['noexport'],
@@ -15,32 +23,6 @@ const defaultOptions = {
 
 type Options = typeof defaultOptions
 
-// export = function toHAST(tree, options: any = {}) {
-//   const meta = tree.meta || {}
-//   h.handlers = Object.assign(handlers, options.handlers || {})
-//   h.footnoteSection = options.footnoteSection || `footnotes`
-//   const eTags = meta.exclude_tags
-//   if (eTags) {
-//     h.excludeTags = eTags.split(/\s+/)
-//   } else {
-//     h.excludeTags = options.excludeTags || [`noexport`]
-//   }
-//   const sTags = meta.select_tags
-//   if (sTags) {
-//     h.selectTags = sTags.split(/\s+/)
-//   } else {
-//     h.selectTags = options.selectTags || []
-//   }
-//   h.highlight = options.highlight || false
-//   return transform(h, tree)
-// }
-
-// interface ElementInfo {
-//   tagName: string;
-//   properties?: Properties;
-//   children?: Element['children'];
-// }
-
 const build = ({
   tagName,
   properties,
@@ -48,12 +30,12 @@ const build = ({
 } : {
   tagName: string;
   properties?: Properties;
-  children?: Array<HNode>}): HNode => {
+  children?: Array<HNode>}): Element => {
   return {
     type: 'element',
     tagName,
     properties,
-    children,
+    children: children as Element['children'],
   }
 }
 
@@ -94,7 +76,5 @@ export default (
     context.excludeTags = eTags.split(/\s+/).filter(Boolean)
   }
 
-  // console.log({ context })
-
-  return u('root', all(context)(oast.children))
+  return u('root', all(context)(oast.children) as Root['children'])
 }
