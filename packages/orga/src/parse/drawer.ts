@@ -1,5 +1,5 @@
 import { Position } from 'unist'
-import { Drawer } from '../../types'
+import { Drawer } from '../types'
 import { Lexer } from '../tokenize'
 
 export default (lexer: Lexer): Drawer | undefined => {

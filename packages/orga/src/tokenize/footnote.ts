@@ -1,5 +1,5 @@
 import { Reader } from '../reader'
-import { Token } from '../../types'
+import { Token } from '../types'
 import { tokenize as tokenizeInline } from './inline'
 
 interface Props {

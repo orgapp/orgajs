@@ -1,6 +1,6 @@
 import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { Table, TableRow, TableRule, TableCell, Parent } from '../../types'
+import { Table, TableRow, TableRule, TableCell, Parent } from '../types'
 
 export default (lexer: Lexer): Table | undefined => {
   const { peek, eat } = lexer

@@ -19,7 +19,7 @@
     "gatsby-transformer-sharp": "^2.2.19",
     "gatsby-transformer-toml": "^2.2.11",
     "gh-pages": "^2.1.1",
-    "hast-util-to-html": "^6.0.2",
+    "hast-util-to-html": "^7.1.1",
     "oast-to-hast": "^1.7.0",
     "orga": "^1.8.16",
     "orga-unified": "^1.8.16",

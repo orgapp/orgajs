@@ -1,6 +1,6 @@
 import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { List, ListItem, ListItemBullet } from '../../types'
+import { List, ListItem, ListItemBullet } from '../types'
 
 export default (lexer: Lexer): List | undefined => {
   const { peek, eat } = lexer

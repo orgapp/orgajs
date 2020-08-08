@@ -1,6 +1,6 @@
-import { Document, Footnote, Section } from '../../types'
 import { push } from '../node'
 import { Lexer } from '../tokenize'
+import { Document, Footnote, Section } from '../types'
 import parseBlock from './block'
 import parseDrawer from './drawer'
 import parseHeadline from './headline'

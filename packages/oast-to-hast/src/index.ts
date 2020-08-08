@@ -1,9 +1,8 @@
 import { Comment, Element, Properties, Root, Text } from 'hast'
 import { Document, Section } from 'orga'
-import { Parent } from 'unist'
 import u from 'unist-builder'
-import { all } from './transform'
 import handlers, { Handler } from './handlers'
+import { all } from './transform'
 
 export type HNode = Element | Comment | Text
 

@@ -13,7 +13,7 @@
     "mime": "^2.4.4",
     "orga": "^1.8.16",
     "prismjs": "^1.17.1",
-    "unist-builder": "^1.0.4"
+    "unist-builder": "^2.0.3"
   },
   "scripts": {
     "build": "npm run clean && npm run compile",

@@ -4,6 +4,7 @@ import { Context } from '../'
 import block from './block'
 import { footnote, footnoteReference } from './footnote'
 import headline from './headline'
+import html from './html'
 import link from './link'
 import list, { checkbox as listItemCheckbox, item as listItem } from './list'
 import paragraph from './paragraph'
@@ -35,5 +36,5 @@ export default {
   'footnote.reference': footnoteReference,
   hr: ({ h }) => () => h('hr')(),
   drawer: () => () => undefined,
-  html: ({ u }) => ({ value }) => u('raw', value),
+  html,
 } as { [key: string]: Handler }

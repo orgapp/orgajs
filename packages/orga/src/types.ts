@@ -1,4 +1,4 @@
-import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist';
+import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist'
 
 // ---- Basic Types ----
 export interface Parent extends UnistParent {
@@ -161,7 +161,7 @@ export interface StyledText extends Literal {
     | 'text.code'
 }
 
-interface Link extends Literal {
+export interface Link extends Literal {
   type: 'link';
   protocol: string;
   description: string;
@@ -169,47 +169,47 @@ interface Link extends Literal {
   search?: string | number;
 }
 
-interface FootnoteReference extends Node {
+export interface FootnoteReference extends Node {
   type: 'footnote.reference';
   label: string;
 }
 
 // headline tokens
-interface Stars extends Node {
+export interface Stars extends Node {
   type: 'stars';
   level: number;
 }
 
-interface Todo extends Node {
+export interface Todo extends Node {
   type: 'todo';
   keyword: string;
   actionable: boolean;
 }
 
-interface Priority extends Literal {
+export interface Priority extends Literal {
   type: 'priority';
   value: string;
 }
 
-interface Tags extends Node {
+export interface Tags extends Node {
   type: 'tags';
   tags: string[];
 }
 
 // block tokens
-interface BlockBegin extends Node {
+export interface BlockBegin extends Node {
   type: 'block.begin';
   name: string;
   params: string[];
 }
 
-interface BlockEnd extends Node {
+export interface BlockEnd extends Node {
   type: 'block.end';
   name: string;
 }
 
 // drawer tokens
-interface DrawerBegin extends Node {
+export interface DrawerBegin extends Node {
   type: 'drawer.begin';
   name: string;
 }
@@ -228,26 +228,26 @@ export interface Keyword extends Node {
   value: string;
 }
 
-interface FootnoteLabel extends Node {
+export interface FootnoteLabel extends Node {
   type: 'footnote.label';
   label: string;
 }
 
-interface PlanningKeyword extends Node {
+export interface PlanningKeyword extends Node {
   type: 'planning.keyword';
   keyword: string;
 }
 
-interface PlanningTimestamp extends Node {
+export interface PlanningTimestamp extends Node {
   type: 'planning.timestamp';
   timestamp: Timestamp;
 }
 
-interface ListItemTag extends Literal {
+export interface ListItemTag extends Literal {
   type: 'list.item.tag';
 }
 
-interface ListItemCheckbox extends Node {
+export interface ListItemCheckbox extends Node {
   type: 'list.item.checkbox';
   checked: boolean;
 }

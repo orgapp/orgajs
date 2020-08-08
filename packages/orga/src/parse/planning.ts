@@ -1,6 +1,6 @@
 import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { Planning } from '../../types'
+import { Planning } from '../types'
 
 export default (lexer: Lexer): Planning[] => {
 

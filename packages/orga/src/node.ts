@@ -1,6 +1,6 @@
 import { Node } from 'unist'
 import { after, before, isEmpty } from './position'
-import { Parent } from '../types'
+import { Parent } from './types'
 // export default class Node {
 //   type: string
 //   children: Node[]

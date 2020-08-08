@@ -9,7 +9,7 @@ const unknown = (context: Context) => (node: Node): HNode => {
       ...all(context)(p.children)
     )
   } else if ('value' in node) {
-    return u('text', node.value)
+    return u('text', `${node.value}`)
   }
   return undefined
 }

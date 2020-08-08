@@ -1,5 +1,5 @@
 import { Position } from 'unist'
-import { Block } from '../../types'
+import { Block } from '../types'
 import { Lexer } from '../tokenize'
 
 export default (lexer: Lexer): Block | undefined => {

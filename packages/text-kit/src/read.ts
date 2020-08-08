@@ -47,12 +47,6 @@ export default (text: string) => {
     }
   }
 
-  // const substring = (position: Position): string => {
-  //   return text.substring(
-  //     position.start.offset,
-  //     position.end.offset)
-  // }
-
   const match = (
     pattern: RegExp,
     position: Position,

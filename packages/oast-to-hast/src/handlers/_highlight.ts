@@ -1,7 +1,7 @@
 import Prism from 'prismjs'
 import loadPrismLanguage from './_load-prism-language'
 
-export default (language, code) => {
+export default (language: string, code: string): string => {
   if (!Prism.languages[language]) {
     try {
       loadPrismLanguage(language)

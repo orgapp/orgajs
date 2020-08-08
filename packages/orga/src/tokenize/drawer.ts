@@ -1,5 +1,5 @@
 import { Reader } from '../reader'
-import { Token } from '../../types'
+import { Token } from '../types'
 
 interface Props {
   reader: Reader;

@@ -1,12 +1,11 @@
-import { Element } from 'hast'
-import { Literal } from 'unist'
+import { Literal } from 'hast'
 import u from 'unist-builder'
 import { Context, HNode } from '../'
 
 type Handler = (context: Context) => (node: Literal) => HNode
 
 const wrap = (tagName: string): Handler => {
-  return ({ h }) => (node) => h(tagName)(u('text', node.value))
+  return ({ h }) => (node: Literal) => h(tagName)(u('text', node.value))
 }
 
 export const bold = wrap('strong')

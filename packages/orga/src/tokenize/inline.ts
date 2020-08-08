@@ -1,7 +1,7 @@
 import { Point, Position } from 'unist';
 import { after } from '../position';
 import { Reader } from '../reader';
-import { Token, PhrasingContent, StyledText } from '../../types';
+import { Token, PhrasingContent, StyledText } from '../types';
 import uri from '../uri';
 
 

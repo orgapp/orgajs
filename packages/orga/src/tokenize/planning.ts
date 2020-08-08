@@ -2,7 +2,7 @@ import { Point } from 'unist'
 import { Reader } from '../reader'
 // import { inspect }  from 'util'
 import { parse as parseTimestamp } from '../timestamp'
-import { Token } from '../../types'
+import { Token } from '../types'
 
 interface Props {
   reader: Reader;
