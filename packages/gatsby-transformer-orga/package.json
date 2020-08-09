@@ -12,7 +12,7 @@
     "oast-to-hast": "^1.7.0",
     "orga": "^1.8.16",
     "rehype-stringify": "^8.0.0",
-    "unified": "^8.4.1",
+    "unified": "^9.1.0",
     "unist-builder": "^2.0.3",
     "unist-util-map": "^2.0.1",
     "unist-util-select": "^3.0.1",

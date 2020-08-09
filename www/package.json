@@ -23,7 +23,7 @@
     "oast-to-hast": "^1.7.0",
     "orga": "^1.8.16",
     "orga-unified": "^1.8.16",
-    "prettier": "^1.18.2",
+    "prettier": "^2.0.5",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-helmet": "^5.2.1",
