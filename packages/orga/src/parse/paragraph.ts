@@ -2,7 +2,7 @@ import { push } from '../node'
 import { Paragraph } from '../types'
 import { isPhrasingContent } from '../utils'
 
-const parseParagraph = ({ peek, eat }): Paragraph | undefined => {
+export default ({ peek, eat }): Paragraph | undefined => {
   let eolCount = 0
 
   const build = (p: Paragraph): Paragraph | undefined => {
@@ -13,6 +13,7 @@ const parseParagraph = ({ peek, eat }): Paragraph | undefined => {
     if (token.type === 'newline') {
       eat()
       eolCount += 1
+      push(p)({ type: 'text.plain', value: ' ' })
       return build(p)
     }
 
@@ -27,5 +28,3 @@ const parseParagraph = ({ peek, eat }): Paragraph | undefined => {
   return build({ type: 'paragraph', children: [] })
 
 }
-
-export default parseParagraph
