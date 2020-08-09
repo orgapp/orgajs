@@ -26,7 +26,7 @@ export interface Lexer {
   substring: (position: Position) => string;
 }
 
-export const tokenize = (text: string, options: ParseOptions = defaultOptions) => {
+export const tokenize = (text: string, options: Partial<ParseOptions> = {}) => {
 
   const { timezone, todos } = { ...defaultOptions, ...options }
 
