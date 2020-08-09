@@ -6,7 +6,10 @@ import { Document } from './types'
 
 export * from './types'
 
-export const parse = (text: string, options: Partial<ParseOptions> = {}): Document => {
+export const parse = (
+  text: string,
+  options: Partial<ParseOptions> = {}
+): Document => {
   return _parse(tokenize(text, { ...defaultOptions, ...options }))
 }
 
