@@ -13980,13 +13980,6 @@ optionator@^0.9.1:
     type-check "^0.4.0"
     word-wrap "^1.2.3"
 
-orga-rehype@^2.0.0-next.1:
-  version "2.0.0-next.1"
-  resolved "https://registry.yarnpkg.com/orga-rehype/-/orga-rehype-2.0.0-next.1.tgz#366a8abbd9a5ff1f32d88b478f8ae6057df60f11"
-  integrity sha512-+HB0s7So78xiS3lJbS6oACrak+K8aogQoW4Dn6kO0QTM4eE4cwYqH/8+6YTLus7QFlv049FpYYWZl0rKP6ScMg==
-  dependencies:
-    oast-to-hast "^2.0.0-next.1"
-
 original@>=0.0.5, original@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/original/-/original-1.0.2.tgz#e442a61cffe1c5fd20a65f3261c26663b303f25f"
