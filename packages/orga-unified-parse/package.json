@@ -1,5 +1,5 @@
 {
-  "name": "orga-unified",
+  "name": "orga-unified-parse",
   "version": "2.0.0-next.1",
   "description": "orga parser for unifiedjs",
   "files": [
@@ -8,7 +8,7 @@
   "main": "lib/index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
-  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/orga-unified",
+  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/orga-unified-parse",
   "scripts": {
     "build": "npm run clean && npm run compile",
     "compile": "tsc -p tsconfig.build.json",

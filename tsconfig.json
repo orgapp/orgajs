@@ -6,7 +6,7 @@
     "paths": {
       "orga": ["./packages/orga/src"],
       "oast-to-hast": ["./packages/oast-to-hast/src"],
-      "orga-unified": ["./packages/orga-unified/src"]
+      "orga-unified-parse": ["./packages/orga-unified-parse/src"]
     }
   }
 }

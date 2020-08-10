@@ -1,6 +1,6 @@
 const unified = require('unified')
 const stream = require('unified-stream')
-const parse = require('orga-unified')
+const parse = require('orga-unified-parse')
 const mutate = require('orga-rehype')
 const html = require('rehype-stringify')
 

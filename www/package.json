@@ -22,7 +22,7 @@
     "hast-util-to-html": "^7.1.1",
     "oast-to-hast": "^2.0.0-next.1",
     "orga": "^2.0.0-next.1",
-    "orga-unified": "^2.0.0-next.1",
+    "orga-unified-parse": "^2.0.0-next.1",
     "prettier": "^2.0.5",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
