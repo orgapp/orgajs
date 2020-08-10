@@ -1,7 +1,7 @@
 import tok from "./tok";
 
 const options = {
-  timezone: "Pacific/Auckland"
+  timezone: "Pacific/Auckland",
 };
 
 describe("tokenize planning", () => {
@@ -10,16 +10,16 @@ describe("tokenize planning", () => {
       Array [
         Object {
           "_text": "DEADLINE:",
-          "keyword": "DEADLINE",
           "type": "planning.keyword",
+          "value": "DEADLINE",
         },
         Object {
           "_text": " <2018-01-01 Mon>",
-          "timestamp": Object {
+          "type": "planning.timestamp",
+          "value": Object {
             "date": 2017-12-31T11:00:00.000Z,
             "end": undefined,
           },
-          "type": "planning.timestamp",
         },
       ]
     `);
@@ -27,16 +27,16 @@ describe("tokenize planning", () => {
       Array [
         Object {
           "_text": "DEADLINE:",
-          "keyword": "DEADLINE",
           "type": "planning.keyword",
+          "value": "DEADLINE",
         },
         Object {
           "_text": " <2018-01-01 Mon>",
-          "timestamp": Object {
+          "type": "planning.timestamp",
+          "value": Object {
             "date": 2017-12-31T11:00:00.000Z,
             "end": undefined,
           },
-          "type": "planning.timestamp",
         },
       ]
     `);
@@ -45,16 +45,16 @@ describe("tokenize planning", () => {
       Array [
         Object {
           "_text": "DEADLINE:",
-          "keyword": "DEADLINE",
           "type": "planning.keyword",
+          "value": "DEADLINE",
         },
         Object {
           "_text": " <2018-01-01 Mon>",
-          "timestamp": Object {
+          "type": "planning.timestamp",
+          "value": Object {
             "date": 2017-12-31T11:00:00.000Z,
             "end": undefined,
           },
-          "type": "planning.timestamp",
         },
       ]
     `);
@@ -63,16 +63,51 @@ describe("tokenize planning", () => {
       Array [
         Object {
           "_text": "DEADLINE:",
-          "keyword": "DEADLINE",
           "type": "planning.keyword",
+          "value": "DEADLINE",
         },
         Object {
           "_text": " <2018-01-01 Mon>",
-          "timestamp": Object {
+          "type": "planning.timestamp",
+          "value": Object {
             "date": 2017-12-31T11:00:00.000Z,
             "end": undefined,
           },
+        },
+      ]
+    `);
+  });
+
+  it("know multiple plannings", () => {
+    expect(
+      tok("DEADLINE: <2020-07-03 Fri> SCHEDULED: <2020-07-03 Fri>", options)
+    ).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "DEADLINE:",
+          "type": "planning.keyword",
+          "value": "DEADLINE",
+        },
+        Object {
+          "_text": " <2020-07-03 Fri> ",
           "type": "planning.timestamp",
+          "value": Object {
+            "date": 2020-07-02T12:00:00.000Z,
+            "end": undefined,
+          },
+        },
+        Object {
+          "_text": "SCHEDULED:",
+          "type": "planning.keyword",
+          "value": "SCHEDULED",
+        },
+        Object {
+          "_text": " <2020-07-03 Fri>",
+          "type": "planning.timestamp",
+          "value": Object {
+            "date": 2020-07-02T12:00:00.000Z,
+            "end": undefined,
+          },
         },
       ]
     `);

@@ -57,8 +57,10 @@ export interface Drawer extends Literal {
   value: string;
 }
 
-export interface Planning extends Parent {
+export interface Planning extends Node {
   type: 'planning';
+  keyword: string;
+  timestamp: Timestamp;
 }
 
 export interface List extends Parent {
@@ -233,14 +235,14 @@ export interface FootnoteLabel extends Node {
   label: string;
 }
 
-export interface PlanningKeyword extends Node {
+export interface PlanningKeyword extends Literal {
   type: 'planning.keyword';
-  keyword: string;
+  value: string;
 }
 
-export interface PlanningTimestamp extends Node {
+export interface PlanningTimestamp extends UnistLiteral {
   type: 'planning.timestamp';
-  timestamp: Timestamp;
+  value: Timestamp;
 }
 
 export interface ListItemTag extends Literal {

@@ -1,4 +1,3 @@
-import { push } from '../node'
 import { Lexer } from '../tokenize'
 import { Planning } from '../types'
 
@@ -9,19 +8,24 @@ export default (lexer: Lexer): Planning[] => {
   const all: Planning[] = []
 
   const parse = (): void => {
-    const token = peek()
-    if (!token || token.type !== 'planning.keyword') return
-    const planning: Planning = { type: 'planning', children: [] }
-    const collect = push(planning)
-    collect(token)
-    eat()
-    const timestamp = peek()
-    if (timestamp && timestamp.type === 'planning.timestamp') {
-      collect(timestamp)
-      eat()
+    const keyword = peek()
+    const timestamp = peek(1)
+    if (!keyword || keyword.type !== 'planning.keyword') return
+    if (!timestamp || timestamp.type !== 'planning.timestamp') return
+    const planning: Planning = {
+      type: 'planning',
+      keyword: keyword.value,
+      timestamp: timestamp.value,
+      position: {
+        start: keyword.position.start,
+        end: timestamp.position.end,
+      }
     }
+    eat()
+    eat()
 
     all.push(planning)
+    parse()
   }
 
   parse()

@@ -17,7 +17,7 @@ const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
 export interface Lexer {
   eat: (type?: string) => Token | undefined;
-  peek: () => Token | undefined;
+  peek: (offset?: number) => Token | undefined;
   match: (cond: RegExp | string, offset?: number) => boolean;
   all: () => Token[];
   save: () => number;
@@ -137,11 +137,12 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}) => {
     return inlineTok({ reader })
   }
 
-  const peek = () : Token | undefined => {
-    if (cursor >= tokens.length) {
+  const peek = (offset: number = 0) : Token | undefined => {
+    const pos = cursor + offset
+    if (pos >= tokens.length) {
       tokens = tokens.concat(tok())
     }
-    return tokens[cursor]
+    return tokens[pos]
   }
 
   return {
