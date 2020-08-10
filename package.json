@@ -27,7 +27,7 @@
     "build": "lerna run build",
     "prepare": "lerna run prepare",
     "publish": "lerna publish",
-    "publish-next": "lerna publish --npm-tag=next --bump=prerelease",
+    "publish-next": "lerna publish --dist-tag=next --bump=prerelease",
     "test": "jest",
     "lint": "eslint 'packages/**/*.ts{,x}'",
     "test:update": "jest --updateSnapshot",
