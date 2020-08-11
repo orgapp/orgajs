@@ -17,7 +17,7 @@
     "clean": "rm -rf ./lib"
   },
   "dependencies": {
-    "orga-unified-parse": "^2.0.0-next.1",
+    "reorg-parse": "^2.0.0-next.1",
     "unified": "^9.1.0"
   }
 }

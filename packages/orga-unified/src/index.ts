@@ -1,4 +1,4 @@
 import unified from 'unified'
-import parse from 'orga-unified-parse'
+import parse from 'reorg-parse'
 
 export = unified().use(parse).freeze()
