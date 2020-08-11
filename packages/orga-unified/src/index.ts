@@ -1,7 +1,4 @@
-import { parse, ParseOptions } from 'orga'
+import unified from 'unified'
+import parse from 'reorg-parse'
 
-export = function (options: Partial<ParseOptions>) {
-  this.Parser = (doc: string, file) => {
-    return parse(doc, options)
-  }
-}
+export = unified().use(parse).freeze()

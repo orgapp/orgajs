@@ -1,14 +1,14 @@
 {
-  "name": "orga",
+  "name": "reorg-parse",
   "version": "2.0.0-next.2",
-  "description": "org-mode parser",
+  "description": "orga parser for unifiedjs",
   "files": [
     "lib"
   ],
   "main": "lib/index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
-  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/orga",
+  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/reorg-parse",
   "scripts": {
     "build": "npm run clean && npm run compile",
     "compile": "tsc -p tsconfig.build.json",
@@ -17,8 +17,9 @@
     "clean": "rm -rf ./lib"
   },
   "dependencies": {
-    "luxon": "^1.19.3",
-    "text-kit": "^2.0.0-next.0",
-    "xregexp": "^4.3.0"
+    "orga": "^2.0.0-next.2"
+  },
+  "devDependencies": {
+    "unified": "^9.1.0"
   }
 }

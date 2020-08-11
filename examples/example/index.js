@@ -1,11 +1,9 @@
-const unified = require('unified')
 const stream = require('unified-stream')
-const parse = require('orga-unified')
-const mutate = require('orga-rehype')
+const orga = require('orga-unified')
+const mutate = require('reorg-rehype')
 const html = require('rehype-stringify')
 
-const processor = unified()
-      .use(parse)
+const processor = orga()
       .use(mutate)
       .use(html)
 

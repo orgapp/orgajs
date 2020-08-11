@@ -100,7 +100,7 @@ CLOSED: [2018-12-11 Tue 19:40]
 Install dependencies.
 
 #+BEGIN_SRC sh
-npm install unified unified-stream orga-unified orga-rehype rehype-stringify
+npm install unified unified-stream reorg-parse reorg-rehype rehype-stringify
 #+END_SRC
 
 ** Usage
@@ -110,8 +110,8 @@ Create an =index.js= file like this.
 #+BEGIN_SRC javascript
 const unified = require('unified')
 const stream = require('unified-stream')
-const parse = require('orga-unified')
-const mutate = require('orga-rehype')
+const parse = require('reorg-parse')
+const mutate = require('reorg-rehype')
 const html = require('rehype-stringify')
 
 const processor = unified()
