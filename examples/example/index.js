@@ -1,6 +1,6 @@
 const stream = require('unified-stream')
 const orga = require('orga-unified')
-const mutate = require('orga-unified-rehype')
+const mutate = require('reorg-rehype')
 const html = require('rehype-stringify')
 
 const processor = orga()

@@ -7,7 +7,7 @@
       "orga": ["./packages/orga/src"],
       "oast-to-hast": ["./packages/oast-to-hast/src"],
       "reorg-parse": ["./packages/reorg-parse/src"],
-      "orga-unified-rehype": ["./packages/orga-unified-rehype/src"]
+      "reorg-rehype": ["./packages/reorg-rehype/src"]
     }
   }
 }

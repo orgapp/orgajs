@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "orga-unified-rehype": "^2.0.0-next.1",
+    "reorg-rehype": "^2.0.0-next.1",
     "orga-unified": "^2.0.0-next.1",
     "rehype-stringify": "^8.0.0",
     "unified": "^9.1.0",

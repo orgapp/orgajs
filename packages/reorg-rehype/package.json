@@ -1,5 +1,5 @@
 {
-  "name": "orga-unified-rehype",
+  "name": "reorg-rehype",
   "version": "2.0.0-next.1",
   "description": "rehype support for orga",
   "files": [
@@ -8,7 +8,7 @@
   "main": "lib/index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
-  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/orga-unified-rehype",
+  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/reorg-rehype",
   "scripts": {
     "build": "npm run clean && npm run compile",
     "compile": "tsc -p tsconfig.build.json",
