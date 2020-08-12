@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
-import Layout from '../components/layout'
-import styled from 'styled-components'
-import { parse } from 'orga'
-import { inspect } from 'util'
-import toHAST from 'oast-to-hast'
 import stringify from 'hast-util-to-html'
+import toHAST from 'oast-to-hast'
+import { parse } from 'orga'
+import React, { useState } from 'react'
 import JSONTree from 'react-json-tree'
+import styled from 'styled-components'
+import Layout from '../components/layout'
 
 const Container = styled.div`
 display: flex;
@@ -34,10 +33,6 @@ overflow: auto;
 const Half = styled.div`
 width: 50%;
 `
-
-const print = ast => {
-  return inspect(ast, false, null, false)
-}
 
 export default () => {
   const [text, setText] = useState('')

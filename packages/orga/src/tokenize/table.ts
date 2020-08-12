@@ -8,12 +8,12 @@ export default ({ reader }: { reader: Reader }) : Token[] => {
   if (getChar() !== '|') return []
 
   if (getChar(1) === '-') {
-    return [{ type: 'table.hr', position: eat('line') }]
+    return [{ type: 'table.hr', position: eat('line').position }]
   }
 
   let tokens: Token[] = [{
     type: 'table.columnSeparator',
-    position: eat('char')
+    position: eat('char').position,
   }]
 
   const tokCells = (): void => {

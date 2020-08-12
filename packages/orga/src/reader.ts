@@ -24,20 +24,17 @@ export const read = (text: string) => {
     return location(toIndex(linePosition(ln).end))
   }
 
-  const skipWhitespaces = () : number => {
-    const a = eat(/^\s+/)
-    return distance(a)
-  }
-
   const now = () => cursor
 
-  const eat = (param: 'char' | 'line' | RegExp | number = 'char') : Position => {
+  const eat = (param: 'char' | 'line' | 'whitespaces' | RegExp | number = 'char') => {
     const start = now()
     if (param === 'char') {
       cursor = shift(start, 1)
     } else if (param === 'line') {
       const lp = linePosition(cursor.line)
       cursor = lp.end
+    } else if (param === 'whitespaces') {
+      return eat(/^\s+/)
     } else if (typeof param === 'number') {
       cursor = shift(start, param)
     } else {
@@ -47,9 +44,14 @@ export const read = (text: string) => {
       }
     }
 
-    return {
+    const position = {
       start,
       end: cursor,
+    }
+
+    return {
+      value: substring(position),
+      position,
     }
   }
 
@@ -71,7 +73,6 @@ export const read = (text: string) => {
     isStartOfLine,
     getChar,
     getLine: () => substring({ start: cursor }),
-    skipWhitespaces,
     substring,
     now,
     distance,
@@ -89,12 +90,11 @@ export interface Reader {
   isStartOfLine: () => boolean;
   getChar: (offset?: number) => string;
   getLine: () => string;
-  skipWhitespaces: () => number;
   substring: (position: Position) => string;
   now: () => Point;
   eol: () => Point;
   EOF: () => boolean;
-  eat: (param?: 'char' | 'line' | number | RegExp) => Position;
+  eat: (param?: 'char' | 'line' | 'whitespaces' | number | RegExp) => { value: string, position: Position };
   jump: (point: Point) => void;
   distance: (position: Position) => number;
   match: (pattern: RegExp, position?: Position) => {

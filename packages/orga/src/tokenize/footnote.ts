@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default ({ reader }: Props) : Token[] => {
-  const { match, jump, skipWhitespaces } = reader
+  const { match, jump, eat } = reader
   let tokens: Token[] = []
   const m = match(/^\[fn:([^\]]+)\](?=\s)/)
   if (!m) return []
@@ -17,7 +17,7 @@ export default ({ reader }: Props) : Token[] => {
     position: m.position,
   })
   jump(m.position.end)
-  skipWhitespaces()
+  eat('whitespaces')
 
   tokens = tokens.concat(tokenizeInline({ reader }))
 

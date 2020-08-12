@@ -7,9 +7,8 @@ interface Props {
 }
 
 export default ({ reader }: Props) : Token[] => {
-  const { now, match, eat, jump, skipWhitespaces, substring } = reader
+  const { now, match, eat, jump, substring } = reader
 
-// /^(\s*)([-+]|\d+[.)])\s+(?:\[(x|X|-| )\][ \t]+)?(?:([^\n]+)[ \t]+::[ \t]*)?(.*)$/
   let tokens: Token[] = []
 
   const indent = now().column - 1
@@ -24,7 +23,7 @@ export default ({ reader }: Props) : Token[] => {
   })
 
   jump(bullet.position.end)
-  skipWhitespaces()
+  eat('whitespaces')
 
   const checkbox = match(/^\[(x|X|-| )\](?=\s)/)
   if (checkbox) {
@@ -36,7 +35,7 @@ export default ({ reader }: Props) : Token[] => {
     jump(checkbox.position.end)
   }
 
-  skipWhitespaces()
+  eat('whitespaces')
 
   const tagMark = match(/\s+::\s+/)
   if (tagMark) {
