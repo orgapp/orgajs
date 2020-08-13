@@ -79,7 +79,7 @@ export = async function onCreateNode(
         const { date, export_date, export_title, ...properties } = ast.properties
         // const title = export_title || select(`text.plain`, ast).value
 
-        const headline: Headline = select('headline', ast)
+        const headline = select('headline', ast) as Headline
         const title = export_title || headline.content
 
         const d = parseTimestamp(date) ||

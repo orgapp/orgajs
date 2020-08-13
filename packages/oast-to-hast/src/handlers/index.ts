@@ -1,6 +1,5 @@
-import { Comment, Element, Text } from 'hast'
 import { Node } from 'unist'
-import { Context } from '../'
+import { Context, HNode } from '../'
 import block from './block'
 import { footnote, footnoteReference } from './footnote'
 import headline from './headline'
@@ -12,7 +11,7 @@ import section from './section'
 import { table, tableCell, tableRow } from './table'
 import { bold, code, italic, strikeThrough, underline, verbatim } from './text'
 
-export type Handler = (context: Context) => (node: Node) => Element | Comment | Text
+export type Handler = (context: Context) => (node: Node) => HNode
 
 export default {
   section,
@@ -36,5 +35,6 @@ export default {
   'footnote.reference': footnoteReference,
   hr: ({ h }) => () => h('hr')(),
   drawer: () => () => undefined,
+  priority: () => () => undefined,
   html,
 } as { [key: string]: Handler }

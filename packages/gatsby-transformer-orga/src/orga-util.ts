@@ -3,6 +3,9 @@ import { parse } from 'orga'
 
 const shouldBeArray = (key: string) => [`keywords`, `tags`].includes(key)
 
+// TODO: open this up once this is resolved:
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/27194
+// @ts-ignore
 export const processMeta = _.mapValues.convert({ cap: false })((v, k) => {
   if (shouldBeArray(k) && typeof v === `string`) {
     return v.match(/[^ ]+/g)
