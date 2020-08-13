@@ -226,6 +226,11 @@ describe("tokenize table", () => {
           "type": "table.columnSeparator",
         },
         Object {
+          "_text": " ",
+          "type": "text.plain",
+          "value": " ",
+        },
+        Object {
           "_text": "|",
           "type": "table.columnSeparator",
         },

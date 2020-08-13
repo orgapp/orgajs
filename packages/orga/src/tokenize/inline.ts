@@ -1,121 +1,116 @@
-import { Point, Position } from 'unist';
-import { after } from '../position';
-import { Reader } from '../reader';
-import { Token, PhrasingContent, StyledText } from '../types';
-import uri from '../uri';
+import { Point } from 'unist'
+import { isEqual } from '../position'
+import { Reader } from '../reader'
+import { FootnoteReference, Link, PhrasingContent, StyledText, Token } from '../types'
+import uri from '../uri'
+import { escape } from '../utils'
 
-
-const LINK_PATTERN = /\[\[([^\]]*)\](?:\[([^\]]*)\])?\]/m; // \1 => link, \2 => text
-const FOOTNOTE_PATTERN = /\[fn:(\w+)\]/
-
-const PRE = `[\\s\\({'"]|^`
 const POST = `[\\s-\\.,:!?'\\)}]|$`
 const BORDER = `[^,'"\\s]`
 
-function markup(marker: string) {
-  return RegExp(`(?<=(${PRE}))${marker}(${BORDER}(?:.*?(?:${BORDER}))??)${marker}(?=(${POST}.*))`, 'm')
+const MARKERS: { [key: string]: StyledText['type'] } = {
+  '*': 'text.bold',
+  '=': 'text.verbatim',
+  '/': 'text.italic',
+  '+': 'text.strikeThrough',
+  '_': 'text.underline',
+  '~': 'text.code',
 }
 
 interface Props {
-  reader: Reader;
-  start?: Point;
-  end?: Point;
+  reader: Reader
+  start?: Point
+  end?: Point
 }
 
 export const tokenize = ({ reader, start, end } : Props): Token[] => {
-  const { now, eol, match, jump, substring } = reader
-  const s = start || now()
-  const e = end || eol()
+  const { now, eat, eol, match, jump, substring, getChar } = reader
+  start = start || { ...now() }
+  end = end || { ...eol() }
+  jump(start)
 
-  let tokens: PhrasingContent[] = [
-    {
-      type: 'text.plain',
-      value: substring({ start: s, end: e }),
-      position: { start: s, end: e },
-    }
-  ]
+  let cursor = { ...start }
 
-  const parse = <T extends PhrasingContent>(
-    type: T['type'],
-    pattern: RegExp,
-    content: PhrasingContent[],
-    build: (match: { captures: string[], position: Position }) => PhrasingContent,
-  ): PhrasingContent[] => {
+  const _tokens: PhrasingContent[] = []
 
-    return content.reduce((all, token) => {
-      if (token.type !== 'text.plain') return all.concat(token)
-      const m = match(pattern, token.position)
-      if (!m) return all.concat(token)
-      if (!token.position || !m.position) {
-        throw Error('not gonna happen')
-      }
-      if (after(token.position.start)(m.position.start)) {
-        const position = {
-          start: token.position.start,
-          end: m.position.start,
-        }
-        all.push({
-          type: 'text.plain',
-          value: substring(position),
-          position,
-        })
-      }
-
-
-      all.push(build(m))
-
-      if (after(m.position.end)(token.position.end)) {
-        const rest = parse(type, pattern, [
-          {
-            type: 'text.plain',
-            value: substring({
-              start: m.position.end,
-              end: token.position.end,
-            }),
-            position: {
-              start: m.position.end,
-              end: token.position.end,
-            }}
-        ], build)
-        all = all.concat(rest)
-      }
-
-      return all
-    }, [] as PhrasingContent[])
-  }
-
-  const parseText = (type: StyledText['type'], pattern: RegExp, content: PhrasingContent[]) =>
-    parse(type, pattern, content, ({ position, captures }) => ({
-      type,
-      value: captures[2],
-      position,
-    }))
-
-  tokens = parse('link', LINK_PATTERN, tokens, ({ position, captures }) => {
-    const linkInfo = uri(captures[1])
+  const tokLink = (): Link => {
+    const m = match(/^\[\[([^\]]*)\](?:\[([^\]]*)\])?\]/m)
+    if (!m) return undefined
+    const linkInfo = uri(m.captures[1])
     return {
       type: 'link',
-      description: captures[2],
+      description: m.captures[2],
       ...linkInfo,
-      position,
+      position: m.position,
     }
-  })
+  }
 
-  tokens = parse('footnote.reference', FOOTNOTE_PATTERN, tokens, ({ position, captures }) => ({
-    type: 'footnote.reference',
-    label: captures[1],
-    position,
-  }))
+  const tokFootnote = (): FootnoteReference => {
+    const m = match(/^\[fn:(\w+)\]/)
+    if (!m) return undefined
+    return {
+      type: 'footnote.reference',
+      label: m.captures[1],
+      position: m.position,
+    }
+  }
 
-  tokens = parseText('text.bold', markup('\\*'), tokens)
-  tokens = parseText('text.verbatim', markup('='), tokens)
-  tokens = parseText('text.italic', markup('/'), tokens)
-  tokens = parseText('text.strikeThrough', markup('\\+'), tokens)
-  tokens = parseText('text.underline', markup('_'), tokens)
-  tokens = parseText('text.code', markup('~'), tokens)
+  const tokStyledText = (marker: string) => (): StyledText => {
+    const m = match(
+      RegExp(`^${escape(marker)}(${BORDER}(?:.*?(?:${BORDER}))??)${escape(marker)}(?=(${POST}.*))`, 'm'))
+    if (!m) return undefined
+    return {
+      type: MARKERS[marker],
+      value: m.captures[1],
+      position: m.position,
+    }
+  }
 
-  jump(e)
-  return tokens.filter(t => {
-    return t.type !== 'text.plain' || /\S/.test(t.value)
-  })
+  const tryTo = (tok: () => PhrasingContent) => {
+    const token = tok()
+    if (!token) return false
+    cleanup()
+    _tokens.push(token)
+    jump(token.position.end)
+    cursor = { ...now() }
+    return true
+  }
+
+  const cleanup = () => {
+    if (isEqual(cursor, now())) return
+    const position = { start: { ...cursor }, end: { ...now() } }
+    const value = substring(position)
+    _tokens.push({
+      type: 'text.plain',
+      value,
+      position,
+    })
+  }
+
+  const tok = () => {
+    if (isEqual(now(), end)) {
+      return
+    }
+    const char = getChar()
+
+    if (char === '[') {
+      if (tryTo(tokLink)) return tok()
+      if (tryTo(tokFootnote)) return tok()
+    }
+
+    if (MARKERS[char]) {
+      const pre = getChar(-1)
+      if (now().column === 1 || /[\s\({'"]/.test(pre)) {
+        if (tryTo(tokStyledText(char))) return tok()
+      }
+    }
+
+    eat()
+    tok()
+  }
+
+  tok()
+  cleanup()
+  return _tokens
+
 }
