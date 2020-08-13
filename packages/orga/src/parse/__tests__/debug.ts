@@ -12,6 +12,9 @@ export default (text: string) => {
   const tree = parse(lexer)
   const data = map(node => {
     const { parent, position, ...rest } = node
+    if (!position) {
+      console.log(inspect({ rest }, false, null, true))
+    }
     return {
       raw: substring(position),
       ...rest,
