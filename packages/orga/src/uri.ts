@@ -16,7 +16,7 @@ export default (link: string): LinkInfo | undefined => {
   const protocol = (m[1] || (isFilePath(m[2]) ? `file` : `internal`)).toLowerCase()
   let value = m[2]
   if (/https?/.test(protocol)) {
-    value = `${protocol}://${value}`
+    value = `${protocol}:${value}`
   }
   let search: string | number | undefined
   if (protocol === 'file') {
