@@ -40,8 +40,8 @@ height: ${INPUT_HEIGHT};
 }
 `
 
-const _atob = t => Buffer.from(t, 'base64').toString()
-const _btoa = t => Buffer.from(t).toString('base64')
+const decode = decodeURIComponent
+const encode = encodeURIComponent
 
 export default ({ location }) => {
   const q = queryString.parse(location.search)
@@ -59,7 +59,7 @@ export default ({ location }) => {
   }
 
   useEffect(() => {
-    setText(_atob(q.text || ''))
+    setText(decode(q.text || ''))
   }, [q.text])
 
   return (
@@ -75,7 +75,7 @@ export default ({ location }) => {
             <Grid.Column>
               <Button.Group floated='right'>
                 <CopyToClipboard
-                  text={`${location.origin}?text=${_btoa(text)}`}
+                  text={`${location.origin}?text=${encode(text)}`}
                   onCopy={() => setCopied(true)}>
                   <Button content='Permalink' icon='linkify' labelPosition='left'/>
                 </CopyToClipboard>
