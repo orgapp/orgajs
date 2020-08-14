@@ -1,26 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import Layout from '../components/layout'
-import queryString from 'query-string'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import styled from 'styled-components'
-import { parse } from 'orga'
-import toHAST from 'oast-to-hast'
 import stringify from 'hast-util-to-html'
 import toHAST from 'oast-to-hast'
 import { parse } from 'orga'
-import React, { useState } from 'react'
+import queryString from 'query-string'
+import React, { useEffect, useState } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import JSONTree from 'react-json-tree'
+import {
+    Button, Divider, Grid,
+    Icon, Segment,
+    TextArea
+} from 'semantic-ui-react'
 import styled from 'styled-components'
 import Layout from '../components/layout'
-import {
-  Segment,
-  Grid,
-  Divider,
-  Button,
-  Icon,
-  TextArea,
-} from 'semantic-ui-react'
-======= end
 
 const INPUT_HEIGHT = `350px`
 
