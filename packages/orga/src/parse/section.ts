@@ -58,11 +58,6 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
       return section
     }
 
-    // paragraph
-    if (tryTo(parseParagraph, push(section))) {
-      return parse(section)
-    }
-
     // list
     if (tryTo(parseList, push(section))) {
       return parse(section)
@@ -102,6 +97,11 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
 
     if (token.type === 'hr') {
       push(section)(token)
+    }
+
+    // paragraph
+    if (tryTo(parseParagraph, push(section))) {
+      return parse(section)
     }
 
     if (token.type === 'footnote.label') {

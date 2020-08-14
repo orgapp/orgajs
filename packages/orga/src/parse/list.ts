@@ -43,23 +43,18 @@ export default (lexer: Lexer): List | undefined => {
 
     eolCount = 0
 
-    if (token.type === 'list.item.bullet') {
-      if (list.indent > token.indent) {
+    if (token.type !== 'list.item.bullet' || list.indent > token.indent) {
         return list
-      } else if (list.indent < token.indent) {
-        push(list)(parse(newList(token)))
-      } else {
-        const li = parseListItem({
-          type: 'list.item',
-          indent: token.indent,
-          children: [] })
-        push(list)(li)
-      }
     }
-
-    push(list)(token)
-    eat()
-
+    if (list.indent < token.indent) {
+      push(list)(parse(newList(token)))
+    } else {
+      const li = parseListItem({
+        type: 'list.item',
+        indent: token.indent,
+        children: [] })
+      push(list)(li)
+    }
     return parse(list)
   }
 

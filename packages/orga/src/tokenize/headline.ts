@@ -13,10 +13,8 @@ export default ({ reader, todoKeywordSets }: Props) : Token[] => {
 
   const {
     match,
-    skipWhitespaces,
     now,
     eol,
-    distance,
     eat,
     jump,
     substring,
@@ -30,35 +28,35 @@ export default ({ reader, todoKeywordSets }: Props) : Token[] => {
   }
 
   let buffer: Token[] = []
+
   const stars = eat(/^\*+(?=\s)/)
-  if (isEmpty(stars)) throw Error('not gonna happen')
+  if (isEmpty(stars.position)) throw Error('not gonna happen')
   buffer.push({
     type: 'stars',
-    level: distance(stars),
-    position: stars,
+    level: stars.value.length,
+    position: stars.position,
   })
-  skipWhitespaces()
+
+  eat('whitespaces')
   const keyword = eat(RegExp(`^${todos.map(escape).join('|')}(?=\\s)`))
-  if (!isEmpty(keyword)) {
-    const value = substring(keyword)
+  if (!isEmpty(keyword.position)) {
     buffer.push({
       type: 'todo',
-      keyword: value,
-      actionable: isActionable(value),
-      position: keyword,
+      keyword: keyword.value,
+      actionable: isActionable(keyword.value),
+      position: keyword.position,
     })
   }
-  skipWhitespaces()
+  eat('whitespaces')
   const priority = eat(/^\[#(A|B|C)\](?=\s)/)
-  if (!isEmpty(priority)) {
+  if (!isEmpty(priority.position)) {
     buffer.push({
       type: 'priority',
-      value: substring(priority),
-      position: priority,
+      ...priority,
     })
   }
 
-  skipWhitespaces()
+  eat('whitespaces')
 
   const tags = match(/\s+(:(?:[\w@]+:)+)[ \t]*$/gm)
   let contentEnd = eol()
@@ -72,7 +70,7 @@ export default ({ reader, todoKeywordSets }: Props) : Token[] => {
 
 
   if (tags) {
-    skipWhitespaces()
+    eat('whitespaces')
     const tagsPosition = { start: now(), end: tags.position.end }
     const s = substring(tagsPosition)
     buffer.push({

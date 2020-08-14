@@ -40,7 +40,6 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}) => {
     now,
     match,
     EOF,
-    skipWhitespaces,
     substring,
   } = reader
 
@@ -58,13 +57,13 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}) => {
   let cursor = 0
 
   const tok = (): Token[] => {
-    skipWhitespaces()
+    eat('whitespaces')
     if (EOF()) return []
 
     if (getChar() === '\n') {
       return [{
         type: 'newline',
-        position: eat('char'),
+        position: eat('char').position,
       }]
     }
 
@@ -120,7 +119,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}) => {
     const table = tokenizeTable({ reader })
     if (table.length > 0) return table
 
-    const hr = eat(/^\s*-{5,}\s*$/)
+    const hr = eat(/^\s*-{5,}\s*$/).position
     if (!isEmpty(hr)) {
       return [{
         type: 'hr',
