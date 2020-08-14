@@ -16,8 +16,11 @@ export const read = (text: string) => {
 
   const isStartOfLine = () => cursor.column === 1
 
-  const getChar = (offset = 0) => {
-    return text.charAt(toIndex(cursor) + offset)
+  const getChar = (p: number | Point = 0) => {
+    const { pos, offset } = typeof p === 'number' ?
+      { pos: cursor, offset: p } :
+      { pos: p, offset: 0 }
+    return text.charAt(toIndex(pos) + offset)
   }
 
   const endOfLine = (ln: number): Point => {
@@ -88,7 +91,7 @@ export const read = (text: string) => {
 
 export interface Reader {
   isStartOfLine: () => boolean;
-  getChar: (offset?: number) => string;
+  getChar: (offset?: number | Point) => string;
   getLine: () => string;
   substring: (position: Position) => string;
   now: () => Point;

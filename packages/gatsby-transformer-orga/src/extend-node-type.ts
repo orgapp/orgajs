@@ -4,7 +4,7 @@ import GraphQLJSON from 'graphql-type-json'
 import hastToHTML from 'hast-util-to-html'
 import mime from 'mime'
 import toHAST, { Context } from 'oast-to-hast'
-import { Link } from 'orga'
+import { Headline, Link } from 'orga'
 import { dirname, normalize, posix } from 'path'
 import u from 'unist-builder'
 import map from 'unist-util-map'
@@ -81,17 +81,17 @@ module.exports = async (
     const handlers = { link: handleLink }
 
     // offset the levels
-    const firstHeadline = select('headline', body)
+    const firstHeadline = select('headline', body) as Headline
     const offset = firstHeadline ? firstHeadline.level - 1 : 0
     if (offset > 0) {
       body = map(body, node => {
         if (node.type !== `headline`) return node
-        return { ...node, level: node.level - offset }
+        return { ...node, level: (node as Headline).level - offset }
       })
     }
 
     const hast = toHAST(body, { highlight, handlers })
-    const html = hastToHTML(hast, { allowDangerousHTML: true })
+    const html = hastToHTML(hast, { allowDangerousHtml: true })
     await Promise.all(Array.from(filesToCopy, async ([linkPath, newFilePath]) => {
       // Don't copy anything is the file already exists at the location.
       if (!fsExtra.existsSync(newFilePath)) {

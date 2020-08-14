@@ -1,6 +1,11 @@
-import { Node } from 'unist'
+import { Node, Position } from 'unist'
 import { after, before, isEmpty } from './position'
 import { Parent } from './types'
+
+const clone = ({ start, end }: Position): Position => ({
+  start: { ...start },
+  end: { ...end },
+})
 
 const adjustPosition = (parent: Parent) => (child: Node): void => {
   let dirty = false
@@ -11,17 +16,17 @@ const adjustPosition = (parent: Parent) => (child: Node): void => {
     const aboveUpperBound = after(parent.position.end)
 
     if (isEmpty(parent.position)) {
-      parent.position = { ...child.position }
+      parent.position = clone(child.position)
       dirty = true
     } else if (belowLowerBound(child.position.start)) {
-      parent.position.start = child.position.start
+      parent.position.start = { ...child.position.start }
       dirty = true
     }else if (aboveUpperBound(child.position.end)) {
-      parent.position.end = child.position.end
+      parent.position.end = { ...child.position.end }
       dirty = true
     }
   } else {
-    parent.position = { ...child.position }
+    parent.position = clone(child.position)
     dirty = true
   }
 
