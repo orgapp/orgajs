@@ -1,0 +1,6 @@
+
+[fn:1] Content of the footnote.
+#+BEGIN_SRC javascript
+console.log('footnote with code block')
+#+END_SRC
+

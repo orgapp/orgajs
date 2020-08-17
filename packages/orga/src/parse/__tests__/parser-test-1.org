@@ -1,0 +1,15 @@
+
+#+TITLE: hello world
+#+TODO: TODO NEXT | DONE
+#+DATE: 2018-01-01
+
+* NEXT headline one
+DEADLINE: <2018-01-01 Mon>
+:PROPERTIES:
+key: value
+key: value
+:END:
+
+[[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,
+the round pegs in the +round+ square holes...
+
