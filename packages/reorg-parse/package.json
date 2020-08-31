@@ -1,6 +1,6 @@
 {
   "name": "reorg-parse",
-  "version": "2.0.0-next.4",
+  "version": "2.0.0",
   "description": "orga parser for unifiedjs",
   "files": [
     "lib"
@@ -17,7 +17,7 @@
     "clean": "rm -rf ./lib"
   },
   "dependencies": {
-    "orga": "^2.0.0-next.4"
+    "orga": "^2.0.0"
   },
   "devDependencies": {
     "unified": "^9.1.0"
