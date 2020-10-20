@@ -21,7 +21,7 @@ const defaultOptions = {
   handlers: {} as { [key: string]: Handler },
 }
 
-type Options = typeof defaultOptions
+export type Options = typeof defaultOptions
 
 const build = ({
   tagName,
