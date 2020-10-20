@@ -21,7 +21,7 @@ export default (context: Context) => (node: Section): HNode => {
     return undefined
   }
 
-  return h('div', { className: 'section' })(
+  return h('div', { className: ['section'] })(
     ...all(context)(node.children)
   )
 }

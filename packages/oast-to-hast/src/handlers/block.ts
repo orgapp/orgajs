@@ -15,7 +15,7 @@ export default (context: Context) => (node: Block): HNode => {
       body = u('raw', highlight(lang, node.value))
     }
     return h('pre')(
-      h('code', { className: `language-${lang}` })(
+      h('code', { className: [`language-${lang}`] })(
         body
       )
     )
@@ -34,7 +34,7 @@ export default (context: Context) => (node: Block): HNode => {
       return u('raw', node.value)
     case 'comment':
     default:
-      return h('pre', { className: name })(
+      return h('pre', { className: [name] })(
         u('text', node.value))
   }
 }
