@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "example",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "dependencies": {
     "orga-unified": "^2.0.0",
     "rehype-stringify": "^8.0.0",
-    "reorg-rehype": "^2.0.1",
+    "reorg-rehype": "^2.0.2",
     "unified": "^9.1.0",
     "unified-stream": "^1.0.6"
   }
