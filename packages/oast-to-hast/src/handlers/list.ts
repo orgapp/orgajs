@@ -1,6 +1,7 @@
 import { List, ListItem, ListItemCheckbox } from 'orga'
 import { Context, HNode } from '../'
 import { all } from '../transform'
+import { Properties } from 'hast'
 
 /* Transform a list. */
 export default (context: Context) => (node: List): HNode => {
@@ -10,7 +11,8 @@ export default (context: Context) => (node: List): HNode => {
   if (node.children.every(i => i.tag)) {
     tagName = 'dl'
   }
-  return h(tagName)(...all(context)(node.children))
+  return h(tagName, node.attributes.attr_html as Properties)(
+    ...all(context)(node.children))
 }
 
 export const item = (context: Context) => (node: ListItem): HNode => {

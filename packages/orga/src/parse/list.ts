@@ -15,6 +15,7 @@ export default (lexer: Lexer): List | undefined => {
     indent: token.indent,
     ordered: token.ordered,
     children: [],
+    attributes: {},
   })
 
   const parseListItem = (listItem: ListItem): ListItem => {

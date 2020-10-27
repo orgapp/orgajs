@@ -43,7 +43,7 @@ export default (lexer: Lexer): Table | undefined => {
       return table
     }
 
-    const _table = table || { type: 'table', children: [] }
+    const _table = table || { type: 'table', children: [], attributes: {} }
 
     push(_table)(row)
     eat('newline')

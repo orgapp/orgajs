@@ -23,17 +23,14 @@ export default (lexer: Lexer) => {
     return
   }
 
-  const tryTo = <T extends Node>(
-    parse: (lexer: Lexer) => T | undefined,
-    action: (node: T) => void,
-  ): boolean => {
+  const tryTo = <T>(parse: (lexer: Lexer) => T | undefined) => (...actions: ((node: T) => any)[]): boolean => {
     const savePoint = save()
     const node = parse(lexer)
     if (!node) {
       restore(savePoint)
       return false
     }
-    action(node)
+    actions.forEach(action => action(node))
     return true
   }
 

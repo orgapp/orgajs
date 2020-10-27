@@ -17,6 +17,7 @@ const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
 export interface Lexer {
   eat: (type?: string) => Token | undefined;
+  eatAll: (type: string) => number;
   peek: (offset?: number) => Token | undefined;
   match: (cond: RegExp | string, offset?: number) => boolean;
   all: () => Token[];
@@ -144,19 +145,24 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}) => {
     return tokens[pos]
   }
 
+  const _eat = (type: string | undefined = undefined) : Token | undefined => {
+    const t = peek()
+    if (!t) return undefined
+    if (!type || type === t.type) {
+      cursor += 1
+      return t
+    }
+    return undefined
+  }
+
   return {
     peek,
-
-    eat: (type: string | undefined = undefined) : Token | undefined => {
-      const t = peek()
-      if (t) {
-        if (!type || type === t.type) {
-          cursor += 1
-        }
-      }
-      return t
+    eat: _eat,
+    eatAll: (type: string): number => {
+      let count = 0
+      while(_eat(type)) { count += 1 }
+      return count
     },
-
     match: (cond, offset = 0) => {
       const token = peek()
       if (!token) return false

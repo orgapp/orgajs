@@ -107,7 +107,7 @@ export = async function onCreateNode(
         }
       })
     } else { // root
-      const metadata = {
+      const metadata: any = {
         export_file_name: orgFileNode.fileName,
         ...ast.properties }
       metadata.title = metadata.title || 'Untitled'

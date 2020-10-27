@@ -16,6 +16,7 @@ export default (lexer: Lexer): Block | undefined => {
     params: begin.params,
     position: begin.position,
     value: '',
+    attributes: {},
   }
   // const a = push(block)
   // a(n)

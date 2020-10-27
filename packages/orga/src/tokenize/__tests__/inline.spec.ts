@@ -388,11 +388,14 @@ Special characters =~= and =!=. Also =~/.this/path= and ~that~ thing.
           "value": "that",
         },
         Object {
-          "_text": " thing.
-      ",
+          "_text": " thing.",
           "type": "text.plain",
-          "value": " thing.
+          "value": " thing.",
+        },
+        Object {
+          "_text": "
       ",
+          "type": "newline",
         },
       ]
     `);

@@ -2,16 +2,12 @@ import fsExtra from 'fs-extra'
 import { GraphQLString } from 'gatsby/graphql'
 import GraphQLJSON from 'graphql-type-json'
 import hastToHTML from 'hast-util-to-html'
-import mime from 'mime'
-import toHAST, { Context } from 'oast-to-hast'
+import toHAST from 'oast-to-hast'
 import { Headline, Link } from 'orga'
 import { dirname, normalize, posix } from 'path'
-import u from 'unist-builder'
-import map from 'unist-util-map'
 import { select } from 'unist-util-select'
+import visit from 'unist-util-visit'
 import { getAST } from './orga-util'
-
-
 
 const DEPLOY_DIR = `public`
 
@@ -78,19 +74,54 @@ module.exports = async (
     }
     const filesToCopy = new Map()
     const highlight = pluginOptions.noHighlight !== true
-    const handlers = { link: handleLink }
 
     // offset the levels
     const firstHeadline = select('headline', body) as Headline
     const offset = firstHeadline ? firstHeadline.level - 1 : 0
     if (offset > 0) {
-      body = map(body, node => {
-        if (node.type !== `headline`) return node
-        return { ...node, level: (node as Headline).level - offset }
+      visit(body, 'headline', (headline: Headline) => {
+        headline.level = headline.level - offset
       })
     }
 
-    const hast = toHAST(body, { highlight, handlers })
+    const visitor = (node: Link) => {
+      if (node.protocol === 'file') {
+        let linkPath = posix.join(
+          getNode(getNode(orgContentNode.parent).parent).dir,
+          normalize(node.value)
+        )
+
+        if (typeof node.search === 'string' && node.search.startsWith('*')) {
+          const headline = node.search.replace(/^\*+/, '')
+          linkPath = `${linkPath}::*${decodeURIComponent(headline)}`
+        }
+
+        const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
+        if (linkToOrg) {
+          node.value = linkToOrg.fields.slug
+        } else {
+          const linkNode = files.find(f => f.absolutePath === linkPath)
+          if (linkNode && linkNode.absolutePath) {
+            const newFilePath = newPath(linkNode)
+            if (linkPath !== newFilePath) {
+              node.value = newLinkURL({ linkNode, pathPrefix })
+              filesToCopy.set(linkPath, newFilePath)
+            }
+          }
+        }
+      }
+
+      // TODO: transform internal link of file based content to anchor? i.e. can't find the linkToOrg
+      if (node.protocol === `internal`) {
+        const linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${node.value}`
+        const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
+        if (linkToOrg) node.value = linkToOrg.fields.slug
+      }
+    }
+
+    visit(body, 'link', visitor)
+
+    const hast = toHAST(body, { highlight })
     const html = hastToHTML(hast, { allowDangerousHtml: true })
     await Promise.all(Array.from(filesToCopy, async ([linkPath, newFilePath]) => {
       // Don't copy anything is the file already exists at the location.
@@ -103,63 +134,7 @@ module.exports = async (
         }
       }
     }))
+
     return html
-
-    function handleLink(context: Context) {
-
-      const { h } = context
-
-      return (node: Link) => {
-        let src = node.value
-        if (node.protocol === `file`) {
-          let linkPath = posix.join(
-            getNode(getNode(orgContentNode.parent).parent).dir,
-            normalize(node.value)
-          )
-
-          if (typeof node.search === 'string' && node.search.startsWith('*')) {
-            const headline = node.search.replace(/^\*+/, '')
-            linkPath = `${linkPath}::*${decodeURIComponent(headline)}`
-          }
-
-          const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
-          if (linkToOrg) {
-            src = linkToOrg.fields.slug
-          } else {
-            const linkNode = files.find(f => f.absolutePath === linkPath)
-            if (linkNode && linkNode.absolutePath) {
-              const newFilePath = newPath(linkNode)
-              if (linkPath !== newFilePath) {
-                src = newLinkURL({ linkNode, pathPrefix })
-                filesToCopy.set(linkPath, newFilePath)
-              }
-            }
-          }
-        }
-
-        // TODO: transform internal link of file based content to anchor? i.e. can't find the linkToOrg
-        if (node.protocol === `internal`) {
-          const linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${node.value}`
-          const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
-          if (linkToOrg) src = linkToOrg.fields.slug
-        }
-
-        const type = mime.getType(src)
-        if (type && type.startsWith(`image`)) {
-          const elements = [
-            h('img', { src, alt: node.description })()
-          ]
-          if (node.description) {
-            elements.push(h('figcaption')(u(`text`, node.description)))
-          }
-          return h('figure')(...elements)
-        } else {
-          return h('a', { href: src })(
-            u('text', node.description)
-          )
-        }
-
-      }
-    }
   }
 }

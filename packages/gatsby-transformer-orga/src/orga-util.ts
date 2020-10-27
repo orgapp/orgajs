@@ -1,5 +1,6 @@
 import _ from 'lodash/fp'
-import { parse } from 'orga'
+import { parse, Document, Section } from 'orga'
+import { Node } from 'unist'
 
 const shouldBeArray = (key: string) => [`keywords`, `tags`].includes(key)
 
@@ -24,11 +25,11 @@ const astCacheKey = node =>
 
 const ASTPromiseMap = new Map()
 
-export const getAST = async ({ node, cache }) => {
+export const getAST = async ({ node, cache }): Promise<Document | Section> => {
   const cacheKey = astCacheKey(node)
   const cachedAST = await cache.get(cacheKey)
   if (cachedAST) {
-    return cachedAST
+    return cachedAST as Document | Section
   }
   if (ASTPromiseMap.has(cacheKey)) return await ASTPromiseMap.get(cacheKey)
   const ASTGenerationPromise = getOrgAST(node)
@@ -46,7 +47,7 @@ export const getAST = async ({ node, cache }) => {
   return ASTGenerationPromise
 }
 
-async function getOrgAST(node) {
+async function getOrgAST(node): Promise<Document> {
   return new Promise(resolve => {
     const ast = parse(node.internal.content)
     resolve(ast)

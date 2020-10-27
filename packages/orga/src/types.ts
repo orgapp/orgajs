@@ -5,6 +5,16 @@ export interface Parent extends UnistParent {
   parent?: Parent;
 }
 
+export type Primitive = string | number | boolean
+
+export interface Attributes {
+  [key: string]: Primitive | { [key: string]: Primitive } ,
+}
+
+export interface Attributed {
+  attributes: Attributes
+}
+
 export interface Timestamp {
   date: Date;
   end?: Date;
@@ -44,7 +54,7 @@ export interface Footnote extends Parent {
   label: string;
 }
 
-export interface Block extends Literal {
+export interface Block extends Literal, Attributed {
   type: 'block';
   name: string;
   params: string[];
@@ -63,7 +73,7 @@ export interface Planning extends Node {
   timestamp: Timestamp;
 }
 
-export interface List extends Parent {
+export interface List extends Parent, Attributed {
   type: 'list';
   indent: number;
   ordered: boolean;
@@ -72,7 +82,7 @@ export interface List extends Parent {
 
 type TableContent = TableRow | TableRule
 
-export interface Table extends Parent {
+export interface Table extends Parent, Attributed {
   type: 'table';
   children: TableContent[];
 }
@@ -104,7 +114,7 @@ export interface Headline extends Parent {
 }
 
 
-export interface Paragraph extends Parent {
+export interface Paragraph extends Parent, Attributed {
   type: 'paragraph';
   children: PhrasingContent[];
 }
@@ -142,13 +152,13 @@ export type Token =
   | Comment
 
 export type PhrasingContent =
-  | StyledText | Link | FootnoteReference
+  | StyledText | Link | FootnoteReference | Newline
 
 export interface HorizontalRule extends Node {
   type: 'hr'
 }
 
-interface Newline extends Node {
+export interface Newline extends Node {
   type: 'newline'
 }
 

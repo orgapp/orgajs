@@ -1,7 +1,7 @@
 import { Point } from 'unist'
 import { isEqual } from '../position'
 import { Reader } from '../reader'
-import { FootnoteReference, Link, PhrasingContent, StyledText, Token } from '../types'
+import { FootnoteReference, Link, PhrasingContent, StyledText, Token, Newline } from '../types'
 import uri from '../uri'
 import { escape } from '../utils'
 
@@ -87,6 +87,15 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
     })
   }
 
+  const tokNewline = (): Newline => {
+    const m = match(/^\n/)
+    if (!m) return undefined
+    return {
+      type: 'newline',
+      position: m.position,
+    }
+  }
+
   const tok = () => {
     if (isEqual(now(), end)) {
       return
@@ -104,6 +113,8 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
         if (tryTo(tokStyledText(char))) return tok()
       }
     }
+
+    if (tryTo(tokNewline)) return tok()
 
     eat()
     tok()

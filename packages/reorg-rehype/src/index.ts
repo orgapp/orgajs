@@ -1,5 +1,5 @@
-import { Processor, Transformer } from 'unified'
 import toHAST, { Options } from 'oast-to-hast'
+import { Transformer } from 'unified'
 
 function reorg2rehype (options: Partial<Options>): Transformer {
   return transformer

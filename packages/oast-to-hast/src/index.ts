@@ -18,6 +18,7 @@ const defaultOptions = {
   excludeTags: ['noexport'],
   selectTags: [] as string[],
   highlight: true,
+  properties: {} as Properties,
   handlers: {} as { [key: string]: Handler },
 }
 
