@@ -1,6 +1,6 @@
 {
   "name": "reorg-rehype",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "rehype support for orga",
   "files": [
     "lib"
@@ -17,6 +17,6 @@
     "clean": "rm -rf ./lib"
   },
   "dependencies": {
-    "oast-to-hast": "^2.0.2"
+    "oast-to-hast": "^2.1.0"
   }
 }
