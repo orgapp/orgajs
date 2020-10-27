@@ -40,6 +40,7 @@ export default ({ peek, eat }): Paragraph | undefined => {
   }
 
   const p = build()
+  if (!p) return undefined
   // trim whitespaces
   while (p.children.length > 0) {
     if (isWhitespaces(p.children[p.children.length - 1])) {
