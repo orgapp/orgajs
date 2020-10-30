@@ -32,6 +32,7 @@
     "lint": "eslint 'packages/**/*.ts{,x}'",
     "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",
+    "compile": "lerna run compile",
     "watch": "lerna run compile:watch --no-sort --stream --concurrency 999"
   },
   "workspaces": [
