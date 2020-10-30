@@ -13,12 +13,14 @@ export default (context: Context) => (node: Section): HNode => {
 
   const headline = node.children.find(n => n.type === 'headline') as Headline
   // if (!headline) return undefined
-  if (selectTags.length > 0
-    && !match(selectTags, headline.tags)) {
-    return undefined
-  }
-  if (match(excludeTags, headline.tags)) {
-    return undefined
+  if (headline) {
+    if (selectTags.length > 0
+      && !match(selectTags, headline.tags)) {
+      return undefined
+    }
+    if (match(excludeTags, headline.tags)) {
+      return undefined
+    }
   }
 
   return h('div', { className: ['section'] })(
