@@ -34,6 +34,7 @@ export default ({ peek, eat }): Paragraph | undefined => {
       p = p || createParagraph()
       push(p)(token)
       eat()
+      eolCount = 0
       return build(p)
     }
     return p
