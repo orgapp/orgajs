@@ -154,7 +154,7 @@ Files with ~.org~ extension will be considered org files. Each org file is parse
   - one document per section (sub-tree)
 
     The former is the default option. To enable section based generation, add =ORGA_PUBLISH_KEYWORD= to your org file, and sections with matching keyword will be transformed into a standalone document. E.g.
-    #+BEGIN_SRC org
+    #+BEGIN_SRC text
        ,#+ORGA_PUBLISH_KEYWORD: DONE
 
        ,* DONE My First Post
@@ -191,7 +191,7 @@ All the rest of the [[https://orgmode.org/manual/Property-syntax.html][Propertie
 
 To get all content node (~OrgContent~):
 
-#+BEGIN_SRC graphql
+#+BEGIN_SRC text
      {
        allOrgContent: {
      edges: {

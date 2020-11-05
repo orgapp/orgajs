@@ -2,9 +2,9 @@ import { graphql } from 'gatsby'
 import PostPage from '../components/post'
 
 const mapProps = Component => ({ data, ...props }) => {
-  var {pageContext: { metadata }} = props;
+  var { pageContext } = props;
   return Component({
-    ...metadata,
+    ...pageContext,
     body: data.orgContent.html,
     slug: data.orgContent.fields.slug,
     ...props,

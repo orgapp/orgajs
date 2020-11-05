@@ -41,7 +41,7 @@ export default ({ posts, prev, next, location }) => {
             }, highlighted() )}>{ category }</span>
           </h1>
         )}
-        {posts.map(({ title, date, category, tags, slug, description }) => {
+        {posts.map(({ title, date, category, tags, slug, excerpt }) => {
           return (
             <div key={slug}>
               <div css={{
@@ -73,7 +73,7 @@ export default ({ posts, prev, next, location }) => {
               </h2>
               <p css={theme => ({
                 color: theme.color.gray,
-              })}>{ description }</p>
+              })}>{ excerpt }</p>
             </div>
           )
         })}

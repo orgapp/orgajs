@@ -25,33 +25,33 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
   })
 }
 
-exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
-  const def = _.flow(
-    _.reduce((o, m) => {
-      if (m.startsWith(`date(formatString:`)) return o
-      return { ...o, [m]: 'String' }
-    }, {}),
-    d => ({
-      ...d,
-      tags: `[String!]`,
-      date: `Date @dateformat`,
-    }),
-    _.toPairs,
-    _.map(([k, v]) => `${k}: ${v}`),
-    _.join(` `),
-  )(themeOptions.metadata)
+// exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
+//   const def = _.flow(
+//     _.reduce((o, m) => {
+//       if (m.startsWith(`date(formatString:`)) return o
+//       return { ...o, [m]: 'String' }
+//     }, {}),
+//     d => ({
+//       ...d,
+//       tags: `[String!]`,
+//       date: `Date @dateformat`,
+//     }),
+//     _.toPairs,
+//     _.map(([k, v]) => `${k}: ${v}`),
+//     _.join(` `),
+//   )(themeOptions.metadata)
 
-  const { createTypes } = actions
-  const typeDefs = `
-    type OrgContent implements Node {
-      metadata: Metadata
-    }
-    type Metadata {
-      ${ def }
-    }
-  `
-  createTypes(typeDefs)
-}
+//   const { createTypes } = actions
+//   const typeDefs = `
+//     type OrgContent implements Node {
+//       metadata: Metadata
+//     }
+//     type Metadata {
+//       ${ def }
+//     }
+//   `
+//   createTypes(typeDefs)
+// }
 
 // These templates are simply data-fetching wrappers that import components
 const PostTemplate = require.resolve(`./src/templates/post-query`)
@@ -76,14 +76,14 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     m => buildCategoryIndexPage ? _.concat('category')(m) : m,
     _.uniq,
     _.join(' '),
-    q => `metadata { ${ q } }`,
+    // q => `metadata { ${ q } }`,
   )(metadata)
 
   debug(`metadata query: ${metadataQuery}`)
 
   const sort = `
 sort: {
-  fields: [${sortBy.map(i => `metadata___${i}`).join(`,`)}]
+  fields: [${sortBy.map(i => `${i}`).join(`,`)}]
   order: ${order}
 }
 `
@@ -107,7 +107,7 @@ sort: {
 
   const items = _.flow([
     _.get(`data.allOrgContent.edges`),
-    filter && typeof filter === `function` &&  _.filter(e => filter(e.node.metadata)),
+    filter && typeof filter === `function` &&  _.filter(e => filter(e.node)),
   ].filter(Boolean))(result)
 
   if (buildIndexPage) {
@@ -120,10 +120,9 @@ sort: {
     })
   }
 
-
   if (buildCategoryIndexPage) {
     _.flow([
-      _.groupBy(_.get('node.metadata.category')),
+      _.groupBy(_.get('node.category')),
       _.toPairs,
       _.map(([category, _items]) => {
         createIndexPage({
@@ -156,7 +155,7 @@ exports.onCreateNode = ({ node, actions }, themeOptions) => {
   const paths = [ basePath ]
         .concat(slug.map(k => {
           if (k.startsWith('$')) {
-            return _.get(k.substring(1))(node.metadata)
+            return _.get(k.substring(1))(node)
           }
           return k
         }))

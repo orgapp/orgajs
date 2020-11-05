@@ -1,7 +1,6 @@
 import crypto from 'crypto'
-import { Headline, parseTimestamp, Section } from 'orga'
-import { select, selectAll } from 'unist-util-select'
-import { cacheAST, getAST, processMeta, sanitise } from './orga-util'
+import { build } from 'orga-posts'
+import { cacheAST } from './orga-util'
 
 const getCircularReplacer = () => {
   const seen = new WeakSet()
@@ -59,72 +58,12 @@ export = async function onCreateNode(
   }
 
   async function createOrgContentNodes(orgFileNode) {
-    // const ast = orgFileNode.ast
-    const ast = await getAST({ node: orgFileNode, cache })
-    const { orga_publish_keyword = ``, category } = ast.properties || {}
-    let content = []
-    const _keywords = orga_publish_keyword
-      .split(' ').map(k => k.trim()).filter(k => k.length > 0)
+    const text = orgFileNode.internal.content
+    const posts = await build({ text, filename: orgFileNode.fileName })
 
-    if (_keywords.length > 0) { // section
-      const selector = `:matches(${_keywords.map(k => `[keyword=${k}]`).join(`,`)})headline`
-
-      const sections = selectAll('section', ast).filter((s: Section) => {
-        const headline = s.children[0] as Headline
-        return _keywords.includes(headline.keyword)
-      })
-
-      // content = selectAll(selector, ast)
-      content = sections.map((ast: Section) => {
-        const { date, export_date, export_title, ...properties } = ast.properties
-        // const title = export_title || select(`text.plain`, ast).value
-
-        const headline = select('headline', ast) as Headline
-        const title = export_title || headline.content
-
-        const d = parseTimestamp(date) ||
-          parseTimestamp(export_date) ||
-          select(`timestamp`, ast) ||
-          select(`planning[keyword=CLOSED]`, ast)
-
-        const metadata: any = {
-          title,
-          export_file_name: sanitise(title),
-          category: category || orgFileNode.fileName,
-          keyword: ast.keyword,
-          tags: ast.tags,
-          ...properties,
-        }
-
-        if (d && d.date) { metadata.date = d.date }
-        if (d && d.end) { metadata.end = d.end }
-
-        const absolutePath = `${orgFileNode.fileAbsolutePath}::*${title}`
-        return {
-          metadata,
-          getAST: () => ast,
-          absolutePath,
-        }
-      })
-    } else { // root
-      const metadata: any = {
-        export_file_name: orgFileNode.fileName,
-        ...ast.properties }
-      metadata.title = metadata.title || 'Untitled'
-      const absolutePath = `${orgFileNode.fileAbsolutePath}`
-      const d = parseTimestamp(metadata.date) ||
-        parseTimestamp(metadata.export_date)
-      if (d && d.date) { metadata.date = d.date }
-      content = [ {
-        metadata,
-        getAST: () => ast,
-        absolutePath,
-      } ]
-    }
-
-    content.forEach((node, index) => {
+    posts.forEach(({ ast, ...post }, index) => {
       const id = `${orgFileNode.id} >>> OrgContent[${index}]`
-      const ast = node.getAST()
+      const absolutePath = `${orgFileNode.fileAbsolutePath}::*${post.title}`
       const contentDigest =
         crypto.createHash(`md5`)
           .update(JSON.stringify(ast, getCircularReplacer()))
@@ -138,8 +77,9 @@ export = async function onCreateNode(
           contentDigest,
           type: `OrgContent`,
         },
-        ...node,
-        metadata: processMeta(node.metadata),
+
+        absolutePath,
+        ...post,
       }
       cacheAST({ ast, node: n, cache })
       createNode(n)

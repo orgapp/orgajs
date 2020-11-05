@@ -8,7 +8,7 @@ CLOSED: [2019-11-16 Sat 20:58]
 :DESCRIPTION: This is a post.
 :END:
 
-Hi, this is the content from org-mode.
+Hi, this is the content from org-mode[fn:1].
 
 #+begin_src javascript
 function hello() {
@@ -22,10 +22,13 @@ CLOSED: [2019-10-14 Mon 11:42]
 :DESCRIPTION: This is a another post.
 :END:
 
-Hi, this is the content from org-mode.
+Hi, this is the content from org-mode. BLAH!!!!
 
 * PUBLISHED Post 2
 CLOSED: [2019-10-14 Mon 12:42]
 
 Hi, this is the content from org-mode.
 
+* Footnotes
+
+[fn:1] hey, this is footnote.

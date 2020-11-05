@@ -36,7 +36,7 @@ module.exports = options => {
         resolve: `gatsby-theme-orga`,
         options: {
           ...options,
-          metadata: [ 'title', `date(formatString: "MMMM Do, YYYY")`, 'tags', 'description', ...options.metadata || [] ],
+          metadata: [ 'title', `date(formatString: "MMMM Do, YYYY")`, 'tags', 'excerpt', ...options.metadata || [] ],
         },
       },
       `gatsby-plugin-offline`,

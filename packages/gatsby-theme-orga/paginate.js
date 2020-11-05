@@ -44,7 +44,7 @@ exports.createPages = ({
       component,
       context: {
         id: getId(node),
-        metadata: node.metadata,
+        ...node
       },
     })
   })

@@ -34,7 +34,7 @@ const parse = (
   input: string,
   { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone } = {},
 ): Timestamp | undefined => {
-  let m = input
+  let m: any = input
   if (typeof input === 'string') {
     m = XRegExp(pattern, 'i').exec(m)
   }

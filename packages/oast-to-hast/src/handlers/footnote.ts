@@ -14,7 +14,7 @@ export const footnoteReference = ({ h, u }: Context) => (node: FootnoteReference
 }
 
 export const footnote = (context: Context) => (node: Footnote): HNode => {
-  const { h, u } = context
+  const { h } = context
   return h('div', {
     id: `fn-${node.label}`,
     className: ['footnote'],

@@ -12,7 +12,7 @@ module.exports = options => {
     slug: toArray(options.slug) || ['$category', '$export_file_name'],
     buildIndexPage: options.buildIndexPage || true,
     buildCategoryIndexPage: options.buildCategoryIndexPage || true,
-    metadata: options.metadata || ['title', 'category'],
+    metadata: options.metadata || ['title', 'category', 'excerpt'],
     sortBy: toArray(options.sortBy) || [`date`],
     order: options.order || `DESC`,
   }

@@ -109,7 +109,7 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
 
     if (MARKERS[char]) {
       const pre = getChar(-1)
-      if (now().column === 1 || /[\s\({'"]/.test(pre)) {
+      if (now().column === 1 || /[\s({'"]/.test(pre)) {
         if (tryTo(tokStyledText(char))) return tok()
       }
     }
