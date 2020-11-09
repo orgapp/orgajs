@@ -51,7 +51,7 @@ const extractMetadata = (tree: Section | Document, fallbacks: Partial<Metadata> 
   const getTitle = (metadata: any) => {
     const { title, export_title, ...rest } = metadata
     let theTitle = export_title || title
-    if (!theTitle && tree.type === 'section') {
+    if (tree.type === 'section') {
       const headline = select('headline', tree) as Headline
       theTitle = headline.content
     }

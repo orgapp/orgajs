@@ -14,10 +14,6 @@ export const processMeta = _.mapValues.convert({ cap: false })((v, k) => {
   return v
 })
 
-export const sanitise = (title: string) => {
-  return title.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase()
-}
-
 const astCacheKey = node =>
       `transformer-orga-ast-${
     node.internal.contentDigest

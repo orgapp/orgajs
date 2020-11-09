@@ -19,7 +19,7 @@ const PostLink = ({ title, fields: { slug }, date, excerpt, tags }: Props) => (
     transition: '0.3s',
     '&:hover': { bg: 'highlight' },
   }}>
-    <Link href={slug}>
+    <Link to={slug}>
       <header>
         <small sx={{ color: 'gray' }}>{date}</small>
         <Heading as='h1'>{ title }</Heading>

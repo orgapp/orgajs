@@ -61,7 +61,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const { createPage } = actions
 
   const {
-    isPost,
+    filter,
     basePath,
     pagination,
     buildIndex,
@@ -72,6 +72,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const result = await graphql(`
   {
     allOrgContent(
+      filter: { ${filter} }
       sort: { fields: [date, title], order: DESC }, limit: 1000
     ) {
       nodes {
@@ -90,7 +91,6 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 
   const posts = result
         .data.allOrgContent.nodes
-        .filter(isPost)
 
   // create posts
   posts.forEach(post => {
@@ -152,7 +152,6 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 }
 
 // Add custom url pathname for blog posts.
-
 
 exports.onCreateNode = ({ node, actions }, themeOptions) => {
   const { basePath, slug } = withDefaults(themeOptions)

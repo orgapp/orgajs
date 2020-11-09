@@ -18,6 +18,6 @@ export default (context: Context) => (node: Link): HNode => {
   }
 
   return h('a', { href: value })(
-    u('text', description)
+    u('text', description || value)
   )
 }

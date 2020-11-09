@@ -51,7 +51,7 @@ module.exports = async (
   const t: any = {
     html: {
       type: GraphQLString,
-      resolve: async (node) => { return await _getHTML(node) },
+      resolve: async (node) => { return await getHTML(node) },
     },
     excerpt: {
       type: 'String',
@@ -65,7 +65,7 @@ module.exports = async (
     return node.excerpt || node.summary || node.description || ''
   }
 
-  async function _getHTML(orgContentNode) {
+  async function getHTML(orgContentNode) {
     const ast = await getAST({ node: orgContentNode, cache })
 
     const filesToCopy = new Map()

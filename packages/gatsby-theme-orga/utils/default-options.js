@@ -1,7 +1,7 @@
 const defaultOptions = {
   basePath: '/',
   contentPath: 'content',
-  isPost: () => true,
+  filter: '{  }',
   pagination: 0,
   buildIndex: true,
   buildCategoryIndex: true,
