@@ -8,9 +8,10 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `gatsby-theme-blorg`,
+      resolve: 'gatsby-theme-blorg',
       options: {
-        filter: ({ category }) => category === 'posts',
+        preset: '@theme-ui/preset-deep',
+        isPost: ({ category }) => category === 'posts',
       },
     },
   ],

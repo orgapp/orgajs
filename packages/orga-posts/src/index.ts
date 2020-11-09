@@ -96,6 +96,14 @@ const extractMetadata = (tree: Section | Document, fallbacks: Partial<Metadata> 
     }
   }
 
+  const getKeyword = (metadata: Metadata) => {
+    if (tree.type === 'section') {
+      const headline = select('headline', tree) as Headline
+      return { ...metadata, keyword: headline.keyword }
+    }
+    return metadata
+  }
+
   const getExportFileName = (metadata: Metadata) => {
     if (metadata.export_file_name) return metadata
     return {
@@ -109,6 +117,7 @@ const extractMetadata = (tree: Section | Document, fallbacks: Partial<Metadata> 
     getDate,
     getTags,
     getExportFileName,
+    getKeyword,
   )({ ...fallbacks, ...tree.properties })
 }
 

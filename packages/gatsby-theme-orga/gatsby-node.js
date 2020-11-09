@@ -2,8 +2,8 @@ const fs = require(`fs`)
 const path = require(`path`)
 const mkdirp = require(`mkdirp`)
 const Debug = require(`debug`)
-const withDefaults = require('./utis/default-options')
-const { createPages, createIndexPage } = require('./paginate')
+const withDefaults = require('./utils/default-options')
+const createIndex = require('./utils/create-index')
 const _ = require('lodash/fp')
 
 const debug = Debug(`gatsby-theme-orga`)
@@ -61,105 +61,116 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const { createPage } = actions
 
   const {
-    filter,
+    isPost,
     basePath,
     pagination,
-    buildIndexPage,
-    buildCategoryIndexPage,
-    metadata,
-    sortBy,
-    order,
+    buildIndex,
+    buildCategoryIndex,
+    buildTagIndex,
   } = withDefaults(themeOptions)
-
-
-  const metadataQuery = _.flow(
-    m => buildCategoryIndexPage ? _.concat('category')(m) : m,
-    _.uniq,
-    _.join(' '),
-    // q => `metadata { ${ q } }`,
-  )(metadata)
-
-  debug(`metadata query: ${metadataQuery}`)
-
-  const sort = `
-sort: {
-  fields: [${sortBy.map(i => `${i}`).join(`,`)}]
-  order: ${order}
-}
-`
 
   const result = await graphql(`
   {
-    allOrgContent(${sort}) {
-      edges {
-        node {
-          id
-          ${ metadataQuery }
-          fields { slug }
-        }
+    allOrgContent(
+      sort: { fields: [date, title], order: DESC }, limit: 1000
+    ) {
+      nodes {
+        id
+        category
+        tags
+        fields { slug }
       }
     }
-  }`)
+  }
+`)
 
   if (result.errors) {
     reporter.panic(result.errors)
   }
 
-  const items = _.flow([
-    _.get(`data.allOrgContent.edges`),
-    filter && typeof filter === `function` &&  _.filter(e => filter(e.node)),
-  ].filter(Boolean))(result)
+  const posts = result
+        .data.allOrgContent.nodes
+        .filter(isPost)
 
-  if (buildIndexPage) {
-    createIndexPage({
-      items,
-      createPage,
-      pageLength: pagination,
-      basePath,
-      component: PostsTemplate,
+  // create posts
+  posts.forEach(post => {
+    createPage({
+      path: post.fields.slug,
+      component: PostTemplate,
+      context: { id: post.id },
+    })
+  })
+
+  // create category index
+  if (buildCategoryIndex) {
+    const categories = _.flow(
+      _.map(_.get('category')),
+      _.uniq,
+      _.filter(Boolean),
+    )(posts)
+
+    categories.forEach(category => {
+      createIndex({
+        basePath: path.resolve(basePath, category),
+        createPage,
+        posts: _.filter({ category })(posts),
+        pagination,
+        component: PostsTemplate,
+      })
     })
   }
 
-  if (buildCategoryIndexPage) {
-    _.flow([
-      _.groupBy(_.get('node.category')),
-      _.toPairs,
-      _.map(([category, _items]) => {
-        createIndexPage({
-          items: _items,
-          createPage,
-          pageLength: 0,
-          basePath: path.posix.join(...[basePath, `${category}`]),
-          component: PostsTemplate,
-        })
+  // create tag index
+  if (buildTagIndex) {
+    const tags = _.flow(
+      _.flatMap(_.get('tags')),
+      _.uniq,
+    )(posts)
+
+    tags.forEach(tag => {
+      createIndex({
+        basePath: path.resolve(basePath, `:${tag}:`),
+        createPage,
+        posts: posts.filter(p => p.tags.includes(tag)),
+        pagination,
+        component: PostsTemplate,
+        context: { tag },
       })
-    ])(items)
+    })
   }
 
-
-  createPages({
-    items,
-    createPage,
-    getPath: _.get(['fields', 'slug']),
-    getId: _.get('id'),
-    component: PostTemplate,
-  })
+  // create index for all
+  if (buildIndex) {
+    createIndex({
+      basePath,
+      createPage,
+      posts,
+      pagination,
+      component: PostsTemplate,
+    })
+  }
 }
 
 // Add custom url pathname for blog posts.
+
 
 exports.onCreateNode = ({ node, actions }, themeOptions) => {
   const { basePath, slug } = withDefaults(themeOptions)
   if (node.internal.type !== `OrgContent`) return
   const { createNodeField } = actions
-  const paths = [ basePath ]
-        .concat(slug.map(k => {
-          if (k.startsWith('$')) {
-            return _.get(k.substring(1))(node)
-          }
-          return k
-        }))
-        .filter(lpath => lpath)
+
+  const generateSlug = () => {
+    return slug.split('/').map(str => {
+      if (str.startsWith('$')) {
+        return _.get(str.substring(1))(node)
+      }
+      return str
+    })
+  }
+
+  const paths = [ basePath, ...generateSlug() ]
+        .filter(lpath => !!lpath)
+
   createNodeField({
     node,
     name: `slug`,

@@ -10,8 +10,7 @@ export const useSiteMetadata = () => {
             siteUrl
             description
             twitter
-            github
-            email
+            social { name url }
           }
         }
       }

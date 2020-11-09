@@ -1,11 +1,28 @@
 import PostsPage from '../components/posts'
+import { graphql } from 'gatsby'
 
-const mapProps = Component => ({ data, pageContext, ...props }) =>
-      Component({
-        posts: pageContext.posts.map(p => ({ ...p, ...p.fields })),
-        prev: pageContext.prev,
-        next: pageContext.next,
-        ...props,
-      })
+export default PostsPage
 
-export default mapProps(PostsPage)
+export const query = graphql`
+  query PostsQuery($ids: [String!]!) {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    allOrgContent(
+      filter: { id: { in: $ids } }
+      sort: { fields: [date, title], order: DESC }
+    ) {
+      nodes {
+        id
+        title
+        category
+        excerpt
+        date(formatString: "MMMM DD, YYYY")
+        tags
+        fields { slug }
+      }
+    }
+  }
+`

@@ -1,4 +1,4 @@
-const withDefaults = require('./utis/default-options')
+const withDefaults = require('./utils/default-options')
 
 module.exports = themeOptions => {
   const options = withDefaults(themeOptions)
