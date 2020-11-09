@@ -158,7 +158,7 @@ export const toHtml = async (tree: Parent, options = defaultToHtmlOptions) => {
     .use(() => transform)
     .use(reorg2rehype, { highlight: false })
     .use(processFootnotes)
-    .use(highlight)
+    .use(highlight, { ignoreMissing: true })
     .use(html, { allowDangerousHtml: true })
   const hast = await processor.run(tree)
   return processor.stringify(hast)
