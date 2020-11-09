@@ -11,7 +11,6 @@ module.exports = {
       resolve: 'gatsby-theme-blorg',
       options: {
         preset: '@theme-ui/preset-deep',
-        isPost: ({ category }) => category === 'posts',
       },
     },
   ],
