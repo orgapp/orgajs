@@ -25,6 +25,7 @@
     "gatsby-theme-orga": "^2.2.3",
     "gatsby-transformer-sharp": "^2.3.0",
     "gatsby-transformer-toml": "^2.2.15",
+    "highlight.js": "^10.3.2",
     "polished": "^3.4.1",
     "prismjs": "^1.17.1",
     "react-icons": "^3.8.0",
