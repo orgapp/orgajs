@@ -63,12 +63,14 @@ export default ({ data, location, pageContext }) => {
         title={title}
         description={excerpt}
         keywords={[category, ...(tags || [])]} />
-      <main sx={{ flex: 1 }}>
+      <main sx={{ flex: 1, pb: 4 }}>
         <article>
-          <header>
+          <header sx={{ pb: 1 }}>
             <PostTitle>{ title }</PostTitle>
-            <Flex sx={{ justifyContent: 'space-between', mt: -4, mb: 3 }}>
-              <PostDate>{ date }</PostDate>
+            <Flex sx={{ alignItems: 'center', mt: -4, mb: 3 }}>
+              <Box sx={{ pr: 3 }}>
+                <PostDate>{ date }</PostDate>
+              </Box>
               <Tags tags={tags}/>
             </Flex>
           </header>
@@ -78,12 +80,12 @@ export default ({ data, location, pageContext }) => {
         </article>
       </main>
       <Box>
-        <TweetThisButton title={title} slug={slug} />
         <Link to={`/${category}`}>
           <Text sx={{ p: 2, textAlign: 'right' }}>
             Read more stories about "{category}" ->
           </Text>
         </Link>
+        <TweetThisButton title={title} slug={slug} />
         <Divider/>
         <Bio/>
       </Box>

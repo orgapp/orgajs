@@ -2,6 +2,7 @@
 import { Container, jsx, Styled } from 'theme-ui'
 import { useSiteMetadata } from '../hooks'
 import Header from './header'
+import 'highlight.js/styles/nord.css'
 
 const Layout = ({ children }) => {
   const { title } = useSiteMetadata()

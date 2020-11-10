@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { Styled, jsx } from "theme-ui"
+import { Styled, Text, jsx } from "theme-ui"
 
-const PostDate = ({ children, ...props }) => (
-  <small {...props}>{ children }</small>
+const PostDate = ({ children }) => (
+  <Text color='gray'>{ children }</Text>
 )
 
 export default PostDate
