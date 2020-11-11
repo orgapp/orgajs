@@ -52,7 +52,7 @@ export default (props) => {
 
   return (
     <Flex>
-      <Box p={2}>
+      <Box sx={{ p: 2, flex: '0 0 auto', justifyContent: 'flex-start' }}>
         <Photo src={avatar.childImageSharp.fluid} />
       </Box>
       <Flex sx={{ flexDirection: 'column' }}>
