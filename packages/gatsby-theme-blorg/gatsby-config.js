@@ -14,7 +14,7 @@ module.exports = options => {
       social: [
         { name: 'twitter', url: 'https://twitter.com/xiaoxinghu' },
         { name: 'website', url: 'https://huxiaoxing.com' },
-        { name: 'email', url: 'contact@huxiaoxing.com' },
+        { name: 'email', url: 'mailto:contact@huxiaoxing.com' },
       ],
     },
     plugins: [

@@ -24,11 +24,11 @@ const SocialLinks = () => {
   return (
     <Flex>
       { social.map(({ name, url }) =>
-        <Link key={`social-${name}`} to={url}>
+        <a key={`social-${name}`} href={url}>
           <IconButton>
             { getIcon(name) }
           </IconButton>
-        </Link>
+        </a>
       ) }
     </Flex>
   )
