@@ -14,10 +14,10 @@ const unknown = (context: Context) => (node: Node): HNode => {
   return undefined
 }
 
-export const one = (context: Context) => (node: Node): HNode => {
+export const one = <C extends Context>(context: C) => (node: Node): HNode => {
   return (context.handlers[node.type] || unknown)(context)(node)
 }
 
-export const all = (context: Context) => (nodes: Node[]): HNode[] => {
+export const all = <C extends Context>(context: C) => (nodes: Node[]): HNode[] => {
   return nodes.map(one(context)).filter(Boolean)
 }

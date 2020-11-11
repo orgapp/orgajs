@@ -16,6 +16,21 @@ function hello() {
 }
 #+end_src
 
+Here is a table.
+| metadata field | properties (headline) | properties (file) |
+|----------------+-----------------------+-------------------|
+| title          | headline content      |                   |
+|                | =EXPORT_TITLE=        |                   |
+|----------------+-----------------------+-------------------|
+| date           | DATE                  |                   |
+|                | EXPORT_DATE           |                   |
+|                | PUBLISH_DATE          |                   |
+
+Here is another table
+#+ATTR_HTML: :frame all
+| hello | world |
+| nice  | job   |
+|       | ok    |
 * PUBLISHED Post 1
 CLOSED: [2019-10-14 Mon 11:42]
 :PROPERTIES:
