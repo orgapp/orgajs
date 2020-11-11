@@ -36,8 +36,9 @@ const SocialLinks = () => {
 
 const Photo = ({ src }) => (
   <Image
-    fixed={ src }
+    fluid={ src }
     sx={{
+      width: [80, 120],
       borderRadius: '50%',
       border: '1px solid white' }}/>
 )
@@ -52,7 +53,7 @@ export default (props) => {
   return (
     <Flex>
       <Box p={2}>
-        <Photo src={avatar.childImageSharp.fixed} />
+        <Photo src={avatar.childImageSharp.fluid} />
       </Box>
       <Flex sx={{ flexDirection: 'column' }}>
         <div>
@@ -68,8 +69,8 @@ const bioQuery = graphql`
   query BioQuery {
     avatar: file(absolutePath: { regex: "/avatar.(jpeg|jpg|gif|png)/" }) {
       childImageSharp {
-        fixed(width: 80, height: 80) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 120, maxHeight: 120) {
+          ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
