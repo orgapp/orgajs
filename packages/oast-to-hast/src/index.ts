@@ -74,7 +74,12 @@ export default (
 
   const eTags = oast.properties['exclude_tags']
   if (eTags) {
-    context.excludeTags = eTags.split(/\s+/).filter(Boolean)
+    context.excludeTags = eTags.split(/\s+/).map(t => t.trim()).filter(Boolean)
+  }
+
+  const sTags = oast.properties['select_tags']
+  if (sTags) {
+    context.selectTags = sTags.split(/\s+/).map(t => t.trim()).filter(Boolean)
   }
 
   return u('root', all(context)(oast.children) as Root['children'])

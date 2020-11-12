@@ -1,5 +1,6 @@
 import { Node } from 'unist'
 import { Context, HNode } from '../'
+import keyword from './keyword'
 import block from './block'
 import { footnote, footnoteReference } from './footnote'
 import headline from './headline'
@@ -14,6 +15,7 @@ import { bold, code, italic, strikeThrough, underline, verbatim } from './text'
 export type Handler = (context: Context) => (node: Node) => HNode
 
 export default {
+  keyword,
   section,
   headline,
   'text.bold': bold,
