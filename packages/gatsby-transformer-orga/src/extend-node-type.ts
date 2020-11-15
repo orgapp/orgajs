@@ -84,7 +84,7 @@ module.exports = async (
 
           const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
           if (linkToOrg) {
-            node.value = linkToOrg.fields.slug
+            node.value = linkToOrg.slug
           } else {
             const linkNode = files.find(f => f.absolutePath === linkPath)
             if (linkNode && linkNode.absolutePath) {
@@ -101,12 +101,12 @@ module.exports = async (
         if (node.protocol === `internal`) {
           const linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${node.value}`
           const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
-          if (linkToOrg) node.value = linkToOrg.fields.slug
+          if (linkToOrg) node.value = linkToOrg.slug
         }
       }
 
       visit(tree, 'link', visitor)
-     
+
     } })
 
     await Promise.all(Array.from(filesToCopy, async ([linkPath, newFilePath]) => {

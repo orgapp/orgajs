@@ -4,7 +4,7 @@ import { jsx, Text } from 'theme-ui'
 
 // const rootPath = `${__PATH_PREFIX__}/`
 
-export default ({ children, title }) => {
+export default ({ title }) => {
   return (
     <header sx={{
       '@media print': { display: 'none' },

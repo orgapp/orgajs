@@ -1,5 +1,5 @@
-import PostsPage from '../components/posts'
 import { graphql } from 'gatsby'
+import PostsPage from '../components/posts'
 
 export default PostsPage
 
@@ -10,7 +10,7 @@ export const query = graphql`
         title
       }
     }
-    allOrgContent(
+    allOrgPost(
       filter: { id: { in: $ids } }
       sort: { fields: [date, title], order: DESC }
     ) {
@@ -21,7 +21,7 @@ export const query = graphql`
         excerpt
         date(formatString: "MMMM DD, YYYY")
         tags
-        fields { slug }
+        slug
       }
     }
   }

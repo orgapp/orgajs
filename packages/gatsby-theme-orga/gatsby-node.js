@@ -5,6 +5,8 @@ const Debug = require(`debug`)
 const withDefaults = require('./utils/default-options')
 const createIndex = require('./utils/create-index')
 const _ = require('lodash/fp')
+const { createContentDigest } = require('gatsby-core-utils')
+
 
 const debug = Debug(`gatsby-theme-orga`)
 
@@ -25,33 +27,48 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
   })
 }
 
-// exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
-//   const def = _.flow(
-//     _.reduce((o, m) => {
-//       if (m.startsWith(`date(formatString:`)) return o
-//       return { ...o, [m]: 'String' }
-//     }, {}),
-//     d => ({
-//       ...d,
-//       tags: `[String!]`,
-//       date: `Date @dateformat`,
-//     }),
-//     _.toPairs,
-//     _.map(([k, v]) => `${k}: ${v}`),
-//     _.join(` `),
-//   )(themeOptions.metadata)
+const orgResolverPassthrough = (fieldName) => async (
+  source,
+  args,
+  context,
+  info
+) => {
+  const type = info.schema.getType('OrgContent')
+  const mdxNode = context.nodeModel.getNodeById({
+    id: source.parent,
+  })
+  const resolver = type.getFields()[fieldName].resolve
+  const result = await resolver(mdxNode, args, context, {
+    fieldName,
+  })
+  return result
+}
 
-//   const { createTypes } = actions
-//   const typeDefs = `
-//     type OrgContent implements Node {
-//       metadata: Metadata
-//     }
-//     type Metadata {
-//       ${ def }
-//     }
-//   `
-//   createTypes(typeDefs)
-// }
+
+exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
+  const { createTypes } = actions
+  createTypes(schema.buildObjectType({
+    name: 'OrgPost',
+    fields: {
+      id: { type: 'ID!' },
+      title: { type: 'String!' },
+      category: { type: 'String' },
+      tags: { type: '[String]!' },
+      slug: { type: 'String!' },
+      keyword: { type: 'String' },
+      date: { type: 'Date' },
+      excerpt: {
+        type: 'String!',
+        resolve: orgResolverPassthrough('excerpt'),
+      },
+      html: {
+        type: 'String!',
+        resolve: orgResolverPassthrough('html'),
+      },
+    },
+    interfaces: [`Node`],
+  }))
+}
 
 // These templates are simply data-fetching wrappers that import components
 const PostTemplate = require.resolve(`./src/templates/post-query`)
@@ -61,7 +78,6 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const { createPage } = actions
 
   const {
-    filter,
     basePath,
     pagination,
     buildIndex,
@@ -71,15 +87,14 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 
   const result = await graphql(`
   {
-    allOrgContent(
-      filter: { ${filter} }
+    allOrgPost(
       sort: { fields: [date, title], order: DESC }, limit: 1000
     ) {
       nodes {
         id
         category
         tags
-        fields { slug }
+        slug
       }
     }
   }
@@ -90,12 +105,12 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   }
 
   const posts = result
-        .data.allOrgContent.nodes
+        .data.allOrgPost.nodes
 
   // create posts
   posts.forEach(post => {
     createPage({
-      path: post.fields.slug,
+      path: post.slug,
       component: PostTemplate,
       context: { id: post.id },
     })
@@ -153,26 +168,40 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 
 // Add custom url pathname for blog posts.
 
-exports.onCreateNode = ({ node, actions }, themeOptions) => {
-  const { basePath, slug } = withDefaults(themeOptions)
+exports.onCreateNode = async ({ node, actions, getNode, createNodeId }, themeOptions) => {
+  const { basePath, slug, filter } = withDefaults(themeOptions)
   if (node.internal.type !== `OrgContent`) return
-  const { createNodeField } = actions
+  if (!filter(node.metadata)) return
+
+  const { createNode, createParentChildLink } = actions
 
   const generateSlug = () => {
     return slug.split('/').map(str => {
       if (str.startsWith('$')) {
-        return _.get(str.substring(1))(node)
+        return _.get(str.substring(1))(node.metadata)
       }
       return str
     })
   }
 
-  const paths = [ basePath, ...generateSlug() ]
-        .filter(lpath => !!lpath)
-
-  createNodeField({
-    node,
-    name: `slug`,
-    value: path.posix.join(...paths),
+  const paths = [ basePath, ...generateSlug() ].filter(lpath => !!lpath)
+  const orgaPostId = createNodeId(`${node.id} >>> OrgPost`)
+  const fieldData = {
+    ...node.metadata,
+    slug: path.posix.join(...paths),
+  }
+  await createNode({
+    ...fieldData,
+    id: orgaPostId,
+    parent: node.id,
+    children: [],
+    internal: {
+      type: 'OrgPost',
+      contentDigest: createContentDigest(fieldData),
+      content: JSON.stringify(fieldData),
+      description: 'Orga implementation of the BlogPost interface',
+    }
   })
+
+  createParentChildLink({ parent: node, child: getNode(orgaPostId) })
 }

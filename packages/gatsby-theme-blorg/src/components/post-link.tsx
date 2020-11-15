@@ -11,7 +11,7 @@ interface Props {
   tags: string[];
 }
 
-const PostLink = ({ title, category, fields: { slug }, date, excerpt, tags }: Props) => (
+const PostLink = ({ title, category, slug, date, excerpt, tags }: Props) => (
   <article sx={{
     p: 2, my: 2,
     bg: 'muted',

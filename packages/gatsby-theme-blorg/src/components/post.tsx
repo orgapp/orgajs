@@ -1,15 +1,14 @@
 /** @jsx jsx */
 import { Link } from 'gatsby'
-import { Flex, Box, Button, Divider, Heading, Text, jsx } from 'theme-ui'
+import { Box, Button, Divider, Flex, Heading, jsx, Text } from 'theme-ui'
 import { useSiteMetadata } from '../hooks'
 import Bio from './bio'
-import Footer from './footer'
 import HTML from './html'
 import Layout from './layout'
 import PostDate from './post-date'
 import PostTitle from './post-title'
-import Tags from './tags'
 import SEO from './seo'
+import Tags from './tags'
 
 const objectToGetParams = object => {
   return '?' + Object.keys(object)
@@ -44,21 +43,21 @@ const TweetThisButton = ({ title, slug }) => {
   )
 }
 
-export default ({ data, location, pageContext }) => {
+export default ({ data }) => {
   const {
     title,
     date,
     excerpt,
     category,
-    fields: { slug },
+    slug,
     html,
     tags,
-  } = data.orgContent
+  } = data.orgPost
 
   const { author } = useSiteMetadata()
 
   return (
-    <Layout location={location}>
+    <Layout>
       <SEO
         title={title}
         description={excerpt}
@@ -89,7 +88,6 @@ export default ({ data, location, pageContext }) => {
         <Divider/>
         <Bio/>
       </Box>
-      <Footer/>
     </Layout>
   )
 }

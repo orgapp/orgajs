@@ -70,16 +70,14 @@ export = async function onCreateNode(
           .digest(`hex`)
       const n = {
         id,
-        orga_id: id,
         children: [],
         parent: orgFileNode.id,
+        metadata: post,
         internal: {
           contentDigest,
           type: `OrgContent`,
         },
-
         absolutePath,
-        ...post,
       }
       cacheAST({ ast, node: n, cache })
       createNode(n)

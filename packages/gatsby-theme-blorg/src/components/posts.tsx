@@ -1,18 +1,17 @@
 /** @jsx jsx */
-import { Box, Flex, Grid, Heading, Text, jsx } from 'theme-ui'
 import { Link } from 'gatsby'
-import Bio from './bio'
 import _ from 'lodash/fp'
+import { Box, Flex, Heading, jsx, Text } from 'theme-ui'
 import { useSiteMetadata } from '../hooks'
-import Footer from './footer'
+import Bio from './bio'
 import Layout from './layout'
+import PostList from './post-list'
 import SEO from "./seo"
 import Tags from './tags'
-import PostList from './post-list'
 
 const rootPath = `${__PATH_PREFIX__}/`
 
-export const Post = ({ id, date, title, category, tags, excerpt, fields: { slug } }) => {
+export const Post = ({ id, date, title, category, tags, excerpt, slug }) => {
   return (
     <Flex key={`p-${id}`} sx={{
       bg: 'surface',
@@ -45,7 +44,7 @@ const PaginationLink = ({ url, children }) => {
 
 export default ({ data, location, pageContext }) => {
   const { author } = useSiteMetadata()
-  const posts = data.allOrgContent.nodes
+  const posts = data.allOrgPost.nodes
   const category = location.pathname.replace(new RegExp(`^${rootPath}`), '')
   const keywords = _.flow(
     _.reduce((all, p) => [...all, p.category, ...(p.tags || [])], []),
@@ -77,7 +76,6 @@ export default ({ data, location, pageContext }) => {
           older posts ►
         </PaginationLink>
       </Flex>
-      <Footer/>
     </Layout>
   )
 }
