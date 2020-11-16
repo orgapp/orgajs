@@ -20,6 +20,7 @@ export default ({ data }) => {
       <SEO
         title={post.title}
         description={post.excerpt}
+        imageSource={post.image?.childImageSharp?.fluid.src}
         keywords={[post.category, ...(post.tags || [])]} />
       <Container variant='content'>
         <main sx={{ flex: 1, pb: 4, mx: 'auto' }}>

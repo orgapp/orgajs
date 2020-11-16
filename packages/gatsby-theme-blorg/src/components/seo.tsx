@@ -11,14 +11,16 @@ import React from "react"
 import Helmet from "react-helmet"
 
 interface Props {
-    title: string;
-    description: string;
-    lang: string;
-    keywords: string[];
-    meta: any;
+  title: string;
+  description: string;
+  lang: string;
+  keywords: string[];
+  meta: any;
+  imageSource: string;
+  imageAlt: string;
 }
 
-function SEO({ description, lang, meta, keywords, title }: Partial<Props>) {
+function SEO({ description, lang, meta, keywords, title, imageSource, imageAlt }: Partial<Props>) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -27,6 +29,7 @@ function SEO({ description, lang, meta, keywords, title }: Partial<Props>) {
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -35,6 +38,11 @@ function SEO({ description, lang, meta, keywords, title }: Partial<Props>) {
 
   const metaDescription = description || site.siteMetadata.description
 
+  const image = imageSource
+    ? `${site.siteMetadata.siteUrl}${imageSource}`
+    : null
+
+  const imageAltText = imageAlt || metaDescription
   return (
     <Helmet
       htmlAttributes={{
@@ -60,10 +68,6 @@ function SEO({ description, lang, meta, keywords, title }: Partial<Props>) {
           content: `website`,
         },
         {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
           name: `twitter:creator`,
           content: site.siteMetadata.author,
         },
@@ -76,15 +80,46 @@ function SEO({ description, lang, meta, keywords, title }: Partial<Props>) {
           content: metaDescription,
         },
       ]
-            .concat(
-              keywords.length > 0
-                ? {
-                  name: `keywords`,
-                  content: keywords.join(`, `),
-                }
-              : []
-            )
-            .concat(meta)}
+        .concat(
+          imageSource
+            ? [
+              {
+                name: `og:image`,
+                content: image,
+              },
+              {
+                name: `og:image:alt`,
+                content: imageAltText,
+              },
+              {
+                name: `twitter:image`,
+                content: image,
+              },
+              {
+                name: `twitter:image:alt`,
+                content: imageAltText,
+              },
+              {
+                name: `twitter:card`,
+                content: `summary_large_image`,
+              },
+            ]
+            : [
+              {
+                name: `twitter:card`,
+                content: `summary`,
+              },
+            ]
+
+        ).concat(
+          keywords.length > 0
+            ? {
+              name: `keywords`,
+              content: keywords.join(`, `),
+            }
+            : []
+        )
+        .concat(meta)}
     />
   )
 }
