@@ -5,7 +5,7 @@ const Debug = require(`debug`)
 const withDefaults = require('./utils/default-options')
 const createIndex = require('./utils/create-index')
 const _ = require('lodash/fp')
-const { createContentDigest } = require('gatsby-core-utils')
+const { createContentDigest, slash } = require('gatsby-core-utils')
 
 
 const debug = Debug(`gatsby-theme-orga`)
@@ -44,6 +44,14 @@ const orgResolverPassthrough = (fieldName) => async (
   return result
 }
 
+function validURL(str) {
+  try {
+    new URL(str)
+    return true
+  } catch {
+    return false
+  }
+}
 
 exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
   const { createTypes } = actions
@@ -65,9 +73,38 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
         type: 'String!',
         resolve: orgResolverPassthrough('html'),
       },
+      image: {
+        type: `File`,
+        resolve: async (source, args, context, info) => {
+          if (source.image___NODE) {
+            return context.nodeModel.getNodeById({ id: source.image___NODE })
+          } else if (source.image) {
+            return processRelativeImage(source, context, `image`)
+          }
+        },
+      },
     },
     interfaces: [`Node`],
   }))
+}
+
+function processRelativeImage(source, context, type) {
+  // Image is a relative path - find a corresponding file
+  const mdxFileNode = context.nodeModel.findRootNodeAncestor(
+    source,
+    (node) => node.internal && node.internal.type === `File`
+  )
+  if (!mdxFileNode) {
+    return
+  }
+  const imagePath = slash(path.join(mdxFileNode.dir, source[type]))
+
+  const fileNodes = context.nodeModel.getAllNodes({ type: `File` })
+  for (const file of fileNodes) {
+    if (file.absolutePath === imagePath) {
+      return file
+    }
+  }
 }
 
 // These templates are simply data-fetching wrappers that import components
@@ -82,6 +119,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     indexPath,
     categoryIndexPath,
     tagIndexPath,
+    imageMaxWidth,
   } = withDefaults(themeOptions)
 
   const result = await graphql(`
@@ -111,7 +149,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     createPage({
       path: post.slug,
       component: PostTemplate,
-      context: { id: post.id },
+      context: { id: post.id, maxWidth: imageMaxWidth },
     })
   })
 
@@ -171,7 +209,11 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 
 // Add custom url pathname for blog posts.
 
-exports.onCreateNode = async ({ node, actions, getNode, createNodeId }, themeOptions) => {
+
+exports.onCreateNode = async (
+  { node, actions, getNode, createNodeId, store, cache },
+  themeOptions
+) => {
   const { postPath, filter } = withDefaults(themeOptions)
   if (node.internal.type !== `OrgContent`) return
   if (!filter(node.metadata)) return
@@ -196,6 +238,23 @@ exports.onCreateNode = async ({ node, actions, getNode, createNodeId }, themeOpt
     ...node.metadata,
     slug,
   }
+
+  if (validURL(node.metadata.image)) {
+    // create a file node for image URLs
+    const remoteFileNode = await createRemoteFileNode({
+      url: node.metadata.image,
+      parentNodeId: node.id,
+      createNode,
+      createNodeId,
+      cache,
+      store,
+    })
+    // if the file was created, attach the new node to the parent node
+    if (remoteFileNode) {
+      fieldData.image___NODE = remoteFileNode.id
+    }
+  }
+
   await createNode({
     ...fieldData,
     id: orgaPostId,

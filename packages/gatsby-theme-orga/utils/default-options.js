@@ -4,6 +4,7 @@ const defaultOptions = {
   pagination: 0,
   columns: 2,
   indexPath: '/',
+  imageMaxWidth: 1380,
   categoryIndexPath: category => `/${category}`,
   tagIndexPath: tag => `/:${tag}:`,
   postPath: ({ category, export_file_name }) => `/${category}/${export_file_name}`,

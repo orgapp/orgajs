@@ -4,7 +4,7 @@ import PostPage from '../components/post'
 export default PostPage
 
 export const pageQuery = graphql`
-query PostById($id: String!) {
+query PostById($id: String!, $maxWidth: Int) {
   orgPost(id: { eq: $id }) {
     title
     category
@@ -13,6 +13,14 @@ query PostById($id: String!) {
     tags
     html
     slug
+    image {
+      childImageSharp {
+        fluid(maxWidth: $maxWidth) {
+          ...GatsbyImageSharpFluid
+          src
+        }
+      }
+    }
   }
 }
 `
