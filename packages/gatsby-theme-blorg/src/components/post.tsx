@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Link } from 'gatsby'
-import { Box, Button, Divider, Flex, Heading, jsx, Text } from 'theme-ui'
+import { Box, Button, Container, Divider, Flex, Heading, jsx, Text } from 'theme-ui'
 import { useSiteMetadata } from '../hooks'
 import Bio from './bio'
 import HTML from './html'
@@ -22,7 +22,7 @@ const TweetThisButton = ({ title, slug }) => {
   if (!twitter || twitter.length === 0) return null
   const link = `https://twitter.com/intent/tweet` + objectToGetParams({
     text: title,
-    url: `${siteUrl}${ slug }`,
+    url: `${siteUrl}${slug}`,
     via: twitter,
   })
 
@@ -62,32 +62,35 @@ export default ({ data }) => {
         title={title}
         description={excerpt}
         keywords={[category, ...(tags || [])]} />
-      <main sx={{ flex: 1, pb: 4 }}>
-        <article>
-          <header sx={{ pb: 1 }}>
-            <PostTitle>{ title }</PostTitle>
-            <Flex sx={{ alignItems: 'center', mt: -4, mb: 3 }}>
-              <Box sx={{ pr: 3 }}>
-                <PostDate>{ date }</PostDate>
-              </Box>
-              <Tags tags={tags}/>
-            </Flex>
-          </header>
-          <section>
-            <HTML raw={ html }/>
-          </section>
-        </article>
-      </main>
-      <Box>
-        <Link to={`/${category}`}>
-          <Text sx={{ p: 2, textAlign: 'right' }}>
-            Read more stories about "{category}" ->
+      <Container variant='content'>
+        <main sx={{ flex: 1, pb: 4, mx: 'auto' }}>
+          <article>
+            <header sx={{ pb: 1 }}>
+              <PostTitle>{title}</PostTitle>
+              <Flex sx={{ alignItems: 'center', mt: -4, mb: 3 }}>
+                <Box sx={{ pr: 3 }}>
+                  <PostDate>{date}</PostDate>
+                </Box>
+                <Tags tags={tags} />
+              </Flex>
+            </header>
+            <section>
+              <HTML raw={html} />
+            </section>
+          </article>
+        </main>
+        <Box>
+          <Link to={`/${category}`}>
+            <Text sx={{ p: 2, textAlign: 'right' }}>
+              Read more stories about "{category}" ->
           </Text>
-        </Link>
-        <TweetThisButton title={title} slug={slug} />
-        <Divider/>
-        <Bio/>
-      </Box>
+          </Link>
+          <TweetThisButton title={title} slug={slug} />
+          <Divider />
+          <Bio />
+        </Box>
+
+      </Container>
     </Layout>
   )
 }

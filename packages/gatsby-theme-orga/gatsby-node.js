@@ -78,11 +78,10 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   const { createPage } = actions
 
   const {
-    basePath,
     pagination,
-    buildIndex,
-    buildCategoryIndex,
-    buildTagIndex,
+    indexPath,
+    categoryIndexPath,
+    tagIndexPath,
   } = withDefaults(themeOptions)
 
   const result = await graphql(`
@@ -117,7 +116,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   })
 
   // create category index
-  if (buildCategoryIndex) {
+  if (categoryIndexPath) {
     const categories = _.flow(
       _.map(_.get('category')),
       _.uniq,
@@ -125,8 +124,10 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     )(posts)
 
     categories.forEach(category => {
+      const basePath = categoryIndexPath(category)
+      if (!basePath) return
       createIndex({
-        basePath: path.resolve(basePath, category),
+        basePath,
         createPage,
         posts: _.filter({ category })(posts),
         pagination,
@@ -136,15 +137,17 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   }
 
   // create tag index
-  if (buildTagIndex) {
+  if (tagIndexPath) {
     const tags = _.flow(
       _.flatMap(_.get('tags')),
       _.uniq,
     )(posts)
 
     tags.forEach(tag => {
+      const basePath = tagIndexPath(tag)
+      if (!basePath) return
       createIndex({
-        basePath: path.resolve(basePath, `:${tag}:`),
+        basePath,
         createPage,
         posts: posts.filter(p => p.tags.includes(tag)),
         pagination,
@@ -155,9 +158,9 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   }
 
   // create index for all
-  if (buildIndex) {
+  if (indexPath) {
     createIndex({
-      basePath,
+      basePath: indexPath,
       createPage,
       posts,
       pagination,
@@ -169,26 +172,29 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 // Add custom url pathname for blog posts.
 
 exports.onCreateNode = async ({ node, actions, getNode, createNodeId }, themeOptions) => {
-  const { basePath, slug, filter } = withDefaults(themeOptions)
+  const { postPath, filter } = withDefaults(themeOptions)
   if (node.internal.type !== `OrgContent`) return
   if (!filter(node.metadata)) return
 
   const { createNode, createParentChildLink } = actions
 
-  const generateSlug = () => {
-    return slug.split('/').map(str => {
-      if (str.startsWith('$')) {
-        return _.get(str.substring(1))(node.metadata)
-      }
-      return str
-    })
-  }
+  // const generateSlug = () => {
+  //   return slug.split('/').map(str => {
+  //     if (str.startsWith('$')) {
+  //       return _.get(str.substring(1))(node.metadata)
+  //     }
+  //     return str
+  //   })
+  // }
 
-  const paths = [ basePath, ...generateSlug() ].filter(lpath => !!lpath)
+  const slug = postPath(node.metadata)
+  if (!slug) return
+
+  // const paths = [ basePath, ...generateSlug() ].filter(lpath => !!lpath)
   const orgaPostId = createNodeId(`${node.id} >>> OrgPost`)
   const fieldData = {
     ...node.metadata,
-    slug: path.posix.join(...paths),
+    slug,
   }
   await createNode({
     ...fieldData,

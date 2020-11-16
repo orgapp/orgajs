@@ -59,9 +59,10 @@ const styles = {
 }
 
 const layout = {
-  container: {
+  container: {},
+  content: {
     maxWidth: 700,
-  }
+  },
 }
 
 const badges = {

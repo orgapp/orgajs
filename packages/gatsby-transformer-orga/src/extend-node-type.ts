@@ -62,7 +62,9 @@ module.exports = async (
   return t
 
   async function getExcerpt(node) {
-    return node.excerpt || node.summary || node.description || ''
+    return node.metadata.excerpt ||
+      node.metadata.summary ||
+      node.metadata.description || ''
   }
 
   async function getHTML(orgContentNode) {

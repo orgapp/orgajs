@@ -28,8 +28,13 @@ const Layout = ({ children }) => {
   }
   return (
     <Styled.root>
-      <Container
-        sx={{ p: 3, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
+      <Container sx={{
+        p: 3,
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        maxWidth: 900,
+      }}
       >
         { header }
         <div sx={{ display: 'flex', flexDirection: 'column', flex: '1 1 auto' }}>

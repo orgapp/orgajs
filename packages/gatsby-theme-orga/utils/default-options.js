@@ -1,12 +1,12 @@
 const defaultOptions = {
-  basePath: '/',
   contentPath: 'content',
   filter: () => true,
   pagination: 0,
-  buildIndex: true,
-  buildCategoryIndex: true,
-  buildTagIndex: true,
-  slug: '$category/$export_file_name',
+  columns: 2,
+  indexPath: '/',
+  categoryIndexPath: category => `/${category}`,
+  tagIndexPath: tag => `/:${tag}:`,
+  postPath: ({ category, export_file_name }) => `/${category}/${export_file_name}`,
 }
 
 module.exports = options => {

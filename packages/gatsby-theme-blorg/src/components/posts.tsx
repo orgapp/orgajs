@@ -3,7 +3,6 @@ import { Link } from 'gatsby'
 import _ from 'lodash/fp'
 import { Box, Flex, Heading, jsx, Text } from 'theme-ui'
 import { useSiteMetadata } from '../hooks'
-import Bio from './bio'
 import Layout from './layout'
 import PostList from './post-list'
 import SEO from "./seo"
@@ -55,18 +54,17 @@ export default ({ data, location, pageContext }) => {
   const { next, prev } = pageContext
 
   return (
-    <Layout location={location}>
+    <Layout>
       <SEO title='Home' keywords={keywords} />
       <main sx={{ flex: 1 }}>
-        <Bio/>
         { category && category.length > 0 && isNaN(category) && (
-            <Heading sx={{
-              pt: 4, pb: 2,
+            <Heading as='h1' sx={{
+              pt: 4, pb: 4,
               textTransform: 'uppercase',
               textAlign: 'center',
               letterSpacing: '0.1em' }}>{ category }</Heading>
           )}
-        <PostList posts={posts}/>
+        <PostList posts={posts} columns={2}/>
       </main>
       <Flex sx={{ justifyContent: 'space-between', width: '100%' }}>
         <PaginationLink url={prev}>
