@@ -76,6 +76,12 @@ const badges = {
 }
 
 const buttons = {
+  primary: {
+    '&:hover': {
+      bg: 'highlight',
+      cursor: 'pointer',
+    },
+  },
   icon: {
     '&:hover': {
       cursor: 'pointer',
@@ -83,7 +89,30 @@ const buttons = {
   }
 }
 
+const cards = {
+  primary: {
+    padding: 3,
+    borderRadius: 4,
+    maxWidth: 700,
+    bg: 'muted',
+    borderRadius: '1em',
+    borderWidth: 1,
+    borderColor: 'definition',
+    borderStyle: 'solid',
+    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+    transition: '0.3s',
+    '&:hover': {
+      boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
+    },
+  }
+}
+
+const colors = {
+  definition: 'rgba(255, 255, 255, 0.1)'
+}
+
 export default {
+  colors,
   fontWeights: {
     body: 400,
     heading: 900,
@@ -91,6 +120,7 @@ export default {
   },
   badges,
   buttons,
+  cards,
   layout,
   styles,
 }

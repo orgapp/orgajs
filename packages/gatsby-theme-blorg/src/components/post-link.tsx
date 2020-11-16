@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Link } from 'gatsby'
-import { Container, Flex, Heading, jsx, Text } from 'theme-ui'
+import { Card, Flex, Heading, jsx, Text } from 'theme-ui'
 import Tags from './tags'
 
 interface Props {
@@ -13,21 +13,10 @@ interface Props {
 }
 
 const PostLink = ({ title, category, slug, date, excerpt, tags }: Props) => (
-  <Container variant='content'>
+  <Card>
     <article sx={{
       display: 'flex',
       flexDirection: 'column',
-      p: 3,
-      bg: 'muted',
-      borderRadius: '1em',
-      borderWidth: 1,
-      borderColor: 'rgba(255, 255, 255, 0.1)',
-      borderStyle: 'solid',
-      boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-      transition: '0.3s',
-      '&:hover': {
-        boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
-      },
       height: '100%',
     }}>
       <Link to={`/${category}`}>
@@ -46,7 +35,7 @@ const PostLink = ({ title, category, slug, date, excerpt, tags }: Props) => (
         <Tags tags={tags} />
       </Flex>
     </article>
-  </Container>
+  </Card>
 )
 
 export default PostLink
