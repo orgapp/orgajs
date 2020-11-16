@@ -68,7 +68,10 @@ const layout = {
 const badges = {
   tag: {
     transition: '0.3s',
-    '&:hover': { bg: 'secondary' },
+    '&:hover': {
+      bg: 'secondary',
+      transform: 'scale(1.1)',
+    },
   }
 }
 

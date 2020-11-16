@@ -29,6 +29,11 @@ export default ({
         borderWidth: 1,
         borderStyle: 'solid',
         borderColor: 'text',
+        boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+        transition: '0.3s',
+        '&:hover': {
+          transform: 'scale(1.1)',
+        }
       }}/>
   )
 }

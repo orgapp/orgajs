@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import {
-    FaEnvelope as EmailIcon, FaGithub as GithubIcon, FaGlobe as WebsiteIcon, FaTwitter as TwitterIcon
+  FaEnvelope as EmailIcon, FaGithub as GithubIcon, FaGlobe as WebsiteIcon, FaTwitter as TwitterIcon
 } from 'react-icons/fa'
 import { Flex, IconButton, jsx, Text } from 'theme-ui'
 import { useSiteMetadata } from '../hooks'
@@ -22,7 +22,10 @@ export default () => {
     <Flex>
       { social.map(({ name, url }) =>
         <a key={`social-${name}`} href={url}>
-          <IconButton>
+          <IconButton sx={{
+            mx: 1,
+            '&:hover': { bg: 'highlight' },
+           }}>
             { getIcon(name) }
           </IconButton>
         </a>

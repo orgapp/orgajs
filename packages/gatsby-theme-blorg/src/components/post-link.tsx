@@ -17,9 +17,17 @@ const PostLink = ({ title, category, slug, date, excerpt, tags }: Props) => (
     <article sx={{
       display: 'flex',
       flexDirection: 'column',
-      p: 2,
+      p: 3,
       bg: 'muted',
-      borderRadius: 6,
+      borderRadius: '1em',
+      borderWidth: 1,
+      borderColor: 'rgba(255, 255, 255, 0.1)',
+      borderStyle: 'solid',
+      boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+      transition: '0.3s',
+      '&:hover': {
+        boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
+      },
       height: '100%',
     }}>
       <Link to={`/${category}`}>
