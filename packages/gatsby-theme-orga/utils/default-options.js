@@ -1,3 +1,5 @@
+const path = require('path')
+
 const defaultOptions = {
   contentPath: 'content',
   filter: () => true,
@@ -7,7 +9,8 @@ const defaultOptions = {
   imageMaxWidth: 1380,
   categoryIndexPath: category => `/${category}`,
   tagIndexPath: tag => `/:${tag}:`,
-  postPath: ({ category, export_file_name }) => `/${category}/${export_file_name}`,
+  postPath: ({ category, export_file_name }) =>
+    path.resolve('/', category || '', export_file_name || ''),
 }
 
 module.exports = options => {

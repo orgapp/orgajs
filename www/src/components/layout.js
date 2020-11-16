@@ -1,12 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
+import { graphql, StaticQuery } from 'gatsby'
+import 'highlight.js/styles/solarized-light.css'
 import PropTypes from 'prop-types'
+import React from 'react'
 import Helmet from 'react-helmet'
-import { StaticQuery, graphql } from 'gatsby'
-
-import Header from './header'
-import 'prismjs/themes/prism.css'
 import 'semantic-ui-css/semantic.min.css'
+import styled from 'styled-components'
+import Header from './header'
 
 const Container = styled.div`
 margin: auto;

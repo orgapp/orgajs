@@ -1,7 +1,7 @@
-import React from 'react'
-import Layout from '../../components/layout'
 import { Link } from 'gatsby'
+import React from 'react'
 import { List } from 'semantic-ui-react'
+import Layout from '../../components/layout'
 
 const DocLink = ({ title, description, date, keyword, slug }) => (
   <List.Item as={Link} to={slug} key={`doc-link-${slug}`}>
@@ -12,10 +12,10 @@ const DocLink = ({ title, description, date, keyword, slug }) => (
   </List.Item>
 )
 
-export default ({ posts }) => (
+export default ({ data }) => (
   <Layout>
     <List divided relaxed>
-      { posts.map(DocLink) }
+      { data.allOrgPost.nodes.map(DocLink) }
     </List>
   </Layout>
 )

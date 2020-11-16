@@ -20,6 +20,7 @@
     "gatsby-transformer-toml": "^2.2.11",
     "gh-pages": "^3.1.0",
     "hast-util-to-html": "^7.1.1",
+    "highlight.js": "^10.3.2",
     "oast-to-hast": "^2.2.9",
     "orga": "^2.2.0",
     "prettier": "^2.0.5",
