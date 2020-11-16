@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { Link } from 'gatsby'
-import { Text, Badge, Flex, jsx } from 'theme-ui'
+import { Badge, Flex, jsx, Text } from 'theme-ui'
 
 const Tags = ({ tags }: { tags: string[] }) => {
   return (
-    <Flex sx={{ gap: 1, flexWrap: 'wrap' }}>
+    <Flex sx={{ flexWrap: 'wrap', mx: -1, py: 1 }}>
       { tags.map(tag =>
-        <Badge key={`tag-${tag}`} variant='tag'>
+        <Badge key={`tag-${tag}`} variant='tag' sx={{ mx: 1 }}>
           <Link to={`/:${tag}:`}>
             <Text color='text'>{ tag }</Text>
           </Link>
