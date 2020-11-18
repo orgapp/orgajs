@@ -11,6 +11,7 @@ const defaultOptions = {
   tagIndexPath: tag => `/:${tag}:`,
   postPath: ({ category, export_file_name }) =>
     path.resolve('/', category || '', export_file_name || ''),
+  postRedirect: () => [],
 }
 
 module.exports = options => {

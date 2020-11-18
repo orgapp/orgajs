@@ -5,7 +5,7 @@ const Debug = require(`debug`)
 const withDefaults = require('./utils/default-options')
 const createIndex = require('./utils/create-index')
 const _ = require('lodash/fp')
-const { createContentDigest, slash } = require('gatsby-core-utils')
+const { createContentDigest, slash, joinPath } = require('gatsby-core-utils')
 
 
 const debug = Debug(`gatsby-theme-orga`)
@@ -111,8 +111,15 @@ function processRelativeImage(source, context, type) {
 const PostTemplate = require.resolve(`./src/templates/post-query`)
 const PostsTemplate = require.resolve(`./src/templates/posts-query`)
 
+const withAndWithoutTrailingSlash = v => {
+  return [
+    v,
+    v.endsWith('/') ? v.slice(0, -1) : `${v}/`,
+  ]
+}
+
 exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
 
   const {
     pagination,
@@ -132,6 +139,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
         category
         tags
         slug
+        redirects
       }
     }
   }
@@ -151,6 +159,19 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
       component: PostTemplate,
       context: { id: post.id, maxWidth: imageMaxWidth },
     })
+
+    // handle redirects
+    post.redirects.forEach(oldPath => {
+      withAndWithoutTrailingSlash(oldPath).forEach(op =>
+        createRedirect({
+          fromPath: op,
+          toPath: post.slug,
+          isPermanent: true,
+          redirectInBrowser: true,
+        })
+      )
+    })
+
   })
 
   // create category index
@@ -209,34 +230,34 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 
 // Add custom url pathname for blog posts.
 
+const makeAbsolute = p => joinPath('/', p)
 
 exports.onCreateNode = async (
-  { node, actions, getNode, createNodeId, store, cache },
+  { node, actions, getNode, createNodeId, store, cache, reporter },
   themeOptions
 ) => {
-  const { postPath, filter } = withDefaults(themeOptions)
+  const { postPath, postRedirect, filter } = withDefaults(themeOptions)
   if (node.internal.type !== `OrgContent`) return
   if (!filter(node.metadata)) return
 
   const { createNode, createParentChildLink } = actions
 
-  // const generateSlug = () => {
-  //   return slug.split('/').map(str => {
-  //     if (str.startsWith('$')) {
-  //       return _.get(str.substring(1))(node.metadata)
-  //     }
-  //     return str
-  //   })
-  // }
+  const slug = postPath({ ...node.metadata, joinPath })
 
-  const slug = postPath(node.metadata)
-  if (!slug) return
+  if (!slug || typeof slug !== 'string') return
 
-  // const paths = [ basePath, ...generateSlug() ].filter(lpath => !!lpath)
+  let redirects = postRedirect({ ...node.metadata, joinPath }) || []
+  if (typeof redirects === 'string') {
+    redirects = [redirects]
+  } else if (!Array.isArray(redirects)) {
+    reporter.panic(`postRedirect returns wrong type, expecting string or array of strings, actually got ${typeof redirects}`)
+  }
+
   const orgaPostId = createNodeId(`${node.id} >>> OrgPost`)
   const fieldData = {
     ...node.metadata,
-    slug,
+    slug: makeAbsolute(slug),
+    redirects: redirects.map(makeAbsolute),
   }
 
   if (validURL(node.metadata.image)) {

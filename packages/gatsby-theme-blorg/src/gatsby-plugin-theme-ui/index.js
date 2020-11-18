@@ -92,7 +92,6 @@ const buttons = {
 const cards = {
   primary: {
     padding: 3,
-    borderRadius: 4,
     maxWidth: 700,
     bg: 'muted',
     borderRadius: '1em',
