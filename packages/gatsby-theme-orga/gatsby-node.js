@@ -63,8 +63,9 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
       category: { type: 'String' },
       tags: { type: '[String]!' },
       slug: { type: 'String!' },
+      redirects: { type: '[String]!' },
       keyword: { type: 'String' },
-      date: { type: 'Date' },
+      date: { type: 'Date', extensions: { dateformat: {} } },
       excerpt: {
         type: 'String!',
         resolve: orgResolverPassthrough('excerpt'),
@@ -84,7 +85,7 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
         },
       },
     },
-    interfaces: [`Node`],
+    interfaces: ['Node'],
   }))
 }
 
