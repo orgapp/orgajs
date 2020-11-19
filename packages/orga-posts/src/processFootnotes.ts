@@ -1,73 +1,12 @@
 import { Element } from 'hast'
 import * as _ from 'lodash/fp'
-import { Footnote, FootnoteReference, Headline } from 'orga'
 import { Transformer } from 'unified'
 import { Parent } from 'unist'
-import { select } from 'unist-util-select'
 import visit, { Visitor } from 'unist-util-visit'
-
-export function leveling(options: { base: number }) {
-  const { base } = options
-
-  return (tree, file) => {
-
-    const visitor: Visitor<Headline> = (headline: Headline, index: number, parent: Parent) => {
-      if (headline.level === base) {
-        parent.children.splice(index, 1)
-        return [visit.SKIP, index]
-      }
-      headline.level = headline.level - base + 1
-    }
-
-    visit(tree, 'headline', visitor)
-  }
-
-}
-
-export function transform(action: (tree: Parent) => void) {
-  return action
-}
-
-const getRoot = (node: Parent): Parent => {
-  const parent = _.get('parent')(node)
-  if (parent) return getRoot(parent)
-  return node
-}
-
-export const inlineFootnotes = () => {
-
-  const findFootnotes = (root: Parent, label: string): Footnote => {
-    const selector = `footnote[label=${label}]`
-    return select(selector, root) as Footnote
-  }
-
-  const footnotes: Footnote[] = []
-
-  const transformer: Transformer = async (tree: Parent) => {
-
-    const root = getRoot(tree)
-
-    const visitor: Visitor<FootnoteReference> = (node: FootnoteReference, index, parent) => {
-      const fn = findFootnotes(root, node.label)
-      if (fn) {
-        footnotes.push(fn)
-      }
-    }
-    visit(tree, 'footnote.reference', visitor)
-
-    if (footnotes.length > 0) {
-      tree.children.push({ type: 'html', value: '<dl id="footnotes">' })
-      footnotes.forEach(fn => tree.children.push(fn))
-      tree.children.push({ type: 'html', value: '</dl>' })
-    }
-  }
-
-  return transformer
-}
 
 const withClass = (name: string) => _.flow(_.get('properties.className'), _.includes(name))
 
-export const processFootnotes = () => {
+export default () => {
 
   const transformer: Transformer = async (tree: Parent) => {
     const visitor: Visitor<Element> = (node: Element, index, parent) => {

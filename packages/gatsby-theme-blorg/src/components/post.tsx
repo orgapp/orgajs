@@ -4,7 +4,7 @@ import { Box, Container, Divider, Flex, jsx, Text } from 'theme-ui'
 import Bio from './bio'
 import HTML from './html'
 import Layout from './layout'
-import PostDate from './post-date'
+import PostMeta from './post-meta'
 import PostHero from './post-hero'
 import PostShare from './post-share'
 import PostTitle from './post-title'
@@ -30,9 +30,8 @@ export default ({ data }) => {
               <PostTitle>{post.title}</PostTitle>
               <Flex sx={{ alignItems: 'center', mt: -4, mb: 3 }}>
                 <Box sx={{ pr: 3 }}>
-                  <PostDate>{post.date}</PostDate>
+                  <PostMeta post={post}/>
                 </Box>
-                <Tags tags={post.tags} />
               </Flex>
             </header>
             <section>
@@ -41,6 +40,7 @@ export default ({ data }) => {
           </article>
         </main>
         <Box>
+          <Tags tags={post.tags} />
           <Link to={`/${post.category}`}>
             <Text sx={{ p: 2, textAlign: 'right' }}>
               Read more stories about "{post.category}" ->

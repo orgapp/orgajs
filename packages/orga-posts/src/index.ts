@@ -1,15 +1,18 @@
 import * as _ from 'lodash/fp'
 import {
-  Headline, Parent, parse,
+  Document, Headline, Parent, parse,
   ParseOptions, parseTimestamp,
-  Section, Document,
+  Section
 } from 'orga'
 import highlight from 'rehype-highlight'
 import html from 'rehype-stringify'
 import reorg2rehype from 'reorg-rehype'
 import unified from 'unified'
 import { select, selectAll } from 'unist-util-select'
-import { inlineFootnotes, leveling, processFootnotes } from './plugins'
+import appendFootnotes from './appendFootnotes'
+import leveling from './leveling'
+import processFootnotes from './processFootnotes'
+import _statistics from './statistics'
 
 interface Metadata {
   title: string;
@@ -27,11 +30,6 @@ const defaultToHtmlOptions = {
 export interface Post extends Metadata {
   ast?: Parent;
   html: (options: typeof defaultToHtmlOptions) => Promise<string>;
-}
-
-interface Options extends ParseOptions {
-  filename: string;
-  keywords: string[];
 }
 
 interface BuildProps {
@@ -154,7 +152,7 @@ export const toHtml = async (tree: Parent, options = defaultToHtmlOptions) => {
   const { transform } = { ...defaultToHtmlOptions, ...options }
   const processor = unified()
     .use(leveling, { base: _.get('level')(tree) || 0 })
-    .use(inlineFootnotes)
+    .use(appendFootnotes)
     .use(() => transform)
     .use(reorg2rehype, { highlight: false })
     .use(processFootnotes)
@@ -162,4 +160,12 @@ export const toHtml = async (tree: Parent, options = defaultToHtmlOptions) => {
     .use(html, { allowDangerousHtml: true })
   const hast = await processor.run(tree)
   return processor.stringify(hast)
+}
+
+export const statistics = async (tree: Parent) => {
+  let report: { timeToRead: number; wordCount: number }
+  const processor = unified()
+    .use(_statistics, { report: (result) => report = result })
+  processor.run(tree)
+  return report
 }

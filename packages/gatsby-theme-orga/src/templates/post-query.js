@@ -13,6 +13,8 @@ query PostById($id: String!, $maxWidth: Int) {
     tags
     html
     slug
+    timeToRead
+    wordCount
     image {
       childImageSharp {
         fluid(maxWidth: $maxWidth) {

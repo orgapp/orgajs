@@ -64,6 +64,14 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
       tags: { type: '[String]!' },
       slug: { type: 'String!' },
       redirects: { type: '[String]!' },
+      timeToRead: {
+        type: 'Int!',
+        resolve: orgResolverPassthrough('timeToRead'),
+      },
+      wordCount: {
+        type: 'Int!',
+        resolve: orgResolverPassthrough('wordCount'),
+      },
       keyword: { type: 'String' },
       date: { type: 'Date', extensions: { dateformat: {} } },
       excerpt: {

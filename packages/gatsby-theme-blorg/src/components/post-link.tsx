@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { Link } from 'gatsby'
+import { FaCalendar as DateIcon } from 'react-icons/fa'
 import { Card, Flex, Heading, jsx, Text } from 'theme-ui'
 import Tags from './tags'
 
@@ -26,7 +27,10 @@ const PostLink = ({ title, category, slug, date, excerpt, tags }: Props) => (
         <Link to={slug}>
           <Heading as='h1'>{title}</Heading>
         </Link>
-        <small sx={{ color: 'gray' }}>{date}</small>
+        <time sx={{ color: 'gray', fontSize: 'small' }}>
+          <DateIcon sx={{ mr: 1 }}/>
+          {date}
+        </time>
       </header>
       <section sx={{ pb: 2, flex: 1 }}>
         <Text color='text'>{excerpt}</Text>

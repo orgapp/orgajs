@@ -1,7 +1,7 @@
 import fsExtra from 'fs-extra'
 import { GraphQLString } from 'gatsby/graphql'
 import { Link } from 'orga'
-import { toHtml } from 'orga-posts'
+import { toHtml, statistics } from 'orga-posts'
 import { dirname, normalize, posix } from 'path'
 import visit from 'unist-util-visit'
 import { getAST } from './orga-util'
@@ -42,8 +42,6 @@ module.exports = async (
     return {}
   }
 
-  const { strongTypedMetadata = true } = pluginOptions
-
   const files = getNodesByType(`File`)
 
   const orgContent = getNodesByType(`OrgContent`)
@@ -57,6 +55,22 @@ module.exports = async (
       type: 'String',
       resolve: getExcerpt,
     },
+    timeToRead: {
+      type: 'Int',
+      resolve: async (node) => {
+        const ast = await getAST({ node, cache })
+        const { timeToRead } = await statistics(ast)
+        return timeToRead
+      },
+    },
+    wordCount: {
+      type: 'Int',
+      resolve: async (node) => {
+        const ast = await getAST({ node, cache })
+        const { wordCount } = await statistics(ast)
+        return wordCount
+      },
+    }
   }
 
   return t
