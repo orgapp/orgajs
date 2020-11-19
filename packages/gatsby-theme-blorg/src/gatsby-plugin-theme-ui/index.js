@@ -20,6 +20,7 @@ const styles = {
       bg: 'muted',
     },
     'tt,code,pre': {
+      color: 'text',
       // bg: 'muted',
       // borderRadius: 4,
     },
@@ -68,8 +69,10 @@ const layout = {
 const badges = {
   tag: {
     transition: '0.3s',
+    color: 'background',
     '&:hover': {
-      bg: 'secondary',
+      bg: 'highlight',
+      color: 'text',
       transform: 'scale(1.1)',
     },
   }
@@ -77,12 +80,14 @@ const badges = {
 
 const buttons = {
   primary: {
+    transition: '0.3s',
     '&:hover': {
-      bg: 'highlight',
+      bg: 'secondary',
       cursor: 'pointer',
     },
   },
   icon: {
+    outline: 'none',
     '&:hover': {
       cursor: 'pointer',
     },
@@ -107,10 +112,23 @@ const cards = {
 }
 
 const colors = {
-  definition: 'rgba(255, 255, 255, 0.1)'
+  definition: 'rgba(255, 255, 255, 0.1)',
+  modes: {
+    light: {
+      text: '#202124',
+      background: '#fff',
+      primary: '#1a73e8',
+      secondary: '#30c',
+      muted: '#f1f3f4',
+      highlight: '#efeffe',
+      gray: '#777',
+      accent: '#609',
+    }
+  }
 }
 
 export default {
+  useColorSchemeMediaQuery: true,
   colors,
   fontWeights: {
     body: 400,

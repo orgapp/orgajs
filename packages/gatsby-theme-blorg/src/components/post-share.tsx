@@ -23,11 +23,6 @@ const TweetThisButton = ({ post: { title, slug } }) => {
       <Button sx={{
         width: '100%',
         px: 2,
-        transition: '0.3s',
-        '&:hover': {
-          cursor: 'pointer',
-          bg: 'highlight',
-        }
       }}>
         <Heading as='h3'>Tweet this.</Heading>
       </Button>
