@@ -8,6 +8,7 @@ import PostMeta from './post-meta'
 import PostHero from './post-hero'
 import PostShare from './post-share'
 import PostTitle from './post-title'
+import { FaTags as TagsIcon } from 'react-icons/fa'
 import SEO from './seo'
 import Tags from './tags'
 
@@ -40,7 +41,10 @@ export default ({ data }) => {
           </article>
         </main>
         <Box>
-          <Tags tags={post.tags} />
+          <Flex sx={{ alignItems: 'center', justifyContent: 'flex-end' }}>
+            <TagsIcon sx={{ mr: 2 }}/>
+            <Tags tags={post.tags} />
+          </Flex>
           <Link to={`/${post.category}`}>
             <Text sx={{ p: 2, textAlign: 'right' }}>
               Read more stories about "{post.category}" ->

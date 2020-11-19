@@ -22,7 +22,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "predevelop": "rm -rf .cache",
+    "predevelop": "rm -rf .cache public",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
