@@ -7,7 +7,7 @@ export default () => {
 
   const [ colorMode, setColorMode ] = useColorMode()
   return (
-    <IconButton onClick={() => setColorMode(colorMode === 'default' ? 'light' : 'default')}>
+    <IconButton onClick={() => setColorMode(colorMode === 'default' ? 'dark' : 'default')}>
       <IconContext.Provider value={{
         size: '1.5em', style: {},
       }}>

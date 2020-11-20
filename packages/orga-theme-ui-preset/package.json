@@ -1,0 +1,30 @@
+{
+  "name": "orga-theme-ui-preset",
+  "version": "1.0.0",
+  "description": "A preset for theme-ui styles that goes well with org-mode.",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "keywords": [
+    "theme-ui",
+    "react"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "compile": "tsc -p tsconfig.build.json",
+    "compile:watch": "tsc -w -p tsconfig.build.json",
+    "prepare": "cross-env NODE_ENV=production npm run build",
+    "clean": "rm -rf ./lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orgapp/orgajs.git",
+    "directory": "packages/orga-theme-ui-preset"
+  },
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "license": "MIT",
+  "dependencies": {
+    "@theme-ui/preset-base": "^0.3.0"
+  }
+}

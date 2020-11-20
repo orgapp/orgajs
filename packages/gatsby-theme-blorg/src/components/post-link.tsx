@@ -25,7 +25,7 @@ const PostLink = ({ title, category, slug, date, excerpt, tags }: Props) => (
       </Link>
       <header>
         <Link to={slug}>
-          <Heading as='h1'>{title}</Heading>
+          <Heading as='h3'>{title}</Heading>
         </Link>
         <time sx={{ color: 'gray', fontSize: 'small' }}>
           <DateIcon sx={{ mr: 1 }}/>

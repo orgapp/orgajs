@@ -1,7 +1,7 @@
 module.exports = options => {
 
   const {
-    preset = '@theme-ui/preset-deep',
+    preset = 'orga-theme-ui-preset',
   } = options
 
   return {

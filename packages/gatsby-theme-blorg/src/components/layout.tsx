@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import 'highlight.js/styles/nord.css'
 import { ReactChild } from 'react'
 import { Container, jsx, Styled } from 'theme-ui'
 import { useSiteMetadata } from '../hooks'

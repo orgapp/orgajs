@@ -4,13 +4,18 @@
   "description": "gatsby org-mode theme for blog",
   "main": "index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
-  "homepage": "https://github.com/orgapp/orgajs#readme",
   "keywords": [
     "gatsby",
     "org-mode",
     "orga"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orgapp/orgajs.git",
+    "directory": "packages/gatsby-theme-blorg"
+  },
+  "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/gatsby-theme-blorg#readme",
   "peerDependencies": {
     "gatsby": "^2.x"
   },
@@ -26,6 +31,7 @@
     "gatsby-transformer-sharp": "^2.3.0",
     "gatsby-transformer-toml": "^2.2.15",
     "highlight.js": "^10.3.2",
+    "orga-theme-ui-preset": "^1.0.0",
     "polished": "^3.4.1",
     "prismjs": "^1.17.1",
     "react-icons": "^3.8.0",
