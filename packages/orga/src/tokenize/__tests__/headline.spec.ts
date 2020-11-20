@@ -112,8 +112,11 @@ describe("tokenize headline", () => {
       ]
     `);
 
-    expect(tok("* TODO [#A] a headline     :tag1:tag2:"))
-      .toMatchInlineSnapshot(`
+    expect(
+      tok(
+        "* TODO [#A] a headline :tag1:123:#hash:@at:org-mode:under_score:98%:"
+      )
+    ).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "*",
@@ -137,10 +140,15 @@ describe("tokenize headline", () => {
           "value": "a headline",
         },
         Object {
-          "_text": ":tag1:tag2:",
+          "_text": ":tag1:123:#hash:@at:org-mode:under_score:98%:",
           "tags": Array [
             "tag1",
-            "tag2",
+            "123",
+            "#hash",
+            "@at",
+            "org-mode",
+            "under_score",
+            "98%",
           ],
           "type": "tags",
         },
