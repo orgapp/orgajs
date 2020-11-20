@@ -1,6 +1,6 @@
 {
   "name": "orga-theme-ui-preset",
-  "version": "1.0.0",
+  "version": "2.3.8",
   "description": "A preset for theme-ui styles that goes well with org-mode.",
   "files": [
     "lib"

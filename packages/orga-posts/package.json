@@ -1,6 +1,6 @@
 {
   "name": "orga-posts",
-  "version": "2.3.6",
+  "version": "2.3.8",
   "description": "",
   "files": [
     "lib"
@@ -27,10 +27,10 @@
   ],
   "dependencies": {
     "lodash": "^4.17.20",
-    "orga": "^2.2.0",
+    "orga": "^2.3.8",
     "rehype-highlight": "^4.0.0",
     "rehype-stringify": "^8.0.0",
-    "reorg-rehype": "^2.2.9",
+    "reorg-rehype": "^2.3.8",
     "unified": "^9.2.0",
     "unist-util-select": "^3.0.2",
     "unist-util-visit-parents": "^3.1.1"
