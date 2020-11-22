@@ -20,6 +20,7 @@ module.exports = themeOptions => {
         options: {
           name: options.contentPath,
           path: options.contentPath,
+          ignore: ['**/\.*', '**/*.db-journal'],
         },
       },
     ]
