@@ -5,11 +5,19 @@ import { toHtml, statistics } from 'orga-posts'
 import { dirname, normalize, posix } from 'path'
 import visit from 'unist-util-visit'
 import { getAST } from './orga-util'
+import path from 'path'
+import withDefault from './default-options'
 
 const DEPLOY_DIR = `public`
 
+let pluginsCacheStr = ``
+let pathPrefixCacheStr = ``
+
 const newFileName = linkNode =>
   `${linkNode.name}-${linkNode.internal.contentDigest}.${linkNode.extension}`
+
+const htmlCacheKey = node =>
+  `transformer-orga-org-html-${node.internal.contentDigest}-${pluginsCacheStr}-${pathPrefixCacheStr}`
 
 const newPath = (linkNode, destinationDir = `static`) => {
   return posix.join(
@@ -35,7 +43,7 @@ const newLinkURL = ({ linkNode, destinationDir = `static`, pathPrefix }) => {
 }
 
 module.exports = async (
-  { type, store, pathPrefix, getNode, getNodesByType, cache },
+  { type, store, pathPrefix, getNode, getNodesByType, cache, reporter },
   pluginOptions
 ) => {
   if (type.name !== `OrgContent`) {
@@ -70,7 +78,7 @@ module.exports = async (
         const { wordCount } = await statistics(ast)
         return wordCount
       },
-    }
+    },
   }
 
   return t
@@ -82,11 +90,16 @@ module.exports = async (
   }
 
   async function getHTML(orgContentNode) {
+
+    const cachedHTML = await cache.get(htmlCacheKey(orgContentNode))
+    if (cachedHTML) { return cachedHTML }
+
     const ast = await getAST({ node: orgContentNode, cache })
 
     const filesToCopy = new Map()
     const html = await toHtml(ast, { transform: tree => {
       const visitor = (node: Link) => {
+
         if (node.protocol === 'file') {
           let linkPath = posix.join(
             getNode(getNode(orgContentNode.parent).parent).dir,
@@ -113,11 +126,21 @@ module.exports = async (
           }
         }
 
+        if (node.protocol === 'id') {
+          const linkToOrg = orgContent.find(f => f.metadata.id === node.value)
+          if (linkToOrg) node.value = linkToOrg.slug
+        }
+
         // TODO: transform internal link of file based content to anchor? i.e. can't find the linkToOrg
         if (node.protocol === `internal`) {
-          const linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${node.value}`
-          const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
-          if (linkToOrg) node.value = linkToOrg.slug
+          if (node.value.startsWith('#')) { // internal link by CUSTOM_ID
+            const linkToOrg = orgContent.find(f => f.metadata.custom_id === node.value.substring(1))
+            if (linkToOrg) node.value = linkToOrg.slug
+          } else {
+            const linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${node.value}`
+            const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
+            if (linkToOrg) node.value = linkToOrg.slug
+          }
         }
       }
 
@@ -136,6 +159,10 @@ module.exports = async (
         }
       }
     }))
+
+    // Save new HTML to cache
+    await cache.set(htmlCacheKey(orgContentNode), html)
+
     return html
   }
 }

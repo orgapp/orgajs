@@ -9,8 +9,8 @@ const defaultOptions = {
   imageMaxWidth: 1380,
   categoryIndexPath: category => `/${category}`,
   tagIndexPath: tag => `/:${tag}:`,
-  postPath: ({ category, export_file_name }) =>
-    path.resolve('/', category || '', export_file_name || ''),
+  slug: ({ export_file_name }) =>
+    path.resolve('/', export_file_name || ''),
   postRedirect: () => [],
 }
 

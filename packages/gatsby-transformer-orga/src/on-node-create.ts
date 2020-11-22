@@ -1,6 +1,8 @@
 import crypto from 'crypto'
 import { build } from 'orga-posts'
 import { cacheAST } from './orga-util'
+import withDefault from './default-options'
+import path from 'path'
 
 const getCircularReplacer = () => {
   const seen = new WeakSet()
@@ -16,9 +18,10 @@ const getCircularReplacer = () => {
 }
 
 export = async function onCreateNode(
-  { node, loadNodeContent, actions, cache, pathPrefix }) {
+  { node, loadNodeContent, actions, cache, pathPrefix, reporter }, pluginOptions) {
 
   const { createNode, createParentChildLink, createNodeField } = actions
+  const { slug } = withDefault(pluginOptions)
   // We only care about org content. The mime is not useful for us. Use extension directly
   if (node.extension === `org`) {
     await createOrgFileNode(node)
@@ -68,11 +71,18 @@ export = async function onCreateNode(
         crypto.createHash(`md5`)
           .update(JSON.stringify(ast, getCircularReplacer()))
           .digest(`hex`)
+
+      const s = slug(post)
+      if (!path.isAbsolute(s)) {
+        reporter.warn(`Generated slug is not absolute: ${s}. Slug should normally be absolute path.`)
+      }
+
       const n = {
         id,
         children: [],
         parent: orgFileNode.id,
         metadata: post,
+        slug: slug(post),
         internal: {
           contentDigest,
           type: `OrgContent`,

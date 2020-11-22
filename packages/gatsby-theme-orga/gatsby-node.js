@@ -245,15 +245,11 @@ exports.onCreateNode = async (
   { node, actions, getNode, createNodeId, store, cache, reporter },
   themeOptions
 ) => {
-  const { postPath, postRedirect, filter } = withDefaults(themeOptions)
+  const { postRedirect, filter } = withDefaults(themeOptions)
   if (node.internal.type !== `OrgContent`) return
   if (!filter(node.metadata)) return
 
   const { createNode, createParentChildLink } = actions
-
-  const slug = postPath({ ...node.metadata, joinPath })
-
-  if (!slug || typeof slug !== 'string') return
 
   let redirects = postRedirect({ ...node.metadata, joinPath }) || []
   if (typeof redirects === 'string') {
@@ -265,7 +261,7 @@ exports.onCreateNode = async (
   const orgaPostId = createNodeId(`${node.id} >>> OrgPost`)
   const fieldData = {
     ...node.metadata,
-    slug: makeAbsolute(slug),
+    slug: node.slug,
     redirects: redirects.map(makeAbsolute),
   }
 
