@@ -14,7 +14,7 @@ interface Props {
 }
 
 const PostLink = ({ title, category, slug, date, excerpt, tags }: Props) => (
-  <Card>
+  <Card sx={{ mx: 'auto', width: '100%' }}>
     <article sx={{
       display: 'flex',
       flexDirection: 'column',

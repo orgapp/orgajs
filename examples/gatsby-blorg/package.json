@@ -5,7 +5,6 @@
   "version": "2.3.11",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "dependencies": {
-    "@theme-ui/preset-deep": "^0.3.0",
     "gatsby": "^2.25.3",
     "gatsby-theme-blorg": "^2.3.11",
     "prop-types": "^15.7.2",

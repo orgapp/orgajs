@@ -51,7 +51,7 @@ export default ({ data, location, pageContext }) => {
     _.compact,
   )(posts)
 
-  const { next, prev } = pageContext
+  const { next, prev, columns } = pageContext
 
   return (
     <Layout>
@@ -64,7 +64,7 @@ export default ({ data, location, pageContext }) => {
               textAlign: 'center',
               letterSpacing: '0.1em' }}>{ category }</Heading>
           )}
-        <PostList posts={posts} columns={2}/>
+        <PostList posts={posts} columns={columns}/>
       </main>
       <Flex sx={{ justifyContent: 'space-between', width: '100%' }}>
         <PaginationLink url={prev}>

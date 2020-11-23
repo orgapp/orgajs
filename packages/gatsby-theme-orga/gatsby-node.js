@@ -136,6 +136,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     categoryIndexPath,
     tagIndexPath,
     imageMaxWidth,
+    columns,
   } = withDefaults(themeOptions)
 
   const result = await graphql(`
@@ -200,6 +201,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
         posts: _.filter({ category })(posts),
         pagination,
         component: PostsTemplate,
+        context: { columns },
       })
     })
   }
@@ -220,7 +222,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
         posts: posts.filter(p => p.tags.includes(tag)),
         pagination,
         component: PostsTemplate,
-        context: { tag },
+        context: { tag, columns },
       })
     })
   }
@@ -233,6 +235,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
       posts,
       pagination,
       component: PostsTemplate,
+        context: { columns },
     })
   }
 }
