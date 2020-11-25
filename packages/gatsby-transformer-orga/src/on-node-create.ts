@@ -82,7 +82,7 @@ export = async function onCreateNode(
         children: [],
         parent: orgFileNode.id,
         metadata: post,
-        slug: slug(post),
+        slug: s,
         internal: {
           contentDigest,
           type: `OrgContent`,

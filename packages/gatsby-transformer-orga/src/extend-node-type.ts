@@ -1,12 +1,10 @@
 import fsExtra from 'fs-extra'
 import { GraphQLString } from 'gatsby/graphql'
 import { Link } from 'orga'
-import { toHtml, statistics } from 'orga-posts'
+import { statistics, toHtml } from 'orga-posts'
 import { dirname, normalize, posix } from 'path'
 import visit from 'unist-util-visit'
 import { getAST } from './orga-util'
-import path from 'path'
-import withDefault from './default-options'
 
 const DEPLOY_DIR = `public`
 
@@ -18,6 +16,10 @@ const newFileName = linkNode =>
 
 const htmlCacheKey = node =>
   `transformer-orga-org-html-${node.internal.contentDigest}-${pluginsCacheStr}-${pathPrefixCacheStr}`
+
+// ensure only one `/` in new url
+const withPathPrefix = (url, pathPrefix) =>
+  (pathPrefix + url).replace(/\/\//, `/`)
 
 const newPath = (linkNode, destinationDir = `static`) => {
   return posix.join(
@@ -89,6 +91,12 @@ module.exports = async (
       node.metadata.description || ''
   }
 
+  function getSlug(node) {
+    return node &&
+      node.slug &&
+      withPathPrefix(node.slug, pathPrefix)
+  }
+
   async function getHTML(orgContentNode) {
 
     const cachedHTML = await cache.get(htmlCacheKey(orgContentNode))
@@ -113,7 +121,7 @@ module.exports = async (
 
           const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
           if (linkToOrg) {
-            node.value = linkToOrg.slug
+            node.value = getSlug(linkToOrg) || node.value
           } else {
             const linkNode = files.find(f => f.absolutePath === linkPath)
             if (linkNode && linkNode.absolutePath) {
@@ -128,18 +136,18 @@ module.exports = async (
 
         if (node.protocol === 'id') {
           const linkToOrg = orgContent.find(f => f.metadata.id === node.value)
-          if (linkToOrg) node.value = linkToOrg.slug
+          node.value = getSlug(linkToOrg) || node.value
         }
 
         // TODO: transform internal link of file based content to anchor? i.e. can't find the linkToOrg
         if (node.protocol === `internal`) {
           if (node.value.startsWith('#')) { // internal link by CUSTOM_ID
             const linkToOrg = orgContent.find(f => f.metadata.custom_id === node.value.substring(1))
-            if (linkToOrg) node.value = linkToOrg.slug
+            node.value = getSlug(linkToOrg) || node.value
           } else {
             const linkPath = `${getNode(orgContentNode.parent).fileAbsolutePath}::*${node.value}`
             const linkToOrg = orgContent.find(f => f.absolutePath === linkPath)
-            if (linkToOrg) node.value = linkToOrg.slug
+            node.value = getSlug(linkToOrg) || node.value
           }
         }
       }
