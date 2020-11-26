@@ -3036,11 +3036,6 @@
   resolved "https://registry.yarnpkg.com/@theme-ui/preset-base/-/preset-base-0.3.0.tgz#853a78195beead04ece4391c5672d690899bec47"
   integrity sha512-bFCYoxfe/Ugr5k5BEy3Gv5jg8+idZHWDt/NM95jgla4qITlaOAMuEL6afoQ5HXbJjp5TnZFZ73qO6cKI8/BFfQ==
 
-"@theme-ui/preset-deep@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@theme-ui/preset-deep/-/preset-deep-0.3.0.tgz#acdf3028ef8dc5af2d20b5a82f9fed1062cf74d6"
-  integrity sha512-5XZckaa1nhm7afb57bCMGKR/TCaf9cjTwhNkfAaFjKVklVB4CCinS43zQ0sDadwd3oihCJmGbXyvgwBb8mp/iw==
-
 "@theme-ui/theme-provider@^0.4.0-rc.7":
   version "0.4.0-rc.7"
   resolved "https://registry.yarnpkg.com/@theme-ui/theme-provider/-/theme-provider-0.4.0-rc.7.tgz#c2879162192f0f02cd4ca9116836f146be768fda"
