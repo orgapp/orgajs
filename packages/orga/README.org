@@ -18,13 +18,73 @@ Turns org-mode content into AST.
 ~ast~ is an object looks like this:
 
 #+BEGIN_SRC javascript
-  { type: 'root',
-    children:
-     [ { type: 'headline',
-         children: [ { type: 'text', children: [], value: 'remember the milk' } ],
-         level: 1,
-         keyword: 'TODO',
-         priority: undefined,
-         tags: [ 'shopping' ] } ],
-    meta: {} }
+{
+  type: 'document',
+  properties: {},
+  children: [
+    {
+      type: 'section',
+      level: 1,
+      properties: {},
+      children: [
+        {
+          type: 'headline',
+          actionable: true,
+          content: 'remember the milk',
+          children: [
+            {
+              type: 'stars',
+              level: 1,
+              position: {
+                start: { line: 1, column: 1 },
+                end: { line: 1, column: 2 }
+              },
+              parent: [Circular *1]
+            },
+            {
+              type: 'todo',
+              keyword: 'TODO',
+              actionable: true,
+              position: {
+                start: { line: 1, column: 3 },
+                end: { line: 1, column: 7 }
+              },
+              parent: [Circular *1]
+            },
+            {
+              type: 'text.plain',
+              value: 'remember the milk',
+              position: {
+                start: { line: 1, column: 8 },
+                end: { line: 1, column: 25 }
+              },
+              parent: [Circular *1]
+            },
+            {
+              type: 'tags',
+              tags: [ 'shopping' ],
+              position: {
+                start: { line: 1, column: 29 },
+                end: { line: 1, column: 39 }
+              },
+              parent: [Circular *1]
+            }
+          ],
+          level: 1,
+          position: {
+            start: { line: 1, column: 1 },
+            end: { line: 1, column: 39 }
+          },
+          keyword: 'TODO',
+          tags: [ 'shopping' ],
+          parent: [Circular *2]
+        }
+      ],
+      position: { start: { line: 1, column: 1 }, end: { line: 1, column: 39 } },
+      parent: [Circular *3]
+    }
+  ],
+  position: { start: { line: 1, column: 1 }, end: { line: 1, column: 39 } }
+}
+
 #+END_SRC

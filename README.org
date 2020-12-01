@@ -44,7 +44,7 @@ The =orga= parser is completely compatible with unified. Which means you get to 
 Build blazing fast, modern apps and websites with React
 #+END_QUOTE
 
-One of the best static website/app generator out there. Trust me; I have tried a lot. Don't be put off by words like =React= or =JavaScript=. Like it or not, they are taking over the web. orga is deeply integrated with gatsby (via [[file:packages/gatsby-transformer-orga/README.md][plugins]] and [[file:packages/gatsby-theme-blorg/README.md][themes]]) to create the tools for building powerful websites without much hassle. Also, leveraging other plugins people build for markdown-based websites. Which is a much richer eco-system, now it's ours too.
+One of the best static website/app generator out there. Trust me; I have tried a lot. Don't be put off by words like =React= or =JavaScript=. Like it or not, they are taking over the web. orga is deeply integrated with gatsby (via [[file:packages/gatsby-transformer-orga/README.md][plugins]] and [[file:packages/gatsby-theme-blorg/README.md][themes]]) to create the tools for building powerful websites without much hassle. Also, We can leverage other plugins people build for markdown-based websites. Which is a much richer eco-system, now it's ours too.
 
 
 * How Does It Work
