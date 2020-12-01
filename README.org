@@ -1,6 +1,6 @@
 #+TITLE: Orga
 
-#+HTML: <p align="center" style="border-radius: 1em;"><img src="assets/logo.png" width="300" height="300"/></p>
+#+HTML: <p align="center"><img src="assets/logo.png" width="300" height="300" style="border-radius: 1em;"/></p>
 
 #+BEGIN_QUOTE
 org-mode with JavaScript
@@ -12,13 +12,13 @@ org-mode with JavaScript
 
 * Why
 
-The reason why markdown is so popular is that org-mode is kind of trapped inside of emacs (I am joking, kind of. 😉). I want to share the awesomeness with the rest of the world. JavaScript runs everywhere nowadays, so, why not.
+The reason why markdown is so popular is that org-mode is kind of trapped inside of emacs (I am joking, sort of. 😉). I want to share the awesomeness with the rest of the world. JavaScript runs everywhere nowadays, so, why not.
 
 * What You Can Do with it NOW
 
 - Build a full-featured gatsby blog in seconds, customize it progressively, bits by bits. [[https://www.huxiaoxing.com/building-a-website-with-org-mode-files][Here is the post]].
 - Build a bare-bone gatsby website (for those of you tinkerers), start building your website from raw data.
-- Integrate org-mode into any of your JavaScript projects. E.g. a real-time org-mode -> html transformer on your website, like [[https://orga.js.org][this one]].
+- Integrate org-mode into any of your JavaScript projects. E.g. a real-time org-mode -> HTML transformer on your website, like [[https://orga.js.org][this one]].
 
 * What You Can Do Potentially
 
@@ -36,7 +36,7 @@ Nobody likes to reinvent wheels more than us programmers. But when you see a pre
 ☔️ interface for parsing, inspecting, transforming, and serializing content through syntax trees
 #+END_QUOTE
 
-The =orga= parser is completely compatible with unified. Which means you got the take advantage of the work of others put in to the stack. [[https://github.com/retextjs/retext][linting for natural language]], [[https://alexjs.com][correct your writing]], [[https://wooorm.com/write-music/][write music]]? etc...
+The =orga= parser is completely compatible with unified. Which means you get to take advantage of the works of others put into the pipeline. [[https://github.com/retextjs/retext][linting for natural language]], [[https://alexjs.com][correct your writing]], [[https://wooorm.com/write-music/][write music]]? etc.
 
 ** [[https://www.gatsbyjs.com][Gatsby]]
 
@@ -44,7 +44,7 @@ The =orga= parser is completely compatible with unified. Which means you got the
 Build blazing fast, modern apps and websites with React
 #+END_QUOTE
 
-One of the best static website/app generator out there. Trust me, I've tried a lot. Don't be put off by words like =React= or =JavaScript=. Like it or not, they are taking over the web. orga is deeply integrated with gatsby (via [[file:packages/gatsby-transformer-orga/README.md][plugins]] and [[file:packages/gatsby-theme-blorg/README.md][themes]]) to create the tools for building powerful websites without much hassle. Also, leveraging other plugins people build for markdown-based websites. Which is a much richer eco-system, now it's ours too.
+One of the best static website/app generator out there. Trust me; I have tried a lot. Don't be put off by words like =React= or =JavaScript=. Like it or not, they are taking over the web. orga is deeply integrated with gatsby (via [[file:packages/gatsby-transformer-orga/README.md][plugins]] and [[file:packages/gatsby-theme-blorg/README.md][themes]]) to create the tools for building powerful websites without much hassle. Also, leveraging other plugins people build for markdown-based websites. Which is a much richer eco-system, now it's ours too.
 
 
 * How Does It Work
@@ -72,4 +72,4 @@ cd www
 yarn run develop
 #+end_src
 
-If you find any issue, try to reproduce it on [[https://orga.js.org][this convenient web page]], generate a permalink with the button, and attach it to your github issue.
+If you find any issue, try to reproduce it on [[https://orga.js.org][this convenient web page]], generate a permalink with the button, and attach it to your GitHub issue.
