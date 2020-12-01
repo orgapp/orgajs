@@ -1,4 +1,4 @@
-This is an example project.
+This is an example project, with [[file:index.js][10 lines of code]].
 
 #+BEGIN_SRC sh
 npm install

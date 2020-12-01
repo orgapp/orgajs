@@ -50,7 +50,7 @@ One of the best static website/app generator out there. Trust me; I have tried a
 * How Does It Work
 
 - [[file:packages/orga/README.org][Learn more about the parser]]
-- [[file:packages/orga/src/types.ts][Learn more about the AST]]
+- [[file:packages/orga/src/types.ts][Learn more about the definition of the AST]]
 - [[file:examples/example/][Learn by example how to transform org-mode syntax into HTML]]
 - [[https://orgapp.github.io/gatsby-starter-blorg/][Learn more about building websites with org files]]
 
