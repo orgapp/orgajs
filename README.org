@@ -1,6 +1,6 @@
 #+TITLE: Orga
 
-#+HTML: <p align="center"><img src="assets/logo.png" width="300" height="300"/></p>
+#+HTML: <p align="center" style="border-radius: 1em;"><img src="assets/logo.png" width="300" height="300"/></p>
 
 #+BEGIN_QUOTE
 org-mode with JavaScript
@@ -8,30 +8,51 @@ org-mode with JavaScript
 
 * What Is It
 
-Orga is a flexible org-mode syntax parser. It parses org content into AST
-(Abstract Syntax Tree), then what you can do with it is limited only by your own
-imagination.
+=Orga= is a flexible org-mode syntax parser. It parses org content into AST ([[https://en.wikipedia.org/wiki/Abstract_syntax_tree][Abstract Syntax Tree 🌲]]), then what you can do with it is limited only by your imagination.
 
-* What Can It Do
+* Why
 
-Like I said, with AST at hand, you can do literally anything with it. The AST is
-compatible with the super awesome [[https://unifiedjs.github.io][unified]]. Which means you can plug it right
-into the existing system and established flows. Or if you are the creative kind
-of person, and you don't hate JavaScript to the bone, you can make something
-yourself. Here are a couple of ideas:
+The reason why markdown is so popular is that org-mode is kind of trapped inside of emacs (I am joking, kind of. 😉). I want to share the awesomeness with the rest of the world. JavaScript runs everywhere nowadays, so, why not.
 
-- [X] transform your org-mode document into HTML
-- [X] publish your org-mode notes with one of the most popular static site generators
-- [ ] build a emacs-less cli for org-mode (working on it)
-- [ ] natural language processing with [[https://github.com/retextjs/retext][retext]] and its ever growing [[https://github.com/retextjs/retext/blob/master/doc/plugins.md][plugin ecosystem]]
-- [ ] make your own GTD system with fancy UI and stuff
-- [ ] automate your workflow with org-mode
+* What You Can Do with it NOW
+
+- Build a full-featured gatsby blog in seconds, customize it progressively, bits by bits. [[https://www.huxiaoxing.com/building-a-website-with-org-mode-files][Here is the post]].
+- Build a bare-bone gatsby website (for those of you tinkerers), start building your website from raw data.
+- Integrate org-mode into any of your JavaScript projects. E.g. a real-time org-mode -> html transformer on your website, like [[https://orga.js.org][this one]].
+
+* What You Can Do Potentially
+
+- emacs-less cli for org-mode
+- org-mode desktop app with [[https://www.electronjs.org][electron]], or a [[https://code.visualstudio.com][Visual Studio Code]] extension.
+- org-mode mobile app with [[https://reactnative.dev][react native]].
+
+* Compatible Eco-systems
+
+Nobody likes to reinvent wheels more than us programmers. But when you see a pretty solid wheel, it's wise to take advantage of it.
+
+** [[https://unifiedjs.com][Unified]]
+
+#+BEGIN_QUOTE
+☔️ interface for parsing, inspecting, transforming, and serializing content through syntax trees
+#+END_QUOTE
+
+The =orga= parser is completely compatible with unified. Which means you got the take advantage of the work of others put in to the stack. [[https://github.com/retextjs/retext][linting for natural language]], [[https://alexjs.com][correct your writing]], [[https://wooorm.com/write-music/][write music]]? etc...
+
+** [[https://www.gatsbyjs.com][Gatsby]]
+
+#+BEGIN_QUOTE
+Build blazing fast, modern apps and websites with React
+#+END_QUOTE
+
+One of the best static website/app generator out there. Trust me, I've tried a lot. Don't be put off by words like =React= or =JavaScript=. Like it or not, they are taking over the web. orga is deeply integrated with gatsby (via [[file:packages/gatsby-transformer-orga/README.md][plugins]] and [[file:packages/gatsby-theme-blorg/README.md][themes]]) to create the tools for building powerful websites without much hassle. Also, leveraging other plugins people build for markdown-based websites. Which is a much richer eco-system, now it's ours too.
+
 
 * How Does It Work
 
-- [[file:packages/orga/README.org][Learn about the parser itself and the definition of the AST]]
+- [[file:packages/orga/README.org][Learn more about the parser]]
+- [[file:packages/orga/src/types.ts][Learn more about the AST]]
 - [[file:examples/example/][Learn by example how to transform org-mode syntax into HTML]]
-- [[file:examples/gatsby-blorg/][Learn how to build a Gatsby blog backed by org-mode files]]
+- [[https://orgapp.github.io/gatsby-starter-blorg/][Learn more about building websites with org files]]
 
 * Documentation
 [[https://orga.js.org][Here]].
@@ -50,3 +71,5 @@ yarn test
 cd www
 yarn run develop
 #+end_src
+
+If you find any issue, try to reproduce it on [[https://orga.js.org][this convenient web page]], generate a permalink with the button, and attach it to your github issue.
