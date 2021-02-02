@@ -1,6 +1,6 @@
 {
   "name": "orga-unified",
-  "version": "2.3.14",
+  "version": "2.3.15",
   "description": "orga processor for unifiedjs",
   "files": [
     "lib"
@@ -17,7 +17,7 @@
     "clean": "rm -rf ./lib"
   },
   "dependencies": {
-    "reorg-parse": "^2.3.14",
+    "reorg-parse": "^2.3.15",
     "unified": "^9.1.0"
   }
 }
