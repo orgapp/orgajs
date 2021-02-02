@@ -81,11 +81,20 @@ const extractMetadata = (tree: Section | Document, fallbacks: Partial<Metadata> 
     }
   }
 
-  const getTags = (metadata: Metadata) => {
+  const getTags = (metadata: any) => {
     let tags: string[] = []
     if (tree.type === 'section') {
       const headline = select('headline', tree) as Headline
       tags = headline.tags || tags
+    } else {
+
+      tags = _.reduce((result: string[], k: string) =>
+        _.flow(
+          _.get(k),
+          _.split(' '),
+          _.filter(_.identity),
+          _.union(result),
+        )(metadata), [])(['keywords', 'tags'])
     }
 
     return {

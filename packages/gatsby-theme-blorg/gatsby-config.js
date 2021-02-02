@@ -32,11 +32,9 @@ module.exports = options => {
           ...options,
         },
       },
-      `gatsby-plugin-offline`,
       `gatsby-plugin-react-helmet`,
       `gatsby-plugin-emotion`,
       `gatsby-transformer-sharp`,
-      `gatsby-transformer-toml`,
       `gatsby-plugin-sharp`,
       {
         resolve: `gatsby-source-filesystem`,
