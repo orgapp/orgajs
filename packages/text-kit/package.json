@@ -26,8 +26,5 @@
   },
   "bugs": {
     "url": "https://github.com/orgapp/orgajs/issues"
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.2"
   }
 }
