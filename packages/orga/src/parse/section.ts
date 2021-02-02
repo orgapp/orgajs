@@ -39,7 +39,7 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
     while (tryTo(parseDrawer)(drawer => {
       if (drawer.name.toLowerCase() === 'properties') {
         section.properties = drawer.value.split('\n').reduce((accu, current) => {
-          const m = current.match(/\s*:(.+):\s*(.+)\s*$/)
+          const m = current.match(/\s*:(.+?):\s*(.+)\s*$/)
           if (m) {
             return { ...accu, [m[1].toLowerCase()]: m[2] }
           }
