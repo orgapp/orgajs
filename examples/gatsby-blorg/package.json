@@ -5,11 +5,11 @@
   "version": "2.3.15",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "dependencies": {
-    "gatsby": "^2.25.3",
+    "gatsby": "^3.2.1",
     "gatsby-theme-blorg": "^2.3.15",
     "prop-types": "^15.7.2",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0"
   },
   "keywords": [

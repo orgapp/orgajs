@@ -18,11 +18,11 @@
     "url": "https://github.com/orgapp/orgajs/issues"
   },
   "dependencies": {
-    "gatsby-source-filesystem": "^2.1.33",
+    "gatsby-source-filesystem": "^3.2.0",
     "gatsby-transformer-orga": "^2.3.15"
   },
   "peerDependencies": {
-    "gatsby": "^2.x",
+    "gatsby": "^3.0.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   }

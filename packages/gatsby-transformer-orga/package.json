@@ -5,7 +5,7 @@
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "dependencies": {
     "bluebird": "^3.7.0",
-    "gatsby-core-utils": "^1.4.0",
+    "gatsby-core-utils": "^2.2.0",
     "hast-util-to-html": "^7.1.1",
     "is-relative-url": "^3.0.0",
     "mime": "^2.4.4",
@@ -27,7 +27,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "gatsby": "2.x"
+    "gatsby": "^3.0.0"
   },
   "scripts": {
     "build": "npm run clean && npm run compile",

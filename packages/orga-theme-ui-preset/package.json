@@ -25,6 +25,6 @@
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
   "dependencies": {
-    "@theme-ui/preset-base": "^0.3.0"
+    "@theme-ui/preset-base": "^0.6.0"
   }
 }
