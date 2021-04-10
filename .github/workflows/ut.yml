@@ -16,4 +16,5 @@ jobs:
     - name: bootstrap and test
       run: |
         yarn run bootstrap
+        yarn run compile
         yarn test
