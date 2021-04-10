@@ -2,7 +2,7 @@
   "name": "gatsby-theme-orga",
   "version": "2.3.15",
   "description": "gatsby theme for orga.js",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "homepage": "https://github.com/orgapp/orgajs#readme",
   "license": "MIT",
   "main": "index.js",
@@ -23,7 +23,7 @@
   },
   "peerDependencies": {
     "gatsby": "^3.0.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2"
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   }
 }

@@ -6,7 +6,7 @@
     "lib"
   ],
   "main": "lib/index.js",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/oast-to-hast",
   "dependencies": {
@@ -16,10 +16,7 @@
     "unist-builder": "^2.0.3"
   },
   "scripts": {
-    "build": "npm run clean && npm run compile",
     "compile": "tsc -p tsconfig.build.json",
-    "compile:watch": "tsc -w -p tsconfig.build.json",
-    "prepare": "cross-env NODE_ENV=production npm run build",
     "clean": "rm -rf ./lib"
   },
   "devDependencies": {

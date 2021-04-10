@@ -35,11 +35,5 @@ module.exports = {
         icon: '../assets/logo.png',
       },
     },
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      }
-    },
   ],
 }

@@ -2,7 +2,7 @@
   "name": "gatsby-transformer-orga",
   "description": "Gatsby transformer plugin for org-mode with orga",
   "version": "2.3.15",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "dependencies": {
     "bluebird": "^3.7.0",
     "gatsby-core-utils": "^2.2.0",
@@ -30,9 +30,7 @@
     "gatsby": "^3.0.0"
   },
   "scripts": {
-    "build": "npm run clean && npm run compile",
     "compile": "tsc -p tsconfig.build.json",
-    "compile:watch": "tsc -w -p tsconfig.build.json",
     "clean": "rm -rf *.js"
   }
 }
