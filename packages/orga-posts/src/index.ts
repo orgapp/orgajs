@@ -6,7 +6,7 @@ import {
 } from 'orga'
 import highlight from 'rehype-highlight'
 import html from 'rehype-stringify'
-import reorg2rehype from 'reorg-rehype'
+import reorg2rehype from '@orgajs/reorg-rehype'
 import unified from 'unified'
 import { select, selectAll } from 'unist-util-select'
 import appendFootnotes from './appendFootnotes'

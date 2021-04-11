@@ -100,7 +100,7 @@ CLOSED: [2018-12-11 Tue 19:40]
 Install dependencies.
 
 #+BEGIN_SRC sh
-npm install unified unified-stream reorg-parse reorg-rehype rehype-stringify
+npm install unified unified-stream reorg-parse @orgajs/reorg-rehype rehype-stringify
 #+END_SRC
 
 ** Usage

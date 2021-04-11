@@ -1,5 +1,5 @@
 {
-  "name": "reorg-parse",
+  "name": "@orgajs/reorg-parse",
   "version": "2.3.16",
   "description": "orga parser for unifiedjs",
   "files": [

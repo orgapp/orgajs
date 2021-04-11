@@ -9,9 +9,6 @@ module.exports = {
   plugins: [
     {
       resolve: 'gatsby-theme-blorg',
-      options: {
-        preset: '@theme-ui/preset-deep',
-      },
     },
   ],
 }

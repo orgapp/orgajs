@@ -1,5 +1,5 @@
 {
-  "name": "reorg-rehype",
+  "name": "@orgajs/reorg-rehype",
   "version": "2.3.16",
   "description": "rehype support for orga",
   "files": [

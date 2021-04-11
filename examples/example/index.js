@@ -1,9 +1,9 @@
 const stream = require('unified-stream')
-const orga = require('orga-unified')
-const mutate = require('reorg-rehype')
+const reorg = require('@orgajs/reorg')
+const mutate = require('@orgajs/reorg-rehype')
 const html = require('rehype-stringify')
 
-const processor = orga()
+const processor = reorg()
       .use(mutate)
       .use(html)
 
