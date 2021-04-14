@@ -11,9 +11,9 @@ export default (context: Context) => (node: Block): HNode => {
   if (name === 'src') {
     let body: HNode = u('text', node.value)
     const lang = node.params[0]
-    if (lang && context.highlight) {
-      body = u('raw', highlight(lang, node.value))
-    }
+    // if (lang && context.highlight) {
+    //   body = u('raw', highlight(lang, node.value))
+    // }
     return h('pre')(
       h('code', { className: [`language-${lang}`] })(
         body

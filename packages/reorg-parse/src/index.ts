@@ -7,4 +7,4 @@ const _parse: Plugin = function(options: Partial<ParseOptions>) {
   }
 }
 
-export = _parse
+export default _parse

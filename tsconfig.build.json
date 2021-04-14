@@ -6,13 +6,15 @@
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
+    "target": "ES2015",
     "sourceMap": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
     "noImplicitUseStrict": true,
     "esModuleInterop": true,
     "declaration": true,
+    "jsx": "react",
+    "allowJs": true,
     "lib": [
       "es7", "es2019"
     ]

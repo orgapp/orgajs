@@ -17,6 +17,7 @@
   },
   "scripts": {
     "compile": "tsc -p tsconfig.build.json",
+    "watch": "yarn run compile -w",
     "clean": "rm -rf ./lib"
   },
   "devDependencies": {
