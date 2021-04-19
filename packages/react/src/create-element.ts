@@ -37,8 +37,6 @@ const OrgaCreateElement = React.forwardRef<ComponentType, OrgaPropsType>((props,
     DEFAULTS[type] ||
     originalType
 
-  console.log(`>> ${Component} <<`)
-
   return React.createElement(Component, { ref, ...etc })
 })
 

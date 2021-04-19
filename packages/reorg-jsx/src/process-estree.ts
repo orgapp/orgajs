@@ -1,5 +1,7 @@
 import { walk } from 'estree-walker'
 import { analyze } from 'periscopic'
+import { isDeclaration, isExportDefaultDeclaration, isExportNamedDeclaration, isExpressionStatement, isJSXElement, isJSXExpression, isJSXFragment } from './type-check'
+import _ from 'lodash/fp'
 
 function processEstree(estree, options) {
   const {
@@ -8,9 +10,9 @@ function processEstree(estree, options) {
     wrapExport
   } = options
 
-  let layout
+  let layout: any
   let children = []
-  let mdxLayoutDefault
+  let mdxLayoutDefault: any
 
   // Find the `export default`, the JSX expression, and leave the rest
   // (import/exports) as they are.
@@ -18,10 +20,11 @@ function processEstree(estree, options) {
     // ```js
     // export default a = 1
     // ```
-    if (child.type === 'ExportDefaultDeclaration') {
-      layout = child.declaration
-      return false
-    }
+    // if (child.type === 'ExportDefaultDeclaration') {
+    //   console.log(`!!!!!!!!ExportDefaultDeclaration!!!!!!!!!!`)
+    //   layout = child.declaration
+    //   return false
+    // }
 
     // ```js
     // export {default} from "a"
@@ -30,21 +33,21 @@ function processEstree(estree, options) {
     // export {a as default} from "b"
     // export {a as default, b} from "c"
     // ```
-    if (child.type === 'ExportNamedDeclaration' && child.source) {
-      // Remove `default` or `as default`, but not `default as`, specifier.
-      child.specifiers = child.specifiers.filter(specifier => {
-        if (specifier.exported.name === 'default') {
-          mdxLayoutDefault = {local: specifier.local, source: child.source}
-          return false
-        }
+    // if (child.type === 'ExportNamedDeclaration' && child.source) {
+    //   // Remove `default` or `as default`, but not `default as`, specifier.
+    //   child.specifiers = child.specifiers.filter(specifier => {
+    //     if (specifier.exported.name === 'default') {
+    //       mdxLayoutDefault = {local: specifier.local, source: child.source}
+    //       return false
+    //     }
 
-        return true
-      })
+    //     return true
+    //   })
 
-      // Keep the export if there are other specifiers, drop it if there was
-      // just a default.
-      return child.specifiers.length > 0
-    }
+    //   // Keep the export if there are other specifiers, drop it if there was
+    //   // just a default.
+    //   return child.specifiers.length > 0
+    // }
 
     if (
       child.type === 'ExpressionStatement' &&
@@ -61,20 +64,25 @@ function processEstree(estree, options) {
     return true
   })
 
+
   // Find everything that’s defined in the top-level scope.
   // Do this here because `estree` currently only includes import/exports
   // and we don’t have to walk all the JSX to figure out the top scope.
-  const inTopScope = [
+  let inTopScope = [
     'MDXLayout',
     'MDXContent',
     ...analyze(estree).scope.declarations.keys()
   ]
 
+  console.log({ inTopScope })
+
   estree.body = [
     ...estree.body,
-    ...createMdxLayout(layout, mdxLayoutDefault),
+    // ...createMdxLayout(layout, mdxLayoutDefault),
     ...createMdxContent(children)
   ]
+
+  let components = []
 
   // Add `orgaType`, `parentName` props to JSX elements.
   const magicShortcodes = []
@@ -82,6 +90,78 @@ function processEstree(estree, options) {
 
   walk(estree, {
     enter: function (node) {
+      // ```js
+      // export default a = 1
+      // ```
+      if (isExportDefaultDeclaration(node)) {
+        console.log(`!!!!!!!!ExportDefaultDeclaration!!!!!!!!!!`)
+        layout = node.declaration
+        this.remove()
+        return
+      }
+
+      // ```js
+      // export {default} from "a"
+      // export {default as a} from "b"
+      // export {default as a, b} from "c"
+      // export {a as default} from "b"
+      // export {a as default, b} from "c"
+      // ```
+      if (isExportNamedDeclaration(node) && !!node.source) {
+        console.log(`!!! got export named declaration: ${node.specifiers}`)
+        node.specifiers = node.specifiers.filter(specifier => {
+          if (specifier.exported.name === 'default') {
+            mdxLayoutDefault = { local: specifier.local, source: node.source }
+            return false
+          }
+
+          return true
+        })
+
+
+        // Keep the export if there are other specifiers, drop it if there was
+        // just a default.
+        if (node.specifiers.length === 0) {
+          this.remove()
+          return
+        }
+      }
+
+      if (isDeclaration(node)) {
+        const names = analyze(node).scope.declarations.keys()
+        const clean = [...names].filter(n => n !== 'MDXContent')
+        if (clean.length > 0) {
+          inTopScope = [...inTopScope, ...clean]
+          components.push(node)
+          this.remove()
+          return
+        }
+      }
+
+      // if (isExpressionStatement(node)) {
+      //   const exp = node.expression
+      //   let removeNode = false
+      //   if (isJSXFragment(exp)) {
+      //     // @ts-ignore
+      //     children = exp.children
+      //     removeNode = true
+      //   }
+      //   if (isJSXElement(exp)) {
+      //     children = [exp]
+      //     removeNode = true
+      //   }
+
+      //   if (removeNode) {
+      //     this.remove()
+      //     return
+      //   }
+      // }
+
+      // unwrap JSXElement
+      if (isJSXExpression(node)) {
+        this.replace(node.expression)
+      }
+
       if (
         node.type === 'JSXElement' &&
         // To do: support members (`<x.y>`).
@@ -158,11 +238,11 @@ function processEstree(estree, options) {
       magicShortcodes,
       options.mdxFragment === false
     ),
+    ...createMdxLayout(layout, mdxLayoutDefault),
+    ...components,
     ...estree.body,
     ...exports
   ]
-
-  // console.log({ estree })
 
   return estree
 }
@@ -248,6 +328,8 @@ function createMdxContent(children) {
 }
 
 function createMdxLayout(declaration, mdxLayoutDefault) {
+  console.log(`------------- createMdxLayout -------------`)
+  console.log({ declaration, mdxLayoutDefault })
   const id = {type: 'Identifier', name: 'MDXLayout'}
   const init = {type: 'Literal', value: 'wrapper', raw: '"wrapper"'}
 

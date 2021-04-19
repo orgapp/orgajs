@@ -25,16 +25,16 @@ const plugin: Plugin = function(options: Options = {}) {
   const compiler = (node, file) => {
 
     const hast = toHAST(node, options)
-    console.log('----- hast -----')
-    console.log(inspect(hast, false, null, true))
+    // console.log('----- hast -----')
+    // console.log(inspect(hast, false, null, true))
 
     // const rawProcessed = raw(hast, file)
     // console.log('----- rawProcessed -----')
     // console.log(inspect(rawProcessed, false, null, true))
 
     const estree = toEstree(hast, {})
-    // console.log('----- estree -----')
-    // console.log(inspect(estree, false, null, true))
+    console.log('----- estree -----')
+    console.log(inspect(estree, false, null, true))
 
     const processed = processEstree(estree, options)
     // console.log('----- processed -----')
