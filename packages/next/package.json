@@ -1,0 +1,20 @@
+{
+  "name": "@orgajs/next",
+  "version": "1.0.0",
+  "description": "orgajs next plugin",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "url": "orgapp/orgajs",
+    "directory": "packages/next"
+  },
+  "peerDependencies": {
+    "@orgajs/loader": "*",
+    "@orgajs/react": "*"
+  },
+  "dependencies": {
+    "@orgajs/estree-jsx": "^1.0.0",
+    "@orgajs/rehype-estree": "^1.0.0",
+    "@orgajs/reorg-rehype": "^2.3.16"
+  }
+}
