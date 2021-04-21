@@ -1,0 +1,21 @@
+{
+  "name": "@orgajs/estree-jsx",
+  "version": "1.0.0",
+  "description": "estree to jsx",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "license": "MIT",
+  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/estree-jsx",
+  "scripts": {
+    "compile": "tsc -p tsconfig.build.json",
+    "watch": "yarn run compile -w",
+    "clean": "rm -rf ./lib"
+  },
+  "dependencies": {
+    "astring": "^1.7.4",
+    "periscopic": "^2.0.0"
+  }
+}

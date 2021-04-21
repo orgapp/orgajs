@@ -1,0 +1,27 @@
+{
+  "name": "@orgajs/example-webpack",
+  "private": true,
+  "version": "1.0.0",
+  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack -p",
+    "webpack": "webpack",
+    "start": "webpack serve"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-react": "^7.13.13",
+    "@orgajs/estree-jsx": "^1.0.0",
+    "@orgajs/loader": "^1.0.0",
+    "@orgajs/rehype-estree": "^1.0.0",
+    "@orgajs/reorg-rehype": "^2.3.16",
+    "babel-loader": "^8.2.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webpack": "^5.33.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
