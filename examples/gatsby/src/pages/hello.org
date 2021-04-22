@@ -1,0 +1,10 @@
+#+TITLE: Try Orga
+#+HTML: import Box from '../components/box'
+
+* Hi
+Thanks for choosing =orga=.
+
+#+begin_export html
+<Box>that tomato box</Box>
+#+end_export
+

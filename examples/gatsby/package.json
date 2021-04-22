@@ -1,0 +1,27 @@
+{
+  "name": "@orgajs/example-gatsby",
+  "version": "1.0.0",
+  "private": true,
+  "description": "gatsby",
+  "author": "Xiaoxing Hu",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "info": "gatsby info"
+  },
+  "dependencies": {
+    "@orgajs/loader": "^1.0.0",
+    "@orgajs/react": "^1.0.0",
+    "gatsby": "^3.3.1",
+    "gatsby-plugin-orga": "^1.0.0",
+    "gatsby-source-filesystem": "^3.3.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
