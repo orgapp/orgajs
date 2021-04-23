@@ -2,16 +2,20 @@
   "name": "gatsby-plugin-orga",
   "version": "1.0.0",
   "description": "Orga integration for Gatsby",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "homepage": "",
-  "scripts": {
-    "test": "jest"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com:orgapp/orgajs.git",
     "directory": "packages/gatsby-plugin-orga"
+  },
+  "scripts": {
+    "precompile": "yarn clean",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepare": "yarn compile",
+    "watch": "yarn run compile -w",
+    "clean": "del ./dist/*"
   },
   "peerDependencies": {
     "@orgajs/loader": "^1.0.0",
@@ -22,6 +26,7 @@
   "dependencies": {
     "@orgajs/estree-jsx": "^1.0.0",
     "@orgajs/rehype-estree": "^1.0.0",
-    "@orgajs/reorg-rehype": "^2.3.16"
+    "@orgajs/reorg-rehype": "^2.3.16",
+    "gatsby-core-utils": "^2.3.0"
   }
 }

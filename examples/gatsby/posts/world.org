@@ -1,4 +1,4 @@
-#+TITLE: Try Orga
+#+TITLE: Try Orga Post
 #+HTML: import Box from '../components/box'
 
 #+begin_export html
@@ -12,7 +12,7 @@ export default ({ title, data, children }) =>
 #+end_export
 
 
-* Hi
+* Hi Post
 Thanks for choosing =orga=.
 
 #+begin_export html

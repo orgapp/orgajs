@@ -1,8 +1,13 @@
-const toRehype = require('@orgajs/reorg-rehype')
-const toEstree = require('@orgajs/rehype-estree')
-const toJsx = require('@orgajs/estree-jsx')
+import toJsx from '@orgajs/estree-jsx'
+import toEstree from '@orgajs/rehype-estree'
+import toRehype from '@orgajs/reorg-rehype'
 
-module.exports = (
+const renderer = `import React from 'react'
+import {orga} from '@orgajs/react'
+import { graphql } from 'gatsby'
+`
+
+export default (
   { stage, loaders, actions, plugins, cache, ...other },
   pluginOptions
 ) => {
@@ -17,16 +22,6 @@ module.exports = (
     module: {
       rules: [
         {
-          test: /\.js$/,
-          include: cache.directory,
-          use: [loaders.js()],
-        },
-        // {
-        //   test: /\.js$/,
-        //   include: path.dirname(require.resolve(`gatsby-plugin-mdx`)),
-        //   use: [loaders.js()],
-        // },
-        {
           test: /\.org$/,
           use: [
             loaders.js(),
@@ -36,7 +31,7 @@ module.exports = (
                 plugins: [
                   toRehype,
                   toEstree,
-                  toJsx,
+                  [toJsx, { renderer }],
                 ]
               }
             },

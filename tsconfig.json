@@ -6,8 +6,7 @@
     "paths": {
       "orga": ["./packages/orga/src"],
       "oast-to-hast": ["./packages/oast-to-hast/src"],
-      "@orgajs/reorg-parse": ["./packages/reorg-parse/src"],
-      "@orgajs/reorg-rehype": ["./packages/reorg-rehype/src"]
+      "@orgajs/*": ["./packages/*/src"]
     }
   }
 }

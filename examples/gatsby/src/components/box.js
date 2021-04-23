@@ -1,6 +1,7 @@
 import React from 'react'
 
-export default ({ children }) =>
+
+const Box = ({ children }) =>
   <div style={{
     padding: 20,
     backgroundColor: 'tomato',
@@ -8,3 +9,5 @@ export default ({ children }) =>
   }}>
     {children}
   </div>
+
+export default Box

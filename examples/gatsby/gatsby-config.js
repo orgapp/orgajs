@@ -1,13 +1,13 @@
 module.exports = {
   siteMetadata: {
-    title: "gatsby",
+    title: "orgajs/gatsby",
   },
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `pages`,
-        path: `${__dirname}/src/pages/`,
+        name: `posts`,
+        path: `${__dirname}/posts/`,
       },
     },
     { resolve: 'gatsby-plugin-orga' },

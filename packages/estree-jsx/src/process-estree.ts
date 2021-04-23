@@ -42,7 +42,7 @@ function processEstree(estree, options: Options) {
     ...analyze(estree).scope.declarations.keys()
   ]
 
-  console.log({ inTopScope })
+  // console.log({ inTopScope })
 
   estree.body = [
     ...estree.body,
@@ -56,13 +56,14 @@ function processEstree(estree, options: Options) {
   const magicShortcodes = []
   const stack = []
 
+  const declarations = []
+
   walk(estree, {
     enter: function (node) {
       // ```js
       // export default a = 1
       // ```
       if (isExportDefaultDeclaration(node)) {
-        console.log(`!!!!!!!!ExportDefaultDeclaration!!!!!!!!!!`)
         layout = node.declaration
         this.remove()
         return
@@ -76,7 +77,6 @@ function processEstree(estree, options: Options) {
       // export {a as default, b} from "c"
       // ```
       if (isExportNamedDeclaration(node) && !!node.source) {
-        console.log(`!!! got export named declaration: ${node.specifiers}`)
         node.specifiers = node.specifiers.filter(specifier => {
           if (specifier.exported.name === 'default') {
             mdxLayoutDefault = { local: specifier.local, source: node.source }
@@ -95,10 +95,17 @@ function processEstree(estree, options: Options) {
         }
       }
 
+      if (isExportNamedDeclaration(node)) {
+        declarations.push(node)
+        this.remove()
+        return
+      }
+
       if (isDeclaration(node)) {
         const names = analyze(node).scope.declarations.keys()
         const clean = [...names].filter(n => n !== 'MDXContent')
         if (clean.length > 0) {
+          // console.log(`🐶 got declaration: ${node.type}`)
           inTopScope = [...inTopScope, ...clean]
           components.push(node)
           this.remove()
@@ -206,6 +213,7 @@ function processEstree(estree, options: Options) {
       magicShortcodes,
       true,
     ),
+    ...declarations,
     ...createMdxLayout(layout, mdxLayoutDefault),
     ...components,
     ...estree.body,
@@ -296,8 +304,6 @@ function createMdxContent(children) {
 }
 
 function createMdxLayout(declaration, mdxLayoutDefault) {
-  console.log(`------------- createMdxLayout -------------`)
-  console.log({ declaration, mdxLayoutDefault })
   const id = {type: 'Identifier', name: 'MDXLayout'}
   const init = {type: 'Literal', value: 'wrapper', raw: '"wrapper"'}
 
@@ -436,7 +442,6 @@ function createMakeShortcodeHelper(names, useElement) {
     kind: 'const'
   }))
 
-  console.log(`>>>> shortcodes: ${shortcodes.length}`)
   return shortcodes.length > 0 ? [func, ...shortcodes] : []
 }
 

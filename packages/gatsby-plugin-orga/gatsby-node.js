@@ -1,2 +1,1 @@
-exports.onCreateWebpackConfig = require(`./create-webpack-config`)
-exports.resolvableExtensions = () => ['.org']
+module.exports = require("./dist/gatsby-node")

@@ -53,6 +53,7 @@ const h = (
 
 const defaultContext = {
   ...defaultOptions,
+  data: {},
   h,
   u,
 }
@@ -81,6 +82,7 @@ export default (
   if (sTags) {
     context.selectTags = sTags.split(/\s+/).map(t => t.trim()).filter(Boolean)
   }
+  const children = all(context)(oast.children) as Root['children']
 
-  return u('root', all(context)(oast.children) as Root['children'])
+  return u('root', { data: oast.properties }, children)
 }

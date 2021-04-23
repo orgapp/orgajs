@@ -1,17 +1,38 @@
-import { parse } from 'orga'
-import { inspect } from 'util'
-import toHAST from '../'
+import { parse } from "orga";
+import toHAST from "../";
 
-describe('Main', () => {
-  it('works', () => {
+const transform = (text) => {
+  const oast = parse(text);
+  // console.log(inspect(oast, false, null, true))
+  return toHAST(oast);
+};
+
+describe("Main", () => {
+  it("works", () => {
     const text = `
 * hello *world*
 [[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,
 ** some headline
-`
+`;
 
-    const tree = parse(text)
-    const hast = toHAST(tree)
+    const tree = parse(text);
+    const hast = toHAST(tree);
     // console.log(inspect(hast, false, null, true))
-  })
-})
+  });
+
+  it("pass properties of oast to hast data field", () => {
+    const hast = transform(`
+#+TITLE: Hello
+#+cover: image/cover.png
+
+* Hi
+`);
+
+    expect(hast.data).toMatchInlineSnapshot(`
+      Object {
+        "cover": "image/cover.png",
+        "title": "Hello",
+      }
+    `);
+  });
+});

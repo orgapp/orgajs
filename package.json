@@ -10,6 +10,7 @@
     "@typescript-eslint/parser": "^4.14.2",
     "chalk": "^4.1.0",
     "cross-env": "^7.0.3",
+    "del-cli": "^3.0.1",
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.22.1",
@@ -35,7 +36,8 @@
     "lint": "eslint 'packages/**/*.ts{,x}'",
     "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",
-    "watch": "lerna run watch --no-sort --stream --concurrency 999"
+    "watch": "lerna run watch --no-sort --stream --concurrency 999",
+    "format": "prettier ."
   },
   "workspaces": {
     "packages": [

@@ -8,6 +8,7 @@
     "gatsby"
   ],
   "scripts": {
+    "predevelop": "yarn clean",
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
