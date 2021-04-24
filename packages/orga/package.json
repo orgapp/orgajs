@@ -1,6 +1,6 @@
 {
   "name": "orga",
-  "version": "2.3.16",
+  "version": "2.4.0",
   "description": "org-mode parser",
   "files": [
     "dist"
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "luxon": "^1.19.3",
-    "text-kit": "^2.3.16",
+    "text-kit": "^2.4.0",
     "xregexp": "^4.3.0"
   }
 }
