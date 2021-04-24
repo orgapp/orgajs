@@ -10,6 +10,14 @@
     "url": "https://github.com:orgapp/orgajs.git",
     "directory": "packages/gatsby-plugin-orga"
   },
+  "files": [
+    "dist",
+    "gatsby-node.js",
+    "gatsby-ssr.js",
+    "gatsby-browser.js",
+    "graphql-utils.js",
+    "graphql-utils.d.ts"
+  ],
   "scripts": {
     "precompile": "yarn clean",
     "compile": "tsc -p tsconfig.build.json",
