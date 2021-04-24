@@ -3,16 +3,18 @@
   "version": "1.0.0",
   "description": "hast to estree",
   "files": [
-    "lib"
+    "dist"
   ],
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/rehype-estree",
   "scripts": {
+    "precompile": "yarn clean",
     "compile": "tsc -p tsconfig.build.json",
+    "prepare": "yarn compile",
     "watch": "yarn run compile -w",
-    "clean": "rm -rf ./lib"
+    "clean": "del ./dist/*"
   },
   "dependencies": {
     "@typescript-eslint/typescript-estree": "^4.22.0",

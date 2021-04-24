@@ -1,9 +1,9 @@
 {
   "name": "@orgajs/react",
   "version": "1.0.0",
-  "main": "lib/index.js",
   "license": "MIT",
   "files": ["dist"],
+  "main": "dist/index.js",
   "scripts": {
     "precompile": "yarn clean",
     "compile": "tsc -p tsconfig.build.json",
