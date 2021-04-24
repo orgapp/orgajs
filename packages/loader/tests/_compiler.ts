@@ -34,7 +34,7 @@ export default (fixture, options = {}) => {
             //   loader: '@babel/plugin-transform-react-jsx',
             // },
             {
-              loader: path.resolve(__dirname, '../lib'),
+              loader: path.resolve(__dirname, '../dist'),
               options,
             }
           ],

@@ -3,23 +3,27 @@
   "version": "2.3.16",
   "description": "bundle of useful tools for manipulating text",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
-  "homepage": "https://github.com/orgapp/orgajs#readme",
+  "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/text-kit#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orgapp/orgajs.git",
+    "directory": "packages/text-kit"
+  },
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "directories": {
-    "lib": "lib",
+    "dist": "dist",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "dist"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/orgapp/orgajs.git"
-  },
   "scripts": {
-    "compile": "tsc",
-    "clean": "rm -rf ./lib"
+    "precompile": "yarn clean",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepare": "yarn compile",
+    "watch": "yarn run compile -w",
+    "clean": "del ./dist/*"
   },
   "bugs": {
     "url": "https://github.com/orgapp/orgajs/issues"

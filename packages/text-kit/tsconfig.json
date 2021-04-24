@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./lib",
+    "outDir": "./dist",
     "module": "commonjs",
     "noImplicitAny": false,
     "removeComments": true,

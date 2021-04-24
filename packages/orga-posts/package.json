@@ -3,19 +3,22 @@
   "version": "2.3.16",
   "description": "",
   "files": [
-    "lib"
+    "dist"
   ],
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/orgapp/orgajs.git",
-    "directory": "packages/orga"
+    "directory": "packages/orga-posts"
   },
   "scripts": {
+    "precompile": "yarn clean",
     "compile": "tsc -p tsconfig.build.json",
-    "clean": "rm -rf ./lib"
+    "prepare": "yarn compile",
+    "watch": "yarn run compile -w",
+    "clean": "del ./dist/*"
   },
   "keywords": [
     "org-mode",
