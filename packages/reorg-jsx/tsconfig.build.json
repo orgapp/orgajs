@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.build.json",
-  "compilerOptions": {
-    "jsx": "react",
-    "outDir": "./lib"
-  },
-  "include": ["./src"],
-  "exclude": ["**/__tests__/**"]
-}
