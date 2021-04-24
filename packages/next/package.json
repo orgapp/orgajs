@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/next",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "orgajs next plugin",
   "main": "index.js",
   "license": "MIT",
@@ -13,8 +13,8 @@
     "@orgajs/react": "*"
   },
   "dependencies": {
-    "@orgajs/estree-jsx": "^2.4.1",
-    "@orgajs/rehype-estree": "^2.4.1",
-    "@orgajs/reorg-rehype": "^2.4.1"
+    "@orgajs/estree-jsx": "^2.4.2",
+    "@orgajs/rehype-estree": "^2.4.2",
+    "@orgajs/reorg-rehype": "^2.4.2"
   }
 }

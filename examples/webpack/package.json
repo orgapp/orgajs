@@ -1,7 +1,7 @@
 {
   "name": "@orgajs/example-webpack",
   "private": true,
-  "version": "2.4.1",
+  "version": "2.4.2",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "main": "index.js",
   "scripts": {
@@ -13,10 +13,10 @@
     "@babel/core": "^7.13.15",
     "@babel/preset-env": "^7.13.15",
     "@babel/preset-react": "^7.13.13",
-    "@orgajs/estree-jsx": "^2.4.1",
-    "@orgajs/loader": "^2.4.1",
-    "@orgajs/rehype-estree": "^2.4.1",
-    "@orgajs/reorg-rehype": "^2.4.1",
+    "@orgajs/estree-jsx": "^2.4.2",
+    "@orgajs/loader": "^2.4.2",
+    "@orgajs/rehype-estree": "^2.4.2",
+    "@orgajs/reorg-rehype": "^2.4.2",
     "babel-loader": "^8.2.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

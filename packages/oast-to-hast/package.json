@@ -1,6 +1,6 @@
 {
   "name": "oast-to-hast",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Transform OAST to HAST",
   "files": [
     "dist"
@@ -11,7 +11,7 @@
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/oast-to-hast",
   "dependencies": {
     "mime": "^2.4.4",
-    "orga": "^2.4.1",
+    "orga": "^2.4.2",
     "prismjs": "^1.17.1",
     "unist-builder": "^2.0.3"
   },
