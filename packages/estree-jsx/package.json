@@ -24,5 +24,8 @@
   "dependencies": {
     "astring": "^1.7.4",
     "periscopic": "^2.0.0"
+  },
+  "devDependencies": {
+    "estree-jsx": "^0.0.1"
   }
 }
