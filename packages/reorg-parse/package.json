@@ -3,16 +3,23 @@
   "version": "2.3.16",
   "description": "orga parser for unifiedjs",
   "files": [
-    "lib"
+    "dist"
   ],
   "main": "lib/index.js",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "license": "MIT",
-  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/reorg-parse",
+  "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/reorg-parse#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orgapp/orgajs.git",
+    "directory": "packages/reorg-parse"
+  },
   "scripts": {
+    "precompile": "yarn clean",
     "compile": "tsc -p tsconfig.build.json",
+    "prepare": "yarn compile",
     "watch": "yarn run compile -w",
-    "clean": "rm -rf ./lib"
+    "clean": "del ./dist/*"
   },
   "dependencies": {
     "orga": "^2.3.16"
