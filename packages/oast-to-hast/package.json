@@ -3,9 +3,9 @@
   "version": "2.3.16",
   "description": "Transform OAST to HAST",
   "files": [
-    "lib"
+    "dist"
   ],
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/oast-to-hast",
@@ -16,9 +16,11 @@
     "unist-builder": "^2.0.3"
   },
   "scripts": {
+    "precompile": "yarn clean",
     "compile": "tsc -p tsconfig.build.json",
+    "prepare": "yarn compile",
     "watch": "yarn run compile -w",
-    "clean": "rm -rf ./lib"
+    "clean": "del ./dist/*"
   },
   "devDependencies": {
     "@types/hast": "^2.3.1"
