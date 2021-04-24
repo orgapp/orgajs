@@ -23,5 +23,6 @@ module.exports = {
   settings: {},
   rules: {
     'import/no-extraneous-dependencies': ['error'],
+    'semi': ['error', 'never'],
   },
 }

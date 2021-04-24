@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "precompile": "yarn clean",
-    "compile": "tsc -p tsconfig.build.json",
+    "compile": "tsc",
     "prepare": "yarn compile",
     "watch": "yarn run compile -w",
     "clean": "del ./dist/*"

@@ -1,8 +1,6 @@
-import u from 'unist-builder'
 import { parse } from '@typescript-eslint/typescript-estree'
+import u from 'unist-builder'
 import toEstree from '../src'
-import { inspect } from 'util'
-import { ExpressionStatement } from 'estree'
 
 const transform = (tree) => {
   return toEstree({})(tree, null)
@@ -14,14 +12,14 @@ describe("rehype-estree", () => {
     const estree = transform(hast)
 
 
-    console.log(inspect(estree, false, null, true))
+    // console.log(inspect(estree, false, null, true))
   })
 
-  it.only ('poc', () => {
+  it ('poc', () => {
     const tree = parse(`
 export const a = 'b'
 export const c = 2
 `)
-    console.log(inspect(tree, false, null, true))
+    // console.log(inspect(tree, false, null, true))
   })
 })
