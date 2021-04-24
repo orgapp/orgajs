@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "@orgajs/react": "^2.4.0",
-    "@orgajs/reorg-jsx": "^1.0.0",
     "html-loader": "^2.1.2",
     "memfs": "^3.2.2",
     "react": "^17.0.2",
