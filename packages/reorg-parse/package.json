@@ -5,7 +5,7 @@
   "files": [
     "dist"
   ],
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/reorg-parse#readme",
