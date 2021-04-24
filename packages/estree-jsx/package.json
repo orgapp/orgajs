@@ -3,16 +3,18 @@
   "version": "1.0.0",
   "description": "estree to jsx",
   "files": [
-    "lib"
+    "dist"
   ],
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/estree-jsx",
   "scripts": {
+    "precompile": "yarn clean",
     "compile": "tsc -p tsconfig.build.json",
+    "prepare": "yarn compile",
     "watch": "yarn run compile -w",
-    "clean": "rm -rf ./lib"
+    "clean": "del ./dist/*"
   },
   "dependencies": {
     "astring": "^1.7.4",
