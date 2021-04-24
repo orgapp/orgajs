@@ -8,7 +8,12 @@
   "main": "dist/index.js",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "license": "MIT",
-  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/estree-jsx",
+  "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/estree-jsx#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:orgapp/orgajs.git",
+    "directory": "packages/estree-jsx"
+  },
   "scripts": {
     "precompile": "yarn clean",
     "compile": "tsc -p tsconfig.build.json",
