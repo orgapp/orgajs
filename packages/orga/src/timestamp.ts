@@ -27,10 +27,10 @@ ${close}\
   return pattern
 }
 
-const pattern = _timestampPattern()
+export const pattern = _timestampPattern()
 
 
-const parse = (
+export const parse = (
   input: string,
   { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone } = {},
 ): Timestamp | undefined => {
@@ -66,9 +66,4 @@ const parse = (
   }
 
   return { date, end }
-}
-
-export {
-  parse,
-  pattern,
 }

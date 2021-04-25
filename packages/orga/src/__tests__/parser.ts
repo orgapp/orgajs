@@ -1,7 +1,7 @@
-import Parser from '../parser'
-import { parse } from '../parse'
-import { tokenize } from '../lexer'
 import { inspect } from 'util'
+import { tokenize } from '../lexer'
+import { parse } from '../parse'
+import Parser from '../parser'
 
 describe('Parser', () => {
   const parser = new Parser({ todos: ['TODO', 'DONE'], timezone: 'Pacific/Auckland' })
