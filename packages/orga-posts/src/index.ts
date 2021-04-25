@@ -1,3 +1,4 @@
+import reorg2rehype from '@orgajs/reorg-rehype'
 import * as _ from 'lodash/fp'
 import {
   Document, Headline, Parent, parse,
@@ -6,7 +7,6 @@ import {
 } from 'orga'
 import highlight from 'rehype-highlight'
 import html from 'rehype-stringify'
-import reorg2rehype from '@orgajs/reorg-rehype'
 import unified from 'unified'
 import { select, selectAll } from 'unist-util-select'
 import appendFootnotes from './appendFootnotes'
@@ -21,6 +21,13 @@ interface Metadata {
   keyword: string;
   tags: string[];
   date?: Date;
+}
+
+const pTimestamp = (obj: any) => {
+  if (typeof obj === 'string' && obj.length > 0) {
+    return parseTimestamp(obj)
+  }
+  return undefined
 }
 
 const defaultToHtmlOptions = {
@@ -67,9 +74,9 @@ const extractMetadata = (tree: Section | Document, fallbacks: Partial<Metadata> 
       ...rest
     } = metadata
 
-    let timestamp = parseTimestamp(date) ||
-      parseTimestamp(export_date) ||
-      parseTimestamp(publish_date)
+    let timestamp = pTimestamp(date) ||
+      pTimestamp(export_date) ||
+      pTimestamp(publish_date)
 
     if (!timestamp && tree.type === 'section') {
       timestamp = _.get('timestamp')(select(`planning[keyword=CLOSED]`, tree))
