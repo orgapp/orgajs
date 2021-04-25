@@ -29,7 +29,6 @@
     "lerna": "lerna",
     "clean": "lerna run clean",
     "compile": "lerna run compile",
-    "prepublishOnly": "yarn run clean && yarn run compile",
     "publish": "lerna publish",
     "publish-next": "lerna publish --dist-tag=next --bump=prerelease",
     "test": "jest",
