@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/react",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "license": "MIT",
   "files": [
     "dist"
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.13.12",
-    "@orgajs/reorg": "^2.4.2",
+    "@orgajs/reorg": "^2.4.3",
     "babel-plugin-remove-export-keywords": "^1.6.22",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"

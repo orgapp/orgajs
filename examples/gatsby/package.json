@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/example-gatsby",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "private": true,
   "description": "gatsby",
   "author": "Xiaoxing Hu",
@@ -17,10 +17,10 @@
     "info": "gatsby info"
   },
   "dependencies": {
-    "@orgajs/loader": "^2.4.2",
-    "@orgajs/react": "^2.4.2",
+    "@orgajs/loader": "^2.4.3",
+    "@orgajs/react": "^2.4.3",
     "gatsby": "^3.3.1",
-    "gatsby-plugin-orga": "^2.4.2",
+    "gatsby-plugin-orga": "^2.4.3",
     "gatsby-source-filesystem": "^3.3.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
