@@ -1,69 +1,80 @@
 import { DateTime } from 'luxon'
-import XRegExp from 'xregexp'
+import { read } from './reader'
 import { Timestamp } from './types'
-
-const _timestampPattern = () => {
-  const date = `\\d{4}-\\d{2}-\\d{2}`
-  const time = `\\d{2}:\\d{2}`
-  const day = `[a-zA-Z]+`
-  const open = `[<\\[]`
-  const close = `[>\\]]`
-
-  const single = prefix => `\
-${open}\
-(?<${prefix}Date>${date})\
-\\s+${day}\
-(?:\\s+(?<${prefix}TimeBegin>${time})\
-(?:-(?<${prefix}TimeEnd>${time}))?)?\
-${close}\
-`
-
-  const pattern = `^\\s*\
-(${single('begin')})\
-(?:--${single('end')})?\
-\\s*$\
-`
-
-  return pattern
-}
-
-export const pattern = _timestampPattern()
-
 
 export const parse = (
   input: string,
   { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone } = {},
 ): Timestamp | undefined => {
-  let m: any = input
-  if (typeof input === 'string') {
-    m = XRegExp(pattern, 'i').exec(m)
-  }
-  if (!m) return undefined
 
-  const beginDate = m[2];
-  const beginTimeBegin = m[3];
-  const beginTimeEnd = m[4];
-  const endDate = m[5];
-  const endTimeBegin = m[6];
+  const { match, eat, getChar, jump } = read(input)
 
-  const _parseDate = (date, time) => {
-    let text = date
-    let format = `yyyy-MM-dd`
-    if (time) {
-      text += ` ${time}`
-      format += ` HH:mm`
+  eat('whitespaces')
+  const timestamp = () => {
+
+    // opening
+    const { value: opening } = eat(/[<[]/g)
+    if (opening.length === 0) return
+    const active = opening === '<'
+
+    // date
+    const date = match(/(\d{4})-(\d{2})-(\d{2})/)
+    if (!date) return
+    const [, year, month, day] = date.captures
+    eat('whitespaces')
+
+    const obj: any = {
+      year, month, day, zone: timezone,
     }
-    return DateTime.fromFormat(text, format, { zone: timezone }).toJSDate()
+
+    let end: any
+
+    // day
+    const { value: _day } = eat(/[a-zA-Z]+/)
+    eat('whitespaces')
+
+    // time
+    const time = match(/(\d{2}):(\d{2})(?:-(\d{2}):(\d{2}))?/)
+    if (time) {
+      obj.hour = time.captures[1]
+      obj.minute = time.captures[2]
+      if (time.captures[3]) {
+        end = { ...obj }
+        end.hour = time.captures[3]
+        end.minute = time.captures[4]
+      }
+      jump(time.position.end)
+    }
+
+    // closing
+    const closing = getChar()
+    if ((opening === '[' && closing === ']') ||
+      (opening === '<' && closing === '>')) {
+
+      eat('char')
+      return {
+        date: DateTime.fromObject(obj).toJSDate(),
+        end: end ? DateTime.fromObject(end).toJSDate() : undefined,
+      }
+    }
+
+    // opening closing does not match
+
   }
 
 
-  const date = _parseDate(beginDate, beginTimeBegin)
-  let end
-  if (beginTimeEnd) {
-    end = _parseDate(beginDate, beginTimeEnd)
-  } else if (endDate) {
-    end = _parseDate(endDate, endTimeBegin)
+  const ts = timestamp()
+  if (!ts) return
+
+  if (!ts.end) {
+    const { value: doubleDash } = eat(/--/)
+    if (doubleDash.length > 0) {
+      const end = timestamp()
+      if (!!end) {
+        ts.end = end.date
+      }
+    }
   }
 
-  return { date, end }
+  return ts
 }
