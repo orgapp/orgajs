@@ -2,7 +2,7 @@
   "name": "gatsby-orga",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "gatsby": "^3.2.1",
@@ -12,7 +12,7 @@
     "gatsby-plugin-react-helmet": "^4.2.0",
     "gatsby-plugin-sharp": "^3.2.1",
     "gatsby-source-filesystem": "^3.2.0",
-    "gatsby-theme-orga": "^2.4.3",
+    "gatsby-theme-orga": "^2.4.4",
     "gatsby-transformer-sharp": "^3.2.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",

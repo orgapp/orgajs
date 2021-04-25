@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/estree-jsx",
-  "version": "2.4.2",
+  "version": "2.4.4",
   "description": "estree to jsx",
   "files": [
     "dist"

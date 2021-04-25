@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-blorg",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "description": "gatsby org-mode theme for blog",
   "main": "index.js",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
@@ -27,10 +27,10 @@
     "gatsby-plugin-sharp": "^3.2.1",
     "gatsby-plugin-theme-ui": "0.6.2",
     "gatsby-source-filesystem": "^3.2.0",
-    "gatsby-theme-orga": "^2.4.3",
+    "gatsby-theme-orga": "^2.4.4",
     "gatsby-transformer-sharp": "^3.2.0",
     "gatsby-transformer-toml": "^3.2.0",
-    "orga-theme-ui-preset": "^2.4.2",
+    "orga-theme-ui-preset": "^2.4.4",
     "polished": "^3.4.1",
     "react-icons": "^3.8.0",
     "theme-ui": "^0.6.2"
