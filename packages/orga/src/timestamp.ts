@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon'
+import { zonedTimeToUtc } from 'date-fns-tz'
 import { read } from './reader'
 import { Timestamp } from './types'
 
@@ -18,30 +18,23 @@ export const parse = (
     const active = opening === '<'
 
     // date
-    const date = match(/(\d{4})-(\d{2})-(\d{2})/)
-    if (!date) return
-    const [, year, month, day] = date.captures
+    const { value: _date } = eat(/\d{4}-\d{2}-\d{2}/)
+    let date = _date
+
     eat('whitespaces')
 
-    const obj: any = {
-      year, month, day, zone: timezone,
-    }
-
-    let end: any
+    let end: string | undefined
 
     // day
     const { value: _day } = eat(/[a-zA-Z]+/)
     eat('whitespaces')
 
     // time
-    const time = match(/(\d{2}):(\d{2})(?:-(\d{2}):(\d{2}))?/)
+    const time = match(/(\d{2}:\d{2})(?:-(\d{2}:\d{2}))?/)
     if (time) {
-      obj.hour = time.captures[1]
-      obj.minute = time.captures[2]
-      if (time.captures[3]) {
-        end = { ...obj }
-        end.hour = time.captures[3]
-        end.minute = time.captures[4]
+      date = `${_date} ${time.captures[1]}`
+      if (time.captures[2]) {
+        end = `${_date} ${time.captures[2]}`
       }
       jump(time.position.end)
     }
@@ -53,8 +46,8 @@ export const parse = (
 
       eat('char')
       return {
-        date: DateTime.fromObject(obj).toJSDate(),
-        end: end ? DateTime.fromObject(end).toJSDate() : undefined,
+        date: zonedTimeToUtc(date, timezone),
+        end: end ? zonedTimeToUtc(end, timezone) : undefined,
       }
     }
 
