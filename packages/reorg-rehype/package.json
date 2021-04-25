@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/reorg-rehype",
-  "version": "2.4.4",
+  "version": "2.4.6",
   "description": "rehype support for orga",
   "files": [
     "dist"
@@ -22,6 +22,6 @@
     "clean": "del ./dist/*"
   },
   "dependencies": {
-    "oast-to-hast": "^2.4.4"
+    "oast-to-hast": "^2.4.6"
   }
 }

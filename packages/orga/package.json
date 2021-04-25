@@ -1,6 +1,6 @@
 {
   "name": "orga",
-  "version": "2.4.4",
+  "version": "2.4.6",
   "description": "org-mode parser",
   "files": [
     "dist"

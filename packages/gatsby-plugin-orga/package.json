@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-orga",
-  "version": "2.4.4",
+  "version": "2.4.6",
   "description": "Orga integration for Gatsby",
   "main": "dist/index.js",
   "license": "MIT",
@@ -34,7 +34,7 @@
   "dependencies": {
     "@orgajs/estree-jsx": "^2.4.4",
     "@orgajs/rehype-estree": "^2.4.4",
-    "@orgajs/reorg-rehype": "^2.4.4",
+    "@orgajs/reorg-rehype": "^2.4.6",
     "gatsby-core-utils": "^2.3.0"
   }
 }
