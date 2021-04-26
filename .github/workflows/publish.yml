@@ -3,7 +3,7 @@ on:
     branches:
       - master
 
-name: :package: Build and Publish
+name: Build and Publish
 
 jobs:
   build:
