@@ -22,7 +22,7 @@ const getRawHandler = ({ path, jsx }: { path: string, jsx: boolean }) => {
 }
 
 function toEstree(node: HastNode, options: Options) {
-  let { space, jsx, parseRaw, handlers } = options
+  const { space, jsx, parseRaw, handlers } = options
 
   for (const p of parseRaw) {
     const [key, ...rest] = p.split('.')
@@ -59,7 +59,7 @@ function toEstree(node: HastNode, options: Options) {
   }
 
   const estree = hast2estree(node, { space, handlers })
-  if (!!exports) {
+  if (exports) {
     estree.body = [
       ...exports,
       ...estree.body,

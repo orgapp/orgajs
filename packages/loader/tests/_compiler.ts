@@ -1,6 +1,6 @@
-import { createFsFromVolume, Volume } from 'memfs';
-import path from 'path';
-import webpack from 'webpack';
+import { createFsFromVolume, Volume } from 'memfs'
+import path from 'path'
+import webpack from 'webpack'
 
 export default (fixture, options = {}) => {
   const compiler = webpack({
@@ -41,18 +41,18 @@ export default (fixture, options = {}) => {
         },
       ],
     },
-  });
+  })
 
-  compiler.outputFileSystem = createFsFromVolume(new Volume());
-  compiler.outputFileSystem.join = path.join.bind(path);
+  compiler.outputFileSystem = createFsFromVolume(new Volume())
+  compiler.outputFileSystem.join = path.join.bind(path)
 
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
-      if (err) reject(err);
-      if (stats.hasErrors()) reject(stats.toJson().errors);
+      if (err) reject(err)
+      if (stats.hasErrors()) reject(stats.toJson().errors)
 
       resolve(stats)
       // resolve(stats.toJson().modules.find(m => m.name === fixture));
-    });
-  });
-};
+    })
+  })
+}

@@ -1,4 +1,4 @@
-import tok from "./tok";
+import tok from "./tok"
 
 describe("tokenize keywords", () => {
   it("knows keywords", () => {
@@ -11,7 +11,7 @@ describe("tokenize keywords", () => {
           "value": "Value",
         },
       ]
-    `);
+    `)
     expect(tok("#+KEY: Another Value")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -21,7 +21,7 @@ describe("tokenize keywords", () => {
           "value": "Another Value",
         },
       ]
-    `);
+    `)
     expect(tok("#+KEY: value : Value")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -31,8 +31,8 @@ describe("tokenize keywords", () => {
           "value": "value : Value",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows these are not keywords", () => {
     expect(tok("#+KEY : Value")).toMatchInlineSnapshot(`
@@ -43,7 +43,7 @@ describe("tokenize keywords", () => {
           "value": "#+KEY : Value",
         },
       ]
-    `);
+    `)
     expect(tok("#+KE Y: Value")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -52,6 +52,6 @@ describe("tokenize keywords", () => {
           "value": "#+KE Y: Value",
         },
       ]
-    `);
-  });
-});
+    `)
+  })
+})

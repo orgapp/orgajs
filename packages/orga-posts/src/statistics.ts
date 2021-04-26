@@ -47,8 +47,8 @@ export default ({ wpm = 265, report }: { wpm?: number, report: (result: Result) 
   const count = (pureText: string) => {
     let timeToRead = 0
 
-    let latinChars = []
-    let cjChars = []
+    const latinChars = []
+    const cjChars = []
 
     for (const char of pureText) {
       if (isCjChar(char)) {

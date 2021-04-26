@@ -1,8 +1,8 @@
-import tok from "./tok";
+import tok from "./tok"
 
 const options = {
   timezone: "Pacific/Auckland",
-};
+}
 
 describe("tokenize planning", () => {
   it("knows plannings", () => {
@@ -22,7 +22,7 @@ describe("tokenize planning", () => {
           },
         },
       ]
-    `);
+    `)
     expect(tok("  DEADLINE: <2018-01-01 Mon>", options)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -39,7 +39,7 @@ describe("tokenize planning", () => {
           },
         },
       ]
-    `);
+    `)
     expect(tok(" \tDEADLINE: <2018-01-01 Mon>", options))
       .toMatchInlineSnapshot(`
       Array [
@@ -57,7 +57,7 @@ describe("tokenize planning", () => {
           },
         },
       ]
-    `);
+    `)
     expect(tok(" \t DEADLINE: <2018-01-01 Mon>", options))
       .toMatchInlineSnapshot(`
       Array [
@@ -75,8 +75,8 @@ describe("tokenize planning", () => {
           },
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("know multiple plannings", () => {
     expect(
@@ -110,8 +110,8 @@ describe("tokenize planning", () => {
           },
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows these are not plannings", () => {
     expect(tok("dEADLINE: <2018-01-01 Mon>", options)).toMatchInlineSnapshot(`
@@ -122,6 +122,6 @@ describe("tokenize planning", () => {
           "value": "dEADLINE: <2018-01-01 Mon>",
         },
       ]
-    `);
-  });
-});
+    `)
+  })
+})

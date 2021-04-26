@@ -22,6 +22,7 @@
     "clean": "del ./dist/*"
   },
   "dependencies": {
-    "oast-to-hast": "^2.4.7"
+    "oast-to-hast": "^2.4.7",
+    "unified": "^9.2.1"
   }
 }

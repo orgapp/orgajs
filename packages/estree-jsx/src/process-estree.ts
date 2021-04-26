@@ -50,7 +50,7 @@ function processEstree(estree, options: Options) {
     ...createMdxContent(children)
   ]
 
-  let components = []
+  const components = []
 
   // Add `orgaType`, `parentName` props to JSX elements.
   const magicShortcodes = []

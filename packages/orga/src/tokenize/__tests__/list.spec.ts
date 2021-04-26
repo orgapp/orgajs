@@ -1,4 +1,4 @@
-import tok from "./tok";
+import tok from "./tok"
 
 describe("tokenize list item", () => {
   it("knows list items", () => {
@@ -17,7 +17,7 @@ describe("tokenize list item", () => {
           "value": "buy milk",
         },
       ]
-    `);
+    `)
     expect(tok("+ buy milk")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -32,7 +32,7 @@ describe("tokenize list item", () => {
           "value": "buy milk",
         },
       ]
-    `);
+    `)
     // ordered
     expect(tok("1. buy milk")).toMatchInlineSnapshot(`
       Array [
@@ -48,7 +48,7 @@ describe("tokenize list item", () => {
           "value": "buy milk",
         },
       ]
-    `);
+    `)
     expect(tok("12. buy milk")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -63,7 +63,7 @@ describe("tokenize list item", () => {
           "value": "buy milk",
         },
       ]
-    `);
+    `)
     expect(tok("123) buy milk")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -78,7 +78,7 @@ describe("tokenize list item", () => {
           "value": "buy milk",
         },
       ]
-    `);
+    `)
     // checkbox
     expect(tok("- [x] buy milk checked")).toMatchInlineSnapshot(`
       Array [
@@ -99,7 +99,7 @@ describe("tokenize list item", () => {
           "value": "buy milk checked",
         },
       ]
-    `);
+    `)
     expect(tok("- [X] buy milk checked")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -119,7 +119,7 @@ describe("tokenize list item", () => {
           "value": "buy milk checked",
         },
       ]
-    `);
+    `)
     expect(tok("- [-] buy milk checked")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -139,7 +139,7 @@ describe("tokenize list item", () => {
           "value": "buy milk checked",
         },
       ]
-    `);
+    `)
     expect(tok("- [ ] buy milk unchecked")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -159,7 +159,7 @@ describe("tokenize list item", () => {
           "value": "buy milk unchecked",
         },
       ]
-    `);
+    `)
     // indent
     expect(tok("  - buy milk")).toMatchInlineSnapshot(`
       Array [
@@ -175,7 +175,7 @@ describe("tokenize list item", () => {
           "value": "buy milk",
         },
       ]
-    `);
+    `)
     // tag
     expect(tok("- item1 :: description here")).toMatchInlineSnapshot(`
       Array [
@@ -196,7 +196,7 @@ describe("tokenize list item", () => {
           "value": "description here",
         },
       ]
-    `);
+    `)
     expect(tok("- item2\n :: description here")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -221,7 +221,7 @@ describe("tokenize list item", () => {
           "value": ":: description here",
         },
       ]
-    `);
+    `)
     expect(tok("- [x] item3 :: description here")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -246,8 +246,8 @@ describe("tokenize list item", () => {
           "value": "description here",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows these are not list items", () => {
     expect(tok("-not item")).toMatchInlineSnapshot(`
@@ -258,7 +258,7 @@ describe("tokenize list item", () => {
           "value": "-not item",
         },
       ]
-    `);
+    `)
     expect(tok("1.not item")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -267,7 +267,7 @@ describe("tokenize list item", () => {
           "value": "1.not item",
         },
       ]
-    `);
+    `)
     expect(tok("8)not item")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -276,7 +276,7 @@ describe("tokenize list item", () => {
           "value": "8)not item",
         },
       ]
-    `);
+    `)
     expect(tok("8a) not item")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -285,6 +285,6 @@ describe("tokenize list item", () => {
           "value": "8a) not item",
         },
       ]
-    `);
-  });
-});
+    `)
+  })
+})

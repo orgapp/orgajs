@@ -137,7 +137,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}) => {
     return inlineTok({ reader })
   }
 
-  const peek = (offset: number = 0) : Token | undefined => {
+  const peek = (offset = 0) : Token | undefined => {
     const pos = cursor + offset
     if (pos >= tokens.length) {
       tokens = tokens.concat(tok())

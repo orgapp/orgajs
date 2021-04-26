@@ -1,5 +1,5 @@
 import { parse } from '@typescript-eslint/typescript-estree'
-import u from 'unist-builder'
+// import u from 'unist-builder'
 import toEstree from '../src'
 
 const transform = (tree) => {
@@ -8,8 +8,8 @@ const transform = (tree) => {
 
 describe("rehype-estree", () => {
   it ('can handle data', () => {
-    const hast = u('root', { data: { hello: 'world' } }, [])
-    const estree = transform(hast)
+    // const hast = u('root', { data: { hello: 'world' } }, [])
+    // const estree = transform(hast)
 
 
     // console.log(inspect(estree, false, null, true))

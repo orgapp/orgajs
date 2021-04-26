@@ -1,4 +1,4 @@
-import tok from "./tok";
+import tok from "./tok"
 
 describe("tokenize headline", () => {
   it("knows headlines", () => {
@@ -15,7 +15,7 @@ describe("tokenize headline", () => {
           "value": "a headline",
         },
       ]
-    `);
+    `)
 
     expect(tok("** _headline_")).toMatchInlineSnapshot(`
       Array [
@@ -30,7 +30,7 @@ describe("tokenize headline", () => {
           "value": "headline",
         },
       ]
-    `);
+    `)
 
     expect(tok("**   a headline")).toMatchInlineSnapshot(`
       Array [
@@ -45,7 +45,7 @@ describe("tokenize headline", () => {
           "value": "a headline",
         },
       ]
-    `);
+    `)
 
     expect(tok("***** a headline")).toMatchInlineSnapshot(`
       Array [
@@ -60,7 +60,7 @@ describe("tokenize headline", () => {
           "value": "a headline",
         },
       ]
-    `);
+    `)
 
     expect(tok("* a 😀line")).toMatchInlineSnapshot(`
       Array [
@@ -75,7 +75,7 @@ describe("tokenize headline", () => {
           "value": "a 😀line",
         },
       ]
-    `);
+    `)
 
     expect(tok("* TODO [#A] a headline     :tag1:tag2:"))
       .toMatchInlineSnapshot(`
@@ -110,7 +110,7 @@ describe("tokenize headline", () => {
           "type": "tags",
         },
       ]
-    `);
+    `)
 
     expect(
       tok(
@@ -153,8 +153,8 @@ describe("tokenize headline", () => {
           "type": "tags",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows these are not headlines", () => {
     expect(tok("*not a headline")).toMatchInlineSnapshot(`
@@ -165,7 +165,7 @@ describe("tokenize headline", () => {
           "value": "*not a headline",
         },
       ]
-    `);
+    `)
 
     expect(tok(" * not a headline")).toMatchInlineSnapshot(`
       Array [
@@ -175,7 +175,7 @@ describe("tokenize headline", () => {
           "value": "* not a headline",
         },
       ]
-    `);
+    `)
     expect(tok("*_* not a headline")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -189,7 +189,7 @@ describe("tokenize headline", () => {
           "value": " not a headline",
         },
       ]
-    `);
+    `)
     expect(tok("not a headline")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -198,6 +198,6 @@ describe("tokenize headline", () => {
           "value": "not a headline",
         },
       ]
-    `);
-  });
-});
+    `)
+  })
+})

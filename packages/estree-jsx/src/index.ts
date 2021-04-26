@@ -1,6 +1,6 @@
-import toJs from './estree-to-js';
-import { DEFAULT_OPTIONS, Options } from './options';
-import processEstree from './process-estree';
+import toJs from './estree-to-js'
+import { DEFAULT_OPTIONS, Options } from './options'
+import processEstree from './process-estree'
 
 function estree2jsx (options: Partial<Options> = {}) {
 

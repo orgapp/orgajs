@@ -63,7 +63,7 @@ export const parse = (
     const { value: doubleDash } = eat(/--/)
     if (doubleDash.length > 0) {
       const end = timestamp()
-      if (!!end) {
+      if (end) {
         ts.end = end.date
       }
     }

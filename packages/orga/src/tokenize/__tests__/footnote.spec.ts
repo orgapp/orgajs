@@ -1,4 +1,4 @@
-import tok from "./tok";
+import tok from "./tok"
 
 describe("tokenize footnote", () => {
   it("knows footnotes", () => {
@@ -15,7 +15,7 @@ describe("tokenize footnote", () => {
           "value": "a footnote",
         },
       ]
-    `);
+    `)
     expect(tok("[fn:word] a footnote")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -29,7 +29,7 @@ describe("tokenize footnote", () => {
           "value": "a footnote",
         },
       ]
-    `);
+    `)
     expect(tok("[fn:word_] a footnote")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -43,7 +43,7 @@ describe("tokenize footnote", () => {
           "value": "a footnote",
         },
       ]
-    `);
+    `)
     expect(tok("[fn:wor1d_] a footnote")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -57,8 +57,8 @@ describe("tokenize footnote", () => {
           "value": "a footnote",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows these are not footnotes", () => {
     expect(tok("[fn:1]: not a footnote")).toMatchInlineSnapshot(`
@@ -74,7 +74,7 @@ describe("tokenize footnote", () => {
           "value": ": not a footnote",
         },
       ]
-    `);
+    `)
     expect(tok(" [fn:1] not a footnote")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -88,7 +88,7 @@ describe("tokenize footnote", () => {
           "value": " not a footnote",
         },
       ]
-    `);
+    `)
     expect(tok("[[fn:1] not a footnote")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -107,7 +107,7 @@ describe("tokenize footnote", () => {
           "value": " not a footnote",
         },
       ]
-    `);
+    `)
     expect(tok("\t[fn:1] not a footnote")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -121,6 +121,6 @@ describe("tokenize footnote", () => {
           "value": " not a footnote",
         },
       ]
-    `);
-  });
-});
+    `)
+  })
+})

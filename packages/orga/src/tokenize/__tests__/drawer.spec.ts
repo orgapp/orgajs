@@ -1,4 +1,4 @@
-import tok from "./tok";
+import tok from "./tok"
 
 describe("tokenize drawer", () => {
   it("knows drawer begins", () => {
@@ -10,7 +10,7 @@ describe("tokenize drawer", () => {
           "type": "drawer.begin",
         },
       ]
-    `);
+    `)
     expect(tok("  :properties:")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -19,7 +19,7 @@ describe("tokenize drawer", () => {
           "type": "drawer.begin",
         },
       ]
-    `);
+    `)
     expect(tok("  :properties:  ")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -28,7 +28,7 @@ describe("tokenize drawer", () => {
           "type": "drawer.begin",
         },
       ]
-    `);
+    `)
     expect(tok("  :prop_erties:  ")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -37,8 +37,8 @@ describe("tokenize drawer", () => {
           "type": "drawer.begin",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows these are not drawer begins", () => {
     expect(tok("PROPERTIES:")).toMatchInlineSnapshot(`
@@ -49,7 +49,7 @@ describe("tokenize drawer", () => {
           "value": "PROPERTIES:",
         },
       ]
-    `);
+    `)
     expect(tok(":PROPERTIES")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -58,7 +58,7 @@ describe("tokenize drawer", () => {
           "value": ":PROPERTIES",
         },
       ]
-    `);
+    `)
     expect(tok(":PR OPERTIES:")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -67,8 +67,8 @@ describe("tokenize drawer", () => {
           "value": ":PR OPERTIES:",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows drawer ends", () => {
     expect(tok(":END:")).toMatchInlineSnapshot(`
@@ -78,7 +78,7 @@ describe("tokenize drawer", () => {
           "type": "drawer.end",
         },
       ]
-    `);
+    `)
     expect(tok("  :end:")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -86,7 +86,7 @@ describe("tokenize drawer", () => {
           "type": "drawer.end",
         },
       ]
-    `);
+    `)
     expect(tok("  :end:  ")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -94,7 +94,7 @@ describe("tokenize drawer", () => {
           "type": "drawer.end",
         },
       ]
-    `);
+    `)
     expect(tok("  :end:  ")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -102,8 +102,8 @@ describe("tokenize drawer", () => {
           "type": "drawer.end",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows these are not drawer ends", () => {
     expect(tok("END:")).toMatchInlineSnapshot(`
@@ -114,7 +114,7 @@ describe("tokenize drawer", () => {
           "value": "END:",
         },
       ]
-    `);
+    `)
     expect(tok(":END")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -123,7 +123,7 @@ describe("tokenize drawer", () => {
           "value": ":END",
         },
       ]
-    `);
+    `)
     expect(tok(":ENDed")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -132,6 +132,6 @@ describe("tokenize drawer", () => {
           "value": ":ENDed",
         },
       ]
-    `);
-  });
-});
+    `)
+  })
+})

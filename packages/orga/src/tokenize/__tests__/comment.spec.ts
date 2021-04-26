@@ -1,4 +1,4 @@
-import tok from "./tok";
+import tok from "./tok"
 
 describe("tokenize comment", () => {
   it("knows comments", () => {
@@ -10,7 +10,7 @@ describe("tokenize comment", () => {
           "value": "a comment",
         },
       ]
-    `);
+    `)
     expect(tok("# ")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -19,7 +19,7 @@ describe("tokenize comment", () => {
           "value": "",
         },
       ]
-    `);
+    `)
     expect(tok("# a comment😯")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -28,7 +28,7 @@ describe("tokenize comment", () => {
           "value": "a comment😯",
         },
       ]
-    `);
+    `)
     expect(tok(" # a comment")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -37,7 +37,7 @@ describe("tokenize comment", () => {
           "value": "a comment",
         },
       ]
-    `);
+    `)
     expect(tok("  \t  # a comment")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -46,7 +46,7 @@ describe("tokenize comment", () => {
           "value": "a comment",
         },
       ]
-    `);
+    `)
     expect(tok("#   a comment")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -55,7 +55,7 @@ describe("tokenize comment", () => {
           "value": "a comment",
         },
       ]
-    `);
+    `)
     expect(tok("#    \t a comment")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -64,8 +64,8 @@ describe("tokenize comment", () => {
           "value": "a comment",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows these are not comments", () => {
     expect(tok("#not a comment")).toMatchInlineSnapshot(`
@@ -76,7 +76,7 @@ describe("tokenize comment", () => {
           "value": "#not a comment",
         },
       ]
-    `);
+    `)
     expect(tok("  #not a comment")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -85,6 +85,6 @@ describe("tokenize comment", () => {
           "value": "#not a comment",
         },
       ]
-    `);
-  });
-});
+    `)
+  })
+})
