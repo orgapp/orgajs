@@ -13,13 +13,21 @@ jobs:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
         with:
           fetch-depth: 25
-      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-      - uses: actions/setup-node@v2
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+      - name: Setup Node Env
+        uses: actions/setup-node@v2
         with:
           node-version: 14
-      - run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
-      - run: yarn install --frozen-lockfile --check-files
-      - run: yarn publish:ci
+        run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+      - name: Git Identity
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'github-action@users.noreply.github.com'
+      - name: Install Modules
+        run: yarn install --frozen-lockfile --check-files
+      - name: Publish
+        run: yarn publish:ci
