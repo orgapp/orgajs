@@ -1,0 +1,41 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Build and Publish
+
+jobs:
+  build:
+    name: Setup Envrioment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 25
+      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - run: yarn bootstrap
+      - run: yarn compile
+      - run: yarn test
+      - uses: actions/cache@v2
+        id: cache-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+
+  publish:
+    name: Publish to NPM
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/cache@v2
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+      - run: yarn publish:ci
