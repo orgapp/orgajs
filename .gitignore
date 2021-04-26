@@ -91,3 +91,4 @@ typings/
 
 lib
 dist
+.npmrc
