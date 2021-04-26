@@ -7,7 +7,7 @@ name: Build and Publish
 
 jobs:
   build:
-    name: Setup Envrioment
+    name: build and test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -30,12 +30,11 @@ jobs:
     name: Publish to NPM
     runs-on: ubuntu-latest
     needs: build
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/cache@v2
         id: restore-build
         with:
           path: ./*
           key: ${{ github.sha }}
+      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
       - run: yarn publish:ci
