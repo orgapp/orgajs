@@ -30,7 +30,7 @@
     "clean": "lerna run clean",
     "compile": "lerna run compile",
     "publish": "lerna publish",
-    "publish:ci": "lerna publish --conventional-commits --no-changelog --yes",
+    "publish:ci": "lerna publish --conventional-commits --create-release github --no-changelog --yes",
     "publish-next": "lerna publish --dist-tag=next --bump=prerelease",
     "test": "jest",
     "lint": "eslint 'packages/**/*.ts{,x}'",
