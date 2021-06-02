@@ -41,9 +41,9 @@ exports.sourceNodes = ({ actions, schema }) => {
       fields: {
         id: { type: 'ID!' },
         slug: { type: 'String!' },
-        html: {
+        body: {
           type: 'String!',
-          resolve: orgxResolverPassthrough('html'),
+          resolve: orgxResolverPassthrough('body'),
         },
       },
       interfaces: ['Node'],

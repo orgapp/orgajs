@@ -9,6 +9,7 @@ import toEstree from '@orgajs/rehype-estree'
 import reorg from '@orgajs/reorg'
 import toRehype from '@orgajs/reorg-rehype'
 import { walk } from 'estree-walker'
+import { BaseNode, ExportDefaultDeclaration } from 'estree'
 
 const renderer = `import React from 'react'
 import {orga} from '@orgajs/react'
@@ -38,14 +39,29 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async ({
 
       console.log(`-- processImportsExports`)
       walk(tree, {
-        enter: function (node) {
+        enter: function (node: any) {
           if (node.type === 'ImportDeclaration') {
-            console.log(`-- found import:`)
-            console.log(inspect(node, false, null, true))
-            // @ts-ignore
-            node.source.value = 'hello'
-            // @ts-ignore
-            node.source.raw = 'box'
+          }
+
+          // replace export default with return statement
+          if (node.type === 'ExportDefaultDeclaration') {
+            this.replace({
+              type: 'ReturnStatement',
+              // @ts-ignore
+              argument: node.declaration,
+            })
+          }
+
+          if (node.type === 'ExportNamedDeclaration') {
+            console.log(`TODO: export named declaration:`, inspect(node, false, null, true))
+            // TODO: save this for later
+            this.remove()
+          }
+
+          if (node.type.startsWith('Import')) {
+            console.log(`TODO: import:`, inspect(node, false, null, true))
+            // TODO: save this for later
+            this.remove()
           }
         }
       })
@@ -64,7 +80,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async ({
     .use(toRehype)
     .use(toEstree)
     .use(processImportsExports)
-    .use(toJsx, { renderer: '', pragma: '' })
+    .use(toJsx, { renderer: '' })
 
     const code = await processor.process(text)
     return `${code}`
@@ -75,11 +91,9 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async ({
     fields: {
       // raw: { type: 'String!' },
       fileAbsolutePath: { type: 'String!' },
-      html: {
+      body: {
         type: 'String!',
         async resolve(orgaNode) {
-
-          console.log('this is from console.log')
 
           reporter.log('getting html')
           const code = await parse(orgaNode.internal.content)

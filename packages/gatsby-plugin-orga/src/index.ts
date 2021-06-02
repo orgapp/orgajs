@@ -1,13 +1,6 @@
-import React, { useMemo } from 'react'
+import OrgaRenderer from './orga-renderer'
 
-export function OrgaRenderer({
-  children,
-  ...props
-}) {
-  const End = useMemo(() => {
-    const fn = new Function('_fn', `${children}`)
-    return fn({})
-  }, [children])
-  return React.createElement(End, { ...props })
-  // return server.renderToStaticMarkup(children)
+export {
+  OrgaRenderer
 }
+

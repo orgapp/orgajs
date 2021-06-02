@@ -1,19 +1,21 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { OrgaRenderer } from 'gatsby-plugin-orga'
+import babel from '@babel/core'
 
 export default (props) => {
   const { data } = props
   return (
-    <div>
-      { data.document && data.document.html &&
+    <>
+      { data.document && data.document.body &&
         <>
-          <h2>HTML</h2>
-          {/* <OrgaRenderer>
-              { data.document.html }
-              </OrgaRenderer> */}
+          <h2>Rendered</h2>
+          <OrgaRenderer>
+            { data.document.body }
+          </OrgaRenderer>
+          <h2>Code</h2>
           <pre>
-            {data.document.html}
+            {data.document.body}
           </pre>
         </>
       }
@@ -21,7 +23,7 @@ export default (props) => {
       <pre>
         { JSON.stringify(props, null, 2) }
       </pre>
-    </div>
+    </>
   )
 }
 
@@ -29,7 +31,7 @@ export const pageQuery = graphql`
   query DocumentQuery($id: String!) {
     document: orgx(id: { eq: $id }) {
       id
-      html
+      body
     }
   }
 `
