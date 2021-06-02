@@ -15,16 +15,17 @@
     "directory": "packages/reorg-parse"
   },
   "scripts": {
-    "precompile": "yarn clean",
-    "compile": "tsc -p tsconfig.build.json",
-    "prepare": "yarn compile",
-    "watch": "yarn run compile -w",
-    "clean": "del ./dist/*"
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "compile": "tsc -b",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "orga": "^2.4.8"
   },
   "devDependencies": {
+    "del-cli": "^3.0.1",
+    "typescript": "^4.3.2",
     "unified": "^9.1.0"
   }
 }

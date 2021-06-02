@@ -111,7 +111,6 @@ Great clouds overhead
 
   #+BEGIN_EXPORT html
   <h3>A Headline</h3>
-  <p>And a Paragraph.</p>
   #+END_EXPORT
 
 * Links

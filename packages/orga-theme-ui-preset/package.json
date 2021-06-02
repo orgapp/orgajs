@@ -11,11 +11,10 @@
     "react"
   ],
   "scripts": {
-    "precompile": "yarn clean",
-    "compile": "tsc -p tsconfig.build.json",
-    "prepare": "yarn compile",
-    "watch": "yarn run compile -w",
-    "clean": "del ./dist/*"
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist/*",
+    "compile": "tsc -b",
+    "prepublishOnly": "yarn build"
   },
   "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/orga-theme-ui-preset#readme",
   "repository": {

@@ -1,8 +1,15 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "rootDir": "./src",
     "outDir": "./dist"
   },
-  "include": ["./src"],
-  "exclude": ["**/__tests__/**"]
+  "references": [
+    { "path": "../estree-jsx" },
+    { "path": "../rehype-estree" },
+    { "path": "../reorg-rehype" },
+    { "path": "../loader" },
+    // { "path": "../react" }
+  ],
+  "include": ["./src"]
 }

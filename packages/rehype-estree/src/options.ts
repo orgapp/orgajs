@@ -8,6 +8,8 @@ export interface Options {
   jsx: boolean;
   parseRaw: string[];
   handlers: { [key: string]: Handler };
+  skipExport: boolean,
+  wrapExport: boolean,
 }
 
 export const DEFAULT_OPTIONS: Options = {
@@ -15,4 +17,6 @@ export const DEFAULT_OPTIONS: Options = {
   jsx: true,
   parseRaw: ['raw.value'],
   handlers: {},
+  skipExport: false,
+  wrapExport: false,
 }

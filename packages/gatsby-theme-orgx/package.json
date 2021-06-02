@@ -1,0 +1,34 @@
+{
+  "name": "gatsby-theme-orgx",
+  "version": "2.4.8",
+  "description": "gatsby theme for orga.js",
+  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "homepage": "https://github.com/orgapp/orgajs#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "keywords": [
+    "gatsby",
+    "org-mode",
+    "orgajs"
+  ],
+  "scripts": {
+    "test": "echo no test"
+  },
+  "bugs": {
+    "url": "https://github.com/orgapp/orgajs/issues"
+  },
+  "dependencies": {
+    "gatsby-plugin-orga": "^2.4.8",
+    "gatsby-source-filesystem": "^3.2.0",
+    "gatsby-transformer-orga": "^2.4.8"
+  },
+  "peerDependencies": {
+    "gatsby": "^3.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "devDependencies": {
+    "del-cli": "^3.0.1",
+    "typescript": "^4.3.2"
+  }
+}

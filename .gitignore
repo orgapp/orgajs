@@ -92,3 +92,4 @@ typings/
 lib
 dist
 .npmrc
+*.tsbuildinfo

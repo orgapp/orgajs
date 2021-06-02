@@ -7,11 +7,10 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "precompile": "yarn clean",
-    "compile": "tsc -p tsconfig.build.json",
-    "prepare": "yarn compile",
-    "watch": "yarn run compile -w",
-    "clean": "del ./dist/*"
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "compile": "tsc -b",
+    "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
     "react": ">=16"

@@ -15,17 +15,15 @@
     "directory": "packages/estree-jsx"
   },
   "scripts": {
-    "precompile": "yarn clean",
-    "compile": "tsc -p tsconfig.build.json",
-    "prepare": "yarn compile",
-    "watch": "yarn run compile -w",
-    "clean": "del ./dist/*"
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "compile": "tsc -b",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "astring": "^1.7.4",
-    "periscopic": "^2.0.0"
+    "astring": "^1.7.4"
   },
   "devDependencies": {
-    "estree-jsx": "^0.0.1"
+    "del-cli": "^3.0.1"
   }
 }

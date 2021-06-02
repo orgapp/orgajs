@@ -10,14 +10,19 @@
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/rehype-estree",
   "scripts": {
-    "precompile": "yarn clean",
-    "compile": "tsc -p tsconfig.build.json",
-    "prepare": "yarn compile",
-    "watch": "yarn run compile -w",
-    "clean": "del ./dist/*"
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "compile": "tsc -b",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@typescript-eslint/typescript-estree": "^4.22.0",
-    "hast-util-to-estree": "^1.4.0"
+    "@typescript-eslint/typescript-estree": "^4.26.0",
+    "estree-walker": "2.0.2",
+    "hast-util-to-estree": "^1.4.0",
+    "periscopic": "2.0.3"
+  },
+  "devDependencies": {
+    "del-cli": "^3.0.1",
+    "estree-jsx": "^0.0.1"
   }
 }

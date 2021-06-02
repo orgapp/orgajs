@@ -30,7 +30,9 @@
     "gatsby": "^3.0.0"
   },
   "scripts": {
-    "compile": "tsc -p tsconfig.build.json",
-    "clean": "rm -rf *.js"
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "compile": "tsc -b",
+    "prepublishOnly": "yarn build"
   }
 }

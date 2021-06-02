@@ -1,39 +1,30 @@
 module.exports = {
   siteMetadata: {
-    title: 'Orga',
+    title: "orgajs",
   },
   plugins: [
+    "gatsby-plugin-styled-components",
+    "gatsby-plugin-image",
+    "gatsby-plugin-react-helmet",
+    "gatsby-plugin-sitemap",
+    "gatsby-plugin-sharp",
+    "gatsby-transformer-sharp",
     {
-      resolve: `gatsby-theme-orga`,
+      resolve: "gatsby-source-filesystem",
       options: {
-        contentPath: `../docs`,
-        buildIndexPage: false,
-        metadata: [ 'title', 'description', 'date' ],
+        name: "images",
+        path: "./src/images/",
       },
+      __key: "images",
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: "gatsby-source-filesystem",
       options: {
-        name: `assets`,
-        path: `${__dirname}/../assets/`,
+        name: "docs",
+        path: "./docs/",
       },
+      __key: "docs",
     },
-    'gatsby-plugin-react-helmet',
-    `gatsby-plugin-styled-components`,
-    'gatsby-transformer-sharp',
-    'gatsby-transformer-toml',
-    'gatsby-plugin-sharp',
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: 'orgajs',
-        short_name: 'orgajs',
-        start_url: '/',
-        background_color: '#663399',
-        theme_color: '#663399',
-        display: 'minimal-ui',
-        icon: '../assets/logo.png',
-      },
-    },
+    { resolve: 'gatsby-theme-orgx' },
   ],
-}
+};

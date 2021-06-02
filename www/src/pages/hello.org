@@ -1,0 +1,10 @@
+#+TITLE: Hello World
+#+HTML: import Box from '../components/box'
+
+* Hi
+
+welcome to orga.
+
+#+begin_export html
+<Box>tomato box</Box>
+#+end_export
