@@ -1,13 +1,13 @@
-import toJsx from '@orgajs/estree-jsx'
-import toEstree from '@orgajs/rehype-estree'
-import toRehype from '@orgajs/reorg-rehype'
+const toJsx = require('@orgajs/estree-jsx')
+const toEstree = require('@orgajs/rehype-estree')
+const toRehype = require('@orgajs/reorg-rehype')
 
 const renderer = `import React from 'react'
 import {orga} from '@orgajs/react'
 import { graphql } from 'gatsby'
 `
 
-export default (
+module.exports = (
   { stage, loaders, actions, plugins, cache, ...other },
   pluginOptions
 ) => {

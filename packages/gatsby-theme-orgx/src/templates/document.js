@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { OrgaRenderer } from 'gatsby-plugin-orga'
-import babel from '@babel/core'
 
 export default (props) => {
   const { data } = props
@@ -9,10 +8,10 @@ export default (props) => {
     <>
       { data.document && data.document.body &&
         <>
-          <h2>Rendered</h2>
-          <OrgaRenderer>
-            { data.document.body }
-          </OrgaRenderer>
+          {/* <h2>Rendered</h2>
+              <OrgaRenderer>
+              { data.document.body }
+              </OrgaRenderer> */}
           <h2>Code</h2>
           <pre>
             {data.document.body}

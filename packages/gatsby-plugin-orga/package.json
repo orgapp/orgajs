@@ -2,7 +2,7 @@
   "name": "gatsby-plugin-orga",
   "version": "2.4.8",
   "description": "Orga integration for Gatsby",
-  "main": "dist/index.js",
+  "main": "index.js",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/gatsby-plugin-orga#readme",
   "repository": {
@@ -10,19 +10,7 @@
     "url": "https://github.com:orgapp/orgajs.git",
     "directory": "packages/gatsby-plugin-orga"
   },
-  "files": [
-    "dist",
-    "gatsby-node.js",
-    "gatsby-ssr.js",
-    "gatsby-browser.js",
-    "graphql-utils.js",
-    "graphql-utils.d.ts"
-  ],
   "scripts": {
-    "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
-    "compile": "tsc -b",
-    "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
     "@orgajs/loader": "^1.0.0",
