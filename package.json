@@ -13,6 +13,7 @@
     "chalk": "^4.1.0",
     "cross-env": "^7.0.3",
     "del-cli": "^3.0.1",
+    "esbuild": "^0.12.6",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
@@ -39,7 +40,8 @@
     "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",
     "watch": "tsc -b tsconfig.packages.json -w",
-    "format": "prettier ."
+    "format": "prettier .",
+    "build-libs": "./scripts/build-esm.sh"
   },
   "workspaces": {
     "packages": [

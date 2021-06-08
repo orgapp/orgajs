@@ -10,7 +10,16 @@
     "url": "https://github.com:orgapp/orgajs.git",
     "directory": "packages/gatsby-plugin-orga"
   },
+  "files": [
+    "/dist",
+    "*.js",
+    "*.jsx"
+  ],
   "scripts": {
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "compile": "node ./scripts/build.js",
+    "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
     "@orgajs/loader": "^1.0.0",
@@ -29,6 +38,7 @@
     "@orgajs/loader": "^2.4.8",
     "@orgajs/react": "^2.4.8",
     "del-cli": "^3.0.1",
+    "esbuild": "^0.12.6",
     "typescript": "^4.3.2"
   }
 }

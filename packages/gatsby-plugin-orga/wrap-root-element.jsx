@@ -1,5 +1,5 @@
-import { OrgaProvider } from '@orgajs/react'
 import React from 'react'
+import { OrgaProvider } from '@orgajs/react'
 
 // TODO: process config
 

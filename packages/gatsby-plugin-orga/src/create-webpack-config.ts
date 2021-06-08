@@ -1,5 +1,5 @@
+import toEstree from '@orgajs/rehype-estree'
 const toJsx = require('@orgajs/estree-jsx')
-const toEstree = require('@orgajs/rehype-estree')
 const toRehype = require('@orgajs/reorg-rehype')
 
 const renderer = `import React from 'react'

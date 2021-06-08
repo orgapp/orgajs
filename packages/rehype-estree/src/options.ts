@@ -1,7 +1,7 @@
-import { BaseNodeWithoutComments as EstreeNode } from 'estree'
+import { BaseExpression } from 'estree'
 import { Node as HastNode } from 'hast'
 
-export type Handler = (node: HastNode, context: any) => EstreeNode | EstreeNode[]
+export type Handler = (node: HastNode, context: any) => BaseExpression
 
 export interface Options {
   space: 'html' | 'svg';

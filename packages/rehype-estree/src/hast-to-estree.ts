@@ -1,11 +1,12 @@
 import { parse } from '@typescript-eslint/typescript-estree'
 import { Node as HastNode } from 'hast'
-import hast2estree from 'hast-util-to-estree'
+import { toEstree as hast2estree } from 'hast-util-to-estree'
 import { Handler, Options } from './options'
 
 const deepGet = (p: string) => (o: any) => p.split('.').reduce((a, v) => a[v], o)
 
 const getRawHandler = ({ path, jsx }: { path: string, jsx: boolean }) => {
+  // @ts-ignore
   const handler: Handler = (node, context) => {
     const estree = parse(deepGet(path)(node), { jsx })
     const expressions = estree.body.filter(child => {
