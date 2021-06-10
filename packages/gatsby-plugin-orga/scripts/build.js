@@ -7,9 +7,8 @@ require('esbuild').build({
   external: [
     '@typescript-eslint/typescript-estree',
     'astring',
-    'react', '@orgajs/react',
+    'react', '@orgajs/react', 'lodash', 'date-fns-tz', 'mime', 'unist-builder', 'unified',
   ],
   platform: 'node',
   outdir: 'dist',
-  /* outfile: 'dist/out.js', */
 }).catch(() => process.exit(1))

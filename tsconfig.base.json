@@ -9,7 +9,7 @@
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "ES2015",
+    "target": "ES2020",
     "sourceMap": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
@@ -19,7 +19,7 @@
     "jsx": "react",
     "allowJs": true,
     "lib": [
-      "es7", "es2019"
+      "ES2020"
     ]
   },
   "exclude": [

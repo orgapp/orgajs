@@ -21,7 +21,7 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "astring": "^1.7.4"
+    "astring": "^1.7.5"
   },
   "devDependencies": {
     "del-cli": "^3.0.1"
