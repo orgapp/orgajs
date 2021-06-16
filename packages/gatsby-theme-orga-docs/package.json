@@ -18,6 +18,7 @@
     "url": "https://github.com/orgapp/orgajs/issues"
   },
   "dependencies": {
+    "gatsby-image": "^3.7.1",
     "gatsby-plugin-orga": "^2.4.8",
     "gatsby-source-filesystem": "^3.2.0",
     "gatsby-transformer-orga": "^2.4.8"

@@ -17,6 +17,15 @@ module.exports = themeOptions => {
           defaultLayout: require.resolve('./src/components/layout.js'),
         },
       },
+      {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          name: `images`,
+          path: path.join(__dirname, `src`, `images`),
+        },
+      },
+      `gatsby-plugin-sharp`,
+      `gatsby-transformer-sharp`,
       // {
       //   resolve: 'gatsby-source-filesystem',
       //   options: {

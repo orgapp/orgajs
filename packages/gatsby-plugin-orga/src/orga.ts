@@ -3,11 +3,9 @@ import { walk } from 'estree-walker'
 import crypto from 'crypto'
 import { generate } from 'astring'
 import { BaseNode } from 'estree';
-
-const toJsx = require('@orgajs/estree-jsx')
-const reorg = require('@orgajs/reorg').default
-const toRehype = require('@orgajs/reorg-rehype')
-const { inspect } = require('util')
+import toJsx from '@orgajs/estree-jsx'
+import reorg from '@orgajs/reorg'
+import toRehype from '@orgajs/reorg-rehype'
 
 export async function compile ({ content, cache }) {
 
@@ -33,34 +31,31 @@ export async function compile ({ content, cache }) {
 
     function transform(tree) {
 
-      // console.log(inspect(tree, false, null, true))
-
       walk(tree, {
         enter: function (node: any) {
-          if (node.type === 'ImportDeclaration') {
-          }
 
-          // replace export default with return statement
-          if (node.type === 'ExportDefaultDeclaration') {
-            this.replace({
-              type: 'ReturnStatement',
-              // @ts-ignore
-              argument: node.declaration,
-            })
-          }
-
+          /* extract named exports, pass them in to react props (pageContext) */
           if (node.type === 'ExportNamedDeclaration') {
             namedExports.push(node)
-            console.log(`TODO: export named declaration:`, inspect(node, false, null, true))
-            // TODO: save this for later
             this.remove()
           }
 
-          if (node.type.startsWith('Import')) {
-            console.log(`TODO: import:`, inspect(node, false, null, true))
-            // TODO: save this for later
-            this.remove()
-          }
+          /* -- we don't render org files ourself now, it's going to webpack -- */
+
+          // replace export default with return statement
+          // if (node.type === 'ExportDefaultDeclaration') {
+          //   this.replace({
+          //     type: 'ReturnStatement',
+          //     // @ts-ignore
+          //     argument: node.declaration,
+          //   })
+          // }
+
+          // if (node.type.startsWith('Import')) {
+          //   console.log(`TODO: import:`, inspect(node, false, null, true))
+          //   // TODO: save this for later
+          //   this.remove()
+          // }
         }
       })
 

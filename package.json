@@ -50,8 +50,7 @@
   "workspaces": {
     "packages": [
       "./packages/*",
-      "./examples/*",
-      "www"
+      "./examples/*"
     ]
   }
 }
