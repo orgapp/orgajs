@@ -19,7 +19,8 @@
     "build": "yarn clean && yarn compile",
     "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
     "compile": "node ./scripts/build.js",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "poc": "node --es-module-specifier-resolution=node src/poc.mjs"
   },
   "peerDependencies": {
     "@orgajs/loader": "^1.0.0",
@@ -31,8 +32,11 @@
     "@orgajs/estree-jsx": "^2.4.4",
     "@orgajs/rehype-estree": "^2.4.4",
     "@orgajs/reorg-rehype": "^2.4.8",
+    "dataloader": "^2.0.0",
+    "estree-util-build-jsx": "^2.0.0",
     "gatsby-core-utils": "^2.3.0",
-    "memory-fs": "^0.5.0"
+    "memory-fs": "^0.5.0",
+    "p-queue": "^7.1.0"
   },
   "devDependencies": {
     "@orgajs/loader": "^2.4.8",

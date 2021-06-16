@@ -1,0 +1,7 @@
+#+title: Welcome
+#+html: import Layout from '../components/layout'
+#+html: export default Layout
+
+Hey, welcome to orgajs.
+
+

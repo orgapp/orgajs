@@ -7,16 +7,12 @@ import {orga} from '@orgajs/react'
 import { graphql } from 'gatsby'
 `
 
-module.exports = (
+export default (
   { stage, loaders, actions, plugins, cache, ...other },
   pluginOptions
 ) => {
-  // const options = defaultOptions(pluginOptions)
-  // const {
-  //   reorgPlugins: [],
-  //   rehypePlugins: [],
-  //   estreePlugins: [],
-  // } = pluginOptions || {}
+
+  const { defaultLayout } = pluginOptions
 
   actions.setWebpackConfig({
     module: {
@@ -30,7 +26,7 @@ module.exports = (
               options: {
                 plugins: [
                   toRehype,
-                  toEstree,
+                  [toEstree, { defaultLayout }],
                   [toJsx, { renderer }],
                 ]
               }

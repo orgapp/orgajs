@@ -1,0 +1,3 @@
+#+TITLE: Playground
+
+This is the playground. Go nuts.

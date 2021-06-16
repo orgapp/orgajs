@@ -93,3 +93,7 @@ lib
 dist
 .npmrc
 *.tsbuildinfo
+
+# gatsby
+public
+.cache

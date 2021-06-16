@@ -7,6 +7,7 @@ export interface Options {
   space: 'html' | 'svg';
   jsx: boolean;
   parseRaw: string[];
+  defaultLayout?: string;
   handlers: { [key: string]: Handler };
   skipExport: boolean,
   wrapExport: boolean,

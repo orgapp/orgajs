@@ -1,5 +1,5 @@
-import { ExportNamedDeclaration, BaseNode, ExportDefaultDeclaration, ExpressionStatement, VariableDeclaration, Declaration } from 'estree'
-import { JSXElement, JSXFragment } from 'estree-jsx'
+import { BaseNode, Declaration, ExportDefaultDeclaration, ExportNamedDeclaration, ExpressionStatement } from 'estree'
+import { JSXElement, JSXFragment, JSXOpeningElement } from 'estree-jsx'
 import _ from 'lodash/fp'
 
 export function isExportNamedDeclaration(node: BaseNode): node is ExportNamedDeclaration {
@@ -25,7 +25,13 @@ export function isJSXFragment(node: BaseNode): node is JSXFragment {
 }
 
 export function isJSXElement(node: BaseNode): node is JSXElement {
+  // To do: support members (`<x.y>`).
   return node.type === 'JSXElement'
+  // && _.get('openingElement.name.type')(node) === 'JSXIdentifier'
+}
+
+export function isJSXIdentifier(oe: JSXOpeningElement) {
+  return oe.name.type === 'JSXIdentifier'
 }
 
 export function isDeclaration(node: BaseNode): node is Declaration {

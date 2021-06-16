@@ -1,11 +1,6 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.esm.json",
   "compilerOptions": {
-    "lib": ["ES2020"],
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "target": "ES2020",
-    "esModuleInterop": true,
     "rootDir": "./src",
     "outDir": "./dist"
   },

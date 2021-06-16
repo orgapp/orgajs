@@ -37,7 +37,7 @@ exports.sourceNodes = ({ actions, schema }) => {
 
   createTypes(
     schema.buildObjectType({
-      name: 'Orgx',
+      name: 'Docs',
       fields: {
         id: { type: 'ID!' },
         slug: { type: 'String!' },
@@ -45,6 +45,10 @@ exports.sourceNodes = ({ actions, schema }) => {
           type: 'String!',
           resolve: orgxResolverPassthrough('body'),
         },
+        layout: {
+          type: 'String!',
+          resolve: orgxResolverPassthrough('layout'),
+        }
       },
       interfaces: ['Node'],
     })
@@ -76,10 +80,10 @@ exports.onCreateNode = async ({
     parent: node.id,
     children: [],
     internal: {
-      type: 'Orgx',
+      type: 'Docs',
       contentDigest: crypto.createHash('md5').update(JSON.stringify(fieldData)).digest('hex'),
       content: JSON.stringify(fieldData),
-      description: 'Orgx',
+      description: 'Docs',
     },
     slug: slug,
   })
@@ -87,36 +91,36 @@ exports.onCreateNode = async ({
   createParentChildLink({ parent: fileNode, child: node })
 }
 
-exports.createPages = async ({
-  graphql, actions, reporter,
-}) => {
+// exports.createPages = async ({
+//   graphql, actions, reporter,
+// }) => {
 
-  const result = await graphql(`
-{
-  documents: allOrgx {
-    nodes { id slug }
-  }
-}
-  `)
-  if (result.errors) {
-    reporter.panic(result.errors)
-  }
+//   const result = await graphql(`
+// {
+//   documents: allDocs {
+//     nodes { id slug }
+//   }
+// }
+//   `)
+//   if (result.errors) {
+//     reporter.panic(result.errors)
+//   }
 
-  // @ts-ignore
-  const documents = result.data.documents.nodes
+//   // @ts-ignore
+//   const documents = result.data.documents.nodes
 
-  const { createPage } = actions
+//   const { createPage } = actions
 
-  documents.forEach((document, index) => {
-    const { slug } = document
-    createPage({
-      path: slug,
-      component: Template,
-      context: {
-        ...document,
-      }
-    })
+//   documents.forEach((document, index) => {
+//     const { slug } = document
+//     createPage({
+//       path: slug,
+//       component: Template,
+//       context: {
+//         ...document,
+//       }
+//     })
 
-  })
+//   })
 
-}
+// }

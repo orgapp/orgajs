@@ -1,5 +1,5 @@
-const OrgaRenderer = require('./dist/orga-renderer')
+import OrgaRenderer from './dist/orga-renderer'
 
-module.exports = {
+export {
   OrgaRenderer
 }

@@ -1,17 +1,30 @@
+import { SimpleLiteral } from 'estree'
 import { walk } from 'estree-walker'
 import { analyze } from 'periscopic'
 import { Options } from './options'
-import { isDeclaration, isExportDefaultDeclaration, isExportNamedDeclaration, isJSXExpression } from './type-check'
+import { isDeclaration, isExportDefaultDeclaration, isExportNamedDeclaration, isJSXElement, isJSXExpression } from './type-check'
 
 function processEstree(estree, options: Options) {
   const {
     skipExport,
     wrapExport,
+    defaultLayout,
   } = options
 
   let layout: any
   let children = []
   let mdxLayoutDefault: any
+
+  if (defaultLayout) {
+    mdxLayoutDefault = {
+      local: { type: 'Identifier', name: 'default' },
+      source: {
+        type: 'Literal',
+        value: defaultLayout,
+        raw: `'${defaultLayout}'`,
+      }
+    }
+  }
 
   // Find the `export default`, the JSX expression, and leave the rest
   // (import/exports) as they are.
@@ -41,8 +54,6 @@ function processEstree(estree, options: Options) {
     'MDXContent',
     ...analyze(estree).scope.declarations.keys()
   ]
-
-  // console.log({ inTopScope })
 
   estree.body = [
     ...estree.body,
@@ -103,7 +114,6 @@ function processEstree(estree, options: Options) {
         const names = analyze(node).scope.declarations.keys()
         const clean = [...names].filter(n => n !== 'MDXContent')
         if (clean.length > 0) {
-          // console.log(`🐶 got declaration: ${node.type}`)
           inTopScope = [...inTopScope, ...clean]
           components.push(node)
           this.remove()
@@ -130,32 +140,20 @@ function processEstree(estree, options: Options) {
       //   }
       // }
 
-      // unwrap JSXElement
-      if (isJSXExpression(node)) {
-        this.replace(node.expression)
-      }
-
-      if (
-        node.type === 'JSXElement' &&
-        // To do: support members (`<x.y>`).
-        // @ts-ignore
-        node.openingElement.name.type === 'JSXIdentifier'
-      ) {
-        // @ts-ignore
+      if (isJSXElement(node)) {
         const name = node.openingElement.name.name
 
         if (stack.length > 1) {
           const parentName = stack[stack.length - 1]
 
-          // @ts-ignore
           node.openingElement.attributes.push({
             type: 'JSXAttribute',
-            name: {type: 'JSXIdentifier', name: 'parentName'},
+            name: { type: 'JSXIdentifier', name: 'parentName' },
             value: {
               type: 'Literal',
               value: parentName,
               raw: JSON.stringify(parentName)
-            }
+            } as SimpleLiteral
           })
         }
 
@@ -163,11 +161,10 @@ function processEstree(estree, options: Options) {
 
         // A component.
         if (head === head.toUpperCase() && name !== 'MDXLayout') {
-        // @ts-ignore
           node.openingElement.attributes.push({
             type: 'JSXAttribute',
-            name: {type: 'JSXIdentifier', name: 'orgaType'},
-            value: {type: 'Literal', value: name, raw: JSON.stringify(name)}
+            name: { type: 'JSXIdentifier', name: 'orgaType' },
+            value: { type: 'Literal', value: name, raw: JSON.stringify(name) } as SimpleLiteral
           })
 
           if (!inTopScope.includes(name) && !magicShortcodes.includes(name)) {
@@ -177,14 +174,16 @@ function processEstree(estree, options: Options) {
 
         stack.push(name)
       }
+
     },
     leave: function (node) {
-      if (
-        node.type === 'JSXElement' &&
-        // To do: support members (`<x.y>`).
-        // @ts-ignore
-        node.openingElement.name.type === 'JSXIdentifier'
-      ) {
+
+      // unwrap JSXElement
+      if (isJSXExpression(node)) {
+        this.replace(node.expression)
+      }
+
+      if (isJSXElement(node)) {
         stack.pop()
       }
     }
