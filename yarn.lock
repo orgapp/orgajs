@@ -1158,7 +1158,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.5.tgz#2c40f81449a4e554e9fc6396910ed4843ec2be50"
   integrity sha512-igX9a37DR2ZPGYtV6suZ6whr8pTFtyHL3K/oLUotxpSVO2ASaprmAe2Dkq7tBo7CRY7MMDrAa9nuQP9/YG8FxQ==
 
-"@emotion/react@^11.1.1":
+"@emotion/react@^11.1.1", "@emotion/react@^11.4.0":
   version "11.4.0"
   resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.4.0.tgz#2465ad7b073a691409b88dfd96dc17097ddad9b7"
   integrity sha512-4XklWsl9BdtatLoJpSjusXhpKv9YVteYKh9hPKP1Sxl+mswEFoUe0WtmtWjxEjkA51DQ2QRMCNOvKcSlCQ7ivg==
@@ -1187,7 +1187,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-1.0.1.tgz#245f54abb02dfd82326e28689f34c27aa9b2a698"
   integrity sha512-GbIvVMe4U+Zc+929N1V7nW6YYJtidj31lidSmdYcWozwoBIObXBnaJkKNDjZrLm9Nc0BR+ZyHNaRZxqNZbof5g==
 
-"@emotion/styled@^11.0.0":
+"@emotion/styled@^11.0.0", "@emotion/styled@^11.3.0":
   version "11.3.0"
   resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-11.3.0.tgz#d63ee00537dfb6ff612e31b0e915c5cf9925a207"
   integrity sha512-fUoLcN3BfMiLlRhJ8CuPUMEyKkLEoM+n+UyAbnqGEsCd5IzKQ7VQFLtzpJOaCD2/VR2+1hXQTnSZXVJeiTNltA==
@@ -8598,6 +8598,14 @@ gatsby-plugin-emotion@^6.2.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-emotion/-/gatsby-plugin-emotion-6.7.0.tgz#16671d57750cd095b92c59e15cecce4717800a36"
   integrity sha512-8zUpxc1zpmfiqTsnPs2SlYVl+w2SDKdR8tNicIUwOCzpnQ8Ex6Z0stmb1cuHXW8QGjdMC7b5GwWZpz2LEIR9RA==
+  dependencies:
+    "@babel/runtime" "^7.14.0"
+    "@emotion/babel-preset-css-prop" "^11.2.0"
+
+gatsby-plugin-emotion@^6.7.1:
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-emotion/-/gatsby-plugin-emotion-6.7.1.tgz#f25156e7fbf8e7f6f9dd42fcd2708cb50742e18e"
+  integrity sha512-tbgehb9VexyAvxyOIsrg9KUHrvYi3f8tmpGaKg3qb5GWsH0tssGiHlBDl6+84Bo6nJO14jSoIxwerUS0AzSVAw==
   dependencies:
     "@babel/runtime" "^7.14.0"
     "@emotion/babel-preset-css-prop" "^11.2.0"

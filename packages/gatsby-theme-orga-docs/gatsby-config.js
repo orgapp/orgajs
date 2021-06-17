@@ -45,6 +45,7 @@ module.exports = themeOptions => {
           path: 'docs',
         }
       },
+      'gatsby-plugin-emotion',
     ]
   }
 }
