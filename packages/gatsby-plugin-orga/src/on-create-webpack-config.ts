@@ -1,4 +1,5 @@
 import toEstree from '@orgajs/rehype-estree'
+import * as path from 'path'
 const toJsx = require('@orgajs/estree-jsx')
 const toRehype = require('@orgajs/reorg-rehype')
 
@@ -12,7 +13,7 @@ export default (
   pluginOptions
 ) => {
 
-  const { defaultLayout } = pluginOptions
+  const { defaultLayout, components } = pluginOptions
 
   actions.setWebpackConfig({
     module: {
@@ -31,6 +32,23 @@ export default (
                 ]
               }
             },
+          ],
+        },
+        {
+          test: /orga-components\.js$/,
+          include: path.dirname(require.resolve('gatsby-plugin-orga')),
+          use: [
+            loaders.js(),
+            {
+              loader: path.join(
+                'gatsby-plugin-orga',
+                'dist',
+                'orga-components',
+              ),
+              options: {
+                components,
+              },
+            }
           ],
         },
       ],

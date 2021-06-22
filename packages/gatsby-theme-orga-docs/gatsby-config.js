@@ -1,7 +1,6 @@
 const path = require('path')
 const withDefaults = require('./utils/default-options')
 
-
 module.exports = themeOptions => {
   const options = withDefaults(themeOptions)
   return {
@@ -10,11 +9,17 @@ module.exports = themeOptions => {
       author: `Name Placeholder`,
       description: `Description placeholder`,
     },
+    flags: {
+      DEV_SSR: true,
+    },
     plugins: [
       {
         resolve: 'gatsby-plugin-orga',
         options: {
           defaultLayout: require.resolve('./src/components/layout.js'),
+          components: {
+            Box: require.resolve('./src/components/box.js'),
+          }
         },
       },
       {
@@ -23,6 +28,9 @@ module.exports = themeOptions => {
           name: `images`,
           path: path.join(__dirname, `src`, `images`),
         },
+      },
+      {
+        resolve: 'gatsby-plugin-loadable-components-ssr',
       },
       `gatsby-plugin-sharp`,
       `gatsby-transformer-sharp`,
@@ -45,7 +53,9 @@ module.exports = themeOptions => {
           path: 'docs',
         }
       },
-      'gatsby-plugin-emotion',
-    ]
+      {
+        resolve: 'gatsby-plugin-theme-ui',
+      },
+    ],
   }
 }

@@ -21,10 +21,11 @@
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "gatsby-image": "^3.7.1",
-    "gatsby-plugin-emotion": "^6.7.1",
     "gatsby-plugin-orga": "^2.4.8",
+    "gatsby-plugin-theme-ui": "^0.10.1",
     "gatsby-source-filesystem": "^3.2.0",
-    "gatsby-transformer-orga": "^2.4.8"
+    "gatsby-transformer-orga": "^2.4.8",
+    "loader-utils": "^2.0.0"
   },
   "peerDependencies": {
     "gatsby": "^3.0.0",

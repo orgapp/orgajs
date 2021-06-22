@@ -1,9 +1,9 @@
-import { css } from '@emotion/react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
 import _ from 'lodash'
 import React from 'react'
-import colors from './colors'
 
 const Nav = () => {
 
@@ -49,28 +49,36 @@ const Nav = () => {
   })
 
   const navItems = _.sortBy(items, ['position']).map(item =>
-    <Link to={item.path} style={{ textDecoration: 'none' }}>
-      <div key={`nav-${item.position}`} css={css`
-        padding: 0.5em 0.5em 0.5em ${0.5 + 1 * item.indent}em;
-        border-radius: 0.3em;
-        &:hover {
-          background-color: ${colors.highlight};
+    <Link
+      key={`nav-${item.position}`}
+      to={item.path}
+      sx={{
+        textDecoration: 'none'
+      }}
+    >
+      <div sx={{
+        padding: `0.5em 0.5em 0.5em ${0.5 + 1 * item.indent}em`,
+        borderRadius: '0.3em',
+        color: 'primary',
+        '&:hover': {
+          backgroundColor: 'highlight',
         }
-    `}>
+      }}>
         {item.text}
       </div>
     </Link>
   )
 
   return (
-    <nav style={{
+    <nav sx={{
       height: '100%',
       overflow: 'auto',
       gridArea: 'nav',
-      borderRight: `1px solid ${colors.separator}`,
-      backgroundColor: colors.surface,
+      borderRight: `1px solid`,
+      borderColor: `muted`,
+      backgroundColor: 'surface',
     }}>
-      <div style={{
+      <div sx={{
         display: 'flex',
         top: 0,
         alignItems: 'center',

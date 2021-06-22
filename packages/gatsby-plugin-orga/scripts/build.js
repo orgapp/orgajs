@@ -4,6 +4,7 @@ require('esbuild').build({
   entryPoints: [
     'src/gatsby-node.ts',
     'src/orga-renderer.ts',
+    'src/orga-components.ts',
     'src/wrap-root-render-html-entry.tsx',
   ],
   bundle: true,
@@ -15,6 +16,8 @@ require('esbuild').build({
     'webpack', 'path',
     'p-queue', 'dataloader',
     './wrap-root-render-html-entry.js',
+    'loader-utils',
+    'gatsby-plugin-orga',
   ],
   platform: 'node',
   outdir: 'dist',

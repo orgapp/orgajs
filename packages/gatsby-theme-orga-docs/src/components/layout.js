@@ -1,21 +1,20 @@
-import React from 'react'
-import colors from './colors'
+/** @jsx jsx */
+import { jsx, Button, Container } from 'theme-ui'
 import Nav from './nav'
 
 const HEADER_HEIGHT = '48px'
 
 export default ({ children, pageContext }) => {
 
-  const { title } = pageContext.properties || {}
-
+  const { title } = pageContext.properties || {};
 
   return (
-    <main style={{
+    <main sx={{
       display: 'grid',
       gridTemplateColumns: '250px 1fr',
       gridTemplateRows: `${HEADER_HEIGHT} 1fr`,
       alignContent: 'stretch',
-      backgroundColor: colors.background,
+      backgroundColor: 'background',
       height: '100%',
       gridTemplateAreas: `
       'nav header'
@@ -23,20 +22,25 @@ export default ({ children, pageContext }) => {
       `,
     }}
     >
-      <header style={{
+      <header sx={{
         display: 'flex',
+        justifyContent: 'flex-end',
         alignItems: 'center',
-        borderBottom: `1px solid ${colors.separator}`,
+        borderBottom: `1px solid`,
+        borderColor: `muted`,
         gridArea: 'header',
+        marginX: '1em',
       }}>
+        <Button>Playground</Button>
       </header>
       <Nav />
-      <article style={{
+      <Container p={4} sx={{
         gridArea: 'content',
       }}>
         <h1>{title}</h1>
         {children}
-      </article>
+      </Container>
     </main>
   )
 }
+
