@@ -19,6 +19,11 @@ export default (
     module: {
       rules: [
         {
+          test: /\.js$/,
+          include: cache.directory,
+          use: [loaders.js()],
+        },
+        {
           test: /\.org$/,
           use: [
             loaders.js(),
@@ -42,7 +47,7 @@ export default (
             {
               loader: path.join(
                 'gatsby-plugin-orga',
-                'dist',
+                'loaders',
                 'orga-components',
               ),
               options: {

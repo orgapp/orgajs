@@ -31,12 +31,12 @@ const Document = (props) => {
 
 export default Document
 
-export const pageQuery = graphql`
-  query DocumentQuery($id: String!) {
-    document: docs(id: { eq: $id }) {
-      id
-      body
-      layout
-    }
-  }
-`
+// export const pageQuery = graphql`
+//   query DocumentQuery($id: String!) {
+//     document: docs(id: { eq: $id }) {
+//       id
+//       body
+//       layout
+//     }
+//   }
+// `

@@ -9,9 +9,6 @@ module.exports = themeOptions => {
       author: `Name Placeholder`,
       description: `Description placeholder`,
     },
-    flags: {
-      DEV_SSR: true,
-    },
     plugins: [
       {
         resolve: 'gatsby-plugin-orga',
@@ -28,9 +25,6 @@ module.exports = themeOptions => {
           name: `images`,
           path: path.join(__dirname, `src`, `images`),
         },
-      },
-      {
-        resolve: 'gatsby-plugin-loadable-components-ssr',
       },
       `gatsby-plugin-sharp`,
       `gatsby-transformer-sharp`,

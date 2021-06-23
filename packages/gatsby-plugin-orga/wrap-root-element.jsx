@@ -1,11 +1,11 @@
 import { OrgaProvider } from '@orgajs/react'
 import React from 'react'
-import * as components from './dist/orga-components'
+import * as components from './loaders/orga-components'
 
 // TODO: process config
 
 
-const wrapRootElement = ({ element }, options) => {
+const WrapRootElement = ({ element }, options) => {
 
   let wrapper = undefined
 
@@ -28,4 +28,4 @@ const wrapRootElement = ({ element }, options) => {
   )
 }
 
-export default wrapRootElement
+export default WrapRootElement
