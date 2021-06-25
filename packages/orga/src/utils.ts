@@ -1,5 +1,4 @@
-import { Token } from './types'
-import { PhrasingContent } from 'orga';
+import { Token, PhrasingContent } from './types'
 
 const matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g
 
