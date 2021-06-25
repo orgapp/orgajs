@@ -69,4 +69,14 @@ the round pegs in the +round+ square holes...
     },
     text(' world.')
   ]);
+
+  testParagraph('with anonymous nested footnote',
+    'hello[fn::An [fn::Anonymous footnote]!] world.', [
+    text('hello'),
+    {
+      type: 'footnote.anonymous',
+      children: [text('An '), { type: 'footnote.anonymous', children: [text('Anonymous footnote')] }, text('!')],
+    },
+    text(' world.')
+  ]);
 })

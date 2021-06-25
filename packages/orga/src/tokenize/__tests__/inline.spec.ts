@@ -189,6 +189,44 @@ describe("Inline Tokenization", () => {
     `)
   })
 
+  it("recon anonymous footnote reference with inner footnote reference", () => {
+    expect(tok('hello[fn::[fn::Anonymous]] world.')).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "hello",
+          "type": "text.plain",
+          "value": "hello",
+        },
+        Object {
+          "_text": "[fn::",
+          "type": "footnote.anonymous.begin",
+        },
+        Object {
+          "_text": "[fn::",
+          "type": "footnote.anonymous.begin",
+        },
+        Object {
+          "_text": "Anonymous",
+          "type": "text.plain",
+          "value": "Anonymous",
+        },
+        Object {
+          "_text": "]",
+          "type": "footnote.reference.end",
+        },
+        Object {
+          "_text": "]",
+          "type": "footnote.reference.end",
+        },
+        Object {
+          "_text": " world.",
+          "type": "text.plain",
+          "value": " world.",
+        },
+      ]
+    `)
+  })
+
   it("recon named inline footnote", () => {
     expect(tok('hello[fn:named:Inline named footnote] world.')).toMatchInlineSnapshot(`
       Array [

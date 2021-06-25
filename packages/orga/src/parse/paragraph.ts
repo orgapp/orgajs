@@ -1,7 +1,9 @@
 import { push } from '../node'
-import { Paragraph, PhrasingContent, Token } from '../types'
+import { FootnoteAnonymous, FootnoteInline, Paragraph, PhrasingContent, Token } from '../types'
 import { isPhrasingContent } from '../utils'
 import { Lexer } from '../tokenize';
+
+type FootnoteInlineOrAnon = FootnoteInline | FootnoteAnonymous;
 
 const isWhitespaces = node => {
   return node.type === 'text.plain' && node.value.trim().length === 0
@@ -24,21 +26,39 @@ export default function paragraph(lexer: Lexer): Paragraph | undefined {
       return p
     }
 
-    if (token.type === 'footnote.inline.begin' || token.type === 'footnote.anonymous.begin') {
-      eat();
-      const children: PhrasingContent[] = [];
-      let inner: Token;
-      while (inner = eat()) {
-        if (inner.type === 'footnote.reference.end') {
-          push(p)({ children: children, ...(token.type === 'footnote.inline.begin' ? { type: 'footnote.inline', label: token.label } : { type: 'footnote.anonymous' }) });
-          eolCount = 0;
-          return build(p);
-        } else if (isPhrasingContent(inner)) {
-          children.push(inner);
-        } else {
-          return undefined;
+    function readAFootnote(par: Paragraph | FootnoteInlineOrAnon = p): PhrasingContent | undefined {
+      const begins = ['footnote.inline.begin', 'footnote.anonymous.begin'];
+      if (begins.includes(token.type)) {
+        eat();
+        const fn: FootnoteInlineOrAnon =
+        {
+          children: [],
+          ...(token.type === 'footnote.inline.begin'
+            ? { type: 'footnote.inline', label: token.label }
+            : { type: 'footnote.anonymous' })
+        };
+        let inner: Token;
+        while (inner = peek()) {
+          if (begins.includes(inner.type)) {
+            // nested footnote reference
+            readAFootnote(fn);
+          } else if (inner.type === 'footnote.reference.end') {
+            eat();
+            push(par)(fn);
+            eolCount = 0;
+            return fn;
+          } else if (isPhrasingContent(inner)) {
+            eat();
+            fn.children.push(inner);
+          } else {
+            return undefined;
+          }
         }
       }
+    }
+
+    if (readAFootnote()) {
+      return build(p);
     }
 
     if (token.type === 'newline') {
