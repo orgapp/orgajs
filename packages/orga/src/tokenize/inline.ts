@@ -23,15 +23,15 @@ interface Props {
   end?: Point
 }
 
-export const tokenize = ({ reader, start, end } : Props): Token[] => {
+export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring: string[] } = { ignoring: [] }): Token[] => {
   const { now, eat, eol, match, jump, substring, getChar } = reader
   start = start || { ...now() }
   end = end || { ...eol() }
   jump(start)
 
-  let cursor = { ...start }
+  let cursor: Point = { ...start }
 
-  const _tokens: PhrasingContent[] = []
+  const _tokens: Token[] = []
 
   const tokLink = (): Link => {
     const m = match(/^\[\[([^\]]*)\](?:\[([^\]]*)\])?\]/m)
@@ -45,13 +45,39 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
     }
   }
 
-  const tokFootnote = (): FootnoteReference => {
-    const m = match(/^\[fn:(\w+)\]/)
-    if (!m) return undefined
-    return {
-      type: 'footnote.reference',
-      label: m.captures[1],
+  const tokFootnoteAnon = (): Token[] => {
+    const tokens: Token[] = [];
+
+    let m = match(/^\[fn::/);
+    if (!m) return [];
+    tokens.push({
+      type: 'footnote.anonymous.begin',
       position: m.position,
+    });
+    jump(m.position.end);
+
+    tokens.push(...tokenize({ reader }, { ignoring: [']'] }));
+
+    m = match(/^\]/);
+    if (!m) return [];
+    tokens.push({
+      type: 'footnote.reference.end',
+      position: m.position
+    });
+
+    jump(tokens[0].position.start);
+
+    return tokens;
+  }
+
+  const tokFootnote = (): FootnoteReference => {
+    const m = match(/^\[fn:(\w+)\]/);
+    if (m) {
+      return {
+        type: 'footnote.reference',
+        label: m.captures[1],
+        position: m.position,
+      }
     }
   }
 
@@ -66,14 +92,21 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
     }
   }
 
-  const tryTo = (tok: () => PhrasingContent) => {
-    const token = tok()
-    if (!token) return false
+  const tryToTokens = (tok: () => Token[]) => {
+    const tokens = tok()
+    if (tokens.length === 0) return false
     cleanup()
-    _tokens.push(token)
-    jump(token.position.end)
+    _tokens.push(...tokens)
+    jump(tokens[tokens.length - 1].position.end)
     cursor = { ...now() }
     return true
+  }
+
+  const tryTo = (tok: () => PhrasingContent) => {
+    return tryToTokens(() => {
+      const r = tok();
+      return r ? [r] : [];
+    });
   }
 
   const cleanup = () => {
@@ -102,9 +135,14 @@ export const tokenize = ({ reader, start, end } : Props): Token[] => {
     }
     const char = getChar()
 
+    if (ignoring.includes(char)) {
+      return [];
+    }
+
     if (char === '[') {
       if (tryTo(tokLink)) return tok()
       if (tryTo(tokFootnote)) return tok()
+      if (tryToTokens(tokFootnoteAnon)) return tok();
     }
 
     if (MARKERS[char]) {

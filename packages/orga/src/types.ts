@@ -145,6 +145,8 @@ export type Token =
   | TableColumnSeparator
   | PhrasingContent
   | FootnoteLabel
+  | FootnoteAnonymousBegin
+  | FootnoteReferenceEnd
   | BlockBegin
   | BlockEnd
   | DrawerBegin
@@ -184,6 +186,14 @@ export interface Link extends Literal {
 export interface FootnoteReference extends Node {
   type: 'footnote.reference';
   label: string;
+}
+
+export interface FootnoteAnonymousBegin extends Node {
+  type: 'footnote.anonymous.begin';
+}
+
+export interface FootnoteReferenceEnd extends Node {
+  type: 'footnote.reference.end';
 }
 
 // headline tokens
