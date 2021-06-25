@@ -1,5 +1,6 @@
 import { tokenize } from '../../tokenize'
 import { parse } from '../index'
+import { PhrasingContent } from '../../types'
 import debug from './debug'
 
 describe('Parse Paragraph', () => {
@@ -24,4 +25,28 @@ the round pegs in the +round+ square holes...
     expect(tree).toMatchSnapshot()
     // debug(content)
   })
+
+  const text = (text: string): PhrasingContent => ({
+    type: 'text.plain',
+    value: text
+  });
+
+  function testParagraph(testName: string, inText: string, expected: PhrasingContent[]) {
+    return it(testName, () => {
+      expect(parse(tokenize(inText))).toMatchObject({
+        type: 'document',
+        children: [{
+          type: 'paragraph',
+          children: expected
+        }],
+      });
+    });
+  }
+
+  testParagraph('with standard footnote',
+    'hello[fn:named] world.', [
+    text('hello'),
+    { type: 'footnote.reference', label: 'named' },
+    text(' world.')
+  ]);
 })
