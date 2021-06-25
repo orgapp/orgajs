@@ -146,6 +146,7 @@ export type Token =
   | PhrasingContent
   | FootnoteLabel
   | FootnoteAnonymousBegin
+  | FootnoteInlineBegin
   | FootnoteReferenceEnd
   | BlockBegin
   | BlockEnd
@@ -190,6 +191,11 @@ export interface FootnoteReference extends Node {
 
 export interface FootnoteAnonymousBegin extends Node {
   type: 'footnote.anonymous.begin';
+}
+
+export interface FootnoteInlineBegin extends Node {
+  type: 'footnote.inline.begin';
+  label: string;
 }
 
 export interface FootnoteReferenceEnd extends Node {

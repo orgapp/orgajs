@@ -45,15 +45,23 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
     }
   }
 
-  const tokFootnoteAnon = (): Token[] => {
+  const tokFootnoteAnonOrInline = (): Token[] => {
     const tokens: Token[] = [];
 
-    let m = match(/^\[fn::/);
+    let m = match(/^\[fn:(\w+)?:/);
     if (!m) return [];
-    tokens.push({
-      type: 'footnote.anonymous.begin',
-      position: m.position,
-    });
+    if (m.captures[1] !== undefined) {
+      tokens.push({
+        type: 'footnote.inline.begin',
+        label: m.captures[1],
+        position: m.position,
+      });
+    } else {
+      tokens.push({
+        type: 'footnote.anonymous.begin',
+        position: m.position,
+      });
+    }
     jump(m.position.end);
 
     tokens.push(...tokenize({ reader }, { ignoring: [']'] }));
@@ -142,7 +150,7 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
     if (char === '[') {
       if (tryTo(tokLink)) return tok()
       if (tryTo(tokFootnote)) return tok()
-      if (tryToTokens(tokFootnoteAnon)) return tok();
+      if (tryToTokens(tokFootnoteAnonOrInline)) return tok();
     }
 
     if (MARKERS[char]) {

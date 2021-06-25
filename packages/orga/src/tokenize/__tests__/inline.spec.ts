@@ -189,6 +189,37 @@ describe("Inline Tokenization", () => {
     `)
   })
 
+  it("recon named inline footnote", () => {
+    expect(tok('hello[fn:named:Inline named footnote] world.')).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "hello",
+          "type": "text.plain",
+          "value": "hello",
+        },
+        Object {
+          "_text": "[fn:named:",
+          "label": "named",
+          "type": "footnote.inline.begin",
+        },
+        Object {
+          "_text": "Inline named footnote",
+          "type": "text.plain",
+          "value": "Inline named footnote",
+        },
+        Object {
+          "_text": "]",
+          "type": "footnote.reference.end",
+        },
+        Object {
+          "_text": " world.",
+          "type": "text.plain",
+          "value": " world.",
+        },
+      ]
+    `)
+  })
+
   it("recon invalid inline markups", () => {
     expect(tok(`*,word*`)).toMatchInlineSnapshot(`
       Array [
