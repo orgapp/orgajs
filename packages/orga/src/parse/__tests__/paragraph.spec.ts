@@ -61,11 +61,11 @@ the round pegs in the +round+ square holes...
   ]);
 
   testParagraph('with anonymous footnote',
-    'hello[fn::Inline named footnote] world.', [
+    'hello[fn::Anonymous footnote] world.', [
     text('hello'),
     {
       type: 'footnote.anonymous',
-      children: [text('Inline named footnote')]
+      children: [text('Anonymous footnote')]
     },
     text(' world.')
   ]);
