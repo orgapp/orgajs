@@ -49,4 +49,24 @@ the round pegs in the +round+ square holes...
     { type: 'footnote.reference', label: 'named' },
     text(' world.')
   ]);
+
+  testParagraph('with inline footnote',
+    'hello[fn:named:Inline named footnote] world.', [
+    text('hello'),
+    {
+      type: 'footnote.inline', label: 'named',
+      children: [text('Inline named footnote')]
+    },
+    text(' world.')
+  ]);
+
+  testParagraph('with anonymous footnote',
+    'hello[fn::Inline named footnote] world.', [
+    text('hello'),
+    {
+      type: 'footnote.anonymous',
+      children: [text('Inline named footnote')]
+    },
+    text(' world.')
+  ]);
 })

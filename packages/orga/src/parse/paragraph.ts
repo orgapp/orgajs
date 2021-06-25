@@ -1,12 +1,14 @@
 import { push } from '../node'
-import { Paragraph } from '../types'
+import { Paragraph, PhrasingContent, Token } from '../types'
 import { isPhrasingContent } from '../utils'
+import { Lexer } from '../tokenize';
 
 const isWhitespaces = node => {
   return node.type === 'text.plain' && node.value.trim().length === 0
 }
 
-export default ({ peek, eat }): Paragraph | undefined => {
+export default function paragraph(lexer: Lexer): Paragraph | undefined {
+  const { peek, eat } = lexer;
   let eolCount = 0
 
   const createParagraph = (): Paragraph => ({
@@ -20,6 +22,23 @@ export default ({ peek, eat }): Paragraph | undefined => {
     const token = peek()
     if (!token || eolCount >= 2) {
       return p
+    }
+
+    if (token.type === 'footnote.inline.begin' || token.type === 'footnote.anonymous.begin') {
+      eat();
+      const children: PhrasingContent[] = [];
+      let inner: Token;
+      while (inner = eat()) {
+        if (inner.type === 'footnote.reference.end') {
+          push(p)({ children: children, ...(token.type === 'footnote.inline.begin' ? { type: 'footnote.inline', label: token.label } : { type: 'footnote.anonymous' }) });
+          eolCount = 0;
+          return build(p);
+        } else if (isPhrasingContent(inner)) {
+          children.push(inner);
+        } else {
+          return undefined;
+        }
+      }
     }
 
     if (token.type === 'newline') {

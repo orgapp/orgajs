@@ -155,7 +155,7 @@ export type Token =
   | Comment
 
 export type PhrasingContent =
-  | StyledText | Link | FootnoteReference | Newline
+  | StyledText | Link | FootnoteRef | Newline
 
 export interface HorizontalRule extends Node {
   type: 'hr'
@@ -184,9 +184,22 @@ export interface Link extends Literal {
   search?: string | number;
 }
 
+export type FootnoteRef = FootnoteReference | FootnoteInline | FootnoteAnonymous;
+
 export interface FootnoteReference extends Node {
   type: 'footnote.reference';
   label: string;
+}
+
+export interface FootnoteInline extends Parent {
+  type: 'footnote.inline';
+  label: string;
+  children: PhrasingContent[];
+}
+
+export interface FootnoteAnonymous extends Parent {
+  type: 'footnote.anonymous';
+  children: PhrasingContent[];
 }
 
 export interface FootnoteAnonymousBegin extends Node {
