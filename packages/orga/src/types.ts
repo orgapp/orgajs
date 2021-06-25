@@ -77,7 +77,7 @@ export interface List extends Parent, Attributed {
   type: 'list';
   indent: number;
   ordered: boolean;
-  children: ListItem[];
+  children: (List | ListItem)[];
 }
 
 type TableContent = TableRow | TableRule
