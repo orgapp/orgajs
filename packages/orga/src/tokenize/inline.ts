@@ -48,20 +48,13 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
   const tokFootnoteAnonOrInline = (): Token[] => {
     const tokens: Token[] = [];
 
-    let m = match(/^\[fn:(\w+)?:/);
+    let m = match(/^\[fn:(\w*):/);
     if (!m) return [];
-    if (m.captures[1] !== undefined) {
-      tokens.push({
-        type: 'footnote.inline.begin',
-        label: m.captures[1],
-        position: m.position,
-      });
-    } else {
-      tokens.push({
-        type: 'footnote.anonymous.begin',
-        position: m.position,
-      });
-    }
+    tokens.push({
+      type: 'footnote.inline.begin',
+      label: m.captures[1],
+      position: m.position,
+    });
     jump(m.position.end);
 
     tokens.push(...tokenize({ reader }, { ignoring: [']'] }));

@@ -169,7 +169,8 @@ describe("Inline Tokenization", () => {
         },
         Object {
           "_text": "[fn::",
-          "type": "footnote.anonymous.begin",
+          "label": "",
+          "type": "footnote.inline.begin",
         },
         Object {
           "_text": "Anonymous",
@@ -199,11 +200,13 @@ describe("Inline Tokenization", () => {
         },
         Object {
           "_text": "[fn::",
-          "type": "footnote.anonymous.begin",
+          "label": "",
+          "type": "footnote.inline.begin",
         },
         Object {
           "_text": "[fn::",
-          "type": "footnote.anonymous.begin",
+          "label": "",
+          "type": "footnote.inline.begin",
         },
         Object {
           "_text": "Anonymous",

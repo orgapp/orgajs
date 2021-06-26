@@ -38,7 +38,8 @@ the round pegs in the +round+ square holes...
   });
 
   const anonFootnote = (children: PhrasingContent[]): PhrasingContent => ({
-    type: 'footnote.anonymous',
+    type: 'footnote.inline',
+    label: '',
     children: children
   });
 

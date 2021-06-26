@@ -1,9 +1,7 @@
 import { push } from '../node'
-import { FootnoteAnonymous, FootnoteInline, Paragraph, PhrasingContent, Token } from '../types'
+import { FootnoteInline, Paragraph, PhrasingContent, Token } from '../types'
 import { isPhrasingContent } from '../utils'
 import { Lexer } from '../tokenize';
-
-type FootnoteInlineOrAnon = FootnoteInline | FootnoteAnonymous;
 
 const isWhitespaces = node => {
   return node.type === 'text.plain' && node.value.trim().length === 0
@@ -26,20 +24,18 @@ export default function paragraph(lexer: Lexer): Paragraph | undefined {
       return p
     }
 
-    function readAFootnote(par: Paragraph | FootnoteInlineOrAnon = p): PhrasingContent | undefined {
-      const begins = ['footnote.inline.begin', 'footnote.anonymous.begin'];
-      if (begins.includes(token.type)) {
+    function readAFootnote(par: Paragraph | FootnoteInline = p): PhrasingContent | undefined {
+      if (token.type === 'footnote.inline.begin') {
         eat();
-        const fn: FootnoteInlineOrAnon =
+        const fn: FootnoteInline =
         {
           children: [],
-          ...(token.type === 'footnote.inline.begin'
-            ? { type: 'footnote.inline', label: token.label }
-            : { type: 'footnote.anonymous' })
+          type: 'footnote.inline',
+          label: token.label,
         };
         let inner: Token;
         while (inner = peek()) {
-          if (begins.includes(inner.type)) {
+          if (inner.type === 'footnote.inline.begin') {
             // nested footnote reference
             readAFootnote(fn);
           } else if (inner.type === 'footnote.reference.end') {

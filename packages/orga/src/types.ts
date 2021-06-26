@@ -145,7 +145,6 @@ export type Token =
   | TableColumnSeparator
   | PhrasingContent
   | FootnoteLabel
-  | FootnoteAnonymousBegin
   | FootnoteInlineBegin
   | FootnoteReferenceEnd
   | BlockBegin
@@ -184,26 +183,24 @@ export interface Link extends Literal {
   search?: string | number;
 }
 
-export type FootnoteRef = FootnoteReference | FootnoteInline | FootnoteAnonymous;
+export type FootnoteRef = FootnoteReference | FootnoteInline;
 
 export interface FootnoteReference extends Node {
   type: 'footnote.reference';
   label: string;
 }
 
+/**
+ * An inline footnote with a definition.
+ *
+ * See https://orgmode.org/worg/dev/org-syntax.html#Footnote_References.
+ *
+ * If `label` is the empty string, then this is treated as an anonymous footnote.
+ */
 export interface FootnoteInline extends Parent {
   type: 'footnote.inline';
   label: string;
   children: PhrasingContent[];
-}
-
-export interface FootnoteAnonymous extends Parent {
-  type: 'footnote.anonymous';
-  children: PhrasingContent[];
-}
-
-export interface FootnoteAnonymousBegin extends Node {
-  type: 'footnote.anonymous.begin';
 }
 
 export interface FootnoteInlineBegin extends Node {
