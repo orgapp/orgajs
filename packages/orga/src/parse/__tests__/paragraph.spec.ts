@@ -31,6 +31,17 @@ the round pegs in the +round+ square holes...
     value: text
   });
 
+  const inlineFootnote = (label: string, children: PhrasingContent[]): PhrasingContent => ({
+    type: 'footnote.inline',
+    label: label,
+    children: children
+  });
+
+  const anonFootnote = (children: PhrasingContent[]): PhrasingContent => ({
+    type: 'footnote.anonymous',
+    children: children
+  });
+
   function testParagraph(testName: string, inText: string, expected: PhrasingContent[]) {
     return it(testName, () => {
       expect(parse(tokenize(inText))).toMatchObject({
@@ -53,30 +64,21 @@ the round pegs in the +round+ square holes...
   testParagraph('with inline footnote',
     'hello[fn:named:Inline named footnote] world.', [
     text('hello'),
-    {
-      type: 'footnote.inline', label: 'named',
-      children: [text('Inline named footnote')]
-    },
+    inlineFootnote('named', [text('Inline named footnote')]),
     text(' world.')
   ]);
 
   testParagraph('with anonymous footnote',
     'hello[fn::Anonymous footnote] world.', [
     text('hello'),
-    {
-      type: 'footnote.anonymous',
-      children: [text('Anonymous footnote')]
-    },
+    anonFootnote([text('Anonymous footnote')]),
     text(' world.')
   ]);
 
   testParagraph('with anonymous nested footnote',
     'hello[fn::An [fn::Anonymous footnote]!] world.', [
     text('hello'),
-    {
-      type: 'footnote.anonymous',
-      children: [text('An '), { type: 'footnote.anonymous', children: [text('Anonymous footnote')] }, text('!')],
-    },
+    anonFootnote([text('An '), anonFootnote([text('Anonymous footnote')]), text('!')]),
     text(' world.')
   ]);
 })
