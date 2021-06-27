@@ -6,8 +6,15 @@ import { BaseNode } from 'estree';
 import toJsx from '@orgajs/estree-jsx'
 import reorg from '@orgajs/reorg'
 import toRehype from '@orgajs/reorg-rehype'
+import { inspect } from 'util'
+import { get } from 'lodash/fp'
 
-export async function compile ({ content, cache }) {
+const renderer = `import React from 'react'
+import {orga} from '@orgajs/react'
+import { graphql } from 'gatsby'
+`
+
+export async function compile ({ content, cache }: { content: string, cache: any }) {
 
   const digest = crypto.createHash('sha256').update(content).digest('hex')
 
@@ -36,8 +43,11 @@ export async function compile ({ content, cache }) {
 
           /* extract named exports, pass them in to react props (pageContext) */
           if (node.type === 'ExportNamedDeclaration') {
+            // if (get('node.declaration.declarations[0].init.tag')(node) === 'graphql') {
+            //   return
+            // }
             namedExports.push(node)
-            this.remove()
+            // this.remove()
           }
 
           /* -- we don't render org files ourself now, it's going to webpack -- */
@@ -71,9 +81,12 @@ export async function compile ({ content, cache }) {
     .use(toRehype)
     .use(toEstree)
     .use(processImportsExports)
-    .use(toJsx)
+    .use(toJsx, { renderer })
 
   const code = await processor.process(content)
+
+  // console.dir('-------- code ----------')
+  // console.dir(`${code}`)
 
   result.code = `${code}`
 
@@ -92,12 +105,15 @@ export async function compile ({ content, cache }) {
             },
             init: {
               type: 'ObjectExpression',
-              properties: namedExports.map(e => ({
-                type: 'Property',
-                key: e.declaration.declarations[0].id,
-                value: e.declaration.declarations[0].init,
-                kind: 'init',
-              }))
+              // TODO: handle more than 1 declarations
+              properties: namedExports
+                .filter(e => get('declaration.declarations[0].init.tag.name')(e) !== 'graphql')
+                .map(e => ({
+                  type: 'Property',
+                  key: e.declaration.declarations[0].id,
+                  value: e.declaration.declarations[0].init,
+                  kind: 'init',
+                }))
             }
           }
         ],
@@ -120,6 +136,14 @@ export async function compile ({ content, cache }) {
 
 function evaluate(tree: BaseNode) {
   const code = generate(tree)
-  const fn = new Function('_fn', code)
-  return fn({})
+  const graphql = (query: any) => `${query}`
+  const scope = {
+    graphql,
+  }
+
+  const keys = Object.keys(scope)
+  const values = keys.map(key => scope[key])
+
+  const fn = new Function('_fn', ...keys, code)
+  return fn({}, ...values)
 }

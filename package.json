@@ -1,4 +1,5 @@
 {
+  "name": "orgajs",
   "private": true,
   "devDependencies": {
     "@babel/core": "^7.14.3",

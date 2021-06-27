@@ -2,6 +2,7 @@ import onCreateNode from './on-create-node'
 import onCreateWebpackConfig from './on-create-webpack-config'
 import sourceNodes from './source-nodes'
 import onCreatePage from './on-create-page'
+import preprocessSource from './preprocess-source'
 
 const extensions = ['.org']
 
@@ -13,6 +14,7 @@ export function unstable_shouldOnCreateNode({ node }) {
 
 export {
   sourceNodes,
+  preprocessSource,
   onCreateNode,
   onCreatePage,
   onCreateWebpackConfig,
