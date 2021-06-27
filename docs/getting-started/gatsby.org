@@ -2,6 +2,7 @@
 #+published: true
 #+position: 1
 
+* Create Gatsby Project
 
 Create a new gatsby website following the [[https://www.gatsbyjs.com/get-started/][documentation]]. Or simply
 
@@ -9,12 +10,16 @@ Create a new gatsby website following the [[https://www.gatsbyjs.com/get-started
 npx gatsby new gatsby-site
 #+end_src
 
+* Installation
+
 Install packages.
 
 #+begin_src sh
 cd gatsby-site
 yarn add gatsby-plugin-orga @orgajs/react @orgajs/loader
 #+end_src
+
+* Configuration
 
 Add =gatsby-plugin-orga= to =gatsby-config.js=.
 

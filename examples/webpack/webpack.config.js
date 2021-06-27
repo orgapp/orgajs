@@ -1,8 +1,8 @@
-const toRehype = require('@orgajs/reorg-rehype')
-const toEstree = require('@orgajs/rehype-estree')
-const toJsx = require('@orgajs/estree-jsx')
+import toEstree from '@orgajs/rehype-estree'
+import toRehype from '@orgajs/reorg-rehype'
+import toJsx from '@orgajs/estree-jsx'
 
-module.exports = {
+const config = {
   mode: 'development',
   module: {
     rules: [
@@ -29,3 +29,5 @@ module.exports = {
     ]
   },
 }
+
+export default config

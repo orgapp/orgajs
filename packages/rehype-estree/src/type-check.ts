@@ -1,6 +1,6 @@
 import { BaseNode, Declaration, ExportDefaultDeclaration, ExportNamedDeclaration, ExpressionStatement } from 'estree'
 import { JSXElement, JSXFragment, JSXOpeningElement } from 'estree-jsx'
-import _ from 'lodash/fp'
+import _ from 'lodash'
 
 export function isExportNamedDeclaration(node: BaseNode): node is ExportNamedDeclaration {
   return node.type === 'ExportNamedDeclaration'
@@ -16,7 +16,7 @@ export function isExpressionStatement(node: BaseNode): node is ExpressionStateme
 
 export function isJSXExpression(node: BaseNode): node is ExpressionStatement {
   if (node.type !== 'ExpressionStatement') return false
-  const expType = _.get('expression.type')(node)
+  const expType = _.get(node, 'expression.type')
   return expType === 'JSXElement' || expType === 'JSXFragment'
 }
 

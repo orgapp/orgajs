@@ -2,4 +2,8 @@
 #+published: true
 #+position: 100
 
-Let's play.
+Choose the tool that you are comfortable with and getting started.
+
+- [[file:gatsby][Gatsby]]
+- [[next][next.js]]
+

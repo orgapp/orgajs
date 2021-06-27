@@ -13,9 +13,9 @@ module.exports = themeOptions => {
       {
         resolve: 'gatsby-plugin-orga',
         options: {
-          defaultLayout: require.resolve('./src/components/layout.js'),
+          defaultLayout: require.resolve('./src/components/layout.tsx'),
           components: {
-            Box: require.resolve('./src/components/box.js'),
+            Box: require.resolve('./src/components/box.tsx'),
           }
         },
       },

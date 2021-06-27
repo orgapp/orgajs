@@ -4,9 +4,14 @@
 
 Use the next plugin for orga.
 
+* Installation
+
 #+begin_src sh
 npm install --save @orgajs/loader @orgajs/react @orgajs/next
 #+end_src
+
+
+* Configuration
 
 Add the following to =next.config.js=
 
@@ -20,8 +25,9 @@ module.exports = withOrga({
 })
 #+end_src
 
-Customise pages (optional).
+* Customisation (optional)
 
+You can add "shortcodes" for use within org files without importing them every time.
 Edit =pages/_app.js= file.
 
 #+begin_src javascript
@@ -41,3 +47,4 @@ export default MyApp
 #+end_src
 
 
+After that, you can use =<Box/>= component in org file without importing it.

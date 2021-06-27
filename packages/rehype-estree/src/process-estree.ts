@@ -1,8 +1,8 @@
 import { SimpleLiteral } from 'estree'
 import { walk } from 'estree-walker'
 import { analyze } from 'periscopic'
-import { Options } from './options'
-import { isDeclaration, isExportDefaultDeclaration, isExportNamedDeclaration, isJSXElement, isJSXExpression } from './type-check'
+import { Options } from './options.js'
+import { isDeclaration, isExportDefaultDeclaration, isExportNamedDeclaration, isJSXElement, isJSXExpression } from './type-check.js'
 
 function processEstree(estree, options: Options) {
   const {

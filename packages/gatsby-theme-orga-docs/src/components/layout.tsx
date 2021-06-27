@@ -1,12 +1,15 @@
 /** @jsx jsx */
-import { jsx, Button, Container } from 'theme-ui'
+import { jsx, Container } from 'theme-ui'
+import { Link } from 'gatsby'
 import Nav from './nav'
+import { get } from 'lodash'
+import Header from './header'
 
 const HEADER_HEIGHT = '48px'
 
 export default ({ children, pageContext }) => {
 
-  const { title } = pageContext.properties || {};
+  const title = get(pageContext, 'properties.title')
 
   return (
     <main sx={{
@@ -22,22 +25,16 @@ export default ({ children, pageContext }) => {
       `,
     }}
     >
-      <header sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        borderBottom: `1px solid`,
-        borderColor: `muted`,
-        gridArea: 'header',
-        marginX: '1em',
-      }}>
-        <Button>Playground</Button>
-      </header>
+      <Header right={
+        <Link to='/playground'>
+          Playground
+        </Link>
+      }/>
       <Nav />
       <Container p={4} sx={{
         gridArea: 'content',
       }}>
-        <h1>{title}</h1>
+        {title && <h1 sx={{ fontSize: 6 }}>{title}</h1>}
         {children}
       </Container>
     </main>

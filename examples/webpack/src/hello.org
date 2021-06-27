@@ -1,17 +1,18 @@
+#+HTML: import Box from './box'
 
 * Hello
-#+HTML: import Box from './box'
 
 #+begin_export html
 export default ({ children }) =>
-  <div style={{ borderStyle: 'solid', padding: 20, minHeight: '100vh' }}>
-    <h1 style={{ color: 'blue' }}>My Awesome Website</h1>
+  <div style={{ padding: 20 }}>
+    <h1 style={{ color: 'blue' }}>Orga + Webpack</h1>
     {children}
   </div>
 #+end_export
 
+This is *org-mode* with /JSX/!
 
-This is *org-mode* with <span style={{color: "red"}}>JSX</span>: MDX!
+-----
 
 #+begin_export html
 <Box>the tomato box</Box>

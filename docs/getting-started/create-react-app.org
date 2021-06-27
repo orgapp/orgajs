@@ -1,5 +1,0 @@
-#+title: Create React App
-#+published: true
-#+position: 3
-
-Let's roll.
