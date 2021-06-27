@@ -77,7 +77,7 @@ export interface List extends Parent, Attributed {
   type: 'list';
   indent: number;
   ordered: boolean;
-  children: ListItem[];
+  children: (List | ListItem)[];
 }
 
 type TableContent = TableRow | TableRule
@@ -145,6 +145,8 @@ export type Token =
   | TableColumnSeparator
   | PhrasingContent
   | FootnoteLabel
+  | FootnoteInlineBegin
+  | FootnoteReferenceEnd
   | BlockBegin
   | BlockEnd
   | DrawerBegin
@@ -181,9 +183,38 @@ export interface Link extends Literal {
   search?: string | number;
 }
 
-export interface FootnoteReference extends Node {
+/**
+ * A footnote reference, which is either:
+ *
+ * `[fn:LABEL]` - a plain footnote reference.
+ *
+ * `[fn:LABEL:DEFINITION]` - an inline footnote definition.
+ *
+ * `[fn::DEFINITION]` - an anonymous (inline) footnote definition.
+ *
+ * See https://orgmode.org/worg/dev/org-syntax.html#Footnote_References.
+ *
+ * If `label` is the empty string, then this is treated as an
+ * anonymous footnote.
+ *
+ * If `children` is empty, then this is considered to not define a new
+ * footnote (and in which case, `label` should not be the empty
+ * string), if `children` is non-empty, then this is an inline
+ * footnote definition.
+ */
+export interface FootnoteReference extends Parent {
   type: 'footnote.reference';
   label: string;
+  children: PhrasingContent[];
+}
+
+export interface FootnoteInlineBegin extends Node {
+  type: 'footnote.inline.begin';
+  label: string;
+}
+
+export interface FootnoteReferenceEnd extends Node {
+  type: 'footnote.reference.end';
 }
 
 // headline tokens

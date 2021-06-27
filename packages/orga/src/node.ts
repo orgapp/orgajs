@@ -36,7 +36,7 @@ const adjustPosition = (parent: Parent) => (child: Node): void => {
 }
 
 
-export const push = <P extends Parent>(p: P) => (n: Node): P => {
+export const push = <P extends Parent>(p: P) => (n: Node & P['children'][number]): P => {
   if (!n) return p
   adjustPosition(p)(n)
   const node = n as Parent

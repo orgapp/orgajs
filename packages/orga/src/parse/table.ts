@@ -1,6 +1,7 @@
 import { push } from '../node'
 import { Lexer } from '../tokenize'
 import { Table, TableRow, TableRule, TableCell, Parent } from '../types'
+import { isPhrasingContent } from '../utils';
 
 export default (lexer: Lexer): Table | undefined => {
   const { peek, eat } = lexer
@@ -14,8 +15,12 @@ export default (lexer: Lexer): Table | undefined => {
       return cell
     }
     const c = cell || { type: 'table.cell', children: [] }
-    push(c)(t)
-    eat()
+    if (isPhrasingContent(t)) {
+      push(c)(t)
+      eat()
+    } else {
+      return undefined;
+    }
     return getCell(c)
   }
 
