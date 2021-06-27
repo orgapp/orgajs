@@ -2,6 +2,7 @@ import { tokenize } from '../../tokenize'
 import { parse } from '../index'
 import { PhrasingContent } from '../../types'
 import debug from './debug'
+import { Position } from 'unist';
 
 describe('Parse Paragraph', () => {
   it('works', () => {
@@ -32,15 +33,25 @@ the round pegs in the +round+ square holes...
   });
 
   const inlineFootnote = (label: string, children: PhrasingContent[]): PhrasingContent => ({
-    type: 'footnote.inline',
+    type: 'footnote.reference',
     label: label,
     children: children
   });
 
   const anonFootnote = (children: PhrasingContent[]): PhrasingContent => ({
-    type: 'footnote.inline',
+    type: 'footnote.reference',
     label: '',
     children: children
+  });
+
+  const footnoteReference = (label: string): PhrasingContent => ({
+    type: 'footnote.reference',
+    label: label,
+    children: []
+  });
+
+  const pos = ([startLine, startCol]: [number, number], [endLine, endCol]: [number, number]): Position => ({
+    start: { line: startLine, column: startCol }, end: { line: endLine, column: endCol }
   });
 
   function testParagraph(testName: string, inText: string, expected: PhrasingContent[]) {
@@ -58,7 +69,7 @@ the round pegs in the +round+ square holes...
   testParagraph('with standard footnote',
     'hello[fn:named] world.', [
     text('hello'),
-    { type: 'footnote.reference', label: 'named' },
+    footnoteReference('named'),
     text(' world.')
   ]);
 
@@ -73,6 +84,13 @@ the round pegs in the +round+ square holes...
     'hello[fn::Anonymous footnote] world.', [
     text('hello'),
     anonFootnote([text('Anonymous footnote')]),
+    text(' world.')
+  ]);
+
+  testParagraph('with anonymous with no body',
+    'hello[fn::] world.', [
+    text('hello'),
+    anonFootnote([{ ...text(''), position: pos([1, 11], [1, 11]) }]),
     text(' world.')
   ]);
 

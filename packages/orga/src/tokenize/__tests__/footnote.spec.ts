@@ -65,6 +65,7 @@ describe("tokenize footnote", () => {
       Array [
         Object {
           "_text": "[fn:1]",
+          "children": Array [],
           "label": "1",
           "type": "footnote.reference",
         },
@@ -79,6 +80,7 @@ describe("tokenize footnote", () => {
       Array [
         Object {
           "_text": "[fn:1]",
+          "children": Array [],
           "label": "1",
           "type": "footnote.reference",
         },
@@ -98,6 +100,7 @@ describe("tokenize footnote", () => {
         },
         Object {
           "_text": "[fn:1]",
+          "children": Array [],
           "label": "1",
           "type": "footnote.reference",
         },
@@ -112,6 +115,7 @@ describe("tokenize footnote", () => {
       Array [
         Object {
           "_text": "[fn:1]",
+          "children": Array [],
           "label": "1",
           "type": "footnote.reference",
         },

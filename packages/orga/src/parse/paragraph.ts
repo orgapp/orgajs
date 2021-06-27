@@ -1,5 +1,5 @@
 import { push } from '../node'
-import { FootnoteInline, Paragraph, PhrasingContent, Token } from '../types'
+import { FootnoteReference, Paragraph, PhrasingContent, Token } from '../types'
 import { isPhrasingContent } from '../utils'
 import { Lexer } from '../tokenize';
 
@@ -24,13 +24,13 @@ export default function paragraph(lexer: Lexer): Paragraph | undefined {
       return p
     }
 
-    function readAFootnote(par: Paragraph | FootnoteInline = p): PhrasingContent | undefined {
+    function readAFootnote(par: Paragraph | FootnoteReference = p): PhrasingContent | undefined {
       if (token.type === 'footnote.inline.begin') {
         eat();
-        const fn: FootnoteInline =
+        const fn: FootnoteReference =
         {
           children: [],
-          type: 'footnote.inline',
+          type: 'footnote.reference',
           label: token.label,
         };
         let inner: Token;

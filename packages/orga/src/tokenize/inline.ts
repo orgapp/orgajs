@@ -57,7 +57,13 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
     });
     jump(m.position.end);
 
-    tokens.push(...tokenize({ reader }, { ignoring: [']'] }));
+    m = match(/^\]/);
+    if (m) {
+      // empty body
+      tokens.push({ type: 'text.plain', value: '', position: { start: m.position.start, end: m.position.start, indent: m.position.indent } });
+    } else {
+      tokens.push(...tokenize({ reader }, { ignoring: [']'] }));
+    }
 
     m = match(/^\]/);
     if (!m) return [];
@@ -78,6 +84,7 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
         type: 'footnote.reference',
         label: m.captures[1],
         position: m.position,
+        children: [],
       }
     }
   }

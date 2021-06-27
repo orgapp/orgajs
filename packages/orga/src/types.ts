@@ -154,7 +154,7 @@ export type Token =
   | Comment
 
 export type PhrasingContent =
-  | StyledText | Link | FootnoteRef | Newline
+  | StyledText | Link | FootnoteReference | Newline
 
 export interface HorizontalRule extends Node {
   type: 'hr'
@@ -183,22 +183,27 @@ export interface Link extends Literal {
   search?: string | number;
 }
 
-export type FootnoteRef = FootnoteReference | FootnoteInline;
-
-export interface FootnoteReference extends Node {
-  type: 'footnote.reference';
-  label: string;
-}
-
 /**
- * An inline footnote with a definition.
+ * A footnote reference, which is either:
+ *
+ * `[fn:LABEL]` - a plain footnote reference.
+ *
+ * `[fn:LABEL:DEFINITION]` - an inline footnote definition.
+ *
+ * `[fn::DEFINITION]` - an anonymous (inline) footnote definition.
  *
  * See https://orgmode.org/worg/dev/org-syntax.html#Footnote_References.
  *
- * If `label` is the empty string, then this is treated as an anonymous footnote.
+ * If `label` is the empty string, then this is treated as an
+ * anonymous footnote.
+ *
+ * If `children` is empty, then this is considered to not define a new
+ * footnote (and in which case, `label` should not be the empty
+ * string), if `children` is non-empty, then this is an inline
+ * footnote definition.
  */
-export interface FootnoteInline extends Parent {
-  type: 'footnote.inline';
+export interface FootnoteReference extends Parent {
+  type: 'footnote.reference';
   label: string;
   children: PhrasingContent[];
 }
