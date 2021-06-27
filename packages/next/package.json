@@ -2,11 +2,17 @@
   "name": "@orgajs/next",
   "version": "2.4.8",
   "description": "orgajs next plugin",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "repository": {
     "url": "orgapp/orgajs",
     "directory": "packages/next"
+  },
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "compile": "node ./build.js",
+    "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
     "@orgajs/loader": "*",
@@ -16,5 +22,8 @@
     "@orgajs/estree-jsx": "^2.4.4",
     "@orgajs/rehype-estree": "^2.4.4",
     "@orgajs/reorg-rehype": "^2.4.8"
+  },
+  "devDependencies": {
+    "esbuild": "^0.12.9"
   }
 }

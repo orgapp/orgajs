@@ -19,8 +19,7 @@
     "build": "yarn clean && yarn compile",
     "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
     "compile": "node ./scripts/build.js",
-    "prepublishOnly": "yarn build",
-    "poc": "node --es-module-specifier-resolution=node src/poc.mjs"
+    "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
     "@orgajs/loader": "^1.0.0",

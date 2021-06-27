@@ -1,8 +1,9 @@
+import toEstree from '@orgajs/rehype-estree'
 const toRehype = require('@orgajs/reorg-rehype')
-const toEstree = require('@orgajs/rehype-estree')
+// const toEstree = require('@orgajs/rehype-estree')
 const toJsx = require('@orgajs/estree-jsx')
 
-module.exports = (pluginOptions = {}) => (nextConfig = {}) => {
+module.exports = (pluginOptions: any = {}) => (nextConfig: any = {}) => {
 
   const {
     reorgPlugins = [],

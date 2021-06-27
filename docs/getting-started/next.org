@@ -1,9 +1,43 @@
 #+title: Next.js
 #+published: true
-#+position: 1
+#+position: 2
 
-something is wrong.
-#+begin_export html
-<Box>Work in Progress</Box>
-#+end_export
+Use the next plugin for orga.
+
+#+begin_src sh
+npm install --save @orgajs/loader @orgajs/react @orgajs/next
+#+end_src
+
+Add the following to =next.config.js=
+
+#+begin_src javascript
+const withOrga = require('@orgajs/next')({
+  // extention: /\.org$/
+})
+
+module.exports = withOrga({
+  pageExtensions: ['js', 'jsx', 'org']
+})
+#+end_src
+
+Customise pages (optional).
+
+Edit =pages/_app.js= file.
+
+#+begin_src javascript
+import { OrgaProvider } from '@orgajs/react'
+import Box from '../components/box'
+
+function MyApp({ Component, pageProps }) {
+  // add "shortcodes" by passing in react components via components prop
+  return (
+    <OrgaProvider components={{ Box }}>
+      <Component {...pageProps} />
+    </OrgaProvider>
+  )
+}
+
+export default MyApp
+#+end_src
+
 
