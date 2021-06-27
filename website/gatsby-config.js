@@ -10,6 +10,11 @@ module.exports = {
   //   LMDB_STORE: false,
   // },
   plugins: [
-    { resolve: 'gatsby-theme-orga-docs' },
+    {
+      resolve: 'gatsby-theme-orga-docs',
+      options: {
+        locations: ['../docs'],
+      },
+    },
   ],
 };

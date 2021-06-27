@@ -44,7 +44,7 @@ module.exports = themeOptions => {
       {
         resolve: 'gatsby-plugin-page-creator',
         options: {
-          path: 'docs',
+          path: '../docs',
         }
       },
       {

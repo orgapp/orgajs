@@ -19,21 +19,16 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.3.1",
-    "gatsby": "^3.8.0",
-    "gatsby-theme-orga-docs": "^2.4.8",
     "jest": "27.0.4",
     "jest-cli": "27.0.4",
     "lerna": "^4.0.0",
     "prettier": "^2.3.1",
     "ts-jest": "^27.0.3",
-    "typescript": "^4.3.2",
-    "unified": "^9.2.1"
+    "typescript": "^4.3.2"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "jest": "jest",
-    "predocs": "gatsby clean",
-    "docs": "gatsby develop",
     "lerna": "lerna",
     "clean": "lerna run clean",
     "compile": "lerna run compile",
@@ -51,7 +46,8 @@
   "workspaces": {
     "packages": [
       "./packages/*",
-      "./examples/*"
+      "./examples/*",
+      "./website"
     ]
   }
 }
