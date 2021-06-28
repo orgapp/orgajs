@@ -17,7 +17,11 @@ export default (lexer: Lexer): Drawer | undefined => {
     value: '' }
   eat()
 
-  const contentPosition: Position = peek().position
+  const content = peek();
+  if (content === undefined) {
+    return undefined;
+  }
+  const contentPosition: Position = content.position;
 
   const parse = (): Drawer | undefined => {
     const n = peek()

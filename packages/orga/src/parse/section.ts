@@ -21,7 +21,7 @@ const attach = (attributes: Attributes) => (node: Attributed) => {
 
 export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
 
-  const { peek, eat, eatAll } = lexer
+  const { peek, eat, eatAll, modify } = lexer
   const { tryTo } = utils(lexer)
 
   const newSection = (props: { [key: string]: string } = {}): Section => {
@@ -48,6 +48,12 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
       }
       push(section)(drawer)
     })) continue
+
+    const token = peek();
+    if (token && token.type === 'drawer.begin' && token.name.toLowerCase() === 'properties') {
+      // we encountered an unclosed property drawer, so this should just be treated as text
+      modify(t => ({ ...t, type: 'text.plain', value: `:${token.name}:` }));
+    }
     return section
   }
 

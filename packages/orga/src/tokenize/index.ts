@@ -25,9 +25,11 @@ export interface Lexer {
   restore: (point: number) => void;
   addInBufferTodoKeywords: (text: string) => void;
   substring: (position: Position) => string;
+  /** Modify the next token (or the token at the given offset). */
+  modify(f: (t: Token) => Token, offset?: number): void;
 }
 
-export const tokenize = (text: string, options: Partial<ParseOptions> = {}) => {
+export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lexer => {
 
   const { timezone, todos } = { ...defaultOptions, ...options }
 
@@ -145,7 +147,15 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}) => {
     return tokens[pos]
   }
 
-  const _eat = (type: string | undefined = undefined) : Token | undefined => {
+  const modify = (f: (t: Token) => Token, offset = 0): void => {
+    const pos = cursor + offset
+    const token = peek(offset);
+    if (token !== undefined) {
+      tokens[pos] = f(token);
+    }
+  }
+
+  const _eat = (type: string | undefined = undefined): Token | undefined => {
     const t = peek()
     if (!t) return undefined
     if (!type || type === t.type) {
@@ -190,6 +200,6 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}) => {
       inBufferTodoKeywordSets.push(todoKeywordSet(text))
     },
     substring,
-
-  } as Lexer
+    modify
+  };
 }
