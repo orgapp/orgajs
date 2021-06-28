@@ -21,7 +21,8 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@typescript-eslint/typescript-estree": "^4.26.0",
+    "acorn": "^8.4.1",
+    "acorn-jsx": "^5.3.1",
     "estree-walker": "3.0.0",
     "hast-util-to-estree": "^2.0.0",
     "periscopic": "2.0.3"

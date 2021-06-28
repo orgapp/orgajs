@@ -1,14 +1,24 @@
-import { parse } from '@typescript-eslint/typescript-estree'
 import { Node as HastNode } from 'hast'
 import { toEstree as hast2estree } from 'hast-util-to-estree'
 import { Handler, Options } from './options'
+import { Parser } from 'acorn'
+import jsx from 'acorn-jsx'
+import { inspect } from 'util'
 
 const deepGet = (p: string) => (o: any) => p.split('.').reduce((a, v) => a[v], o)
+
+const parse = (code: string) => {
+  return Parser.extend(jsx()).parse(code, {
+    sourceType: 'module',
+    ecmaVersion: 2020,
+  })
+}
 
 const getRawHandler = ({ path, jsx }: { path: string, jsx: boolean }) => {
   // @ts-ignore
   const handler: Handler = (node, context) => {
-    const estree = parse(deepGet(path)(node), { jsx })
+    const estree = parse(deepGet(path)(node))
+    // @ts-ignore TODO: get rid of this
     const expressions = estree.body.filter(child => {
       if (child.type === 'ImportDeclaration') {
         context.esm.push(child)
