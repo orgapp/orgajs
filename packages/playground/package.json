@@ -14,5 +14,12 @@
   },
   "peerDependencies": {
     "react": "^17.0.2"
+  },
+  "dependencies": {
+    "@orgajs/estree-jsx": "^2.4.4",
+    "@orgajs/rehype-estree": "^2.4.4",
+    "@orgajs/reorg": "^2.4.8",
+    "@orgajs/reorg-rehype": "^2.4.8",
+    "react-live": "^2.2.3"
   }
 }

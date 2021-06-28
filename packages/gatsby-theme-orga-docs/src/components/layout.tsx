@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx, Container } from 'theme-ui'
-import { Link } from 'gatsby'
+import { Link, PageProps } from 'gatsby'
 import Nav from './nav'
 import { get } from 'lodash'
 import Header from './header'
 
 const HEADER_HEIGHT = '48px'
 
-export default ({ children, pageContext }) => {
+export default ({ children, pageContext }: PageProps) => {
 
   const title = get(pageContext, 'properties.title')
 

@@ -2,12 +2,11 @@ import toEstree from '@orgajs/rehype-estree'
 import { generate } from 'astring'
 import { buildJsx } from 'estree-util-build-jsx'
 import { walk } from 'estree-walker'
-import { resolve } from 'dns';
-
-const toJsx = require('@orgajs/estree-jsx')
-const reorg = require('@orgajs/reorg').default
-const toRehype = require('@orgajs/reorg-rehype')
-const { inspect } = require('util')
+import { resolve } from 'dns'
+import toJsx from '@orgajs/estree-jsx'
+import reorg from '@orgajs/reorg'
+import toRehype from '@orgajs/reorg-rehype'
+import { inspect } from 'util'
 
 export default async ({
   store, pathPrefix, actions, schema, cache, reporter,
