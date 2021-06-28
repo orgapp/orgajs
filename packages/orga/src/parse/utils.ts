@@ -23,7 +23,7 @@ export default (lexer: Lexer) => {
     return
   }
 
-  const tryTo = <T>(parse: (lexer: Lexer) => T | undefined) => (...actions: ((node: T) => any)[]): boolean => {
+  const tryTo = <T>(parse: (lexer: Lexer) => T | undefined) => (...actions: ((node: T) => void)[]): boolean => {
     const savePoint = save()
     const node = parse(lexer)
     if (!node) {
