@@ -47,15 +47,15 @@ export const push = <P extends Parent>(p: P) => (n: Node & P['children'][number]
   return p
 }
 
-export const map = (transform: (n: Node) => any) => (node: Node) => {
+export const map = (transform: (n: Node) => any) => (node: Node | Parent) => {
 
   const result = {
     type: node.type,
     ...transform(node),
   }
 
-  if ((node as Parent).children) {
-    result.children = (node as Parent).children.map(map(transform))
+  if ('parent' in node && node.children) {
+    result.children = node.children.map(map(transform))
   }
   return result
 }
