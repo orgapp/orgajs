@@ -1,8 +1,16 @@
-import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist'
+import { Data, Position } from 'unist'
+
+// like unist.Node but we omit the extra keys for better type safety
+export interface Node {
+  type: string;
+  data?: Data;
+  position?: Position;
+}
 
 // ---- Basic Types ----
-export interface Parent extends UnistParent {
+export interface Parent extends Node {
   parent?: Parent;
+  children: Node[];
 }
 
 export type Primitive = string | number | boolean
@@ -58,13 +66,11 @@ export interface Block extends Literal, Attributed {
   type: 'block';
   name: string;
   params: string[];
-  value: string;
 }
 
 export interface Drawer extends Literal {
   type: 'drawer';
   name: string;
-  value: string;
 }
 
 export interface Planning extends Node {
@@ -119,7 +125,7 @@ export interface Paragraph extends Parent, Attributed {
   children: PhrasingContent[];
 }
 
-interface Literal extends UnistLiteral {
+export interface Literal extends Node {
   value: string;
 }
 
@@ -179,7 +185,6 @@ export interface Link extends Literal {
   type: 'link';
   protocol: string;
   description: string;
-  value: string;
   search?: string | number;
 }
 
@@ -231,7 +236,6 @@ export interface Todo extends Node {
 
 export interface Priority extends Literal {
   type: 'priority';
-  value: string;
 }
 
 export interface Tags extends Node {
@@ -265,10 +269,9 @@ interface Comment extends Literal {
   type: 'comment';
 }
 
-export interface Keyword extends Node {
+export interface Keyword extends Literal {
   type: 'keyword';
   key: string;
-  value: string;
 }
 
 export interface FootnoteLabel extends Node {
@@ -278,10 +281,9 @@ export interface FootnoteLabel extends Node {
 
 export interface PlanningKeyword extends Literal {
   type: 'planning.keyword';
-  value: string;
 }
 
-export interface PlanningTimestamp extends UnistLiteral {
+export interface PlanningTimestamp extends Node {
   type: 'planning.timestamp';
   value: Timestamp;
 }

@@ -1,6 +1,6 @@
-import { Node, Position } from 'unist'
+import { Position } from 'unist'
 import { after, before, isEmpty } from './position'
-import { Parent } from './types'
+import { Node, Parent } from './types'
 
 const clone = ({ start, end }: Position): Position => ({
   start: { ...start },
