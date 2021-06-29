@@ -3,7 +3,7 @@ import { FootnoteReference, Paragraph, PhrasingContent, Token } from '../types'
 import { isPhrasingContent } from '../utils'
 import { Lexer } from '../tokenize';
 
-const isWhitespaces = node => {
+const isWhitespaces = (node: Token) => {
   return node.type === 'text.plain' && node.value.trim().length === 0
 }
 
