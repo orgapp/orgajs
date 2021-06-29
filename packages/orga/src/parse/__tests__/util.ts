@@ -47,16 +47,23 @@ export const text = (text: string, extra: Extra<StyledText, 'value'> = {}): Styl
   ...extra
 });
 
+/** Footnote reference has empty `children`. */
+export type FootnoteRef = FootnoteReference & { children: [] };
+/** Inline footnote has non-empty `children`. */
+export type FootnoteInline = FootnoteReference & { children: [FootnoteReference['children'][0], ...FootnoteReference['children']] };
+/** Anonymous footnote has non-empty `children` and empty `label`. */
+export type FootnoteAnon = FootnoteReference & { children: [FootnoteReference['children'][0], ...FootnoteReference['children']], label: '' };
+
 /** Build an AST object for a footnote reference. */
-export const footnoteReference = (label: string, extra: ExtraP<FootnoteReference, 'label'> = {}): FootnoteReference => ({
+export const footnoteReference = (label: string, extra: ExtraP<FootnoteRef, 'label'> = {}): FootnoteRef => ({
   type: 'footnote.reference',
   label: label,
-  children: [],
+  children: [] as [],
   ...extra
 });
 
 /** Build an AST object for an inline footnote reference which defines a footnote. */
-export const inlineFootnote = (label: string, children: FootnoteReference['children'], extra: ExtraP<FootnoteReference, 'label'> = {}): FootnoteReference => ({
+export const inlineFootnote = (label: string, children: FootnoteInline['children'], extra: ExtraP<FootnoteInline, 'label'> = {}): FootnoteInline => ({
   type: 'footnote.reference',
   label: label,
   children: children,
@@ -64,7 +71,7 @@ export const inlineFootnote = (label: string, children: FootnoteReference['child
 });
 
 /** Build an AST object for an anonymous inline footnote reference. */
-export const anonFootnote = (children: FootnoteReference['children'], extra: ExtraP<FootnoteReference, 'label'> = {}): FootnoteReference => ({
+export const anonFootnote = (children: FootnoteAnon['children'], extra: ExtraP<FootnoteAnon, 'label'> = {}): FootnoteAnon => ({
   type: 'footnote.reference',
   label: '',
   children: children,
