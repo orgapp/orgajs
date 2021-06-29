@@ -1,6 +1,5 @@
 import { tokenize } from '../../tokenize'
 import { parse } from '../index'
-import { PhrasingContent } from '../../types'
 
 import {
   anonFootnote,
@@ -71,8 +70,8 @@ the round pegs in the +round+ square holes...
       }])]);
   });
 
-  function testParagraph(testName: string, inText: string, expected: PhrasingContent[]) {
-    return testParse(testName, inText, [paragraph(expected)]);
+  function testParagraph(testName: string, inText: string, ...expected: Parameters<typeof paragraph>) {
+    return testParse(testName, inText, [paragraph(...expected)]);
   }
 
   testParagraph('with standard footnote',

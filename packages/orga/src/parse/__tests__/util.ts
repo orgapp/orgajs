@@ -27,9 +27,9 @@ type Extra<ASTElem extends Node, Keys extends keyof ASTElem = 'type'> = Partial<
 type ExtraP<ASTElem extends Parent, Keys extends keyof ASTElem = 'type' | 'children'> = Extra<ASTElem, Keys | 'children'>;
 
 
-export const testParse = (testName: string, text: string, expected: Document['children'], extra: ExtraP<Document> = {}) => {
+export const testParse = (testName: string, text: string, ...expected: Parameters<typeof document>) => {
   it(testName, () => {
-    expect(parse(tokenize(text))).toMatchObject(document(expected, extra));
+    expect(parse(tokenize(text))).toMatchObject(document(...expected));
   });
 }
 
