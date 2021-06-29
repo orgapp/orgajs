@@ -15,9 +15,9 @@ the round pegs in the +round+ square holes...
 [[file:logo.png]]
 `
 
-//     const content = `
-// [[https://github.com/xiaoxinghu/orgajs][Here's]] some /content/ hello world.
-// `
+    //     const content = `
+    // [[https://github.com/xiaoxinghu/orgajs][Here's]] some /content/ hello world.
+    // `
     const thing = parse(tokenize(content))
     const lexer = tokenize(content)
 

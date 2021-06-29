@@ -21,7 +21,7 @@ const adjustPosition = (parent: Parent) => (child: Node): void => {
     } else if (belowLowerBound(child.position.start)) {
       parent.position.start = { ...child.position.start }
       dirty = true
-    }else if (aboveUpperBound(child.position.end)) {
+    } else if (aboveUpperBound(child.position.end)) {
       parent.position.end = { ...child.position.end }
       dirty = true
     }

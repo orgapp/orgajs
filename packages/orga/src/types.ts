@@ -8,7 +8,7 @@ export interface Parent extends UnistParent {
 export type Primitive = string | number | boolean
 
 export interface Attributes {
-  [key: string]: Primitive | { [key: string]: Primitive } ,
+  [key: string]: Primitive | { [key: string]: Primitive },
 }
 
 export interface Attributed {
@@ -166,13 +166,13 @@ export interface Newline extends Node {
 
 export interface StyledText extends Literal {
   type:
-    | 'text.plain'
-    | 'text.bold'
-    | 'text.verbatim'
-    | 'text.italic'
-    | 'text.strikeThrough'
-    | 'text.underline'
-    | 'text.code'
+  | 'text.plain'
+  | 'text.bold'
+  | 'text.verbatim'
+  | 'text.italic'
+  | 'text.strikeThrough'
+  | 'text.underline'
+  | 'text.code'
 }
 
 export interface Link extends Literal {

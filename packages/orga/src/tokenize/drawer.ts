@@ -5,7 +5,7 @@ interface Props {
   reader: Reader;
 }
 
-export default ({ reader }: Props) : Token[] => {
+export default ({ reader }: Props): Token[] => {
   const { match, eat } = reader
 
   const drawerReg = /^:(\w+):(?=\s*$)/;
