@@ -8,6 +8,7 @@ import {
 } from 'unist';
 
 import {
+  Block,
   Document,
   Headline,
   FootnoteReference,
@@ -45,6 +46,16 @@ export const document = (children: Document['children'], extra: ExtraP<Document>
 export const paragraph = (children: Paragraph['children'], extra: ExtraP<Paragraph> = {}): Paragraph => ({
   type: 'paragraph',
   children: children,
+  attributes: {},
+  ...extra
+});
+
+/** Build an AST {@link Block} object. */
+export const block = (name: string, value: string, extra: Extra<Block, 'name' | 'value'> = {}): Block => ({
+  type: 'block',
+  name: name,
+  value: value,
+  params: [],
   attributes: {},
   ...extra
 });
