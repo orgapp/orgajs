@@ -1,16 +1,16 @@
 import { tokenize } from '../../tokenize'
 import { parse } from '../index'
-import { Document, PhrasingContent } from '../../types'
+import { PhrasingContent } from '../../types'
 import debug from './debug'
 
 import {
   anonFootnote,
-  document,
   footnoteReference,
   inlineFootnote,
   paragraph,
   pos,
   section,
+  testParse,
   text
 } from './util';
 
@@ -37,17 +37,8 @@ the round pegs in the +round+ square holes...
     // debug(content)
   })
 
-  const testDocument = (testName: string, text: string, expected: Document['children']) => {
-    it(testName, () => {
-      expect(parse(tokenize(text))).toMatchObject({
-        type: 'document',
-        children: expected
-      })
-    });
-  }
-
   describe('property drawers', () => {
-    testDocument('closed property drawer',
+    testParse('closed property drawer',
       "* Heading\n:PROPERTIES:\n:END:",
       [section(1, 'Heading', [{
         type: 'drawer',
@@ -56,7 +47,7 @@ the round pegs in the +round+ square holes...
       }])
       ]);
 
-    testDocument('closed property drawer with property',
+    testParse('closed property drawer with property',
       "* Heading\n:PROPERTIES:\n:PROP: 1\n:END:",
       [section(1, 'Heading', [{
         type: 'drawer',
@@ -64,7 +55,7 @@ the round pegs in the +round+ square holes...
         value: ':PROP: 1'
       }])]);
 
-    testDocument('unclosed property drawer',
+    testParse('unclosed property drawer',
       "* Heading\n:PROPERTIES:",
       [section(1, 'Heading', [{
         type: 'paragraph',
@@ -73,7 +64,7 @@ the round pegs in the +round+ square holes...
         position: pos([2, 1], [2, 13]),
       }])]);
 
-    testDocument('unclosed property drawer with extra text',
+    testParse('unclosed property drawer with extra text',
       "* Heading\n:PROPERTIES:\nmore text",
       [section(1, 'Heading', [{
         type: 'paragraph',
@@ -87,10 +78,7 @@ the round pegs in the +round+ square holes...
   });
 
   function testParagraph(testName: string, inText: string, expected: PhrasingContent[]) {
-    return it(testName, () => {
-      expect(parse(tokenize(inText))).toMatchObject(
-        document([paragraph(expected)]));
-    });
+    return testParse(testName, inText, [paragraph(expected)]);
   }
 
   testParagraph('with standard footnote',

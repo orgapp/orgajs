@@ -19,10 +19,19 @@ import {
   StyledText,
 } from '../../types';
 
+import { tokenize } from '../../tokenize'
+import { parse } from '../index'
+
 
 type Extra<ASTElem extends Node, Keys extends keyof ASTElem = 'type'> = Partial<Omit<ASTElem, Keys | 'type'>>;
 type ExtraP<ASTElem extends Parent, Keys extends keyof ASTElem = 'type' | 'children'> = Extra<ASTElem, Keys | 'children'>;
 
+
+export const testParse = (testName: string, text: string, expected: Document['children'], extra: ExtraP<Document> = {}) => {
+  it(testName, () => {
+    expect(parse(tokenize(text))).toMatchObject(document(expected, extra));
+  });
+}
 
 /** Build an AST {@link Document} object. */
 export const document = (children: Document['children'], extra: ExtraP<Document> = {}): Document => ({
