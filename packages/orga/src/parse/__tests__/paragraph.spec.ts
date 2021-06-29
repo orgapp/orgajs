@@ -48,26 +48,37 @@ the round pegs in the +round+ square holes...
         value: ':PROP: 1'
       }])]);
 
-    testParse('unclosed property drawer',
-      "* Heading\n:PROPERTIES:",
-      [section(1, 'Heading', [{
-        type: 'paragraph',
-        attributes: {},
-        children: [text(':PROPERTIES:', { position: pos([2, 1], [2, 13]) })],
-        position: pos([2, 1], [2, 13]),
-      }])]);
+    describe('unclosed property drawer is treated as text', () => {
+      testParse('basic',
+        "* Heading\n:PROPERTIES:",
+        [section(1, 'Heading', [{
+          type: 'paragraph',
+          attributes: {},
+          children: [text(':PROPERTIES:', { position: pos([2, 1], [2, 13]) })],
+          position: pos([2, 1], [2, 13]),
+        }])]);
 
-    testParse('unclosed property drawer with extra text',
-      "* Heading\n:PROPERTIES:\nmore text",
-      [section(1, 'Heading', [{
-        type: 'paragraph',
-        attributes: {},
-        children: [
-          text(':PROPERTIES:', { position: pos([2, 1], [2, 13]) }),
-          text(' ', { position: pos([2, 13], [3, 1]) }),
-          text('more text', { position: pos([3, 1], [3, 10]) })],
-        position: pos([2, 1], [3, 10]),
-      }])]);
+      testParse('casing is preserved',
+        "* Heading\n:PRopErTIES:",
+        [section(1, 'Heading', [{
+          type: 'paragraph',
+          attributes: {},
+          children: [text(':PRopErTIES:', { position: pos([2, 1], [2, 13]) })],
+          position: pos([2, 1], [2, 13]),
+        }])]);
+
+      testParse('with extra text',
+        "* Heading\n:PROPERTIES:\nmore text",
+        [section(1, 'Heading', [{
+          type: 'paragraph',
+          attributes: {},
+          children: [
+            text(':PROPERTIES:', { position: pos([2, 1], [2, 13]) }),
+            text(' ', { position: pos([2, 13], [3, 1]) }),
+            text('more text', { position: pos([3, 1], [3, 10]) })],
+          position: pos([2, 1], [3, 10]),
+        }])]);
+    });
   });
 
   function testParagraph(testName: string, inText: string, ...expected: Parameters<typeof paragraph>) {
