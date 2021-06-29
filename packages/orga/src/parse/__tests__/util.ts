@@ -11,18 +11,21 @@ import {
   Document,
   Headline,
   FootnoteReference,
+  Node,
   Paragraph,
+  Parent,
   Section,
   Stars,
   StyledText,
 } from '../../types';
 
 
-type Extra<ASTElem, Keys extends keyof ASTElem> = Partial<Omit<ASTElem, Keys>>;
+type Extra<ASTElem extends Node, Keys extends keyof ASTElem = 'type'> = Partial<Omit<ASTElem, Keys | 'type'>>;
+type ExtraP<ASTElem extends Parent, Keys extends keyof ASTElem = 'type' | 'children'> = Extra<ASTElem, Keys | 'children'>;
 
 
 /** Build an AST {@link Document} object. */
-export const document = (children: Document['children'], extra: Extra<Document, 'type' | 'children'> = {}): Document => ({
+export const document = (children: Document['children'], extra: ExtraP<Document> = {}): Document => ({
   type: 'document',
   children: children,
   properties: {},
@@ -30,7 +33,7 @@ export const document = (children: Document['children'], extra: Extra<Document, 
 });
 
 /** Build an AST {@link Paragraph} object. */
-export const paragraph = (children: Paragraph['children'], extra: Extra<Paragraph, 'type' | 'children'> = {}): Paragraph => ({
+export const paragraph = (children: Paragraph['children'], extra: ExtraP<Paragraph> = {}): Paragraph => ({
   type: 'paragraph',
   children: children,
   attributes: {},
@@ -38,14 +41,14 @@ export const paragraph = (children: Paragraph['children'], extra: Extra<Paragrap
 });
 
 /** Build an AST plain text object. */
-export const text = (text: string, extra: Extra<StyledText, 'type' | 'value'> = {}): StyledText & { type: 'text.plain' } => ({
+export const text = (text: string, extra: Extra<StyledText, 'value'> = {}): StyledText & { type: 'text.plain' } => ({
   type: 'text.plain',
   value: text,
   ...extra
 });
 
 /** Build an AST object for a footnote reference. */
-export const footnoteReference = (label: string, extra: Extra<FootnoteReference, 'type' | 'label' | 'children'> = {}): FootnoteReference => ({
+export const footnoteReference = (label: string, extra: ExtraP<FootnoteReference, 'label'> = {}): FootnoteReference => ({
   type: 'footnote.reference',
   label: label,
   children: [],
@@ -53,7 +56,7 @@ export const footnoteReference = (label: string, extra: Extra<FootnoteReference,
 });
 
 /** Build an AST object for an inline footnote reference which defines a footnote. */
-export const inlineFootnote = (label: string, children: FootnoteReference['children'], extra: Extra<FootnoteReference, 'type' | 'label' | 'children'> = {}): FootnoteReference => ({
+export const inlineFootnote = (label: string, children: FootnoteReference['children'], extra: ExtraP<FootnoteReference, 'label'> = {}): FootnoteReference => ({
   type: 'footnote.reference',
   label: label,
   children: children,
@@ -61,7 +64,7 @@ export const inlineFootnote = (label: string, children: FootnoteReference['child
 });
 
 /** Build an AST object for an anonymous inline footnote reference. */
-export const anonFootnote = (children: FootnoteReference['children'], extra: Extra<FootnoteReference, 'type' | 'label' | 'children'> = {}): FootnoteReference => ({
+export const anonFootnote = (children: FootnoteReference['children'], extra: ExtraP<FootnoteReference, 'label'> = {}): FootnoteReference => ({
   type: 'footnote.reference',
   label: '',
   children: children,
@@ -69,7 +72,7 @@ export const anonFootnote = (children: FootnoteReference['children'], extra: Ext
 });
 
 /** Build an AST object for a {@link Headline}. */
-export const headline = (level: number, content: string, extra: Extra<Headline, 'type' | 'level' | 'content' | 'children'> = {}): Headline => ({
+export const headline = (level: number, content: string, extra: ExtraP<Headline, 'level' | 'content'> = {}): Headline => ({
   type: 'headline',
   level: level,
   actionable: false,
@@ -83,7 +86,7 @@ export const headline = (level: number, content: string, extra: Extra<Headline, 
 });
 
 /** Build an AST object for a {@link Section}. */
-export const section = (level: number, headingContent: string, sectionBody: Section['children'], extra: Extra<Section, 'type' | 'level' | 'children'> = {}): Section => ({
+export const section = (level: number, headingContent: string, sectionBody: Section['children'], extra: ExtraP<Section, 'level'> = {}): Section => ({
   type: 'section',
   level: level,
   properties: {},
