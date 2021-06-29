@@ -50,8 +50,8 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
     })) continue
 
     const token = peek();
-    if (token && ((token.type === 'drawer.begin' && token.name.toLowerCase() === 'properties') || token.type === 'drawer.end')) {
-      // we encountered an unclosed property drawer (or a drawer with no beginning), so this should just be treated as text
+    if (token && (token.type === 'drawer.begin' || token.type === 'drawer.end')) {
+      // we encountered an unclosed drawer (or a drawer with no beginning), so this should just be treated as text
       modify(t => ({ ...t, type: 'text.plain', value: substring(token.position) }));
     }
     return section
