@@ -48,74 +48,36 @@ the round pegs in the +round+ square holes...
         value: ':PROP: 1'
       }])]);
 
-    describe('unclosed property drawer is treated as text', () => {
-      testParse('basic',
-        "* Heading\n:PROPERTIES:",
-        [section(1, 'Heading', [paragraph(
-          [text(':PROPERTIES:', { position: pos([2, 1], [2, 13]) })],
-          { position: pos([2, 1], [2, 13]) })])]);
+    for (const [testDesc, textCase] of [
+      ['unclosed property drawer', 'PRopErTIES'],
+      ['unclosed drawer', 'DRaWeR'],
+      ['unopened drawer end', 'eNd']
+    ]) {
+      const upcase = textCase.toUpperCase();
+      const endPos = textCase.length + 3;
+      describe(`${testDesc} is treated as text`, () => {
+        testParse('basic',
+          `* Heading\n:${upcase}:`,
+          [section(1, 'Heading', [paragraph(
+            [text(`:${upcase}:`, { position: pos([2, 1], [2, endPos]) })],
+            { position: pos([2, 1], [2, endPos]) })])]);
 
-      testParse('casing is preserved',
-        "* Heading\n:PRopErTIES:",
-        [section(1, 'Heading', [paragraph(
-          [text(':PRopErTIES:', { position: pos([2, 1], [2, 13]) })],
-          { position: pos([2, 1], [2, 13]) })])]);
+        testParse('casing is preserved',
+          `* Heading\n:${textCase}:`,
+          [section(1, 'Heading', [paragraph(
+            [text(`:${textCase}:`, { position: pos([2, 1], [2, endPos]) })],
+            { position: pos([2, 1], [2, endPos]) })])]);
 
-      testParse('with extra text',
-        "* Heading\n:PROPERTIES:\nmore text",
-        [section(1, 'Heading', [paragraph(
-          [
-            text(':PROPERTIES:', { position: pos([2, 1], [2, 13]) }),
-            text(' ', { position: pos([2, 13], [3, 1]) }),
-            text('more text', { position: pos([3, 1], [3, 10]) })],
-          { position: pos([2, 1], [3, 10]) })])]);
-    });
-
-    describe('unclosed drawer is treated as text', () => {
-      testParse('basic',
-        "* Heading\n:DRAWER:",
-        [section(1, 'Heading', [paragraph(
-          [text(':DRAWER:', { position: pos([2, 1], [2, 9]) })],
-          { position: pos([2, 1], [2, 9]) })])]);
-
-      testParse('casing is preserved',
-        "* Heading\n:DRaWeR:",
-        [section(1, 'Heading', [paragraph(
-          [text(':DRaWeR:', { position: pos([2, 1], [2, 9]) })],
-          { position: pos([2, 1], [2, 9]) })])]);
-
-      testParse('with extra text',
-        "* Heading\n:DRAWER:\nmore text",
-        [section(1, 'Heading', [paragraph(
-          [
-            text(':DRAWER:', { position: pos([2, 1], [2, 9]) }),
-            text(' ', { position: pos([2, 9], [3, 1]) }),
-            text('more text', { position: pos([3, 1], [3, 10]) })],
-          { position: pos([2, 1], [3, 10]) })])]);
-    });
-
-    describe('unopened drawer end is treated as text', () => {
-      testParse('basic',
-        "* Heading\n:END:",
-        [section(1, 'Heading', [paragraph(
-          [text(':END:', { position: pos([2, 1], [2, 6]) })],
-          { position: pos([2, 1], [2, 6]) })])]);
-
-      testParse('casing is preserved',
-        "* Heading\n:eNd:",
-        [section(1, 'Heading', [paragraph(
-          [text(':eNd:', { position: pos([2, 1], [2, 6]) })],
-          { position: pos([2, 1], [2, 6]) })])]);
-
-      testParse('with extra text',
-        "* Heading\n:END:\nmore text",
-        [section(1, 'Heading', [paragraph(
-          [
-            text(':END:', { position: pos([2, 1], [2, 6]) }),
-            text(' ', { position: pos([2, 6], [3, 1]) }),
-            text('more text', { position: pos([3, 1], [3, 10]) })],
-          { position: pos([2, 1], [3, 10]) })])]);
-    });
+        testParse('with extra text',
+          `* Heading\n:${upcase}:\nmore text`,
+          [section(1, 'Heading', [paragraph(
+            [
+              text(`:${upcase}:`, { position: pos([2, 1], [2, endPos]) }),
+              text(' ', { position: pos([2, endPos], [3, 1]) }),
+              text('more text', { position: pos([3, 1], [3, 10]) })],
+            { position: pos([2, 1], [3, 10]) })])]);
+      });
+    }
   });
 
   function testParagraph(testName: string, inText: string, ...expected: Parameters<typeof paragraph>) {
