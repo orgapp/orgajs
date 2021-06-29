@@ -48,7 +48,11 @@ export default (lexer: Lexer): List | undefined => {
         return list
     }
     if (list.indent < token.indent) {
-      push(list)(parse(newList(token)))
+      push(list)({
+        type: 'list.item',
+        indent: token.indent,
+        children: [parse(newList(token))]
+      });
     } else {
       const li = parseListItem({
         type: 'list.item',

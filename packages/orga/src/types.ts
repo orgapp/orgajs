@@ -83,7 +83,8 @@ export interface List extends Parent, Attributed {
   type: 'list';
   indent: number;
   ordered: boolean;
-  children: (List | ListItem)[];
+  // "A plain list is a set of consecutive items of the same indentation. It can only directly contain items."
+  children: ListItem[];
 }
 
 type TableContent = TableRow | TableRule
