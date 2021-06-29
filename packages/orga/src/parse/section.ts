@@ -21,7 +21,7 @@ const attach = (attributes: Attributes) => (node: Attributed) => {
 
 export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
 
-  const { peek, eat, eatAll, modify } = lexer
+  const { peek, eat, eatAll, modify, substring } = lexer
   const { tryTo } = utils(lexer)
 
   const newSection = (props: { [key: string]: string } = {}): Section => {
@@ -115,6 +115,11 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
     // block
     if (tryTo(parseBlock)(attach(attributes), push(section))) {
       return parse(section)
+    }
+
+    // unclosed block or a block end without a beginning - treated as text
+    if (token.type === 'block.begin' || token.type === 'block.end') {
+      modify(t => ({ ...t, type: 'text.plain', value: substring(token.position) }));
     }
 
     if (token.type === 'hr') {

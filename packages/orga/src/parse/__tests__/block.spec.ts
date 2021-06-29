@@ -24,6 +24,34 @@ console.log(string)
     return testParse(testName, toParse, [block(...expected)]);
   }
 
+  describe('unclosed block is treated as text', () => {
+    testParse('basic',
+      '#+BEGIN_FOO',
+      [paragraph([text('#+BEGIN_FOO')])]);
+
+    testParse('with PARAMETERS',
+      '#+BEGIN_FOO P',
+      [paragraph([text('#+BEGIN_FOO P')])]);
+
+    testParse('case is respected',
+      '#+BEGiN_FoO P pP',
+      [paragraph([text('#+BEGiN_FoO P pP')])]);
+
+    testParse('spacing is respected',
+      '#+BEGIN_FOO  P   h',
+      [paragraph([text('#+BEGIN_FOO  P   h')])]);
+  });
+
+  describe('end block without start is treated as text', () => {
+    testParse('basic',
+      '#+END_FOO',
+      [paragraph([text('#+END_FOO')])]);
+
+    testParse('case is preserved',
+      '#+EnD_FoO',
+      [paragraph([text('#+EnD_FoO')])]);
+  });
+
   describe('greater blocks', () => {
     for (const blockTy of ['QUOTE', 'CENTER']) {
       describe(`${blockTy} block`, () => {
