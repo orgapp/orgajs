@@ -52,7 +52,7 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
     const token = peek();
     if (token && token.type === 'drawer.begin' && token.name.toLowerCase() === 'properties') {
       // we encountered an unclosed property drawer, so this should just be treated as text
-      modify(t => ({ ...t, type: 'text.plain', value: `:${token.name}:` }));
+      modify(t => ({ ...t, type: 'text.plain', value: substring(token.position) }));
     }
     return section
   }
