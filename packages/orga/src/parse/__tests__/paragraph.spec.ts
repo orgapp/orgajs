@@ -1,8 +1,18 @@
 import { tokenize } from '../../tokenize'
 import { parse } from '../index'
-import { Document, Headline, PhrasingContent, Section } from '../../types'
+import { Document, PhrasingContent } from '../../types'
 import debug from './debug'
-import { Position } from 'unist';
+
+import {
+  anonFootnote,
+  document,
+  footnoteReference,
+  inlineFootnote,
+  paragraph,
+  pos,
+  section,
+  text
+} from './util';
 
 describe('Parse Paragraph', () => {
   it('works', () => {
@@ -36,55 +46,6 @@ the round pegs in the +round+ square holes...
     });
   }
 
-  const text = (text: string, pos?: Position): PhrasingContent => ({
-    type: 'text.plain',
-    value: text,
-    ...(pos === undefined ? {} : { position: pos })
-  });
-
-  const inlineFootnote = (label: string, children: PhrasingContent[]): PhrasingContent => ({
-    type: 'footnote.reference',
-    label: label,
-    children: children
-  });
-
-  const anonFootnote = (children: PhrasingContent[]): PhrasingContent => ({
-    type: 'footnote.reference',
-    label: '',
-    children: children
-  });
-
-  const footnoteReference = (label: string): PhrasingContent => ({
-    type: 'footnote.reference',
-    label: label,
-    children: []
-  });
-
-  const pos = ([startLine, startCol]: [number, number], [endLine, endCol]: [number, number]): Position => ({
-    start: { line: startLine, column: startCol }, end: { line: endLine, column: endCol }
-  });
-
-  const headline = (level: number, content: string, pos?: Position): Headline => ({
-    type: 'headline',
-    level: level,
-    actionable: false,
-    content: content,
-    children: [{
-      type: 'stars',
-      level: level
-    }, text(content),
-    { type: 'newline' }],
-    ...(pos === undefined ? {} : { position: pos })
-  });
-
-  const section = (level: number, headingContent: string, sectionBody: Section['children'], pos?: Position): Section => ({
-    type: 'section',
-    level: level,
-    properties: {},
-    children: [headline(level, headingContent), ...sectionBody],
-    ...(pos === undefined ? {} : { position: pos })
-  });
-
   describe('property drawers', () => {
     testDocument('closed property drawer',
       "* Heading\n:PROPERTIES:\n:END:",
@@ -108,7 +69,7 @@ the round pegs in the +round+ square holes...
       [section(1, 'Heading', [{
         type: 'paragraph',
         attributes: {},
-        children: [text(':PROPERTIES:', pos([2, 1], [2, 13]))],
+        children: [text(':PROPERTIES:', { position: pos([2, 1], [2, 13]) })],
         position: pos([2, 1], [2, 13]),
       }])]);
 
@@ -117,20 +78,18 @@ the round pegs in the +round+ square holes...
       [section(1, 'Heading', [{
         type: 'paragraph',
         attributes: {},
-        children: [text(':PROPERTIES:', pos([2, 1], [2, 13])), text(' ', pos([2, 13], [3, 1])), text('more text', pos([3, 1], [3, 10]))],
+        children: [
+          text(':PROPERTIES:', { position: pos([2, 1], [2, 13]) }),
+          text(' ', { position: pos([2, 13], [3, 1]) }),
+          text('more text', { position: pos([3, 1], [3, 10]) })],
         position: pos([2, 1], [3, 10]),
       }])]);
   });
 
   function testParagraph(testName: string, inText: string, expected: PhrasingContent[]) {
     return it(testName, () => {
-      expect(parse(tokenize(inText))).toMatchObject({
-        type: 'document',
-        children: [{
-          type: 'paragraph',
-          children: expected
-        }],
-      });
+      expect(parse(tokenize(inText))).toMatchObject(
+        document([paragraph(expected)]));
     });
   }
 
@@ -158,7 +117,7 @@ the round pegs in the +round+ square holes...
   testParagraph('with anonymous with no body',
     'hello[fn::] world.', [
     text('hello'),
-    anonFootnote([{ ...text('', pos([1, 11], [1, 11])) }]),
+    anonFootnote([text('', { position: pos([1, 11], [1, 11]) })]),
     text(' world.')
   ]);
 
