@@ -1,7 +1,6 @@
 import { tokenize } from '../../tokenize'
 import { parse } from '../index'
 import { PhrasingContent } from '../../types'
-import debug from './debug'
 
 import {
   anonFootnote,
@@ -28,12 +27,7 @@ the round pegs in the +round+ square holes...
     //     const content = `
     // [[https://github.com/xiaoxinghu/orgajs][Here's]] some /content/ hello world.
     // `
-    const thing = parse(tokenize(content))
-    const lexer = tokenize(content)
-
-    const tree = parse(lexer)
-
-    expect(tree).toMatchSnapshot()
+    expect(parse(tokenize(content))).toMatchSnapshot()
     // debug(content)
   })
 
