@@ -70,6 +70,29 @@ the round pegs in the +round+ square holes...
             text('more text', { position: pos([3, 1], [3, 10]) })],
           { position: pos([2, 1], [3, 10]) })])]);
     });
+
+    describe('unopened drawer end is treated as text', () => {
+      testParse('basic',
+        "* Heading\n:END:",
+        [section(1, 'Heading', [paragraph(
+          [text(':END:', { position: pos([2, 1], [2, 6]) })],
+          { position: pos([2, 1], [2, 6]) })])]);
+
+      testParse('casing is preserved',
+        "* Heading\n:eNd:",
+        [section(1, 'Heading', [paragraph(
+          [text(':eNd:', { position: pos([2, 1], [2, 6]) })],
+          { position: pos([2, 1], [2, 6]) })])]);
+
+      testParse('with extra text',
+        "* Heading\n:END:\nmore text",
+        [section(1, 'Heading', [paragraph(
+          [
+            text(':END:', { position: pos([2, 1], [2, 6]) }),
+            text(' ', { position: pos([2, 6], [3, 1]) }),
+            text('more text', { position: pos([3, 1], [3, 10]) })],
+          { position: pos([2, 1], [3, 10]) })])]);
+    });
   });
 
   function testParagraph(testName: string, inText: string, ...expected: Parameters<typeof paragraph>) {
