@@ -1,4 +1,3 @@
-import { Node } from 'unist'
 import { push } from '../node'
 import { Lexer } from '../tokenize'
 import { Parent, Token } from '../types'
