@@ -4,7 +4,7 @@ import { parse as parseTimestamp } from './timestamp'
 import { tokenize } from './tokenize'
 import { Document } from './types'
 
-export * from './types/unist'
+export * from './types'
 
 export const parse = (
   text: string,
