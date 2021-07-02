@@ -14,6 +14,9 @@ module.exports = {
       resolve: 'gatsby-theme-orga-docs',
       options: {
         locations: ['../docs'],
+        components: {
+          Magic: require.resolve('./src/components/magic.tsx'),
+        },
       },
     },
   ],

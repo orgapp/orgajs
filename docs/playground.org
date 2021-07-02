@@ -1,8 +1,0 @@
-#+title: Playground
-#+html: import Playground from '@orgajs/playground'
-
-This is the playground.
-
-#+html: <Playground/>
-
-Copy rights.

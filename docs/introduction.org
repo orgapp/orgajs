@@ -1,5 +1,0 @@
-#+title: Introduction
-#+published: true
-#+position: 0
-
-This is orgajs.
