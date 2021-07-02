@@ -15,7 +15,7 @@ const Magic = ({children}) => {
       0 0 82px ${ambient},
       0 0 92px ${ambient},
       0 0 102px ${ambient},
-      0 0 151px ${ambient};
+      0 0 151px ${ambient},
       `,
       textAlign: 'center',
       borderRadius: '0.4em',

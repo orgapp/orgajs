@@ -3,3 +3,7 @@
 #+position: 300
 
 Get the code.
+
+* Need Some Inspiration?
+
+You can find tons of plugins for remark, since they work in similar ways, we can steal some ideas [[https://github.com/remarkjs/remark/blob/main/doc/plugins.md#creating-plugins][here]] and [[https://github.com/remarkjs/awesome-remark][there]], maybe even use them directly.

@@ -56,34 +56,39 @@ const Playground = ({ code, onChange, style }) => {
   }, [monaco])
 
   function getOutputs(src: string) {
-    let rehype = undefined
-    let estree = undefined
-    let jsx = ''
+    const result = {
+      oast: undefined,
+      rehype: undefined,
+      estree: undefined,
+      jsx: '',
+    }
+
+    const saveTo = (path: string) => {
+      return () => tree => {
+        result[path] = tree
+        return tree
+      }
+    }
 
     try {
       const processor = reorg()
+            .use(saveTo('oast'))
             .use(toRehype)
-            .use(() => tree => {
-              rehype = tree
-              return tree
-            })
+            .use(saveTo('rehype'))
             .use(toEstree, { skipExport: true, skipImport: true })
-            .use(() => tree => {
-              estree = tree
-              return tree
-            })
+            .use(saveTo('estree'))
             .use(toJsx, { renderer: '' })
 
       const code = processor.processSync(src)
-      jsx = String(code)
+      result.jsx = String(code)
     } catch (err) {
 
     }
 
-    return { rehype, estree, jsx }
+    return result
   }
 
-  const { rehype, estree, jsx } = getOutputs(code)
+  const { oast, rehype, estree, jsx } = getOutputs(code)
 
   function compile(text: string) {
     let jsx = ''
@@ -158,6 +163,9 @@ const Playground = ({ code, onChange, style }) => {
           height: '100%',
           width: '50%',
         }} theme={theme} defaultTab='preview'>
+          <Panel label='oast'>
+            <JSONTree data={oast} theme={treeTheme} invertTheme={true}/>
+          </Panel>
           <Panel label='rehype'>
             <JSONTree data={rehype} theme={treeTheme} invertTheme={true}/>
           </Panel>
