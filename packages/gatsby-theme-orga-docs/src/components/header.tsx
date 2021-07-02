@@ -1,10 +1,7 @@
 /** @jsx jsx */
-import React from 'react'
-import { jsx } from 'theme-ui'
+import { Flex, jsx } from 'theme-ui'
 
-const Section = ({ children }) => <div style={{ display: 'flex' }}>{children}</div>
-
-export default ({ left, right }) => {
+export default ({ left = undefined, right = undefined }: { left?: any, right?: any }) => {
 
   return (
     <header sx={{
@@ -16,8 +13,8 @@ export default ({ left, right }) => {
       gridArea: 'header',
       marginX: '1em',
     }}>
-      <Section>{left}</Section>
-      <Section>{right}</Section>
+      <Flex>{left}</Flex>
+      <Flex>{right}</Flex>
     </header>
   )
 }

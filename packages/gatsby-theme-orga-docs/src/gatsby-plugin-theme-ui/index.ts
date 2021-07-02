@@ -17,10 +17,29 @@ export default {
     body: 400,
     heading: 700,
   },
+  buttons: {
+    primary: {
+      color: 'background',
+      bg: 'primary',
+      '&:hover': {
+        bg: 'text',
+      },
+      cursor: 'pointer',
+      padding: '0.2em 0.6em',
+    },
+  },
   styles: {
     root: {
       fontFamily: 'body',
       fontWeight: 'body',
-    }
+      a: {
+        color: 'primary',
+        textDecoration: 'none',
+        borderRadius: '0.2em',
+        '&:hover': {
+          bg: 'highlight',
+        },
+      },
+    },
   },
 }

@@ -12,6 +12,7 @@ const defaultOptions = {
   slug: ({ export_file_name }) =>
     path.resolve('/', export_file_name || ''),
   postRedirect: () => [],
+  components: {},
 }
 
 module.exports = options => {

@@ -16,6 +16,7 @@ module.exports = themeOptions => {
           defaultLayout: require.resolve('./src/components/layout.tsx'),
           components: {
             Box: require.resolve('./src/components/box.tsx'),
+            ...options.components,
           }
         },
       },

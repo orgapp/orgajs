@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
 import _ from 'lodash'
-import React from 'react'
+import { jsx } from 'theme-ui'
 
 const Nav = () => {
 
@@ -77,24 +76,29 @@ const Nav = () => {
       borderRight: `1px solid`,
       borderColor: `muted`,
       backgroundColor: 'surface',
+      padding: '1em',
     }}>
-      <div sx={{
+      <Link to='/' sx={{
+        textDecoration: 'none',
         display: 'flex',
         top: 0,
         alignItems: 'center',
-        margin: '0 1em',
+        padding: '0 1em',
         gap: '1em',
+        ':hover': {
+          backgroundColor: 'highlight',
+        },
+        borderRadius: '.4em',
       }}>
         <Img
           fixed={data.logo.childImageSharp.fixed}
-          style={{ borderRadius: '8px' }}
+          sx={{ borderRadius: '8px' }}
         />
         <h2>Orgajs</h2>
-      </div>
+      </Link>
       <div style={{
         display: 'flex',
         flexDirection: 'column',
-        margin: '1em',
       }}>
         {navItems}
       </div>
