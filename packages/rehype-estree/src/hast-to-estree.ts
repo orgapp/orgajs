@@ -14,14 +14,16 @@ const parse = (code: string) => {
   })
 }
 
-const getRawHandler = ({ path, jsx }: { path: string, jsx: boolean }) => {
+const getRawHandler = ({ path, skipImport }: { path: string, skipImport: boolean }) => {
   // @ts-ignore
   const handler: Handler = (node, context) => {
     const estree = parse(deepGet(path)(node))
     // @ts-ignore TODO: get rid of this
     const expressions = estree.body.filter(child => {
       if (child.type === 'ImportDeclaration') {
-        context.esm.push(child)
+        if (!skipImport) {
+          context.esm.push(child)
+        }
         return false
       }
       return true
@@ -33,7 +35,7 @@ const getRawHandler = ({ path, jsx }: { path: string, jsx: boolean }) => {
 }
 
 function toEstree(node: HastNode, options: Options) {
-  const { space, jsx, parseRaw, handlers } = options
+  const { space, skipImport, parseRaw, handlers } = options
 
   for (const p of parseRaw) {
     const [key, ...rest] = p.split('.')
@@ -41,7 +43,7 @@ function toEstree(node: HastNode, options: Options) {
       throw new Error('somethings wrong')
     }
     const path = rest.length > 0 ? rest.join('.') : 'value'
-    handlers[key] = getRawHandler({ path, jsx })
+    handlers[key] = getRawHandler({ path, skipImport })
   }
 
   let exports

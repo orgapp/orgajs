@@ -10,6 +10,8 @@ export interface Options {
   defaultLayout?: string;
   handlers: { [key: string]: Handler };
   skipExport: boolean,
+  skipImport: boolean,
+  // TODO: do we need this?
   wrapExport: boolean,
 }
 
@@ -19,5 +21,6 @@ export const DEFAULT_OPTIONS: Options = {
   parseRaw: ['raw.value'],
   handlers: {},
   skipExport: false,
+  skipImport: false,
   wrapExport: false,
 }
