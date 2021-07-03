@@ -58,7 +58,7 @@ console.log(string)
   });
 
   describe('greater blocks', () => {
-    for (const blockTy of ['QUOTE', 'CENTER'] as GreaterBlock['name'][]) {
+    for (const blockTy of ['QUOTE', 'CENTER'] as GreaterBlock['greaterBlockType'][]) {
       describe(`${blockTy} block`, () => {
         const otherBlock = blockTy === 'QUOTE' ? 'CENTER' : 'QUOTE';
         testGreaterBlock('open and close',
@@ -82,6 +82,10 @@ You can nest the same block.
 
 And more text.
 #+END_${blockTy}`, blockTy, [greaterBlock(blockTy, [paragraph([text('You can nest the same block.')])]), paragraph([text('And more text.')])]);
+
+        testGreaterBlock('name casing ignored',
+          `#+BEGIN_${blockTy.toLowerCase()}
+#+END_${blockTy.toLowerCase()}`, blockTy, [], { name: blockTy.toLowerCase() });
 
         testGreaterBlock('with params',
           `#+BEGIN_${blockTy} param1 param2

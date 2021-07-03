@@ -62,9 +62,10 @@ export const block = (name: string, value: string, extra: Extra<Block, 'name' | 
 });
 
 /** Build an AST {@link Block} object. */
-export const greaterBlock = (name: GreaterBlock['name'], children: GreaterBlock['children'], extra: ExtraP<GreaterBlock, 'name'> = {}): GreaterBlock => ({
+export const greaterBlock = (greaterBlockType: GreaterBlock['greaterBlockType'], children: GreaterBlock['children'], extra: ExtraP<GreaterBlock, 'greaterBlockType'> = {}): GreaterBlock => ({
   type: 'greater_block',
-  name,
+  name: greaterBlockType,
+  greaterBlockType,
   params: [],
   attributes: {},
   children,

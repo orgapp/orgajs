@@ -80,10 +80,13 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | undefin
     }
   }
 
-  if (begin.name === 'QUOTE' || begin.name === 'CENTER') {
+  const nameUpper = begin.name.toUpperCase();
+
+  if (nameUpper === 'QUOTE' || nameUpper === 'CENTER') {
     const block: GreaterBlock = {
       type: 'greater_block',
       name: begin.name,
+      greaterBlockType: nameUpper,
       params: begin.params,
       position: begin.position,
       children: [],
