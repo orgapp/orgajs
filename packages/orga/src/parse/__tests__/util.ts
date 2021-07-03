@@ -53,7 +53,7 @@ export const paragraph = (children: Paragraph['children'], extra: ExtraP<Paragra
 });
 
 /** Build an AST {@link Block} object. */
-export const block = (name: string, value: string, extra: Extra<Block, 'name' | 'value'> = {}): Block => ({
+export const block = (name: Block['name'], value: string, extra: Extra<Block, 'name' | 'value'> = {}): Block => ({
   type: 'block',
   name: name,
   value: value,

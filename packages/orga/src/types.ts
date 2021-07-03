@@ -66,7 +66,7 @@ export interface Footnote extends Parent {
 
 export interface Block extends Literal, Attributed {
   type: 'block';
-  name: string;
+  name: 'COMMENT' | 'EXAMPLE' | 'EXPORT' | 'SRC' | 'VERSE';
   params: string[];
 }
 

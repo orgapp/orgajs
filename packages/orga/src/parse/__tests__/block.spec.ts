@@ -1,5 +1,5 @@
 import debug from './debug'
-import { GreaterBlock } from '../../types';
+import { Block, GreaterBlock } from '../../types';
 
 import {
   block,
@@ -143,7 +143,7 @@ Some text.
   describe('block elements', () => {
     testBlock('export block with DATA being one word', '#+BEGIN_EXPORT okay\n#+END_EXPORT', 'EXPORT', '', { params: ['okay'] });
 
-    for (const blockTy of ['COMMENT', 'EXAMPLE', 'EXPORT', 'SRC']) {
+    for (const blockTy of ['COMMENT', 'EXAMPLE', 'EXPORT', 'SRC'] as Block['name'][]) {
       testBlock(`CONTENTS not parsed in "${blockTy}" block`, `#+BEGIN_${blockTy} p\n*some data*\n#+END_${blockTy}`, blockTy, '*some data*', { params: ['p'] });
     }
   });

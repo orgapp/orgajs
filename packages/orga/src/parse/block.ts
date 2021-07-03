@@ -98,7 +98,7 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
     // block elements
     const block: Block = {
       type: 'block',
-      name: begin.name,
+      name: nameUpper,
       params: begin.params,
       position: begin.position,
       value: '',
