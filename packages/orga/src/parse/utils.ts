@@ -1,6 +1,6 @@
 import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { Parent, Token } from '../types'
+import { Parent, StyledText, Token } from '../types'
 
 export default (lexer: Lexer) => {
   const { peek, eat, save, restore } = lexer
@@ -38,4 +38,13 @@ export default (lexer: Lexer) => {
     skip,
     tryTo,
   }
+}
+
+export function tokenToText(lexer: Lexer, t: Token): StyledText & { type: 'text.plain' } {
+  const { substring } = lexer;
+  return {
+    type: 'text.plain',
+    value: substring(t.position),
+    position: t.position,
+  };
 }

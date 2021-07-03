@@ -9,6 +9,7 @@ import parseParagraph from './paragraph'
 import parsePlanning from './planning'
 import parseTable from './table'
 import utils from './utils'
+import { tokenToText } from './utils';
 import parseSymbols from './_parseSymbols'
 import _primitive from './_primitive'
 
@@ -53,7 +54,7 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T, opts?: 
     const token = peek();
     if (token && (token.type === 'drawer.begin' || token.type === 'drawer.end')) {
       // we encountered an unclosed drawer (or a drawer with no beginning), so this should just be treated as text
-      modify(t => ({ ...t, type: 'text.plain', value: substring(token.position) }));
+      modify(t => tokenToText(lexer, t));
     }
     return section
   }
@@ -124,7 +125,7 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T, opts?: 
 
     // unclosed block or a block end without a beginning - treated as text
     if (token.type === 'block.begin' || token.type === 'block.end') {
-      modify(t => ({ ...t, type: 'text.plain', value: substring(token.position) }));
+      modify(t => tokenToText(lexer, t));
     }
 
     if (token.type === 'hr') {
