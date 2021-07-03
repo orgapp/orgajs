@@ -10,6 +10,7 @@ import {
 import {
   Block,
   Document,
+  GreaterBlock,
   Headline,
   FootnoteReference,
   Node,
@@ -57,6 +58,16 @@ export const block = (name: string, value: string, extra: Extra<Block, 'name' | 
   value: value,
   params: [],
   attributes: {},
+  ...extra
+});
+
+/** Build an AST {@link Block} object. */
+export const greaterBlock = (name: GreaterBlock['name'], children: GreaterBlock['children'], extra: ExtraP<GreaterBlock, 'name'> = {}): GreaterBlock => ({
+  type: 'greater_block',
+  name,
+  params: [],
+  attributes: {},
+  children,
   ...extra
 });
 

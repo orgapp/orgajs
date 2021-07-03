@@ -1,6 +1,6 @@
 import { push } from '../node'
 import { Lexer } from '../tokenize'
-import { Attributed, Attributes, Document, Footnote, Primitive, Section } from '../types'
+import { Attributed, Attributes, Document, Footnote, Primitive, Section, Token } from '../types'
 import parseBlock from './block'
 import parseDrawer from './drawer'
 import parseHeadline from './headline'
@@ -19,10 +19,11 @@ const attach = (attributes: Attributes) => (node: Attributed) => {
   node.attributes = { ...node.attributes, ...attributes }
 }
 
-export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
+export default (lexer: Lexer) => <T extends Document | Section>(root: T, opts?: { breakOn: (t: Token) => boolean }): T => {
 
   const { peek, eat, eatAll, modify, substring } = lexer
   const { tryTo } = utils(lexer)
+  const breakOn = opts?.breakOn ?? ((_t: Token) => false);
 
   const newSection = (props: { [key: string]: string } = {}): Section => {
     const headline = parseHeadline(lexer)
@@ -65,6 +66,10 @@ export default (lexer: Lexer) => <T extends Document | Section>(root: T): T => {
 
     const token = peek()
     if (!token) return section
+
+    if (breakOn(token)) {
+      return section;
+    }
 
     // section
     if (token.type === 'stars') {

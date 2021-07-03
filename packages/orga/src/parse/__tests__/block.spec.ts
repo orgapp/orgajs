@@ -1,8 +1,9 @@
 import debug from './debug'
-import { Block } from '../../types';
+import { GreaterBlock } from '../../types';
 
 import {
   block,
+  greaterBlock,
   paragraph,
   testParse,
   text,
@@ -22,6 +23,10 @@ console.log(string)
 
   function testBlock(testName: string, toParse: string, ...expected: Parameters<typeof block>) {
     return testParse(testName, toParse, [block(...expected)]);
+  }
+
+  function testGreaterBlock(testName: string, toParse: string, ...expected: Parameters<typeof greaterBlock>) {
+    return testParse(testName, toParse, [greaterBlock(...expected)]);
   }
 
   describe('unclosed block is treated as text', () => {
@@ -53,23 +58,36 @@ console.log(string)
   });
 
   describe('greater blocks', () => {
-    for (const blockTy of ['QUOTE', 'CENTER']) {
+    for (const blockTy of ['QUOTE', 'CENTER'] as GreaterBlock['name'][]) {
       describe(`${blockTy} block`, () => {
-        testBlock('open and close',
+        const otherBlock = blockTy === 'QUOTE' ? 'CENTER' : 'QUOTE';
+        testGreaterBlock('open and close',
           `#+BEGIN_${blockTy}
-#+END_${blockTy}`, blockTy, '');
+#+END_${blockTy}`, blockTy, []);
 
-        testBlock('with data',
+        testGreaterBlock('greater blocks can appear in greater block content',
           `#+BEGIN_${blockTy}
-This is.
-Some text.
-#+END_${blockTy}`, blockTy, 'This is.\nSome text.');
+#+BEGIN_${otherBlock}
+You can nest other greater blocks inside a greater block.
+#+END_${otherBlock}
 
-        testBlock('with params',
+And more text.
+#+END_${blockTy}`, blockTy, [greaterBlock(otherBlock, [paragraph([text('You can nest other greater blocks inside a greater block.')])]), paragraph([text('And more text.')])]);
+
+        testGreaterBlock('you can nest greater blocks of the same type (one nesting)',
+          `#+BEGIN_${blockTy}
+#+BEGIN_${blockTy}
+You can nest the same block.
+#+END_${blockTy}
+
+And more text.
+#+END_${blockTy}`, blockTy, [greaterBlock(blockTy, [paragraph([text('You can nest the same block.')])]), paragraph([text('And more text.')])]);
+
+        testGreaterBlock('with params',
           `#+BEGIN_${blockTy} param1 param2
 This is.
 Some text.
-#+END_${blockTy}`, blockTy, 'This is.\nSome text.', { params: ['param1', 'param2'] });
+#+END_${blockTy}`, blockTy, [paragraph([text('This is.'), text(' '), text('Some text.')])], { params: ['param1', 'param2'] });
       });
     }
   });

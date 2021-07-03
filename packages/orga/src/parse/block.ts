@@ -1,8 +1,9 @@
 import { Position } from 'unist'
-import { Block } from '../types'
+import { Block, GreaterBlock, Section } from '../types'
 import { Lexer } from '../tokenize'
+import parseSection from './section';
 
-export default (lexer: Lexer): Block | undefined => {
+export default function parseBlock(lexer: Lexer): Block | GreaterBlock | undefined {
 
   const { peek, eat, substring } = lexer
 
@@ -10,14 +11,6 @@ export default (lexer: Lexer): Block | undefined => {
 
   if (!begin || begin.type !== 'block.begin') return undefined
 
-  const block: Block = {
-    type: 'block',
-    name: begin.name,
-    params: begin.params,
-    position: begin.position,
-    value: '',
-    attributes: {},
-  }
   // const a = push(block)
   // a(n)
   eat()
@@ -54,7 +47,7 @@ export default (lexer: Lexer): Block | undefined => {
     }).join('\n')
   }
 
-  const parse = (): Block | undefined => {
+  const parseBlockContents = (block: Block): Block | undefined => {
     const n = peek()
     if (!n || n.type === 'stars') return undefined
     eat()
@@ -65,8 +58,48 @@ export default (lexer: Lexer): Block | undefined => {
       block.position.end = n.position.end
       return block
     }
-    return parse()
+    return parseBlockContents(block)
   }
 
-  return parse()
+  const parseGreaterBlockContents = (block: GreaterBlock): GreaterBlock | undefined => {
+    const n = peek()
+    if (!n || n.type === 'stars') return undefined
+    const root: Section = { type: 'section', level: 1, children: [], properties: {} };
+    // sections parse pretty much the expected content of a block, so
+    // we piggy back the section parser for now (2021-07-03)
+    const contents = parseSection(lexer)(root, { breakOn: t => t.type === 'block.end' && t.name.toLowerCase() === begin.name.toLowerCase() });
+    const end = peek();
+    block.children.push(...contents.children);
+    if (!end) return undefined;
+    if (end.type === 'block.end' && end.name.toLowerCase() === begin.name.toLowerCase()) {
+      eat();
+      eat('newline');
+      range.end = n.position.start;
+      block.position.end = n.position.end;
+      return block;
+    }
+  }
+
+  if (begin.name === 'QUOTE' || begin.name === 'CENTER') {
+    const block: GreaterBlock = {
+      type: 'greater_block',
+      name: begin.name,
+      params: begin.params,
+      position: begin.position,
+      children: [],
+      attributes: {},
+    }
+    return parseGreaterBlockContents(block);
+  } else {
+    const block: Block = {
+      type: 'block',
+      name: begin.name,
+      params: begin.params,
+      position: begin.position,
+      value: '',
+      attributes: {},
+    }
+    return parseBlockContents(block)
+  }
+
 }

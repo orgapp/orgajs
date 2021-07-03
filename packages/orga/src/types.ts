@@ -50,6 +50,7 @@ type Content =
   | Paragraph
   | Block
   | Drawer
+  | GreaterBlock
   | Planning
   | List
   | Table
@@ -65,6 +66,12 @@ export interface Footnote extends Parent {
 export interface Block extends Literal, Attributed {
   type: 'block';
   name: string;
+  params: string[];
+}
+
+export interface GreaterBlock extends Parent, Attributed {
+  type: 'greater_block';
+  name: 'CENTER' | 'QUOTE';
   params: string[];
 }
 
