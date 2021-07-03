@@ -6,15 +6,26 @@ import { tokenize } from '../../tokenize'
 import { parse } from '../index'
 import { Parent } from '../../types';
 
-export default (text: string) => {
+export default (text: string, useColor = true) => {
   const { substring } = locate(text)
+
+  const colored = (color: 'red' | 'gray') => {
+    if (useColor) {
+      return color === 'red' ? chalk.red : chalk.gray;
+    } else {
+      return (text: string) => text;
+    }
+  }
+
+  const red = colored('red');
+  const gray = colored('gray');
 
   const lexer = tokenize(text)
   const tree = parse(lexer)
   const data = map(node => {
     const { parent, position, ...rest } = node as Parent
     if (!position) {
-      console.log(chalk.red('no position'), inspect({ rest }, false, null, true))
+      console.log(red('no position'), inspect({ rest }, false, null, useColor))
     }
     return {
       raw: substring(position),
@@ -23,12 +34,12 @@ export default (text: string) => {
   })(tree)
 
   const lines = [
-    chalk.red('** DEBUG **'),
-    chalk.red('> text:'),
-    chalk.gray(text),
-    chalk.red('> tree:'),
+    red('** DEBUG **'),
+    red('> text:'),
+    gray(text),
+    red('> tree:'),
   ].join('\n')
 
-  console.log(lines, inspect(data, false, null, true))
+  console.log(lines, inspect(data, false, null, useColor))
   // console.log(dump(text)(tree).join('\n'))
 }
