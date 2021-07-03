@@ -17,6 +17,7 @@ import {
   Paragraph,
   Parent,
   Section,
+  SpecialBlock,
   Stars,
   StyledText,
 } from '../../types';
@@ -64,6 +65,16 @@ export const block = (name: string, value: string, extra: Extra<Block, 'name' | 
 /** Build an AST {@link Block} object. */
 export const greaterBlock = (name: GreaterBlock['name'], children: GreaterBlock['children'], extra: ExtraP<GreaterBlock, 'name'> = {}): GreaterBlock => ({
   type: 'greater_block',
+  name,
+  params: [],
+  attributes: {},
+  children,
+  ...extra
+});
+
+/** Build an AST {@link SpecialBlock} object. */
+export const specialBlock = (name: SpecialBlock['name'], children: SpecialBlock['children'], extra: ExtraP<SpecialBlock, 'name'> = {}): SpecialBlock => ({
+  type: 'special_block',
   name,
   params: [],
   attributes: {},

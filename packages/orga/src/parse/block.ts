@@ -1,9 +1,9 @@
 import { Position } from 'unist'
-import { Block, GreaterBlock, Section } from '../types'
+import { Block, GreaterBlock, Section, SpecialBlock } from '../types'
 import { Lexer } from '../tokenize'
 import parseSection from './section';
 
-export default function parseBlock(lexer: Lexer): Block | GreaterBlock | undefined {
+export default function parseBlock(lexer: Lexer): Block | GreaterBlock | SpecialBlock | undefined {
 
   const { peek, eat, substring } = lexer
 
@@ -61,7 +61,7 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | undefin
     return parseBlockContents(block)
   }
 
-  const parseGreaterBlockContents = (block: GreaterBlock): GreaterBlock | undefined => {
+  const parseGreaterOrSpecialBlockContents = <T extends GreaterBlock | SpecialBlock>(block: T): T | undefined => {
     const n = peek()
     if (!n || n.type === 'stars') return undefined
     const root: Section = { type: 'section', level: 1, children: [], properties: {} };
@@ -79,6 +79,8 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | undefin
       return block;
     }
   }
+  const parseGreaterBlockContents: (block: GreaterBlock) => GreaterBlock = parseGreaterOrSpecialBlockContents;
+  const parseSpecialBlockContents: (block: SpecialBlock) => SpecialBlock = parseGreaterOrSpecialBlockContents;
 
   const nameUpper = begin.name.toUpperCase();
 
@@ -92,7 +94,8 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | undefin
       attributes: {},
     }
     return parseGreaterBlockContents(block);
-  } else {
+  } else if (nameUpper === 'COMMENT' || nameUpper === 'EXAMPLE' || nameUpper === 'EXPORT' || nameUpper === 'SRC' || nameUpper === 'VERSE') {
+    // block elements
     const block: Block = {
       type: 'block',
       name: begin.name,
@@ -102,6 +105,17 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | undefin
       attributes: {},
     }
     return parseBlockContents(block)
+  } else {
+    // special blocks
+    const block: SpecialBlock = {
+      type: 'special_block',
+      name: nameUpper,
+      params: begin.params,
+      position: begin.position,
+      children: [],
+      attributes: {},
+    }
+    return parseSpecialBlockContents(block)
   }
 
 }

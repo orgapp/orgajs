@@ -5,6 +5,7 @@ import {
   block,
   greaterBlock,
   paragraph,
+  specialBlock,
   testParse,
   text,
 } from './util';
@@ -27,6 +28,10 @@ console.log(string)
 
   function testGreaterBlock(testName: string, toParse: string, ...expected: Parameters<typeof greaterBlock>) {
     return testParse(testName, toParse, [greaterBlock(...expected)]);
+  }
+
+  function testSpecialBlock(testName: string, toParse: string, ...expected: Parameters<typeof specialBlock>) {
+    return testParse(testName, toParse, [specialBlock(...expected)]);
   }
 
   describe('unclosed block is treated as text', () => {
@@ -88,6 +93,45 @@ And more text.
 #+END_${blockTy.toLowerCase()}`, blockTy, []);
 
         testGreaterBlock('with params',
+          `#+BEGIN_${blockTy} param1 param2
+This is.
+Some text.
+#+END_${blockTy}`, blockTy, [paragraph([text('This is.'), text(' '), text('Some text.')])], { params: ['param1', 'param2'] });
+      });
+    }
+  });
+
+  describe('special blocks', () => {
+    for (const blockTy of ['FOO', 'BAR']) {
+      describe(`${blockTy} block`, () => {
+        const otherBlock = blockTy === 'FOO' ? 'BAR' : 'FOO';
+        testSpecialBlock('open and close',
+          `#+BEGIN_${blockTy}
+#+END_${blockTy}`, blockTy, []);
+
+        testSpecialBlock('special blocks can appear in special block content',
+          `#+BEGIN_${blockTy}
+#+BEGIN_${otherBlock}
+You can nest other special blocks inside a special block.
+#+END_${otherBlock}
+
+And more text.
+#+END_${blockTy}`, blockTy, [specialBlock(otherBlock, [paragraph([text('You can nest other special blocks inside a special block.')])]), paragraph([text('And more text.')])]);
+
+        testSpecialBlock('you can nest special blocks of the same type (one nesting)',
+          `#+BEGIN_${blockTy}
+#+BEGIN_${blockTy}
+You can nest the same block.
+#+END_${blockTy}
+
+And more text.
+#+END_${blockTy}`, blockTy, [specialBlock(blockTy, [paragraph([text('You can nest the same block.')])]), paragraph([text('And more text.')])]);
+
+        testSpecialBlock('name casing ignored',
+          `#+BEGIN_${blockTy.toLowerCase()}
+#+END_${blockTy.toLowerCase()}`, blockTy, []);
+
+        testSpecialBlock('with params',
           `#+BEGIN_${blockTy} param1 param2
 This is.
 Some text.

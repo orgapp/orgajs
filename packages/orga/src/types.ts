@@ -51,6 +51,7 @@ type Content =
   | Block
   | Drawer
   | GreaterBlock
+  | SpecialBlock
   | Planning
   | List
   | Table
@@ -72,6 +73,12 @@ export interface Block extends Literal, Attributed {
 export interface GreaterBlock extends Parent, Attributed {
   type: 'greater_block';
   name: 'CENTER' | 'QUOTE';
+  params: string[];
+}
+
+export interface SpecialBlock extends Parent, Attributed {
+  type: 'special_block';
+  name: string;
   params: string[];
 }
 
