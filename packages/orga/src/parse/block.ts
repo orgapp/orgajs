@@ -2,6 +2,7 @@ import { Position } from 'unist'
 import { Block, GreaterBlock, Section, SpecialBlock } from '../types'
 import { Lexer } from '../tokenize'
 import parseSection from './section';
+import { push } from '../node';
 
 export default function parseBlock(lexer: Lexer): Block | GreaterBlock | SpecialBlock | undefined {
 
@@ -65,11 +66,13 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
     const n = peek()
     if (!n || n.type === 'stars') return undefined
     const root: Section = { type: 'section', level: 1, children: [], properties: {} };
+
     // sections parse pretty much the expected content of a block, so
     // we piggy back the section parser for now (2021-07-03)
-    const contents = parseSection(lexer)(root, { breakOn: t => t.type === 'block.end' && t.name.toLowerCase() === begin.name.toLowerCase() });
+    const contents = parseSection(lexer)(root, { breakOn: t => t.type === 'block.end' && t.name.toLowerCase() === begin.name.toLowerCase() })?.children ?? [];
+    contents.forEach(push(block));
+
     const end = peek();
-    block.children.push(...contents.children);
     if (!end) return undefined;
     if (end.type === 'block.end' && end.name.toLowerCase() === begin.name.toLowerCase()) {
       eat();

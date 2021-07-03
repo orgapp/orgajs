@@ -97,6 +97,11 @@ And more text.
 This is.
 Some text.
 #+END_${blockTy}`, blockTy, [paragraph([text('This is.'), text(' '), text('Some text.')])], { params: ['param1', 'param2'] });
+
+        testGreaterBlock('correct parent for contents',
+          `#+BEGIN_${blockTy}
+Text.
+#+END_${blockTy}`, blockTy, [paragraph([text('Text.')], { parent: { type: 'greater_block' } as any })]);
       });
     }
   });
@@ -136,6 +141,11 @@ And more text.
 This is.
 Some text.
 #+END_${blockTy}`, blockTy, [paragraph([text('This is.'), text(' '), text('Some text.')])], { params: ['param1', 'param2'] });
+
+        testSpecialBlock('correct parent for contents',
+          `#+BEGIN_${blockTy}
+Text.
+#+END_${blockTy}`, blockTy, [paragraph([text('Text.')], { parent: { type: 'special_block' } as any })]);
       });
     }
   });
