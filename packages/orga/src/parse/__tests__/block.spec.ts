@@ -58,7 +58,7 @@ console.log(string)
   });
 
   describe('greater blocks', () => {
-    for (const blockTy of ['QUOTE', 'CENTER'] as GreaterBlock['greaterBlockType'][]) {
+    for (const blockTy of ['QUOTE', 'CENTER'] as GreaterBlock['name'][]) {
       describe(`${blockTy} block`, () => {
         const otherBlock = blockTy === 'QUOTE' ? 'CENTER' : 'QUOTE';
         testGreaterBlock('open and close',
@@ -85,7 +85,7 @@ And more text.
 
         testGreaterBlock('name casing ignored',
           `#+BEGIN_${blockTy.toLowerCase()}
-#+END_${blockTy.toLowerCase()}`, blockTy, [], { name: blockTy.toLowerCase() });
+#+END_${blockTy.toLowerCase()}`, blockTy, []);
 
         testGreaterBlock('with params',
           `#+BEGIN_${blockTy} param1 param2

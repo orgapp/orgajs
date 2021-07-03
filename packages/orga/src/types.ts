@@ -71,8 +71,7 @@ export interface Block extends Literal, Attributed {
 
 export interface GreaterBlock extends Parent, Attributed {
   type: 'greater_block';
-  name: string;
-  greaterBlockType: 'CENTER' | 'QUOTE';
+  name: 'CENTER' | 'QUOTE';
   params: string[];
 }
 

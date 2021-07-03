@@ -85,8 +85,7 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | undefin
   if (nameUpper === 'QUOTE' || nameUpper === 'CENTER') {
     const block: GreaterBlock = {
       type: 'greater_block',
-      name: begin.name,
-      greaterBlockType: nameUpper,
+      name: nameUpper,
       params: begin.params,
       position: begin.position,
       children: [],
