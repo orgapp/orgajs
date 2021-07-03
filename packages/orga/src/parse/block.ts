@@ -13,9 +13,9 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
 
   // const a = push(block)
   // a(n)
-  eat()
+  eat(); // consume the block beginning
   let contentStart = begin.position.end
-  const nl = eat('newline')
+  const nl = eat('newline') // consume any whitespace before content
   if (nl) {
     contentStart = nl.position.end
   }
