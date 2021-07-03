@@ -62,7 +62,7 @@ export const block = (name: Block['name'], value: string, extra: Extra<Block, 'n
   ...extra
 });
 
-/** Build an AST {@link Block} object. */
+/** Build an AST {@link GreaterBlock} object. */
 export const greaterBlock = (name: GreaterBlock['name'], children: GreaterBlock['children'], extra: ExtraP<GreaterBlock, 'name'> = {}): GreaterBlock => ({
   type: 'greater_block',
   name,
