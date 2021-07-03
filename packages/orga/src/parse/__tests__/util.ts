@@ -20,6 +20,7 @@ import {
   SpecialBlock,
   Stars,
   StyledText,
+  VerseBlock,
 } from '../../types';
 
 import { tokenize } from '../../tokenize'
@@ -62,6 +63,15 @@ export const block = (name: Block['name'], value: string, extra: Extra<Block, 'n
   ...extra
 });
 
+/** Build an AST {@link VerseBlock} object. */
+export const verseBlock = (children: VerseBlock['children'], extra: ExtraP<VerseBlock> = {}): VerseBlock => ({
+  type: 'verse_block',
+  params: [],
+  attributes: {},
+  children,
+  ...extra
+});
+
 /** Build an AST {@link GreaterBlock} object. */
 export const greaterBlock = (name: GreaterBlock['name'], children: GreaterBlock['children'], extra: ExtraP<GreaterBlock, 'name'> = {}): GreaterBlock => ({
   type: 'greater_block',
@@ -82,12 +92,21 @@ export const specialBlock = (name: SpecialBlock['name'], children: SpecialBlock[
   ...extra
 });
 
-/** Build an AST plain text object. */
-export const text = (text: string, extra: Extra<StyledText, 'value'> = {}): StyledText & { type: 'text.plain' } => ({
-  type: 'text.plain',
+/** Build an AST {@link StyledText} object. */
+export const styledText = <TextTy extends StyledText['type']>(type: TextTy) => (text: string, extra: Extra<StyledText, 'value'> = {}): StyledText & { type: TextTy } => ({
+  type: type,
   value: text,
   ...extra
 });
+
+/** Build an AST plain text object. */
+export const text = styledText('text.plain');
+
+/** Build an AST text bold object. */
+export const textBold = styledText('text.bold');
+
+/** Build an AST text strikethrough object. */
+export const textStrikethrough = styledText('text.strikeThrough');
 
 /** Footnote reference has empty `children`. */
 export type FootnoteRef = FootnoteReference & { children: [] };

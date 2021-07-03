@@ -8,6 +8,9 @@ import {
   specialBlock,
   testParse,
   text,
+  textBold,
+  textStrikethrough,
+  verseBlock,
 } from './util';
 
 describe('Parse Block', () => {
@@ -32,6 +35,10 @@ console.log(string)
 
   function testSpecialBlock(testName: string, toParse: string, ...expected: Parameters<typeof specialBlock>) {
     return testParse(testName, toParse, [specialBlock(...expected)]);
+  }
+
+  function testVerseBlock(testName: string, toParse: string, ...expected: Parameters<typeof verseBlock>) {
+    return testParse(testName, `#+BEGIN_VERSE\n${toParse}\n#+END_VERSE`, [verseBlock(...expected)]);
   }
 
   describe('unclosed block is treated as text', () => {
@@ -156,5 +163,32 @@ Text.
     for (const blockTy of ['COMMENT', 'EXAMPLE', 'EXPORT', 'SRC'] as Block['name'][]) {
       testBlock(`CONTENTS not parsed in "${blockTy}" block`, `#+BEGIN_${blockTy} p\n*some data*\n#+END_${blockTy}`, blockTy, '*some data*', { params: ['p'] });
     }
+
+    describe('verse block', () => {
+      // the verse block is special (out of block elements) in that it
+      // can contain Org objects.
+
+      testVerseBlock('empty verse block', '', []);
+
+      testVerseBlock('can contain text markup', '*Hi* +there+', [textBold('Hi'), text(' '), textStrikethrough('there')]);
+
+      testVerseBlock('paragraphs read as text', `With
+
+Paragraph.`, [text('With'), text(' '), text(' '), text('Paragraph.')]);
+
+      testVerseBlock('nested verse block read as text', `#+BEGIN_VERSE
+text`, [text('#+BEGIN_VERSE'), text(' '), text('text')]);
+
+      testVerseBlock('blocks read as text', `#+BEGIN_SRC foo
+some text
+#+END_SRC`, [text('#+BEGIN_SRC foo'), text(' '), text('some text'), text(' '), text('#+END_SRC')]);
+
+      testVerseBlock('lists read as text', `- item 1
+- item 2`, [text('-'), text('item 1'), text(' '), text('-'), text('item 2')]);
+
+      testVerseBlock('heading read as text', '* Heading', [text('*'), text('Heading')]);
+
+      testVerseBlock('heading with markup', '* *Heading*', [text('*'), textBold('Heading')]);
+    });
   });
 });

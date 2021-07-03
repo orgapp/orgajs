@@ -49,6 +49,7 @@ type Content =
   | Section
   | Paragraph
   | Block
+  | VerseBlock
   | Drawer
   | GreaterBlock
   | SpecialBlock
@@ -66,8 +67,14 @@ export interface Footnote extends Parent {
 
 export interface Block extends Literal, Attributed {
   type: 'block';
-  name: 'COMMENT' | 'EXAMPLE' | 'EXPORT' | 'SRC' | 'VERSE';
+  name: 'COMMENT' | 'EXAMPLE' | 'EXPORT' | 'SRC';
   params: string[];
+}
+
+export interface VerseBlock extends Parent, Attributed {
+  type: 'verse_block';
+  params: string[];
+  children: PhrasingContent[];
 }
 
 export interface GreaterBlock extends Parent, Attributed {

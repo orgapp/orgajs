@@ -1,10 +1,11 @@
 import { Position } from 'unist'
-import { Block, GreaterBlock, Section, SpecialBlock } from '../types'
+import { Block, GreaterBlock, Section, SpecialBlock, VerseBlock } from '../types'
 import { Lexer } from '../tokenize'
+import parseParagraph from './paragraph';
 import parseSection from './section';
 import { push } from '../node';
 
-export default function parseBlock(lexer: Lexer): Block | GreaterBlock | SpecialBlock | undefined {
+export default function parseBlock(lexer: Lexer): Block | GreaterBlock | SpecialBlock | VerseBlock | undefined {
 
   const { peek, eat, substring } = lexer
 
@@ -62,6 +63,27 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
     return parseBlockContents(block)
   }
 
+  const parseVerseBlockContents = (block: VerseBlock): VerseBlock | undefined => {
+    // paragraphs parse pretty much the expected content of a verse, so
+    // we piggy back the paragraph parser for now (2021-07-03)
+    const contents = parseParagraph(lexer, {
+      maxEOL: Infinity,
+      nonObjectTextRendered: true,
+      breakOn: t => t.type === 'block.end' && t.name.toLowerCase() === begin.name.toLowerCase()
+    })?.children ?? [];
+    contents.forEach(push(block));
+
+    const end = peek();
+    if (!end) return undefined;
+    if (end.type === 'block.end' && end.name.toLowerCase() === begin.name.toLowerCase()) {
+      eat();
+      eat('newline');
+      range.end = end.position.start;
+      block.position.end = end.position.end;
+      return block;
+    }
+  }
+
   const parseGreaterOrSpecialBlockContents = <T extends GreaterBlock | SpecialBlock>(block: T): T | undefined => {
     const n = peek()
     if (!n || n.type === 'stars') return undefined
@@ -97,7 +119,7 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
       attributes: {},
     }
     return parseGreaterBlockContents(block);
-  } else if (nameUpper === 'COMMENT' || nameUpper === 'EXAMPLE' || nameUpper === 'EXPORT' || nameUpper === 'SRC' || nameUpper === 'VERSE') {
+  } else if (nameUpper === 'COMMENT' || nameUpper === 'EXAMPLE' || nameUpper === 'EXPORT' || nameUpper === 'SRC') {
     // block elements
     const block: Block = {
       type: 'block',
@@ -108,6 +130,16 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
       attributes: {},
     }
     return parseBlockContents(block)
+  } else if (nameUpper === 'VERSE') {
+    // verse blocks
+    const block: VerseBlock = {
+      type: 'verse_block',
+      params: begin.params,
+      position: begin.position,
+      children: [],
+      attributes: {},
+    }
+    return parseVerseBlockContents(block)
   } else {
     // special blocks
     const block: SpecialBlock = {

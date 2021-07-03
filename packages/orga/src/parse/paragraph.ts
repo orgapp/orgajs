@@ -1,14 +1,18 @@
 import { push } from '../node'
 import { FootnoteReference, Paragraph, PhrasingContent, Token } from '../types'
 import { isPhrasingContent } from '../utils'
+import { tokenToText } from './utils';
 import { Lexer } from '../tokenize';
 
 const isWhitespaces = (node: Token) => {
   return node.type === 'text.plain' && node.value.trim().length === 0
 }
 
-export default function paragraph(lexer: Lexer): Paragraph | undefined {
+export default function paragraph(lexer: Lexer, opts?: Partial<{ breakOn: (t: Token) => boolean; maxEOL: number; nonObjectTextRendered: boolean }>): Paragraph | undefined {
   const { peek, eat } = lexer;
+  const breakOn = opts?.breakOn ?? (_t => false);
+  const maxEOL = opts?.maxEOL ?? 2;
+  const nonObjectTextRendered = opts?.nonObjectTextRendered ?? false;
   let eolCount = 0
 
   const createParagraph = (): Paragraph => ({
@@ -20,8 +24,11 @@ export default function paragraph(lexer: Lexer): Paragraph | undefined {
 
   const build = (p: Paragraph = undefined): Paragraph | undefined => {
     const token = peek()
-    if (!token || eolCount >= 2) {
+    if (!token || eolCount >= maxEOL) {
       return p
+    }
+    if (breakOn(token)) {
+      return p;
     }
 
     function readAFootnote(par: Paragraph | FootnoteReference = p): PhrasingContent | undefined {
@@ -71,6 +78,13 @@ export default function paragraph(lexer: Lexer): Paragraph | undefined {
       eat()
       eolCount = 0
       return build(p)
+    } else if (nonObjectTextRendered) {
+      // for things like verse blocks, where we have a definitive end, we just render other tokens as text
+      p = p || createParagraph()
+      push(p)(tokenToText(lexer, token));
+      eat();
+      eolCount = 0;
+      return build(p);
     }
     return p
   }
