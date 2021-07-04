@@ -143,4 +143,252 @@ describe("tokenize block", () => {
       ]
     `)
   })
+
+  describe("verse blocks", () => {
+    it('inner block tokenized as text', () => {
+      expect(tok(`#+BEGIN_VERSE
+#+BEGIN_SRC ts
+function () {}
+#+END_SRC
+#+END_VERSE`)).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "#+BEGIN_VERSE",
+          "name": "VERSE",
+          "params": Array [],
+          "type": "block.begin",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "#+BEGIN_SRC ts",
+          "type": "text.plain",
+          "value": "#+BEGIN_SRC ts",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "function () {}",
+          "type": "text.plain",
+          "value": "function () {}",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "#+END_SRC",
+          "type": "text.plain",
+          "value": "#+END_SRC",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "#+END_VERSE",
+          "name": "VERSE",
+          "type": "block.end",
+        },
+      ]
+    `)
+    });
+
+    it('inner block with markup', () => {
+      expect(tok(`#+BEGIN_VERSE
+#+BEGIN_EXAMPLE *text*
+more text
+#+END_EXAMPLE
+#+END_VERSE`)).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "#+BEGIN_VERSE",
+          "name": "VERSE",
+          "params": Array [],
+          "type": "block.begin",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "#+BEGIN_EXAMPLE ",
+          "type": "text.plain",
+          "value": "#+BEGIN_EXAMPLE ",
+        },
+        Object {
+          "_text": "*text*",
+          "type": "text.bold",
+          "value": "text",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "more text",
+          "type": "text.plain",
+          "value": "more text",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "#+END_EXAMPLE",
+          "type": "text.plain",
+          "value": "#+END_EXAMPLE",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "#+END_VERSE",
+          "name": "VERSE",
+          "type": "block.end",
+        },
+      ]
+    `)
+    });
+
+    it('heading with markup', () => {
+      expect(tok(`#+BEGIN_VERSE
+* Heading *with markup*
+#+END_VERSE`)).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "#+BEGIN_VERSE",
+          "name": "VERSE",
+          "params": Array [],
+          "type": "block.begin",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "* Heading ",
+          "type": "text.plain",
+          "value": "* Heading ",
+        },
+        Object {
+          "_text": "*with markup*",
+          "type": "text.bold",
+          "value": "with markup",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "#+END_VERSE",
+          "name": "VERSE",
+          "type": "block.end",
+        },
+      ]
+    `)
+    });
+
+    it('lists not tokenized', () => {
+      expect(tok(`#+BEGIN_VERSE
+- this is not lexed
+
+1. nor is this
+#+END_VERSE`)).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "#+BEGIN_VERSE",
+          "name": "VERSE",
+          "params": Array [],
+          "type": "block.begin",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "- this is not lexed",
+          "type": "text.plain",
+          "value": "- this is not lexed",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "1. nor is this",
+          "type": "text.plain",
+          "value": "1. nor is this",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "#+END_VERSE",
+          "name": "VERSE",
+          "type": "block.end",
+        },
+      ]
+    `)
+    });
+
+    it('comments not tokenized', () => {
+      expect(tok(`#+BEGIN_VERSE
+# comment
+#+END_VERSE`)).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "#+BEGIN_VERSE",
+          "name": "VERSE",
+          "params": Array [],
+          "type": "block.begin",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "# comment",
+          "type": "text.plain",
+          "value": "# comment",
+        },
+        Object {
+          "_text": "
+      ",
+          "type": "newline",
+        },
+        Object {
+          "_text": "#+END_VERSE",
+          "name": "VERSE",
+          "type": "block.end",
+        },
+      ]
+    `)
+    });
+  });
 })

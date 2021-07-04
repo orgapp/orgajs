@@ -35,6 +35,22 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
 
   const reader = read(text)
 
+  const state: {
+    context: 'verse' | null;
+  } = {
+    context: undefined
+  };
+
+  const setContext = (context: 'verse') => {
+    state.context = context;
+  }
+
+  const removeContext = (matchContext: NonNullable<(typeof state)['context']>) => {
+    if (state.context === matchContext) {
+      state.context = null;
+    }
+  }
+
   const {
     isStartOfLine,
     eat,
@@ -70,7 +86,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
       }]
     }
 
-    if (isStartOfLine() && match(/^\*+\s+/)) {
+    if (isStartOfLine() && match(/^\*+\s+/) && state.context !== 'verse') {
       return tokenizeHeadline({
         reader,
         todoKeywordSets: todoKeywordSets(),
@@ -98,14 +114,33 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
         }]
       }
 
-      const block = tokenizeBlock({ reader })
-      if (block.length > 0) return block
+      const tokBlock = tokenizeBlock({ reader })
+      if (tokBlock) {
+        const [block, action] = tokBlock;
+        // when in a verse block, the only block begin/end that we
+        // accept is a verse end - all others are parsed as text
+        if (!(state.context === 'verse') || (block.type === 'block.end' && block.name.toUpperCase() === 'VERSE')) {
+          if (block.name.toUpperCase() === 'VERSE') {
+            // verse blocks can only contain objects, so we adjust the
+            // lexer context accordingly
+            if (block.type === 'block.begin') {
+              setContext('verse');
+            } else {
+              removeContext('verse');
+            }
+          }
+          action();
+          return [block];
+        }
+      }
     }
 
-    const list = tokenizeListItem({ reader })
-    if (list.length > 0) return list
+    if (state.context !== 'verse') {
+      const list = tokenizeListItem({ reader })
+      if (list.length > 0) return list
+    }
 
-    if (l.startsWith('# ')) {
+    if (l.startsWith('# ') && state.context !== 'verse') {
       const comment = match(/^#\s+(.*)$/)
       if (comment) {
         eat('line')

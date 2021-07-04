@@ -183,12 +183,18 @@ text`, [text('#+BEGIN_VERSE'), text(' '), text('text')]);
 some text
 #+END_SRC`, [text('#+BEGIN_SRC foo'), text(' '), text('some text'), text(' '), text('#+END_SRC')]);
 
+      testVerseBlock('blocks with markup', `#+BEGIN_EXAMPLE *foo*
+some text
+#+END_EXAMPLE`, [text('#+BEGIN_EXAMPLE '), textBold('foo'), text(' '), text('some text'), text(' '), text('#+END_EXAMPLE')]);
+
       testVerseBlock('lists read as text', `- item 1
-- item 2`, [text('-'), text('item 1'), text(' '), text('-'), text('item 2')]);
+- item 2`, [text('- item 1'), text(' '), text('- item 2')]);
 
-      testVerseBlock('heading read as text', '* Heading', [text('*'), text('Heading')]);
+      testVerseBlock('heading read as text', '* Heading', [text('* Heading')]);
 
-      testVerseBlock('heading with markup', '* *Heading*', [text('*'), textBold('Heading')]);
+      testVerseBlock('heading with markup', '* *Heading*', [text('* '), textBold('Heading')]);
+
+      testVerseBlock('comment read as text', '# comment', [text('# comment')]);
     });
   });
 });

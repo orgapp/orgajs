@@ -68,7 +68,6 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
     // we piggy back the paragraph parser for now (2021-07-03)
     const contents = parseParagraph(lexer, {
       maxEOL: Infinity,
-      nonObjectTextRendered: true,
       breakOn: t => t.type === 'block.end' && t.name.toLowerCase() === begin.name.toLowerCase()
     })?.children ?? [];
     contents.forEach(push(block));
