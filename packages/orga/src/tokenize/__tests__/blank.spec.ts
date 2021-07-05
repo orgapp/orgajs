@@ -1,25 +1,13 @@
-import tok from "./tok"
+import {
+  testLexer,
+  testLexerMulti,
+  tokText,
+} from './util';
 
 describe("Tokenize Blanks", () => {
-  it("knows blank", () => {
-    expect(tok("")).toMatchInlineSnapshot(`Array []`)
-    expect(tok(" ")).toMatchInlineSnapshot(`Array []`)
-    expect(tok("    ")).toMatchInlineSnapshot(`Array []`)
-    expect(tok("\t")).toMatchInlineSnapshot(`Array []`)
-    expect(tok(" \t")).toMatchInlineSnapshot(`Array []`)
-    expect(tok("\t ")).toMatchInlineSnapshot(`Array []`)
-    expect(tok(" \t  ")).toMatchInlineSnapshot(`Array []`)
-  })
+  testLexerMulti("knows blank",
+    ["", " ", "    ", "\t", " \t", "\t ", " \t  "].map(c => [c, []])
+  );
 
-  it("knows these are not blanks", () => {
-    expect(tok(" a ")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "a ",
-          "type": "text.plain",
-          "value": "a ",
-        },
-      ]
-    `)
-  })
-})
+  testLexer("knows these are not blanks", " a ", [tokText("a ")]);
+});
