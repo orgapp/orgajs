@@ -1,90 +1,27 @@
-import tok from "./tok"
+import {
+  testLexerMulti,
+  tokComment,
+  tokText,
+} from './util';
 
 describe("tokenize comment", () => {
-  it("knows comments", () => {
-    expect(tok("# a comment")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "# a comment",
-          "type": "comment",
-          "value": "a comment",
-        },
-      ]
-    `)
-    expect(tok("# ")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "# ",
-          "type": "comment",
-          "value": "",
-        },
-      ]
-    `)
-    expect(tok("# a comment😯")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "# a comment😯",
-          "type": "comment",
-          "value": "a comment😯",
-        },
-      ]
-    `)
-    expect(tok(" # a comment")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "# a comment",
-          "type": "comment",
-          "value": "a comment",
-        },
-      ]
-    `)
-    expect(tok("  \t  # a comment")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "# a comment",
-          "type": "comment",
-          "value": "a comment",
-        },
-      ]
-    `)
-    expect(tok("#   a comment")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#   a comment",
-          "type": "comment",
-          "value": "a comment",
-        },
-      ]
-    `)
-    expect(tok("#    \t a comment")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#    	 a comment",
-          "type": "comment",
-          "value": "a comment",
-        },
-      ]
-    `)
-  })
 
-  it("knows these are not comments", () => {
-    expect(tok("#not a comment")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#not a comment",
-          "type": "text.plain",
-          "value": "#not a comment",
-        },
-      ]
-    `)
-    expect(tok("  #not a comment")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#not a comment",
-          "type": "text.plain",
-          "value": "#not a comment",
-        },
-      ]
-    `)
-  })
-})
+  const testComment = (text: string, value: string, leading: string = ""): Parameters<typeof testLexerMulti>[1][number] => {
+    return [`${leading}${text}`, [tokComment(value, { _text: text })]];
+  };
+
+  testLexerMulti("knows comments", [
+    testComment("# a comment", "a comment"),
+    testComment("# ", ""),
+    testComment("# a comment😯", "a comment😯"),
+    testComment("# a comment", "a comment", " "),
+    testComment("# a comment", "a comment", "  \t  "),
+    testComment("#   a comment", "a comment"),
+    testComment("#    \t a comment", "a comment"),
+  ]);
+
+  testLexerMulti("knows these are not comments", [
+    ["#not a comment", [tokText("#not a comment")]],
+    ["  #not a comment", [tokText("#not a comment")]],
+  ]);
+});

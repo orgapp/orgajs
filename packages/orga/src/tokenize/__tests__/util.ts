@@ -1,6 +1,7 @@
 import {
   BlockBegin,
   BlockEnd,
+  Comment,
   Newline,
   StyledText,
   Token,
@@ -54,3 +55,10 @@ export const tokStyledText = <TextTy extends StyledText['type']>(type: TextTy, m
 export const tokText = tokStyledText('text.plain', '');
 
 export const tokTextBold = tokStyledText('text.bold', '*');
+
+export const tokComment = (value: string, extra: Extra<Comment, 'value'> = {}): Comment => ({
+  type: 'comment',
+  value,
+  ...{ _text: `# ${value}` },
+  ...extra,
+});
