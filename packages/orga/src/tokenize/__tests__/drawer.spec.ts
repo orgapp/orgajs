@@ -1,137 +1,38 @@
-import tok from "./tok"
+import {
+  testLexerMulti,
+  tokDrawerBegin,
+  tokDrawerEnd,
+  tokText,
+} from './util';
 
 describe("tokenize drawer", () => {
-  it("knows drawer begins", () => {
-    expect(tok(":PROPERTIES:")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":PROPERTIES:",
-          "name": "PROPERTIES",
-          "type": "drawer.begin",
-        },
-      ]
-    `)
-    expect(tok("  :properties:")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":properties:",
-          "name": "properties",
-          "type": "drawer.begin",
-        },
-      ]
-    `)
-    expect(tok("  :properties:  ")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":properties:",
-          "name": "properties",
-          "type": "drawer.begin",
-        },
-      ]
-    `)
-    expect(tok("  :prop_erties:  ")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":prop_erties:",
-          "name": "prop_erties",
-          "type": "drawer.begin",
-        },
-      ]
-    `)
-  })
 
-  it("knows these are not drawer begins", () => {
-    expect(tok("PROPERTIES:")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "PROPERTIES:",
-          "type": "text.plain",
-          "value": "PROPERTIES:",
-        },
-      ]
-    `)
-    expect(tok(":PROPERTIES")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":PROPERTIES",
-          "type": "text.plain",
-          "value": ":PROPERTIES",
-        },
-      ]
-    `)
-    expect(tok(":PR OPERTIES:")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":PR OPERTIES:",
-          "type": "text.plain",
-          "value": ":PR OPERTIES:",
-        },
-      ]
-    `)
-  })
+  const testDrawerBegin = (text: string, name: string, leading: string = "", trailing: string = ""): Parameters<typeof testLexerMulti>[1][number] => {
+    return [`${leading}${text}${trailing}`, [tokDrawerBegin(name, { _text: text })]];
+  };
 
-  it("knows drawer ends", () => {
-    expect(tok(":END:")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":END:",
-          "type": "drawer.end",
-        },
-      ]
-    `)
-    expect(tok("  :end:")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":end:",
-          "type": "drawer.end",
-        },
-      ]
-    `)
-    expect(tok("  :end:  ")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":end:",
-          "type": "drawer.end",
-        },
-      ]
-    `)
-    expect(tok("  :end:  ")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":end:",
-          "type": "drawer.end",
-        },
-      ]
-    `)
-  })
+  testLexerMulti("knows drawer begins", [
+    testDrawerBegin(":PROPERTIES:", "PROPERTIES"),
+    testDrawerBegin(":properties:", "properties", "  "),
+    testDrawerBegin(":properties:", "properties", "  ", "  "),
+    testDrawerBegin(":prop_erties:", "prop_erties", "  ", "  "),
+  ]);
 
-  it("knows these are not drawer ends", () => {
-    expect(tok("END:")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "END:",
-          "type": "text.plain",
-          "value": "END:",
-        },
-      ]
-    `)
-    expect(tok(":END")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":END",
-          "type": "text.plain",
-          "value": ":END",
-        },
-      ]
-    `)
-    expect(tok(":ENDed")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":ENDed",
-          "type": "text.plain",
-          "value": ":ENDed",
-        },
-      ]
-    `)
-  })
-})
+  testLexerMulti("knows these are not drawer begins",
+    ["PROPERTIES:", ":PROPERTIES", ":PR OPERTIES:"].map(c => [c, [tokText(c)]])
+  );
+
+  const testDrawerEnd = (text: string, leading: string = "", trailing: string = ""): Parameters<typeof testLexerMulti>[1][number] => {
+    return [`${leading}${text}${trailing}`, [tokDrawerEnd({ _text: text })]];
+  };
+
+  testLexerMulti("knows drawer ends", [
+    testDrawerEnd(":END:"),
+    testDrawerEnd(":end:", "  "),
+    testDrawerEnd(":end:", "  ", "  "),
+  ]);
+
+  testLexerMulti("knows these are not drawer ends",
+    ["END:", ":END", ":ENDed"].map(c => [c, [tokText(c)]])
+  );
+});

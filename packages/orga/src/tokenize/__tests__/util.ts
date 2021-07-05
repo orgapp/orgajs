@@ -2,6 +2,8 @@ import {
   BlockBegin,
   BlockEnd,
   Comment,
+  DrawerBegin,
+  DrawerEnd,
   Newline,
   StyledText,
   Token,
@@ -60,5 +62,18 @@ export const tokComment = (value: string, extra: Extra<Comment, 'value'> = {}): 
   type: 'comment',
   value,
   ...{ _text: `# ${value}` },
+  ...extra,
+});
+
+export const tokDrawerBegin = (name: string, extra: Extra<DrawerBegin, 'name'> = {}): DrawerBegin => ({
+  type: 'drawer.begin',
+  name,
+  ...{ _text: `:${name}:` },
+  ...extra,
+});
+
+export const tokDrawerEnd = (extra: Extra<DrawerEnd> = {}): DrawerEnd => ({
+  type: 'drawer.end',
+  ...{ _text: `:END:` },
   ...extra,
 });
