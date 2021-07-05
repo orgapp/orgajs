@@ -4,7 +4,10 @@ import {
   Comment,
   DrawerBegin,
   DrawerEnd,
+  FootnoteLabel,
+  FootnoteReference,
   Newline,
+  Parent,
   StyledText,
   Token,
 } from '../../types';
@@ -25,6 +28,7 @@ export function testLexerMulti(testName: string, tests: [input: string, expected
 }
 
 type Extra<Tok extends Token, Keys extends keyof (Tok & { _text: string }) = 'type'> = Partial<Omit<Tok | { _text: string }, Keys | 'type'>>;
+type ExtraP<Tok extends Parent & Token, Keys extends keyof (Tok & { _text: string }) = 'type' | 'children'> = Extra<Tok, Keys | 'children'>;
 
 export const tokBlockBegin = (name: string, extra: Extra<BlockBegin, 'name'> = {}): BlockBegin => ({
   type: 'block.begin',
@@ -75,5 +79,21 @@ export const tokDrawerBegin = (name: string, extra: Extra<DrawerBegin, 'name'> =
 export const tokDrawerEnd = (extra: Extra<DrawerEnd> = {}): DrawerEnd => ({
   type: 'drawer.end',
   ...{ _text: `:END:` },
+  ...extra,
+});
+
+export const tokFootnoteLabel = (label: string, extra: Extra<FootnoteLabel> = {}): FootnoteLabel => ({
+  type: 'footnote.label',
+  label,
+  ...{ _text: `[fn:${label}]` },
+  ...extra,
+});
+
+// TODO: doesn't make sense as a token because it can have children - remove this when simplifying lexer (2021-07-05)
+export const tokFootnoteReference = (label: string, children: FootnoteReference['children'], extra: ExtraP<FootnoteReference> = {}): FootnoteReference => ({
+  type: 'footnote.reference',
+  label,
+  children,
+  ...{ _text: `[fn:${label}]` },
   ...extra,
 });

@@ -1,130 +1,27 @@
-import tok from "./tok"
+import {
+  testLexerMulti,
+  tokFootnoteLabel,
+  tokFootnoteReference,
+  tokText,
+} from './util';
+
+import { Token } from '../../types';
 
 describe("tokenize footnote", () => {
-  it("knows footnotes", () => {
-    expect(tok("[fn:1] a footnote")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "[fn:1]",
-          "label": "1",
-          "type": "footnote.label",
-        },
-        Object {
-          "_text": "a footnote",
-          "type": "text.plain",
-          "value": "a footnote",
-        },
-      ]
-    `)
-    expect(tok("[fn:word] a footnote")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "[fn:word]",
-          "label": "word",
-          "type": "footnote.label",
-        },
-        Object {
-          "_text": "a footnote",
-          "type": "text.plain",
-          "value": "a footnote",
-        },
-      ]
-    `)
-    expect(tok("[fn:word_] a footnote")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "[fn:word_]",
-          "label": "word_",
-          "type": "footnote.label",
-        },
-        Object {
-          "_text": "a footnote",
-          "type": "text.plain",
-          "value": "a footnote",
-        },
-      ]
-    `)
-    expect(tok("[fn:wor1d_] a footnote")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "[fn:wor1d_]",
-          "label": "wor1d_",
-          "type": "footnote.label",
-        },
-        Object {
-          "_text": "a footnote",
-          "type": "text.plain",
-          "value": "a footnote",
-        },
-      ]
-    `)
-  })
+  const testFootnoteLabel = (fullText: string, fnText: string, label: string, extra: Token[] = []): Parameters<typeof testLexerMulti>[1][number] => {
+    return [fullText, [tokFootnoteLabel(label, { _text: fnText }), ...extra]];
+  };
+  testLexerMulti("knows footnote labels", [
+    testFootnoteLabel("[fn:1] a footnote", "[fn:1]", "1", [tokText("a footnote")]),
+    testFootnoteLabel("[fn:word] a footnote", "[fn:word]", "word", [tokText("a footnote")]),
+    testFootnoteLabel("[fn:word_] a footnote", "[fn:word_]", "word_", [tokText("a footnote")]),
+    testFootnoteLabel("[fn:wor1d_] a footnote", "[fn:wor1d_]", "wor1d_", [tokText("a footnote")]),
+  ]);
 
-  it("knows these are not footnotes", () => {
-    expect(tok("[fn:1]: not a footnote")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "[fn:1]",
-          "children": Array [],
-          "label": "1",
-          "type": "footnote.reference",
-        },
-        Object {
-          "_text": ": not a footnote",
-          "type": "text.plain",
-          "value": ": not a footnote",
-        },
-      ]
-    `)
-    expect(tok(" [fn:1] not a footnote")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "[fn:1]",
-          "children": Array [],
-          "label": "1",
-          "type": "footnote.reference",
-        },
-        Object {
-          "_text": " not a footnote",
-          "type": "text.plain",
-          "value": " not a footnote",
-        },
-      ]
-    `)
-    expect(tok("[[fn:1] not a footnote")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "[",
-          "type": "text.plain",
-          "value": "[",
-        },
-        Object {
-          "_text": "[fn:1]",
-          "children": Array [],
-          "label": "1",
-          "type": "footnote.reference",
-        },
-        Object {
-          "_text": " not a footnote",
-          "type": "text.plain",
-          "value": " not a footnote",
-        },
-      ]
-    `)
-    expect(tok("\t[fn:1] not a footnote")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "[fn:1]",
-          "children": Array [],
-          "label": "1",
-          "type": "footnote.reference",
-        },
-        Object {
-          "_text": " not a footnote",
-          "type": "text.plain",
-          "value": " not a footnote",
-        },
-      ]
-    `)
-  })
-})
+  testLexerMulti("knows these are not footnotes", [
+    ["[fn:1]: not a footnote", [tokFootnoteReference("1", []), tokText(": not a footnote")]],
+    [" [fn:1] not a footnote", [tokFootnoteReference("1", []), tokText(" not a footnote")]],
+    ["[[fn:1] not a footnote", [tokText("["), tokFootnoteReference("1", []), tokText(" not a footnote")]],
+    ["\t[fn:1] not a footnote", [tokFootnoteReference("1", []), tokText(" not a footnote")]],
+  ]);
+});
