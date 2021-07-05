@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Playground from '@orgajs/playground'
 import { Link } from 'gatsby'
-import { Button } from 'theme-ui'
+import { Button, IconButton } from 'theme-ui'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { parse as parseQueryString } from 'query-string'
+import {
+  FaGithub as GithubIcon,
+  FaBook as BookIcon,
+  FaLink as LinkIcon,
+  FaCheck as CheckIcon,
+} from 'react-icons/fa'
 
 const decode = decodeURIComponent
 const encode = encodeURIComponent
@@ -11,7 +17,7 @@ const encode = encodeURIComponent
 export default ({ location }) => {
   const q = parseQueryString(location.search)
 
-  const [code, setCode] = useState(q.text || `* Hello World
+  const [code, setCode] = useState((q.text as string) || `* Hello World
 
 Enter org-mode content here.
 
@@ -36,7 +42,7 @@ console.log('this is orga')
     <div style={{
       display: 'grid',
       height: '100vh',
-      gridTemplateRows: '32px 1fr',
+      gridTemplateRows: '42px 1fr',
     }}>
       <div style={{
         display: 'flex',
@@ -44,8 +50,24 @@ console.log('this is orga')
         padding: '0 1em',
       }}>
         <Box style={{marginRight: 'auto', justifyContent: 'flex-start'}}>
-          <Link to='/' style={{ padding: '.2em .6em' }}>Docs</Link>
-          <a href='https://github.com/orgapp/orgajs' style={{ padding: '.2em .6em'}}>Code</a>
+          <Link to='/' style={{
+            padding: '.4em 1em',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4em',
+          }}>
+            <BookIcon/>
+            Docs
+          </Link>
+          <a href='https://github.com/orgapp/orgajs' style={{
+            padding: '.4em 1em',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4em',
+          }}>
+            <GithubIcon/>
+            Code
+          </a>
         </Box>
         <Box style={{color: '#68737e'}}>
           orgajs playground
@@ -53,8 +75,14 @@ console.log('this is orga')
         <Box style={{marginLeft: 'auto', justifyContent: 'flex-end'}}>
           <CopyToClipboard text={`${location.origin}${location.pathname}?text=${encode(code)}`} onCopy={() => setCopied(true)}>
             <Button style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4em',
               backgroundColor: copied ? '#339933' : 'primary',
-            }}>{copied ? 'copied to clipboard' : 'permlink'}</Button>
+            }}>
+              {copied ? <CheckIcon/> : <LinkIcon/>}
+              {copied ? 'Copied to Clipboard' : 'Generate Permalink'}
+            </Button>
           </CopyToClipboard>
         </Box>
       </div>

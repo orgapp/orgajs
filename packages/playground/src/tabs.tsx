@@ -1,25 +1,5 @@
 import React, { useState } from 'react'
 
-const Tab = ({ children, active = false, ...props }) => {
-  return <button style={{
-    display: 'inline-block',
-    marginBottom: `-1px`,
-    backgroundColor: theme.background,
-    color: theme.lightText,
-    cursor: 'pointer',
-    border: `solid ${theme.border}`,
-    borderWidth: '0px 0px 1px 0px',
-    padding: '0.5rem 0.75rem',
-    ...active && {
-      backgroundColor: theme.surface,
-      color: theme.text,
-      border: `solid ${theme.border}`,
-      borderWidth: '1px 1px 0 1px',
-    }
-  }} {...props}>{children}</button>
-}
-
-
 function Tabs({ children, theme, defaultTab = undefined, style }) {
 
   const tabs = children.map(c => c.props.label)
@@ -37,6 +17,7 @@ function Tabs({ children, theme, defaultTab = undefined, style }) {
         justifyContent: 'flex-end',
         backgroundColor: theme.background,
         borderBottom: `1px solid ${theme.border}`,
+        paddingTop: '0.2em',
       }}>
         {tabs.map(tab =>
           <button

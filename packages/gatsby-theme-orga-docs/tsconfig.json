@@ -4,9 +4,9 @@
     "target": "esnext",
     "module": "esnext",
     "lib": ["dom", "es2017"],
-    // "allowJs": true,
-    // "checkJs": true,
-    "jsx": "react",
+    "allowJs": true,
+    /* "checkJs": true, */
+    "jsx": "react-jsx",
     "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,

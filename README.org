@@ -1,7 +1,7 @@
 #+TITLE: Orga
 
 #+begin_export html
-<Magic>org-mode 💙 JavaScript</Magic>
+<Space>✨ org-mode 🚀 JavaScript ✨</Space>
 #+end_export
 
 * What Is It

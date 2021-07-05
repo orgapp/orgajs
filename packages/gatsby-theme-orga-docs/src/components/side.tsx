@@ -7,8 +7,8 @@ import Placeholder from './placeholder'
 export default () => {
 
   return (
-    <Placeholder>
-      Navbar
+    <Placeholder style={{ height: '100%' }}>
+      Sidebar
     </Placeholder>
   )
 }

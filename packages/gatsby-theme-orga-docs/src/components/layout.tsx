@@ -1,42 +1,104 @@
 /** @jsx jsx */
-import { Link, PageProps } from 'gatsby'
+import { PageProps } from 'gatsby'
 import { get } from 'lodash'
-import { Container, jsx } from 'theme-ui'
-import Header from './header'
+import { Container, MenuButton, IconButton, jsx } from 'theme-ui'
 import Nav from './nav'
+import Side from './side'
+import { useState } from 'react'
 
 const HEADER_HEIGHT = '48px'
+const SIDEBAR_WIDTH = '250px'
 
 export default ({ children, pageContext }: PageProps) => {
 
   const title = get(pageContext, 'properties.title')
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  console.log({ sidebarOpen })
+
 
   return (
     <main sx={{
       display: 'grid',
-      gridTemplateColumns: '250px 1fr',
+      gridTemplateColumns: ['0 1fr', `${SIDEBAR_WIDTH} 1fr`],
       gridTemplateRows: `${HEADER_HEIGHT} 1fr`,
       alignContent: 'stretch',
       backgroundColor: 'background',
       width: '100vw',
       height: '100vh',
       gridTemplateAreas: `
-      'nav header'
-      'nav content'
+      'aside header'
+      'aside content'
       `,
     }}
     >
-      <Header right={
-        <Link to='/playground' sx={{
-          border: '1px solid',
-          borderColor: 'text',
-          padding: '0.4em 0.6em',
-          boxShadow: '3px 3px',
-        }}>
-          Playground
-        </Link>
-      }/>
-      <Nav />
+      <nav sx={{
+        gridArea: 'header',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottom: `1px solid`,
+        borderColor: `muted`,
+        marginX: '0.2em',
+        gap: '0.2em',
+      }}>
+        <MenuButton aria-label='toggle sidebar' sx={{
+          display: ['block', 'none'],
+          '&:hover': {
+            bg: 'highlight',
+          },
+        }} onClick={() => setSidebarOpen(!sidebarOpen)}/>
+        <Nav/>
+      </nav>
+      <aside sx={{
+        display: 'block',
+        position: ['fixed', 'static'],
+        top: 0, left: `-${SIDEBAR_WIDTH}`,
+        width: SIDEBAR_WIDTH,
+        gridArea: 'aside',
+        height: '100%',
+        overflow: 'auto',
+        borderRight: `1px solid`,
+        borderColor: `muted`,
+        backgroundColor: 'surface',
+        padding: '1em',
+        zIndex: 200,
+        transform: `translateX(${sidebarOpen ? SIDEBAR_WIDTH : '0'})`,
+        transition: 'transform 0.3s ease-out',
+        boxShadow: [sidebarOpen ? '1px 0px 7px rgba(0,0,0,0.5)' : 'none', 'none'],
+      }}>
+        {sidebarOpen &&
+         <div sx={{
+           display: 'flex',
+           position: 'sticky',
+           top: 0,
+           justifyContent: 'flex-end',
+           mb: '0.4em',
+         }}>
+           <IconButton onClick={() => setSidebarOpen(false)} sx={{
+             '&:hover': {
+               bg: 'highlight',
+             },
+           }}>
+             <div style={{
+               transform: 'rotate(45deg)',
+               fontSize: '1.5em',
+             }}>+</div>
+           </IconButton>
+         </div>
+        }
+        <Side/>
+      </aside>
+      {sidebarOpen &&
+       <div style={{
+         position: 'fixed',
+         width: '100%',
+         height: '100%',
+         backgroundColor: 'rgba(0,0,0,0.4)',
+         zIndex: 100,
+         top: 0, right: 0,
+       }} onClick={() => setSidebarOpen(false)}/>
+      }
       <Container p={4} sx={{
         gridArea: 'content',
         height: '100%',

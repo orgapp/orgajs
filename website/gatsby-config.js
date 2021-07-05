@@ -15,7 +15,7 @@ module.exports = {
       options: {
         locations: ['../docs'],
         components: {
-          Magic: require.resolve('./src/components/magic.tsx'),
+          Space: require.resolve('./src/components/space.tsx'),
         },
       },
     },

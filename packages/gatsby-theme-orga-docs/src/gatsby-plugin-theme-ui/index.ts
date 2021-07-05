@@ -1,8 +1,8 @@
 export default {
   colors: {
     text: '#333',
-    primary: '#3d7a9d',
-    secondary: '#ff6347',
+    primary: '#0083C3',
+    secondary: '#FF8674',
     background: '#ffffff',
     surface: '#f9f9f9',
     muted: '#e0e0e0',
@@ -25,8 +25,11 @@ export default {
         bg: 'text',
       },
       cursor: 'pointer',
-      padding: '0.2em 0.6em',
     },
+    link: {
+      color: 'primary',
+      bg: 'surface',
+    }
   },
   styles: {
     root: {
@@ -35,9 +38,8 @@ export default {
       a: {
         color: 'primary',
         textDecoration: 'none',
-        borderRadius: '0.2em',
         '&:hover': {
-          bg: 'highlight',
+          color: 'secondary',
         },
       },
     },
