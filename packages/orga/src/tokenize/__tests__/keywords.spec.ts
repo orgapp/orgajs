@@ -1,57 +1,22 @@
-import tok from "./tok"
+import {
+  testLexerMulti,
+  tokKeyword,
+  tokText,
+} from './util';
 
 describe("tokenize keywords", () => {
-  it("knows keywords", () => {
-    expect(tok("#+KEY: Value")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#+KEY: Value",
-          "key": "KEY",
-          "type": "keyword",
-          "value": "Value",
-        },
-      ]
-    `)
-    expect(tok("#+KEY: Another Value")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#+KEY: Another Value",
-          "key": "KEY",
-          "type": "keyword",
-          "value": "Another Value",
-        },
-      ]
-    `)
-    expect(tok("#+KEY: value : Value")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#+KEY: value : Value",
-          "key": "KEY",
-          "type": "keyword",
-          "value": "value : Value",
-        },
-      ]
-    `)
-  })
 
-  it("knows these are not keywords", () => {
-    expect(tok("#+KEY : Value")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#+KEY : Value",
-          "type": "text.plain",
-          "value": "#+KEY : Value",
-        },
-      ]
-    `)
-    expect(tok("#+KE Y: Value")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#+KE Y: Value",
-          "type": "text.plain",
-          "value": "#+KE Y: Value",
-        },
-      ]
-    `)
-  })
-})
+  const testKeyword = (text: string, key: string, value: string, leading: string = ""): Parameters<typeof testLexerMulti>[1][number] => {
+    return [`${leading}${text}`, [tokKeyword(key, value)]];
+  };
+
+  testLexerMulti("knows keywords", [
+    testKeyword("#+KEY: Value", "KEY", "Value"),
+    testKeyword("#+KEY: Another Value", "KEY", "Another Value"),
+    testKeyword("#+KEY: value : Value", "KEY", "value : Value"),
+  ]);
+
+  testLexerMulti("knows these are not keywords", [
+    "#+KEY : Value", "#+KE Y: Value"
+  ].map(c => [c, [tokText(c)]]));
+});

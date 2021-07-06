@@ -9,6 +9,7 @@ import {
   FootnoteReference,
   FootnoteReferenceEnd,
   HorizontalRule,
+  Keyword,
   Link,
   ListItemBullet,
   Newline,
@@ -186,5 +187,13 @@ export const tokLink = (value: string, extra: Extra<Link, 'value'> = {}): Link =
   protocol: value.indexOf(':') !== -1 ? value.split(':')[0] : undefined,
   description: undefined,
   ...{ _text: 'description' in extra ? `[[${value}][${extra['description']}]]` : `[[${value}]]` },
+  ...extra,
+});
+
+export const tokKeyword = (key: string, value: string, extra: Extra<Keyword, 'key' | 'value'> = {}): Keyword => ({
+  type: 'keyword',
+  key,
+  value,
+  ...{ _text: `#+${key}: ${value}` },
   ...extra,
 });
