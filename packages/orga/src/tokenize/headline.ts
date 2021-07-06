@@ -48,7 +48,7 @@ export default ({ reader, todoKeywordSets }: Props) : Token[] => {
     })
   }
   eat('whitespaces')
-  const priority = eat(/^\[#(A|B|C)\]/)
+  const priority = eat(/^\[#(.)\]/)
   if (!isEmpty(priority.position)) {
     buffer.push({
       type: 'priority',

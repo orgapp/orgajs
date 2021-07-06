@@ -1,6 +1,7 @@
 import {
   testLexer,
   testLexerMulti,
+  tokNewline,
   tokStars,
   tokTags,
   tokText,
@@ -73,4 +74,22 @@ describe("tokenize headline", () => {
     // TODO: 'COMMENT' should be treated specially here according to the spec
     testHeadline("* TODO [#A] COMMENT Title :tag:a2%:", 1, [tokTodo("TODO", true), tokPriority("A"), tokText("COMMENT Title"), tokTags(["tag", "a2%"])]),
   ]);
+
+  describe("priority cookies", () => {
+    testLexer('empty priority cookie is text', ...testHeadline("* [#]", 1, [tokText("[#]")]));
+    testLexer('uppercase letter is ok', ...testHeadline("* [#A]", 1, [tokPriority("A")]));
+    testLexer('lowercase letter is ok', ...testHeadline("* [#a]", 1, [tokPriority("a")]));
+    // v2021.07.03 of the spec says that the priority is "a single
+    // letter" - it is ambiguous as to whether this means 'character',
+    // or includes digits etc., but the Org parser currently accepts
+    // any single (ASCII) character tried (including ']') except
+    // newline (2021-07-06)
+    testLexerMulti('nonletters okay', [
+      '1', '-', '_', '?', '#', ' ', '\t', '', '\\', ']',
+    ].map(c => testHeadline(`* [#${c}]`, 1, [tokPriority(c)])));
+
+    testLexer('newline not okay', '* [#\n]', [tokStars(1), tokText('[#'), tokNewline(), tokText(']')]);
+
+    testLexer('multi character not allowed', ...testHeadline('* [#AB]', 1, [tokText('[#AB]')]));
+  });
 });
