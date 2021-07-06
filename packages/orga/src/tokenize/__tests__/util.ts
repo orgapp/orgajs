@@ -8,7 +8,11 @@ import {
   FootnoteReference,
   Newline,
   Parent,
+  Priority,
+  Stars,
   StyledText,
+  Tags,
+  Todo,
   Token,
 } from '../../types';
 import tok from './tok';
@@ -62,6 +66,8 @@ export const tokText = tokStyledText('text.plain', '');
 
 export const tokTextBold = tokStyledText('text.bold', '*');
 
+export const tokTextUnderline = tokStyledText('text.underline', '_');
+
 export const tokComment = (value: string, extra: Extra<Comment, 'value'> = {}): Comment => ({
   type: 'comment',
   value,
@@ -95,5 +101,35 @@ export const tokFootnoteReference = (label: string, children: FootnoteReference[
   label,
   children,
   ...{ _text: `[fn:${label}]` },
+  ...extra,
+});
+
+export const tokStars = (level: number, extra: Extra<Stars, 'level'> = {}): Stars => ({
+  type: 'stars',
+  level,
+  ...{ _text: '*'.repeat(level) },
+  ...extra,
+});
+
+export const tokTags = (tags: string[], extra: Extra<Tags, 'tags'> = {}): Tags => ({
+  type: 'tags',
+  tags,
+  ...{ _text: `:${tags.join(':')}:` },
+  ...extra,
+});
+
+export const tokTodo = (keyword: string, extra: Extra<Todo, 'keyword'> = {}): Todo => ({
+  type: 'todo',
+  keyword,
+  actionable: true,
+  ...{ _text: keyword },
+  ...extra,
+});
+
+/** Priority cookie token. */
+export const tokPriority = (value: string, extra: Extra<Priority, 'value'> = {}): Priority => ({
+  type: 'priority',
+  value: `[#${value}]`,
+  ...{ _text: `[#${value}]` },
   ...extra,
 });

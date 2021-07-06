@@ -1,203 +1,36 @@
-import tok from "./tok"
+import {
+  testLexerMulti,
+  tokStars,
+  tokTags,
+  tokText,
+  tokTextBold,
+  tokTextUnderline,
+  tokTodo,
+  tokPriority,
+} from './util';
+
+import { Token } from '../../types';
 
 describe("tokenize headline", () => {
-  it("knows headlines", () => {
-    expect(tok("** a headline")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "**",
-          "level": 2,
-          "type": "stars",
-        },
-        Object {
-          "_text": "a headline",
-          "type": "text.plain",
-          "value": "a headline",
-        },
-      ]
-    `)
 
-    expect(tok("** _headline_")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "**",
-          "level": 2,
-          "type": "stars",
-        },
-        Object {
-          "_text": "_headline_",
-          "type": "text.underline",
-          "value": "headline",
-        },
-      ]
-    `)
+  const testHeadline = (text: string, level: number, headlineTokens: Token[]): Parameters<typeof testLexerMulti>[1][number] => {
+    return [text, [tokStars(level), ...headlineTokens]];
+  };
 
-    expect(tok("**   a headline")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "**",
-          "level": 2,
-          "type": "stars",
-        },
-        Object {
-          "_text": "a headline",
-          "type": "text.plain",
-          "value": "a headline",
-        },
-      ]
-    `)
+  testLexerMulti("knows headlines", [
+    testHeadline("** a headline", 2, [tokText("a headline")]),
+    testHeadline("** _headline_", 2, [tokTextUnderline("headline")]),
+    testHeadline("**   a headline", 2, [tokText("a headline")]),
+    testHeadline("***** a headline", 5, [tokText("a headline")]),
+    testHeadline("* a 😀line", 1, [tokText("a 😀line")]),
+    testHeadline("* TODO [#A] a headline     :tag1:tag2:", 1, [tokTodo("TODO"), tokPriority("A"), tokText("a headline"), tokTags(["tag1", "tag2"])]),
+    testHeadline("* TODO [#A] a headline :tag1:123:#hash:@at:org-mode:under_score:98%:", 1, [tokTodo("TODO"), tokPriority("A"), tokText("a headline"), tokTags(["tag1", "123", "#hash", "@at", "org-mode", "under_score", "98%"])]),
+  ]);
 
-    expect(tok("***** a headline")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*****",
-          "level": 5,
-          "type": "stars",
-        },
-        Object {
-          "_text": "a headline",
-          "type": "text.plain",
-          "value": "a headline",
-        },
-      ]
-    `)
-
-    expect(tok("* a 😀line")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*",
-          "level": 1,
-          "type": "stars",
-        },
-        Object {
-          "_text": "a 😀line",
-          "type": "text.plain",
-          "value": "a 😀line",
-        },
-      ]
-    `)
-
-    expect(tok("* TODO [#A] a headline     :tag1:tag2:"))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*",
-          "level": 1,
-          "type": "stars",
-        },
-        Object {
-          "_text": "TODO",
-          "actionable": true,
-          "keyword": "TODO",
-          "type": "todo",
-        },
-        Object {
-          "_text": "[#A]",
-          "type": "priority",
-          "value": "[#A]",
-        },
-        Object {
-          "_text": "a headline",
-          "type": "text.plain",
-          "value": "a headline",
-        },
-        Object {
-          "_text": ":tag1:tag2:",
-          "tags": Array [
-            "tag1",
-            "tag2",
-          ],
-          "type": "tags",
-        },
-      ]
-    `)
-
-    expect(
-      tok(
-        "* TODO [#A] a headline :tag1:123:#hash:@at:org-mode:under_score:98%:"
-      )
-    ).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*",
-          "level": 1,
-          "type": "stars",
-        },
-        Object {
-          "_text": "TODO",
-          "actionable": true,
-          "keyword": "TODO",
-          "type": "todo",
-        },
-        Object {
-          "_text": "[#A]",
-          "type": "priority",
-          "value": "[#A]",
-        },
-        Object {
-          "_text": "a headline",
-          "type": "text.plain",
-          "value": "a headline",
-        },
-        Object {
-          "_text": ":tag1:123:#hash:@at:org-mode:under_score:98%:",
-          "tags": Array [
-            "tag1",
-            "123",
-            "#hash",
-            "@at",
-            "org-mode",
-            "under_score",
-            "98%",
-          ],
-          "type": "tags",
-        },
-      ]
-    `)
-  })
-
-  it("knows these are not headlines", () => {
-    expect(tok("*not a headline")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*not a headline",
-          "type": "text.plain",
-          "value": "*not a headline",
-        },
-      ]
-    `)
-
-    expect(tok(" * not a headline")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "* not a headline",
-          "type": "text.plain",
-          "value": "* not a headline",
-        },
-      ]
-    `)
-    expect(tok("*_* not a headline")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*_*",
-          "type": "text.bold",
-          "value": "_",
-        },
-        Object {
-          "_text": " not a headline",
-          "type": "text.plain",
-          "value": " not a headline",
-        },
-      ]
-    `)
-    expect(tok("not a headline")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "not a headline",
-          "type": "text.plain",
-          "value": "not a headline",
-        },
-      ]
-    `)
-  })
-})
+  testLexerMulti("knows these are not headlines", [
+    ["*not a headline", [tokText("*not a headline")]],
+    [" * not a headline", [tokText("* not a headline")]],
+    ["*_* not a headline", [tokTextBold("_"), tokText(" not a headline")]],
+    ["not a headline", [tokText("not a headline")]],
+  ]);
+});
