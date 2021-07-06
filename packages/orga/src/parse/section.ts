@@ -22,7 +22,7 @@ const attach = (attributes: Attributes) => (node: Attributed) => {
 
 export default (lexer: Lexer) => <T extends Document | Section>(root: T, opts?: { breakOn: (t: Token) => boolean }): T => {
 
-  const { peek, eat, eatAll, modify, substring } = lexer
+  const { peek, eat, eatAll, modify } = lexer
   const { tryTo } = utils(lexer)
   const breakOn = opts?.breakOn ?? ((_t: Token) => false);
 
