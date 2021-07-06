@@ -278,11 +278,11 @@ export interface DrawerBegin extends Node {
   name: string;
 }
 
-interface DrawerEnd extends Node {
+export interface DrawerEnd extends Node {
   type: 'drawer.end';
 }
 
-interface Comment extends Literal {
+export interface Comment extends Literal {
   type: 'comment';
 }
 
