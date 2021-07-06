@@ -6,6 +6,8 @@ import {
   DrawerEnd,
   FootnoteLabel,
   FootnoteReference,
+  HorizontalRule,
+  ListItemBullet,
   Newline,
   Parent,
   Priority,
@@ -134,5 +136,19 @@ export const tokPriority = (value: string, extra: Extra<Priority, 'value'> = {})
   type: 'priority',
   value: `[#${value}]`,
   ...{ _text: `[#${value}]` },
+  ...extra,
+});
+
+export const tokHorizontalRule = (extra: Extra<HorizontalRule> = {}): HorizontalRule => ({
+  type: 'hr',
+  ...{ _text: `-----` },
+  ...extra,
+});
+
+export const tokListBullet = (indent: number, ordered: boolean, extra: Extra<ListItemBullet, 'indent' | 'ordered'> = {}): ListItemBullet => ({
+  type: 'list.item.bullet',
+  indent,
+  ordered,
+  ...{ _text: `-` },
   ...extra,
 });
