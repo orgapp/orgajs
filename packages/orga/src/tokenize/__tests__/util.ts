@@ -150,8 +150,9 @@ export const tokTodo = (keyword: string, actionable: boolean, extra: Extra<Todo,
   type: 'todo',
   keyword,
   // TODO: I don't think we can really know the actionable state at
-  // the point of lexing, but we can probably figure this out later in
-  // the parser or via parser options (2021-07-06)
+  // the point of lexing (because todo keywords can be specified in
+  // the Org file), but we can probably figure this out later in the
+  // parser or via parser options (2021-07-06)
   actionable,
   ...{ _text: keyword },
   ...extra,
