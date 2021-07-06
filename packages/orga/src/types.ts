@@ -1,16 +1,10 @@
-import { Data, Position } from 'unist'
+import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist'
 
-// like unist.Node but we omit the extra keys for better type safety
-export interface Node {
-  type: string;
-  data?: Data;
-  position?: Position;
-}
+export { Node } from 'unist';
 
 // ---- Basic Types ----
-export interface Parent extends Node {
+export interface Parent extends UnistParent {
   parent?: Parent;
-  children: Node[];
 }
 
 export type Primitive = string | number | boolean
@@ -147,7 +141,7 @@ export interface Paragraph extends Parent, Attributed {
   children: PhrasingContent[];
 }
 
-export interface Literal extends Node {
+export interface Literal extends UnistLiteral {
   value: string;
 }
 
@@ -208,6 +202,7 @@ export interface Link extends Literal {
   protocol: string;
   description: string;
   search?: string | number;
+  parent?: Paragraph;
 }
 
 /**
