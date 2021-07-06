@@ -98,7 +98,8 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
       return tokenizePlanning({
         reader,
         keywords: PLANNING_KEYWORDS,
-        timezone })
+        timezone
+      })
     }
 
     if (l.startsWith('#+')) {
@@ -144,11 +145,11 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
       const comment = match(/^#\s+(.*)$/)
       if (comment) {
         eat('line')
-        return [ {
+        return [{
           type: 'comment',
           position: comment.position,
           value: comment.captures[1],
-        } ]
+        }]
       }
     }
 
@@ -174,7 +175,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
     return inlineTok({ reader })
   }
 
-  const peek = (offset = 0) : Token | undefined => {
+  const peek = (offset = 0): Token | undefined => {
     const pos = cursor + offset
     if (pos >= tokens.length) {
       tokens = tokens.concat(tok())
@@ -205,7 +206,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
     eat: _eat,
     eatAll: (type: string): number => {
       let count = 0
-      while(_eat(type)) { count += 1 }
+      while (_eat(type)) { count += 1 }
       return count
     },
     match: (cond, offset = 0) => {
@@ -217,7 +218,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
       return cond.test(token.type)
     },
 
-    all: (max: number | undefined = undefined) : Token[] => {
+    all: (max: number | undefined = undefined): Token[] => {
       let _all: Token[] = []
       let tokens = tok()
       while (tokens.length > 0) {

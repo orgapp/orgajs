@@ -13,7 +13,7 @@ import { tokenToText } from './utils';
 import parseSymbols from './_parseSymbols'
 import _primitive from './_primitive'
 
-const AFFILIATED_KEYWORDS = [ 'caption', 'header', 'name', 'plot', 'results' ]
+const AFFILIATED_KEYWORDS = ['caption', 'header', 'name', 'plot', 'results']
 
 const attach = (attributes: Attributes) => (node: Attributed) => {
   if (Object.keys(attributes).length === 0) return
