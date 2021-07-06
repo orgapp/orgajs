@@ -118,10 +118,13 @@ export const tokTags = (tags: string[], extra: Extra<Tags, 'tags'> = {}): Tags =
   ...extra,
 });
 
-export const tokTodo = (keyword: string, extra: Extra<Todo, 'keyword'> = {}): Todo => ({
+export const tokTodo = (keyword: string, actionable: boolean, extra: Extra<Todo, 'keyword'> = {}): Todo => ({
   type: 'todo',
   keyword,
-  actionable: true,
+  // TODO: I don't think we can really know the actionable state at
+  // the point of lexing, but we can probably figure this out later in
+  // the parser or via parser options (2021-07-06)
+  actionable,
   ...{ _text: keyword },
   ...extra,
 });

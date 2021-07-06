@@ -1,4 +1,5 @@
 import {
+  testLexer,
   testLexerMulti,
   tokStars,
   tokTags,
@@ -23,9 +24,11 @@ describe("tokenize headline", () => {
     testHeadline("**   a headline", 2, [tokText("a headline")]),
     testHeadline("***** a headline", 5, [tokText("a headline")]),
     testHeadline("* a 😀line", 1, [tokText("a 😀line")]),
-    testHeadline("* TODO [#A] a headline     :tag1:tag2:", 1, [tokTodo("TODO"), tokPriority("A"), tokText("a headline"), tokTags(["tag1", "tag2"])]),
-    testHeadline("* TODO [#A] a headline :tag1:123:#hash:@at:org-mode:under_score:98%:", 1, [tokTodo("TODO"), tokPriority("A"), tokText("a headline"), tokTags(["tag1", "123", "#hash", "@at", "org-mode", "under_score", "98%"])]),
+    testHeadline("* TODO [#A] a headline     :tag1:tag2:", 1, [tokTodo("TODO", true), tokPriority("A"), tokText("a headline"), tokTags(["tag1", "tag2"])]),
+    testHeadline("* TODO [#A] a headline :tag1:123:#hash:@at:org-mode:under_score:98%:", 1, [tokTodo("TODO", true), tokPriority("A"), tokText("a headline"), tokTags(["tag1", "123", "#hash", "@at", "org-mode", "under_score", "98%"])]),
   ]);
+
+  testLexer("DONE todo keyword", ...testHeadline("* DONE heading", 1, [tokTodo("DONE", false), tokText("heading")]));
 
   testLexerMulti("knows these are not headlines", [
     ["*not a headline", [tokText("*not a headline")]],
