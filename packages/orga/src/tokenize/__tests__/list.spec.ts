@@ -1,290 +1,36 @@
-import tok from "./tok"
+import {
+  testLexer,
+  testLexerMulti,
+  tokListBullet,
+  tokListCheckbox,
+  tokListItemTag,
+  tokNewline,
+  tokText,
+} from './util';
+
+import { Token } from '../../types';
 
 describe("tokenize list item", () => {
-  it("knows list items", () => {
-    // unordered
-    expect(tok("- buy milk")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "-",
-          "indent": 0,
-          "ordered": false,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "buy milk",
-          "type": "text.plain",
-          "value": "buy milk",
-        },
-      ]
-    `)
-    expect(tok("+ buy milk")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "+",
-          "indent": 0,
-          "ordered": false,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "buy milk",
-          "type": "text.plain",
-          "value": "buy milk",
-        },
-      ]
-    `)
-    // ordered
-    expect(tok("1. buy milk")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "1.",
-          "indent": 0,
-          "ordered": true,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "buy milk",
-          "type": "text.plain",
-          "value": "buy milk",
-        },
-      ]
-    `)
-    expect(tok("12. buy milk")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "12.",
-          "indent": 0,
-          "ordered": true,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "buy milk",
-          "type": "text.plain",
-          "value": "buy milk",
-        },
-      ]
-    `)
-    expect(tok("123) buy milk")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "123)",
-          "indent": 0,
-          "ordered": true,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "buy milk",
-          "type": "text.plain",
-          "value": "buy milk",
-        },
-      ]
-    `)
-    // checkbox
-    expect(tok("- [x] buy milk checked")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "-",
-          "indent": 0,
-          "ordered": false,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "[x]",
-          "checked": true,
-          "type": "list.item.checkbox",
-        },
-        Object {
-          "_text": "buy milk checked",
-          "type": "text.plain",
-          "value": "buy milk checked",
-        },
-      ]
-    `)
-    expect(tok("- [X] buy milk checked")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "-",
-          "indent": 0,
-          "ordered": false,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "[X]",
-          "checked": true,
-          "type": "list.item.checkbox",
-        },
-        Object {
-          "_text": "buy milk checked",
-          "type": "text.plain",
-          "value": "buy milk checked",
-        },
-      ]
-    `)
-    expect(tok("- [-] buy milk checked")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "-",
-          "indent": 0,
-          "ordered": false,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "[-]",
-          "checked": true,
-          "type": "list.item.checkbox",
-        },
-        Object {
-          "_text": "buy milk checked",
-          "type": "text.plain",
-          "value": "buy milk checked",
-        },
-      ]
-    `)
-    expect(tok("- [ ] buy milk unchecked")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "-",
-          "indent": 0,
-          "ordered": false,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "[ ]",
-          "checked": false,
-          "type": "list.item.checkbox",
-        },
-        Object {
-          "_text": "buy milk unchecked",
-          "type": "text.plain",
-          "value": "buy milk unchecked",
-        },
-      ]
-    `)
-    // indent
-    expect(tok("  - buy milk")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "-",
-          "indent": 2,
-          "ordered": false,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "buy milk",
-          "type": "text.plain",
-          "value": "buy milk",
-        },
-      ]
-    `)
-    // tag
-    expect(tok("- item1 :: description here")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "-",
-          "indent": 0,
-          "ordered": false,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "item1",
-          "type": "list.item.tag",
-          "value": "item1",
-        },
-        Object {
-          "_text": "description here",
-          "type": "text.plain",
-          "value": "description here",
-        },
-      ]
-    `)
-    expect(tok("- item2\n :: description here")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "-",
-          "indent": 0,
-          "ordered": false,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "item2",
-          "type": "text.plain",
-          "value": "item2",
-        },
-        Object {
-          "_text": "
-      ",
-          "type": "newline",
-        },
-        Object {
-          "_text": ":: description here",
-          "type": "text.plain",
-          "value": ":: description here",
-        },
-      ]
-    `)
-    expect(tok("- [x] item3 :: description here")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "-",
-          "indent": 0,
-          "ordered": false,
-          "type": "list.item.bullet",
-        },
-        Object {
-          "_text": "[x]",
-          "checked": true,
-          "type": "list.item.checkbox",
-        },
-        Object {
-          "_text": "item3",
-          "type": "list.item.tag",
-          "value": "item3",
-        },
-        Object {
-          "_text": "description here",
-          "type": "text.plain",
-          "value": "description here",
-        },
-      ]
-    `)
-  })
+  testLexerMulti("knows unordered list items",
+    ["-", "+"].map(bullet => [`${bullet} buy milk`, [tokListBullet(0, false, { _text: bullet }), tokText("buy milk")]]));
 
-  it("knows these are not list items", () => {
-    expect(tok("-not item")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "-not item",
-          "type": "text.plain",
-          "value": "-not item",
-        },
-      ]
-    `)
-    expect(tok("1.not item")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "1.not item",
-          "type": "text.plain",
-          "value": "1.not item",
-        },
-      ]
-    `)
-    expect(tok("8)not item")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "8)not item",
-          "type": "text.plain",
-          "value": "8)not item",
-        },
-      ]
-    `)
-    expect(tok("8a) not item")).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "8a) not item",
-          "type": "text.plain",
-          "value": "8a) not item",
-        },
-      ]
-    `)
-  })
-})
+  testLexerMulti("knows ordered list items",
+    ["1.", "12.", "123)"].map(bullet => [`${bullet} buy milk`, [tokListBullet(0, true, { _text: bullet }), tokText("buy milk")]]));
+
+  testLexerMulti("knows checkbox list items",
+    ["x", "X", "-"].map<[string, Token[]]>(mark => [`- [${mark}] buy milk`, [tokListBullet(0, false), tokListCheckbox(true, { _text: `[${mark}]` }), tokText("buy milk")]]).concat(
+      [["- [ ] buy milk", [tokListBullet(0, false), tokListCheckbox(false), tokText("buy milk")]]]));
+
+  testLexer("knows indented list items", "  - buy milk", [tokListBullet(2, false), tokText("buy milk")]);
+
+  describe("knows description list items", () => {
+    testLexerMulti("recognises description lists with/without checkbox", [
+      ["- item1 :: description here", [tokListBullet(0, false), tokListItemTag("item1"), tokText("description here")]],
+      ["- [x] item3 :: description here", [tokListBullet(0, false), tokListCheckbox(true, { _text: '[x]' }), tokListItemTag("item3"), tokText("description here")]],
+    ]);
+    testLexer("newline after item prevents tag forming", "- item2\n :: description here", [tokListBullet(0, false), tokText("item2"), tokNewline(), tokText(":: description here")]);
+  });
+
+  testLexerMulti("knows these are not list items",
+    ["-not item", "1.not item", "8)not item", "8a) not item"].map(c => [c, [tokText(c)]]));
+});

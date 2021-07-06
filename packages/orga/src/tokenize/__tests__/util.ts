@@ -12,6 +12,8 @@ import {
   Keyword,
   Link,
   ListItemBullet,
+  ListItemCheckbox,
+  ListItemTag,
   Newline,
   Parent,
   Priority,
@@ -178,6 +180,20 @@ export const tokListBullet = (indent: number, ordered: boolean, extra: Extra<Lis
   indent,
   ordered,
   ...{ _text: `-` },
+  ...extra,
+});
+
+export const tokListCheckbox = (checked: boolean, extra: Extra<ListItemCheckbox, 'checked'> = {}): ListItemCheckbox => ({
+  type: 'list.item.checkbox',
+  checked,
+  ...{ _text: checked ? "[X]" : "[ ]" },
+  ...extra,
+});
+
+export const tokListItemTag = (value: string, extra: Extra<ListItemTag, 'value'> = {}): ListItemTag => ({
+  type: 'list.item.tag',
+  value,
+  ...{ _text: value },
   ...extra,
 });
 
