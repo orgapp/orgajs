@@ -4,9 +4,12 @@ import {
   Comment,
   DrawerBegin,
   DrawerEnd,
+  FootnoteInlineBegin,
   FootnoteLabel,
   FootnoteReference,
+  FootnoteReferenceEnd,
   HorizontalRule,
+  Link,
   ListItemBullet,
   Newline,
   Parent,
@@ -68,7 +71,15 @@ export const tokText = tokStyledText('text.plain', '');
 
 export const tokTextBold = tokStyledText('text.bold', '*');
 
+export const tokTextCode = tokStyledText('text.code', '~');
+
+export const tokTextItalic = tokStyledText('text.italic', '/');
+
+export const tokTextStrikeThrough = tokStyledText('text.strikeThrough', '+');
+
 export const tokTextUnderline = tokStyledText('text.underline', '_');
+
+export const tokTextVerbatim = tokStyledText('text.verbatim', '=');
 
 export const tokComment = (value: string, extra: Extra<Comment, 'value'> = {}): Comment => ({
   type: 'comment',
@@ -103,6 +114,21 @@ export const tokFootnoteReference = (label: string, children: FootnoteReference[
   label,
   children,
   ...{ _text: `[fn:${label}]` },
+  ...extra,
+});
+
+export const tokFootnoteInlineBegin = (label: string, extra: Extra<FootnoteInlineBegin, "label"> = {}): FootnoteInlineBegin => ({
+  type: 'footnote.inline.begin',
+  label,
+  ...{ _text: `[fn:${label}:` },
+  ...extra,
+});
+
+export const tokFootnoteAnonymousBegin = (extra: Extra<FootnoteInlineBegin, "label"> = {}): FootnoteInlineBegin => tokFootnoteInlineBegin("", extra);
+
+export const tokFootnoteReferenceEnd = (extra: Extra<FootnoteReferenceEnd> = {}): FootnoteReferenceEnd => ({
+  type: 'footnote.reference.end',
+  ...{ _text: `]` },
   ...extra,
 });
 
@@ -150,5 +176,14 @@ export const tokListBullet = (indent: number, ordered: boolean, extra: Extra<Lis
   indent,
   ordered,
   ...{ _text: `-` },
+  ...extra,
+});
+
+export const tokLink = (value: string, extra: Extra<Link, 'value'> = {}): Link => ({
+  type: 'link',
+  value,
+  protocol: value.indexOf(':') !== -1 ? value.split(':')[0] : undefined,
+  description: undefined,
+  ...{ _text: 'description' in extra ? `[[${value}][${extra['description']}]]` : `[[${value}]]` },
   ...extra,
 });
