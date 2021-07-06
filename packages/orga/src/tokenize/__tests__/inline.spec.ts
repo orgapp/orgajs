@@ -372,6 +372,20 @@ describe("Inline Tokenization", () => {
       ]
     `)
 
+    for (const markupChar of ["*", "=", "/", "+", "_", "~"]) {
+      for (let n = 1; n <= 2; n++) {
+        expect(tok(markupChar.repeat(n))).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "${markupChar.repeat(n)}",
+          "type": "text.plain",
+          "value": "${markupChar.repeat(n)}",
+        },
+      ]
+`);
+      }
+    }
+
     expect(tok(`* word*`)).toMatchInlineSnapshot(`
       Array [
         Object {
