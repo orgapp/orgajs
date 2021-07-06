@@ -36,4 +36,41 @@ describe("tokenize headline", () => {
     ["*_* not a headline", [tokTextBold("_"), tokText(" not a headline")]],
     ["not a headline", [tokText("not a headline")]],
   ]);
+
+  describe("recognition of blank headings", () => {
+    testLexerMulti("stars with no spaces are not considered to be headings",
+      ["*", "**"].map(c => [c, [tokText(c)]]));
+    describe("whitespace after stars are considered to be headings", () => {
+      testLexer("star with a space is considered a blank heading", ...testHeadline("* ", 1, []));
+      testLexer("star with multiple whitespace is considered a blank heading", ...testHeadline("*  \t", 1, []));
+    });
+    describe("todo keyword", () => {
+      // v2021.07.03 spec is ambigious as to what this should be, but
+      // implies that 'TODO' should be treated as a keyword ("TITLE
+      // [...] will match after every other part have been
+      // matched."). The Org parser treats this as text. (2021-07-06)
+      testLexer("without space is keyword (TODO)", ...testHeadline("* TODO", 1, [tokTodo("TODO", true)]));
+      testLexer("without space is keyword (DONE)", ...testHeadline("* DONE", 1, [tokTodo("DONE", false)]));
+      testLexer("with space is keyword", ...testHeadline("* TODO ", 1, [tokTodo("TODO", true)]));
+    });
+    describe("priority cookie", () => {
+      testLexer("without space is cookie", ...testHeadline("* [#A]", 1, [tokPriority("A")]));
+      testLexer("with space is cookie", ...testHeadline("* [#A] ", 1, [tokPriority("A")]));
+    });
+    describe("tags", () => {
+      // ambigious in v2021.07.03 spec, but Org parser does it like this (2021-07-06)
+      testLexer("are treated as part of headline text if headline text is blank", ...testHeadline("*   :tag:", 1, [tokText(":tag:")]));
+    });
+  });
+
+  testLexerMulti("examples from spec v2021.07.03", [
+    testHeadline("* ", 1, []),
+    // TODO: unclear in v2021.07.03 spec whether this should be
+    // treated as an empty headline with keyword, or headline with
+    // text 'DONE'. Org parser does the latter (2021-07-06)
+    testHeadline("** DONE", 2, [tokTodo("DONE", false)]),
+    testHeadline("*** Some e-mail", 3, [tokText("Some e-mail")]),
+    // TODO: 'COMMENT' should be treated specially here according to the spec
+    testHeadline("* TODO [#A] COMMENT Title :tag:a2%:", 1, [tokTodo("TODO", true), tokPriority("A"), tokText("COMMENT Title"), tokTags(["tag", "a2%"])]),
+  ]);
 });
