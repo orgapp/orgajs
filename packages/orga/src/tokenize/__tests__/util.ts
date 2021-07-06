@@ -21,6 +21,8 @@ import {
   Priority,
   Stars,
   StyledText,
+  TableRule,
+  TableColumnSeparator,
   Tags,
   Timestamp,
   Todo,
@@ -229,5 +231,16 @@ export const tokPlanningKeyword = (value: string, extra: Extra<PlanningKeyword, 
 export const tokPlanningTimestamp = (value: Timestamp, extra: Extra<PlanningTimestamp, 'value'> = {}): PlanningTimestamp => ({
   type: 'planning.timestamp',
   value,
+  ...extra,
+});
+
+export const tokTableColumnSeparator = (extra: Extra<TableColumnSeparator> = {}): TableColumnSeparator => ({
+  type: 'table.columnSeparator',
+  ...{ _text: "|" },
+  ...extra,
+});
+
+export const tokTableRule = (extra: Extra<TableRule> = {}): TableRule => ({
+  type: 'table.hr',
   ...extra,
 });
