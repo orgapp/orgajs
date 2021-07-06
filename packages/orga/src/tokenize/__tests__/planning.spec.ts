@@ -1,127 +1,27 @@
-import tok from "./tok"
+import {
+  testLexer,
+  testLexerMulti,
+  tokPlanningKeyword,
+  tokPlanningTimestamp,
+  tokText,
+} from './util';
 
 const options = {
   timezone: "Pacific/Auckland",
 }
 
+// TODO: lexer shouldn't be doing anything like parsing timestamps (2021-07-06)
 describe("tokenize planning", () => {
-  it("knows plannings", () => {
-    expect(tok("DEADLINE: <2018-01-01 Mon>", options)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "DEADLINE:",
-          "type": "planning.keyword",
-          "value": "DEADLINE",
-        },
-        Object {
-          "_text": " <2018-01-01 Mon>",
-          "type": "planning.timestamp",
-          "value": Object {
-            "date": 2017-12-31T11:00:00.000Z,
-            "end": undefined,
-          },
-        },
-      ]
-    `)
-    expect(tok("  DEADLINE: <2018-01-01 Mon>", options)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "DEADLINE:",
-          "type": "planning.keyword",
-          "value": "DEADLINE",
-        },
-        Object {
-          "_text": " <2018-01-01 Mon>",
-          "type": "planning.timestamp",
-          "value": Object {
-            "date": 2017-12-31T11:00:00.000Z,
-            "end": undefined,
-          },
-        },
-      ]
-    `)
-    expect(tok(" \tDEADLINE: <2018-01-01 Mon>", options))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "DEADLINE:",
-          "type": "planning.keyword",
-          "value": "DEADLINE",
-        },
-        Object {
-          "_text": " <2018-01-01 Mon>",
-          "type": "planning.timestamp",
-          "value": Object {
-            "date": 2017-12-31T11:00:00.000Z,
-            "end": undefined,
-          },
-        },
-      ]
-    `)
-    expect(tok(" \t DEADLINE: <2018-01-01 Mon>", options))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "DEADLINE:",
-          "type": "planning.keyword",
-          "value": "DEADLINE",
-        },
-        Object {
-          "_text": " <2018-01-01 Mon>",
-          "type": "planning.timestamp",
-          "value": Object {
-            "date": 2017-12-31T11:00:00.000Z,
-            "end": undefined,
-          },
-        },
-      ]
-    `)
-  })
 
-  it("know multiple plannings", () => {
-    expect(
-      tok("DEADLINE: <2020-07-03 Fri> SCHEDULED: <2020-07-03 Fri>", options)
-    ).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "DEADLINE:",
-          "type": "planning.keyword",
-          "value": "DEADLINE",
-        },
-        Object {
-          "_text": " <2020-07-03 Fri> ",
-          "type": "planning.timestamp",
-          "value": Object {
-            "date": 2020-07-02T12:00:00.000Z,
-            "end": undefined,
-          },
-        },
-        Object {
-          "_text": "SCHEDULED:",
-          "type": "planning.keyword",
-          "value": "SCHEDULED",
-        },
-        Object {
-          "_text": " <2020-07-03 Fri>",
-          "type": "planning.timestamp",
-          "value": Object {
-            "date": 2020-07-02T12:00:00.000Z,
-            "end": undefined,
-          },
-        },
-      ]
-    `)
-  })
+  // TODO: make sure we don't get the space in the text for the deadline _text, perhaps (2021-07-06)
+  testLexerMulti("knows plannings",
+    ["", "  ", "\t", " \t "].map(ws => [`${ws}DEADLINE: <2018-01-01 Mon>`, [tokPlanningKeyword("DEADLINE"), tokPlanningTimestamp({ date: new Date("2017-12-31T11:00:00.000Z") }, { _text: " <2018-01-01 Mon>" })]]), options);
 
-  it("knows these are not plannings", () => {
-    expect(tok("dEADLINE: <2018-01-01 Mon>", options)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "dEADLINE: <2018-01-01 Mon>",
-          "type": "text.plain",
-          "value": "dEADLINE: <2018-01-01 Mon>",
-        },
-      ]
-    `)
-  })
-})
+  testLexer("know multiple plannings",
+    "DEADLINE: <2020-07-03 Fri> SCHEDULED: <2020-07-03 Fri>", [
+    tokPlanningKeyword("DEADLINE"), tokPlanningTimestamp({ date: new Date("2020-07-02T12:00:00.000Z") }),
+    tokPlanningKeyword("SCHEDULED"), tokPlanningTimestamp({ date: new Date("2020-07-02T12:00:00.000Z") }),
+  ], options);
+
+  testLexer("knows these are not plannings", "dEADLINE: <2018-01-01 Mon>", [tokText("dEADLINE: <2018-01-01 Mon>")]);
+});

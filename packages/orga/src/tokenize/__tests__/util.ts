@@ -16,25 +16,30 @@ import {
   ListItemTag,
   Newline,
   Parent,
+  PlanningKeyword,
+  PlanningTimestamp,
   Priority,
   Stars,
   StyledText,
   Tags,
+  Timestamp,
   Todo,
   Token,
 } from '../../types';
 import tok from './tok';
 
-export function testLexer(testName: string, input: string, expected: Token[]) {
+import { ParseOptions } from '../../options'
+
+export function testLexer(testName: string, input: string, expected: Token[], options: Partial<ParseOptions> = {}) {
   it(testName, () => {
-    expect(tok(input)).toMatchObject(expected);
+    expect(tok(input, options)).toMatchObject(expected);
   });
 }
 
-export function testLexerMulti(testName: string, tests: [input: string, expected: Token[]][]) {
+export function testLexerMulti(testName: string, tests: [input: string, expected: Token[]][], options: Partial<ParseOptions> = {}) {
   it(testName, () => {
     for (const [input, expected] of tests) {
-      expect(tok(input)).toMatchObject(expected);
+      expect(tok(input, options)).toMatchObject(expected);
     }
   });
 }
@@ -211,5 +216,18 @@ export const tokKeyword = (key: string, value: string, extra: Extra<Keyword, 'ke
   key,
   value,
   ...{ _text: `#+${key}: ${value}` },
+  ...extra,
+});
+
+export const tokPlanningKeyword = (value: string, extra: Extra<PlanningKeyword, 'value'> = {}): PlanningKeyword => ({
+  type: 'planning.keyword',
+  value,
+  ...{ _text: `${value}:` },
+  ...extra,
+});
+
+export const tokPlanningTimestamp = (value: Timestamp, extra: Extra<PlanningTimestamp, 'value'> = {}): PlanningTimestamp => ({
+  type: 'planning.timestamp',
+  value,
   ...extra,
 });
