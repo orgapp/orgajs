@@ -47,6 +47,15 @@ export const push = <P extends Parent>(p: P) => (n: Node & P['children'][number]
   return p
 }
 
+export const setChildren = <P extends Parent>(p: P) => (ns: [Node, ...Node[]] & P['children']): P => {
+  adjustPosition(p)(ns[ns.length - 1])
+  for (const n of ns) {
+    (n as Parent).parent = p;
+  }
+  p.children = ns;
+  return p
+}
+
 export const map = (transform: (n: Node) => any) => (node: Node | Parent) => {
 
   const result = {

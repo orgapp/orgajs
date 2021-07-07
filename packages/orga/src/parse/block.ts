@@ -86,11 +86,9 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
   const parseGreaterOrSpecialBlockContents = <T extends GreaterBlock | SpecialBlock>(block: T): T | undefined => {
     const n = peek()
     if (!n || n.type === 'stars') return undefined
-    const root: Section = { type: 'section', level: 1, children: [], properties: {} };
-
     // sections parse pretty much the expected content of a block, so
     // we piggy back the section parser for now (2021-07-03)
-    const contents = parseSection(lexer)(root, { breakOn: t => t.type === 'block.end' && t.name.toLowerCase() === begin.name.toLowerCase() })?.children ?? [];
+    const contents = parseSection({ breakOn: t => t.type === 'block.end' && t.name.toLowerCase() === begin.name.toLowerCase() })(lexer)?.children ?? [];
     contents.forEach(push(block));
 
     const end = peek();

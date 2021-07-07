@@ -12,13 +12,13 @@ import {
   Document,
   GreaterBlock,
   Headline,
+  Footnote,
   FootnoteReference,
   Node,
   Paragraph,
   Parent,
   Section,
   SpecialBlock,
-  Stars,
   StyledText,
   VerseBlock,
 } from '../../types';
@@ -35,6 +35,10 @@ export const testParse = (testName: string, text: string, ...expected: Parameter
   it(testName, () => {
     expect(parse(tokenize(text))).toMatchObject(document(...expected));
   });
+}
+
+export const testParseSection = (testName: string, text: string, ...expected: Parameters<typeof section>) => {
+  testParse(testName, text, [section(...expected)]);
 }
 
 /** Build an AST {@link Document} object. */
@@ -139,26 +143,32 @@ export const anonFootnote = (children: FootnoteAnon['children'], extra: ExtraP<F
   ...extra
 });
 
+/** Build an AST {@link Footnote} object. */
+export const footnote = (label: string, children: Footnote['children'], extra: ExtraP<Footnote, 'label'> = {}): Footnote => ({
+  type: 'footnote',
+  label: label,
+  children,
+  ...extra
+});
+
 /** Build an AST object for a {@link Headline}. */
-export const headline = (level: number, content: string, extra: ExtraP<Headline, 'level' | 'content'> = {}): Headline => ({
+export const headline = (level: number, content: string, children: Headline['children'], extra: ExtraP<Headline, 'level' | 'content'> = {}): Headline => ({
   type: 'headline',
   level: level,
   actionable: false,
   content: content,
-  children: [{
-    type: 'stars',
-    level: level
-  } as Stars, text(content),
-  { type: 'newline' }],
+  children,
   ...extra
 });
 
+/** Build an AST object for a {@link Headline} with no body. */
+export const heading = (level: number, content: string, extra: ExtraP<Headline, 'level' | 'content'> = {}): Headline => headline(level, content, [], extra);
+
 /** Build an AST object for a {@link Section}. */
-export const section = (level: number, headingContent: string, sectionBody: Section['children'], extra: ExtraP<Section, 'level'> = {}): Section => ({
+export const section = (children: Section['children'], extra: ExtraP<Section> = {}): Section => ({
   type: 'section',
-  level: level,
   properties: {},
-  children: [headline(level, headingContent), ...sectionBody],
+  children,
   ...extra
 });
 

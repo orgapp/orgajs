@@ -1,17 +1,22 @@
 import {
   anonFootnote,
+  footnote,
   footnoteReference,
+  heading,
+  headline,
   inlineFootnote,
   paragraph,
   pos,
+  section,
   testParse,
+  testParseSection,
   text
 } from './util';
 
 
 describe('footnote reference', () => {
   function testParagraph(testName: string, inText: string, ...expected: Parameters<typeof paragraph>) {
-    return testParse(testName, inText, [paragraph(...expected)]);
+    return testParseSection(testName, inText, [paragraph(...expected)]);
   }
 
   testParagraph('with standard footnote',
@@ -47,5 +52,18 @@ describe('footnote reference', () => {
     text('hello'),
     anonFootnote([text('An '), anonFootnote([text('Anonymous footnote')]), text('!')]),
     text(' world.')
+  ]);
+});
+
+describe('footnote definition', () => {
+  testParse('footnote belongs to a section, and is broken by a heading', `* Heading
+
+[fn:1] This is a footnote definition.
+
+** Heading breaks footnote.`, [
+    headline(1, 'Heading', [
+      section([footnote('1', [paragraph([text('This is a footnote definition.')])])]),
+      heading(2, 'Heading breaks footnote.'),
+    ])
   ]);
 });

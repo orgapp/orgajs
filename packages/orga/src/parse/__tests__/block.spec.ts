@@ -6,7 +6,7 @@ import {
   greaterBlock,
   paragraph,
   specialBlock,
-  testParse,
+  testParseSection,
   text,
   textBold,
   textStrikethrough,
@@ -26,45 +26,45 @@ console.log(string)
   })
 
   function testBlock(testName: string, toParse: string, ...expected: Parameters<typeof block>) {
-    return testParse(testName, toParse, [block(...expected)]);
+    return testParseSection(testName, toParse, [block(...expected)]);
   }
 
   function testGreaterBlock(testName: string, toParse: string, ...expected: Parameters<typeof greaterBlock>) {
-    return testParse(testName, toParse, [greaterBlock(...expected)]);
+    return testParseSection(testName, toParse, [greaterBlock(...expected)]);
   }
 
   function testSpecialBlock(testName: string, toParse: string, ...expected: Parameters<typeof specialBlock>) {
-    return testParse(testName, toParse, [specialBlock(...expected)]);
+    return testParseSection(testName, toParse, [specialBlock(...expected)]);
   }
 
   function testVerseBlock(testName: string, toParse: string, ...expected: Parameters<typeof verseBlock>) {
-    return testParse(testName, `#+BEGIN_VERSE\n${toParse}\n#+END_VERSE`, [verseBlock(...expected)]);
+    return testParseSection(testName, `#+BEGIN_VERSE\n${toParse}\n#+END_VERSE`, [verseBlock(...expected)]);
   }
 
   describe('unclosed block is treated as text', () => {
-    testParse('basic',
+    testParseSection('basic',
       '#+BEGIN_FOO',
       [paragraph([text('#+BEGIN_FOO')])]);
 
-    testParse('with PARAMETERS',
+    testParseSection('with PARAMETERS',
       '#+BEGIN_FOO P',
       [paragraph([text('#+BEGIN_FOO P')])]);
 
-    testParse('case is respected',
+    testParseSection('case is respected',
       '#+BEGiN_FoO P pP',
       [paragraph([text('#+BEGiN_FoO P pP')])]);
 
-    testParse('spacing is respected',
+    testParseSection('spacing is respected',
       '#+BEGIN_FOO  P   h',
       [paragraph([text('#+BEGIN_FOO  P   h')])]);
   });
 
   describe('end block without start is treated as text', () => {
-    testParse('basic',
+    testParseSection('basic',
       '#+END_FOO',
       [paragraph([text('#+END_FOO')])]);
 
-    testParse('case is preserved',
+    testParseSection('case is preserved',
       '#+EnD_FoO',
       [paragraph([text('#+EnD_FoO')])]);
   });

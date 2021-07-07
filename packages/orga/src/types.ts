@@ -26,20 +26,21 @@ export interface Timestamp {
 export interface Document extends Parent {
   type: 'document';
   properties: { [key: string]: string; };
-  children: TopLevelContent[];
+  children: [Section, ...Headline[]] | Headline[];
 }
 
 export interface Section extends Parent {
   type: 'section';
-  level: number;
   properties: { [key: string]: string; };
   children: Content[];
+  // v2021.07.03 - "Only a headline can contain a section. As an
+  // exception, text before the first headline in the document also
+  // belongs to a section."
+  parent?: Document | Headline | undefined;
 }
 
-type TopLevelContent =
-  | Content | Keyword | Footnote
-
 type Content =
+  | Footnote
   | Section
   | Paragraph
   | Block
@@ -133,6 +134,9 @@ export interface Headline extends Parent {
   priority?: string;
   content: string;
   tags?: string[];
+  // v2021.07.03 - "A headline contains directly one section
+  // (optionally), followed by any number of deeper level headlines."
+  children: [Section, ...Headline[]] | Headline[];
 }
 
 
