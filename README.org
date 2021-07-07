@@ -1,7 +1,24 @@
-#+TITLE: Orga
+#+title: Orga
+#+html: import {Flex,Button} from 'theme-ui'
+#+html: import {Link} from 'gatsby'
+#+html: export {default} from './website/src/components/landing'
 
 #+begin_export html
 <Space>✨ org-mode 🚀 JavaScript ✨</Space>
+#+end_export
+
+#+begin_export html
+<Flex sx={{gap: '1em', py: 2}}>
+  <Link to='/getting-started'>
+    <Button>Documentation</Button>
+  </Link>
+  <Link to='/playground'>
+    <Button>Playground</Button>
+  </Link>
+  <a href='https://github.com/orgapp/orgajs'>
+    <Button>GitHub</Button>
+  </a>
+</Flex>
 #+end_export
 
 * What Is It

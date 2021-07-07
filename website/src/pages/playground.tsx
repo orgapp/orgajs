@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Playground from '@orgajs/playground'
 import { Link } from 'gatsby'
-import { Button, IconButton } from 'theme-ui'
+import { Button, NavLink } from 'theme-ui'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { parse as parseQueryString } from 'query-string'
 import {
-  FaGithub as GithubIcon,
-  FaBook as BookIcon,
   FaLink as LinkIcon,
   FaCheck as CheckIcon,
 } from 'react-icons/fa'
@@ -49,25 +47,13 @@ console.log('this is orga')
         alignItems: 'center',
         padding: '0 1em',
       }}>
-        <Box style={{marginRight: 'auto', justifyContent: 'flex-start'}}>
-          <Link to='/' style={{
-            padding: '.4em 1em',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4em',
-          }}>
-            <BookIcon/>
-            Docs
-          </Link>
-          <a href='https://github.com/orgapp/orgajs' style={{
-            padding: '.4em 1em',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4em',
-          }}>
-            <GithubIcon/>
-            Code
-          </a>
+        <Box style={{marginRight: 'auto', justifyContent: 'flex-start', gap: '0.2em'}}>
+          <NavLink as={Link} to='/'>
+            Documentation
+          </NavLink>
+          <NavLink href='https://github.com/orgapp/orgajs'>
+            Source Code
+          </NavLink>
         </Box>
         <Box style={{color: '#68737e'}}>
           orgajs playground

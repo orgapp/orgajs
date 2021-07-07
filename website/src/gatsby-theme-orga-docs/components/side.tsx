@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import _ from 'lodash'
-import { jsx } from 'theme-ui'
+import Img from "gatsby-image"
+import { jsx, Flex } from 'theme-ui'
 
 export default ({ style, ...props }) => {
 
@@ -76,6 +77,15 @@ export default ({ style, ...props }) => {
         flexDirection: 'column',
         gap: '2px',
       }}>
+        <Link to='/' sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1em',
+          pb: '1em',
+        }}>
+          <Img fixed={data.logo.childImageSharp.fixed} sx={{borderRadius: '0.4em'}}/>
+          <h1>Orgajs</h1>
+        </Link>
         {navItems}
       </div>
     </div>

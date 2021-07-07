@@ -14,9 +14,6 @@ export default ({ children, pageContext }: PageProps) => {
   const title = get(pageContext, 'properties.title')
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  console.log({ sidebarOpen })
-
-
   return (
     <main sx={{
       display: 'grid',
