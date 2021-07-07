@@ -35,6 +35,10 @@ const adjustPosition = (parent: Parent) => (child: Node): void => {
   }
 }
 
+export const pushMany = <P extends Parent>(p: P) => (n: Node[] & P['children']): P => {
+  n.forEach(n => push(p)(n));
+  return p;
+}
 
 export const push = <P extends Parent>(p: P) => (n: Node & P['children'][number]): P => {
   if (!n) return p

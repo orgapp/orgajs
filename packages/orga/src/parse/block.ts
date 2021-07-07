@@ -3,7 +3,7 @@ import { Block, GreaterBlock, Section, SpecialBlock, VerseBlock } from '../types
 import { Lexer } from '../tokenize'
 import parseParagraph from './paragraph';
 import parseSection from './section';
-import { push } from '../node';
+import { pushMany } from '../node';
 
 export default function parseBlock(lexer: Lexer): Block | GreaterBlock | SpecialBlock | VerseBlock | undefined {
 
@@ -70,7 +70,7 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
       maxEOL: Infinity,
       breakOn: t => t.type === 'block.end' && t.name.toLowerCase() === begin.name.toLowerCase()
     })?.children ?? [];
-    contents.forEach(push(block));
+    pushMany(block)(contents);
 
     const end = peek();
     if (!end) return undefined;
@@ -89,7 +89,7 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
     // sections parse pretty much the expected content of a block, so
     // we piggy back the section parser for now (2021-07-03)
     const contents = parseSection({ breakOn: t => t.type === 'block.end' && t.name.toLowerCase() === begin.name.toLowerCase() })(lexer)?.children ?? [];
-    contents.forEach(push(block));
+    pushMany(block)(contents);
 
     const end = peek();
     if (!end) return undefined;

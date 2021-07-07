@@ -1,4 +1,4 @@
-import { push } from '../node'
+import { push, pushMany } from '../node'
 import { Lexer } from '../tokenize'
 import {
   Attributed,
@@ -40,7 +40,7 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
         children: [],
       }
       const plannings = parsePlanning(lexer)
-      plannings.forEach(push(section))
+      pushMany(section)(plannings);
 
       while (tryTo(parseDrawer)(drawer => {
         if (drawer.name.toLowerCase() === 'properties') {
@@ -74,7 +74,7 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
         }
         // v2021.07.03 footnote definitions cannot contain other footnote definitions
         const contents = parseSection({ breakOn: t => t.type === 'footnote.label' })(lexer)?.children ?? [];
-        contents.forEach(push(footnote));
+        pushMany(footnote)(contents as Exclude<Section['children'][number], Footnote>[]);
         return footnote;
       }
     }
