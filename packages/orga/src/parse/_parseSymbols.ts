@@ -3,7 +3,7 @@ import primitive from './_primitive'
 
 export default (text: string): { [key: string]: Primitive } => {
   let t = text
-  const result = {}
+  const result: { [key: string]: Primitive } = {}
   while (t.length > 0) {
     const m = t.match(/^:\w+/)
     if (!m) break

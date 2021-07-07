@@ -25,7 +25,10 @@ export const read = (text: string) => {
 
   const now = () => cursor
 
-  const eat = (param: 'char' | 'line' | 'whitespaces' | RegExp | number = 'char') => {
+  const eat = (param: 'char' | 'line' | 'whitespaces' | RegExp | number = 'char'): {
+    value: string;
+    position: Position;
+  } => {
     const start = now()
     if (param === 'char') {
       cursor = shift(start, 1)

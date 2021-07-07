@@ -46,7 +46,7 @@ export function testLexerMulti(testName: string, tests: [input: string, expected
   });
 }
 
-type Extra<Tok extends Token, Keys extends keyof (Tok & { _text: string }) = 'type'> = Partial<Omit<Tok | { _text: string }, Keys | 'type'>>;
+type Extra<Tok extends Token, Keys extends keyof (Tok & { _text: string }) = 'type'> = Partial<Omit<Tok & { _text: string }, Keys | 'type'>>;
 type ExtraP<Tok extends Parent & Token, Keys extends keyof (Tok & { _text: string }) = 'type' | 'children'> = Extra<Tok, Keys | 'children'>;
 
 export const tokBlockBegin = (name: string, extra: Extra<BlockBegin, 'name'> = {}): BlockBegin => ({
@@ -209,7 +209,7 @@ export const tokLink = (value: string, extra: Extra<Link, 'value'> = {}): Link =
   value,
   protocol: value.indexOf(':') !== -1 ? value.split(':')[0] : undefined,
   description: undefined,
-  ...{ _text: 'description' in extra ? `[[${value}][${extra['description']}]]` : `[[${value}]]` },
+  ...{ _text: 'description' in extra ? `[[${value}][${extra.description}]]` : `[[${value}]]` },
   ...extra,
 });
 
