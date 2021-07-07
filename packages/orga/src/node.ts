@@ -60,14 +60,14 @@ export const setChildren = <P extends Parent>(p: P) => (ns: [Node, ...Node[]] & 
   return p
 }
 
-export const map = (transform: (n: Node) => any) => (node: Node | Parent) => {
+export const map = <T extends Parent>(transform: (n: Node | Parent) => T) => (node: Node | Parent): T => {
 
   const result = {
     type: node.type,
     ...transform(node),
   }
 
-  if ('parent' in node && node.children) {
+  if ('children' in node && node.children) {
     result.children = node.children.map(map(transform))
   }
   return result
