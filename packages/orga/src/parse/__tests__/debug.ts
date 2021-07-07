@@ -4,7 +4,7 @@ import { map } from '../../node'
 import { read as locate } from 'text-kit'
 import { tokenize } from '../../tokenize'
 import { parse } from '../index'
-import { Parent } from '../../types';
+import { Child } from '../../types';
 
 export default (text: string, useColor = true) => {
   const { substring } = locate(text)
@@ -23,7 +23,7 @@ export default (text: string, useColor = true) => {
   const lexer = tokenize(text)
   const tree = parse(lexer)
   const data = map(node => {
-    const { parent, position, ...rest } = node as Parent
+    const { parent, position, ...rest } = node as Child;
     if (!position) {
       console.log(red('no position'), inspect({ rest }, false, null, useColor))
       return {

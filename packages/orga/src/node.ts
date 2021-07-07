@@ -59,7 +59,7 @@ export const setChildren = <P extends Parent>(p: P) => (ns: [Node, ...Node[]] & 
   return p
 }
 
-export const map = <T extends Parent>(transform: (n: Node | Parent) => T) => (node: Node | Parent): T => {
+export const map = <T extends Node & Partial<Parent>>(transform: (n: Node & Partial<Parent>) => T) => (node: Node & Partial<Parent>): T => {
 
   const result = {
     type: node.type,
