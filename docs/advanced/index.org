@@ -2,5 +2,5 @@
 #+published: true
 #+position: 200
 
-#+html: <Box>This page is a WIP</Box>
+#+html: <Notice>This page is a WIP</Notice>
 

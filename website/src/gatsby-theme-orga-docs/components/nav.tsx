@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react'
+import { jsx } from 'theme-ui'
 import { Link } from 'gatsby'
 import { Button } from 'theme-ui'
 import {
@@ -17,8 +19,12 @@ export default () => {
       width: '100%',
       padding: '0 1em',
     }}>
-      <a href='https://github.com/orgapp/orgajs' style={{
+      <a href='https://github.com/orgapp/orgajs' sx={{
         verticalAlign: 'middle',
+        color: 'gray',
+        '&:hover': {
+          color: 'text',
+        }
       }}>
         <GithubIcon style={{
           display: 'block',
@@ -26,8 +32,12 @@ export default () => {
           fontSize: '1.4em',
         }}/>
       </a>
-      <a href='https://twitter.com/xiaoxinghu' style={{
+      <a href='https://twitter.com/xiaoxinghu' sx={{
         verticalAlign: 'middle',
+        color: 'gray',
+        '&:hover': {
+          color: 'text',
+        }
       }}>
         <TwitterIcon style={{
           display: 'block',

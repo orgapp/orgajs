@@ -55,12 +55,10 @@ export default ({ style, ...props }) => {
       sx={{
         padding: `0.5em 0.5em 0.5em ${0.5 + 1 * item.indent}em`,
         borderRadius: '0.3em',
-        '&:hover': {
-          backgroundColor: 'highlight',
-        },
+        color: 'text',
         '&.active': {
-          color: 'background',
-          backgroundColor: 'primary',
+          color: 'text',
+          backgroundColor: 'highlight',
           fontWeight: 'bold',
         },
       }}

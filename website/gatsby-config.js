@@ -16,6 +16,7 @@ module.exports = {
         locations: ['../docs'],
         components: {
           Space: require.resolve('./src/components/space.tsx'),
+          Notice: require.resolve('./src/components/notice.tsx'),
         },
       },
     },

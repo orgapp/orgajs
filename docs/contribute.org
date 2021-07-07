@@ -2,7 +2,7 @@
 #+published: true
 #+position: 300
 
-Get the code.
+#+html: <Notice>This page is a WIP</Notice>
 
 * Need Some Inspiration?
 

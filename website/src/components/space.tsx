@@ -15,7 +15,7 @@ const moveContent = keyframes`
 `
 
 const Space = ({ children, style }) => {
-  const ambient = '#0af'
+  const ambient = '#61dafb'
   return (
     <div sx={{
       display: 'flex',
@@ -38,15 +38,15 @@ const Space = ({ children, style }) => {
       0 0 7px #fff,
       0 0 10px #fff,
       0 0 21px #fff,
-      0 0 42px #0fa,
-      0 0 82px #0fa,
-      0 0 92px #0fa,
-      0 0 102px #0fa,
-      0 0 151px #0fa
+      0 0 42px ${ambient},
+      0 0 82px ${ambient},
+      0 0 92px ${ambient},
+      0 0 102px ${ambient},
+      0 0 151px ${ambient}
       `
     }}>
       <div sx={{
-        animatio: `${moveContent} 4s linear infinite`,
+        animate: `${moveContent} 4s linear infinite`,
       }}>
         {children}
       </div>

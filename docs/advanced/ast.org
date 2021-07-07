@@ -2,6 +2,6 @@
 #+published: true
 #+position: 2
 
-#+html: <Box>This page is a WIP</Box>
+#+html: <Notice>This page is a WIP</Notice>
 
 Orga Abstract Syntax Tree.

@@ -1,10 +1,10 @@
 export default {
   colors: {
-    text: '#333',
-    primary: '#3E6991',
-    secondary: '#FF6D6A',
-    // primary: '#03A9F4',
-    // secondary: '#FFC107',
+    text: '#413E3D',
+    gray: '#7f7f7f',
+    primary: '#266691',
+    secondary: '#C71F2D',
+    accent: '#F7B718',
     background: '#ffffff',
     surface: '#f9f9f9',
     muted: '#e0e0e0',
@@ -17,15 +17,14 @@ export default {
   },
   fontWeights: {
     body: 400,
+    bold: 600,
     heading: 700,
   },
   buttons: {
     primary: {
       color: 'background',
       bg: 'primary',
-      '&:hover': {
-        bg: 'secondary',
-      },
+      borderRadius: '0.4em',
       cursor: 'pointer',
     },
     link: {
