@@ -9,7 +9,7 @@ interface Props {
 export default ({ reader }: Props) : Token[] => {
   const { match, jump, eat } = reader
   let tokens: Token[] = []
-  const m = match(/^\[fn:([^\]]+)\](?=\s)/)
+  const m = match(/^\[fn:([^\]]+)\]/)
   if (!m) return []
   tokens.push({
     type: 'footnote.label',

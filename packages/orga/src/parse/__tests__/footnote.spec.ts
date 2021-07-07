@@ -2,6 +2,7 @@ import {
   anonFootnote,
   footnote,
   footnoteReference,
+  greaterBlock,
   heading,
   headline,
   inlineFootnote,
@@ -71,4 +72,12 @@ describe('footnote definition', () => {
     footnote('1', [paragraph([text('Foot1')])]),
     footnote('2', [paragraph([text('Foot2')])]),
   ]);
+
+  testParseSection('you can have footnote definitions with empty bodies', '[fn:1]', [footnote('1', [])]);
+
+  testParseSection('you can have greater blocks inside footnotes', `[fn:1]
+
+#+BEGIN_QUOTE
+  See!
+#+END_QUOTE`, [footnote('1', [greaterBlock('QUOTE', [paragraph([text('See!')])])])]);
 });
