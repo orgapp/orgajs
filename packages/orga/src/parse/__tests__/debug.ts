@@ -26,10 +26,15 @@ export default (text: string, useColor = true) => {
     const { parent, position, ...rest } = node as Parent
     if (!position) {
       console.log(red('no position'), inspect({ rest }, false, null, useColor))
-    }
-    return {
-      raw: substring(position),
-      ...rest,
+      return {
+        raw: '(unknown)',
+        ...rest,
+      };
+    } else {
+      return {
+        raw: substring(position),
+        ...rest,
+      }
     }
   })(tree)
 
