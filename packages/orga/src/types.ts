@@ -2,6 +2,16 @@ import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist'
 
 export { Node } from 'unist';
 
+import {
+  Timestamp
+} from './tokenize/types';
+
+export {
+  Token
+} from './tokenize/types';
+
+export type { Timestamp };
+
 // ---- Basic Types ----
 export interface Parent extends UnistParent {
   children: Child[];
@@ -19,11 +29,6 @@ export interface Attributes {
 
 export interface Attributed {
   attributes: Attributes
-}
-
-export interface Timestamp {
-  date: Date;
-  end?: Date;
 }
 
 // ---- Syntax Tree Nodes ----
@@ -145,7 +150,6 @@ export interface Headline extends Parent, Child<Document | Headline> {
   children: [Section, ...Headline[]] | Headline[];
 }
 
-
 export interface Paragraph extends Parent, Child, Attributed {
   type: 'paragraph';
   children: PhrasingContent[];
@@ -158,32 +162,6 @@ export interface Literal extends UnistLiteral {
 export interface HTML extends Child, Literal {
   type: 'html';
 }
-
-// ---- Tokens ----
-export type Token =
-  | Keyword
-  | Todo
-  | Newline
-  | HorizontalRule
-  | Stars
-  | Priority
-  | Tags
-  | PlanningKeyword
-  | PlanningTimestamp
-  | ListItemTag
-  | ListItemCheckbox
-  | ListItemBullet
-  | TableRule
-  | TableColumnSeparator
-  | PhrasingContent
-  | FootnoteLabel
-  | FootnoteInlineBegin
-  | FootnoteReferenceEnd
-  | BlockBegin
-  | BlockEnd
-  | DrawerBegin
-  | DrawerEnd
-  | Comment
 
 export type PhrasingContent =
   | StyledText | Link | FootnoteReference | Newline
@@ -240,100 +218,6 @@ export interface FootnoteReference extends Parent, Child<Paragraph> {
   children: PhrasingContent[];
 }
 
-export interface FootnoteInlineBegin extends Node {
-  type: 'footnote.inline.begin';
-  label: string;
-}
-
-export interface FootnoteReferenceEnd extends Node {
-  type: 'footnote.reference.end';
-}
-
-// headline tokens
-export interface Stars extends Node {
-  type: 'stars';
-  level: number;
-}
-
-export interface Todo extends Node {
-  type: 'todo';
-  keyword: string;
-  actionable: boolean;
-}
-
-export interface Priority extends Literal {
-  type: 'priority';
-}
-
-export interface Tags extends Node {
-  type: 'tags';
-  tags: string[];
-}
-
-// block tokens
-export interface BlockBegin extends Node {
-  type: 'block.begin';
-  name: string;
-  params: string[];
-}
-
-export interface BlockEnd extends Node {
-  type: 'block.end';
-  name: string;
-}
-
-// drawer tokens
-export interface DrawerBegin extends Node {
-  type: 'drawer.begin';
-  name: string;
-}
-
-export interface DrawerEnd extends Node {
-  type: 'drawer.end';
-}
-
-export interface Comment extends Literal {
-  type: 'comment';
-}
-
-export interface Keyword extends Literal {
-  type: 'keyword';
-  key: string;
-}
-
-export interface FootnoteLabel extends Node {
-  type: 'footnote.label';
-  label: string;
-}
-
-export interface PlanningKeyword extends Literal {
-  type: 'planning.keyword';
-}
-
-export interface PlanningTimestamp extends Node {
-  type: 'planning.timestamp';
-  value: Timestamp;
-}
-
-export interface ListItemTag extends Literal {
-  type: 'list.item.tag';
-}
-
-export interface ListItemCheckbox extends Node {
-  type: 'list.item.checkbox';
-  checked: boolean;
-}
-
-export interface ListItemBullet extends Node {
-  type: 'list.item.bullet';
-  ordered: boolean;
-  indent: number;
-}
-
 export interface TableRule extends Child<Table> {
   type: 'table.hr';
-}
-
-export interface TableColumnSeparator extends Node {
-  type: 'table.columnSeparator';
 }

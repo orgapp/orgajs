@@ -1,7 +1,7 @@
 import { Point } from 'unist'
 import { isGreaterOrEqual } from '../position'
 import { Reader } from '../reader'
-import { FootnoteReference, Link, PhrasingContent, StyledText, Token, Newline } from '../types'
+import { FootnoteReference, Link, StyledText, Token, Newline } from './types'
 import uri from '../uri'
 import { escape } from '../utils'
 
@@ -84,7 +84,6 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
         type: 'footnote.reference',
         label: m.captures[1],
         position: m.position,
-        children: [],
       }
     }
   }
@@ -110,7 +109,7 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
     return true
   }
 
-  const tryTo = (tok: () => PhrasingContent) => {
+  const tryTo = (tok: () => Token) => {
     return tryToTokens(() => {
       const r = tok();
       return r ? [r] : [];

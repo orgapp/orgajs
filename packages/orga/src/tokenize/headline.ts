@@ -1,7 +1,7 @@
 import { isEmpty } from '../position'
 import { Reader } from '../reader'
 import { TodoKeywordSet } from '../todo-keyword-set'
-import { Token } from '../types'
+import { Token } from './types'
 import { tokenize } from './inline'
 
 interface Props {

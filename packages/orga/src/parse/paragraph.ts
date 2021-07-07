@@ -1,7 +1,6 @@
 import { push } from '../node'
 import { FootnoteReference, Paragraph, PhrasingContent, Token } from '../types'
-import { isPhrasingContent } from '../utils'
-import { tokenToText } from './utils';
+import { isStyledText } from '../utils';
 import { Lexer } from '../tokenize';
 
 const isWhitespaces = (node: Token) => {
@@ -30,6 +29,22 @@ export default function paragraph(lexer: Lexer, opts?: Partial<{ breakOn: (t: To
       return p;
     }
 
+    const phrasingContent = (): PhrasingContent | undefined => {
+      const token = peek();
+      if (token.type === 'footnote.reference') {
+        return {
+          ...token,
+          children: [],
+        };
+      }
+      if (token.type === 'link') {
+        return token;
+      }
+      if (isStyledText(token)) {
+        return token;
+      }
+    };
+
     function readAFootnote(par: Paragraph | FootnoteReference = p): PhrasingContent | undefined {
       if (token.type === 'footnote.inline.begin') {
         eat();
@@ -49,11 +64,14 @@ export default function paragraph(lexer: Lexer, opts?: Partial<{ breakOn: (t: To
             push(par)(fn);
             eolCount = 0;
             return fn;
-          } else if (isPhrasingContent(inner)) {
-            eat();
-            fn.children.push(inner);
           } else {
-            return undefined;
+            const phras = phrasingContent();
+            if (phras) {
+              eat();
+              push(fn)(phras);
+            } else {
+              return undefined;
+            }
           }
         }
       }
@@ -71,10 +89,12 @@ export default function paragraph(lexer: Lexer, opts?: Partial<{ breakOn: (t: To
       return build(p)
     }
 
-    if (isPhrasingContent(token)) {
+    const phras = phrasingContent();
+
+    if (phras) {
+      eat();
       p = p || createParagraph()
-      push(p)(token)
-      eat()
+      push(p)(phras)
       eolCount = 0
       return build(p)
     }

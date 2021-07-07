@@ -25,8 +25,8 @@ describe("tokenize footnote", () => {
   ]);
 
   testLexerMulti("knows these are not footnotes", [
-    [" [fn:1] not a footnote", [tokFootnoteReference("1", []), tokText(" not a footnote")]],
-    ["[[fn:1] not a footnote", [tokText("["), tokFootnoteReference("1", []), tokText(" not a footnote")]],
-    ["\t[fn:1] not a footnote", [tokFootnoteReference("1", []), tokText(" not a footnote")]],
+    [" [fn:1] not a footnote", [tokFootnoteReference("1"), tokText(" not a footnote")]],
+    ["[[fn:1] not a footnote", [tokText("["), tokFootnoteReference("1"), tokText(" not a footnote")]],
+    ["\t[fn:1] not a footnote", [tokFootnoteReference("1"), tokText(" not a footnote")]],
   ]);
 });

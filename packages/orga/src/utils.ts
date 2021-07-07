@@ -1,4 +1,4 @@
-import { Token, PhrasingContent } from './types'
+import * as tok from './tokenize/types';
 
 const matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g
 
@@ -6,9 +6,5 @@ export const escape = (str: string): string => {
   return str.replace(matchOperatorsRe, '\\$&')
 }
 
-export const isPhrasingContent = (token: Token): token is PhrasingContent => {
-  return token.type.startsWith('text.')
-    || token.type === 'footnote.reference'
-    || token.type === 'link'
-    || token.type === 'newline'
-}
+export const isStyledText = (token: tok.Token): token is tok.StyledText =>
+  token.type.startsWith('text.');

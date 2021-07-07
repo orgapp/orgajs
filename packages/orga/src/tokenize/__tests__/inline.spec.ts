@@ -41,7 +41,7 @@ describe("Inline Tokenization", () => {
 
   describe("footnote references", () => {
     testLexer("recon footnote reference", "hello[fn:1] world.", [
-      tokText("hello"), tokFootnoteReference("1", []), tokText(" world.")
+      tokText("hello"), tokFootnoteReference("1"), tokText(" world.")
     ]);
 
     testLexer("recon anonymous footnote reference", 'hello[fn::Anonymous] world.', [

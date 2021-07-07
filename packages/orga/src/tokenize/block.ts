@@ -1,5 +1,5 @@
 import { Reader } from '../reader'
-import { BlockBegin, BlockEnd } from '../types'
+import { BlockBegin, BlockEnd } from './types'
 
 interface Props {
   reader: Reader;
