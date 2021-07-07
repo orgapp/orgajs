@@ -39,7 +39,7 @@ export interface Section extends Parent {
   parent?: Document | Headline | undefined;
 }
 
-type Content =
+export type Content =
   | Footnote
   | Paragraph
   | Block
