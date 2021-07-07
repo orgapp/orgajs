@@ -41,7 +41,6 @@ export interface Section extends Parent {
 
 type Content =
   | Footnote
-  | Section
   | Paragraph
   | Block
   | VerseBlock
@@ -52,7 +51,6 @@ type Content =
   | List
   | Table
   | HorizontalRule
-  | Headline
   | HTML
 
 export interface Footnote extends Parent {
