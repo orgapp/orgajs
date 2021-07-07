@@ -56,6 +56,10 @@ type Content =
 export interface Footnote extends Parent {
   type: 'footnote';
   label: string;
+  // v2021.07.03 - "CONTENTS can contain any element excepted another
+  // footnote definition. It ends at the next footnote definition, the
+  // next headline, two consecutive empty lines or the end of buffer."
+  children: Exclude<Content, Footnote>[];
 }
 
 export interface Block extends Literal, Attributed {

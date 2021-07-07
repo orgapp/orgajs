@@ -66,4 +66,9 @@ describe('footnote definition', () => {
       heading(2, 'Heading breaks footnote.'),
     ])
   ]);
+
+  testParseSection('footnote inside a footnote starts another footnote instead', '[fn:1] Foot1\n[fn:2] Foot2', [
+    footnote('1', [paragraph([text('Foot1')])]),
+    footnote('2', [paragraph([text('Foot2')])]),
+  ]);
 });

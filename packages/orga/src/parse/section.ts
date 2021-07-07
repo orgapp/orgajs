@@ -72,7 +72,8 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
           label: token.label,
           children: [],
         }
-        const contents = parseSection()(lexer)?.children ?? [];
+        // v2021.07.03 footnote definitions cannot contain other footnote definitions
+        const contents = parseSection({ breakOn: t => t.type === 'footnote.label' })(lexer)?.children ?? [];
         contents.forEach(push(footnote));
         return footnote;
       }
