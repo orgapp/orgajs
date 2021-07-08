@@ -1,6 +1,6 @@
 import { tokenize } from '../../tokenize'
 import { parse } from '../index'
-import { PhrasingContent } from '../../types'
+import { Document, Headline, PhrasingContent, Section } from '../../types'
 import debug from './debug'
 import { Position } from 'unist';
 
@@ -27,9 +27,19 @@ the round pegs in the +round+ square holes...
     // debug(content)
   })
 
-  const text = (text: string): PhrasingContent => ({
+  const testDocument = (testName: string, text: string, expected: Document['children']) => {
+    it(testName, () => {
+      expect(parse(tokenize(text))).toMatchObject({
+        type: 'document',
+        children: expected
+      })
+    });
+  }
+
+  const text = (text: string, pos?: Position): PhrasingContent => ({
     type: 'text.plain',
-    value: text
+    value: text,
+    ...(pos === undefined ? {} : { position: pos })
   });
 
   const inlineFootnote = (label: string, children: PhrasingContent[]): PhrasingContent => ({
@@ -52,6 +62,64 @@ the round pegs in the +round+ square holes...
 
   const pos = ([startLine, startCol]: [number, number], [endLine, endCol]: [number, number]): Position => ({
     start: { line: startLine, column: startCol }, end: { line: endLine, column: endCol }
+  });
+
+  const headline = (level: number, content: string, pos?: Position): Headline => ({
+    type: 'headline',
+    level: level,
+    actionable: false,
+    content: content,
+    children: [{
+      type: 'stars',
+      level: level
+    }, text(content),
+    { type: 'newline' }],
+    ...(pos === undefined ? {} : { position: pos })
+  });
+
+  const section = (level: number, headingContent: string, sectionBody: Section['children'], pos?: Position): Section => ({
+    type: 'section',
+    level: level,
+    properties: {},
+    children: [headline(level, headingContent), ...sectionBody],
+    ...(pos === undefined ? {} : { position: pos })
+  });
+
+  describe('property drawers', () => {
+    testDocument('closed property drawer',
+      "* Heading\n:PROPERTIES:\n:END:",
+      [section(1, 'Heading', [{
+        type: 'drawer',
+        name: 'PROPERTIES',
+        value: ''
+      }])
+      ]);
+
+    testDocument('closed property drawer with property',
+      "* Heading\n:PROPERTIES:\n:PROP: 1\n:END:",
+      [section(1, 'Heading', [{
+        type: 'drawer',
+        name: 'PROPERTIES',
+        value: ':PROP: 1'
+      }])]);
+
+    testDocument('unclosed property drawer',
+      "* Heading\n:PROPERTIES:",
+      [section(1, 'Heading', [{
+        type: 'paragraph',
+        attributes: {},
+        children: [text(':PROPERTIES:', pos([2, 1], [2, 13]))],
+        position: pos([2, 1], [2, 13]),
+      }])]);
+
+    testDocument('unclosed property drawer with extra text',
+      "* Heading\n:PROPERTIES:\nmore text",
+      [section(1, 'Heading', [{
+        type: 'paragraph',
+        attributes: {},
+        children: [text(':PROPERTIES:', pos([2, 1], [2, 13])), text(' ', pos([2, 13], [3, 1])), text('more text', pos([3, 1], [3, 10]))],
+        position: pos([2, 1], [3, 10]),
+      }])]);
   });
 
   function testParagraph(testName: string, inText: string, expected: PhrasingContent[]) {
@@ -90,7 +158,7 @@ the round pegs in the +round+ square holes...
   testParagraph('with anonymous with no body',
     'hello[fn::] world.', [
     text('hello'),
-    anonFootnote([{ ...text(''), position: pos([1, 11], [1, 11]) }]),
+    anonFootnote([{ ...text('', pos([1, 11], [1, 11])) }]),
     text(' world.')
   ]);
 
