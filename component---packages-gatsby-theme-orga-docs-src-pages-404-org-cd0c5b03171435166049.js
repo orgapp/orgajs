@@ -1,0 +1,2 @@
+(self.webpackChunk_orgajs_website=self.webpackChunk_orgajs_website||[]).push([[841],{83741:function(n,e,t){"use strict";t.r(e),t.d(e,{title:function(){return a}});var o=t(50120),s=(t(27378),t(64489)),r=(t(25444),t(16041)),u=["components"],a="404";function c(n){var e=n.components,t=(0,o.Z)(n,u);return(0,s.orga)(r.Z,Object.assign({components:e},t),(0,s.orga)("p",null,"404"))}c.isMDXComponent=!0,e.default=c}}]);
+//# sourceMappingURL=component---packages-gatsby-theme-orga-docs-src-pages-404-org-cd0c5b03171435166049.js.map
