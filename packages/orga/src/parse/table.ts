@@ -1,28 +1,48 @@
-import { push } from '../node'
+import { push, pushMany } from '../node'
 import { Lexer } from '../tokenize'
-import { Table, TableRow, TableRule, TableCell } from '../types'
-import { isStyledText } from '../utils';
-import * as ast from './utils';
+import {
+  FootnoteReference,
+  Link,
+  StyledText,
+  Table,
+  TableRow,
+  TableRule,
+  TableCell
+} from '../types'
+import utils, * as ast from './utils';
+import footnoteReference from './footnoteReference';
+import link from './link';
+import textMarkup from './textMarkup';
 
 export default (lexer: Lexer): Table | undefined => {
   const { peek, eat } = lexer
 
+  const { tryMany, tryTo } = utils(lexer);
+
   const token = peek()
   if (!token || !token.type.startsWith('table.')) return undefined
 
-  const getCell = (cell: TableCell = undefined): TableCell => {
+  const getCell = (): TableCell => {
     const t = peek()
-    if (!t || t.type === 'newline' || t.type === 'table.columnSeparator') {
-      return cell
-    }
-    const c = cell || ast.tableCell([]);
-    if (isStyledText(t)) {
-      push(c)(t)
-      eat()
-    } else {
-      return undefined;
-    }
-    return getCell(c)
+    const c = ast.tableCell([]);
+    if (!t || t.type === 'newline') return;
+    if (t.type === 'table.columnSeparator') return c;
+    const contents = tryMany<FootnoteReference | Link | StyledText>([
+      // entity, // not yet implemented
+      // exportSnippet, // not yet implemented
+      footnoteReference,
+      link,
+      // macro, // not yet implemented
+      // radioTarget, // not yet implemented
+      // target, // not yet implemented
+      // subscript, // not yet implemented
+      // superscript, // not yet implemented
+      // superscript, // not yet implemented
+      // timestamp, // not yet implemented
+      textMarkup,
+    ]);
+    pushMany(c)(contents);
+    return c;
   }
 
   const getRow = (row: TableRow = undefined): TableRow | TableRule => {
@@ -37,7 +57,7 @@ export default (lexer: Lexer): Table | undefined => {
     if (t.type === 'table.columnSeparator') {
       eat('table.columnSeparator')
       const _row = row || ast.tableRow([]);
-      push(_row)(getCell())
+      tryTo(getCell)(push(_row));
       return getRow(_row)
     }
     return row

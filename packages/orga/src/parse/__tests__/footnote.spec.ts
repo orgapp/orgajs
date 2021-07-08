@@ -11,7 +11,8 @@ import {
   section,
   testParse,
   testParseSection,
-  text
+  text,
+  textBold,
 } from './util';
 
 
@@ -31,6 +32,13 @@ describe('footnote reference', () => {
     'hello[fn:named:Inline named footnote] world.', [
     text('hello'),
     inlineFootnote('named', [text('Inline named footnote')]),
+    text(' world.')
+  ]);
+
+  testParagraph('with inline footnote with markup',
+    'hello[fn:named:Inline *named* footnote] world.', [
+    text('hello'),
+    inlineFootnote('named', [text("Inline "), textBold("named"), text(" footnote")]),
     text(' world.')
   ]);
 

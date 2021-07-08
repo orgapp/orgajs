@@ -49,7 +49,7 @@ export default (lexer: Lexer) => {
     return
   }
 
-  const tryTo = <T>(parse: (lexer: Lexer) => T | undefined) => (...actions: ((node: T) => void)[]): boolean => {
+  const tryToOne = <T>(parse: (lexer: Lexer) => T | undefined) => (...actions: ((node: T) => void)[]): boolean => {
     const savePoint = save()
     const node = parse(lexer)
     if (!node) {
@@ -60,10 +60,30 @@ export default (lexer: Lexer) => {
     return true
   }
 
+  const tryTo = <T>(parse: ((lexer: Lexer) => T | undefined) | ((lexer: Lexer) => T | undefined)[]) => (...actions: ((node: T) => void)[]): boolean => {
+    if (typeof parse === 'function') {
+      return tryToOne(parse)(...actions);
+    } else {
+      for (const p of parse) {
+        if (tryToOne(p)(...actions)) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
+
+  const tryMany = <T>(parse: ((lexer: Lexer) => T | undefined) | ((lexer: Lexer) => T | undefined)[]): T[] => {
+    const res: T[] = [];
+    while (tryTo(parse)(n => res.push(n))) { }
+    return res;
+  }
+
   return {
     collect,
     skip,
     tryTo,
+    tryMany,
   }
 }
 

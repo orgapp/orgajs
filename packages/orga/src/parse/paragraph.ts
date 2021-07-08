@@ -1,8 +1,9 @@
 import { push } from '../node'
-import { FootnoteReference, Paragraph, PhrasingContent, Token } from '../types'
-import { isStyledText } from '../utils';
+import { Paragraph, Token } from '../types'
 import * as ast from './utils';
 import { Lexer } from '../tokenize';
+import phrasingContent from './phrasingContent';
+import utils from './utils';
 
 const isWhitespaces = (node: Token) => {
   return node.type === 'text.plain' && node.value.trim().length === 0
@@ -13,6 +14,8 @@ export default function paragraph(lexer: Lexer, opts?: Partial<{ breakOn: (t: To
   const breakOn = opts?.breakOn ?? (_t => false);
   const maxEOL = opts?.maxEOL ?? 2;
   let eolCount = 0
+
+  const { tryTo } = utils(lexer);
 
   const createParagraph = (): Paragraph => ast.paragraph([]);
 
@@ -25,53 +28,6 @@ export default function paragraph(lexer: Lexer, opts?: Partial<{ breakOn: (t: To
       return p;
     }
 
-    const phrasingContent = (): PhrasingContent | undefined => {
-      const token = peek();
-      if (token.type === 'footnote.reference') {
-        return {
-          ...token,
-          children: [],
-        };
-      }
-      if (token.type === 'link') {
-        return token;
-      }
-      if (isStyledText(token)) {
-        return token;
-      }
-    };
-
-    function readAFootnote(par: Paragraph | FootnoteReference = p): PhrasingContent | undefined {
-      if (token.type === 'footnote.inline.begin') {
-        eat();
-        const fn = ast.inlineFootnotePartial(token.label, []);
-        let inner: Token;
-        while (inner = peek()) {
-          if (inner.type === 'footnote.inline.begin') {
-            // nested footnote reference
-            readAFootnote(fn);
-          } else if (inner.type === 'footnote.reference.end') {
-            eat();
-            push(par)(fn);
-            eolCount = 0;
-            return fn;
-          } else {
-            const phras = phrasingContent();
-            if (phras) {
-              eat();
-              push(fn)(phras);
-            } else {
-              return undefined;
-            }
-          }
-        }
-      }
-    }
-
-    if (readAFootnote()) {
-      return build(p);
-    }
-
     if (token.type === 'newline') {
       eat()
       eolCount += 1
@@ -80,14 +36,12 @@ export default function paragraph(lexer: Lexer, opts?: Partial<{ breakOn: (t: To
       return build(p)
     }
 
-    const phras = phrasingContent();
-
-    if (phras) {
-      eat();
+    if (tryTo(phrasingContent)(phras => {
       p = p || createParagraph()
       push(p)(phras)
       eolCount = 0
-      return build(p)
+    })) {
+      return build(p);
     }
     return p
   }
