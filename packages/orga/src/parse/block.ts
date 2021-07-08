@@ -1,5 +1,5 @@
 import { Position } from 'unist'
-import { Block, GreaterBlock, Section, SpecialBlock, VerseBlock } from '../types'
+import { Block, GreaterBlock, SpecialBlock, VerseBlock } from '../types'
 import { Lexer } from '../tokenize'
 import parseParagraph from './paragraph';
 import parseSection from './section';
