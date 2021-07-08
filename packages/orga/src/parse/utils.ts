@@ -10,6 +10,7 @@ import {
   Footnote,
   FootnoteReference,
   HTML,
+  Link,
   List,
   ListItem,
   Node,
@@ -152,8 +153,17 @@ export const text = styledText('text.plain');
 /** Build an AST text bold object. */
 export const textBold = styledText('text.bold');
 
+/** Build an AST text code object. */
+export const textCode = styledText('text.code');
+
+/** Build an AST text italic object. */
+export const textItalic = styledText('text.italic');
+
 /** Build an AST text strikethrough object. */
 export const textStrikethrough = styledText('text.strikeThrough');
+
+/** Build an AST text underline object. */
+export const textUnderline = styledText('text.underline');
 
 /** Footnote reference has empty `children`. */
 export type FootnoteRef = FootnoteReference & { children: [] };
@@ -228,6 +238,15 @@ export const drawer = (name: string, value: string, extra: Extra<Drawer, 'name' 
   type: 'drawer',
   name,
   value,
+  ...extra
+});
+
+/** Build an AST {@link Link} object. */
+export const link = (value: string, extra: Extra<Link, 'value'> = {}): Link => ({
+  type: 'link',
+  value,
+  protocol: value.indexOf(':') !== -1 ? value.split(':')[0] : undefined,
+  description: undefined,
   ...extra
 });
 
