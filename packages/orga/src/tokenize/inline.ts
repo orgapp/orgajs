@@ -4,6 +4,7 @@ import { Reader } from '../reader'
 import { FootnoteReference, Link, StyledText, Token, Newline } from './types'
 import uri from '../uri'
 import { escape } from '../utils'
+import * as tk from './util';
 
 const POST = `[\\s-\\.,:!?'\\)}]|$`
 const BORDER = `[^,'"\\s]`
@@ -37,12 +38,8 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
     const m = match(/^\[\[([^\]]*)\](?:\[([^\]]*)\])?\]/m)
     if (!m) return undefined
     const linkInfo = uri(m.captures[1])
-    return {
-      type: 'link',
-      description: m.captures[2],
-      ...linkInfo,
-      position: m.position,
-    }
+    const { value, ...rest } = linkInfo;
+    return tk.tokLink(value, { ...rest, description: m.captures[2], position: m.position });
   }
 
   const tokFootnoteAnonOrInline = (): Token[] => {
@@ -50,27 +47,20 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
 
     let m = match(/^\[fn:(\w*):/);
     if (!m) return [];
-    tokens.push({
-      type: 'footnote.inline.begin',
-      label: m.captures[1],
-      position: m.position,
-    });
+    tokens.push(tk.tokFootnoteInlineBegin(m.captures[1], { position: m.position }));
     jump(m.position.end);
 
     m = match(/^\]/);
     if (m) {
       // empty body
-      tokens.push({ type: 'text.plain', value: '', position: { start: m.position.start, end: m.position.start, indent: m.position.indent } });
+      tokens.push(tk.tokText('', { position: { start: m.position.start, end: m.position.start, indent: m.position.indent } }));
     } else {
       tokens.push(...tokenize({ reader }, { ignoring: [']'] }));
     }
 
     m = match(/^\]/);
     if (!m) return [];
-    tokens.push({
-      type: 'footnote.reference.end',
-      position: m.position
-    });
+    tokens.push(tk.tokFootnoteReferenceEnd({ position: m.position }));
 
     jump(tokens[0].position.start);
 
@@ -80,11 +70,7 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
   const tokFootnote = (): FootnoteReference => {
     const m = match(/^\[fn:(\w+)\]/);
     if (m) {
-      return {
-        type: 'footnote.reference',
-        label: m.captures[1],
-        position: m.position,
-      }
+      return tk.tokFootnoteReference(m.captures[1], { position: m.position });
     }
   }
 
@@ -120,11 +106,7 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
     if (isGreaterOrEqual(cursor, now())) return
     const position = { start: { ...cursor }, end: { ...now() } }
     const value = substring(position)
-    _tokens.push({
-      type: 'text.plain',
-      value,
-      position,
-    })
+    _tokens.push(tk.tokText(value, { position: position }));
   }
 
   const tokNewline = (): Newline => {
@@ -132,10 +114,7 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
     const newline = eat('char');
     jump(save);
     if (newline.value === '\n') {
-      return {
-        type: 'newline',
-        position: newline.position,
-      };
+      return tk.tokNewline({ position: newline.position });
     }
   }
 

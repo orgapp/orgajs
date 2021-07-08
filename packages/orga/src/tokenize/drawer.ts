@@ -1,5 +1,6 @@
 import { Reader } from '../reader'
 import { Token } from '../types'
+import { tokDrawerBegin, tokDrawerEnd } from './util';
 
 interface Props {
   reader: Reader;
@@ -13,17 +14,11 @@ export default ({ reader }: Props): Token[] => {
   if (m) {
     eat(drawerReg);
     const name = m.captures[1]
+    const position = m.position;
     if (name.toLowerCase() === 'end') {
-      return [{
-        type: 'drawer.end',
-        position: m.position,
-      }]
+      return [tokDrawerEnd({ position })];
     } else {
-      return [{
-        type: 'drawer.begin',
-        name,
-        position: m.position,
-      }]
+      return [tokDrawerBegin(name, { position })];
     }
   }
 

@@ -12,6 +12,12 @@ import tokenizeListItem from './list'
 import tokenizePlanning from './planning'
 import tokenizeTable from './table'
 import { Position } from 'unist'
+import {
+  tokComment,
+  tokHorizontalRule,
+  tokKeyword,
+  tokNewline
+} from './util';
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
@@ -80,10 +86,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
     if (EOF()) return []
 
     if (getChar() === '\n') {
-      return [{
-        type: 'newline',
-        position: eat('char').position,
-      }]
+      return [tokNewline({ position: eat('char').position })];
     }
 
     if (isStartOfLine() && match(/^\*+\s+/) && state.context !== 'verse') {
@@ -107,12 +110,8 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
       const keyword = match(/^\s*#\+(\w+):\s*(.*)$/)
       if (keyword) {
         eat('line')
-        return [{
-          type: 'keyword',
-          key: keyword.captures[1],
-          value: keyword.captures[2],
-          position: keyword.position,
-        }]
+        return [tokKeyword(keyword.captures[1], keyword.captures[2],
+          { position: keyword.position })];
       }
 
       const tokBlock = tokenizeBlock({ reader })
@@ -145,11 +144,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
       const comment = match(/^#\s+(.*)$/)
       if (comment) {
         eat('line')
-        return [{
-          type: 'comment',
-          position: comment.position,
-          value: comment.captures[1],
-        }]
+        return [tokComment(comment.captures[1], { position: comment.position })];
       }
     }
 
@@ -160,10 +155,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
 
     const hr = eat(/^\s*-{5,}\s*$/).position
     if (!isEmpty(hr)) {
-      return [{
-        type: 'hr',
-        position: hr,
-      }]
+      return [tokHorizontalRule({ position: hr })];
     }
 
     if (now().column === 1) {

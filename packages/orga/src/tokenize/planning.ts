@@ -3,6 +3,7 @@ import { Reader } from '../reader'
 // import { inspect }  from 'util'
 import { parse as parseTimestamp } from '../timestamp'
 import { Token } from '../types'
+import * as tk from './util';
 
 interface Props {
   reader: Reader;
@@ -11,7 +12,7 @@ interface Props {
 }
 
 
-export default ({ reader, keywords, timezone }: Props) : Token[] => {
+export default ({ reader, keywords, timezone }: Props): Token[] => {
   const { eat, substring, now, getLine } = reader
 
   const p = RegExp(`(${keywords.join('|')}):`, 'g')
@@ -34,25 +35,21 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
     const endLocation = getLocation(end)
     const timestampPosition = { start: position.end, end: endLocation }
     const value = substring(timestampPosition)
-    all.push({
-      type: 'planning.timestamp',
-      value: parseTimestamp(value, { timezone }),
-      position: timestampPosition,
-    })
+    all.push(tk.tokPlanningTimestamp(parseTimestamp(value, { timezone }), {
+      position: timestampPosition
+    }));
   }
 
   let m
   while ((m = p.exec(currentLine)) !== null) {
     parseLastTimestamp(m.index)
 
-    all.push({
-      type: 'planning.keyword',
-      value: m[1],
+    all.push(tk.tokPlanningKeyword(m[1], {
       position: {
         start: getLocation(m.index),
         end: getLocation(p.lastIndex),
-      },
-    })
+      }
+    }));
   }
   parseLastTimestamp(currentLine.length)
   eat('line')

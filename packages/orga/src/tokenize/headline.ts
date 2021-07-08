@@ -3,13 +3,19 @@ import { Reader } from '../reader'
 import { TodoKeywordSet } from '../todo-keyword-set'
 import { Token } from './types'
 import { tokenize } from './inline'
+import {
+  tokPriority,
+  tokStars,
+  tokTags,
+  tokTodo
+} from './util';
 
 interface Props {
   reader: Reader;
   todoKeywordSets: TodoKeywordSet[];
 }
 
-export default ({ reader, todoKeywordSets }: Props) : Token[] => {
+export default ({ reader, todoKeywordSets }: Props): Token[] => {
 
   const {
     match,
@@ -31,29 +37,18 @@ export default ({ reader, todoKeywordSets }: Props) : Token[] => {
 
   const stars = eat(/^\*+(?=\s)/)
   if (isEmpty(stars.position)) throw Error('not gonna happen')
-  buffer.push({
-    type: 'stars',
-    level: stars.value.length,
-    position: stars.position,
-  })
+  buffer.push(tokStars(stars.value.length, { position: stars.position }));
 
   eat('whitespaces')
   const keyword = eat(RegExp(`^${todos.map(escape).join('|')}`))
   if (!isEmpty(keyword.position)) {
-    buffer.push({
-      type: 'todo',
-      keyword: keyword.value,
-      actionable: isActionable(keyword.value),
-      position: keyword.position,
-    })
+    buffer.push(tokTodo(keyword.value, isActionable(keyword.value), { position: keyword.position }));
   }
   eat('whitespaces')
   const priority = eat(/^\[#(.)\]/)
   if (!isEmpty(priority.position)) {
-    buffer.push({
-      type: 'priority',
-      ...priority,
-    })
+    const { value, ...rest } = priority;
+    buffer.push(tokPriority(value.charAt(2), rest));
   }
 
   eat('whitespaces')
@@ -73,11 +68,9 @@ export default ({ reader, todoKeywordSets }: Props) : Token[] => {
     eat('whitespaces')
     const tagsPosition = { start: now(), end: tags.position.end }
     const s = substring(tagsPosition)
-    buffer.push({
-      type: 'tags',
-      tags: s.split(':').map(t => t.trim()).filter(Boolean),
+    buffer.push(tokTags(s.split(':').map(t => t.trim()).filter(Boolean), {
       position: { start: now(), end: tags.position.end },
-    })
+    }));
     jump(tags.position.end)
   }
   return buffer

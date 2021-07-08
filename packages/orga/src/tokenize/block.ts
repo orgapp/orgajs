@@ -1,5 +1,6 @@
 import { Reader } from '../reader'
 import { BlockBegin, BlockEnd } from './types'
+import { tokBlockBegin, tokBlockEnd } from './util';
 
 interface Props {
   reader: Reader;
@@ -12,21 +13,15 @@ export default ({ reader }: Props): [BlockBegin | BlockEnd, () => void] | undefi
   let m = match(beginRegex);
   if (m) {
     const params = m.captures[2].split(' ').map(p => p.trim()).filter(String)
-    return [{
-      type: 'block.begin',
-      name: m.captures[1],
-      params,
-      position: m.position,
-    }, () => eat(beginRegex)];
+    return [tokBlockBegin(m.captures[1], { params, position: m.position }),
+    () => eat(beginRegex)];
   }
 
   const endRegex = /^\s*#\+end_([^\s]+)\s*$/i;
   m = match(endRegex);
   if (m) {
-    return [{
-      type: 'block.end',
+    return [tokBlockEnd(m.captures[1], {
       position: m.position,
-      name: m.captures[1],
-    }, () => eat(endRegex)];
+    }), () => eat(endRegex)];
   }
 }

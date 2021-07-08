@@ -1,30 +1,27 @@
 import { Reader } from '../reader'
 import { Token } from '../types'
 import { tokenize as tokenizeInline } from './inline'
+import { tokTableColumnSeparator, tokTableRule } from './util';
 
-export default ({ reader }: { reader: Reader }) : Token[] => {
+export default ({ reader }: { reader: Reader }): Token[] => {
   const { match, eat, getChar, jump } = reader
 
   if (getChar() !== '|') return []
 
   if (getChar(1) === '-') {
-    return [{ type: 'table.hr', position: eat('line').position }]
+    return [tokTableRule({ position: eat('line').position })];
   }
 
-  let tokens: Token[] = [{
-    type: 'table.columnSeparator',
+  let tokens: Token[] = [tokTableColumnSeparator({
     position: eat('char').position,
-  }]
+  })];
 
   const tokCells = (): void => {
     const m = match(/\|/)
     const end = m && m.position.start
     tokens = tokens.concat(tokenizeInline({ reader, end }))
     if (!m) return
-    tokens.push({
-      type: 'table.columnSeparator',
-      position: m.position,
-    })
+    tokens.push(tokTableColumnSeparator({ position: m.position }));
     jump(m.position.end)
     tokCells()
   }
