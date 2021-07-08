@@ -9,6 +9,7 @@ import {
   tokTags,
   tokTodo
 } from './util';
+import { charAt } from '../char';
 
 interface Props {
   reader: Reader;
@@ -48,7 +49,7 @@ export default ({ reader, todoKeywordSets }: Props): Token[] => {
   const priority = eat(/^\[#(.)\]/)
   if (!isEmpty(priority.position)) {
     const { value, ...rest } = priority;
-    buffer.push(tokPriority(value.charAt(2), rest));
+    buffer.push(tokPriority(charAt(value, 2), rest));
   }
 
   eat('whitespaces')

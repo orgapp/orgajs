@@ -1,4 +1,5 @@
 import { Node, Literal as UnistLiteral } from 'unist';
+import { Char } from '../char';
 
 export interface TokenI extends Node {
   _text?: string | undefined;
@@ -34,6 +35,7 @@ export interface HorizontalRule extends TokenI {
 
 export interface Priority extends TokenLiteral {
   type: 'priority';
+  value: Char;
 }
 
 export interface Tags extends TokenI {

@@ -27,6 +27,7 @@ import {
   Todo,
   Token,
 } from './types';
+import { Char } from '../char';
 
 type Extra<Tok extends Token, Keys extends keyof Tok = 'type'> = Partial<Omit<Tok, Keys | 'type'>>;
 
@@ -134,9 +135,9 @@ export const tokTodo = (keyword: string, actionable: boolean, extra: Extra<Todo,
 });
 
 /** Priority cookie token. */
-export const tokPriority = (value: string, extra: Extra<Priority, 'value'> = {}): Priority => ({
+export const tokPriority = (value: Char, extra: Extra<Priority, 'value'> = {}): Priority => ({
   type: 'priority',
-  value: `[#${value}]`,
+  value,
   ...extra,
 });
 

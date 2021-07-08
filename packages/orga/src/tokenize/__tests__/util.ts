@@ -28,6 +28,7 @@ import {
   Token,
 } from '../types';
 
+import { Char } from '../../char';
 import tok from './tok';
 import { ParseOptions } from '../../options'
 import * as tk from '../util';
@@ -109,7 +110,7 @@ export const tokTodo = (keyword: string, actionable: boolean, extra: Extra<Todo,
   tk.tokTodo(keyword, actionable, { _text: keyword, ...extra });
 
 /** Priority cookie token. */
-export const tokPriority = (value: string, extra: Extra<Priority, 'value'> = {}): Priority =>
+export const tokPriority = (value: Char, extra: Extra<Priority, 'value'> = {}): Priority =>
   tk.tokPriority(value, { _text: `[#${value}]`, ...extra });
 
 export const tokHorizontalRule = (extra: Extra<HorizontalRule> = {}): HorizontalRule =>

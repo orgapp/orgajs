@@ -11,6 +11,7 @@ import {
   tokPriority,
 } from './util';
 
+import { char, Char } from '../../char';
 import { Token } from '../../types';
 
 describe("tokenize headline", () => {
@@ -25,8 +26,8 @@ describe("tokenize headline", () => {
     testHeadline("**   a headline", 2, [tokText("a headline")]),
     testHeadline("***** a headline", 5, [tokText("a headline")]),
     testHeadline("* a 😀line", 1, [tokText("a 😀line")]),
-    testHeadline("* TODO [#A] a headline     :tag1:tag2:", 1, [tokTodo("TODO", true), tokPriority("A"), tokText("a headline"), tokTags(["tag1", "tag2"])]),
-    testHeadline("* TODO [#A] a headline :tag1:123:#hash:@at:org-mode:under_score:98%:", 1, [tokTodo("TODO", true), tokPriority("A"), tokText("a headline"), tokTags(["tag1", "123", "#hash", "@at", "org-mode", "under_score", "98%"])]),
+    testHeadline("* TODO [#A] a headline     :tag1:tag2:", 1, [tokTodo("TODO", true), tokPriority(char("A")), tokText("a headline"), tokTags(["tag1", "tag2"])]),
+    testHeadline("* TODO [#A] a headline :tag1:123:#hash:@at:org-mode:under_score:98%:", 1, [tokTodo("TODO", true), tokPriority(char("A")), tokText("a headline"), tokTags(["tag1", "123", "#hash", "@at", "org-mode", "under_score", "98%"])]),
   ]);
 
   testLexer("DONE todo keyword", ...testHeadline("* DONE heading", 1, [tokTodo("DONE", false), tokText("heading")]));
@@ -55,8 +56,8 @@ describe("tokenize headline", () => {
       testLexer("with space is keyword", ...testHeadline("* TODO ", 1, [tokTodo("TODO", true)]));
     });
     describe("priority cookie", () => {
-      testLexer("without space is cookie", ...testHeadline("* [#A]", 1, [tokPriority("A")]));
-      testLexer("with space is cookie", ...testHeadline("* [#A] ", 1, [tokPriority("A")]));
+      testLexer("without space is cookie", ...testHeadline("* [#A]", 1, [tokPriority(char("A"))]));
+      testLexer("with space is cookie", ...testHeadline("* [#A] ", 1, [tokPriority(char("A"))]));
     });
     describe("tags", () => {
       // ambigious in v2021.07.03 spec, but Org parser does it like this (2021-07-06)
@@ -72,21 +73,21 @@ describe("tokenize headline", () => {
     testHeadline("** DONE", 2, [tokTodo("DONE", false)]),
     testHeadline("*** Some e-mail", 3, [tokText("Some e-mail")]),
     // TODO: 'COMMENT' should be treated specially here according to the spec
-    testHeadline("* TODO [#A] COMMENT Title :tag:a2%:", 1, [tokTodo("TODO", true), tokPriority("A"), tokText("COMMENT Title"), tokTags(["tag", "a2%"])]),
+    testHeadline("* TODO [#A] COMMENT Title :tag:a2%:", 1, [tokTodo("TODO", true), tokPriority(char("A")), tokText("COMMENT Title"), tokTags(["tag", "a2%"])]),
   ]);
 
   describe("priority cookies", () => {
     testLexer('empty priority cookie is text', ...testHeadline("* [#]", 1, [tokText("[#]")]));
-    testLexer('uppercase letter is ok', ...testHeadline("* [#A]", 1, [tokPriority("A")]));
-    testLexer('lowercase letter is ok', ...testHeadline("* [#a]", 1, [tokPriority("a")]));
+    testLexer('uppercase letter is ok', ...testHeadline("* [#A]", 1, [tokPriority(char("A"))]));
+    testLexer('lowercase letter is ok', ...testHeadline("* [#a]", 1, [tokPriority(char("a"))]));
     // v2021.07.03 of the spec says that the priority is "a single
     // letter" - it is ambiguous as to whether this means 'character',
     // or includes digits etc., but the Org parser currently accepts
     // any single (ASCII) character tried (including ']') except
     // newline (2021-07-06)
-    testLexerMulti('nonletters okay', [
+    testLexerMulti('nonletters okay', ([
       '1', '-', '_', '?', '#', ' ', '\t', '', '\\', ']',
-    ].map(c => testHeadline(`* [#${c}]`, 1, [tokPriority(c)])));
+    ] as Char[]).map(c => testHeadline(`* [#${c}]`, 1, [tokPriority(c)])));
 
     testLexer('newline not okay', '* [#\n]', [tokStars(1), tokText('[#'), tokNewline(), tokText(']')]);
 

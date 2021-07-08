@@ -1,4 +1,5 @@
 import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist'
+import { Char } from './char';
 
 export { Node } from 'unist';
 
@@ -142,7 +143,7 @@ export interface Headline extends Parent, Child<Document | Headline> {
   level: number;
   keyword?: string;
   actionable: boolean;
-  priority?: string;
+  priority?: Char;
   content: string;
   tags?: string[];
   // v2021.07.03 - "A headline contains directly one section
