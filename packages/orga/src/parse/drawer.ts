@@ -1,6 +1,7 @@
 import { Position } from 'unist'
 import { Drawer } from '../types'
 import { Lexer } from '../tokenize'
+import * as ast from './utils';
 
 export default (lexer: Lexer): Drawer | undefined => {
 
@@ -10,11 +11,9 @@ export default (lexer: Lexer): Drawer | undefined => {
 
   if (!begin || begin.type !== 'drawer.begin') return undefined
 
-  const drawer: Drawer = {
-    type: 'drawer',
-    name: begin.name,
+  const drawer = ast.drawer(begin.name, '', {
     position: begin.position,
-    value: '' }
+  });
   eat()
 
   const content = peek();

@@ -14,7 +14,7 @@ import parseList from './list'
 import parseParagraph from './paragraph'
 import parsePlanning from './planning'
 import parseTable from './table'
-import utils from './utils'
+import utils, * as ast from './utils'
 import { tokenToText } from './utils';
 import parseSymbols from './_parseSymbols'
 import _primitive from './_primitive'
@@ -34,11 +34,7 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
     const breakOn = opts?.breakOn ?? ((_t: Token) => false);
 
     const newSection = (props: { [key: string]: string } = {}): Section => {
-      const section: Section = {
-        type: 'section',
-        properties: { ...props },
-        children: [],
-      }
+      const section = ast.section([], { properties: { ...props } });
       const plannings = parsePlanning(lexer)
       pushMany(section)(plannings);
 
@@ -67,11 +63,7 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
       const token = peek();
       if (token.type === 'footnote.label') {
         eat()
-        const footnote: Footnote = {
-          type: 'footnote',
-          label: token.label,
-          children: [],
-        }
+        const footnote = ast.footnote(token.label, []);
         // v2021.07.03 footnote definitions cannot contain other footnote definitions
         const contents = parseSection({ breakOn: t => t.type === 'footnote.label' })(lexer)?.children ?? [];
         pushMany(footnote)(contents as Exclude<Section['children'][number], Footnote>[]);
@@ -113,7 +105,7 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
         } else if (key === 'todo') {
           lexer.addInBufferTodoKeywords(value)
         } else if (key === 'html') {
-          push(section)({ type: 'html', value })
+          push(section)(ast.html(value))
         }
 
         eat()

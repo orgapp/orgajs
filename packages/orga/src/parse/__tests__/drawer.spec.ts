@@ -1,4 +1,5 @@
 import {
+  drawer,
   headline,
   paragraph,
   pos,
@@ -10,19 +11,11 @@ import {
 describe('property drawers', () => {
   testParse('closed property drawer',
     "* Heading\n:PROPERTIES:\n:END:",
-    [headline(1, 'Heading', [section([{
-      type: 'drawer',
-      name: 'PROPERTIES',
-      value: ''
-    }])])]);
+    [headline(1, 'Heading', [section([drawer('PROPERTIES', '')])])]);
 
   testParse('closed property drawer with property',
     "* Heading\n:PROPERTIES:\n:PROP: 1\n:END:",
-    [headline(1, 'Heading', [section([{
-      type: 'drawer',
-      name: 'PROPERTIES',
-      value: ':PROP: 1'
-    }])])]);
+    [headline(1, 'Heading', [section([drawer('PROPERTIES', ':PROP: 1')])])]);
 
   for (const [testDesc, textCase] of [
     ['unclosed property drawer', 'PRopErTIES'],

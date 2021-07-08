@@ -2,6 +2,7 @@ import { push } from '../node'
 import { Lexer } from '../tokenize'
 import { Table, TableRow, TableRule, TableCell } from '../types'
 import { isStyledText } from '../utils';
+import * as ast from './utils';
 
 export default (lexer: Lexer): Table | undefined => {
   const { peek, eat } = lexer
@@ -14,7 +15,7 @@ export default (lexer: Lexer): Table | undefined => {
     if (!t || t.type === 'newline' || t.type === 'table.columnSeparator') {
       return cell
     }
-    const c = cell || { type: 'table.cell', children: [] }
+    const c = cell || ast.tableCell([]);
     if (isStyledText(t)) {
       push(c)(t)
       eat()
@@ -35,7 +36,7 @@ export default (lexer: Lexer): Table | undefined => {
     }
     if (t.type === 'table.columnSeparator') {
       eat('table.columnSeparator')
-      const _row = row || { type: 'table.row', children: [] }
+      const _row = row || ast.tableRow([]);
       push(_row)(getCell())
       return getRow(_row)
     }
@@ -48,7 +49,7 @@ export default (lexer: Lexer): Table | undefined => {
       return table
     }
 
-    const _table = table || { type: 'table', children: [], attributes: {} }
+    const _table = table || ast.table([]);
 
     push(_table)(row)
     eat('newline')

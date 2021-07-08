@@ -1,6 +1,7 @@
 import { push } from '../node'
 import { FootnoteReference, Paragraph, PhrasingContent, Token } from '../types'
 import { isStyledText } from '../utils';
+import * as ast from './utils';
 import { Lexer } from '../tokenize';
 
 const isWhitespaces = (node: Token) => {
@@ -13,12 +14,7 @@ export default function paragraph(lexer: Lexer, opts?: Partial<{ breakOn: (t: To
   const maxEOL = opts?.maxEOL ?? 2;
   let eolCount = 0
 
-  const createParagraph = (): Paragraph => ({
-    type: 'paragraph',
-    children: [],
-    attributes: {},
-  })
-
+  const createParagraph = (): Paragraph => ast.paragraph([]);
 
   const build = (p: Paragraph = undefined): Paragraph | undefined => {
     const token = peek()
@@ -48,12 +44,7 @@ export default function paragraph(lexer: Lexer, opts?: Partial<{ breakOn: (t: To
     function readAFootnote(par: Paragraph | FootnoteReference = p): PhrasingContent | undefined {
       if (token.type === 'footnote.inline.begin') {
         eat();
-        const fn: FootnoteReference =
-        {
-          children: [],
-          type: 'footnote.reference',
-          label: token.label,
-        };
+        const fn = ast.inlineFootnotePartial(token.label, []);
         let inner: Token;
         while (inner = peek()) {
           if (inner.type === 'footnote.inline.begin') {
@@ -85,7 +76,7 @@ export default function paragraph(lexer: Lexer, opts?: Partial<{ breakOn: (t: To
       eat()
       eolCount += 1
       p = p || createParagraph()
-      push(p)({ type: 'text.plain', value: ' ', position: token.position })
+      push(p)(ast.text(' ', { position: token.position }));
       return build(p)
     }
 

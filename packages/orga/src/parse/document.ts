@@ -1,18 +1,14 @@
 import { push, setChildren } from '../node'
 import { Lexer } from '../tokenize'
 import { Document } from '../types'
-import utils from './utils'
+import utils, * as ast from './utils'
 import parseHeadline from './headline';
 import parseSection from './section';
 
 export default (lexer: Lexer): Document => {
   const { tryTo } = utils(lexer)
 
-  const doc: Document = {
-    type: 'document',
-    children: [],
-    properties: {},
-  };
+  const doc = ast.document([]);
 
   tryTo(parseSection())(n => setChildren(doc)([n]));
   while (tryTo(parseHeadline())(push(doc))) { };

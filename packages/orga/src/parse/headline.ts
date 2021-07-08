@@ -1,7 +1,7 @@
 import { push, setChildren } from '../node'
 import { Lexer } from '../tokenize'
 import { Headline } from '../types'
-import utils from './utils'
+import utils, * as ast from './utils'
 import parseSection from './section';
 
 export default function parseHeadline(minDepth: number = 0) {
@@ -54,11 +54,6 @@ export default function parseHeadline(minDepth: number = 0) {
       return headline;
     }
 
-    return parse({
-      type: 'headline',
-      actionable: false,
-      content: '',
-      children: [], level: -1
-    })
+    return parse(ast.heading(-1, ''));
   }
 }

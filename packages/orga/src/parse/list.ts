@@ -2,6 +2,7 @@ import { push } from '../node'
 import { Lexer } from '../tokenize'
 import { List, ListItem } from '../types'
 import { ListItemBullet } from '../tokenize/types'
+import * as ast from './utils';
 
 export default (lexer: Lexer): List | undefined => {
   const { peek, eat } = lexer
@@ -11,13 +12,8 @@ export default (lexer: Lexer): List | undefined => {
 
   let eolCount = 0
 
-  const newList = (token: ListItemBullet): List => ({
-    type: 'list',
-    indent: token.indent,
-    ordered: token.ordered,
-    children: [],
-    attributes: {},
-  })
+  const newList = (token: ListItemBullet): List =>
+    ast.list(token.indent, token.ordered, []);
 
   const parseListItem = (listItem: ListItem): ListItem => {
     const token = peek()
@@ -46,20 +42,12 @@ export default (lexer: Lexer): List | undefined => {
     eolCount = 0
 
     if (token.type !== 'list.item.bullet' || list.indent > token.indent) {
-        return list
+      return list
     }
     if (list.indent < token.indent) {
-      push(list)({
-        type: 'list.item',
-        indent: token.indent,
-        children: [parse(newList(token))]
-      });
+      push(list)(ast.listItem(token.indent, [parse(newList(token))]));
     } else {
-      const li = parseListItem({
-        type: 'list.item',
-        indent: token.indent,
-        children: [] })
-      push(list)(li)
+      push(list)(parseListItem(ast.listItem(token.indent, [])));
     }
     return parse(list)
   }

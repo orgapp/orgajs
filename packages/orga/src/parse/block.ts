@@ -4,6 +4,7 @@ import { Lexer } from '../tokenize'
 import parseParagraph from './paragraph';
 import parseSection from './section';
 import { pushMany } from '../node';
+import * as ast from './utils';
 
 export default function parseBlock(lexer: Lexer): Block | GreaterBlock | SpecialBlock | VerseBlock | undefined {
 
@@ -107,46 +108,31 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
   const nameUpper = begin.name.toUpperCase();
 
   if (nameUpper === 'QUOTE' || nameUpper === 'CENTER') {
-    const block: GreaterBlock = {
-      type: 'greater_block',
-      name: nameUpper,
+    const block = ast.greaterBlock(nameUpper, [], {
       params: begin.params,
       position: begin.position,
-      children: [],
-      attributes: {},
-    }
+    });
     return parseGreaterBlockContents(block);
   } else if (nameUpper === 'COMMENT' || nameUpper === 'EXAMPLE' || nameUpper === 'EXPORT' || nameUpper === 'SRC') {
     // block elements
-    const block: Block = {
-      type: 'block',
-      name: nameUpper,
+    const block = ast.block(nameUpper, '', {
       params: begin.params,
       position: begin.position,
-      value: '',
-      attributes: {},
-    }
+    });
     return parseBlockContents(block)
   } else if (nameUpper === 'VERSE') {
     // verse blocks
-    const block: VerseBlock = {
-      type: 'verse_block',
+    const block = ast.verseBlock([], {
       params: begin.params,
       position: begin.position,
-      children: [],
-      attributes: {},
-    }
+    });
     return parseVerseBlockContents(block)
   } else {
     // special blocks
-    const block: SpecialBlock = {
-      type: 'special_block',
-      name: nameUpper,
+    const block = ast.specialBlock(nameUpper, [], {
       params: begin.params,
       position: begin.position,
-      children: [],
-      attributes: {},
-    }
+    });
     return parseSpecialBlockContents(block)
   }
 
