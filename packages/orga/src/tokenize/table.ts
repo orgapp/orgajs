@@ -19,7 +19,7 @@ export default ({ reader }: { reader: Reader }): Token[] => {
   const tokCells = (): void => {
     const m = match(/\|/)
     const end = m && m.position.start
-    tokens = tokens.concat(tokenizeInline({ reader, end }))
+    tokens = tokens.concat(tokenizeInline({ reader, end }, { ignoring: ['|'] }))
     if (!m) return
     tokens.push(tokTableColumnSeparator({ position: m.position }));
     jump(m.position.end)

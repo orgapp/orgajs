@@ -45,6 +45,9 @@ describe('Parse Table', () => {
     table([tableRow([tableCell([text(" "), textBold("markup"), text(" ")])])])
   ]);
 
+  testParseSection('pipe in markup starts new cell', "| *mark|up* |", [
+    table([tableRow([tableCell([text(" *mark")]), tableCell([text("up* ")])])])]);
+
   testParseSection('you can have mixed markup and footnotes in cell', "| [fn:ref] *markup* |", [
     table([tableRow([tableCell([text(' '), footnoteReference('ref'), text(" "), textBold("markup"), text(" ")])])])
   ]);

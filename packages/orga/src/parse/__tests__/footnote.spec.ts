@@ -62,6 +62,12 @@ describe('footnote reference', () => {
     anonFootnote([text('An '), anonFootnote([text('Anonymous footnote')]), text('!')]),
     text(' world.')
   ]);
+
+  testParagraph("with close interrupting markup (org parser 2.4.4)", "Hi [fn:name: *th]* ]", [
+    text("Hi "),
+    inlineFootnote("name", [text(" *th")]),
+    text("* ]"),
+  ]);
 });
 
 describe('footnote definition', () => {

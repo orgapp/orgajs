@@ -78,9 +78,13 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
     const m = match(
       RegExp(`^${escape(marker)}(${BORDER}(?:.*?(?:${BORDER}))??)${escape(marker)}(?=(${POST}.*))`, 'm'))
     if (!m) return undefined
+    const value = m.captures[1];
+    if (ignoring.some(c => value.includes(c))) {
+      return;
+    }
     return {
       type: MARKERS[marker],
-      value: m.captures[1],
+      value,
       position: m.position,
     }
   }

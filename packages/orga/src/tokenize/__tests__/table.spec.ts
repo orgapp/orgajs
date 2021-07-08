@@ -37,4 +37,8 @@ describe("tokenize table", () => {
     [" hello | world | y'all |", [tokText("hello | world | y'all |")]],
     ["|+", [tokTableColumnSeparator(), tokText("+")]],
   ]);
+
+  testLexer('pipe in markup starts new cell', "| *mark|up* |", [
+    tokTableColumnSeparator(), tokText(" *mark"), tokTableColumnSeparator(), tokText("up* "), tokTableColumnSeparator()
+  ]);
 });
