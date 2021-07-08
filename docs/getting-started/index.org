@@ -30,3 +30,5 @@ Given that you have a org-mode file =readme.org=.
 #+begin_src sh
 node compile.js < readme.org > readme.html
 #+end_src
+
+Take a look at the getting started example project.
