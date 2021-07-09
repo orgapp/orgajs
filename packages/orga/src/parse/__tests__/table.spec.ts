@@ -44,6 +44,10 @@ describe('Parse Table', () => {
     paragraph([text('not row')]),
   ]);
 
+  testParseSection('pipe not at start of line does not start a table', "not row |", [
+    paragraph([text('not row |')]),
+  ]);
+
   testParseSection('newline ends cell', "| test\nthere", [
     table([tableRow([tableCell([text(' test')])])]),
     paragraph([text('there')])
