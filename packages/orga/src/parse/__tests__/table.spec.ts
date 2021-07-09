@@ -36,6 +36,14 @@ describe('Parse Table', () => {
       tableRow([tableCell([text(' row2 ')])]),
     ])]);
 
+  testParseSection('"Org tables end at the first line not starting with a vertical bar." - (spec v2021.07.03)', "| row1 |\n| row2 |\nnot row", [
+    table([
+      tableRow([tableCell([text(' row1 ')])]),
+      tableRow([tableCell([text(' row2 ')])]),
+    ]),
+    paragraph([text('not row')]),
+  ]);
+
   testParseSection('newline ends cell', "| test\nthere", [
     table([tableRow([tableCell([text(' test')])])]),
     paragraph([text('there')])
