@@ -144,3 +144,5 @@ export const tokTableColumnSeparator = (extra: Extra<TableColumnSeparator> = {})
 
 export const tokTableRule = (extra: Extra<TableRule> = {}): TableRule =>
   tk.tokTableRule(extra);
+
+export { pos } from '../../parse/__tests__/util';

@@ -1,4 +1,5 @@
 import {
+  pos,
   testLexer,
   testLexerMulti,
   tokTableColumnSeparator,
@@ -40,5 +41,11 @@ describe("tokenize table", () => {
 
   testLexer('pipe in markup starts new cell', "| *mark|up* |", [
     tokTableColumnSeparator(), tokText(" *mark"), tokTableColumnSeparator(), tokText("up* "), tokTableColumnSeparator()
+  ]);
+
+  testLexer('correct positions for table tokens', "| Test |", [
+    tokTableColumnSeparator({ position: pos([1, 1], [1, 2]) }),
+    tokText(" Test ", { position: pos([1, 2], [1, 8]) }),
+    tokTableColumnSeparator({ position: pos([1, 8], [1, 9]) }),
   ]);
 });
