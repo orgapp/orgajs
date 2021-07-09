@@ -13,6 +13,7 @@ import utils, * as ast from './utils';
 import footnoteReference from './footnoteReference';
 import link from './link';
 import textMarkup from './textMarkup';
+import { Position } from 'unist';
 
 export default (lexer: Lexer): Table | undefined => {
   const { peek, eat } = lexer
@@ -22,11 +23,10 @@ export default (lexer: Lexer): Table | undefined => {
   const token = peek()
   if (!token || !token.type.startsWith('table.')) return undefined
 
-  const getCell = (): TableCell => {
-    const t = peek()
-    const c = ast.tableCell([]);
+  const getCell = (start: Position) => (): TableCell => {
+    let t = peek()
     if (!t || t.type === 'newline') return;
-    if (t.type === 'table.columnSeparator') return c;
+    const c = ast.tableCell([], { position: start });
     const contents = tryMany<FootnoteReference | Link | StyledText>([
       // entity, // not yet implemented
       // exportSnippet, // not yet implemented
@@ -42,6 +42,13 @@ export default (lexer: Lexer): Table | undefined => {
       textMarkup,
     ]);
     pushMany(c)(contents);
+
+    // check for end of cell to get end-of-cell position
+    t = peek();
+    if (t.type === 'table.columnSeparator') {
+      c.position.end = t.position.end;
+    };
+
     return c;
   }
 
@@ -55,9 +62,9 @@ export default (lexer: Lexer): Table | undefined => {
       return t
     }
     if (t.type === 'table.columnSeparator') {
-      eat('table.columnSeparator')
+      const start = eat('table.columnSeparator').position;
       const _row = row || ast.tableRow([]);
-      tryTo(getCell)(push(_row));
+      tryTo(getCell(start))(push(_row));
       return getRow(_row)
     }
     return row

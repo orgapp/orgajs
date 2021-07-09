@@ -2,9 +2,12 @@ import debug from './debug'
 import {
   footnoteReference,
   paragraph,
+  pos,
+  section,
   table,
   tableCell,
   tableRow,
+  testParse,
   testParseSection,
   text,
   textBold,
@@ -47,6 +50,52 @@ describe('Parse Table', () => {
   testParseSection('pipe not at start of line does not start a table', "not row |", [
     paragraph([text('not row |')]),
   ]);
+
+  testParse('correct positions & parents', "| Test |\n| Test\nTest", [
+    section([
+      table([
+        tableRow([
+          tableCell([text(' Test ', {
+            parent: { type: 'table.cell' } as any,
+            position: pos([1, 2], [1, 8])
+          })], {
+            parent: { type: 'table.row' } as any,
+            position: pos([1, 1], [1, 9]),
+          })], {
+          parent: { type: 'table' } as any,
+          position: pos([1, 1], [1, 9]),
+        }),
+        tableRow([
+          tableCell([text(' Test', {
+            parent: { type: 'table.cell' } as any,
+            position: pos([2, 2], [2, 7])
+          })], {
+            parent: { type: 'table.row' } as any,
+            position: pos([2, 1], [2, 7]),
+          })], {
+          parent: { type: 'table' } as any,
+          position: pos([2, 1], [2, 7]),
+        }),
+      ], {
+        parent: { type: 'section' } as any,
+        position: pos([1, 1], [2, 7]),
+      }),
+      paragraph([
+        text('Test', {
+          parent: { type: 'paragraph' } as any,
+          position: pos([3, 1], [3, 5]),
+        }),
+      ], {
+        parent: { type: 'section' } as any,
+        position: pos([3, 1], [3, 5]),
+      }),
+    ], {
+      parent: { type: 'document' } as any,
+      position: pos([1, 1], [3, 5]),
+    }),
+  ], {
+    position: pos([1, 1], [3, 5])
+  });
 
   testParseSection('newline ends cell', "| test\nthere", [
     table([tableRow([tableCell([text(' test')])])]),
