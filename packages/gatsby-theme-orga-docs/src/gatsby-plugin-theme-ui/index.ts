@@ -58,6 +58,13 @@ export default {
           color: 'secondary',
         },
       },
+      pre: {
+        bg: 'highlight',
+        p: 2,
+        borderRadius: 4,
+        width: '100%',
+        overflowX: 'scroll',
+      }
     },
   },
 }

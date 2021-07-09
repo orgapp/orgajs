@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { keyframes } from '@emotion/react'
 import { jsx } from 'theme-ui'
-import stars from '../images/stars.png'
-import twinkling from '../images/twinkling.png'
+import stars from './stars.png'
+import twinkling from './twinkling.png'
 
 const moveTwinkling = keyframes`
 from {background-position: 0 0, 0 0;}
@@ -31,7 +31,7 @@ const Space = ({ children, style }) => {
       animation: `${moveTwinkling} 200s linear infinite`,
       color: '#fff',
       height: '180px',
-      borderRadius: '0.8em',
+      borderRadius: [0, '0.8em'],
       alignText: 'center',
       fontSize: '1.2em',
       textShadow: `

@@ -8,6 +8,7 @@
     "@orgajs/playground": "^1.0.0",
     "gatsby": "^3.6.2",
     "gatsby-theme-orga-docs": "^2.4.8",
+    "gh-pages": "^3.2.3",
     "prop-types": "^15.7.2",
     "query-string": "^7.0.1",
     "react": "^17.0.1",
@@ -30,7 +31,8 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "deploy": "gatsby build && gh-pages -d public"
   },
   "repository": {
     "type": "git",

@@ -5,6 +5,7 @@ import { Container, MenuButton, IconButton, jsx } from 'theme-ui'
 import Nav from './nav'
 import Side from './side'
 import { useState } from 'react'
+import SEO from './seo'
 
 const HEADER_HEIGHT = '48px'
 const SIDEBAR_WIDTH = '250px'
@@ -15,7 +16,7 @@ export default ({ children, pageContext }: PageProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <main sx={{
+    <div sx={{
       display: 'grid',
       gridTemplateColumns: ['0 1fr', `${SIDEBAR_WIDTH} 1fr`],
       gridTemplateRows: `${HEADER_HEIGHT} 1fr`,
@@ -29,6 +30,7 @@ export default ({ children, pageContext }: PageProps) => {
       `,
     }}
     >
+      <SEO/>
       <nav sx={{
         gridArea: 'header',
         display: 'flex',
@@ -96,15 +98,16 @@ export default ({ children, pageContext }: PageProps) => {
          top: 0, right: 0,
        }} onClick={() => setSidebarOpen(false)}/>
       }
-      <Container p={4} sx={{
+      <main sx={{
         gridArea: 'content',
         height: '100%',
         overflow: 'auto',
+        p: 4,
       }}>
         {title && <h1 sx={{ fontSize: 6 }}>{title}</h1>}
         {children}
-      </Container>
-    </main>
+      </main>
+    </div>
   )
 }
 

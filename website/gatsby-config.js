@@ -1,6 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: "orgajs",
+    title: 'Orga',
+    titleTemplate: '%s | orga.js.org',
+    description: 'org-mode + JavaScript = 🚀',
+    url: 'orga.js.org',
+    image: '/images/logo.png',
+    twitterUsername: '@xiaoxinghu',
   },
   // flags: {
   //   DEV_SSR: false,

@@ -26,6 +26,8 @@ module.exports = themeOptions => {
           path: path.join(__dirname, `src`, `images`),
         },
       },
+      `gatsby-plugin-react-helmet`,
+      `gatsby-plugin-image`,
       `gatsby-plugin-sharp`,
       `gatsby-transformer-sharp`,
       // {

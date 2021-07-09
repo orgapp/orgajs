@@ -20,12 +20,15 @@
   "dependencies": {
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
-    "gatsby-image": "^3.7.1",
+    "gatsby-plugin-image": "^1.9.0",
     "gatsby-plugin-orga": "^2.4.8",
+    "gatsby-plugin-react-helmet": "^4.9.0",
+    "gatsby-plugin-sharp": "^3.9.0",
     "gatsby-plugin-theme-ui": "^0.10.1",
     "gatsby-source-filesystem": "^3.2.0",
-    "gatsby-transformer-orga": "^2.4.8",
-    "loader-utils": "^2.0.0"
+    "gatsby-transformer-sharp": "^3.9.0",
+    "loader-utils": "^2.0.0",
+    "react-helmet": "^6.1.0"
   },
   "peerDependencies": {
     "gatsby": "^3.0.0",

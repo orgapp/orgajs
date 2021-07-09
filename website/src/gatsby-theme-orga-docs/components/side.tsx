@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import _ from 'lodash'
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { jsx, Flex } from 'theme-ui'
 
 export default ({ style, ...props }) => {
@@ -10,9 +10,7 @@ export default ({ style, ...props }) => {
   query {
     logo: file(relativePath: {eq: "logo.png"}) {
       childImageSharp {
-        fixed(width: 48, height: 48) {
-          ...GatsbyImageSharpFixed
-        }
+        gatsbyImageData(layout: FIXED, width: 48)
       }
     }
     pages: allSitePage(
@@ -81,7 +79,9 @@ export default ({ style, ...props }) => {
           gap: '1em',
           pb: '1em',
         }}>
-          <Img fixed={data.logo.childImageSharp.fixed} sx={{borderRadius: '0.4em'}}/>
+          <GatsbyImage
+            image={data.logo.childImageSharp.gatsbyImageData}
+            style={{borderRadius: '0.4em'}}/>
           <h1>Orgajs</h1>
         </Link>
         {navItems}

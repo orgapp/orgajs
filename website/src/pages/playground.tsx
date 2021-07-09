@@ -8,6 +8,7 @@ import {
   FaLink as LinkIcon,
   FaCheck as CheckIcon,
 } from 'react-icons/fa'
+import SEO from 'gatsby-theme-orga-docs/src/components/seo'
 
 const decode = decodeURIComponent
 const encode = encodeURIComponent
@@ -42,6 +43,7 @@ console.log('this is orga')
       height: '100vh',
       gridTemplateRows: '42px 1fr',
     }}>
+      <SEO title='playground'/>
       <div style={{
         display: 'flex',
         alignItems: 'center',
