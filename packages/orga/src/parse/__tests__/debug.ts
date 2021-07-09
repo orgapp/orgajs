@@ -33,6 +33,7 @@ export default (text: string, useColor = true) => {
     } else {
       return {
         raw: substring(position),
+        position,
         ...rest,
       }
     }
