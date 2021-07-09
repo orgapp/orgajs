@@ -28,8 +28,10 @@ import {
   VerseBlock,
 } from '../types';
 
+type TokenParser<T> = (lexer: Lexer) => T;
+type ParseAction<T> = (node: T) => void;
 
-export default (lexer: Lexer) => {
+export default function lexActions(lexer: Lexer) {
   const { peek, eat, save, restore } = lexer
   const collect = (stop: (n: Token) => boolean) => (container: Parent): Parent => {
     const token = peek()
@@ -49,7 +51,7 @@ export default (lexer: Lexer) => {
     return
   }
 
-  const tryToOne = <T>(parse: (lexer: Lexer) => T | undefined) => (...actions: ((node: T) => void)[]): boolean => {
+  const tryToOne = <T>(parse: TokenParser<T>) => (...actions: ParseAction<T>[]): boolean => {
     const savePoint = save()
     const node = parse(lexer)
     if (!node) {
@@ -59,6 +61,12 @@ export default (lexer: Lexer) => {
     actions.forEach(action => action(node))
     return true
   }
+
+  const returning = <T>(actionParser: (...actions: ParseAction<T>[]) => unknown) => (...actions: ParseAction<T>[]): T | null => {
+    let res: T | null;
+    actionParser(...actions, n => { res = n });
+    return res;
+  };
 
   const tryTo = <T>(parse: ((lexer: Lexer) => T | undefined) | ((lexer: Lexer) => T | undefined)[]) => (...actions: ((node: T) => void)[]): boolean => {
     if (typeof parse === 'function') {
@@ -73,19 +81,110 @@ export default (lexer: Lexer) => {
     }
   }
 
-  const tryMany = <T>(parse: ((lexer: Lexer) => T | undefined) | ((lexer: Lexer) => T | undefined)[]): T[] => {
+  const tryMany = <T>(parse: ((lexer: Lexer) => T | undefined) | ((lexer: Lexer) => T | undefined)[]) => (...actions: ((node: T) => void)[]): T[] => {
     const res: T[] = [];
-    while (tryTo(parse)(n => res.push(n))) { }
+    while (tryTo(parse)(...actions, n => res.push(n))) { }
     return res;
+  }
+
+  const trySome = <T>(parse: ((lexer: Lexer) => T | undefined) | ((lexer: Lexer) => T | undefined)[]) => (...actions: ((node: T) => void)[]): [T, ...T[]] => {
+    let r1: T;
+    const first = tryTo(parse)(...actions, n => { r1 = n });
+    if (first) {
+      return [r1, ...tryMany(parse)(...actions)];
+    }
   }
 
   return {
     collect,
+    returning,
     skip,
     tryTo,
     tryMany,
+    trySome,
   }
 }
+
+
+///////////////////////
+///// COMBINATORS /////
+///////////////////////
+
+
+export const map = <S, T>(f: (x: S) => T, x: TokenParser<S>): TokenParser<T> => {
+  return (lexer: Lexer) => {
+    const { tryTo } = lexActions(lexer);
+    let r: S;
+    if (tryTo(x)(n => { r = n })) {
+      return f(r);
+    }
+  };
+}
+
+export const bind = <S, T>(p: TokenParser<S>, f: (x: S) => TokenParser<T>): TokenParser<T> => {
+  return (lexer: Lexer) => {
+    const { returning, tryTo } = lexActions(lexer);
+    let r1: S;
+    if (tryTo(p)(n => { r1 = n })) {
+      const p2 = f(r1);
+      return returning(tryTo(p2))();
+    }
+  };
+}
+
+export const pure = <T>(x: T): TokenParser<T> => {
+  return (_lexer: Lexer) => {
+    return x;
+  };
+}
+
+/** Try each parse alternative in order until one succeeds. */
+export const oneOf = <T>(alternatives: TokenParser<T>[]): TokenParser<T> => {
+  return (lexer: Lexer) => {
+    const { returning, tryTo } = lexActions(lexer);
+    return returning(tryTo(alternatives))();
+  };
+};
+
+/** Parse zero or more occurences of the given parser. */
+export const manyOf = <T>(parse: TokenParser<T>): TokenParser<T[]> => {
+  return (lexer: Lexer) => {
+    const { tryMany } = lexActions(lexer);
+    return tryMany(parse)();
+  };
+}
+
+/** All of the given `ps` in sequence. */
+export const seq = <T, N extends number>(ps: TokenParser<T>[] & { length: N }): TokenParser<T[] & { length: N }> => {
+  return (lexer: Lexer) => {
+    const { tryTo } = lexActions(lexer);
+    const results: T[] = [];
+    for (const p of ps) {
+      if (!tryTo(p)(results.push)) {
+        return;
+      }
+    }
+    return results as T[] & { length: N };
+  };
+}
+
+/** Parse in sequence, where latter parsers can depend on the results of earlier parsers. */
+export const seq2d = <T1, T2>(p1: TokenParser<T1>, p2: (x: T1) => TokenParser<T2>): TokenParser<[T1, T2]> => {
+  return bind(p1, r1 => {
+    return map(r2 => [r1, r2], p2(r1));
+  });
+}
+
+/** Like {@link seq2d}, but only provides the second result. */
+export const andThen2d = <T1, T2>(p1: TokenParser<T1>, p2: (x: T1) => TokenParser<T2>): TokenParser<T2> => {
+  return map(x => x[1], seq2d(p1, p2));
+}
+
+
+/////////////////
+///// OTHER /////
+/////////////////
+
 
 export function tokenToText(lexer: Lexer, t: Token): StyledText & { type: 'text.plain' } {
   const { substring } = lexer;
