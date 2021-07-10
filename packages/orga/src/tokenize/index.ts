@@ -22,10 +22,17 @@ import {
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
 export interface Lexer {
-  eat: (type?: string) => Token | undefined;
-  eatAll: (type: string) => number;
+  /**
+   * Consume and return the next token if any.
+   *
+   * If `type` is provided, then only consume and return the token if
+   * it matches the type.
+   */
+  eat<K extends Token['type']>(): Token | undefined;
+  eat<K extends Token['type']>(type: K): Token & { type: K } | undefined;
+  eatAll: (type: Token['type']) => number;
   peek: (offset?: number) => Token | undefined;
-  match: (cond: RegExp | string, offset?: number) => boolean;
+  match: (cond: RegExp | Token['type'], offset?: number) => boolean;
   all: () => Token[];
   save: () => number;
   restore: (point: number) => void;
@@ -183,7 +190,9 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
     }
   }
 
-  const _eat = (type: string | undefined = undefined): Token | undefined => {
+  function _eat<K extends Token['type']>(): Token | undefined;
+  function _eat<K extends Token['type']>(type: K): Token & { type: K } | undefined;
+  function _eat<K extends Token['type']>(type?: K) {
     const t = peek()
     if (!t) return undefined
     if (!type || type === t.type) {
@@ -196,7 +205,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
   return {
     peek,
     eat: _eat,
-    eatAll: (type: string): number => {
+    eatAll: (type: Token['type']): number => {
       let count = 0
       while (_eat(type)) { count += 1 }
       return count

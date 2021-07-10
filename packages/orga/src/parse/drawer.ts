@@ -13,21 +13,9 @@ export default (lexer: Lexer): Drawer | undefined => {
   const { peek, eat, substring } = lexer
   const { returning, tryTo } = utils(lexer);
 
-  const drawerBegin = (): DrawerBegin | undefined => {
-    const begin = peek();
-    if (begin && begin.type === 'drawer.begin') {
-      eat();
-      return begin;
-    }
-  };
+  const drawerBegin = () => eat('drawer.begin');
 
-  const drawerEnd = (): DrawerEnd | undefined => {
-    const end = peek();
-    if (end && end.type === 'drawer.end') {
-      eat();
-      return end;
-    }
-  };
+  const drawerEnd = () => eat('drawer.end');
 
   const drawer = seq2d<DrawerBegin, DrawerEnd>(drawerBegin, (_begin) =>
     last(manyTill(() => {

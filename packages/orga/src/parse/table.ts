@@ -67,13 +67,7 @@ export default (lexer: Lexer): Table | undefined => {
     const t = peek();
     if (!t || t.type !== 'table.columnSeparator') return;
     const row = ast.tableRow([], { position: t.position });
-    const aColSep = () => {
-      const t = peek();
-      if (t && t.type === 'table.columnSeparator') {
-        eat();
-        return t;
-      }
-    };
+    const aColSep = () => eat('table.columnSeparator');
     const aCol = oneOf<TableCell | 'eor'>([andThen2d(aColSep, colSep => () =>
       getCell(colSep.position)
     ), map(_ => 'eor', aColSep)]);

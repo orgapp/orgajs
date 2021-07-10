@@ -2,11 +2,6 @@ import { Link } from '../types'
 import { Lexer } from '../tokenize';
 
 export default (lexer: Lexer): Link | undefined => {
-  const { eat, peek } = lexer;
-
-  const token = peek();
-  if (token && token.type === 'link') {
-    eat();
-    return token;
-  }
+  const { eat } = lexer;
+  return eat('link');
 };

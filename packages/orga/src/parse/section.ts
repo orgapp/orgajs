@@ -66,9 +66,8 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
     }
 
     const parseFootnote = (): Footnote | undefined => {
-      const token = peek();
-      if (token && token.type === 'footnote.label') {
-        eat()
+      const token = eat('footnote.label');
+      if (token) {
         const footnote = ast.footnote(token.label, [], { position: token.position });
         // v2021.07.03 footnote definitions cannot contain other footnote definitions
         const contents = parseSection({ breakOn: t => t.type === 'footnote.label' })(lexer)?.children ?? [];

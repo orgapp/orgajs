@@ -20,9 +20,8 @@ export default function footnoteReference(lexer: Lexer): FootnoteReference | und
   }
 
   const readAFootnote = (par?: FootnoteReference): FootnoteReference | undefined => {
-    const token = peek();
-    if (token && token.type === 'footnote.inline.begin') {
-      eat();
+    const token = eat('footnote.inline.begin');
+    if (token) {
       const fn = ast.inlineFootnotePartial(token.label, [], { position: token.position });
       let inner: Token | undefined;
       while (inner = peek()) {
