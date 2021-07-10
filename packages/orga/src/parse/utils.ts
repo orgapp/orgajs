@@ -28,8 +28,8 @@ import {
   VerseBlock,
 } from '../types';
 
-type TokenParser<T> = (lexer: Lexer) => T | undefined;
-type ParseAction<T> = (node: T) => void;
+export type TokenParser<T> = (lexer: Lexer) => T | undefined;
+export type ParseAction<T> = (node: T) => void;
 
 export default function lexActions(lexer: Lexer) {
   const { peek, eat, save, restore } = lexer
@@ -153,6 +153,26 @@ export const manyOf = <T>(parse: TokenParser<T>): TokenParser<T[]> => {
   };
 }
 
+/** Parse zero or more occurences of `p` ended by `end`. */
+export const manyTill = <T, End>(p: TokenParser<T>, end: TokenParser<End>): TokenParser<[...T[], End]> => {
+  return (lexer: Lexer) => {
+    const { returning, tryTo } = lexActions(lexer);
+    const res: T[] = [];
+    while (true) {
+      const last = returning(tryTo(end))();
+      if (last) {
+        return [...res, last];
+      }
+      const next = returning(tryTo(p))();
+      if (next) {
+        res.push(next);
+      } else {
+        return;
+      }
+    }
+  };
+}
+
 /** All of the given `ps` in sequence. */
 export const seq = <T, N extends number>(ps: TokenParser<T>[] & { length: N }): TokenParser<T[] & { length: N }> => {
   return (lexer: Lexer) => {
@@ -179,6 +199,9 @@ export const andThen2d = <T1, T2>(p1: TokenParser<T1>, p2: (x: T1) => TokenParse
   return map((x: [T1, T2]) => x[1], seq2d(p1, p2));
 }
 
+export const last = <T>(p: TokenParser<[...unknown[], T]>): TokenParser<T> => {
+  return map(x => x[x.length - 1] as T, p);
+}
 
 /////////////////
 ///// OTHER /////
