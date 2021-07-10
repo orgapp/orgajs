@@ -177,7 +177,7 @@ export const seq2d = <T1, T2>(p1: TokenParser<T1>, p2: (x: T1) => TokenParser<T2
 
 /** Like {@link seq2d}, but only provides the second result. */
 export const andThen2d = <T1, T2>(p1: TokenParser<T1>, p2: (x: T1) => TokenParser<T2>): TokenParser<T2> => {
-  return map(x => x[1], seq2d(p1, p2));
+  return map((x: [T1, T2]) => x[1], seq2d(p1, p2));
 }
 
 
