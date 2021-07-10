@@ -9,6 +9,7 @@
     "gatsby": "^3.6.2",
     "gatsby-theme-orga-docs": "^2.4.8",
     "gh-pages": "^3.2.3",
+    "prism-react-renderer": "^1.2.1",
     "prop-types": "^15.7.2",
     "query-string": "^7.0.1",
     "react": "^17.0.1",

@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { jsx } from 'theme-ui'
 import { get } from 'lodash'
 import SEO from 'gatsby-theme-orga-docs/src/components/seo'

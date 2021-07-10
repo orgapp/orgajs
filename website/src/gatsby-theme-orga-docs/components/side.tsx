@@ -1,8 +1,7 @@
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import _ from 'lodash'
 import { GatsbyImage } from "gatsby-plugin-image"
-import { jsx, Flex } from 'theme-ui'
 
 export default ({ style, ...props }) => {
 
@@ -81,6 +80,7 @@ export default ({ style, ...props }) => {
         }}>
           <GatsbyImage
             image={data.logo.childImageSharp.gatsbyImageData}
+            alt='logo'
             style={{borderRadius: '0.4em'}}/>
           <h1>Orgajs</h1>
         </Link>

@@ -1,6 +1,5 @@
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { keyframes } from '@emotion/react'
-import { jsx } from 'theme-ui'
 import stars from './stars.png'
 import twinkling from './twinkling.png'
 

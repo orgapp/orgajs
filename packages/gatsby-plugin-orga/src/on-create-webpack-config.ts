@@ -1,7 +1,7 @@
 import toEstree from '@orgajs/rehype-estree'
 import * as path from 'path'
-const toJsx = require('@orgajs/estree-jsx')
-const toRehype = require('@orgajs/reorg-rehype')
+import toJsx from '@orgajs/estree-jsx'
+import toRehype from '@orgajs/reorg-rehype'
 
 const renderer = `import React from 'react'
 import {orga} from '@orgajs/react'
