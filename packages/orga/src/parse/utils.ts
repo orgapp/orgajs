@@ -28,7 +28,7 @@ import {
   VerseBlock,
 } from '../types';
 
-type TokenParser<T> = (lexer: Lexer) => T;
+type TokenParser<T> = (lexer: Lexer) => T | undefined;
 type ParseAction<T> = (node: T) => void;
 
 export default function lexActions(lexer: Lexer) {
@@ -62,8 +62,8 @@ export default function lexActions(lexer: Lexer) {
     return true
   }
 
-  const returning = <T>(actionParser: (...actions: ParseAction<T>[]) => unknown) => (...actions: ParseAction<T>[]): T | null => {
-    let res: T | null;
+  const returning = <T>(actionParser: (...actions: ParseAction<T>[]) => unknown) => (...actions: ParseAction<T>[]): T | undefined => {
+    let res: T | undefined;
     actionParser(...actions, n => { res = n });
     return res;
   };
@@ -87,10 +87,9 @@ export default function lexActions(lexer: Lexer) {
     return res;
   }
 
-  const trySome = <T>(parse: ((lexer: Lexer) => T | undefined) | ((lexer: Lexer) => T | undefined)[]) => (...actions: ((node: T) => void)[]): [T, ...T[]] => {
-    let r1: T;
-    const first = tryTo(parse)(...actions, n => { r1 = n });
-    if (first) {
+  const trySome = <T>(parse: ((lexer: Lexer) => T | undefined) | ((lexer: Lexer) => T | undefined)[]) => (...actions: ((node: T) => void)[]): [T, ...T[]] | undefined => {
+    const r1 = returning(tryTo(parse))(...actions);
+    if (r1) {
       return [r1, ...tryMany(parse)(...actions)];
     }
   }
@@ -113,9 +112,9 @@ export default function lexActions(lexer: Lexer) {
 
 export const map = <S, T>(f: (x: S) => T, x: TokenParser<S>): TokenParser<T> => {
   return (lexer: Lexer) => {
-    const { tryTo } = lexActions(lexer);
-    let r: S;
-    if (tryTo(x)(n => { r = n })) {
+    const { returning, tryTo } = lexActions(lexer);
+    const r = returning(tryTo(x))();
+    if (r) {
       return f(r);
     }
   };
@@ -124,8 +123,8 @@ export const map = <S, T>(f: (x: S) => T, x: TokenParser<S>): TokenParser<T> => 
 export const bind = <S, T>(p: TokenParser<S>, f: (x: S) => TokenParser<T>): TokenParser<T> => {
   return (lexer: Lexer) => {
     const { returning, tryTo } = lexActions(lexer);
-    let r1: S;
-    if (tryTo(p)(n => { r1 = n })) {
+    const r1 = returning(tryTo(p))();
+    if (r1) {
       const p2 = f(r1);
       return returning(tryTo(p2))();
     }
@@ -201,11 +200,11 @@ export function tokenToText(lexer: Lexer, t: Token): StyledText & { type: 'text.
  */
 
 
-type Extra<ASTElem extends Node, Keys extends keyof ASTElem = 'type'> = Partial<Omit<ASTElem, Keys | 'type'>>;
+type Extra<ASTElem extends Node, Keys extends keyof ASTElem = 'type'> = Partial<Omit<ASTElem, Keys | 'type'>> & { position: Position };
 type ExtraP<ASTElem extends Parent, Keys extends keyof ASTElem = 'type' | 'children'> = Extra<ASTElem, Keys | 'children'>;
 
 /** Build an AST {@link Document} object. */
-export const document = (children: Document['children'], extra: ExtraP<Document> = {}): Document => ({
+export const document = (children: Document['children'], extra: ExtraP<Document>): Document => ({
   type: 'document',
   children: children,
   properties: {},
@@ -213,7 +212,7 @@ export const document = (children: Document['children'], extra: ExtraP<Document>
 });
 
 /** Build an AST {@link Paragraph} object. */
-export const paragraph = (children: Paragraph['children'], extra: ExtraP<Paragraph> = {}): Paragraph => ({
+export const paragraph = (children: Paragraph['children'], extra: ExtraP<Paragraph>): Paragraph => ({
   type: 'paragraph',
   children: children,
   attributes: {},
@@ -221,7 +220,7 @@ export const paragraph = (children: Paragraph['children'], extra: ExtraP<Paragra
 });
 
 /** Build an AST {@link Block} object. */
-export const block = (name: Block['name'], value: string, extra: Extra<Block, 'name' | 'value'> = {}): Block => ({
+export const block = (name: Block['name'], value: string, extra: Extra<Block, 'name' | 'value'>): Block => ({
   type: 'block',
   name: name,
   value: value,
@@ -231,7 +230,7 @@ export const block = (name: Block['name'], value: string, extra: Extra<Block, 'n
 });
 
 /** Build an AST {@link VerseBlock} object. */
-export const verseBlock = (children: VerseBlock['children'], extra: ExtraP<VerseBlock> = {}): VerseBlock => ({
+export const verseBlock = (children: VerseBlock['children'], extra: ExtraP<VerseBlock>): VerseBlock => ({
   type: 'verse_block',
   params: [],
   attributes: {},
@@ -240,7 +239,7 @@ export const verseBlock = (children: VerseBlock['children'], extra: ExtraP<Verse
 });
 
 /** Build an AST {@link GreaterBlock} object. */
-export const greaterBlock = (name: GreaterBlock['name'], children: GreaterBlock['children'], extra: ExtraP<GreaterBlock, 'name'> = {}): GreaterBlock => ({
+export const greaterBlock = (name: GreaterBlock['name'], children: GreaterBlock['children'], extra: ExtraP<GreaterBlock, 'name'>): GreaterBlock => ({
   type: 'greater_block',
   name,
   params: [],
@@ -250,7 +249,7 @@ export const greaterBlock = (name: GreaterBlock['name'], children: GreaterBlock[
 });
 
 /** Build an AST {@link SpecialBlock} object. */
-export const specialBlock = (name: SpecialBlock['name'], children: SpecialBlock['children'], extra: ExtraP<SpecialBlock, 'name'> = {}): SpecialBlock => ({
+export const specialBlock = (name: SpecialBlock['name'], children: SpecialBlock['children'], extra: ExtraP<SpecialBlock, 'name'>): SpecialBlock => ({
   type: 'special_block',
   name,
   params: [],
@@ -260,7 +259,7 @@ export const specialBlock = (name: SpecialBlock['name'], children: SpecialBlock[
 });
 
 /** Build an AST {@link StyledText} object. */
-export const styledText = <TextTy extends StyledText['type']>(type: TextTy) => (text: string, extra: Extra<StyledText, 'value'> = {}): StyledText & { type: TextTy } => ({
+export const styledText = <TextTy extends StyledText['type']>(type: TextTy) => (text: string, extra: Extra<StyledText, 'value'>): StyledText & { type: TextTy } => ({
   type: type,
   value: text,
   ...extra
@@ -292,7 +291,7 @@ export type FootnoteInline = FootnoteReference & { children: [FootnoteReference[
 export type FootnoteAnon = FootnoteReference & { children: [FootnoteReference['children'][0], ...FootnoteReference['children']], label: '' };
 
 /** Build an AST object for a footnote reference. */
-export const footnoteReference = (label: string, extra: ExtraP<FootnoteRef, 'label'> = {}): FootnoteRef => ({
+export const footnoteReference = (label: string, extra: ExtraP<FootnoteRef, 'label'>): FootnoteRef => ({
   type: 'footnote.reference',
   label: label,
   children: [] as [],
@@ -300,7 +299,7 @@ export const footnoteReference = (label: string, extra: ExtraP<FootnoteRef, 'lab
 });
 
 /** Build an AST object for an inline footnote reference which defines a footnote. */
-export const inlineFootnote = (label: string, children: FootnoteInline['children'], extra: ExtraP<FootnoteInline, 'label'> = {}): FootnoteInline => ({
+export const inlineFootnote = (label: string, children: FootnoteInline['children'], extra: ExtraP<FootnoteInline, 'label'>): FootnoteInline => ({
   type: 'footnote.reference',
   label: label,
   children: children,
@@ -308,7 +307,7 @@ export const inlineFootnote = (label: string, children: FootnoteInline['children
 });
 
 /** Build an AST object for an anonymous inline footnote reference. */
-export const anonFootnote = (children: FootnoteAnon['children'], extra: ExtraP<FootnoteAnon, 'label'> = {}): FootnoteAnon => ({
+export const anonFootnote = (children: FootnoteAnon['children'], extra: ExtraP<FootnoteAnon, 'label'>): FootnoteAnon => ({
   type: 'footnote.reference',
   label: '',
   children: children,
@@ -316,7 +315,7 @@ export const anonFootnote = (children: FootnoteAnon['children'], extra: ExtraP<F
 });
 
 /** Build an AST object for an anonymous inline footnote reference. */
-export const inlineFootnotePartial = (label: string, children: FootnoteReference['children'], extra: ExtraP<FootnoteReference, 'label'> = {}): FootnoteReference => ({
+export const inlineFootnotePartial = (label: string, children: FootnoteReference['children'], extra: ExtraP<FootnoteReference, 'label'>): FootnoteReference => ({
   type: 'footnote.reference',
   label,
   children,
@@ -324,7 +323,7 @@ export const inlineFootnotePartial = (label: string, children: FootnoteReference
 });
 
 /** Build an AST {@link Footnote} object. */
-export const footnote = (label: string, children: Footnote['children'], extra: ExtraP<Footnote, 'label'> = {}): Footnote => ({
+export const footnote = (label: string, children: Footnote['children'], extra: ExtraP<Footnote, 'label'>): Footnote => ({
   type: 'footnote',
   label: label,
   children,
@@ -332,7 +331,7 @@ export const footnote = (label: string, children: Footnote['children'], extra: E
 });
 
 /** Build an AST object for a {@link Headline}. */
-export const headline = (level: number, content: string, children: Headline['children'], extra: ExtraP<Headline, 'level' | 'content'> = {}): Headline => ({
+export const headline = (level: number, content: string, children: Headline['children'], extra: ExtraP<Headline, 'level' | 'content'>): Headline => ({
   type: 'headline',
   level: level,
   actionable: false,
@@ -342,10 +341,10 @@ export const headline = (level: number, content: string, children: Headline['chi
 });
 
 /** Build an AST object for a {@link Headline} with no body. */
-export const heading = (level: number, content: string, extra: ExtraP<Headline, 'level' | 'content'> = {}): Headline => headline(level, content, [], extra);
+export const heading = (level: number, content: string, extra: ExtraP<Headline, 'level' | 'content'>): Headline => headline(level, content, [], extra);
 
 /** Build an AST object for a {@link Section}. */
-export const section = (children: Section['children'], extra: ExtraP<Section> = {}): Section => ({
+export const section = (children: Section['children'], extra: ExtraP<Section>): Section => ({
   type: 'section',
   properties: {},
   children,
@@ -353,7 +352,7 @@ export const section = (children: Section['children'], extra: ExtraP<Section> = 
 });
 
 /** Build an AST {@link Drawer} object. */
-export const drawer = (name: string, value: string, extra: Extra<Drawer, 'name' | 'value'> = {}): Drawer => ({
+export const drawer = (name: string, value: string, extra: Extra<Drawer, 'name' | 'value'>): Drawer => ({
   type: 'drawer',
   name,
   value,
@@ -361,7 +360,7 @@ export const drawer = (name: string, value: string, extra: Extra<Drawer, 'name' 
 });
 
 /** Build an AST {@link Link} object. */
-export const link = (value: string, extra: Extra<Link, 'value'> = {}): Link => ({
+export const link = (value: string, extra: Extra<Link, 'value'>): Link => ({
   type: 'link',
   value,
   protocol: value.indexOf(':') !== -1 ? value.split(':')[0] : undefined,
@@ -370,7 +369,7 @@ export const link = (value: string, extra: Extra<Link, 'value'> = {}): Link => (
 });
 
 /** Build an AST {@link List} object. */
-export const list = (indent: number, ordered: boolean, children: List['children'], extra: ExtraP<List, 'indent' | 'ordered'> = {}): List => ({
+export const list = (indent: number, ordered: boolean, children: List['children'], extra: ExtraP<List, 'indent' | 'ordered'>): List => ({
   type: 'list',
   indent,
   ordered,
@@ -380,7 +379,7 @@ export const list = (indent: number, ordered: boolean, children: List['children'
 });
 
 /** Build an AST {@link ListItem} object. */
-export const listItem = (indent: number, children: ListItem['children'], extra: ExtraP<ListItem, 'indent'> = {}): ListItem => ({
+export const listItem = (indent: number, children: ListItem['children'], extra: ExtraP<ListItem, 'indent'>): ListItem => ({
   type: 'list.item',
   indent,
   children,
@@ -388,7 +387,7 @@ export const listItem = (indent: number, children: ListItem['children'], extra: 
 });
 
 /** Build an AST {@link Planning} object. */
-export const planning = (keyword: string, timestamp: Timestamp, extra: Extra<Planning, 'keyword' | 'timestamp'> = {}): Planning => ({
+export const planning = (keyword: string, timestamp: Timestamp, extra: Extra<Planning, 'keyword' | 'timestamp'>): Planning => ({
   type: 'planning',
   keyword,
   timestamp,
@@ -396,14 +395,14 @@ export const planning = (keyword: string, timestamp: Timestamp, extra: Extra<Pla
 });
 
 /** Build an AST {@link HTML} object. */
-export const html = (value: string, extra: Extra<HTML, 'value'> = {}): HTML => ({
+export const html = (value: string, extra: Extra<HTML, 'value'>): HTML => ({
   type: 'html',
   value,
   ...extra
 });
 
 /** Build an AST {@link Table} object. */
-export const table = (children: Table['children'], extra: ExtraP<Table> = {}): Table => ({
+export const table = (children: Table['children'], extra: ExtraP<Table>): Table => ({
   type: 'table',
   children,
   attributes: {},
@@ -411,14 +410,14 @@ export const table = (children: Table['children'], extra: ExtraP<Table> = {}): T
 });
 
 /** Build an AST {@link TableRow} object. */
-export const tableRow = (children: TableRow['children'], extra: ExtraP<TableRow> = {}): TableRow => ({
+export const tableRow = (children: TableRow['children'], extra: ExtraP<TableRow>): TableRow => ({
   type: 'table.row',
   children,
   ...extra
 });
 
 /** Build an AST {@link TableCell} object. */
-export const tableCell = (children: TableCell['children'], extra: ExtraP<TableCell> = {}): TableCell => ({
+export const tableCell = (children: TableCell['children'], extra: ExtraP<TableCell>): TableCell => ({
   type: 'table.cell',
   children,
   ...extra

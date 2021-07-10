@@ -7,10 +7,8 @@ export default (lexer: Lexer): StyledText | undefined => {
 
   const token = peek()
 
-  if (isStyledText(token)) {
+  if (token && isStyledText(token)) {
     eat()
     return token;
-  } else {
-    return undefined;
   }
 }

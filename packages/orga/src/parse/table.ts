@@ -28,7 +28,7 @@ export default (lexer: Lexer): Table | undefined => {
   const token = peek()
   if (!token || !token.type.startsWith('table.')) return undefined
 
-  const getCell = (start: Position): TableCell => {
+  const getCell = (start: Position): TableCell | undefined => {
     let t = peek()
     if (!t || t.type === 'newline') return;
     const c = ast.tableCell([], { position: start });
@@ -49,21 +49,24 @@ export default (lexer: Lexer): Table | undefined => {
 
     // check for end of cell to get end-of-cell position
     t = peek();
-    if (t.type === 'table.columnSeparator') {
+    if (t && t.type === 'table.columnSeparator') {
       c.position.end = t.position.end;
     };
 
     return c;
   }
 
-  const tableRule = (): TableRule => {
+  const tableRule = (): TableRule | undefined => {
     const t = peek();
     if (t && t.type === 'table.hr') {
       return t;
     }
   };
 
-  const tRow = (): TableRow => {
+  const tRow = (): TableRow | undefined => {
+    const t = peek();
+    if (!t || t.type !== 'table.columnSeparator') return;
+    const row = ast.tableRow([], { position: t.position });
     const aColSep = () => {
       const t = peek();
       if (t && t.type === 'table.columnSeparator') {
@@ -75,19 +78,17 @@ export default (lexer: Lexer): Table | undefined => {
       getCell(colSep.position)
     ), map(_ => 'eor', aColSep)]);
 
-    const row = ast.tableRow([]);
-    if (trySome(aCol)(c => {
-      if (!(c === 'eor')) {
+    trySome(aCol)(c => {
+      if (c !== 'eor') {
         push(row)(c);
       }
-    })) {
-      return row;
-    }
+    });
+    return row;
   };
 
   const tableRow = oneOf<TableRow | TableRule>([tableRule, tRow]);
 
-  const table = ast.table([]);
+  const table = ast.table([], { position: token.position });
   if (trySome(tableRow)(push(table), _ => eat('newline'))) {
     return table;
   }

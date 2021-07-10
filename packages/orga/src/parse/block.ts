@@ -102,8 +102,8 @@ export default function parseBlock(lexer: Lexer): Block | GreaterBlock | Special
       return block;
     }
   }
-  const parseGreaterBlockContents: (block: GreaterBlock) => GreaterBlock = parseGreaterOrSpecialBlockContents;
-  const parseSpecialBlockContents: (block: SpecialBlock) => SpecialBlock = parseGreaterOrSpecialBlockContents;
+  const parseGreaterBlockContents: (block: GreaterBlock) => GreaterBlock | undefined = parseGreaterOrSpecialBlockContents;
+  const parseSpecialBlockContents: (block: SpecialBlock) => SpecialBlock | undefined = parseGreaterOrSpecialBlockContents;
 
   const nameUpper = begin.name.toUpperCase();
 

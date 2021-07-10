@@ -1,7 +1,5 @@
-import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist'
+import { Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent, Position } from 'unist'
 import { Char } from './char';
-
-export { Node } from 'unist';
 
 import {
   Timestamp
@@ -13,8 +11,12 @@ export {
 
 export type { Timestamp };
 
+export interface Node extends UnistNode {
+  position: Position;
+}
+
 // ---- Basic Types ----
-export interface Parent extends UnistParent {
+export interface Parent extends Node, Omit<UnistParent, 'position'> {
   children: Child[];
 }
 
@@ -156,7 +158,7 @@ export interface Paragraph extends Parent, Child, Attributed {
   children: PhrasingContent[];
 }
 
-export interface Literal extends UnistLiteral {
+export interface Literal extends Omit<UnistLiteral, 'position'>, Node {
   value: string;
 }
 
@@ -188,10 +190,10 @@ export interface StyledText extends Literal, Child<Paragraph> {
 
 export interface Link extends Literal, Child<Paragraph> {
   type: 'link';
-  protocol: string;
-  description: string;
-  search?: string | number;
-  parent?: Paragraph;
+  protocol: string | undefined;
+  description: string | undefined;
+  search?: string | number | undefined;
+  parent?: Paragraph | undefined;
 }
 
 /**

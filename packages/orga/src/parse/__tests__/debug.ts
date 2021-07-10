@@ -23,8 +23,8 @@ export default (text: string, useColor = true) => {
   const lexer = tokenize(text)
   const tree = parse(lexer)
   const data = map(node => {
-    const { parent, position, ...rest } = node as Child;
-    if (!position) {
+    const { parent, ...rest } = node as Child;
+    if (!('position' in node)) {
       console.log(red('no position'), inspect({ rest }, false, null, useColor))
       return {
         raw: '(unknown)',
@@ -32,8 +32,7 @@ export default (text: string, useColor = true) => {
       };
     } else {
       return {
-        raw: substring(position),
-        position,
+        raw: substring(node.position),
         ...rest,
       }
     }

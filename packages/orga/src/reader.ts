@@ -19,7 +19,7 @@ export const read = (text: string) => {
 
   const isStartOfLine = () => cursor.column === 1
 
-  const getChar = (p: number | Point = 0) => {
+  const getChar = (p: number | Point = 0): string | undefined => {
     return typeof p === 'number' ? charAt(shift(cursor, p)) : charAt(p);
   }
 
@@ -33,7 +33,7 @@ export const read = (text: string) => {
     if (param === 'char') {
       cursor = shift(start, 1)
     } else if (param === 'line') {
-      const lp = linePosition(cursor.line)
+      const lp = linePosition(cursor.line)!
       cursor = lp.end
     } else if (param === 'whitespaces') {
       return eat(/^[ \t]+/)
@@ -57,7 +57,7 @@ export const read = (text: string) => {
     }
   }
 
-  const eol = () => _eol(cursor.line);
+  const eol = () => _eol(cursor.line)!;
 
   const EOF = () => {
     return isGreaterOrEqual(now(), eof());
@@ -85,7 +85,7 @@ export const read = (text: string) => {
 
 export interface Reader {
   isStartOfLine: () => boolean;
-  getChar: (offset?: number | Point) => string;
+  getChar: (offset?: number | Point) => string | undefined;
   getLine: () => string;
   substring: (position: Position) => string;
   now: () => Point;

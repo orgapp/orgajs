@@ -8,7 +8,7 @@ import textMarkup from './textMarkup';
 export default (lexer: Lexer): PhrasingContent | undefined => {
   const { tryTo } = utils(lexer);
 
-  let res: PhrasingContent;
+  let res: PhrasingContent | undefined;
   if (tryTo(footnoteReference)(c => { res = c })) {
     return res;
   }

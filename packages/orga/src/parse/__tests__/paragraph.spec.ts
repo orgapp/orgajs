@@ -106,11 +106,11 @@ the round pegs in the +round+ square holes...
       }),
     ], {
       parent: { type: 'document' } as any,
-      position: pos([3, 1], [7, 19]),
+      position: pos([2, 1], [7, 19]),
     })
   ],
     {
       properties: {},
-      position: pos([3, 1], [7, 19]),
+      position: pos([2, 1], [7, 19]),
     });
 });

@@ -5,14 +5,15 @@ import utils, * as ast from './utils'
 import parseSection from './section';
 
 export default function parseHeadline(minDepth: number = 0) {
-  return (lexer: Lexer): Headline => {
+  return (lexer: Lexer): Headline | undefined => {
 
     const { peek, eat, eatAll } = lexer
     const { tryTo } = utils(lexer)
 
-    const parse = (headline: Headline): Headline => {
+    const parse = (): Headline | undefined => {
       let token = peek()
       if (!token) return;
+      const headline = ast.heading(-1, '', { position: token.position });
       if (token && token.type === 'stars') {
         if (token.level < minDepth) {
           return;
@@ -54,6 +55,6 @@ export default function parseHeadline(minDepth: number = 0) {
       return headline;
     }
 
-    return parse(ast.heading(-1, ''));
+    return parse();
   }
 }

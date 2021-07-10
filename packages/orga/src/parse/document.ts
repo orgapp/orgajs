@@ -8,7 +8,7 @@ import parseSection from './section';
 export default (lexer: Lexer): Document => {
   const { tryTo } = utils(lexer)
 
-  const doc = ast.document([]);
+  const doc = ast.document([], { position: ast.pos([1, 1], [1, 1]) });
 
   tryTo(parseSection())(n => setChildren(doc)([n]));
   while (tryTo(parseHeadline())(push(doc))) { };

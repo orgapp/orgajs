@@ -1,11 +1,12 @@
-import { Node, Literal as UnistLiteral } from 'unist';
+import { Node, Literal as UnistLiteral, Position } from 'unist';
 import { Char } from '../char';
 
 export interface TokenI extends Node {
   _text?: string | undefined;
+  position: Position,
 }
 
-export interface TokenLiteral extends TokenI, UnistLiteral {
+export interface TokenLiteral extends TokenI, Omit<UnistLiteral, 'position'> {
   value: string;
 }
 
@@ -131,8 +132,8 @@ export interface StyledText extends TokenLiteral {
 
 export interface Link extends TokenLiteral {
   type: 'link';
-  protocol: string;
-  description: string;
+  protocol: string | undefined;
+  description: string | undefined;
   search?: string | number;
 }
 

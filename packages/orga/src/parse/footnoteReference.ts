@@ -19,19 +19,19 @@ export default function footnoteReference(lexer: Lexer): FootnoteReference | und
     };
   }
 
-  const readAFootnote = (par: FootnoteReference, start = false): FootnoteReference | undefined => {
+  const readAFootnote = (par?: FootnoteReference): FootnoteReference | undefined => {
     const token = peek();
-    if (token.type === 'footnote.inline.begin') {
+    if (token && token.type === 'footnote.inline.begin') {
       eat();
-      const fn = ast.inlineFootnotePartial(token.label, []);
-      let inner: Token;
+      const fn = ast.inlineFootnotePartial(token.label, [], { position: token.position });
+      let inner: Token | undefined;
       while (inner = peek()) {
         if (inner.type === 'footnote.inline.begin') {
           // nested footnote reference
           readAFootnote(fn);
         } else if (inner.type === 'footnote.reference.end') {
           eat();
-          if (!start) push(par)(fn);
+          if (par) push(par)(fn);
           return fn;
         } else {
           if (!tryTo(phrasingContent)(phras => {
@@ -43,5 +43,5 @@ export default function footnoteReference(lexer: Lexer): FootnoteReference | und
       }
     }
   }
-  return readAFootnote(undefined, true);
+  return readAFootnote();
 }

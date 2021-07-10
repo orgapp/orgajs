@@ -7,7 +7,7 @@ interface LinkInfo {
 }
 
 const isFilePath = (str: string): boolean => {
-  return str && /^\.{0,2}\//.test(str)
+  return /^\.{0,2}\//.test(str)
 }
 
 export default (link: string): LinkInfo | undefined => {
@@ -30,4 +30,3 @@ export default (link: string): LinkInfo | undefined => {
   return { protocol, value, search }
 
 }
-

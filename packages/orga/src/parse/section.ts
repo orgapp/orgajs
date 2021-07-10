@@ -27,28 +27,29 @@ const attach = (attributes: Attributes) => (node: Attributed) => {
 }
 
 export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) {
-  return (lexer: Lexer): Section => {
+  return (lexer: Lexer): Section | undefined => {
 
     const { peek, eat, eatAll, modify } = lexer
     const { tryTo } = utils(lexer)
     const breakOn = opts?.breakOn ?? ((_t: Token) => false);
 
-    const newSection = (props: { [key: string]: string } = {}): Section => {
-      const section = ast.section([], { properties: { ...props } });
+    const newSection = (props: { [key: string]: string } = {}): Section | undefined => {
+      const sectionContents: Section['children'] = [];
       const plannings = parsePlanning(lexer)
-      pushMany(section)(plannings);
+      sectionContents.push(...plannings);
+      let sectionProps: typeof props = { ...props };
 
       while (tryTo(parseDrawer)(drawer => {
         if (drawer.name.toLowerCase() === 'properties') {
-          section.properties = drawer.value.split('\n').reduce((accu, current) => {
+          sectionProps = drawer.value.split('\n').reduce((accu, current) => {
             const m = current.match(/\s*:(.+?):\s*(.+)\s*$/)
             if (m) {
               return { ...accu, [m[1].toLowerCase()]: m[2] }
             }
             return accu
-          }, section.properties)
+          }, sectionProps)
         }
-        push(section)(drawer)
+        sectionContents.push(drawer);
       })) continue
 
       const token = peek();
@@ -56,14 +57,19 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
         // we encountered an unclosed drawer (or a drawer with no beginning), so this should just be treated as text
         modify(t => tokenToText(lexer, t));
       }
-      return section
+      const pos = sectionContents[0]?.position ?? token?.position;
+      if (pos) {
+        const section = ast.section([], { properties: sectionProps, position: pos });
+        pushMany(section)(sectionContents);
+        return section;
+      }
     }
 
-    const parseFootnote = (): Footnote => {
+    const parseFootnote = (): Footnote | undefined => {
       const token = peek();
-      if (token.type === 'footnote.label') {
+      if (token && token.type === 'footnote.label') {
         eat()
-        const footnote = ast.footnote(token.label, []);
+        const footnote = ast.footnote(token.label, [], { position: token.position });
         // v2021.07.03 footnote definitions cannot contain other footnote definitions
         const contents = parseSection({ breakOn: t => t.type === 'footnote.label' })(lexer)?.children ?? [];
         pushMany(footnote)(contents as Exclude<Section['children'][number], Footnote>[]);
@@ -71,10 +77,12 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
       }
     }
 
-    const parse = (section: Section, attributes: Attributes = {}): Section => {
+    const parse = (par?: Section, attributes: Attributes = {}): Section | undefined => {
       if (eatAll('newline') > 1) {
         attributes = {} // reset affliated keywords
       }
+
+      const section = par ?? newSection();
 
       const token = peek()
       if (!token) return section;
@@ -88,6 +96,8 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
       if (breakOn(token)) {
         return section;
       }
+
+      if (!section) return;
 
       // keyword
       if (token.type === 'keyword') {
@@ -105,7 +115,7 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
         } else if (key === 'todo') {
           lexer.addInBufferTodoKeywords(value)
         } else if (key === 'html') {
-          push(section)(ast.html(value))
+          push(section)(ast.html(value, { position: token.position }))
         }
 
         eat()
@@ -154,9 +164,8 @@ export default function parseSection(opts?: { breakOn: (t: Token) => boolean }) 
       return parse(section)
     }
 
-    const ns = newSection();
-    const res = parse(ns);
-    if (res.children.length === 0) {
+    const res = parse();
+    if (res?.children.length === 0) {
       // empty section, just ignored
       return;
     }

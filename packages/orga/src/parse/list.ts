@@ -13,7 +13,7 @@ export default (lexer: Lexer): List | undefined => {
   let eolCount = 0
 
   const newList = (token: ListItemBullet): List =>
-    ast.list(token.indent, token.ordered, []);
+    ast.list(token.indent, token.ordered, [], { position: token.position });
 
   const parseListItem = (listItem: ListItem): ListItem => {
     const token = peek()
@@ -45,9 +45,9 @@ export default (lexer: Lexer): List | undefined => {
       return list
     }
     if (list.indent < token.indent) {
-      push(list)(ast.listItem(token.indent, [parse(newList(token))]));
+      push(list)(ast.listItem(token.indent, [parse(newList(token))], { position: token.position }));
     } else {
-      push(list)(parseListItem(ast.listItem(token.indent, [])));
+      push(list)(parseListItem(ast.listItem(token.indent, [], { position: token.position })));
     }
     return parse(list)
   }

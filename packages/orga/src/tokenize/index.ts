@@ -44,7 +44,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
   const state: {
     context: 'verse' | null;
   } = {
-    context: undefined
+    context: null
   };
 
   const setContext = (context: 'verse') => {

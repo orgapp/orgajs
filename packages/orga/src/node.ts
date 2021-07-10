@@ -11,22 +11,24 @@ const adjustPosition = (parent: Parent & Partial<Child>) => (child: Node): void 
   let dirty = false
 
   if (!child.position) return
+  const cp = clone(child.position);
   if (parent.position) {
+    parent.position = clone(parent.position);
     const belowLowerBound = before(parent.position.start)
     const aboveUpperBound = after(parent.position.end)
 
     if (isEmpty(parent.position)) {
-      parent.position = clone(child.position)
+      parent.position = cp;
       dirty = true
-    } else if (belowLowerBound(child.position.start)) {
-      parent.position.start = { ...child.position.start }
+    } else if (belowLowerBound(cp.start)) {
+      parent.position.start = cp.start;
       dirty = true
-    } else if (aboveUpperBound(child.position.end)) {
-      parent.position.end = { ...child.position.end }
+    } else if (aboveUpperBound(cp.end)) {
+      parent.position.end = cp.end;
       dirty = true
     }
   } else {
-    parent.position = clone(child.position)
+    parent.position = cp;
     dirty = true
   }
 
@@ -62,7 +64,6 @@ export const setChildren = <P extends Parent>(p: P) => (ns: [Node, ...Node[]] & 
 export const map = <T extends Node & Partial<Parent>>(transform: (n: Node & Partial<Parent>) => T) => (node: Node & Partial<Parent>): T => {
 
   const result = {
-    type: node.type,
     ...transform(node),
   }
 
@@ -89,7 +90,7 @@ interface DumpContext {
 export const level = (node: Child): number => {
   let count = 0
   let parent = node.parent
-  while ('parent' in parent) {
+  while (parent && 'parent' in parent) {
     count += 1
     parent = parent.parent
   }

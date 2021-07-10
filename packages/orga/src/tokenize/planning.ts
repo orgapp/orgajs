@@ -35,9 +35,12 @@ export default ({ reader, keywords, timezone }: Props): Token[] => {
     const endLocation = getLocation(end)
     const timestampPosition = { start: position.end, end: endLocation }
     const value = substring(timestampPosition)
-    all.push(tk.tokPlanningTimestamp(parseTimestamp(value, { timezone }), {
-      position: timestampPosition
-    }));
+    const stamp = parseTimestamp(value, { timezone });
+    if (stamp) {
+      all.push(tk.tokPlanningTimestamp(stamp, {
+        position: timestampPosition
+      }));
+    }
   }
 
   let m
