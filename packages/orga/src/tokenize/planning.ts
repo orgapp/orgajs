@@ -1,7 +1,7 @@
 import { Point } from 'unist'
 import { Reader } from '../reader'
 // import { inspect }  from 'util'
-import { parse as parseTimestamp } from '../timestamp'
+import { parse as parseTimestamp } from './timestamp'
 import { Token } from '../types'
 import * as tk from './util';
 

@@ -1,10 +1,10 @@
-import { parse } from "../src/timestamp"
+import { parse } from "../timestamp";
 
 const p = (text: string) => {
   return parse(text, { timezone: 'Pacific/Auckland' })
 }
 
-describe("timestamp", () => {
+describe("timestamps", () => {
   it("can parse timestamps", () => {
     expect(p("[2021-04-24 Sat]")).toMatchInlineSnapshot(`
       Object {

@@ -1,6 +1,6 @@
-import { zonedTimeToUtc } from 'date-fns-tz'
-import { read } from './reader'
-import { Timestamp } from './types'
+import { zonedTimeToUtc } from 'date-fns-tz';
+import { read } from '../reader';
+import { Timestamp } from './types';
 
 export const parse = (
   input: string,
