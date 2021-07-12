@@ -27,6 +27,10 @@ export default function parseHeadline(minDepth: number = 0) {
       headline.actionable = t.actionable
     });
 
+    tryTo(eatTok('priority'))(t => {
+      headline.priority = t.value;
+    });
+
     // actual title
     tryMany(tokenValued())(t => {
       headline.content += t.value
