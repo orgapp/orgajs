@@ -110,6 +110,39 @@ export default function lexActions(lexer: Lexer) {
 ///////////////////////
 
 
+/** See {@link Lexer.eat}. */
+export function eat<K extends Token['type']>(): TokenParser<Token>;
+export function eat<K extends Token['type']>(type: K): TokenParser<Token & { type: K }>;
+export function eat<K extends Token['type']>(type?: K) {
+  return (lexer: Lexer) => {
+    const { eat } = lexer;
+    return type !== undefined ? eat(type) : eat();
+  };
+}
+
+/** Fail the current parse branch. */
+export const fail = () => undefined;
+
+/** Parse `p`, but fail if the parsed value doesn't satisfy predicate `pred`. */
+export const matching = <T>(p: TokenParser<T>, pred: (x: T) => boolean): TokenParser<T> => {
+  return bind(p, r => pred(r) ? pure(r) : fail);
+}
+
+/** Parse `p`, but fail if the parsed value doesn't satisfy type predicate `pred`. */
+export const matchingTy = <T, Q extends T>(p: TokenParser<T>, pred: (x: T) => x is Q): TokenParser<Q> => {
+  return bind(p, r => pred(r) ? pure(r) : fail);
+}
+
+export function hasValue(t: Token): t is Extract<Token, { value: unknown }> {
+  return 'value' in t;
+}
+
+export function tokenValued<Ty extends Token['type']>(): TokenParser<Extract<Token, { value: unknown }>>;
+export function tokenValued<Ty extends Token['type']>(type: Ty): TokenParser<Extract<Token, { type: Ty, value: unknown }>>;
+export function tokenValued<Ty extends Token['type']>(type?: Ty) {
+  return matchingTy(type !== undefined ? eat(type) : eat(), hasValue);
+}
+
 export const map = <S, T>(f: (x: S) => T, x: TokenParser<S>): TokenParser<T> => {
   return (lexer: Lexer) => {
     const { returning, tryTo } = lexActions(lexer);
