@@ -1,4 +1,4 @@
-import { read as _read } from 'text-kit'
+import { Char, read as _read } from 'text-kit'
 import { Point, Position } from 'unist'
 import { isGreaterOrEqual } from './position';
 
@@ -19,7 +19,7 @@ export const read = (text: string) => {
 
   const isStartOfLine = () => cursor.column === 1
 
-  const getChar = (p: number | Point = 0): string | undefined => {
+  const getChar = (p: number | Point = 0): Char | undefined => {
     return typeof p === 'number' ? charAt(shift(cursor, p)) : charAt(p);
   }
 
@@ -85,7 +85,7 @@ export const read = (text: string) => {
 
 export interface Reader {
   isStartOfLine: () => boolean;
-  getChar: (offset?: number | Point) => string | undefined;
+  getChar(offset?: number | Point): Char | undefined;
   getLine: () => string;
   substring: (position: Position) => string;
   now: () => Point;

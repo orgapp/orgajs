@@ -1,5 +1,5 @@
 import { Point, Position } from 'unist';
-import read, { SourcePoint, SourcePosition, TextKit } from '../read';
+import read, { Char, SourcePoint, SourcePosition, TextKit } from '../read';
 
 const point = ((line: number, column: number, offset?: number) => ({ line, column, ...(offset !== undefined ? { offset } : {}) })) as {
   (line: number, column: number, offset: number): SourcePoint;
@@ -98,8 +98,8 @@ describe("charAt", () => {
   const testCharAt = testReaderFn("charAt");
 
   testCharAt("empty text", "", r => r.bof(), undefined);
-  testCharAt("newline", "test\ntest", r => r.eol(1), "\n");
-  testCharAt("middle of line", "test", point(1, 2), "e");
+  testCharAt("newline", "test\ntest", r => r.eol(1), "\n" as Char);
+  testCharAt("middle of line", "test", point(1, 2), "e" as Char);
   testCharAt("eof", "test", r => r.eof(), undefined);
 });
 

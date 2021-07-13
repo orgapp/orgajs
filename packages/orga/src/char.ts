@@ -1,4 +1,5 @@
-export type Char = string & { length: 1 };
+import { Char } from 'text-kit';
+export type { Char };
 
 export const isChar = (c: string): c is Char => c.length === 1;
 

@@ -9,6 +9,8 @@ export type SourcePoint = Required<UnistPoint>;
 /** Like {@link Position}, but with known indices. */
 export type SourcePosition = Position & { start: SourcePoint, end: SourcePoint };
 
+export type Char = string & { length: 1 };
+
 export interface TextKitCore {
   numberOfLines: number;
 
@@ -33,7 +35,7 @@ export interface TextKitCore {
   }) => string;
 
   /** Get the character at the given point, if it exists. */
-  charAt(loc: Point): string | undefined;
+  charAt(loc: Point): Char | undefined;
 
   /**
    * Return the {@link SourcePoint} for a given `index` in the text.
@@ -205,9 +207,9 @@ export const core = (text: string): TextKitCore => {
     return location(toIndex(point) + offset)
   }
 
-  const charAt = (loc: Point): string | undefined => {
+  const charAt = (loc: Point): Char | undefined => {
     const c = text.charAt(toIndex(loc));
-    return c === "" ? undefined : c;
+    return c === "" ? undefined : c as Char;
   };
 
   const substring = ({ start, end = 'EOL' }: {
