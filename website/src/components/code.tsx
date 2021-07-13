@@ -20,15 +20,14 @@ const Toolbar = ({children}) => {
   return (
     <Box sx={{
       display: 'flex',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
       gap: '0.6em',
-      position: 'absolute',
+      position: 'sticky',
       top: 0, right: 0, left: 0,
-      padding: 1,
-      /* backgroundColor: 'primary', */
       color: 'gray',
       textAlign: 'center',
-      /* bg: 'surface', */
+      zIndex: 100,
       /* border: '1px solid white', */
     }}>{children}</Box>
   )
@@ -62,10 +61,15 @@ export default (props) => {
         <pre sx={{
           ...style,
           position: 'relative',
-          p: '18px',
+          /* p: '18px', */
         }} className={`${outerClassName} ${className}`}>
           <Toolbar>
-            <small>{lang}</small>
+            <small sx={{
+              bg: 'muted',
+              px: 1,
+              borderRadius: '2px',
+              userSelect: 'none',
+            }}>{lang}</small>
             <CopyToClipboard text={code} onCopy={() => setCopied(true)}>
               <IconButton sx={{
                 size: 24,
