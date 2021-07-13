@@ -1,6 +1,5 @@
 import defaultOptions, { ParseOptions } from './options'
 import { parse as _parse } from './parse'
-import { parse as parseTimestamp } from './timestamp'
 import { tokenize } from './tokenize'
 import { Document } from './types'
 
@@ -14,6 +13,5 @@ export const parse = (
 }
 
 export {
-  parseTimestamp,
   ParseOptions,
 }
