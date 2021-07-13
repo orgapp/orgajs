@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "composite": true,
+    "declarationMap": true,
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "ES2020",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "noImplicitUseStrict": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "jsx": "react",
+    "allowJs": true,
+    "lib": [
+      "ES2020"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "**/__tests__/**",
+    "tests/**",
+    "**/*.spec.ts"
+  ]
+
+}

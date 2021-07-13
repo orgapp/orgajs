@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "name": "example",
+  "version": "2.4.8",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "node index.js < README.org > readme.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@orgajs/reorg": "^2.4.8",
+    "@orgajs/reorg-rehype": "^2.4.8",
+    "rehype-stringify": "^8.0.0",
+    "unified": "^9.1.0",
+    "unified-stream": "^1.0.6"
+  }
+}

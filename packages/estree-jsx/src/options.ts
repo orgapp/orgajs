@@ -1,13 +1,17 @@
-export const DEFAULT_OPTIONS = {
-  skipExport: false,
-  wrapExport: false,
-  renderer: `import React from 'react'
-import {orga} from '@orgajs/react'
-`,
-  pragma: `/* @jsxRuntime classic */
-/* @jsx orga */
-/* @jsxFrag orga.Fragment */
-`
+export interface Options {
+  skipExport: boolean,
+  wrapExport: boolean,
+  pragma: string,
+  renderer: string,
 }
 
-export type Options = typeof DEFAULT_OPTIONS
+export const DEFAULT_OPTIONS: Options = {
+  skipExport: false,
+  wrapExport: false,
+  pragma: `/* @jsxRuntime classic */
+/* @jsx orga */
+/* @jsxFrag orga.Fragment */`,
+  renderer: `import React from 'react'
+import {orga} from '@orgajs/react'`,
+}
+

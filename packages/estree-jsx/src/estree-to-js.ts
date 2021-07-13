@@ -1,8 +1,7 @@
 import * as astring from 'astring'
 import { inspect } from 'util'
 
-// @ts-ignore
-const customGenerator = Object.assign({}, astring.GENERATOR, {
+const customGenerator = Object.assign({}, astring['GENERATOR'], {
   JSXAttribute: JSXAttribute,
   JSXClosingElement: JSXClosingElement,
   JSXClosingFragment: JSXClosingFragment,
@@ -89,7 +88,7 @@ function JSXExpressionContainer(node, state) {
   }
   state.write('{')
   const handler = this[node.expression.type]
-  if (!!handler) {
+  if (handler) {
     this[node.expression.type](node.expression, state)
   } else {
     console.log('>>>>>>>>>>>>>>>>>>>')

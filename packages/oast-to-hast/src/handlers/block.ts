@@ -9,7 +9,7 @@ export default (context: Context) => (node: Block): HNode => {
   const name = node.name.toLowerCase()
 
   if (name === 'src') {
-    let body: HNode = u('text', node.value)
+    const body: HNode = u('text', node.value)
     const lang = node.params[0]
     // if (lang && context.highlight) {
     //   body = u('raw', highlight(lang, node.value))

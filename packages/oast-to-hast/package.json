@@ -16,11 +16,10 @@
     "unist-builder": "^2.0.3"
   },
   "scripts": {
-    "precompile": "yarn clean",
-    "compile": "tsc -p tsconfig.build.json",
-    "prepare": "yarn compile",
-    "watch": "yarn run compile -w",
-    "clean": "del ./dist/*"
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "compile": "tsc -b",
+    "prepublishOnly": "yarn build"
   },
   "devDependencies": {
     "@types/hast": "^2.3.1"

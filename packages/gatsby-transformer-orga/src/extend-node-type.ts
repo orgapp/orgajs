@@ -8,8 +8,8 @@ import { getAST } from './orga-util'
 
 const DEPLOY_DIR = `public`
 
-let pluginsCacheStr = ``
-let pathPrefixCacheStr = ``
+const pluginsCacheStr = ``
+const pathPrefixCacheStr = ``
 
 const newFileName = linkNode =>
   `${linkNode.name}-${linkNode.internal.contentDigest}.${linkNode.extension}`

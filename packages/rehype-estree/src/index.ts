@@ -1,13 +1,16 @@
 import { Transformer } from 'unified'
-import toEstree from './hast-to-estree'
-import { DEFAULT_OPTIONS, Options } from './options'
+import toEstree from './hast-to-estree.js'
+import { DEFAULT_OPTIONS, Options } from './options.js'
+import processEstree from './process-estree.js'
 
 function rehype2estree (options: Partial<Options> = {}): Transformer {
   return transformer
 
   function transformer(node, file) {
-    return toEstree(node, { ...DEFAULT_OPTIONS, ...options })
+    const _options = { ...DEFAULT_OPTIONS, ...options }
+    const estree = toEstree(node, _options)
+    return processEstree(estree, _options)
   }
 }
 
-export = rehype2estree
+export default rehype2estree

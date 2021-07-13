@@ -2,22 +2,33 @@
   "name": "@orgajs/rehype-estree",
   "version": "2.4.4",
   "description": "hast to estree",
-  "files": [
-    "dist"
-  ],
-  "main": "dist/index.js",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/rehype-estree",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
   "scripts": {
-    "precompile": "yarn clean",
-    "compile": "tsc -p tsconfig.build.json",
-    "prepare": "yarn compile",
-    "watch": "yarn run compile -w",
-    "clean": "del ./dist/*"
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "compile": "tsc -b",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@typescript-eslint/typescript-estree": "^4.22.0",
-    "hast-util-to-estree": "^1.4.0"
+    "acorn": "^8.4.1",
+    "acorn-jsx": "^5.3.1",
+    "estree-walker": "3.0.0",
+    "hast-util-to-estree": "^2.0.0",
+    "periscopic": "2.0.3"
+  },
+  "devDependencies": {
+    "del-cli": "^3.0.1",
+    "estree-jsx": "^0.0.1"
   }
 }

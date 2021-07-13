@@ -1,0 +1,42 @@
+{
+  "name": "gatsby-theme-orga-docs",
+  "version": "2.4.8",
+  "description": "gatsby theme for orga.js",
+  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "homepage": "https://github.com/orgapp/orgajs#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "keywords": [
+    "gatsby",
+    "org-mode",
+    "orgajs"
+  ],
+  "scripts": {
+    "test": "echo no test"
+  },
+  "bugs": {
+    "url": "https://github.com/orgapp/orgajs/issues"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "gatsby-plugin-image": "^1.9.0",
+    "gatsby-plugin-orga": "^2.4.8",
+    "gatsby-plugin-react-helmet": "^4.9.0",
+    "gatsby-plugin-sharp": "^3.9.0",
+    "gatsby-plugin-theme-ui": "^0.10.1",
+    "gatsby-source-filesystem": "^3.2.0",
+    "gatsby-transformer-sharp": "^3.9.0",
+    "loader-utils": "^2.0.0",
+    "react-helmet": "^6.1.0"
+  },
+  "peerDependencies": {
+    "gatsby": "^3.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "devDependencies": {
+    "del-cli": "^3.0.1",
+    "typescript": "^4.3.2"
+  }
+}

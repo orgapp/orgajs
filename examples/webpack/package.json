@@ -4,6 +4,7 @@
   "version": "2.4.8",
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "webpack -p",
     "webpack": "webpack",

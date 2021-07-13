@@ -1,34 +1,35 @@
-#+TITLE: Orga
+#+title: Orga
+#+html: import {Flex,Button} from 'theme-ui'
+#+html: import {Link} from 'gatsby'
+#+html: export {default} from './website/src/components/landing'
 
-#+HTML: <p align="center"><img src="assets/logo.png" width="300" height="300" style="border-radius: 1em;"/></p>
+#+begin_export html
+<Space>✨ org-mode 🚀 JavaScript ✨</Space>
+#+end_export
 
-#+BEGIN_QUOTE
-org-mode with JavaScript
-#+END_QUOTE
+#+begin_export html
+<Flex sx={{gap: '0.2em', py: 2}}>
+  <Link to='/getting-started/'>
+    <Button>Documentation</Button>
+  </Link>
+  <Link to='/playground'>
+    <Button>Playground</Button>
+  </Link>
+  <a href='https://github.com/orgapp/orgajs'>
+    <Button>GitHub</Button>
+  </a>
+</Flex>
+#+end_export
 
 * What Is It
 
-=Orga= is a flexible org-mode syntax parser. It parses org content into AST ([[https://en.wikipedia.org/wiki/Abstract_syntax_tree][Abstract Syntax Tree 🌲]]), then what you can do with it is limited only by your imagination.
+=Orga= is a flexible org-mode syntax parser. It parses org content into AST ([[https://en.wikipedia.org/wiki/Abstract_syntax_tree][Abstract Syntax Tree 🌲]]). And it's written in JavaScript.
 
 * Why
-
-The reason why markdown is so popular is that org-mode is kind of trapped inside of emacs (I am joking, sort of. 😉). I want to share the awesomeness with the rest of the world. JavaScript runs everywhere nowadays, so, why not.
-
-* What You Can Do with it NOW
-
-- Build a full-featured gatsby blog in seconds, customize it progressively, bits by bits. [[https://www.huxiaoxing.com/building-a-website-with-org-mode-files][Here is the post]].
-- Build a bare-bone gatsby website (for those of you tinkerers), start building your website from raw data.
-- Integrate org-mode into any of your JavaScript projects. E.g. a real-time org-mode -> HTML transformer on your website, like [[https://orga.js.org][this one]].
-
-* What You Can Do Potentially
-
-- emacs-less cli for org-mode
-- org-mode desktop app with [[https://www.electronjs.org][electron]], or a [[https://code.visualstudio.com][Visual Studio Code]] extension.
-- org-mode mobile app with [[https://reactnative.dev][react native]].
+org-mode is simply a superior format than other more popular ones, but it's mostly trapped inside of emacs. It's so good that it was the #1 reason to learn and use emacs for a lot of people (me included). But it's too good to not share with the rest of the world. If it can run in JavaScript, it can run on anything.
 
 * Compatible Eco-systems
-
-Nobody likes to reinvent wheels more than us programmers. But when you see a pretty solid wheel, it's wise to take advantage of it.
+It integrates natively with popular tools.
 
 ** [[https://unifiedjs.com][Unified]]
 
@@ -38,38 +39,25 @@ Nobody likes to reinvent wheels more than us programmers. But when you see a pre
 
 The =orga= parser is completely compatible with unified. Which means you get to take advantage of the works of others put into the pipeline. [[https://github.com/retextjs/retext][linting for natural language]], [[https://alexjs.com][correct your writing]], [[https://wooorm.com/write-music/][write music]]? etc.
 
+** [[https://webpack.js.org][Webpack]]
+=@orgajs/loader= is a webpack loader that made orga native citizen of webpack ecosystem. Coupled with plugins, it works smoothly. Take a look at the example.
+
 ** [[https://www.gatsbyjs.com][Gatsby]]
 
 #+BEGIN_QUOTE
 Build blazing fast, modern apps and websites with React
 #+END_QUOTE
 
-One of the best static website/app generator out there. Trust me; I have tried a lot. Don't be put off by words like =React= or =JavaScript=. Like it or not, they are taking over the web. orga is deeply integrated with gatsby (via [[file:packages/gatsby-transformer-orga/README.md][plugins]] and [[file:packages/gatsby-theme-blorg/README.md][themes]]) to create the tools for building powerful websites without much hassle. Also, We can leverage other plugins people build for markdown-based websites. Which is a much richer eco-system, now it's ours too.
+=gatsby-plugin-orga= is a powerful plugin that plug org-mode into gatsby system. This website is built with gatsby and =gatsby-theme-orga-docs= theme. Here is a minimal example.
+
+** [[https://nextjs.org][Nextjs]]
+#+begin_quote
+The React Framework
+#+end_quote
+
+Because orga is native to webpack, it's fairly simply to intergrate with nextjs. Example project.
 
 
-* How Does It Work
 
-- [[file:packages/orga/README.org][Learn more about the parser]]
-- [[file:packages/orga/src/types.ts][Learn more about the definition of the AST]]
-- [[file:examples/example/][Learn by example how to transform org-mode syntax into HTML]]
-- [[https://orgapp.github.io/gatsby-starter-blorg/][Learn more about building websites with org files]]
 
-* Documentation
-[[https://orga.js.org][Here]].
-* Contribute
-
-After you clone the code:
-
-#+begin_src shell
-# Bootstrap the Project
-yarn run bootstrap
-
-# Run Unit Tests
-yarn test
-
-# Play with the Website
-cd www
-yarn run develop
-#+end_src
-
-If you find any issue, try to reproduce it on [[https://orga.js.org][this convenient web page]], generate a permalink with the button, and attach it to your GitHub issue.
+* React

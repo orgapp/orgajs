@@ -1,13 +1,14 @@
 /* @jsx React.createElement */
 /* @jsxFrag React.Fragment */
-import React from 'react'
-import path from 'path'
 import { transformAsync as babelTransform } from '@babel/core'
 import reorg from '@orgajs/reorg'
-import jsx from '@orgajs/reorg-jsx'
+import removeExport from 'babel-plugin-remove-export-keywords'
+import React from 'react'
+import toJsx from '@orgajs/estree-jsx'
+import toEstree from '@orgajs/rehype-estree'
+import toRehype from '@orgajs/reorg-rehype'
 import { renderToString } from 'react-dom/server'
 import { orga } from '../src'
-import removeExport from 'babel-plugin-remove-export-keywords'
 // import {MDXProvider, withMDXComponents, mdx} from '../src'
 
 /* const removeExport = () => {
@@ -29,7 +30,9 @@ const run = async value => {
   // Turn the serialized MDX code into serialized JSX…
 
   const processor = reorg()
-    .use(jsx, { skipExport: true })
+    .use(toHast)
+    .use(toEstree)
+    .use(toJsx)
 
   const doc = await processor.process(value)
 

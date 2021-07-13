@@ -1,5 +1,0 @@
-#+TITLE: Standalone Post
-#+EXPORT_FILE_NAME: a-standalone-post
-
-* Hello World
-  This is some content.

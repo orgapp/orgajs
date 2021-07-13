@@ -2,7 +2,7 @@
   "name": "gatsby-plugin-orga",
   "version": "2.4.8",
   "description": "Orga integration for Gatsby",
-  "main": "dist/index.js",
+  "main": "index.js",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/gatsby-plugin-orga#readme",
   "repository": {
@@ -11,19 +11,15 @@
     "directory": "packages/gatsby-plugin-orga"
   },
   "files": [
-    "dist",
-    "gatsby-node.js",
-    "gatsby-ssr.js",
-    "gatsby-browser.js",
-    "graphql-utils.js",
-    "graphql-utils.d.ts"
+    "/dist",
+    "*.js",
+    "*.jsx"
   ],
   "scripts": {
-    "precompile": "yarn clean",
-    "compile": "tsc -p tsconfig.build.json",
-    "prepare": "yarn compile",
-    "watch": "yarn run compile -w",
-    "clean": "del ./dist/*"
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "compile": "node ./scripts/build.js",
+    "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
     "@orgajs/loader": "^1.0.0",
@@ -35,6 +31,17 @@
     "@orgajs/estree-jsx": "^2.4.4",
     "@orgajs/rehype-estree": "^2.4.4",
     "@orgajs/reorg-rehype": "^2.4.8",
-    "gatsby-core-utils": "^2.3.0"
+    "dataloader": "^2.0.0",
+    "estree-util-build-jsx": "^2.0.0",
+    "gatsby-core-utils": "^2.3.0",
+    "memory-fs": "^0.5.0",
+    "p-queue": "^7.1.0"
+  },
+  "devDependencies": {
+    "@orgajs/loader": "^2.4.8",
+    "@orgajs/react": "^2.4.8",
+    "del-cli": "^3.0.1",
+    "esbuild": "^0.12.6",
+    "typescript": "^4.3.2"
   }
 }

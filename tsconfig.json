@@ -1,12 +1,3 @@
 {
-  "extends": "./tsconfig.build.json",
-
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "orga": ["./packages/orga/src"],
-      "oast-to-hast": ["./packages/oast-to-hast/src"],
-      "@orgajs/*": ["./packages/*/src"]
-    }
-  }
+  "extends": "./tsconfig.base.json"
 }

@@ -1,4 +1,4 @@
-#+HTML: import Box from '../components/box'
+#+title: Next Example
 
 * Hi
 

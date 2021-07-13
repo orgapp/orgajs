@@ -1,4 +1,4 @@
-import tok from "./tok";
+import tok from "./tok"
 
 describe("tokenize hr", () => {
   it("knows horizontal rules", () => {
@@ -9,7 +9,7 @@ describe("tokenize hr", () => {
           "type": "hr",
         },
       ]
-    `);
+    `)
     expect(tok("------")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -17,7 +17,7 @@ describe("tokenize hr", () => {
           "type": "hr",
         },
       ]
-    `);
+    `)
     expect(tok("--------")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -25,7 +25,7 @@ describe("tokenize hr", () => {
           "type": "hr",
         },
       ]
-    `);
+    `)
     expect(tok("  -----")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -33,7 +33,7 @@ describe("tokenize hr", () => {
           "type": "hr",
         },
       ]
-    `);
+    `)
     expect(tok("-----   ")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -41,7 +41,7 @@ describe("tokenize hr", () => {
           "type": "hr",
         },
       ]
-    `);
+    `)
     expect(tok("  -----   ")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -49,7 +49,7 @@ describe("tokenize hr", () => {
           "type": "hr",
         },
       ]
-    `);
+    `)
     expect(tok("  -----  \t ")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -57,8 +57,8 @@ describe("tokenize hr", () => {
           "type": "hr",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows these are not horizontal rules", () => {
     expect(tok("----")).toMatchInlineSnapshot(`
@@ -69,7 +69,7 @@ describe("tokenize hr", () => {
           "value": "----",
         },
       ]
-    `);
+    `)
     expect(tok("- ----")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -84,7 +84,7 @@ describe("tokenize hr", () => {
           "value": "----",
         },
       ]
-    `);
+    `)
     expect(tok("-----a")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -93,7 +93,7 @@ describe("tokenize hr", () => {
           "value": "-----a",
         },
       ]
-    `);
+    `)
     expect(tok("_-----")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -102,7 +102,7 @@ describe("tokenize hr", () => {
           "value": "_-----",
         },
       ]
-    `);
+    `)
     expect(tok("-----    a")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -111,6 +111,6 @@ describe("tokenize hr", () => {
           "value": "-----    a",
         },
       ]
-    `);
-  });
-});
+    `)
+  })
+})

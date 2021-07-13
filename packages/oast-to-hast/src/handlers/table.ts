@@ -19,7 +19,7 @@ export const tableCell = (context: TableContext) => (node: TableCell): HNode => 
 export const table = (context: Context) => (node: Table): HNode => {
   const { h, u } = context
 
-  let nodes: HNode[] = []
+  const nodes: HNode[] = []
   let children = node.children
 
   let hrCount = 0

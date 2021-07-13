@@ -1,16 +1,29 @@
-import { parse } from '@typescript-eslint/typescript-estree'
 import { Node as HastNode } from 'hast'
-import hast2estree from 'hast-util-to-estree'
+import { toEstree as hast2estree } from 'hast-util-to-estree'
 import { Handler, Options } from './options'
+import { Parser } from 'acorn'
+import jsx from 'acorn-jsx'
+import { inspect } from 'util'
 
 const deepGet = (p: string) => (o: any) => p.split('.').reduce((a, v) => a[v], o)
 
-const getRawHandler = ({ path, jsx }: { path: string, jsx: boolean }) => {
+const parse = (code: string) => {
+  return Parser.extend(jsx()).parse(code, {
+    sourceType: 'module',
+    ecmaVersion: 2020,
+  })
+}
+
+const getRawHandler = ({ path, skipImport }: { path: string, skipImport: boolean }) => {
+  // @ts-ignore
   const handler: Handler = (node, context) => {
-    const estree = parse(deepGet(path)(node), { jsx })
+    const estree = parse(deepGet(path)(node))
+    // @ts-ignore TODO: get rid of this
     const expressions = estree.body.filter(child => {
       if (child.type === 'ImportDeclaration') {
-        context.esm.push(child)
+        if (!skipImport) {
+          context.esm.push(child)
+        }
         return false
       }
       return true
@@ -22,7 +35,7 @@ const getRawHandler = ({ path, jsx }: { path: string, jsx: boolean }) => {
 }
 
 function toEstree(node: HastNode, options: Options) {
-  let { space, jsx, parseRaw, handlers } = options
+  const { space, skipImport, parseRaw, handlers } = options
 
   for (const p of parseRaw) {
     const [key, ...rest] = p.split('.')
@@ -30,7 +43,7 @@ function toEstree(node: HastNode, options: Options) {
       throw new Error('somethings wrong')
     }
     const path = rest.length > 0 ? rest.join('.') : 'value'
-    handlers[key] = getRawHandler({ path, jsx })
+    handlers[key] = getRawHandler({ path, skipImport })
   }
 
   let exports
@@ -59,7 +72,7 @@ function toEstree(node: HastNode, options: Options) {
   }
 
   const estree = hast2estree(node, { space, handlers })
-  if (!!exports) {
+  if (exports) {
     estree.body = [
       ...exports,
       ...estree.body,

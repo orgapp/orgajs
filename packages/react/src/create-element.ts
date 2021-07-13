@@ -56,7 +56,7 @@ function orga(type, props) {
     createElementArgArray[0] = OrgaCreateElement
 
     const newProps: any = {}
-    for (let key in props) {
+    for (const key in props) {
       if (props.hasOwnProperty(key)) {
         newProps[key] = props[key]
       }

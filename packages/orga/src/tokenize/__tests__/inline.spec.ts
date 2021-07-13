@@ -1,4 +1,4 @@
-import tok from "./tok";
+import tok from "./tok"
 
 describe("Inline Tokenization", () => {
   it("recon single emphasis", () => {
@@ -30,8 +30,8 @@ describe("Inline Tokenization", () => {
           "value": ".",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("recon emphasises at different locations", () => {
     expect(tok("one *two* three")).toMatchInlineSnapshot(`
@@ -52,7 +52,7 @@ describe("Inline Tokenization", () => {
           "value": " three",
         },
       ]
-    `);
+    `)
     expect(tok("*one* two three")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -66,7 +66,7 @@ describe("Inline Tokenization", () => {
           "value": " two three",
         },
       ]
-    `);
+    `)
     expect(tok("one two *three*")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -80,8 +80,8 @@ describe("Inline Tokenization", () => {
           "value": "three",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("recon link", () => {
     expect(tok(`hello [[./image/logo.png]]`)).toMatchInlineSnapshot(`
@@ -100,7 +100,7 @@ describe("Inline Tokenization", () => {
           "value": "./image/logo.png",
         },
       ]
-    `);
+    `)
     expect(tok(`hello [[Internal Link][link]]`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -117,7 +117,7 @@ describe("Inline Tokenization", () => {
           "value": "Internal Link",
         },
       ]
-    `);
+    `)
     expect(tok(`hello [[../image/logo.png][logo]]`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -134,8 +134,8 @@ describe("Inline Tokenization", () => {
           "value": "../image/logo.png",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("recon footnote reference", () => {
     expect(tok(`hello[fn:1] world.`)).toMatchInlineSnapshot(`
@@ -147,6 +147,7 @@ describe("Inline Tokenization", () => {
         },
         Object {
           "_text": "[fn:1]",
+          "children": Array [],
           "label": "1",
           "type": "footnote.reference",
         },
@@ -156,8 +157,141 @@ describe("Inline Tokenization", () => {
           "value": " world.",
         },
       ]
-    `);
-  });
+    `)
+  })
+
+  it("recon anonymous footnote reference", () => {
+    expect(tok('hello[fn::Anonymous] world.')).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "hello",
+          "type": "text.plain",
+          "value": "hello",
+        },
+        Object {
+          "_text": "[fn::",
+          "label": "",
+          "type": "footnote.inline.begin",
+        },
+        Object {
+          "_text": "Anonymous",
+          "type": "text.plain",
+          "value": "Anonymous",
+        },
+        Object {
+          "_text": "]",
+          "type": "footnote.reference.end",
+        },
+        Object {
+          "_text": " world.",
+          "type": "text.plain",
+          "value": " world.",
+        },
+      ]
+    `)
+  })
+
+  it("recon anonymous footnote reference with inner footnote reference", () => {
+    expect(tok('hello[fn::[fn::Anonymous]] world.')).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "hello",
+          "type": "text.plain",
+          "value": "hello",
+        },
+        Object {
+          "_text": "[fn::",
+          "label": "",
+          "type": "footnote.inline.begin",
+        },
+        Object {
+          "_text": "[fn::",
+          "label": "",
+          "type": "footnote.inline.begin",
+        },
+        Object {
+          "_text": "Anonymous",
+          "type": "text.plain",
+          "value": "Anonymous",
+        },
+        Object {
+          "_text": "]",
+          "type": "footnote.reference.end",
+        },
+        Object {
+          "_text": "]",
+          "type": "footnote.reference.end",
+        },
+        Object {
+          "_text": " world.",
+          "type": "text.plain",
+          "value": " world.",
+        },
+      ]
+    `)
+  })
+
+  it("recon anonymous footnote reference with empty body", () => {
+    expect(tok('hello[fn::] world.')).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "hello",
+          "type": "text.plain",
+          "value": "hello",
+        },
+        Object {
+          "_text": "[fn::",
+          "label": "",
+          "type": "footnote.inline.begin",
+        },
+        Object {
+          "_text": "",
+          "type": "text.plain",
+          "value": "",
+        },
+        Object {
+          "_text": "]",
+          "type": "footnote.reference.end",
+        },
+        Object {
+          "_text": " world.",
+          "type": "text.plain",
+          "value": " world.",
+        },
+      ]
+    `)
+  })
+
+  it("recon named inline footnote", () => {
+    expect(tok('hello[fn:named:Inline named footnote] world.')).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "hello",
+          "type": "text.plain",
+          "value": "hello",
+        },
+        Object {
+          "_text": "[fn:named:",
+          "label": "named",
+          "type": "footnote.inline.begin",
+        },
+        Object {
+          "_text": "Inline named footnote",
+          "type": "text.plain",
+          "value": "Inline named footnote",
+        },
+        Object {
+          "_text": "]",
+          "type": "footnote.reference.end",
+        },
+        Object {
+          "_text": " world.",
+          "type": "text.plain",
+          "value": " world.",
+        },
+      ]
+    `)
+  })
 
   it("recon invalid inline markups", () => {
     expect(tok(`*,word*`)).toMatchInlineSnapshot(`
@@ -168,7 +302,7 @@ describe("Inline Tokenization", () => {
           "value": "*,word*",
         },
       ]
-    `);
+    `)
     expect(tok(`*word,*`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -177,7 +311,7 @@ describe("Inline Tokenization", () => {
           "value": "*word,*",
         },
       ]
-    `);
+    `)
     expect(tok(`*'word*`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -186,7 +320,7 @@ describe("Inline Tokenization", () => {
           "value": "*'word*",
         },
       ]
-    `);
+    `)
     expect(tok(`*word'*`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -195,7 +329,7 @@ describe("Inline Tokenization", () => {
           "value": "*word'*",
         },
       ]
-    `);
+    `)
 
     expect(tok(`*"word*`)).toMatchInlineSnapshot(`
       Array [
@@ -205,7 +339,7 @@ describe("Inline Tokenization", () => {
           "value": "*\\"word*",
         },
       ]
-    `);
+    `)
     expect(tok(`*word"*`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -214,7 +348,7 @@ describe("Inline Tokenization", () => {
           "value": "*word\\"*",
         },
       ]
-    `);
+    `)
 
     expect(tok(`* word*`)).toMatchInlineSnapshot(`
       Array [
@@ -229,7 +363,7 @@ describe("Inline Tokenization", () => {
           "value": "word*",
         },
       ]
-    `);
+    `)
     expect(tok(`*word *`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -238,8 +372,8 @@ describe("Inline Tokenization", () => {
           "value": "*word *",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("recon emphasises with 2 chars", () => {
     expect(tok(`*12*`)).toMatchInlineSnapshot(`
@@ -250,7 +384,7 @@ describe("Inline Tokenization", () => {
           "value": "12",
         },
       ]
-    `);
+    `)
     expect(tok(`*1*`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -259,8 +393,8 @@ describe("Inline Tokenization", () => {
           "value": "1",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("recon mixed emphasis", () => {
     expect(
@@ -333,13 +467,13 @@ describe("Inline Tokenization", () => {
           "value": " square holes...",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("can handle something more complicated", () => {
     const content = `
 Special characters =~= and =!=. Also =~/.this/path= and ~that~ thing.
-`;
+`
     expect(tok(content)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -398,6 +532,6 @@ Special characters =~= and =!=. Also =~/.this/path= and ~that~ thing.
           "type": "newline",
         },
       ]
-    `);
-  });
-});
+    `)
+  })
+})

@@ -1,4 +1,4 @@
-import tok from "./tok";
+import tok from "./tok"
 
 describe("tokenize table", () => {
   it("knows table hr", () => {
@@ -9,7 +9,7 @@ describe("tokenize table", () => {
           "type": "table.hr",
         },
       ]
-    `);
+    `)
     expect(tok("|--=-+---+----|")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -17,7 +17,7 @@ describe("tokenize table", () => {
           "type": "table.hr",
         },
       ]
-    `);
+    `)
     expect(tok("  |----+---+----|")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -25,7 +25,7 @@ describe("tokenize table", () => {
           "type": "table.hr",
         },
       ]
-    `);
+    `)
     expect(tok("|----+---+----")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -33,7 +33,7 @@ describe("tokenize table", () => {
           "type": "table.hr",
         },
       ]
-    `);
+    `)
     expect(tok("|---")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -41,7 +41,7 @@ describe("tokenize table", () => {
           "type": "table.hr",
         },
       ]
-    `);
+    `)
     expect(tok("|-")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -49,8 +49,8 @@ describe("tokenize table", () => {
           "type": "table.hr",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows these are not table separators", () => {
     expect(tok("----+---+----|")).toMatchInlineSnapshot(`
@@ -61,8 +61,8 @@ describe("tokenize table", () => {
           "value": "----+---+----|",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows table rows", () => {
     expect(tok("| batman | superman | wonder woman |")).toMatchInlineSnapshot(`
@@ -99,7 +99,7 @@ describe("tokenize table", () => {
           "type": "table.columnSeparator",
         },
       ]
-    `);
+    `)
     expect(tok("| hello | world | y'all |")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -134,7 +134,7 @@ describe("tokenize table", () => {
           "type": "table.columnSeparator",
         },
       ]
-    `);
+    `)
     expect(tok("   | hello | world | y'all |")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -169,7 +169,7 @@ describe("tokenize table", () => {
           "type": "table.columnSeparator",
         },
       ]
-    `);
+    `)
     expect(tok("|    hello |  world   |y'all |")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -204,7 +204,7 @@ describe("tokenize table", () => {
           "type": "table.columnSeparator",
         },
       ]
-    `);
+    `)
     // with empty cell
     expect(tok("||  world   | |")).toMatchInlineSnapshot(`
       Array [
@@ -235,8 +235,8 @@ describe("tokenize table", () => {
           "type": "table.columnSeparator",
         },
       ]
-    `);
-  });
+    `)
+  })
 
   it("knows these are not table rows", () => {
     expect(tok(" hello | world | y'all |")).toMatchInlineSnapshot(`
@@ -247,7 +247,7 @@ describe("tokenize table", () => {
           "value": "hello | world | y'all |",
         },
       ]
-    `);
+    `)
     expect(tok("|+")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -260,6 +260,6 @@ describe("tokenize table", () => {
           "value": "+",
         },
       ]
-    `);
-  });
-});
+    `)
+  })
+})

@@ -1,12 +1,14 @@
 import { push } from '../node'
-import { Paragraph } from '../types'
+import { FootnoteReference, Paragraph, PhrasingContent, Token } from '../types'
 import { isPhrasingContent } from '../utils'
+import { Lexer } from '../tokenize';
 
 const isWhitespaces = node => {
   return node.type === 'text.plain' && node.value.trim().length === 0
 }
 
-export default ({ peek, eat }): Paragraph | undefined => {
+export default function paragraph(lexer: Lexer): Paragraph | undefined {
+  const { peek, eat } = lexer;
   let eolCount = 0
 
   const createParagraph = (): Paragraph => ({
@@ -20,6 +22,39 @@ export default ({ peek, eat }): Paragraph | undefined => {
     const token = peek()
     if (!token || eolCount >= 2) {
       return p
+    }
+
+    function readAFootnote(par: Paragraph | FootnoteReference = p): PhrasingContent | undefined {
+      if (token.type === 'footnote.inline.begin') {
+        eat();
+        const fn: FootnoteReference =
+        {
+          children: [],
+          type: 'footnote.reference',
+          label: token.label,
+        };
+        let inner: Token;
+        while (inner = peek()) {
+          if (inner.type === 'footnote.inline.begin') {
+            // nested footnote reference
+            readAFootnote(fn);
+          } else if (inner.type === 'footnote.reference.end') {
+            eat();
+            push(par)(fn);
+            eolCount = 0;
+            return fn;
+          } else if (isPhrasingContent(inner)) {
+            eat();
+            fn.children.push(inner);
+          } else {
+            return undefined;
+          }
+        }
+      }
+    }
+
+    if (readAFootnote()) {
+      return build(p);
     }
 
     if (token.type === 'newline') {

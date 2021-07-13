@@ -1,0 +1,34 @@
+#+title: Gatsby
+#+published: true
+#+position: 1
+
+* Create Gatsby Project
+
+Create a new gatsby website following the [[https://www.gatsbyjs.com/get-started/][documentation]]. Or simply
+
+#+begin_src sh
+npx gatsby new gatsby-site
+#+end_src
+
+* Installation
+
+Install packages.
+
+#+begin_src sh
+cd gatsby-site
+yarn add gatsby-plugin-orga @orgajs/react @orgajs/loader
+#+end_src
+
+* Configuration
+
+Add =gatsby-plugin-orga= to =gatsby-config.js=.
+
+#+begin_src javascript
+module.exports = {
+  plugins: ['gatsby-plugin-orga']
+}
+#+end_src
+
+Add a org file in folder =src/pages= directory. It should work out of the box.
+
+For more advanced usage, please checkout code of [[https://github.com/orgapp/orgajs][orgajs project]], which generate this website via =gatsby-theme-orga-docs=.

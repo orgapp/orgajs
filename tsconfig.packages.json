@@ -1,0 +1,14 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/orga" },
+    { "path": "packages/loader" },
+    { "path": "packages/react" },
+    { "path": "packages/estree-jsx" },
+    { "path": "packages/oast-to-hast" },
+    { "path": "packages/reorg" },
+    { "path": "packages/reorg-parse" },
+    { "path": "packages/reorg-rehype" },
+    { "path": "packages/text-kit" }
+  ]
+}

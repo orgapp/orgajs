@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: "orgajs/gatsby",
+    title: 'orgajs + gatsby',
+    description: 'this is a website built with org-mode files',
   },
   plugins: [
     {

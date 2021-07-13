@@ -5,6 +5,10 @@ module.exports = {
     jest: true,
   },
   parser: '@typescript-eslint/parser',
+  plugins: [
+    '@typescript-eslint',
+    'import',
+  ],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -20,9 +24,34 @@ module.exports = {
       jsx: true,
     },
   },
-  settings: {},
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts', '.tsx', '.d.ts'],
+        paths: [ 'node_modules/', 'node_modules/@types/' ]
+      }
+    }
+  },
   rules: {
-    'import/no-extraneous-dependencies': ['error'],
+    'import/no-extraneous-dependencies': ['warn'],
     'semi': ['error', 'never'],
   },
+  // overrides: [
+  //   {
+  //     files: ['**/*.ts', '**/*.tsx'],
+  //     parser: '@typescript-eslint/parser',
+  //     parserOptions: {
+  //       ecmaVersion: 2018,
+  //       sourceType: 'module',
+  //       ecmaFeatures: {
+  //         jsx: true,
+  //       },
+  //     },
+  //     plugins: ['@typescript-eslint'],
+  //     rules: {
+  //       'no-dupe-class-members': 'off',
+  //       'no-undef': 'off',
+  //     }
+  //   },
+  // ],
 }
