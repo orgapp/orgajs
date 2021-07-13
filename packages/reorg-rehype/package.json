@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/reorg-rehype",
-  "version": "2.4.8",
+  "version": "2.4.9",
   "description": "rehype support for orga",
   "files": [
     "dist"
@@ -21,6 +21,6 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "oast-to-hast": "^2.4.8"
+    "oast-to-hast": "^2.4.9"
   }
 }
