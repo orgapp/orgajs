@@ -6,7 +6,7 @@ import uri from '../uri'
 import { escape } from '../utils'
 import * as tk from './util';
 
-const POST = `[\\s-\\.,:!?'\\)}]|$`
+const POST = `(?:[\\s-\\.,:!?'\\)}]|$)`
 const BORDER = `[^,'"\\s]`
 
 const MARKERS: { [key: string]: StyledText['type'] } = {
