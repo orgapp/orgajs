@@ -3,7 +3,9 @@ import read from '../read';
 
 const point = (line: number, column: number): Point => ({ line, column });
 
-const testReader = (testName: string, text: string, op: (r: ReturnType<typeof read>) => void) => {
+type Reader = ReturnType<typeof read>;
+
+const testReader = (testName: string, text: string, op: (r: Reader) => void) => {
   return it(testName, () => {
     op(read(text));
   });
@@ -67,5 +69,23 @@ describe("toIndex", () => {
     testToIndex("beginning of next line", "test\ntest", [2, 1], 5);
     testToIndex("middle of line", "tests", [1, 3], 2);
     testToIndex("middle of document", "tests\ntests\ntests", [2, 3], 8);
+  });
+});
+
+describe("shift", () => {
+  const testShift = (testName: string, text: string, testArgs: Parameters<Reader['shift']>, expected: ReturnType<Reader['shift']>) => {
+    return testReader(testName, text, r => expect(r.shift(...testArgs)).toEqual(expected));
+  };
+
+  describe("out-of-bounds shifts", () => {
+    testShift("shifting beyond end of document", "test", [point(1, 1), 6], point(1, 4));
+    testShift("shifting before start of document", "test", [point(1, 1), -1], point(1, 1));
+  });
+
+  describe("in-bounds shifts", () => {
+    testShift("shift to start of next line", "test\ntest", [point(1, 4), 2], point(2, 1));
+    testShift("shift to start of next line (on newline)", "test\ntest", [point(1, 5), 1], point(2, 1));
+    testShift("shift to end of previous newline", "test\ntest", [point(2, 1), -1], point(1, 5));
+    testShift("shift to end of previous line", "test\ntest", [point(2, 1), -2], point(1, 4));
   });
 });
