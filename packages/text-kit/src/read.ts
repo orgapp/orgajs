@@ -63,8 +63,8 @@ export default (text: string) => {
     return {
       captures,
       position: {
-        start: location(offset + match.index) as Point,
-        end: location(offset + match.index + match[0].length) as Point,
+        start: location(offset + match.index),
+        end: location(offset + match.index + match[0].length),
       }
     }
   }
