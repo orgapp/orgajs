@@ -10,10 +10,25 @@ export default (text: string) => {
     cursor = nl + 1
   } while (cursor > 0 && cursor < text.length)
 
+  /**
+   * Return the best-fit index of a point in the text.
+   *
+   * Specifically, if the point is invalid w.r.t. the text, then the
+   * following behaviours are observed:
+   *
+   * - if `line` is less than `1` then the index is `0`;
+   * - if `line` is greater than the number of lines, then the maximum index is returned;
+   * - if `column` is less than `1` then the start-of-line index is returned;
+   * - if `column` is greater than the length of the line, then the end-of-line index is returned;
+   * - if the text is empty, then the index is 0
+   */
   const toIndex = ({ line, column }: Point): number => {
     if (line < 1) return 0
-    if (line > lines.length) return text.length
-    const index = lines[line - 1] + column - 1
+    if (line > lines.length) return text.length - 1;
+    const targetLineStartIndex = lines[line - 1];
+    if (column < 1) return targetLineStartIndex;
+    const maxCol = line < lines.length ? lines[line] : text.length - targetLineStartIndex;
+    const index = targetLineStartIndex + Math.min(column, maxCol) - 1;
     return Math.max(0, Math.min(index, text.length))
   }
 
