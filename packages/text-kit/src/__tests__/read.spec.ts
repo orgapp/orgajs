@@ -1,9 +1,14 @@
-import { Point } from 'unist';
+import { Point, Position } from 'unist';
 import read from '../read';
 
 const point = (line: number, column: number): Point => ({ line, column });
 
 type Reader = ReturnType<typeof read>;
+
+const pos = ([startLine, startColumn]: [number, number], [endLine, endColumn]: [number, number]): Position => ({
+  start: point(startLine, startColumn),
+  end: point(endLine, endColumn),
+});
 
 const testReader = (testName: string, text: string, op: (r: Reader) => void) => {
   return it(testName, () => {
@@ -22,6 +27,21 @@ describe("numberOfLines", () => {
   testNumberOfLines("with some newlines", "test1\ntest2\n", 2);
   testNumberOfLines("starts with newline", "\ntest", 2);
   testNumberOfLines("ends with newline", "test\n", 1);
+});
+
+describe("linePosition", () => {
+  const testLinePosition = (testName: string, text: string, line: number, expected: ReturnType<Reader['linePosition']>) => {
+    return testReader(testName, text, r => expect(r.linePosition(line)).toEqual(expected));
+  };
+
+  describe("out-of-bounds lines", () => {
+    testLinePosition("line < 1", "test", 0, undefined);
+    testLinePosition("line > number of lines", "test", 2, undefined);
+  });
+
+  testLinePosition("only line", "test", 1, pos([1, 1], [1, 4]));
+  testLinePosition("line with newline", "test\n", 1, pos([1, 1], [1, 5]));
+  testLinePosition("middle line", "test\ntest\ntest", 2, pos([2, 1], [2, 5]));
 });
 
 describe("location", () => {
