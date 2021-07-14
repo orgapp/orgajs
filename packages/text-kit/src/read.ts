@@ -2,13 +2,9 @@ import { Point, Position } from 'unist';
 
 export default (text: string) => {
 
-  let cursor = 0
-  const lines: number[] = [] // index of line starts
-  do {
-    lines.push(cursor)
-    const nl = text.indexOf('\n', cursor)
-    cursor = nl + 1
-  } while (cursor > 0 && cursor < text.length)
+  const strLines = text.split(/^/mg);
+  const lines: number[] = strLines.length > 0 ? [0] : []; // index of line starts
+  strLines.slice(0, strLines.length - 1).forEach((l, i) => lines.push(lines[i] + l.length));
 
   /**
    * Return the best-fit index of a point in the text.
@@ -23,13 +19,13 @@ export default (text: string) => {
    * - if the text is empty, then the index is 0
    */
   const toIndex = ({ line, column }: Point): number => {
-    if (line < 1) return 0
+    if (text.length === 0 || line < 1) return 0;
     if (line > lines.length) return text.length - 1;
     const targetLineStartIndex = lines[line - 1];
     if (column < 1) return targetLineStartIndex;
     const maxCol = line < lines.length ? lines[line] : text.length - targetLineStartIndex;
     const index = targetLineStartIndex + Math.min(column, maxCol) - 1;
-    return Math.max(0, Math.min(index, text.length))
+    return Math.min(index, text.length);
   }
 
   const middle = (start: number, end: number) => {

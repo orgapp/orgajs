@@ -11,7 +11,7 @@ describe("numberOfLines", () => {
     return testReader(testName, text, r => expect(r.numberOfLines).toEqual(expected));
   };
 
-  testNumberOfLines("with empty string", "", 1);
+  testNumberOfLines("with empty string", "", 0);
   testNumberOfLines("just a newline", "\n", 1);
   testNumberOfLines("with one newline", "test\n", 1);
   testNumberOfLines("with some newlines", "test1\ntest2\n", 2);
