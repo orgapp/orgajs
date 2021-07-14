@@ -29,6 +29,38 @@ describe("numberOfLines", () => {
   testNumberOfLines("ends with newline", "test\n", 1);
 });
 
+describe("substring", () => {
+  const testSubstring = (testName: string, text: string, testArg: Parameters<Reader['substring']>[number], expected: ReturnType<Reader['substring']>) => {
+    return testReader(testName, text, r => expect(r.substring(testArg)).toEqual(expected));
+  };
+
+  describe("out-of-bounds", () => {
+    testSubstring("start line before beginning of document, end after", "test", pos([-1, 1], [2, 1]), "test");
+    testSubstring("start line in document, end after", "test", pos([1, 1], [2, 1]), "test");
+    testSubstring("start line before beginning of document, end within", "test", pos([-1, 1], [1, 2]), "te");
+    testSubstring("end is before start", "test", pos([1, 4], [1, 1]), "");
+  });
+
+  testSubstring("within line", "tests", pos([1, 2], [1, 4]), "est");
+  testSubstring("over multiple lines", "tests\ntests\ntests", pos([1, 3], [3, 3]), "sts\ntests\ntes");
+
+  describe("end is EOL", () => {
+    testSubstring("with one line", "test", { start: point(1, 1), end: 'EOL' }, "test");
+    testSubstring("with multiple lines", "test1\ntest2\ntest3", { start: point(2, 1), end: 'EOL' }, "test2\n");
+  });
+
+  describe("end is EOF", () => {
+    testSubstring("with one line", "test", { start: point(1, 1), end: 'EOF' }, "test");
+    testSubstring("with multiple lines", "test1\ntest2\ntest3", { start: point(2, 1), end: 'EOF' }, "test2\ntest3");
+    testSubstring("with multiple lines and ending newline", "test1\ntest2\ntest3\n", { start: point(2, 1), end: 'EOF' }, "test2\ntest3\n");
+  });
+
+  describe("with only start specified (default is EOL)", () => {
+    testSubstring("single line", "test", { start: point(1, 1) }, "test");
+    testSubstring("multiple lines", "test1\ntest2\ntest3", { start: point(2, 1) }, "test2\n");
+  });
+});
+
 describe("linePosition", () => {
   const testLinePosition = (testName: string, text: string, line: number, expected: ReturnType<Reader['linePosition']>) => {
     return testReader(testName, text, r => expect(r.linePosition(line)).toEqual(expected));

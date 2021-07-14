@@ -101,27 +101,28 @@ export default (text: string) => {
     };
   }
 
+  /**
+   * Retrieve the portion of the text covered by the given span (inclusive of ends).
+   *
+   * `end` may be a {@link Point}, or may be `EOL`, in which case it
+   * is the end of the `start` line (including any newline character),
+   * or `EOF`, in which case it is the end of the document.
+   *
+   * `end` is optional and defaults to `EOL`.
+   *
+   * Note that if `end` is before `start`, this is the empty string.
+   */
   const substring = ({ start, end = 'EOL' }: {
     start: Point,
     end?: Point | 'EOL' | 'EOF'
   }): string => {
 
-    let endIndex: number | undefined;
-    if (end === 'EOL') {
-      const lp = linePosition(start.line)
-      if (!lp) {
-        console.log({ start })
-      }
-      const lineEnd = linePosition(start.line)?.end;
-      if (lineEnd) {
-        endIndex = toIndex(lineEnd)
-      }
-    } else if (end === 'EOF') {
-      endIndex = text.length
-    } else {
-      endIndex = toIndex(end)
-    }
-    return text.substring(toIndex(start), endIndex)
+    const startIndex = toIndex(start);
+    const endIndex = end === 'EOF' ? text.length - 1
+      : end === 'EOL' ? toIndex({ ...start, column: Infinity })
+        : toIndex(end);
+    if (endIndex < startIndex) return "";
+    return text.substring(startIndex, endIndex + 1)
   }
 
   return {
