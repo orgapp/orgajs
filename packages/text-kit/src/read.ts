@@ -6,6 +6,12 @@ export default (text: string) => {
   const lines: number[] = strLines.length > 0 ? [0] : []; // index of line starts
   strLines.slice(0, strLines.length - 1).forEach((l, i) => lines.push(lines[i] + l.length));
 
+  /** Return the length of the given line, if it exists. */
+  const lengthOfLine = (line: number): number | undefined => {
+    if (line < 1 || line > lines.length) return;
+    return (line < lines.length ? lines[line] : text.length) - lines[line - 1];
+  }
+
   /**
    * Return the best-fit index of a point in the text.
    *
@@ -23,7 +29,7 @@ export default (text: string) => {
     if (line > lines.length) return text.length - 1;
     const targetLineStartIndex = lines[line - 1];
     if (column < 1) return targetLineStartIndex;
-    const maxCol = line < lines.length ? lines[line] : text.length - targetLineStartIndex;
+    const maxCol = lengthOfLine(line)!;
     const index = targetLineStartIndex + Math.min(column, maxCol) - 1;
     return Math.min(index, text.length);
   }
@@ -85,15 +91,14 @@ export default (text: string) => {
     return location(toIndex(point) + offset)
   }
 
+  /** Return the span of the document covered by the given line, or `undefined` if the line doesn't exist. */
   const linePosition = (ln: number): Position | undefined => {
-    if (ln < 1 || ln > lines.length) return undefined
-    const nextLine = lines[ln]
-    const endIndex = nextLine ? nextLine - 1 : text.length
-    // console.log({ nextLine, endIndex, end: location(endIndex) })
+    const lineLength = lengthOfLine(ln);
+    if (!lineLength) return;
     return {
       start: { line: ln, column: 1 },
-      end: location(endIndex),
-    }
+      end: { line: ln, column: lineLength },
+    };
   }
 
   const substring = ({ start, end = 'EOL' }: {
