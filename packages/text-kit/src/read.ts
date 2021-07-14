@@ -1,12 +1,4 @@
-interface Point {
-  line: number;
-  column: number;
-}
-
-interface Position {
-  start: Point;
-  end: Point;
-}
+import { Point, Position } from 'unist';
 
 export default (text: string) => {
 
