@@ -50,7 +50,7 @@ export default (text: string) => {
   const match = (
     pattern: RegExp,
     position: Position,
-  ) : { position: Position, captures: string[] } | undefined => {
+  ): { position: Position, captures: string[] } | undefined => {
     const content = substring(position)
     if (!content) return undefined
     const match = pattern.exec(content)
@@ -66,7 +66,7 @@ export default (text: string) => {
     }
   }
 
-  const shift = (point: Point, offset: number) : Point => {
+  const shift = (point: Point, offset: number): Point => {
     return location(toIndex(point) + offset)
   }
 
@@ -83,7 +83,8 @@ export default (text: string) => {
 
   const substring = ({ start, end = 'EOL' }: {
     start: Point,
-    end?: Point | 'EOL' | 'EOF' }): string => {
+    end?: Point | 'EOL' | 'EOF'
+  }): string => {
 
     let endIndex: number | undefined;
     if (end === 'EOL') {
