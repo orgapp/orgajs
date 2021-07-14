@@ -28,22 +28,33 @@ export default (text: string) => {
     return Math.min(index, text.length);
   }
 
-  const middle = (start: number, end: number) => {
-    return start + Math.floor((end - start) / 2)
+  /**
+   * Find the line on which the given `index` resides.
+   *
+   * Note the following exceptions:
+   *
+   * - if `index` is less than `0` then this is line `1`;
+   * - if `index` is greater than the maximum index then this is the last line
+   */
+  const findLine = (index: number): number => {
+    const l = lines.findIndex((_l, i) => i === lines.length - 1 ? true : index < lines[i + 1]);
+    return l === -1 ? 1 : l + 1;
   }
 
-  const findLine = (index: number, start: number, end: number): number => {
-    if (index < 0) return 1
-    if (index >= text.length) return lines.length
-    const mid = middle(start, end)
-    if (lines[mid - 1] > index) return findLine(index, start, mid)
-    if (lines[mid] <= index) return findLine(index, mid, end)
-    return mid
-  }
-
+  /**
+   * Return the {@link Point} for a given `index` in the text.
+   *
+   * Note the following exceptions:
+   *
+   * - if `index` is less than `0` then this is the starting point;
+   * - if `index` is larger than the greatest index in the text then this is the maximum point;
+   * - if the text is empty then this is the 1-1-point
+   */
   const location = (index: number): Point => {
-    const line = findLine(index, 1, lines.length + 1)
-    const column = Math.min(index, text.length) - toIndex({ line, column: 1 }) + 1
+    const line = findLine(index)
+    if (lines.length === 0) return { line: 1, column: 1 };
+    const lineStartIndex = lines[line - 1];
+    const column = toIndex({ line, column: index - lineStartIndex + 1 }) - lineStartIndex + 1;
     return {
       line,
       column,

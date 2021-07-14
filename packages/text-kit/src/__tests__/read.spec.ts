@@ -1,4 +1,7 @@
+import { Point } from 'unist';
 import read from '../read';
+
+const point = (line: number, column: number): Point => ({ line, column });
 
 const testReader = (testName: string, text: string, op: (r: ReturnType<typeof read>) => void) => {
   return it(testName, () => {
@@ -17,6 +20,27 @@ describe("numberOfLines", () => {
   testNumberOfLines("with some newlines", "test1\ntest2\n", 2);
   testNumberOfLines("starts with newline", "\ntest", 2);
   testNumberOfLines("ends with newline", "test\n", 1);
+});
+
+describe("location", () => {
+  const testLocation = (testName: string, text: string, loc: number, expectedPoint: Point) => {
+    return testReader(testName, text, r => expect(r.location(loc)).toEqual(expectedPoint));
+  };
+
+  describe("location out of range", () => {
+    testLocation("empty document", "", 0, point(1, 1));
+    testLocation("index too high", "test", 4, point(1, 4));
+    testLocation("negative index", "test", -1, point(1, 1));
+  });
+
+  describe("location in bounds", () => {
+    testLocation("beginning of line", "test", 0, point(1, 1));
+    testLocation("end of line", "test", 3, point(1, 4));
+    testLocation("beginning of document", "test\ntest", 0, point(1, 1));
+    testLocation("end of document", "test\ntest", 8, point(2, 4));
+    testLocation("next line", "test\ntest", 5, point(2, 1));
+    testLocation("middle of text", "tests\ntests\ntests", 8, point(2, 3));
+  });
 });
 
 describe("toIndex", () => {
