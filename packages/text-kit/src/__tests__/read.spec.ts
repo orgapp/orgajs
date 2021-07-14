@@ -12,6 +12,9 @@ describe("numberOfLines", () => {
   };
 
   testNumberOfLines("with empty string", "", 1);
+  testNumberOfLines("just a newline", "\n", 1);
   testNumberOfLines("with one newline", "test\n", 1);
   testNumberOfLines("with some newlines", "test1\ntest2\n", 2);
+  testNumberOfLines("starts with newline", "\ntest", 2);
+  testNumberOfLines("ends with newline", "test\n", 1);
 });
