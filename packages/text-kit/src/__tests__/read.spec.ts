@@ -97,6 +97,36 @@ describe("location", () => {
   });
 });
 
+describe("match", () => {
+  const testMatch = (testName: string, text: string, testArgs: Parameters<Reader['match']>, expected: [Position, string[]] | undefined) => {
+    return testReader(testName, text, r => expect(r.match(...testArgs)).toEqual(expected && { position: expected[0], captures: expected[1] }));
+  };
+
+  describe("multiline", () => {
+    testMatch("star", "_Test\nTest_", [/[\s\S]*/m, pos([1, 1], [2, 5])], [pos([1, 1], [2, 5]), ["_Test\nTest_"]]);
+    testMatch("star without multiline flag", "_Test\nTest_", [/[\s\S]*/, pos([1, 1], [2, 5])], [pos([1, 1], [2, 5]), ["_Test\nTest_"]]);
+    testMatch("explicit", "_Test\nTest_", [/_Test\nTest_/m, pos([1, 1], [2, 5])], [pos([1, 1], [2, 5]), ["_Test\nTest_"]]);
+    testMatch("explicit without multiline flag", "_Test\nTest_", [/_Test\nTest_/, pos([1, 1], [2, 5])], [pos([1, 1], [2, 5]), ["_Test\nTest_"]]);
+  });
+
+  testMatch("with capture groups", "Test", [/T(es(t))/, pos([1, 1], [1, 4])], [pos([1, 1], [1, 4]), ["Test", "est", "t"]]);
+  testMatch("with non-match", "Test", [/nope/, pos([1, 1], [1, 4])], undefined);
+
+  testMatch("un-anchored match in part of text", "Test", [/es/, pos([1, 1], [1, 4])], [pos([1, 2], [1, 3]), ["es"]]);
+
+  describe("with position restriction", () => {
+    testMatch("part of document, match anchored", "Test\nTest", [/^st\nTe$/, pos([1, 3], [2, 2])], [pos([1, 3], [2, 2]), ["st\nTe"]]);
+    testMatch("part of document, match un-anchored", "Test\nTest", [/st\nTe/, pos([1, 3], [2, 2])], [pos([1, 3], [2, 2]), ["st\nTe"]]);
+    testMatch("restriction prevents match", "Test\nTest", [/Test/, pos([1, 3], [2, 2])], undefined);
+  });
+
+  testMatch("match against empty string", "", [new RegExp(""), pos([1, 1], [1, 1])], undefined);
+  testMatch("empty match", "Test", [new RegExp(""), pos([1, 1], [1, 4])], [pos([1, 1], [1, 1]), [""]]);
+  testMatch("empty match with position restriction", "Test", [new RegExp(""), pos([1, 1], [1, 1])], [pos([1, 1], [1, 1]), [""]]);
+  testMatch("if end is before start this is undefined", "Test\nTest", [/Test/, pos([2, 1], [1, 1])], undefined);
+  testMatch("if end is before start this is undefined (even with empty RegExp)", "Test\nTest", [new RegExp(""), pos([2, 1], [1, 1])], undefined);
+});
+
 describe("toIndex", () => {
   const testToIndex = (testName: string, text: string, [line, column]: [number, number], expectedIndex: number) => {
     return testReader(testName, text, r => expect(r.toIndex({ line, column })).toEqual(expectedIndex));

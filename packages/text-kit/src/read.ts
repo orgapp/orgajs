@@ -67,6 +67,12 @@ export default (text: string) => {
     }
   }
 
+  /**
+   * Match `pattern` against the region of text selected by `position`.
+   *
+   * If the match fails, returns `undefined`. If the match succeeds,
+   * returns the match array along with the span covered by the match.
+   */
   const match = (
     pattern: RegExp,
     position: Position,
@@ -81,7 +87,7 @@ export default (text: string) => {
       captures,
       position: {
         start: location(offset + match.index),
-        end: location(offset + match.index + match[0].length),
+        end: location(offset + match.index + match[0].length - 1),
       }
     }
   }
