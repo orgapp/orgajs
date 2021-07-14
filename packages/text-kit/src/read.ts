@@ -80,6 +80,7 @@ export default (text: string) => {
     }
   }
 
+  /** Offset the given `point` by the provided `offset`. */
   const shift = (point: Point, offset: number): Point => {
     return location(toIndex(point) + offset)
   }
