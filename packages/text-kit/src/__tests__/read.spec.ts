@@ -1,16 +1,14 @@
 import { Point, Position } from 'unist';
-import read from '../read';
+import read, { TextKit } from '../read';
 
 const point = (line: number, column: number): Point => ({ line, column });
-
-type Reader = ReturnType<typeof read>;
 
 const pos = ([startLine, startColumn]: [number, number], [endLine, endColumn]: [number, number]): Position => ({
   start: point(startLine, startColumn),
   end: point(endLine, endColumn),
 });
 
-const testReader = (testName: string, text: string, op: (r: Reader) => void) => {
+const testReader = (testName: string, text: string, op: (r: TextKit) => void) => {
   return it(testName, () => {
     op(read(text));
   });
@@ -30,7 +28,7 @@ describe("numberOfLines", () => {
 });
 
 describe("substring", () => {
-  const testSubstring = (testName: string, text: string, testArg: Parameters<Reader['substring']>[number], expected: ReturnType<Reader['substring']>) => {
+  const testSubstring = (testName: string, text: string, testArg: Parameters<TextKit['substring']>[number], expected: ReturnType<TextKit['substring']>) => {
     return testReader(testName, text, r => expect(r.substring(testArg)).toEqual(expected));
   };
 
@@ -62,7 +60,7 @@ describe("substring", () => {
 });
 
 describe("linePosition", () => {
-  const testLinePosition = (testName: string, text: string, line: number, expected: ReturnType<Reader['linePosition']>) => {
+  const testLinePosition = (testName: string, text: string, line: number, expected: ReturnType<TextKit['linePosition']>) => {
     return testReader(testName, text, r => expect(r.linePosition(line)).toEqual(expected));
   };
 
@@ -98,7 +96,7 @@ describe("location", () => {
 });
 
 describe("match", () => {
-  const testMatch = (testName: string, text: string, testArgs: Parameters<Reader['match']>, expected: [Position, string[]] | undefined) => {
+  const testMatch = (testName: string, text: string, testArgs: Parameters<TextKit['match']>, expected: [Position, string[]] | undefined) => {
     return testReader(testName, text, r => expect(r.match(...testArgs)).toEqual(expected && { position: expected[0], captures: expected[1] }));
   };
 
@@ -155,7 +153,7 @@ describe("toIndex", () => {
 });
 
 describe("shift", () => {
-  const testShift = (testName: string, text: string, testArgs: Parameters<Reader['shift']>, expected: ReturnType<Reader['shift']>) => {
+  const testShift = (testName: string, text: string, testArgs: Parameters<TextKit['shift']>, expected: ReturnType<TextKit['shift']>) => {
     return testReader(testName, text, r => expect(r.shift(...testArgs)).toEqual(expected));
   };
 

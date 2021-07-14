@@ -1,16 +1,48 @@
 import { Point, Position } from 'unist';
 
-export default (text: string) => {
+export interface TextKit {
+  numberOfLines: number;
 
-  const strLines = text.split(/^/mg);
-  const lines: number[] = strLines.length > 0 ? [0] : []; // index of line starts
-  strLines.slice(0, strLines.length - 1).forEach((l, i) => lines.push(lines[i] + l.length));
+  /**
+   * Retrieve the portion of the text covered by the given span (inclusive of ends).
+   *
+   * `end` may be a {@link Point}, or may be `EOL`, in which case it
+   * is the end of the `start` line (including any newline character),
+   * or `EOF`, in which case it is the end of the document.
+   *
+   * `end` is optional and defaults to `EOL`.
+   *
+   * Note that if `end` is before `start`, this is the empty string.
+   */
+  substring: ({ start, end }: {
+    start: Point,
+    end?: Point | 'EOL' | 'EOF'
+  }) => string;
 
-  /** Return the length of the given line, if it exists. */
-  const lengthOfLine = (line: number): number | undefined => {
-    if (line < 1 || line > lines.length) return;
-    return (line < lines.length ? lines[line] : text.length) - lines[line - 1];
-  }
+  /** Return the span of the document covered by the given line, or `undefined` if the line doesn't exist. */
+  linePosition: (ln: number) => Position | undefined;
+
+  /**
+   * Return the {@link Point} for a given `index` in the text.
+   *
+   * Note the following exceptions:
+   *
+   * - if `index` is less than `0` then this is the starting point;
+   * - if `index` is larger than the greatest index in the text then this is the maximum point;
+   * - if the text is empty then this is the 1-1-point
+   */
+  location: (index: number) => Point;
+
+  /**
+   * Match `pattern` against the region of text selected by `position`.
+   *
+   * If the match fails, returns `undefined`. If the match succeeds,
+   * returns the match array along with the span covered by the match.
+   */
+  match: (pattern: RegExp, position: Position) => {
+    position: Position,
+    captures: string[]
+  } | undefined;
 
   /**
    * Return the best-fit index of a point in the text.
@@ -24,6 +56,24 @@ export default (text: string) => {
    * - if `column` is greater than the length of the line, then the end-of-line index is returned;
    * - if the text is empty, then the index is 0
    */
+  toIndex: ({ line, column }: Point) => number;
+
+  /** Offset the given `point` by the provided `offset`. */
+  shift: (point: Point, offset: number) => Point;
+}
+
+export default (text: string): TextKit => {
+
+  const strLines = text.split(/^/mg);
+  const lines: number[] = strLines.length > 0 ? [0] : []; // index of line starts
+  strLines.slice(0, strLines.length - 1).forEach((l, i) => lines.push(lines[i] + l.length));
+
+  /** Return the length of the given line, if it exists. */
+  const lengthOfLine = (line: number): number | undefined => {
+    if (line < 1 || line > lines.length) return;
+    return (line < lines.length ? lines[line] : text.length) - lines[line - 1];
+  }
+
   const toIndex = ({ line, column }: Point): number => {
     if (text.length === 0 || line < 1) return 0;
     if (line > lines.length) return text.length - 1;
@@ -47,15 +97,6 @@ export default (text: string) => {
     return l === -1 ? 1 : l + 1;
   }
 
-  /**
-   * Return the {@link Point} for a given `index` in the text.
-   *
-   * Note the following exceptions:
-   *
-   * - if `index` is less than `0` then this is the starting point;
-   * - if `index` is larger than the greatest index in the text then this is the maximum point;
-   * - if the text is empty then this is the 1-1-point
-   */
   const location = (index: number): Point => {
     const line = findLine(index)
     if (lines.length === 0) return { line: 1, column: 1 };
@@ -67,12 +108,6 @@ export default (text: string) => {
     }
   }
 
-  /**
-   * Match `pattern` against the region of text selected by `position`.
-   *
-   * If the match fails, returns `undefined`. If the match succeeds,
-   * returns the match array along with the span covered by the match.
-   */
   const match = (
     pattern: RegExp,
     position: Position,
@@ -92,12 +127,10 @@ export default (text: string) => {
     }
   }
 
-  /** Offset the given `point` by the provided `offset`. */
   const shift = (point: Point, offset: number): Point => {
     return location(toIndex(point) + offset)
   }
 
-  /** Return the span of the document covered by the given line, or `undefined` if the line doesn't exist. */
   const linePosition = (ln: number): Position | undefined => {
     const lineLength = lengthOfLine(ln);
     if (!lineLength) return;
@@ -107,17 +140,6 @@ export default (text: string) => {
     };
   }
 
-  /**
-   * Retrieve the portion of the text covered by the given span (inclusive of ends).
-   *
-   * `end` may be a {@link Point}, or may be `EOL`, in which case it
-   * is the end of the `start` line (including any newline character),
-   * or `EOF`, in which case it is the end of the document.
-   *
-   * `end` is optional and defaults to `EOL`.
-   *
-   * Note that if `end` is before `start`, this is the empty string.
-   */
   const substring = ({ start, end = 'EOL' }: {
     start: Point,
     end?: Point | 'EOL' | 'EOF'
