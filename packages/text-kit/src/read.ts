@@ -25,11 +25,11 @@ export default (text: string) => {
     return Math.max(0, Math.min(index, text.length))
   }
 
-  const middle = (start, end) => {
+  const middle = (start: number, end: number) => {
     return start + Math.floor((end - start) / 2)
   }
 
-  const findLine = (index: number, start: number, end: number) => {
+  const findLine = (index: number, start: number, end: number): number => {
     if (index < 0) return 1
     if (index >= text.length) return lines.length
     const mid = middle(start, end)
@@ -70,7 +70,7 @@ export default (text: string) => {
     return location(toIndex(point) + offset)
   }
 
-  const linePosition = (ln: number): Position => {
+  const linePosition = (ln: number): Position | undefined => {
     if (ln < 1 || ln > lines.length) return undefined
     const nextLine = lines[ln]
     const endIndex = nextLine ? nextLine - 1 : text.length
@@ -85,13 +85,16 @@ export default (text: string) => {
     start: Point,
     end?: Point | 'EOL' | 'EOF' }): string => {
 
-    let endIndex: number
+    let endIndex: number | undefined;
     if (end === 'EOL') {
       const lp = linePosition(start.line)
       if (!lp) {
         console.log({ start })
       }
-      endIndex = toIndex(linePosition(start.line).end)
+      const lineEnd = linePosition(start.line)?.end;
+      if (lineEnd) {
+        endIndex = toIndex(lineEnd)
+      }
     } else if (end === 'EOF') {
       endIndex = text.length
     } else {
