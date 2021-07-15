@@ -98,6 +98,12 @@ describe("location", () => {
     testLocation("next line", "test\ntest", 5, point(2, 1));
     testLocation("middle of text", "tests\ntests\ntests", 8, point(2, 3));
   });
+
+  describe("location inverse of toIndex", () => {
+    for (let i = 0; i <= 11; i++) {
+      testReader(`with i=${i}`, "test1\ntest2", r => expect(r.toIndex(r.location(i))).toEqual(i));
+    }
+  });
 });
 
 describe("match", () => {
