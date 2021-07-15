@@ -4,15 +4,19 @@ export interface TextKit {
   numberOfLines: number;
 
   /**
-   * Retrieve the portion of the text covered by the given span (inclusive of ends).
+   * Retrieve the portion of the text covered by the given span.
+   *
+   * By default, the `end` is considered to be exclusive, that is,
+   * only points up to, but not including the `end` are represented in
+   * the result. The start is considered to be inclusive.
    *
    * `end` may be a {@link Point}, or may be `EOL`, in which case it
-   * is the end of the `start` line (including any newline character),
+   * is the end of the `start` line (excluding any newline character),
    * or `EOF`, in which case it is the end of the document.
    *
    * `end` is optional and defaults to `EOL`.
    *
-   * Note that if `end` is before `start`, this is the empty string.
+   * Note that if `end` is before or equal to `start`, this is the empty string.
    */
   substring: ({ start, end }: {
     start: Point,
@@ -51,9 +55,9 @@ export interface TextKit {
    * following behaviours are observed:
    *
    * - if `line` is less than `1` then the index is `0`;
-   * - if `line` is greater than the number of lines, then the maximum index is returned;
+   * - if `line` is greater than the number of lines, then the size of the text is returned;
    * - if `column` is less than `1` then the start-of-line index is returned;
-   * - if `column` is greater than the length of the line, then the end-of-line index is returned;
+   * - if `column` is greater than the length of the line, then the end-of-line index (or EOF) is returned;
    * - if the text is empty, then the index is 0
    */
   toIndex: ({ line, column }: Point) => number;
@@ -74,15 +78,26 @@ export default (text: string): TextKit => {
     return (line < lines.length ? lines[line] : text.length) - lines[line - 1];
   }
 
-  const toIndex = ({ line, column }: Point): number => {
+  const eof = (): Point => ({
+    line: lines.length + 1,
+    column: 1,
+  });
+
+  const toIndex = (point: Point): number => {
+    const index = toIndexOrEOF(point);
+    return index === 'EOF' ? text.length : index;
+  }
+
+  const toIndexOrEOF = ({ line, column }: Point): number | 'EOF' => {
     if (text.length === 0 || line < 1) return 0;
-    if (line > lines.length) return text.length - 1;
+    if (line > lines.length) return 'EOF';
     const targetLineStartIndex = lines[line - 1];
     if (column < 1) return targetLineStartIndex;
     const maxCol = lengthOfLine(line)!;
+    if (column > maxCol && line === lines.length) return 'EOF';
     const index = targetLineStartIndex + Math.min(column, maxCol) - 1;
     return Math.min(index, text.length);
-  }
+  };
 
   /**
    * Find the line on which the given `index` resides.
@@ -99,7 +114,7 @@ export default (text: string): TextKit => {
 
   const location = (index: number): Point => {
     const line = findLine(index)
-    if (lines.length === 0) return { line: 1, column: 1 };
+    if (lines.length === 0) return eof();
     const lineStartIndex = lines[line - 1];
     const column = toIndex({ line, column: index - lineStartIndex + 1 }) - lineStartIndex + 1;
     return {
@@ -122,7 +137,7 @@ export default (text: string): TextKit => {
       captures,
       position: {
         start: location(offset + match.index),
-        end: location(offset + match.index + match[0].length - 1),
+        end: location(offset + match.index + match[0].length),
       }
     }
   }
@@ -144,13 +159,17 @@ export default (text: string): TextKit => {
     start: Point,
     end?: Point | 'EOL' | 'EOF'
   }): string => {
-
     const startIndex = toIndex(start);
-    const endIndex = end === 'EOF' ? text.length - 1
-      : end === 'EOL' ? toIndex({ ...start, column: Infinity })
-        : toIndex(end);
-    if (endIndex < startIndex) return "";
-    return text.substring(startIndex, endIndex + 1)
+    if (end === 'EOL') {
+      const line = text.substring(startIndex, toIndex({ line: start.line, column: Infinity }) + 1);
+      return line.split(/$/mg)[0];
+    } else if (end === 'EOF') {
+      return text.substring(startIndex);
+    } else {
+      const endIndex = toIndex(end);
+      if (endIndex < startIndex) return "";
+      return text.substring(startIndex, endIndex);
+    }
   }
 
   return {

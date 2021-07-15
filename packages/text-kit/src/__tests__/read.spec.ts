@@ -35,16 +35,20 @@ describe("substring", () => {
   describe("out-of-bounds", () => {
     testSubstring("start line before beginning of document, end after", "test", pos([-1, 1], [2, 1]), "test");
     testSubstring("start line in document, end after", "test", pos([1, 1], [2, 1]), "test");
-    testSubstring("start line before beginning of document, end within", "test", pos([-1, 1], [1, 2]), "te");
+    testSubstring("start line before beginning of document, end within", "test", pos([-1, 1], [1, 2]), "t");
     testSubstring("end is before start", "test", pos([1, 4], [1, 1]), "");
+    testSubstring("end is equal to start", "test", pos([1, 3], [1, 3]), "");
   });
 
-  testSubstring("within line", "tests", pos([1, 2], [1, 4]), "est");
-  testSubstring("over multiple lines", "tests\ntests\ntests", pos([1, 3], [3, 3]), "sts\ntests\ntes");
+  testSubstring("within line", "tests", pos([1, 2], [1, 5]), "est");
+  testSubstring("over multiple lines", "tests\ntests\ntests", pos([1, 3], [3, 4]), "sts\ntests\ntes");
+  testSubstring("end is equal to start, inclusive end", "test", pos([1, 3], [1, 4]), "s");
 
   describe("end is EOL", () => {
-    testSubstring("with one line", "test", { start: point(1, 1), end: 'EOL' }, "test");
-    testSubstring("with multiple lines", "test1\ntest2\ntest3", { start: point(2, 1), end: 'EOL' }, "test2\n");
+    testSubstring("with one line, no newline", "test", { start: point(1, 1), end: 'EOL' }, "test");
+    testSubstring("with one line, newline, doesn't include newline", "test\n", { start: point(1, 1), end: 'EOL' }, "test");
+    testSubstring("with one line, newline, inclusive end, includes newline", "test\n", { start: point(1, 1), end: 'EOL' }, "test");
+    testSubstring("with multiple lines", "test1\ntest2\ntest3", { start: point(2, 1), end: 'EOL' }, "test2");
   });
 
   describe("end is EOF", () => {
@@ -55,7 +59,7 @@ describe("substring", () => {
 
   describe("with only start specified (default is EOL)", () => {
     testSubstring("single line", "test", { start: point(1, 1) }, "test");
-    testSubstring("multiple lines", "test1\ntest2\ntest3", { start: point(2, 1) }, "test2\n");
+    testSubstring("multiple lines", "test1\ntest2\ntest3", { start: point(2, 1) }, "test2");
   });
 });
 
@@ -81,7 +85,8 @@ describe("location", () => {
 
   describe("location out of range", () => {
     testLocation("empty document", "", 0, point(1, 1));
-    testLocation("index too high", "test", 4, point(1, 4));
+    testLocation("index at EOF", "test", 4, point(1, 5));
+    testLocation("index higher than EOF", "test", 5, point(1, 5));
     testLocation("negative index", "test", -1, point(1, 1));
   });
 
@@ -101,26 +106,27 @@ describe("match", () => {
   };
 
   describe("multiline", () => {
-    testMatch("star", "_Test\nTest_", [/[\s\S]*/m, pos([1, 1], [2, 5])], [pos([1, 1], [2, 5]), ["_Test\nTest_"]]);
-    testMatch("star without multiline flag", "_Test\nTest_", [/[\s\S]*/, pos([1, 1], [2, 5])], [pos([1, 1], [2, 5]), ["_Test\nTest_"]]);
-    testMatch("explicit", "_Test\nTest_", [/_Test\nTest_/m, pos([1, 1], [2, 5])], [pos([1, 1], [2, 5]), ["_Test\nTest_"]]);
-    testMatch("explicit without multiline flag", "_Test\nTest_", [/_Test\nTest_/, pos([1, 1], [2, 5])], [pos([1, 1], [2, 5]), ["_Test\nTest_"]]);
+    testMatch("star", "_Test\nTest_", [/[\s\S]*/m, pos([1, 1], [2, 5])], [pos([1, 1], [2, 5]), ["_Test\nTest"]]);
+    testMatch("star without multiline flag", "_Test\nTest_", [/[\s\S]*/, pos([1, 1], [2, 6])], [pos([1, 1], [2, 6]), ["_Test\nTest_"]]);
+    testMatch("explicit", "_Test\nTest_", [/_Test\nTest_/m, pos([1, 1], [2, 6])], [pos([1, 1], [2, 6]), ["_Test\nTest_"]]);
+    testMatch("explicit without multiline flag", "_Test\nTest_", [/_Test\nTest_/, pos([1, 1], [2, 6])], [pos([1, 1], [2, 6]), ["_Test\nTest_"]]);
   });
 
-  testMatch("with capture groups", "Test", [/T(es(t))/, pos([1, 1], [1, 4])], [pos([1, 1], [1, 4]), ["Test", "est", "t"]]);
+  testMatch("with capture groups", "Test", [/T(es(t))/, pos([1, 1], [1, 5])], [pos([1, 1], [1, 5]), ["Test", "est", "t"]]);
   testMatch("with non-match", "Test", [/nope/, pos([1, 1], [1, 4])], undefined);
 
-  testMatch("un-anchored match in part of text", "Test", [/es/, pos([1, 1], [1, 4])], [pos([1, 2], [1, 3]), ["es"]]);
+  testMatch("un-anchored match in part of text", "Test", [/es/, pos([1, 1], [1, 4])], [pos([1, 2], [1, 4]), ["es"]]);
 
   describe("with position restriction", () => {
-    testMatch("part of document, match anchored", "Test\nTest", [/^st\nTe$/, pos([1, 3], [2, 2])], [pos([1, 3], [2, 2]), ["st\nTe"]]);
-    testMatch("part of document, match un-anchored", "Test\nTest", [/st\nTe/, pos([1, 3], [2, 2])], [pos([1, 3], [2, 2]), ["st\nTe"]]);
-    testMatch("restriction prevents match", "Test\nTest", [/Test/, pos([1, 3], [2, 2])], undefined);
+    testMatch("part of document, match anchored", "Test\nTest", [/^st\nTe$/, pos([1, 3], [2, 3])], [pos([1, 3], [2, 3]), ["st\nTe"]]);
+    testMatch("part of document, match un-anchored", "Test\nTest", [/st\nTe/, pos([1, 3], [2, 3])], [pos([1, 3], [2, 3]), ["st\nTe"]]);
+    testMatch("restriction prevents match", "Test\nTest", [/Test/, pos([1, 3], [2, 3])], undefined);
   });
 
   testMatch("match against empty string", "", [new RegExp(""), pos([1, 1], [1, 1])], undefined);
   testMatch("empty match", "Test", [new RegExp(""), pos([1, 1], [1, 4])], [pos([1, 1], [1, 1]), [""]]);
-  testMatch("empty match with position restriction", "Test", [new RegExp(""), pos([1, 1], [1, 1])], [pos([1, 1], [1, 1]), [""]]);
+  testMatch("empty match with empty position restriction", "Test", [new RegExp(""), pos([1, 1], [1, 1])], undefined);
+  testMatch("empty match with position restriction", "Test", [new RegExp(""), pos([1, 1], [1, 2])], [pos([1, 1], [1, 1]), [""]]);
   testMatch("if end is before start this is undefined", "Test\nTest", [/Test/, pos([2, 1], [1, 1])], undefined);
   testMatch("if end is before start this is undefined (even with empty RegExp)", "Test\nTest", [new RegExp(""), pos([2, 1], [1, 1])], undefined);
 });
@@ -136,10 +142,12 @@ describe("toIndex", () => {
     testToIndex("negative column", "test", [1, -1], 0);
     testToIndex("negative column next line", "test\ntest", [2, -1], 5);
     testToIndex("line too low", "test", [0, 1], 0);
-    testToIndex("line too high", "test", [2, 1], 3);
     testToIndex("column too low", "test\ntest", [2, 0], 5);
-    testToIndex("column too high", "test", [1, 7], 3);
-    testToIndex("column too high ends with newline", "test\n", [1, 7], 4);
+    describe("EOF", () => {
+      testToIndex("line too high", "test", [2, 1], 4);
+      testToIndex("column too high", "test", [1, 7], 4);
+      testToIndex("column too high ends with newline", "test\n", [1, 7], 5);
+    });
     testToIndex("column too high multiple lines", "test\ntest", [1, 7], 4);
   });
 
@@ -158,7 +166,7 @@ describe("shift", () => {
   };
 
   describe("out-of-bounds shifts", () => {
-    testShift("shifting beyond end of document", "test", [point(1, 1), 6], point(1, 4));
+    testShift("shifting beyond end of document", "test", [point(1, 1), 6], point(1, 5));
     testShift("shifting before start of document", "test", [point(1, 1), -1], point(1, 1));
   });
 
