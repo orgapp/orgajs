@@ -66,6 +66,13 @@ export interface TextKit {
   shift: (point: Point, offset: number) => Point;
 
   /**
+   * {@link Point} representing the last non-newline character of the
+   * given `line`. Returns `undefined` if the line does not
+   * exist or is empty.
+   */
+  lastNonEOL(line: number): Point | undefined;
+
+  /**
    * {@link Point} representing the newline character of the
    * given `line`, or EOF. Returns `undefined` if the line does not
    * exist.
@@ -102,6 +109,12 @@ export default (text: string): TextKit => {
     if (!pos) return;
     const end = pos.end;
     return ((text.charAt(toIndex(end)).match(/$/mg) ?? []).length > 1) ? end : eof();
+  }
+
+  const lastNonEOL = (ln: number): Point | undefined => {
+    const end = eol(ln);
+    if (!end || end.column === 1) return;
+    return shift(end, -1);
   }
 
   const toIndex = (point: Point): number => {
@@ -203,6 +216,7 @@ export default (text: string): TextKit => {
     match,
     toIndex,
     shift,
+    lastNonEOL,
     eol,
     eof,
   }

@@ -185,6 +185,34 @@ describe("shift", () => {
   });
 });
 
+describe("lastNonEOL", () => {
+  const testLastNonEOL = (testName: string, text: string, ln: number, expected: ReturnType<TextKit['lastNonEOL']>) => {
+    return testReader(testName, text, r => expect(r.lastNonEOL(ln)).toEqual(expected));
+  };
+
+  describe("out-of-bounds", () => {
+    testLastNonEOL("line before start of document", "test", -1, undefined);
+    testLastNonEOL("line after end of document", "test", 2, undefined);
+  });
+
+  describe("single line", () => {
+    testLastNonEOL("no newline", "test", 1, point(1, 4));
+    testLastNonEOL("newline", "test\n", 1, point(1, 4));
+  });
+
+  describe("multiple lines", () => {
+    testLastNonEOL("no newline", "test1\ntest2\ntest3", 3, point(3, 5));
+    testLastNonEOL("newline", "test1\ntest2\ntest3", 2, point(2, 5));
+  });
+
+  describe("empty line", () => {
+    testLastNonEOL("empty document", "", 1, undefined);
+    testLastNonEOL("single line", "\n", 1, undefined);
+    testLastNonEOL("multiple lines", "foo\n\nbar", 2, undefined);
+    testLastNonEOL("picking non-empty line", "foo\n\nbar", 3, point(3, 3));
+  });
+});
+
 describe("eol", () => {
   const testEol = (testName: string, text: string, ln: number, expected: ReturnType<TextKit['eol']> | ((r: TextKit) => ReturnType<TextKit['eol']>)) => {
     return testReader(testName, text, r => expect(r.eol(ln)).toEqual(typeof expected === 'function' ? expected(r) : expected));
