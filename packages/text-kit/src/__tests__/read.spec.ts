@@ -107,8 +107,14 @@ describe("location", () => {
 });
 
 describe("match", () => {
-  const testMatch = (testName: string, text: string, testArgs: Parameters<TextKit['match']>, expected: [Position, string[]] | undefined) => {
-    return testReader(testName, text, r => expect(r.match(...testArgs)).toEqual(expected && { position: expected[0], captures: expected[1] }));
+  const testMatch = (testName: string, text: string,
+    testArgs: Parameters<TextKit['match']> | ((r: TextKit) => Parameters<TextKit['match']>),
+    expected: ([Position, string[]] | undefined) | ((r: TextKit) => [Position, string[]] | undefined)) => {
+    return testReader(testName, text, r => {
+      const args = typeof testArgs === 'function' ? testArgs(r) : testArgs;
+      const exp = typeof expected === 'function' ? expected(r) : expected;
+      expect(r.match(...args)).toEqual(exp && { position: exp[0], captures: exp[1] });
+    });
   };
 
   describe("multiline", () => {
@@ -129,12 +135,15 @@ describe("match", () => {
     testMatch("restriction prevents match", "Test\nTest", [/Test/, pos([1, 3], [2, 3])], undefined);
   });
 
+  testMatch("match to end of file includes end of file", "test", r => [/test/, { start: point(1, 1), end: r.eof() }], r => [{ start: point(1, 1), end: r.eof() }, ["test"]]);
+
   testMatch("match against empty string", "", [new RegExp(""), pos([1, 1], [1, 1])], undefined);
   testMatch("empty match", "Test", [new RegExp(""), pos([1, 1], [1, 4])], [pos([1, 1], [1, 1]), [""]]);
   testMatch("empty match with empty position restriction", "Test", [new RegExp(""), pos([1, 1], [1, 1])], undefined);
   testMatch("empty match with position restriction", "Test", [new RegExp(""), pos([1, 1], [1, 2])], [pos([1, 1], [1, 1]), [""]]);
   testMatch("if end is before start this is undefined", "Test\nTest", [/Test/, pos([2, 1], [1, 1])], undefined);
   testMatch("if end is before start this is undefined (even with empty RegExp)", "Test\nTest", [new RegExp(""), pos([2, 1], [1, 1])], undefined);
+  testMatch("a newline", "\n", [/^\n/, pos([1, 1], [1, 1])], undefined);
 });
 
 describe("toIndex", () => {
