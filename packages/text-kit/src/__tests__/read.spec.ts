@@ -167,12 +167,13 @@ describe("toIndex", () => {
 });
 
 describe("shift", () => {
-  const testShift = (testName: string, text: string, testArgs: Parameters<TextKit['shift']>, expected: ReturnType<TextKit['shift']>) => {
-    return testReader(testName, text, r => expect(r.shift(...testArgs)).toEqual(expected));
+  const testShift = (testName: string, text: string, testArgs: Parameters<TextKit['shift']>, expected: ReturnType<TextKit['shift']> | ((r: TextKit) => ReturnType<TextKit['shift']>)) => {
+    return testReader(testName, text, r => expect(r.shift(...testArgs)).toEqual(typeof expected === 'function' ? expected(r) : expected));
   };
 
   describe("out-of-bounds shifts", () => {
-    testShift("shifting beyond end of document", "test", [point(1, 1), 6], point(1, 5));
+    testShift("shifting beyond end of document", "test", [point(1, 1), 6], r => r.eof());
+    testShift("shifting beyond end of document with newline", "test\n", [point(1, 1), 6], r => r.eof());
     testShift("shifting before start of document", "test", [point(1, 1), -1], point(1, 1));
   });
 
@@ -181,5 +182,23 @@ describe("shift", () => {
     testShift("shift to start of next line (on newline)", "test\ntest", [point(1, 5), 1], point(2, 1));
     testShift("shift to end of previous newline", "test\ntest", [point(2, 1), -1], point(1, 5));
     testShift("shift to end of previous line", "test\ntest", [point(2, 1), -2], point(1, 4));
+  });
+});
+
+describe("eof", () => {
+  const testEof = (testName: string, text: string, expected: ReturnType<TextKit['eof']>) => {
+    return testReader(testName, text, r => expect(r.eof()).toEqual(expected));
+  };
+
+  testEof("empty document", "", point(1, 1));
+
+  describe("single line", () => {
+    testEof("no newline", "test", point(1, 5));
+    testEof("newline", "test\n", point(1, 6));
+  });
+
+  describe("multiple lines", () => {
+    testEof("no newline", "test1\ntest2\ntest3", point(3, 6));
+    testEof("newline", "test1\ntest2\ntest3\n", point(3, 7));
   });
 });

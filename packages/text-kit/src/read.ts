@@ -64,6 +64,9 @@ export interface TextKit {
 
   /** Offset the given `point` by the provided `offset`. */
   shift: (point: Point, offset: number) => Point;
+
+  /** Return a {@link Point} representing the end of the text. */
+  eof(): Point;
 }
 
 export default (text: string): TextKit => {
@@ -78,10 +81,14 @@ export default (text: string): TextKit => {
     return (line < lines.length ? lines[line] : text.length) - lines[line - 1];
   }
 
-  const eof = (): Point => ({
-    line: lines.length + 1,
-    column: 1,
-  });
+  const eof = (): Point => {
+    const len = lengthOfLine(lines.length);
+    if (!len) return { line: 1, column: 1 };
+    return {
+      line: lines.length,
+      column: len + 1,
+    };
+  };
 
   const toIndex = (point: Point): number => {
     const index = toIndexOrEOF(point);
@@ -182,5 +189,6 @@ export default (text: string): TextKit => {
     match,
     toIndex,
     shift,
+    eof,
   }
 }
