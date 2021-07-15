@@ -14,6 +14,25 @@ const testReader = (testName: string, text: string, op: (r: TextKit) => void) =>
   });
 };
 
+type Params = { [K in keyof Omit<TextKit, 'numberOfLines'>]: Parameters<TextKit[K]> };
+type Return = { [K in keyof Omit<TextKit, 'numberOfLines'>]: ReturnType<TextKit[K]> };
+type SingleOrListParam<K extends keyof Omit<TextKit, 'numberOfLines'>> =
+  Params[K] extends [any] ? Exclude<Params[K][0], Function | Array<any>> : Params[K];
+
+const testReaderFn = <K extends keyof Omit<TextKit, 'numberOfLines'>>(pty: K) =>
+  (testName: string, text: string,
+    ...rest: Params[K] extends [] ? [expected: Return[K] | ((r: TextKit) => Return[K])]
+      : [testArgs: SingleOrListParam<K> | ((r: TextKit) => SingleOrListParam<K>),
+        expected: Return[K] | ((r: TextKit) => Return[K])]) => {
+    const [testArgs, expected] = rest.length === 2 ? rest : [[] as SingleOrListParam<K>, rest[0]];
+    return testReader(testName, text, r => {
+      const calcArgs: SingleOrListParam<K> = typeof testArgs === 'function' ? testArgs(r) : testArgs;
+      const args: Params[K] = calcArgs instanceof Array ? calcArgs : [calcArgs] as any;
+      const exp = typeof expected === 'function' ? expected(r) : expected;
+      expect((r[pty] as any)(...args)).toEqual(exp);
+    });
+  };
+
 describe("numberOfLines", () => {
   const testNumberOfLines = (testName: string, text: string, expected: number) => {
     return testReader(testName, text, r => expect(r.numberOfLines).toEqual(expected));
@@ -28,9 +47,7 @@ describe("numberOfLines", () => {
 });
 
 describe("substring", () => {
-  const testSubstring = (testName: string, text: string, testArg: Parameters<TextKit['substring']>[number], expected: ReturnType<TextKit['substring']>) => {
-    return testReader(testName, text, r => expect(r.substring(testArg)).toEqual(expected));
-  };
+  const testSubstring = testReaderFn('substring');
 
   describe("out-of-bounds", () => {
     testSubstring("start line before beginning of document, end after", "test", pos([-1, 1], [2, 1]), "test");
@@ -64,9 +81,7 @@ describe("substring", () => {
 });
 
 describe("linePosition", () => {
-  const testLinePosition = (testName: string, text: string, line: number, expected: ReturnType<TextKit['linePosition']>) => {
-    return testReader(testName, text, r => expect(r.linePosition(line)).toEqual(expected));
-  };
+  const testLinePosition = testReaderFn('linePosition');
 
   describe("out-of-bounds lines", () => {
     testLinePosition("line < 1", "test", 0, undefined);
@@ -79,9 +94,7 @@ describe("linePosition", () => {
 });
 
 describe("location", () => {
-  const testLocation = (testName: string, text: string, loc: number, expectedPoint: Point) => {
-    return testReader(testName, text, r => expect(r.location(loc)).toEqual(expectedPoint));
-  };
+  const testLocation = testReaderFn('location');
 
   describe("location out of range", () => {
     testLocation("empty document", "", 0, point(1, 1));
@@ -108,12 +121,11 @@ describe("location", () => {
 
 describe("match", () => {
   const testMatch = (testName: string, text: string,
-    testArgs: Parameters<TextKit['match']> | ((r: TextKit) => Parameters<TextKit['match']>),
+    testArgs: Params['match'] | ((r: TextKit) => Params['match']),
     expected: ([Position, string[]] | undefined) | ((r: TextKit) => [Position, string[]] | undefined)) => {
-    return testReader(testName, text, r => {
-      const args = typeof testArgs === 'function' ? testArgs(r) : testArgs;
+    return testReaderFn('match')(testName, text, testArgs, r => {
       const exp = typeof expected === 'function' ? expected(r) : expected;
-      expect(r.match(...args)).toEqual(exp && { position: exp[0], captures: exp[1] });
+      return exp && { position: exp[0], captures: exp[1] };
     });
   };
 
@@ -148,7 +160,7 @@ describe("match", () => {
 
 describe("toIndex", () => {
   const testToIndex = (testName: string, text: string, [line, column]: [number, number], expectedIndex: number) => {
-    return testReader(testName, text, r => expect(r.toIndex({ line, column })).toEqual(expectedIndex));
+    return testReaderFn('toIndex')(testName, text, { line, column }, expectedIndex);
   };
 
   describe("index out of bounds", () => {
@@ -176,9 +188,7 @@ describe("toIndex", () => {
 });
 
 describe("shift", () => {
-  const testShift = (testName: string, text: string, testArgs: Parameters<TextKit['shift']>, expected: ReturnType<TextKit['shift']> | ((r: TextKit) => ReturnType<TextKit['shift']>)) => {
-    return testReader(testName, text, r => expect(r.shift(...testArgs)).toEqual(typeof expected === 'function' ? expected(r) : expected));
-  };
+  const testShift = testReaderFn('shift');
 
   describe("out-of-bounds shifts", () => {
     testShift("shifting beyond end of document", "test", [point(1, 1), 6], r => r.eof());
@@ -195,9 +205,7 @@ describe("shift", () => {
 });
 
 describe("lastNonEOL", () => {
-  const testLastNonEOL = (testName: string, text: string, ln: number, expected: ReturnType<TextKit['lastNonEOL']>) => {
-    return testReader(testName, text, r => expect(r.lastNonEOL(ln)).toEqual(expected));
-  };
+  const testLastNonEOL = testReaderFn("lastNonEOL");
 
   describe("out-of-bounds", () => {
     testLastNonEOL("line before start of document", "test", -1, undefined);
@@ -223,9 +231,7 @@ describe("lastNonEOL", () => {
 });
 
 describe("eol", () => {
-  const testEol = (testName: string, text: string, ln: number, expected: ReturnType<TextKit['eol']> | ((r: TextKit) => ReturnType<TextKit['eol']>)) => {
-    return testReader(testName, text, r => expect(r.eol(ln)).toEqual(typeof expected === 'function' ? expected(r) : expected));
-  };
+  const testEol = testReaderFn("eol");
 
   describe("out-of-bounds", () => {
     testEol("empty document", "", 1, undefined);
@@ -245,9 +251,7 @@ describe("eol", () => {
 });
 
 describe("eof", () => {
-  const testEof = (testName: string, text: string, expected: ReturnType<TextKit['eof']>) => {
-    return testReader(testName, text, r => expect(r.eof()).toEqual(expected));
-  };
+  const testEof = testReaderFn("eof");
 
   testEof("empty document", "", point(1, 1));
 
