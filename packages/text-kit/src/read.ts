@@ -65,6 +65,13 @@ export interface TextKit {
   /** Offset the given `point` by the provided `offset`. */
   shift: (point: Point, offset: number) => Point;
 
+  /**
+   * {@link Point} representing the newline character of the
+   * given `line`, or EOF. Returns `undefined` if the line does not
+   * exist.
+   */
+  eol(line: number): Point | undefined;
+
   /** Return a {@link Point} representing the end of the text. */
   eof(): Point;
 }
@@ -89,6 +96,13 @@ export default (text: string): TextKit => {
       column: len + 1,
     };
   };
+
+  const eol = (ln: number): Point | undefined => {
+    const pos = linePosition(ln);
+    if (!pos) return;
+    const end = pos.end;
+    return ((text.charAt(toIndex(end)).match(/$/mg) ?? []).length > 1) ? end : eof();
+  }
 
   const toIndex = (point: Point): number => {
     const index = toIndexOrEOF(point);
@@ -189,6 +203,7 @@ export default (text: string): TextKit => {
     match,
     toIndex,
     shift,
+    eol,
     eof,
   }
 }

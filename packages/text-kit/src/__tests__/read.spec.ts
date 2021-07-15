@@ -185,6 +185,28 @@ describe("shift", () => {
   });
 });
 
+describe("eol", () => {
+  const testEol = (testName: string, text: string, ln: number, expected: ReturnType<TextKit['eol']> | ((r: TextKit) => ReturnType<TextKit['eol']>)) => {
+    return testReader(testName, text, r => expect(r.eol(ln)).toEqual(typeof expected === 'function' ? expected(r) : expected));
+  };
+
+  describe("out-of-bounds", () => {
+    testEol("empty document", "", 1, undefined);
+    testEol("line before start of document", "test", -1, undefined);
+    testEol("line after end of document", "test", 2, undefined);
+  });
+
+  describe("single line", () => {
+    testEol("no newline", "test", 1, r => r.eof());
+    testEol("newline", "test\n", 1, point(1, 5));
+  });
+
+  describe("multiple lines", () => {
+    testEol("no newline", "test1\ntest2\ntest3", 3, r => r.eof());
+    testEol("newline", "test1\ntest2\ntest3", 2, point(2, 6));
+  });
+});
+
 describe("eof", () => {
   const testEof = (testName: string, text: string, expected: ReturnType<TextKit['eof']>) => {
     return testReader(testName, text, r => expect(r.eof()).toEqual(expected));
