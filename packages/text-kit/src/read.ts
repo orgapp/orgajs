@@ -105,10 +105,11 @@ export default (text: string): TextKit => {
   };
 
   const eol = (ln: number): Point | undefined => {
-    const pos = linePosition(ln);
-    if (!pos) return;
-    const end = pos.end;
-    return ((text.charAt(toIndex(end)).match(/$/mg) ?? []).length > 1) ? end : eof();
+    const len = lengthOfLine(ln);
+    if (!len) return;
+    const endIndex = lines[ln - 1] + len - 1;
+    const end = { line: ln, column: len };
+    return ((text.charAt(endIndex).match(/$/mg) ?? []).length > 1) ? end : eof();
   }
 
   const lastNonEOL = (ln: number): Point | undefined => {
@@ -181,11 +182,11 @@ export default (text: string): TextKit => {
   }
 
   const linePosition = (ln: number): Position | undefined => {
-    const lineLength = lengthOfLine(ln);
-    if (!lineLength) return;
+    const end = eol(ln);
+    if (!end) return;
     return {
       start: { line: ln, column: 1 },
-      end: { line: ln, column: lineLength },
+      end: shift(end, 1),
     };
   }
 

@@ -73,9 +73,9 @@ describe("linePosition", () => {
     testLinePosition("line > number of lines", "test", 2, undefined);
   });
 
-  testLinePosition("only line", "test", 1, pos([1, 1], [1, 4]));
-  testLinePosition("line with newline", "test\n", 1, pos([1, 1], [1, 5]));
-  testLinePosition("middle line", "test\ntest\ntest", 2, pos([2, 1], [2, 5]));
+  testLinePosition("only line", "test", 1, pos([1, 1], [1, 5]));
+  testLinePosition("line with newline", "test\n", 1, pos([1, 1], [1, 6]));
+  testLinePosition("middle line", "test\ntest\ntest", 2, pos([2, 1], [3, 1]));
 });
 
 describe("location", () => {
