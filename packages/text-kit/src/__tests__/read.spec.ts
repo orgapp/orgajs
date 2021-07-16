@@ -86,6 +86,12 @@ describe("substring", () => {
     testSubstring("single line", "test", { start: point(1, 1) }, "test");
     testSubstring("multiple lines", "test1\ntest2\ntest3", { start: point(2, 1) }, "test2");
   });
+
+  describe("substring from bof to eof is full text", () => {
+    for (const text of ["", "test", "test\n", "test1\ntest2", "test1\ntest2\n"]) {
+      testSubstring(`with text "${text}"`, text, r => ({ start: r.bof(), end: r.eof() }), text);
+    }
+  });
 });
 
 describe("linePosition", () => {
@@ -301,6 +307,22 @@ describe("eof", () => {
   describe("multiple lines", () => {
     testEof("no newline", "test1\ntest2\ntest3", point(3, 6, 17));
     testEof("newline", "test1\ntest2\ntest3\n", point(3, 7, 18));
+  });
+});
+
+describe("bof", () => {
+  const testBof = testReaderFn("bof");
+
+  testBof("empty document", "", point(1, 1, 0));
+
+  describe("single line", () => {
+    testBof("no newline", "test", point(1, 1, 0));
+    testBof("newline", "test\n", point(1, 1, 0));
+  });
+
+  describe("multiple lines", () => {
+    testBof("no newline", "test1\ntest2\ntest3", point(1, 1, 0));
+    testBof("newline", "test1\ntest2\ntest3\n", point(1, 1, 0));
   });
 });
 

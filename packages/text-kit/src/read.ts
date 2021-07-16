@@ -75,6 +75,13 @@ export interface TextKitCore {
   eol(line: number): SourcePoint | undefined;
 
   /**
+   * Return a {@link SourcePoint} representing the start of the text.
+   *
+   * This is either the first character of the text, or {@link eof}.
+   */
+  bof(): SourcePoint;
+
+  /**
    * Return a {@link SourcePoint} representing the end of the text.
    *
    * Note that this does not represent a point of a physical character
@@ -128,6 +135,8 @@ export const core = (text: string): TextKitCore => {
     if (!lineExists(line)) return;
     return (line < lines.length ? lines[line] : text.length) - lines[line - 1];
   }
+
+  const bof = (): SourcePoint => ({ line: 1, column: 1, offset: 0 });
 
   const eof = (): SourcePoint => {
     const len = lengthOfLine(lines.length);
@@ -244,6 +253,7 @@ export const core = (text: string): TextKitCore => {
     shift,
     bol,
     eol,
+    bof,
     eof,
     distance,
   }
