@@ -6,7 +6,7 @@ export type SourcePoint = Required<Point>;
 /** Like {@link Position}, but with known indices. */
 export type SourcePosition = Position & { start: SourcePoint, end: SourcePoint };
 
-export interface TextKit {
+export interface TextKitCore {
   numberOfLines: number;
 
   /**
@@ -44,17 +44,6 @@ export interface TextKit {
   location: (index: number) => SourcePoint;
 
   /**
-   * Match `pattern` against the region of text selected by `position`.
-   *
-   * If the match fails, returns `undefined`. If the match succeeds,
-   * returns the match array along with the span covered by the match.
-   */
-  match: (pattern: RegExp, position: Position) => {
-    position: SourcePosition,
-    captures: string[]
-  } | undefined;
-
-  /**
    * Return the best-fit index of a point in the text.
    *
    * Specifically, if the point is invalid w.r.t. the text, then the
@@ -70,13 +59,6 @@ export interface TextKit {
 
   /** Offset the given `point` by the provided `offset`. */
   shift: (point: Point, offset: number) => SourcePoint;
-
-  /**
-   * {@link SourcePoint} representing the last non-newline character
-   * of the given `line`. Returns `undefined` if the line does not
-   * exist or is empty.
-   */
-  lastNonEOL(line: number): SourcePoint | undefined;
 
   /**
    * {@link SourcePoint} representing the newline character of the
@@ -103,7 +85,27 @@ export interface TextKit {
   distance(range: Position): number;
 }
 
-export default (text: string): TextKit => {
+export interface TextKit extends TextKitCore {
+  /**
+   * Match `pattern` against the region of text selected by `position`.
+   *
+   * If the match fails, returns `undefined`. If the match succeeds,
+   * returns the match array along with the span covered by the match.
+   */
+  match: (pattern: RegExp, position: Position) => {
+    position: SourcePosition,
+    captures: string[]
+  } | undefined;
+
+  /**
+   * {@link SourcePoint} representing the last non-newline character
+   * of the given `line`. Returns `undefined` if the line does not
+   * exist or is empty.
+   */
+  lastNonEOL(line: number): SourcePoint | undefined;
+}
+
+export const core = (text: string): TextKitCore => {
 
   const strLines = text.split(/^/mg);
   const lines: number[] = strLines.length > 0 ? [0] : []; // index of line starts
@@ -131,12 +133,6 @@ export default (text: string): TextKit => {
     const endIndex = lines[ln - 1] + len - 1;
     const end = { line: ln, column: len, offset: endIndex };
     return ((text.charAt(endIndex).match(/$/mg) ?? []).length > 1) ? end : eof();
-  }
-
-  const lastNonEOL = (ln: number): SourcePoint | undefined => {
-    const end = eol(ln);
-    if (!end || end.column === 1) return;
-    return shift(end, -1);
   }
 
   const toIndex = (point: Point): number => {
@@ -186,23 +182,6 @@ export default (text: string): TextKit => {
     }
   }
 
-  const match = (
-    pattern: RegExp,
-    position: Position,
-  ): { position: SourcePosition, captures: string[] } | undefined => {
-    const content = substring(position)
-    if (!content) return undefined
-    const match = pattern.exec(content)
-    if (!match) return undefined
-    return {
-      captures: match.map(m => m),
-      position: {
-        start: shift(position.start, match.index),
-        end: shift(position.start, match.index + match[0].length),
-      }
-    }
-  }
-
   const shift = (point: Point, offset: number): SourcePoint => {
     return location(toIndex(point) + offset)
   }
@@ -244,12 +223,43 @@ export default (text: string): TextKit => {
     substring,
     linePosition,
     location,
-    match,
     toIndex,
     shift,
-    lastNonEOL,
     eol,
     eof,
     distance,
   }
 }
+
+export const extra = (tk: TextKitCore): TextKit => {
+  const { eol, shift, substring } = tk;
+  const lastNonEOL = (ln: number): SourcePoint | undefined => {
+    const end = eol(ln);
+    if (!end || end.column === 1) return;
+    return shift(end, -1);
+  }
+
+  const match = (
+    pattern: RegExp,
+    position: Position,
+  ): { position: SourcePosition, captures: string[] } | undefined => {
+    const content = substring(position)
+    if (!content) return undefined
+    const match = pattern.exec(content)
+    if (!match) return undefined
+    const start = shift(position.start, match.index);
+    const end = shift(start, match[0].length);
+    return {
+      captures: match.map(m => m),
+      position: { start, end },
+    };
+  };
+
+  return {
+    ...tk,
+    lastNonEOL,
+    match,
+  }
+}
+
+export default (text: string): TextKit => extra(core(text));
