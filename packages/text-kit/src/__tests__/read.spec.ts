@@ -94,6 +94,15 @@ describe("substring", () => {
   });
 });
 
+describe("charAt", () => {
+  const testCharAt = testReaderFn("charAt");
+
+  testCharAt("empty text", "", r => r.bof(), undefined);
+  testCharAt("newline", "test\ntest", r => r.eol(1), "\n");
+  testCharAt("middle of line", "test", point(1, 2), "e");
+  testCharAt("eof", "test", r => r.eof(), undefined);
+});
+
 describe("linePosition", () => {
   const testLinePosition = testReaderFn('linePosition');
 

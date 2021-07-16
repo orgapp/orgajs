@@ -29,6 +29,9 @@ export interface TextKitCore {
     end?: Point | 'EOL' | 'EOF'
   }) => string;
 
+  /** Get the character at the given point, if it exists. */
+  charAt(loc: Point): string | undefined;
+
   /** Return the span of the document covered by the given line, or `undefined` if the line doesn't exist. */
   linePosition: (ln: number) => SourcePosition | undefined;
 
@@ -221,6 +224,11 @@ export const core = (text: string): TextKitCore => {
     };
   }
 
+  const charAt = (loc: Point): string | undefined => {
+    const c = text.charAt(toIndex(loc));
+    return c === "" ? undefined : c;
+  };
+
   const substring = ({ start, end = 'EOL' }: {
     start: Point,
     end?: Point | 'EOL' | 'EOF'
@@ -246,6 +254,7 @@ export const core = (text: string): TextKitCore => {
     get numberOfLines(): number {
       return lines.length
     },
+    charAt,
     substring,
     linePosition,
     location,

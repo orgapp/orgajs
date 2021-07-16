@@ -8,11 +8,11 @@ export const read = (text: string) => {
     shift,
     substring,
     linePosition,
-    toIndex,
     match,
     eof,
     eol: _eol,
     distance,
+    charAt,
   } = _read(text)
 
   let cursor = { line: 1, column: 1 }
@@ -20,10 +20,7 @@ export const read = (text: string) => {
   const isStartOfLine = () => cursor.column === 1
 
   const getChar = (p: number | Point = 0) => {
-    const { pos, offset } = typeof p === 'number' ?
-      { pos: cursor, offset: p } :
-      { pos: p, offset: 0 }
-    return text.charAt(toIndex(pos) + offset)
+    return typeof p === 'number' ? charAt(shift(cursor, p)) : charAt(p);
   }
 
   const now = () => cursor
