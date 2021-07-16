@@ -85,7 +85,14 @@ export interface TextKit {
    */
   eol(line: number): SourcePoint | undefined;
 
-  /** Return a {@link SourcePoint} representing the end of the text. */
+  /**
+   * Return a {@link SourcePoint} representing the end of the text.
+   *
+   * Note that this does not represent a point of a physical character
+   * in the file, but rather a virtual point (beyond the last
+   * character). This can be used to include the last character of the
+   * text in a range.
+   */
   eof(): SourcePoint;
 
   /**
