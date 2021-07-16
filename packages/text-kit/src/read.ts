@@ -61,6 +61,13 @@ export interface TextKitCore {
   shift: (point: Point, offset: number) => SourcePoint;
 
   /**
+   * {@link SourcePoint} representing the first character of the given
+   * `line` (possibly the newline itself). Returns `undefined` if the
+   * line does not exist.
+   */
+  bol(line: number): SourcePoint | undefined;
+
+  /**
    * {@link SourcePoint} representing the newline character of the
    * given `line`, or EOF. Returns `undefined` if the line does not
    * exist.
@@ -111,9 +118,14 @@ export const core = (text: string): TextKitCore => {
   const lines: number[] = strLines.length > 0 ? [0] : []; // index of line starts
   strLines.slice(0, strLines.length - 1).forEach((l, i) => lines.push(lines[i] + l.length));
 
+  /** Return `true` if the given line number is in range. */
+  const lineExists = (ln: number): boolean => {
+    return (ln >= 1 && ln <= lines.length);
+  };
+
   /** Return the length of the given line, if it exists. */
   const lengthOfLine = (line: number): number | undefined => {
-    if (line < 1 || line > lines.length) return;
+    if (!lineExists(line)) return;
     return (line < lines.length ? lines[line] : text.length) - lines[line - 1];
   }
 
@@ -126,6 +138,11 @@ export const core = (text: string): TextKitCore => {
       offset: lines[lines.length - 1] + len,
     };
   };
+
+  const bol = (ln: number): SourcePoint | undefined => {
+    if (!lineExists(ln)) return;
+    return { line: ln, column: 1, offset: lines[ln - 1] };
+  }
 
   const eol = (ln: number): SourcePoint | undefined => {
     const len = lengthOfLine(ln);
@@ -187,10 +204,10 @@ export const core = (text: string): TextKitCore => {
   }
 
   const linePosition = (ln: number): SourcePosition | undefined => {
-    const end = eol(ln);
-    if (!end) return;
+    const [start, end] = [bol(ln), eol(ln)];
+    if (!start || !end) return;
     return {
-      start: { line: ln, column: 1, offset: lines[ln - 1] },
+      start,
       end: shift(end, 1),
     };
   }
@@ -225,6 +242,7 @@ export const core = (text: string): TextKitCore => {
     location,
     toIndex,
     shift,
+    bol,
     eol,
     eof,
     distance,

@@ -243,6 +243,28 @@ describe("lastNonEOL", () => {
   });
 });
 
+describe("bol", () => {
+  const testBol = testReaderFn("bol");
+
+  describe("out-of-bounds", () => {
+    testBol("empty document", "", 1, undefined);
+    testBol("line before start of document", "test", -1, undefined);
+    testBol("line after end of document", "test", 2, undefined);
+  });
+
+  describe("single line", () => {
+    testBol("some text, no newline", "test", 1, point(1, 1, 0));
+    testBol("some text, newline", "test\n", 1, point(1, 1, 0));
+    testBol("just a newline", "\n", 1, point(1, 1, 0));
+  });
+
+  describe("multiple lines", () => {
+    testBol("some text, no newline", "test1\ntest2", 2, point(2, 1, 6));
+    testBol("some text, newline", "test1\ntest2", 2, point(2, 1, 6));
+    testBol("just a newline", "test1\n\n", 2, point(2, 1, 6));
+  });
+});
+
 describe("eol", () => {
   const testEol = testReaderFn("eol");
 
