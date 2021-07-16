@@ -165,8 +165,8 @@ describe("match", () => {
 });
 
 describe("toIndex", () => {
-  const testToIndex = (testName: string, text: string, [line, column]: [number, number], expectedIndex: number) => {
-    return testReaderFn('toIndex')(testName, text, { line, column }, expectedIndex);
+  const testToIndex = (testName: string, text: string, [line, column, offset]: [number, number] | [number, number, number], expectedIndex: number) => {
+    return testReaderFn('toIndex')(testName, text, { line, column, offset }, expectedIndex);
   };
 
   describe("index out of bounds", () => {
@@ -180,6 +180,7 @@ describe("toIndex", () => {
       testToIndex("line too high", "test", [2, 1], 4);
       testToIndex("column too high", "test", [1, 7], 4);
       testToIndex("column too high ends with newline", "test\n", [1, 7], 5);
+      testToIndex("with offset", "test\n", [1, 7, 6], 5);
     });
     testToIndex("column too high multiple lines", "test\ntest", [1, 7], 4);
   });
@@ -190,6 +191,7 @@ describe("toIndex", () => {
     testToIndex("beginning of next line", "test\ntest", [2, 1], 5);
     testToIndex("middle of line", "tests", [1, 3], 2);
     testToIndex("middle of document", "tests\ntests\ntests", [2, 3], 8);
+    testToIndex("middle of document, with offset", "tests\ntests\ntests", [2, 3, 8], 8);
   });
 });
 

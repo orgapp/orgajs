@@ -66,7 +66,7 @@ export interface TextKit {
    * - if `column` is greater than the length of the line, then the end-of-line index (or EOF) is returned;
    * - if the text is empty, then the index is 0
    */
-  toIndex: ({ line, column }: Point) => number;
+  toIndex: (point: Point) => number;
 
   /** Offset the given `point` by the provided `offset`. */
   shift: (point: Point, offset: number) => SourcePoint;
@@ -130,7 +130,12 @@ export default (text: string): TextKit => {
     return index === 'EOF' ? text.length : index;
   }
 
-  const toIndexOrEOF = ({ line, column }: Point): number | 'EOF' => {
+  /** Return an index that is guaranteed to represent a character in the source or EOF. */
+  const fixIndex = (i: number): number =>
+    i < 0 ? 0 : i >= text.length ? text.length : i;
+
+  const toIndexOrEOF = ({ line, column, offset }: Point): number | 'EOF' => {
+    if (offset !== undefined) return fixIndex(offset);
     if (text.length === 0 || line < 1) return 0;
     if (line > lines.length) return 'EOF';
     const targetLineStartIndex = lines[line - 1];
