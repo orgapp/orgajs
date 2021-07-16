@@ -166,13 +166,11 @@ export default (text: string): TextKit => {
     if (!content) return undefined
     const match = pattern.exec(content)
     if (!match) return undefined
-    const offset = toIndex(position.start)
-    const captures = match.map(m => m)
     return {
-      captures,
+      captures: match.map(m => m),
       position: {
-        start: location(offset + match.index),
-        end: location(offset + match.index + match[0].length),
+        start: shift(position.start, match.index),
+        end: shift(position.start, match.index + match[0].length),
       }
     }
   }
