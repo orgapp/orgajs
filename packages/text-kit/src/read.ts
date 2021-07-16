@@ -46,20 +46,6 @@ export interface TextKitCore {
    */
   location: (index: number) => SourcePoint;
 
-  /**
-   * Return the best-fit index of a point in the text.
-   *
-   * Specifically, if the point is invalid w.r.t. the text, then the
-   * following behaviours are observed:
-   *
-   * - if `line` is less than `1` then the index is `0`;
-   * - if `line` is greater than the number of lines, then the size of the text is returned;
-   * - if `column` is less than `1` then the start-of-line index is returned;
-   * - if `column` is greater than the length of the line, then the end-of-line index (or EOF) is returned;
-   * - if the text is empty, then the index is 0
-   */
-  toIndex: (point: Point) => number;
-
   /** Offset the given `point` by the provided `offset`. */
   shift: (point: Point, offset: number) => SourcePoint;
 
@@ -258,7 +244,6 @@ export const core = (text: string): TextKitCore => {
     substring,
     linePosition,
     location,
-    toIndex,
     shift,
     bol,
     eol,

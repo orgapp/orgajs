@@ -136,9 +136,9 @@ describe("location", () => {
     testLocation("middle of text", "tests\ntests\ntests", 8, point(2, 3, 8));
   });
 
-  describe("location inverse of toIndex", () => {
+  describe("location inverse of index", () => {
     for (let i = 0; i <= 11; i++) {
-      testReader(`with i=${i}`, "test1\ntest2", r => expect(r.toIndex(r.location(i))).toEqual(i));
+      testReader(`with i=${i}`, "test1\ntest2", r => expect(r.location(i).offset).toEqual(i));
     }
   });
 });
@@ -180,37 +180,6 @@ describe("match", () => {
   testMatch("if end is before start this is undefined", "Test\nTest", [/Test/, pos([2, 1], [1, 1])], undefined);
   testMatch("if end is before start this is undefined (even with empty RegExp)", "Test\nTest", [new RegExp(""), pos([2, 1], [1, 1])], undefined);
   testMatch("a newline", "\n", [/^\n/, pos([1, 1], [1, 1])], undefined);
-});
-
-describe("toIndex", () => {
-  const testToIndex = (testName: string, text: string, [line, column, offset]: [number, number] | [number, number, number], expectedIndex: number) => {
-    return testReaderFn('toIndex')(testName, text, { line, column, offset }, expectedIndex);
-  };
-
-  describe("index out of bounds", () => {
-    testToIndex("empty document", "", [1, 1], 0);
-    testToIndex("negative line", "test", [-1, 1], 0);
-    testToIndex("negative column", "test", [1, -1], 0);
-    testToIndex("negative column next line", "test\ntest", [2, -1], 5);
-    testToIndex("line too low", "test", [0, 1], 0);
-    testToIndex("column too low", "test\ntest", [2, 0], 5);
-    describe("EOF", () => {
-      testToIndex("line too high", "test", [2, 1], 4);
-      testToIndex("column too high", "test", [1, 7], 4);
-      testToIndex("column too high ends with newline", "test\n", [1, 7], 5);
-      testToIndex("with offset", "test\n", [1, 7, 6], 5);
-    });
-    testToIndex("column too high multiple lines", "test\ntest", [1, 7], 4);
-  });
-
-  describe("index in bounds", () => {
-    testToIndex("beginning of line", "test", [1, 1], 0);
-    testToIndex("end of line", "test", [1, 4], 3);
-    testToIndex("beginning of next line", "test\ntest", [2, 1], 5);
-    testToIndex("middle of line", "tests", [1, 3], 2);
-    testToIndex("middle of document", "tests\ntests\ntests", [2, 3], 8);
-    testToIndex("middle of document, with offset", "tests\ntests\ntests", [2, 3, 8], 8);
-  });
 });
 
 describe("shift", () => {
