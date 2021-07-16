@@ -12,6 +12,7 @@ export const read = (text: string) => {
     match,
     eof,
     eol: _eol,
+    distance,
   } = _read(text)
 
   let cursor = { line: 1, column: 1 }
@@ -60,10 +61,6 @@ export const read = (text: string) => {
 
   const EOF = () => {
     return isGreaterOrEqual(now(), eof());
-  }
-
-  const distance = ({ start, end }: Position) : number => {
-    return toIndex(end) - toIndex(start)
   }
 
   const jump = (point: Point) => {

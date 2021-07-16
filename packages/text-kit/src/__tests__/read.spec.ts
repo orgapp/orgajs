@@ -1,7 +1,7 @@
 import { Point, Position } from 'unist';
 import read, { SourcePoint, SourcePosition, TextKit } from '../read';
 
-const point = ((line: number, column: number, offset?: number) => ({ line, column, offset })) as {
+const point = ((line: number, column: number, offset?: number) => ({ line, column, ...(offset !== undefined ? { offset } : {}) })) as {
   (line: number, column: number, offset: number): SourcePoint;
   (line: number, column: number): Point;
 };
@@ -271,5 +271,37 @@ describe("eof", () => {
   describe("multiple lines", () => {
     testEof("no newline", "test1\ntest2\ntest3", point(3, 6, 17));
     testEof("newline", "test1\ntest2\ntest3\n", point(3, 7, 18));
+  });
+});
+
+describe("distance", () => {
+  const testDistance = testReaderFn("distance");
+
+  describe("distance from a point to itself", () => {
+    testDistance("empty document, EOF", "", r => ({ start: r.eof(), end: r.eof() }), 0);
+    testDistance("non-empty document, EOF", "", r => ({ start: r.eof(), end: r.eof() }), 0);
+    testDistance("non-empty document, non-EOF", "test", pos([1, 2], [1, 2]), 0);
+  });
+
+  describe("distance from start to end is length", () => {
+    for (const text of ["", "test", "test\n", "test1\ntest2", "test1\ntest2\n"]) {
+      testDistance(`with text "${text}"`, text, r => ({ start: point(1, 1), end: r.eof() }), text.length);
+    }
+  });
+
+  testDistance("subset of document", "test1\ntest2", pos([1, 3], [2, 2]), 5);
+
+  testDistance("end is before start", "test1\ntest2", pos([2, 2], [1, 3]), -5);
+
+  testDistance("start before text and end after is just the BOF to EOF", "test1\ntest2", pos([-1, -3], [5, 7]), 11);
+
+  describe("shift(range.start, distance(range)) = range.end", () => {
+    for (const range of [pos([1, 1], [2, 1]), pos([1, 2], [1, 2]), pos([1, 4], [1, 2])]) {
+      const r = read("test1\ntest2");
+      it(`range={[${range.start.line}, ${range.start.column}] -> [${range.end.line}, ${range.end.column}]}`, () => {
+        const shifted = r.shift(range.start, r.distance(range));
+        expect(shifted).toMatchObject(range.end);
+      });
+    }
   });
 });

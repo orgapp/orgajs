@@ -87,6 +87,13 @@ export interface TextKit {
 
   /** Return a {@link SourcePoint} representing the end of the text. */
   eof(): SourcePoint;
+
+  /**
+   * Return the distance (possibly negative) between two points in the
+   * source, i.e., the distance `n` such that `shift(range.start, n)`
+   * would be at `range.end`.
+   */
+  distance(range: Position): number;
 }
 
 export default (text: string): TextKit => {
@@ -219,6 +226,10 @@ export default (text: string): TextKit => {
     }
   }
 
+  const distance = (range: Position): number => {
+    return toIndex(range.end) - toIndex(range.start);
+  };
+
   return {
     get numberOfLines(): number {
       return lines.length
@@ -232,5 +243,6 @@ export default (text: string): TextKit => {
     lastNonEOL,
     eol,
     eof,
+    distance,
   }
 }
