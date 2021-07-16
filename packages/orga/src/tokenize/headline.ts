@@ -80,6 +80,5 @@ export default ({ reader, todoKeywordSets }: Props) : Token[] => {
     })
     jump(tags.position.end)
   }
-  eat('line')
   return buffer
 }

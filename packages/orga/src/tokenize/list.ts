@@ -50,7 +50,5 @@ export default ({ reader }: Props) : Token[] => {
 
   tokens = tokens.concat(tokenizeInline({ reader }))
 
-  eat('line')
-
   return tokens
 }
