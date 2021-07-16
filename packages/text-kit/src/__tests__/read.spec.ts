@@ -1,12 +1,18 @@
 import { Point, Position } from 'unist';
-import read, { TextKit } from '../read';
+import read, { SourcePoint, SourcePosition, TextKit } from '../read';
 
-const point = (line: number, column: number): Point => ({ line, column });
+const point = ((line: number, column: number, offset?: number) => ({ line, column, offset })) as {
+  (line: number, column: number, offset: number): SourcePoint;
+  (line: number, column: number): Point;
+};
 
-const pos = ([startLine, startColumn]: [number, number], [endLine, endColumn]: [number, number]): Position => ({
-  start: point(startLine, startColumn),
-  end: point(endLine, endColumn),
-});
+const pos = (([startLine, startColumn, offset1]: [number, number] | [number, number, number], [endLine, endColumn, offset2]: [number, number] | [number, number, number]): Position => ({
+  start: point(startLine, startColumn, offset1),
+  end: point(endLine, endColumn, offset2),
+})) as {
+  ([startLine, startColumn, offset1]: [number, number, number], [endLine, endColumn, offset2]: [number, number, number]): SourcePosition;
+  ([startLine, startColumn]: [number, number], [endLine, endColumn]: [number, number]): Position;
+};
 
 const testReader = (testName: string, text: string, op: (r: TextKit) => void) => {
   return it(testName, () => {
@@ -88,28 +94,28 @@ describe("linePosition", () => {
     testLinePosition("line > number of lines", "test", 2, undefined);
   });
 
-  testLinePosition("only line", "test", 1, pos([1, 1], [1, 5]));
-  testLinePosition("line with newline", "test\n", 1, pos([1, 1], [1, 6]));
-  testLinePosition("middle line", "test\ntest\ntest", 2, pos([2, 1], [3, 1]));
+  testLinePosition("only line", "test", 1, pos([1, 1, 0], [1, 5, 4]));
+  testLinePosition("line with newline", "test\n", 1, pos([1, 1, 0], [1, 6, 5]));
+  testLinePosition("middle line", "test\ntest\ntest", 2, pos([2, 1, 5], [3, 1, 10]));
 });
 
 describe("location", () => {
   const testLocation = testReaderFn('location');
 
   describe("location out of range", () => {
-    testLocation("empty document", "", 0, point(1, 1));
-    testLocation("index at EOF", "test", 4, point(1, 5));
-    testLocation("index higher than EOF", "test", 5, point(1, 5));
-    testLocation("negative index", "test", -1, point(1, 1));
+    testLocation("empty document", "", 0, point(1, 1, 0));
+    testLocation("index at EOF", "test", 4, point(1, 5, 4));
+    testLocation("index higher than EOF", "test", 5, point(1, 5, 4));
+    testLocation("negative index", "test", -1, point(1, 1, 0));
   });
 
   describe("location in bounds", () => {
-    testLocation("beginning of line", "test", 0, point(1, 1));
-    testLocation("end of line", "test", 3, point(1, 4));
-    testLocation("beginning of document", "test\ntest", 0, point(1, 1));
-    testLocation("end of document", "test\ntest", 8, point(2, 4));
-    testLocation("next line", "test\ntest", 5, point(2, 1));
-    testLocation("middle of text", "tests\ntests\ntests", 8, point(2, 3));
+    testLocation("beginning of line", "test", 0, point(1, 1, 0));
+    testLocation("end of line", "test", 3, point(1, 4, 3));
+    testLocation("beginning of document", "test\ntest", 0, point(1, 1, 0));
+    testLocation("end of document", "test\ntest", 8, point(2, 4, 8));
+    testLocation("next line", "test\ntest", 5, point(2, 1, 5));
+    testLocation("middle of text", "tests\ntests\ntests", 8, point(2, 3, 8));
   });
 
   describe("location inverse of toIndex", () => {
@@ -122,7 +128,7 @@ describe("location", () => {
 describe("match", () => {
   const testMatch = (testName: string, text: string,
     testArgs: Params['match'] | ((r: TextKit) => Params['match']),
-    expected: ([Position, string[]] | undefined) | ((r: TextKit) => [Position, string[]] | undefined)) => {
+    expected: ([SourcePosition, string[]] | undefined) | ((r: TextKit) => [SourcePosition, string[]] | undefined)) => {
     return testReaderFn('match')(testName, text, testArgs, r => {
       const exp = typeof expected === 'function' ? expected(r) : expected;
       return exp && { position: exp[0], captures: exp[1] };
@@ -130,29 +136,29 @@ describe("match", () => {
   };
 
   describe("multiline", () => {
-    testMatch("star", "_Test\nTest_", [/[\s\S]*/m, pos([1, 1], [2, 5])], [pos([1, 1], [2, 5]), ["_Test\nTest"]]);
-    testMatch("star without multiline flag", "_Test\nTest_", [/[\s\S]*/, pos([1, 1], [2, 6])], [pos([1, 1], [2, 6]), ["_Test\nTest_"]]);
-    testMatch("explicit", "_Test\nTest_", [/_Test\nTest_/m, pos([1, 1], [2, 6])], [pos([1, 1], [2, 6]), ["_Test\nTest_"]]);
-    testMatch("explicit without multiline flag", "_Test\nTest_", [/_Test\nTest_/, pos([1, 1], [2, 6])], [pos([1, 1], [2, 6]), ["_Test\nTest_"]]);
+    testMatch("star", "_Test\nTest_", [/[\s\S]*/m, pos([1, 1], [2, 5])], [pos([1, 1, 0], [2, 5, 10]), ["_Test\nTest"]]);
+    testMatch("star without multiline flag", "_Test\nTest_", [/[\s\S]*/, pos([1, 1], [2, 6])], [pos([1, 1, 0], [2, 6, 11]), ["_Test\nTest_"]]);
+    testMatch("explicit", "_Test\nTest_", [/_Test\nTest_/m, pos([1, 1], [2, 6])], [pos([1, 1, 0], [2, 6, 11]), ["_Test\nTest_"]]);
+    testMatch("explicit without multiline flag", "_Test\nTest_", [/_Test\nTest_/, pos([1, 1], [2, 6])], [pos([1, 1, 0], [2, 6, 11]), ["_Test\nTest_"]]);
   });
 
-  testMatch("with capture groups", "Test", [/T(es(t))/, pos([1, 1], [1, 5])], [pos([1, 1], [1, 5]), ["Test", "est", "t"]]);
+  testMatch("with capture groups", "Test", [/T(es(t))/, pos([1, 1], [1, 5])], [pos([1, 1, 0], [1, 5, 4]), ["Test", "est", "t"]]);
   testMatch("with non-match", "Test", [/nope/, pos([1, 1], [1, 4])], undefined);
 
-  testMatch("un-anchored match in part of text", "Test", [/es/, pos([1, 1], [1, 4])], [pos([1, 2], [1, 4]), ["es"]]);
+  testMatch("un-anchored match in part of text", "Test", [/es/, pos([1, 1], [1, 4])], [pos([1, 2, 1], [1, 4, 3]), ["es"]]);
 
   describe("with position restriction", () => {
-    testMatch("part of document, match anchored", "Test\nTest", [/^st\nTe$/, pos([1, 3], [2, 3])], [pos([1, 3], [2, 3]), ["st\nTe"]]);
-    testMatch("part of document, match un-anchored", "Test\nTest", [/st\nTe/, pos([1, 3], [2, 3])], [pos([1, 3], [2, 3]), ["st\nTe"]]);
+    testMatch("part of document, match anchored", "Test\nTest", [/^st\nTe$/, pos([1, 3], [2, 3])], [pos([1, 3, 2], [2, 3, 7]), ["st\nTe"]]);
+    testMatch("part of document, match un-anchored", "Test\nTest", [/st\nTe/, pos([1, 3], [2, 3])], [pos([1, 3, 2], [2, 3, 7]), ["st\nTe"]]);
     testMatch("restriction prevents match", "Test\nTest", [/Test/, pos([1, 3], [2, 3])], undefined);
   });
 
-  testMatch("match to end of file includes end of file", "test", r => [/test/, { start: point(1, 1), end: r.eof() }], r => [{ start: point(1, 1), end: r.eof() }, ["test"]]);
+  testMatch("match to end of file includes end of file", "test", r => [/test/, { start: point(1, 1), end: r.eof() }], r => [{ start: point(1, 1, 0), end: r.eof() }, ["test"]]);
 
   testMatch("match against empty string", "", [new RegExp(""), pos([1, 1], [1, 1])], undefined);
-  testMatch("empty match", "Test", [new RegExp(""), pos([1, 1], [1, 4])], [pos([1, 1], [1, 1]), [""]]);
-  testMatch("empty match with empty position restriction", "Test", [new RegExp(""), pos([1, 1], [1, 1])], undefined);
-  testMatch("empty match with position restriction", "Test", [new RegExp(""), pos([1, 1], [1, 2])], [pos([1, 1], [1, 1]), [""]]);
+  testMatch("empty match", "Test", [new RegExp(""), pos([1, 1], [1, 4])], [pos([1, 1, 0], [1, 1, 0]), [""]]);
+  testMatch("empty match with empty position restriction", "Test", [new RegExp(""), pos([1, 1, 0], [1, 1, 0])], undefined);
+  testMatch("empty match with position restriction", "Test", [new RegExp(""), pos([1, 1], [1, 2])], [pos([1, 1, 0], [1, 1, 0]), [""]]);
   testMatch("if end is before start this is undefined", "Test\nTest", [/Test/, pos([2, 1], [1, 1])], undefined);
   testMatch("if end is before start this is undefined (even with empty RegExp)", "Test\nTest", [new RegExp(""), pos([2, 1], [1, 1])], undefined);
   testMatch("a newline", "\n", [/^\n/, pos([1, 1], [1, 1])], undefined);
@@ -193,14 +199,14 @@ describe("shift", () => {
   describe("out-of-bounds shifts", () => {
     testShift("shifting beyond end of document", "test", [point(1, 1), 6], r => r.eof());
     testShift("shifting beyond end of document with newline", "test\n", [point(1, 1), 6], r => r.eof());
-    testShift("shifting before start of document", "test", [point(1, 1), -1], point(1, 1));
+    testShift("shifting before start of document", "test", [point(1, 1), -1], point(1, 1, 0));
   });
 
   describe("in-bounds shifts", () => {
-    testShift("shift to start of next line", "test\ntest", [point(1, 4), 2], point(2, 1));
-    testShift("shift to start of next line (on newline)", "test\ntest", [point(1, 5), 1], point(2, 1));
-    testShift("shift to end of previous newline", "test\ntest", [point(2, 1), -1], point(1, 5));
-    testShift("shift to end of previous line", "test\ntest", [point(2, 1), -2], point(1, 4));
+    testShift("shift to start of next line", "test\ntest", [point(1, 4), 2], point(2, 1, 5));
+    testShift("shift to start of next line (on newline)", "test\ntest", [point(1, 5), 1], point(2, 1, 5));
+    testShift("shift to end of previous newline", "test\ntest", [point(2, 1), -1], point(1, 5, 4));
+    testShift("shift to end of previous line", "test\ntest", [point(2, 1), -2], point(1, 4, 3));
   });
 });
 
@@ -213,20 +219,20 @@ describe("lastNonEOL", () => {
   });
 
   describe("single line", () => {
-    testLastNonEOL("no newline", "test", 1, point(1, 4));
-    testLastNonEOL("newline", "test\n", 1, point(1, 4));
+    testLastNonEOL("no newline", "test", 1, point(1, 4, 3));
+    testLastNonEOL("newline", "test\n", 1, point(1, 4, 3));
   });
 
   describe("multiple lines", () => {
-    testLastNonEOL("no newline", "test1\ntest2\ntest3", 3, point(3, 5));
-    testLastNonEOL("newline", "test1\ntest2\ntest3", 2, point(2, 5));
+    testLastNonEOL("no newline", "test1\ntest2\ntest3", 3, point(3, 5, 16));
+    testLastNonEOL("newline", "test1\ntest2\ntest3", 2, point(2, 5, 10));
   });
 
   describe("empty line", () => {
     testLastNonEOL("empty document", "", 1, undefined);
     testLastNonEOL("single line", "\n", 1, undefined);
     testLastNonEOL("multiple lines", "foo\n\nbar", 2, undefined);
-    testLastNonEOL("picking non-empty line", "foo\n\nbar", 3, point(3, 3));
+    testLastNonEOL("picking non-empty line", "foo\n\nbar", 3, point(3, 3, 7));
   });
 });
 
@@ -241,27 +247,27 @@ describe("eol", () => {
 
   describe("single line", () => {
     testEol("no newline", "test", 1, r => r.eof());
-    testEol("newline", "test\n", 1, point(1, 5));
+    testEol("newline", "test\n", 1, point(1, 5, 4));
   });
 
   describe("multiple lines", () => {
     testEol("no newline", "test1\ntest2\ntest3", 3, r => r.eof());
-    testEol("newline", "test1\ntest2\ntest3", 2, point(2, 6));
+    testEol("newline", "test1\ntest2\ntest3", 2, point(2, 6, 11));
   });
 });
 
 describe("eof", () => {
   const testEof = testReaderFn("eof");
 
-  testEof("empty document", "", point(1, 1));
+  testEof("empty document", "", point(1, 1, 0));
 
   describe("single line", () => {
-    testEof("no newline", "test", point(1, 5));
-    testEof("newline", "test\n", point(1, 6));
+    testEof("no newline", "test", point(1, 5, 4));
+    testEof("newline", "test\n", point(1, 6, 5));
   });
 
   describe("multiple lines", () => {
-    testEof("no newline", "test1\ntest2\ntest3", point(3, 6));
-    testEof("newline", "test1\ntest2\ntest3\n", point(3, 7));
+    testEof("no newline", "test1\ntest2\ntest3", point(3, 6, 17));
+    testEof("newline", "test1\ntest2\ntest3\n", point(3, 7, 18));
   });
 });

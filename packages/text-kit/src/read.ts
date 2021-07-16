@@ -1,5 +1,11 @@
 import { Point, Position } from 'unist';
 
+/** Like {@link Point}, but with a known source index. */
+export type SourcePoint = Required<Point>;
+
+/** Like {@link Position}, but with known indices. */
+export type SourcePosition = Position & { start: SourcePoint, end: SourcePoint };
+
 export interface TextKit {
   numberOfLines: number;
 
@@ -24,10 +30,10 @@ export interface TextKit {
   }) => string;
 
   /** Return the span of the document covered by the given line, or `undefined` if the line doesn't exist. */
-  linePosition: (ln: number) => Position | undefined;
+  linePosition: (ln: number) => SourcePosition | undefined;
 
   /**
-   * Return the {@link Point} for a given `index` in the text.
+   * Return the {@link SourcePoint} for a given `index` in the text.
    *
    * Note the following exceptions:
    *
@@ -35,7 +41,7 @@ export interface TextKit {
    * - if `index` is larger than the greatest index in the text then this is the maximum point;
    * - if the text is empty then this is the 1-1-point
    */
-  location: (index: number) => Point;
+  location: (index: number) => SourcePoint;
 
   /**
    * Match `pattern` against the region of text selected by `position`.
@@ -44,7 +50,7 @@ export interface TextKit {
    * returns the match array along with the span covered by the match.
    */
   match: (pattern: RegExp, position: Position) => {
-    position: Position,
+    position: SourcePosition,
     captures: string[]
   } | undefined;
 
@@ -63,24 +69,24 @@ export interface TextKit {
   toIndex: ({ line, column }: Point) => number;
 
   /** Offset the given `point` by the provided `offset`. */
-  shift: (point: Point, offset: number) => Point;
+  shift: (point: Point, offset: number) => SourcePoint;
 
   /**
-   * {@link Point} representing the last non-newline character of the
-   * given `line`. Returns `undefined` if the line does not
+   * {@link SourcePoint} representing the last non-newline character
+   * of the given `line`. Returns `undefined` if the line does not
    * exist or is empty.
    */
-  lastNonEOL(line: number): Point | undefined;
+  lastNonEOL(line: number): SourcePoint | undefined;
 
   /**
-   * {@link Point} representing the newline character of the
+   * {@link SourcePoint} representing the newline character of the
    * given `line`, or EOF. Returns `undefined` if the line does not
    * exist.
    */
-  eol(line: number): Point | undefined;
+  eol(line: number): SourcePoint | undefined;
 
-  /** Return a {@link Point} representing the end of the text. */
-  eof(): Point;
+  /** Return a {@link SourcePoint} representing the end of the text. */
+  eof(): SourcePoint;
 }
 
 export default (text: string): TextKit => {
@@ -95,24 +101,25 @@ export default (text: string): TextKit => {
     return (line < lines.length ? lines[line] : text.length) - lines[line - 1];
   }
 
-  const eof = (): Point => {
+  const eof = (): SourcePoint => {
     const len = lengthOfLine(lines.length);
-    if (!len) return { line: 1, column: 1 };
+    if (!len) return { line: 1, column: 1, offset: 0 };
     return {
       line: lines.length,
       column: len + 1,
+      offset: lines[lines.length - 1] + len,
     };
   };
 
-  const eol = (ln: number): Point | undefined => {
+  const eol = (ln: number): SourcePoint | undefined => {
     const len = lengthOfLine(ln);
     if (!len) return;
     const endIndex = lines[ln - 1] + len - 1;
-    const end = { line: ln, column: len };
+    const end = { line: ln, column: len, offset: endIndex };
     return ((text.charAt(endIndex).match(/$/mg) ?? []).length > 1) ? end : eof();
   }
 
-  const lastNonEOL = (ln: number): Point | undefined => {
+  const lastNonEOL = (ln: number): SourcePoint | undefined => {
     const end = eol(ln);
     if (!end || end.column === 1) return;
     return shift(end, -1);
@@ -147,21 +154,23 @@ export default (text: string): TextKit => {
     return l === -1 ? 1 : l + 1;
   }
 
-  const location = (index: number): Point => {
+  const location = (index: number): SourcePoint => {
     const line = findLine(index)
     if (lines.length === 0) return eof();
     const lineStartIndex = lines[line - 1];
-    const column = toIndex({ line, column: index - lineStartIndex + 1 }) - lineStartIndex + 1;
+    const offset = toIndex({ line, column: index - lineStartIndex + 1 });
+    const column = offset - lineStartIndex + 1;
     return {
       line,
       column,
+      offset,
     }
   }
 
   const match = (
     pattern: RegExp,
     position: Position,
-  ): { position: Position, captures: string[] } | undefined => {
+  ): { position: SourcePosition, captures: string[] } | undefined => {
     const content = substring(position)
     if (!content) return undefined
     const match = pattern.exec(content)
@@ -175,15 +184,15 @@ export default (text: string): TextKit => {
     }
   }
 
-  const shift = (point: Point, offset: number): Point => {
+  const shift = (point: Point, offset: number): SourcePoint => {
     return location(toIndex(point) + offset)
   }
 
-  const linePosition = (ln: number): Position | undefined => {
+  const linePosition = (ln: number): SourcePosition | undefined => {
     const end = eol(ln);
     if (!end) return;
     return {
-      start: { line: ln, column: 1 },
+      start: { line: ln, column: 1, offset: lines[ln - 1] },
       end: shift(end, 1),
     };
   }
