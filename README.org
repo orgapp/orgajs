@@ -5,6 +5,9 @@
 ✨ org-mode 🚀 JavaScript ✨
 #+end_quote
 
+- [[https://orga.js.org/getting-started/][Documentation]]
+- [[https://orga.js.org/playground][Playground]]
+
 * What Is It
 
 =Orga= is a flexible org-mode syntax parser. It parses org content into AST ([[https://en.wikipedia.org/wiki/Abstract_syntax_tree][Abstract Syntax Tree 🌲]]). And it's written in JavaScript.
