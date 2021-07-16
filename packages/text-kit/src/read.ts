@@ -32,9 +32,6 @@ export interface TextKitCore {
   /** Get the character at the given point, if it exists. */
   charAt(loc: Point): string | undefined;
 
-  /** Return the span of the document covered by the given line, or `undefined` if the line doesn't exist. */
-  linePosition: (ln: number) => SourcePosition | undefined;
-
   /**
    * Return the {@link SourcePoint} for a given `index` in the text.
    *
@@ -106,6 +103,9 @@ export interface TextKit extends TextKitCore {
    * exist or is empty.
    */
   lastNonEOL(line: number): SourcePoint | undefined;
+
+  /** Return the span of the document covered by the given line, or `undefined` if the line doesn't exist. */
+  linePosition: (ln: number) => SourcePosition | undefined;
 }
 
 export const core = (text: string): TextKitCore => {
@@ -201,15 +201,6 @@ export const core = (text: string): TextKitCore => {
     return location(toIndex(point) + offset)
   }
 
-  const linePosition = (ln: number): SourcePosition | undefined => {
-    const [start, end] = [bol(ln), eol(ln)];
-    if (!start || !end) return;
-    return {
-      start,
-      end: shift(end, 1),
-    };
-  }
-
   const charAt = (loc: Point): string | undefined => {
     const c = text.charAt(toIndex(loc));
     return c === "" ? undefined : c;
@@ -242,7 +233,6 @@ export const core = (text: string): TextKitCore => {
     },
     charAt,
     substring,
-    linePosition,
     location,
     shift,
     bol,
@@ -254,7 +244,7 @@ export const core = (text: string): TextKitCore => {
 }
 
 export const extra = (tk: TextKitCore): TextKit => {
-  const { eol, shift, substring } = tk;
+  const { bol, eol, shift, substring } = tk;
   const lastNonEOL = (ln: number): SourcePoint | undefined => {
     const end = eol(ln);
     if (!end || end.column === 1) return;
@@ -277,9 +267,19 @@ export const extra = (tk: TextKitCore): TextKit => {
     };
   };
 
+  const linePosition = (ln: number): SourcePosition | undefined => {
+    const [start, end] = [bol(ln), eol(ln)];
+    if (!start || !end) return;
+    return {
+      start,
+      end: shift(end, 1),
+    };
+  }
+
   return {
     ...tk,
     lastNonEOL,
+    linePosition,
     match,
   }
 }
