@@ -1,9 +1,5 @@
 #+title: Orga
-
-
-#+begin_export html
-<p align="center"><img src="assets/logo.png" width="300" height="300" style="border-radius: 1em;"/></p>
-#+end_export
+#+HTML: <p align="center"><img src="assets/logo.png" width="300" height="300" style="border-radius: 1em;"/></p>
 
 #+begin_quote
 ✨ org-mode 🚀 JavaScript ✨
