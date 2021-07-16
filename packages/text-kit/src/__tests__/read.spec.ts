@@ -50,6 +50,8 @@ describe("numberOfLines", () => {
   testNumberOfLines("with some newlines", "test1\ntest2\n", 2);
   testNumberOfLines("starts with newline", "\ntest", 2);
   testNumberOfLines("ends with newline", "test\n", 1);
+  testNumberOfLines("ends with carriage return", "test\r", 1);
+  testNumberOfLines("split with carriage return", "test\rtest", 2);
 });
 
 describe("substring", () => {
@@ -223,6 +225,8 @@ describe("lastNonEOL", () => {
   describe("single line", () => {
     testLastNonEOL("no newline", "test", 1, point(1, 4, 3));
     testLastNonEOL("newline", "test\n", 1, point(1, 4, 3));
+    testLastNonEOL("newline (carriage return)", "test\r", 1, point(1, 4, 3));
+    testLastNonEOL("newline (carriage return, newline)", "test\r\n", 1, point(1, 4, 3));
   });
 
   describe("multiple lines", () => {
@@ -250,6 +254,8 @@ describe("eol", () => {
   describe("single line", () => {
     testEol("no newline", "test", 1, r => r.eof());
     testEol("newline", "test\n", 1, point(1, 5, 4));
+    testEol("newline (carriage return)", "test\r", 1, point(1, 5, 4));
+    testEol("newline (carriage return, newline)", "test\r\n", 1, point(1, 5, 4));
   });
 
   describe("multiple lines", () => {
@@ -266,6 +272,7 @@ describe("eof", () => {
   describe("single line", () => {
     testEof("no newline", "test", point(1, 5, 4));
     testEof("newline", "test\n", point(1, 6, 5));
+    testEof("newline (carriage return)", "test\r", point(1, 6, 5));
   });
 
   describe("multiple lines", () => {
