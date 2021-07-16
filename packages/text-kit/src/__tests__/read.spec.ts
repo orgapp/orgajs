@@ -108,6 +108,7 @@ describe("location", () => {
     testLocation("empty document", "", 0, point(1, 1, 0));
     testLocation("index at EOF", "test", 4, point(1, 5, 4));
     testLocation("index higher than EOF", "test", 5, point(1, 5, 4));
+    testLocation("index higher than EOF, multiline", "test1\ntest2", 12, point(2, 6, 11));
     testLocation("negative index", "test", -1, point(1, 1, 0));
   });
 
