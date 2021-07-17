@@ -1,6 +1,28 @@
 import tok from "./tok"
 
 describe("Inline Tokenization", () => {
+  it("recon single character", () => {
+    expect(tok("a")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "a",
+          "type": "text.plain",
+          "value": "a",
+        },
+      ]
+    `)
+  });
+  it("recon two characters", () => {
+    expect(tok("ab")).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "ab",
+          "type": "text.plain",
+          "value": "ab",
+        },
+      ]
+    `)
+  });
   it("recon single emphasis", () => {
     expect(tok("hello *world*, welcome to *org-mode*.")).toMatchInlineSnapshot(`
       Array [
