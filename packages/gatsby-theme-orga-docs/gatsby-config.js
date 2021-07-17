@@ -19,13 +19,6 @@ module.exports = themeOptions => {
           }
         },
       },
-      {
-        resolve: `gatsby-source-filesystem`,
-        options: {
-          name: `images`,
-          path: path.join(__dirname, `src`, `images`),
-        },
-      },
       `gatsby-plugin-react-helmet`,
       `gatsby-plugin-image`,
       `gatsby-plugin-sharp`,

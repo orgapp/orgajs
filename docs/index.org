@@ -1,7 +1,7 @@
 #+title: Orga
 #+html: import {Flex,Button} from 'theme-ui'
 #+html: import {Link} from 'gatsby'
-#+html: export {default} from './website/src/components/landing'
+#+html: export {default} from '../website/src/components/landing'
 
 #+begin_export html
 <Space>✨ org-mode 🚀 JavaScript ✨</Space>

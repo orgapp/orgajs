@@ -9,7 +9,7 @@ export default ({ style, ...props }) => {
   query {
     logo: file(relativePath: {eq: "logo.png"}) {
       childImageSharp {
-        gatsbyImageData(layout: FIXED, width: 48)
+        gatsbyImageData(layout: FIXED, width: 60)
       }
     }
     pages: allSitePage(

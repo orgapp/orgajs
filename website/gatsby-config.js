@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   siteMetadata: {
     title: 'Orga',
@@ -25,6 +27,13 @@ module.exports = {
           pre: require.resolve('./src/components/code-block.tsx'),
           code: require.resolve('./src/components/code.tsx'),
         },
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: path.join(__dirname, `src`, `images`),
       },
     },
   ],
