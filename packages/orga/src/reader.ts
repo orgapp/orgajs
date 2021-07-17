@@ -57,7 +57,10 @@ export const read = (text: string) => {
     }
   }
 
-  const eol = () => _eol(cursor.line)!;
+  const eol = ((offset: number = 0) => _eol(cursor.line + offset)) as {
+    (): Point; // always an end to the current line
+    (offset: number): Point | undefined; // cannot guarantee line exists
+  };
 
   const EOF = () => isGreaterOrEqual(now(), eof());
 
@@ -87,7 +90,8 @@ export interface Reader {
   getLine: () => string;
   substring: (position: Position) => string;
   now: () => Point;
-  eol: () => Point;
+  eol(): Point;
+  eol(offset: number): Point | undefined;
   EOF: () => boolean;
   eat: (param?: 'char' | 'line' | 'whitespaces' | number | RegExp) => { value: string, position: Position };
   jump: (point: Point) => void;

@@ -4,6 +4,7 @@ import {
   pos,
   section,
   testParse,
+  testParseSection,
   text,
   textBold,
   textCode,
@@ -113,4 +114,35 @@ the round pegs in the +round+ square holes...
       properties: {},
       position: pos([2, 1], [7, 19]),
     });
+
+  const testParseParagraph = (testName: string, text: string, ...rest: Parameters<typeof paragraph>) => {
+    testParseSection(testName, text, [paragraph(...rest)]);
+  };
+
+  testParseParagraph("pure markup", "_Test1_", [textUnderline("Test1")]);
+  testParseParagraph("markup followed by newline", "_Test1_\n", [textUnderline("Test1")]);
+  testParseParagraph("markup preceded by newline", "\n_Test1_", [textUnderline("Test1")]);
+
+  describe("multi-line markup", () => {
+    describe('"BORDER can be any non-whitespace character" (spec v2021.07.03)', () => {
+      testParseParagraph("marker cannot be first in line (start)", "_\nTest1_", [text("_"), text(" "), text("Test1_")]);
+      testParseParagraph("marker cannot be first in line (end)", "_Test1\n_", [text("_Test1"), text(" "), text("_")]);
+    });
+
+    testParseParagraph("marker with next line ending", "_Test1\nTest2_", [textUnderline("Test1\nTest2")]);
+
+    testParseParagraph("marker with next line ending and spaces", "_Test1\n  Test2_", [textUnderline("Test1\n  Test2")]);
+
+    testParseParagraph("cannot span more than 3 lines (spec v2021.07.03)", "_Test1\nTest2\nTest3\nTest4_", [text("_Test1"), text(" "), text("Test2"), text(" "), text("Test3"), text(" "), text("Test4_")]);
+
+    // NOTE: spec v2021.07.03 states that "BODY can contain any
+    // character but may not span over more than 3 lines.", but Org
+    // parser 2.4.4 only allows at most 2 lines. (2021-07-13)
+    testParseParagraph("cannot span more than 2 lines (Org parser v2.4.4)", "_Test1\nTest2\nTest3_", [text("_Test1"), text(" "), text("Test2"), text(" "), text("Test3_")]);
+
+    testParseSection("marker with full line gap breaks markup", "_Test1\n\nTest2_", [
+      paragraph([text("_Test1")]),
+      paragraph([text("Test2_")]),
+    ]);
+  });
 });

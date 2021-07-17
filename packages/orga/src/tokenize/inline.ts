@@ -35,6 +35,19 @@ export const tokenize = (props: Props, { ignoring }: { ignoring: string[] } = { 
 
   const _tokens: Token[] = []
 
+  /** End of the current (or `offset`) line, or end of the last available line if `offset` is too large. */
+  const eolMax = (offset: number = 0): Point => {
+    let currOffset = Math.max(0, offset);
+    while (currOffset > 0) {
+      const end = eol(currOffset);
+      if (end) {
+        return end;
+      }
+      currOffset--;
+    }
+    return eol();
+  };
+
   const tokLink = (): Link | undefined => {
     const m = match(/^\[\[([^\]]*)\](?:\[([^\]]*)\])?\]/m)
     if (!m) return undefined
@@ -79,7 +92,7 @@ export const tokenize = (props: Props, { ignoring }: { ignoring: string[] } = { 
 
   const tokStyledText = (marker: string) => (): StyledText | undefined => {
     const m = match(
-      RegExp(`^${escape(marker)}(${BORDER}(?:.*?(?:${BORDER}))??)${escape(marker)}(?=(${POST}.*))`, 'm'))
+      RegExp(`^${escape(marker)}(${BORDER}(?:[\\S\\s]*?(?:${BORDER}))??)${escape(marker)}(?=(${POST}.*))`), { start: now(), end: eolMax(1) });
     if (!m) return undefined
     const value = m.captures[1];
     if (ignoring.some(c => value.includes(c))) {
