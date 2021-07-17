@@ -127,15 +127,13 @@ export const core = (text: string): TextKitCore => {
 
   const bof = (): SourcePoint => ({ line: 1, column: 1, offset: 0 });
 
-  const eof = (): SourcePoint => {
-    const len = lengthOfLine(lines.length);
-    if (!len) return { line: 1, column: 1, offset: 0 };
-    return {
-      line: lines.length,
-      column: len + 1,
-      offset: lines[lines.length - 1] + len,
-    };
-  };
+  const eof = (): SourcePoint =>
+    lines.length === 0 ? { line: 1, column: 1, offset: 0 }
+      : {
+        line: lines.length,
+        column: text.length - lines[lines.length - 1] + 1,
+        offset: text.length
+      };
 
   const bol = (ln: number): SourcePoint | undefined => {
     if (!lineExists(ln)) return;
@@ -150,25 +148,28 @@ export const core = (text: string): TextKitCore => {
     return ((text.charAt(endIndex).match(/$/mg) ?? []).length > 1) ? end : eof();
   }
 
-  const toIndex = (point: Point): number => {
-    const index = toIndexOrEOF(point);
-    return index === 'EOF' ? text.length : index;
-  }
+  const toIndex = (point: Point): number => fixPoint(point).offset;
 
-  /** Return an index that is guaranteed to represent a character in the source or EOF. */
-  const fixIndex = (i: number): number =>
-    i < 0 ? 0 : i >= text.length ? text.length : i;
-
-  const toIndexOrEOF = ({ line, column, offset }: Point): number | 'EOF' => {
-    if (offset !== undefined) return fixIndex(offset);
-    if (text.length === 0 || line < 1) return 0;
-    if (line > lines.length) return 'EOF';
+  /**
+   * Given a {@link Point}, return a {@link SourcePoint} that is
+   * guaranteed to point to a character in the text, or EOF.
+   *
+   * Goal is to have this be a fast way of fixing a point.
+   *
+   * This only looks at the `line` and `column`.
+   */
+  const fixPoint = ({ line, column }: Point): SourcePoint => {
+    if (line < 1 || lines.length === 0) return bof();
+    if (line > lines.length) return eof();
+    line = Math.round(line);
     const targetLineStartIndex = lines[line - 1];
-    if (column < 1) return targetLineStartIndex;
-    const maxCol = lengthOfLine(line)!;
-    if (column > maxCol && line === lines.length) return 'EOF';
-    const index = targetLineStartIndex + Math.min(column, maxCol) - 1;
-    return Math.min(index, text.length);
+    const maxCol = (line < lines.length ? lines[line] : text.length + 1) - targetLineStartIndex;
+    column = Math.max(1, Math.min(Math.round(column), maxCol));
+    return {
+      line,
+      column,
+      offset: targetLineStartIndex + column - 1,
+    };
   };
 
   /**
