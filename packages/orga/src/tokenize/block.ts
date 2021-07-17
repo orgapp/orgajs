@@ -8,7 +8,8 @@ interface Props {
 export default ({ reader }: Props): [BlockBegin | BlockEnd, () => void] | undefined => {
   const { match, eat } = reader
 
-  let m = match(/^\s*#\+begin_([^\s]+)\s*(.*)$/i)
+  const beginRegex = /^\s*#\+begin_([^\s]+)\s*(.*)$/i;
+  let m = match(beginRegex);
   if (m) {
     const params = m.captures[2].split(' ').map(p => p.trim()).filter(String)
     return [{
@@ -16,15 +17,16 @@ export default ({ reader }: Props): [BlockBegin | BlockEnd, () => void] | undefi
       name: m.captures[1],
       params,
       position: m.position,
-    }, () => eat('line')];
+    }, () => eat(beginRegex)];
   }
 
-  m = match(/^\s*#\+end_([^\s]+)\s*$/i)
+  const endRegex = /^\s*#\+end_([^\s]+)\s*$/i;
+  m = match(endRegex);
   if (m) {
     return [{
       type: 'block.end',
       position: m.position,
       name: m.captures[1],
-    }, () => eat('line')];
+    }, () => eat(endRegex)];
   }
 }
