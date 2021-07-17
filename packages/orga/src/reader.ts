@@ -59,9 +59,7 @@ export const read = (text: string) => {
 
   const eol = () => _eol(cursor.line)!;
 
-  const EOF = () => {
-    return isGreaterOrEqual(now(), eof());
-  }
+  const EOF = () => isGreaterOrEqual(now(), eof());
 
   const jump = (point: Point) => {
     cursor = point
