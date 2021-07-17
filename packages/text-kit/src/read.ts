@@ -1,7 +1,10 @@
-import { Point, Position } from 'unist';
+import { Point as UnistPoint, Position } from 'unist';
 
-/** Like {@link Point}, but with a known source index. */
-export type SourcePoint = Required<Point>;
+/** Like {@link UnistPoint}, but with no offset. */
+export type Point = Omit<UnistPoint, 'offset'>;
+
+/** Like {@link UnistPoint}, but with a known source index. */
+export type SourcePoint = Required<UnistPoint>;
 
 /** Like {@link Position}, but with known indices. */
 export type SourcePosition = Position & { start: SourcePoint, end: SourcePoint };
