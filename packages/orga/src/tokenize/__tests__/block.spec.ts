@@ -69,7 +69,7 @@ function () {}
     testVerseBlock("inner block with markup", `#+BEGIN_EXAMPLE *text*
 more text
 #+END_EXAMPLE`, [
-      tokText("#+BEGIN_EXAMPLE "), tokTextBold("text"),
+      tokText("#+BEGIN_EXAMPLE "), ...tokTextBold("text"),
       tokNewline(),
       tokText("more text"),
       tokNewline(),
@@ -77,7 +77,7 @@ more text
     ]);
 
     testVerseBlock("heading with markup", "* Heading *with markup*", [
-      tokText("* Heading "), tokTextBold("with markup"),
+      tokText("* Heading "), ...tokTextBold("with markup"),
     ]);
 
     testVerseBlock("lists not tokenized", `- this is not lexed

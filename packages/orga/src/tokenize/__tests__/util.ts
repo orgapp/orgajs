@@ -26,6 +26,7 @@ import {
   Timestamp,
   Todo,
   Token,
+  TokComplexStyleChar,
 } from '../types';
 
 import { Char } from '../../char';
@@ -69,17 +70,31 @@ export const tokStyledText = <TextTy extends StyledText['type']>(type: TextTy, m
   (value: string, extra: Extra<StyledText, 'value'> = {}): StyledText & { type: TextTy } =>
     tk.tokStyledText(type)(value, mkExtra({ _text: `${marker}${value}${marker}`, ...extra }));
 
+export const shorthandTextMarkup = <C extends TokComplexStyleChar['char']>(char: C) => (value: string, extra: [Extra<TokComplexStyleChar, 'char'>, Extra<StyledText, 'value'>, Extra<TokComplexStyleChar, 'char'>] = [{}, {}, {}]): [TokComplexStyleChar & { char: C }, StyledText, TokComplexStyleChar & { char: C }] => [{
+  type: 'token.complexStyleChar',
+  char,
+  ...mkExtra(extra[0]),
+}, {
+  type: 'text.plain',
+  value,
+  ...mkExtra(extra[1]),
+}, {
+  type: 'token.complexStyleChar',
+  char,
+  ...mkExtra(extra[2]),
+}];
+
 export const tokText = tokStyledText('text.plain', '');
 
-export const tokTextBold = tokStyledText('text.bold', '*');
+export const tokTextBold = shorthandTextMarkup('*');
 
 export const tokTextCode = tokStyledText('text.code', '~');
 
-export const tokTextItalic = tokStyledText('text.italic', '/');
+export const tokTextItalic = shorthandTextMarkup('/');
 
-export const tokTextStrikeThrough = tokStyledText('text.strikeThrough', '+');
+export const tokTextStrikeThrough = shorthandTextMarkup('+');
 
-export const tokTextUnderline = tokStyledText('text.underline', '_');
+export const tokTextUnderline = shorthandTextMarkup('_');
 
 export const tokTextVerbatim = tokStyledText('text.verbatim', '=');
 

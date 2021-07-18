@@ -58,15 +58,7 @@ export const tokStyledText = <TextTy extends StyledText['type']>(type: TextTy) =
 
 export const tokText = tokStyledText('text.plain');
 
-export const tokTextBold = tokStyledText('text.bold');
-
 export const tokTextCode = tokStyledText('text.code');
-
-export const tokTextItalic = tokStyledText('text.italic');
-
-export const tokTextStrikeThrough = tokStyledText('text.strikeThrough');
-
-export const tokTextUnderline = tokStyledText('text.underline');
 
 export const tokTextVerbatim = tokStyledText('text.verbatim');
 

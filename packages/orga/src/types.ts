@@ -177,17 +177,6 @@ export interface Newline extends Child {
   type: 'newline'
 }
 
-export interface StyledText extends Literal, Child<Paragraph> {
-  type:
-  | 'text.plain'
-  | 'text.bold'
-  | 'text.verbatim'
-  | 'text.italic'
-  | 'text.strikeThrough'
-  | 'text.underline'
-  | 'text.code'
-}
-
 export interface Link extends Literal, Child<Paragraph> {
   type: 'link';
   protocol: string | undefined;
@@ -224,3 +213,14 @@ export interface FootnoteReference extends Parent, Child<Paragraph> {
 export interface TableRule extends Child<Table> {
   type: 'table.hr';
 }
+
+export interface TextMarkupSimple extends Child<Paragraph>, Literal {
+  type: 'text.verbatim' | 'text.code' | 'text.plain';
+}
+
+export interface TextMarkupComplex extends Parent, Child {
+  type: 'text.bold' | 'text.italic' | 'text.strikeThrough' | 'text.underline';
+  children: Paragraph['children'];
+}
+
+export type StyledText = TextMarkupSimple | TextMarkupComplex;

@@ -1,4 +1,4 @@
-import { Char, read as _read } from 'text-kit'
+import { Char, TextKit, read as _read } from 'text-kit'
 import { Point, Position } from 'unist'
 import { isGreaterOrEqual } from './position';
 
@@ -80,6 +80,7 @@ export const read = (text: string) => {
     eol,
     jump,
     match: (pattern: RegExp, position: Position = { start: now(), end: eol() }) => match(pattern, position),
+    shift,
   }
   return reader
 }
@@ -100,4 +101,5 @@ export interface Reader {
     captures: string[],
     position: Position;
   } | undefined;
+  shift: TextKit['shift'];
 }

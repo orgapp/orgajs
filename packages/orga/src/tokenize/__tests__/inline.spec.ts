@@ -24,13 +24,13 @@ describe("Inline Tokenization", () => {
   testLexer("recon two characters", "ab", [tokText("ab")]);
 
   testLexer("recon single emphasis", "hello *world*, welcome to *org-mode*.", [
-    tokText("hello "), tokTextBold("world"), tokText(", welcome to "), tokTextBold("org-mode"), tokText(".")
+    tokText("hello "), ...tokTextBold("world"), tokText(", welcome to "), ...tokTextBold("org-mode"), tokText(".")
   ]);
 
   testLexerMulti("recon emphasises at different locations", [
-    ["one *two* three", [tokText("one "), tokTextBold("two"), tokText(" three")]],
-    ["*one* two three", [tokTextBold("one"), tokText(" two three")]],
-    ["one two *three*", [tokText("one two "), tokTextBold("three")]],
+    ["one *two* three", [tokText("one "), ...tokTextBold("two"), tokText(" three")]],
+    ["*one* two three", [...tokTextBold("one"), tokText(" two three")]],
+    ["one two *three*", [tokText("one two "), ...tokTextBold("three")]],
   ]);
 
   testLexerMulti("recon link", [
@@ -74,15 +74,15 @@ describe("Inline Tokenization", () => {
   });
 
   testLexerMulti("recon emphasises with 2 chars",
-    ["12", "1"].map(c => [`*${c}*`, [tokTextBold(c)]])
+    ["12", "1"].map(c => [`*${c}*`, tokTextBold(c)])
   );
 
   testLexer("recon mixed emphasis",
     "[[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~, the round pegs in the +round+ square holes...", [
     tokLink("https://github.com/xiaoxinghu/orgajs", { description: "Here's" }),
-    tokText(" to the "), tokTextBold("crazy"), tokText(" ones, the "), tokTextItalic("misfits"),
-    tokText(", the "), tokTextUnderline("rebels"), tokText(", the "), tokTextCode("troublemakers"),
-    tokText(", the round pegs in the "), tokTextStrikeThrough("round"), tokText(" square holes...")
+    tokText(" to the "), ...tokTextBold("crazy"), tokText(" ones, the "), ...tokTextItalic("misfits"),
+    tokText(", the "), ...tokTextUnderline("rebels"), tokText(", the "), tokTextCode("troublemakers"),
+    tokText(", the round pegs in the "), ...tokTextStrikeThrough("round"), tokText(" square holes...")
   ]);
 
   testLexer("can handle something more complicated", `

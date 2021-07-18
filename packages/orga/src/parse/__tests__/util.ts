@@ -26,6 +26,8 @@ import {
   Table,
   TableCell,
   TableRow,
+  TextMarkupComplex,
+  TextMarkupSimple,
   Timestamp,
   Token,
   VerseBlock,
@@ -73,20 +75,35 @@ export const greaterBlock = (name: GreaterBlock['name'], children: GreaterBlock[
 export const specialBlock = (name: SpecialBlock['name'], children: SpecialBlock['children'], extra: ExtraP<SpecialBlock, 'name'> = {}): SpecialBlock =>
   ast.specialBlock(name, children, mkExtra(extra));
 
-export const styledText = <TextTy extends StyledText['type']>(type: TextTy) => (text: string, extra: Extra<StyledText, 'value'> = {}): StyledText & { type: TextTy } =>
-  ast.styledText(type)(text, mkExtra(extra));
+export const simpleStyledText = <TextTy extends TextMarkupSimple['type']>(type: TextTy) => (text: string, extra: Extra<TextMarkupSimple, 'value'> = {}): TextMarkupSimple & { type: TextTy } => ast.simpleStyledText(type)(text, mkExtra(extra));
+
+export const simpleStyledTextComplex = <TextTy extends TextMarkupComplex['type']>(type: TextTy) => (value: string, extra: ExtraP<TextMarkupComplex> = {}): TextMarkupComplex & { type: TextTy } => ast.simpleStyledTextComplex(type)(value, mkExtra(extra));
+
+export const complexTextMarkup = <TextTy extends TextMarkupComplex['type']>(type: TextTy) => (children: TextMarkupComplex['children'], extra: ExtraP<TextMarkupComplex> = {}): TextMarkupComplex & { type: TextTy } => ast.complexTextMarkup(type)(children, mkExtra(extra));
+
+export const styledText = <TextTy extends StyledText['type']>(type: TextTy) => type === 'text.plain' || type === 'text.code' || type === 'text.verbatim' ? simpleStyledText(type) : simpleStyledTextComplex(type);
 
 export const text = styledText('text.plain');
 
 export const textBold = styledText('text.bold');
 
+export const textBoldC = complexTextMarkup('text.bold');
+
 export const textCode = styledText('text.code');
 
 export const textItalic = styledText('text.italic');
 
+export const textItalicC = complexTextMarkup('text.italic');
+
 export const textStrikethrough = styledText('text.strikeThrough');
 
+export const textStrikethroughC = complexTextMarkup('text.strikeThrough');
+
 export const textUnderline = styledText('text.underline');
+
+export const textUnderlineC = complexTextMarkup('text.underline');
+
+export const textVerbatim = styledText('text.verbatim');
 
 import { FootnoteRef, FootnoteInline, FootnoteAnon } from '../utils';
 

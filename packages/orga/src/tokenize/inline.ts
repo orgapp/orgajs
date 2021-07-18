@@ -1,7 +1,7 @@
 import { Point } from 'unist'
 import { isGreaterOrEqual } from '../position'
 import { Reader } from '../reader'
-import { FootnoteReference, Link, StyledText, Token, Newline } from './types'
+import { FootnoteReference, Link, Token, Newline } from './types'
 import uri from '../uri'
 import { escape } from '../utils'
 import * as tk from './util';
@@ -9,14 +9,14 @@ import * as tk from './util';
 const POST = `(?:[\\s-\\.,:!?'\\)}]|$)`
 const BORDER = `[^,'"\\s]`
 
-const MARKERS: { [key: string]: StyledText['type'] } = {
+const MARKERS = {
   '*': 'text.bold',
   '=': 'text.verbatim',
   '/': 'text.italic',
   '+': 'text.strikeThrough',
   '_': 'text.underline',
   '~': 'text.code',
-}
+} as const;
 
 interface Props {
   reader: Reader
@@ -26,7 +26,7 @@ interface Props {
 
 export const tokenize = (props: Props, { ignoring }: { ignoring: string[] } = { ignoring: [] }): Token[] => {
   const { reader } = props;
-  const { now, eat, eol, match, jump, substring, getChar } = reader
+  const { now, eat, eol, match, jump, shift, substring, getChar } = reader
   const start = props.start ?? { ...now() }
   const end = props.end ?? { ...eol() }
   jump(start)
@@ -90,19 +90,33 @@ export const tokenize = (props: Props, { ignoring }: { ignoring: string[] } = { 
     }
   }
 
-  const tokStyledText = (marker: string) => (): StyledText | undefined => {
+  const tokStyledText = (marker: string) => (): Token[] => {
+    const searchRegion = { start: now(), end: props.end ?? eolMax(1) };
     const m = match(
-      RegExp(`^${escape(marker)}(${BORDER}(?:[\\S\\s]*?(?:${BORDER}))??)${escape(marker)}(?=(${POST}.*))`), { start: now(), end: eolMax(1) });
-    if (!m) return undefined
+      RegExp(`^${escape(marker)}(${BORDER}(?:[\\S\\s]*?(?:${BORDER}))??)${escape(marker)}(?=(${POST}.*))`), searchRegion);
+    if (!m) return []
     const value = m.captures[1];
     if (ignoring.some(c => value.includes(c))) {
-      return;
+      return [];
     }
-    return {
-      type: MARKERS[marker],
-      value,
-      position: m.position,
+    if (marker === '~' || marker === '=') {
+      return [{
+        type: MARKERS[marker],
+        value,
+        position: m.position,
+      }];
+    } else if (marker === '*' || marker === '/' || marker === '+' || marker === '_') {
+      const tokens: Token[] = [];
+      const markerStart = match(new RegExp(`^${escape(marker)}`), searchRegion)!;
+      tokens.push({ type: 'token.complexStyleChar', char: marker, position: markerStart.position });
+      const innerToks = tokenize({ reader, start: markerStart.position.end, end: shift(m.position.end, -1) });
+      tokens.push(...innerToks);
+      const markerEnd = eat('char');
+      tokens.push({ type: 'token.complexStyleChar', char: marker, position: markerEnd.position });
+      jump(searchRegion.start);
+      return tokens;
     }
+    return [];
   }
 
   const tryToTokens = (tok: () => Token[]) => {
@@ -154,10 +168,10 @@ export const tokenize = (props: Props, { ignoring }: { ignoring: string[] } = { 
       if (tryToTokens(tokFootnoteAnonOrInline)) return tok();
     }
 
-    if (MARKERS[char]) {
+    if (char in MARKERS) {
       const pre = getChar(-1)
-      if (now().column === 1 || (pre && /[\s({'"]/.test(pre))) {
-        if (tryTo(tokStyledText(char))) return tok()
+      if (now().column === 1 || (pre && /[\s({'"_*+\/]/.test(pre))) {
+        if (tryToTokens(tokStyledText(char))) return tok()
       }
     }
 

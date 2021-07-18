@@ -1,4 +1,5 @@
 import {
+  inlineFootnote,
   link,
   paragraph,
   pos,
@@ -7,10 +8,15 @@ import {
   testParseSection,
   text,
   textBold,
+  textBoldC,
   textCode,
   textItalic,
+  textItalicC,
   textStrikethrough,
+  textStrikethroughC,
   textUnderline,
+  textUnderlineC,
+  textVerbatim,
 } from './util';
 
 describe('Parse Paragraph', () => {
@@ -119,6 +125,57 @@ the round pegs in the +round+ square holes...
     testParseSection(testName, text, [paragraph(...rest)]);
   };
 
+  describe("code and verbatim only contain text", () => {
+    for (const [mup, mf] of [["~", textCode], ["=", textVerbatim]] as const) {
+      describe(`markup: ${mup}`, () => {
+        testParseParagraph("does not allow links", `${mup}[[link]]${mup}`, [mf("[[link]]")]);
+        testParseParagraph("does not allow bold markup", `${mup}*bold*${mup}`, [mf("*bold*")]);
+      });
+    }
+  });
+
+  describe("bold italic strike-through and underline support object contents", () => {
+    for (const [mup, mf] of [["*", textBoldC], ["/", textItalicC], ["+", textStrikethroughC], ["_", textUnderlineC]] as const) {
+      describe(`markup: ${mup}`, () => {
+        testParseParagraph("allows links", `${mup}[[https://duckduckgo.com]]${mup}`, [mf([link("https://duckduckgo.com")])]);
+        testParseParagraph("allows bold markup", `${mup}*bold*${mup}`, [mf([textBold("bold")])]);
+        testParseParagraph("allows footnote references", `${mup}[fn:name:Test]${mup}`, [mf([inlineFootnote("name", [text("Test")])])]);
+      });
+    }
+    testParseParagraph("nested markup example",
+      "*Test1 _test2_ /test3/ te*st =test4=*",
+      [textBoldC([text("Test1 "), textUnderline("test2"), text(" "), textItalic("test3"), text(" te*st "), textVerbatim("test4")])]);
+  });
+
+  const markupCharsWithFns = [
+    ["*", textBold],
+    ["=", textVerbatim],
+    ["/", textItalic],
+    ["+", textStrikethrough],
+    ["_", textUnderline],
+    ["~", textCode]
+  ] as const;
+  const markupChars = markupCharsWithFns.map(x => x[0]);
+
+  describe("markup with non-whitespace", () => {
+    for (const [mup, mf] of markupCharsWithFns) {
+      describe(`markup: ${mup}`, () => {
+        // NOTE: Org parser 2.4.4 treats __Test_ as a subscript rather than underline (2021-07-18)
+        testParseParagraph(`preceded by self (Org parser 2.4.4)`, `${mup}${mup}Test${mup}`, [mf(`${mup}Test`)]);
+        testParseParagraph(`followed by self (Org parser 2.4.4)`, `${mup}Test${mup}${mup}`, [mf(`Test${mup}`)]);
+        const excluded = markupChars.filter(x => x !== mup);
+        for (const excl of excluded) {
+          testParseParagraph(`followed by ${excl} (Org parser 2.4.4)`, `${mup}Test${mup}${excl}`, [text(`${mup}Test${mup}${excl}`)]);
+        }
+      });
+    }
+  });
+  testParseParagraph("underline mixed markup example (Org parser 2.4.4)", "_Test1 _test2_ /test3/ =test4=_", [textUnderline("Test1 _test2"), text(" "), textItalic("test3"), text(" =test4=_")]);
+
+  testParseParagraph("bold empty (Org parser 2.4.4)", "**", [text("**")]);
+  testParseParagraph("bold bold (Org parser 2.4.4)", "****", [textBold("**")]);
+  testParseParagraph("bold in bold (Org parser 2.4.4)", "**Test**", [textBoldC([textBold("Test")])]);
+
   testParseParagraph("pure markup", "_Test1_", [textUnderline("Test1")]);
   testParseParagraph("markup followed by newline", "_Test1_\n", [textUnderline("Test1")]);
   testParseParagraph("markup preceded by newline", "\n_Test1_", [textUnderline("Test1")]);
@@ -129,9 +186,9 @@ the round pegs in the +round+ square holes...
       testParseParagraph("marker cannot be first in line (end)", "_Test1\n_", [text("_Test1"), text(" "), text("_")]);
     });
 
-    testParseParagraph("marker with next line ending", "_Test1\nTest2_", [textUnderline("Test1\nTest2")]);
+    testParseParagraph("marker with next line ending", "_Test1\nTest2_", [textUnderlineC([text("Test1"), text(" "), text("Test2")])]);
 
-    testParseParagraph("marker with next line ending and spaces", "_Test1\n  Test2_", [textUnderline("Test1\n  Test2")]);
+    testParseParagraph("marker with next line ending and spaces", "_Test1\n  Test2_", [textUnderlineC([text("Test1"), text(" "), text("  Test2")])]);
 
     testParseParagraph("cannot span more than 3 lines (spec v2021.07.03)", "_Test1\nTest2\nTest3\nTest4_", [text("_Test1"), text(" "), text("Test2"), text(" "), text("Test3"), text(" "), text("Test4_")]);
 

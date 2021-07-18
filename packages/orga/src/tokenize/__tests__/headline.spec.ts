@@ -22,7 +22,7 @@ describe("tokenize headline", () => {
 
   testLexerMulti("knows headlines", [
     testHeadline("** a headline", 2, [tokText("a headline")]),
-    testHeadline("** _headline_", 2, [tokTextUnderline("headline")]),
+    testHeadline("** _headline_", 2, tokTextUnderline("headline")),
     testHeadline("**   a headline", 2, [tokText("a headline")]),
     testHeadline("***** a headline", 5, [tokText("a headline")]),
     testHeadline("* a 😀line", 1, [tokText("a 😀line")]),
@@ -35,7 +35,7 @@ describe("tokenize headline", () => {
   testLexerMulti("knows these are not headlines", [
     ["*not a headline", [tokText("*not a headline")]],
     [" * not a headline", [tokText("* not a headline")]],
-    ["*_* not a headline", [tokTextBold("_"), tokText(" not a headline")]],
+    ["*_* not a headline", [...tokTextBold("_"), tokText(" not a headline")]],
     ["not a headline", [tokText("not a headline")]],
   ]);
 

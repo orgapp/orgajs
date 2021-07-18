@@ -122,11 +122,7 @@ export interface Comment extends TokenLiteral {
 export interface StyledText extends TokenLiteral {
   type:
   | 'text.plain'
-  | 'text.bold'
   | 'text.verbatim'
-  | 'text.italic'
-  | 'text.strikeThrough'
-  | 'text.underline'
   | 'text.code'
 }
 
@@ -168,3 +164,48 @@ export type Token =
   | DrawerBegin
   | DrawerEnd
   | Comment
+  | TokComplexStyleChar
+
+
+///////////////////////////////////////////////////
+///// TOKENS - things that _may_ have meaning /////
+///////////////////////////////////////////////////
+
+
+///////////////////////////////
+// STYLED TEXT/MARKUP TOKENS //
+///////////////////////////////
+
+
+/**
+ * Characters that can begin/end text markup.
+ *
+ * - asterisk - bold
+ * - equals - verbatim
+ * - forward slash - italics
+ * - plus - strikethrough
+ * - tilde - code
+ * - underscore - underline (or subscript)
+ *
+ * May have whitespace before/after, but not on both sides (must be
+ * checked in parser). We don't check balancing at this point either.
+ */
+export interface TokStyleChar extends TokenI {
+  char: '*' | '=' | '/' | '+' | '~' | '_';
+}
+
+/**
+ * Characters that can begin/end text markup that may contain objects.
+ *
+ * - asterisk - bold
+ * - equals - verbatim
+ * - forward slash - italics
+ * - plus - strikethrough
+ *
+ * May have whitespace before/after, but not on both sides (must be
+ * checked in parser). We don't check balancing at this point either.
+ */
+export interface TokComplexStyleChar extends TokStyleChar {
+  type: 'token.complexStyleChar';
+  char: '*' | '/' | '+' | '_';
+}

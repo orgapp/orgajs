@@ -23,6 +23,8 @@ import {
   Table,
   TableCell,
   TableRow,
+  TextMarkupComplex,
+  TextMarkupSimple,
   Timestamp,
   Token,
   VerseBlock,
@@ -186,12 +188,18 @@ export const manyOf = <T>(parse: TokenParser<T>): TokenParser<T[]> => {
   };
 }
 
-/** Parse zero or more occurences of `p` ended by `end`. */
+/**
+ * Parse zero or more occurences of `p` ended by `end`.
+ *
+ * This tries `end` before each occurrence of `p`, and thus you should
+ * use `manyEndBy` instead if you need nesting.
+ */
 export const manyTill = <T, End>(p: TokenParser<T>, end: TokenParser<End>): TokenParser<[...T[], End]> => {
   return (lexer: Lexer) => {
     const { returning, tryTo } = lexActions(lexer);
     const res: T[] = [];
     while (true) {
+      if (!lexer.peek()) return;
       const last = returning(tryTo(end))();
       if (last) {
         return [...res, last];
@@ -201,6 +209,29 @@ export const manyTill = <T, End>(p: TokenParser<T>, end: TokenParser<End>): Toke
         res.push(next);
       } else {
         return;
+      }
+    }
+  };
+}
+
+/**
+ * Parse zero or more occurences of `p` ended by `end`.
+ *
+ * This tries `end` _after_ each occurrence of `p`, so can be used for nesting.
+ */
+export const manyEndBy = <T, End>(p: TokenParser<T>, end: TokenParser<End>): TokenParser<[...T[], End]> => {
+  return (lexer: Lexer) => {
+    const { returning, tryTo } = lexActions(lexer);
+    const res: T[] = [];
+    while (true) {
+      if (!lexer.peek()) return;
+      const next = returning(tryTo(p))();
+      if (next) {
+        res.push(next);
+      }
+      const last = returning(tryTo(end))();
+      if (last) {
+        return [...res, last];
       }
     }
   };
@@ -314,30 +345,52 @@ export const specialBlock = (name: SpecialBlock['name'], children: SpecialBlock[
   ...extra
 });
 
-/** Build an AST {@link StyledText} object. */
-export const styledText = <TextTy extends StyledText['type']>(type: TextTy) => (text: string, extra: Extra<StyledText, 'value'>): StyledText & { type: TextTy } => ({
+export const simpleStyledText = <TextTy extends TextMarkupSimple['type']>(type: TextTy) => (text: string, extra: Extra<TextMarkupSimple, 'value'>): TextMarkupSimple & { type: TextTy } => ({
   type: type,
   value: text,
   ...extra
 });
 
 /** Build an AST plain text object. */
-export const text = styledText('text.plain');
-
-/** Build an AST text bold object. */
-export const textBold = styledText('text.bold');
+export const text = simpleStyledText('text.plain');
 
 /** Build an AST text code object. */
-export const textCode = styledText('text.code');
+export const textCode = simpleStyledText('text.code');
+
+export const simpleStyledTextComplex = <TextTy extends TextMarkupComplex['type']>(type: TextTy) => (value: string, extra: ExtraP<TextMarkupComplex>): TextMarkupComplex & { type: TextTy } => {
+  const start = extra.position?.start;
+  const end = extra.position?.end;
+  const innerPos = start && end ? { start: { line: start.line, column: start.column + 1 }, end: { line: end.line, column: end.column - 1 } } : undefined;
+  return {
+    type: type,
+    // some trickery here... we know that start markup char can't
+    // immediately followed by a newline, and the end char can't be
+    // preceded immediately by a newline, so we can manipulate the
+    // position
+    children: [text(value, innerPos ? { position: innerPos } : {} as Extra<TextMarkupSimple, 'value'>)],
+    ...extra,
+  };
+};
+
+export const complexTextMarkup = <TextTy extends TextMarkupComplex['type']>(type: TextTy) => (children: TextMarkupComplex['children'], extra: ExtraP<TextMarkupComplex>): TextMarkupComplex & { type: TextTy } => ({
+  type: type,
+  children,
+  ...extra
+});
+
+export const styledText = <TextTy extends StyledText['type']>(type: TextTy) => type === 'text.plain' || type === 'text.code' || type === 'text.verbatim' ? simpleStyledText(type) : simpleStyledTextComplex(type);
+
+/** Build an AST text bold object. */
+export const textBold = simpleStyledTextComplex('text.bold');
 
 /** Build an AST text italic object. */
-export const textItalic = styledText('text.italic');
+export const textItalic = simpleStyledTextComplex('text.italic');
 
 /** Build an AST text strikethrough object. */
-export const textStrikethrough = styledText('text.strikeThrough');
+export const textStrikethrough = simpleStyledTextComplex('text.strikeThrough');
 
 /** Build an AST text underline object. */
-export const textUnderline = styledText('text.underline');
+export const textUnderline = simpleStyledTextComplex('text.underline');
 
 /** Footnote reference has empty `children`. */
 export type FootnoteRef = FootnoteReference & { children: [] };
