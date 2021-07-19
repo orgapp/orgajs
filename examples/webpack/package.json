@@ -2,7 +2,7 @@
   "name": "@orgajs/example-webpack",
   "private": true,
   "version": "2.4.9",
-  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "main": "index.js",
   "type": "module",
   "scripts": {

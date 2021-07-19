@@ -15,6 +15,6 @@ jobs:
         node-version: 14
     - name: bootstrap and test
       run: |
-        yarn run bootstrap
+        yarn install
         yarn run compile
         yarn test

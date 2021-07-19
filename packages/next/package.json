@@ -10,8 +10,8 @@
   },
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
-    "compile": "node ./build.js",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
+    "compile": "tsc -b",
     "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
@@ -22,8 +22,5 @@
     "@orgajs/estree-jsx": "^2.4.9",
     "@orgajs/rehype-estree": "^2.4.9",
     "@orgajs/reorg-rehype": "^2.4.9"
-  },
-  "devDependencies": {
-    "esbuild": "^0.12.9"
   }
 }

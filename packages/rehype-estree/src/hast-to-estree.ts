@@ -1,5 +1,5 @@
 import { Node as HastNode } from 'hast'
-import { toEstree as hast2estree } from 'hast-util-to-estree'
+import hast2estree from 'hast-util-to-estree'
 import { Handler, Options } from './options'
 import { Parser } from 'acorn'
 import jsx from 'acorn-jsx'
