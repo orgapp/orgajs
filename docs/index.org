@@ -57,7 +57,4 @@ The React Framework
 
 Because orga is native to webpack, it's fairly simply to intergrate with nextjs. Example project.
 
-
-
-
 * React

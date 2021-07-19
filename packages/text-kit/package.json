@@ -20,11 +20,14 @@
   ],
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "clean": "del ./dist && rm -rf tsconfig.tsbuildinfo",
     "compile": "tsc -b",
     "prepublishOnly": "yarn build"
   },
   "bugs": {
     "url": "https://github.com/orgapp/orgajs/issues"
+  },
+  "devDependencies": {
+    "del-cli": "^4.0.1"
   }
 }

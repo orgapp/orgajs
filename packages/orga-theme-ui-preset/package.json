@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/*",
+    "clean": "del ./dist",
     "compile": "tsc -b",
     "prepublishOnly": "yarn build"
   },
@@ -26,5 +26,8 @@
   "license": "MIT",
   "dependencies": {
     "@theme-ui/preset-base": "^0.6.0"
+  },
+  "devDependencies": {
+    "del-cli": "^4.0.1"
   }
 }

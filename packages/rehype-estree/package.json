@@ -5,9 +5,8 @@
   "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/rehype-estree",
-  "type": "module",
   "types": "./dist/index.d.ts",
-  "exports": "./dist/index.js",
+  "main": "./dist/index.js",
   "files": [
     "dist"
   ],
@@ -16,15 +15,15 @@
   },
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "clean": "del ./dist && rm -rf tsconfig.tsbuildinfo",
     "compile": "tsc -b",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "acorn": "^8.4.1",
     "acorn-jsx": "^5.3.1",
-    "estree-walker": "3.0.0",
-    "hast-util-to-estree": "^2.0.0",
+    "estree-walker": "2.0.2",
+    "hast-util-to-estree": "1.4.0",
     "periscopic": "2.0.3"
   },
   "devDependencies": {
