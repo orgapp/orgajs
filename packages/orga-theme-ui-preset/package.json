@@ -26,8 +26,5 @@
   "license": "MIT",
   "dependencies": {
     "@theme-ui/preset-base": "^0.6.0"
-  },
-  "devDependencies": {
-    "del-cli": "^4.0.1"
   }
 }

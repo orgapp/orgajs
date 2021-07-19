@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b",
     "prepublishOnly": "yarn build"
   },
@@ -32,6 +32,7 @@
     "rehype-stringify": "^8.0.0",
     "unified": "^9.2.0",
     "unist-util-select": "^3.0.2",
+    "unist-util-visit": "2.0.3",
     "unist-util-visit-parents": "^3.1.1"
   }
 }

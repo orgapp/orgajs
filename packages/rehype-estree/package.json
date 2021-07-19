@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist && rm -rf tsconfig.tsbuildinfo",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b",
     "prepublishOnly": "yarn build"
   },
@@ -24,10 +24,10 @@
     "acorn-jsx": "^5.3.1",
     "estree-walker": "2.0.2",
     "hast-util-to-estree": "1.4.0",
+    "lodash": "^4.17.21",
     "periscopic": "2.0.3"
   },
   "devDependencies": {
-    "del-cli": "^3.0.1",
     "estree-jsx": "^0.0.1"
   }
 }
