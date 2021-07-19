@@ -2,7 +2,7 @@
   "name": "@orgajs/rehype-estree",
   "version": "2.4.9",
   "description": "hast to estree",
-  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/rehype-estree",
   "types": "./dist/index.d.ts",

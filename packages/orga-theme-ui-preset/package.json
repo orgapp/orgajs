@@ -22,7 +22,7 @@
     "url": "https://github.com/orgapp/orgajs.git",
     "directory": "packages/orga-theme-ui-preset"
   },
-  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
   "dependencies": {
     "@theme-ui/preset-base": "^0.6.0"

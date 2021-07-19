@@ -6,7 +6,7 @@
     "dist"
   ],
   "main": "dist/index.js",
-  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
   "repository": {
     "type": "git",

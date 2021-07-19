@@ -2,7 +2,7 @@
   "name": "gatsby-theme-orga-docs",
   "version": "2.4.9",
   "description": "gatsby theme for orga.js",
-  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "homepage": "https://github.com/orgapp/orgajs#readme",
   "license": "MIT",
   "main": "index.js",
