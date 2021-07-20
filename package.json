@@ -9,6 +9,7 @@
     "@types/hast": "^2.3.1",
     "@types/jest": "^26.0.23",
     "@types/node": "^16.3.3",
+    "@types/unist": "^2.0.6",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
     "chalk": "^4.1.0",

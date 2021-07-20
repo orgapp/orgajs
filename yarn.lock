@@ -5077,6 +5077,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/unist@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "@types/unist@npm:2.0.6"
+  checksum: 0b98b3b1e21cb316cc68dcc73e960233a80771ebf477cf6cf58d43b181a3d586edd4eeab994f1885eebefec9acc97c9b97c067dfe9ef7ff1d65786c564594d0b
+  languageName: node
+  linkType: hard
+
 "@types/websocket@npm:1.0.2":
   version: 1.0.2
   resolution: "@types/websocket@npm:1.0.2"
@@ -19023,6 +19030,7 @@ fsevents@^1.2.7:
     "@types/hast": ^2.3.1
     "@types/jest": ^26.0.23
     "@types/node": ^16.3.3
+    "@types/unist": ^2.0.6
     "@typescript-eslint/eslint-plugin": ^4.26.1
     "@typescript-eslint/parser": ^4.26.1
     chalk: ^4.1.0

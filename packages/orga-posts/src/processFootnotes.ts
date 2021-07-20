@@ -41,6 +41,7 @@ export default () => {
 
       // console.log(inspect(node, false, null, true), { a })
     }
+    // @ts-ignore
     visit(tree, 'element', visitor)
 //     tree.children.push({
 //       type: 'element',

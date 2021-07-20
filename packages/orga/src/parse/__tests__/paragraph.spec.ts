@@ -1,6 +1,6 @@
 import { tokenize } from '../../tokenize'
 import { parse } from '../index'
-import { Document, Headline, PhrasingContent, Section } from '../../types'
+import { Document, Headline, PhrasingContent, Section, Stars } from '../../types'
 import debug from './debug'
 import { Position } from 'unist';
 
@@ -72,7 +72,7 @@ the round pegs in the +round+ square holes...
     children: [{
       type: 'stars',
       level: level
-    }, text(content),
+    } as Stars, text(content),
     { type: 'newline' }],
     ...(pos === undefined ? {} : { position: pos })
   });

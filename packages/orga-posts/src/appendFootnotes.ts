@@ -24,17 +24,19 @@ export default () => {
 
     const root = getRoot(tree)
 
-    const visitor: Visitor<FootnoteReference> = (node: FootnoteReference, index, parent) => {
+    // @ts-ignore
+    visit<FootnoteReference>(tree, 'footnote.reference', (node) => {
       const fn = findFootnotes(root, node.label)
       if (fn) {
         footnotes.push(fn)
       }
-    }
-    visit(tree, 'footnote.reference', visitor)
+    })
 
     if (footnotes.length > 0) {
+      // @ts-ignore
       tree.children.push({ type: 'html', value: '<dl id="footnotes">' })
       footnotes.forEach(fn => tree.children.push(fn))
+      // @ts-ignore
       tree.children.push({ type: 'html', value: '</dl>' })
     }
   }

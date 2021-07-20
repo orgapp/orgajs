@@ -152,6 +152,7 @@ module.exports = async (
         }
       }
 
+      // @ts-ignore
       visit(tree, 'link', visitor)
 
     } })

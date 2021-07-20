@@ -119,9 +119,7 @@ export interface Paragraph extends Parent, Attributed {
   children: PhrasingContent[];
 }
 
-interface Literal extends UnistLiteral {
-  value: string;
-}
+type Literal = UnistLiteral<string>
 
 export interface HTML extends Literal {
   type: 'html';
