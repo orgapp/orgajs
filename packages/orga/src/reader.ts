@@ -1,5 +1,6 @@
 import { read as _read } from 'text-kit'
 import { Point, Position } from 'unist'
+import { isGreaterOrEqual } from './position';
 
 export const read = (text: string) => {
 
@@ -7,9 +8,11 @@ export const read = (text: string) => {
     shift,
     substring,
     linePosition,
-    toIndex,
     match,
-    location,
+    eof,
+    eol: _eol,
+    distance,
+    charAt,
   } = _read(text)
 
   let cursor = { line: 1, column: 1 }
@@ -17,14 +20,7 @@ export const read = (text: string) => {
   const isStartOfLine = () => cursor.column === 1
 
   const getChar = (p: number | Point = 0) => {
-    const { pos, offset } = typeof p === 'number' ?
-      { pos: cursor, offset: p } :
-      { pos: p, offset: 0 }
-    return text.charAt(toIndex(pos) + offset)
-  }
-
-  const endOfLine = (ln: number): Point => {
-    return location(toIndex(linePosition(ln).end))
+    return typeof p === 'number' ? charAt(shift(cursor, p)) : charAt(p);
   }
 
   const now = () => cursor
@@ -37,13 +33,13 @@ export const read = (text: string) => {
       const lp = linePosition(cursor.line)
       cursor = lp.end
     } else if (param === 'whitespaces') {
-      return eat(/^\s+/)
+      return eat(/^[ \t]+/)
     } else if (typeof param === 'number') {
       cursor = shift(start, param)
     } else {
-      const m = param.exec(substring({ start: cursor }))
+      const m = match(param, { start: cursor, end: eol() });
       if (m) {
-        cursor = location(toIndex(cursor) + m.index + m[0].length)
+        cursor = m.position.end;
       }
     }
 
@@ -58,14 +54,10 @@ export const read = (text: string) => {
     }
   }
 
-  const eol = () => endOfLine(cursor.line)
+  const eol = () => _eol(cursor.line);
 
   const EOF = () => {
-    return toIndex(now()) >= text.length - 1
-  }
-
-  const distance = ({ start, end }: Position) : number => {
-    return toIndex(end) - toIndex(start)
+    return isGreaterOrEqual(now(), eof());
   }
 
   const jump = (point: Point) => {
@@ -85,7 +77,6 @@ export const read = (text: string) => {
     jump,
     match: (pattern: RegExp, position: Position = { start: now(), end: eol() }) => match(pattern, position),
   }
-
   return reader
 }
 

@@ -17,10 +17,12 @@ Object {
             "end": Object {
               "column": 49,
               "line": 3,
+              "offset": 88,
             },
             "start": Object {
               "column": 1,
               "line": 3,
+              "offset": 40,
             },
           },
           "protocol": "https",
@@ -34,10 +36,12 @@ Object {
             "end": Object {
               "column": 57,
               "line": 3,
+              "offset": 96,
             },
             "start": Object {
               "column": 49,
               "line": 3,
+              "offset": 88,
             },
           },
           "type": "text.plain",
@@ -49,10 +53,12 @@ Object {
             "end": Object {
               "column": 64,
               "line": 3,
+              "offset": 103,
             },
             "start": Object {
               "column": 57,
               "line": 3,
+              "offset": 96,
             },
           },
           "type": "text.bold",
@@ -64,10 +70,12 @@ Object {
             "end": Object {
               "column": 75,
               "line": 3,
+              "offset": 114,
             },
             "start": Object {
               "column": 64,
               "line": 3,
+              "offset": 103,
             },
           },
           "type": "text.plain",
@@ -79,10 +87,12 @@ Object {
             "end": Object {
               "column": 84,
               "line": 3,
+              "offset": 123,
             },
             "start": Object {
               "column": 75,
               "line": 3,
+              "offset": 114,
             },
           },
           "type": "text.italic",
@@ -94,10 +104,12 @@ Object {
             "end": Object {
               "column": 90,
               "line": 3,
+              "offset": 129,
             },
             "start": Object {
               "column": 84,
               "line": 3,
+              "offset": 123,
             },
           },
           "type": "text.plain",
@@ -109,10 +121,12 @@ Object {
             "end": Object {
               "column": 98,
               "line": 3,
+              "offset": 137,
             },
             "start": Object {
               "column": 90,
               "line": 3,
+              "offset": 129,
             },
           },
           "type": "text.underline",
@@ -124,10 +138,12 @@ Object {
             "end": Object {
               "column": 104,
               "line": 3,
+              "offset": 143,
             },
             "start": Object {
               "column": 98,
               "line": 3,
+              "offset": 137,
             },
           },
           "type": "text.plain",
@@ -139,10 +155,12 @@ Object {
             "end": Object {
               "column": 119,
               "line": 3,
+              "offset": 158,
             },
             "start": Object {
               "column": 104,
               "line": 3,
+              "offset": 143,
             },
           },
           "type": "text.code",
@@ -154,10 +172,12 @@ Object {
             "end": Object {
               "column": 120,
               "line": 3,
+              "offset": 159,
             },
             "start": Object {
               "column": 119,
               "line": 3,
+              "offset": 158,
             },
           },
           "type": "text.plain",
@@ -169,10 +189,12 @@ Object {
             "end": Object {
               "column": 1,
               "line": 4,
+              "offset": 160,
             },
             "start": Object {
               "column": 120,
               "line": 3,
+              "offset": 159,
             },
           },
           "type": "text.plain",
@@ -184,10 +206,12 @@ Object {
             "end": Object {
               "column": 23,
               "line": 4,
+              "offset": 182,
             },
             "start": Object {
               "column": 1,
               "line": 4,
+              "offset": 160,
             },
           },
           "type": "text.plain",
@@ -199,10 +223,12 @@ Object {
             "end": Object {
               "column": 30,
               "line": 4,
+              "offset": 189,
             },
             "start": Object {
               "column": 23,
               "line": 4,
+              "offset": 182,
             },
           },
           "type": "text.strikeThrough",
@@ -214,10 +240,12 @@ Object {
             "end": Object {
               "column": 46,
               "line": 4,
+              "offset": 205,
             },
             "start": Object {
               "column": 30,
               "line": 4,
+              "offset": 189,
             },
           },
           "type": "text.plain",
@@ -229,10 +257,12 @@ Object {
         "end": Object {
           "column": 1,
           "line": 6,
+          "offset": 207,
         },
         "start": Object {
           "column": 1,
           "line": 3,
+          "offset": 40,
         },
       },
       "type": "paragraph",
@@ -251,10 +281,12 @@ Object {
             "end": Object {
               "column": 18,
               "line": 7,
+              "offset": 248,
             },
             "start": Object {
               "column": 1,
               "line": 7,
+              "offset": 231,
             },
           },
           "protocol": "file",
@@ -268,10 +300,12 @@ Object {
         "end": Object {
           "column": 19,
           "line": 7,
+          "offset": 249,
         },
         "start": Object {
           "column": 1,
           "line": 7,
+          "offset": 231,
         },
       },
       "type": "paragraph",
@@ -281,10 +315,12 @@ Object {
     "end": Object {
       "column": 19,
       "line": 7,
+      "offset": 249,
     },
     "start": Object {
       "column": 1,
       "line": 3,
+      "offset": 40,
     },
   },
   "properties": Object {},
