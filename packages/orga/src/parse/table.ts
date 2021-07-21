@@ -1,7 +1,7 @@
 import { push } from '../node'
 import { Lexer } from '../tokenize'
 import { Table, TableRow, TableRule, TableCell, Parent } from '../types'
-import { isPhrasingContent } from '../utils';
+import { isPhrasingContent } from '../utils'
 
 export default (lexer: Lexer): Table | undefined => {
   const { peek, eat } = lexer
@@ -19,7 +19,7 @@ export default (lexer: Lexer): Table | undefined => {
       push(c)(t)
       eat()
     } else {
-      return undefined;
+      return undefined
     }
     return getCell(c)
   }

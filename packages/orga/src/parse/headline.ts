@@ -26,7 +26,7 @@ export default (lexer: Lexer): Headline => {
       headline.actionable = token.actionable
     }
 
-    if (token.value) {
+    if ('value' in token) {
       headline.content += token.value
     }
 

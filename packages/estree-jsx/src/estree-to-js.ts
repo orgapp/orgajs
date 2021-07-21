@@ -1,5 +1,4 @@
 import * as astring from 'astring'
-import { inspect } from 'util'
 
 const customGenerator = Object.assign({}, astring['GENERATOR'], {
   JSXAttribute: JSXAttribute,
@@ -91,8 +90,6 @@ function JSXExpressionContainer(node, state) {
   if (handler) {
     this[node.expression.type](node.expression, state)
   } else {
-    console.log('>>>>>>>>>>>>>>>>>>>')
-    console.log(inspect(node.expression, false, null, true))
     throw new Error(`Cannot handle expression: ${node.expression.type}`)
   }
   state.write('}')

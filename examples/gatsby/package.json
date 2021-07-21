@@ -19,7 +19,7 @@
   "dependencies": {
     "@orgajs/loader": "^2.4.9",
     "@orgajs/react": "^2.4.9",
-    "gatsby": "^3.3.1",
+    "gatsby": "^3.10.0",
     "gatsby-plugin-orga": "^2.4.9",
     "gatsby-source-filesystem": "^3.3.0",
     "react": "^17.0.1",

@@ -8,11 +8,15 @@ export default (context: Context) => (node: Link): HNode => {
 
   const type = mime.getType(value)
   if (type && type.startsWith('image')) {
-    const p = node.parent as Paragraph
+    let cap = ''
+    if ('parent' in node) {
+      const p = node['parent'] as Paragraph
+      cap = p.attributes['caption'] as string || description
+    }
     return h('figure')(
       h('img', { src: node.value, ...properties })(),
       h('figcaption')(
-        u('text', p.attributes['caption'] as string || description || '')
+        u('text', cap)
       )
     )
   }

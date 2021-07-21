@@ -6,7 +6,9 @@
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "dependencies": {
     "@orgajs/playground": "^2.4.9",
-    "gatsby": "^3.6.2",
+    "babel-preset-gatsby": "^1.10.0",
+    "gatsby": "^3.10.0",
+    "gatsby-source-filesystem": "^3.10.0",
     "gatsby-theme-orga-docs": "^2.4.9",
     "gh-pages": "^3.2.3",
     "prism-react-renderer": "^1.2.1",

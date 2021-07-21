@@ -3,7 +3,6 @@ import hast2estree from 'hast-util-to-estree'
 import { Handler, Options } from './options'
 import { Parser } from 'acorn'
 import jsx from 'acorn-jsx'
-import { inspect } from 'util'
 
 const deepGet = (p: string) => (o: any) => p.split('.').reduce((a, v) => a[v], o)
 

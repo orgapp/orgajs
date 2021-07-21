@@ -12,7 +12,6 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
@@ -35,6 +34,8 @@ module.exports = {
   rules: {
     'import/no-extraneous-dependencies': ['warn'],
     'semi': ['error', 'never'],
+    // TODO: remove this eventually
+    "@typescript-eslint/ban-ts-comment": "off",
   },
   // overrides: [
   //   {

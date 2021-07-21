@@ -76,13 +76,6 @@ export default ({ wpm = 265, report }: { wpm?: number, report: (result: Result) 
 
   return (tree) => {
 
-    const visitor: Visitor<Node> = (node: Node) => {
-      if (node.type.startsWith('text.')) content.push(_.get('value')(node))
-      if (node.type === 'link') {
-        content.push(_.get('description')(node))
-      }
-    }
-
     visit(tree, [
       'text.plain',
       'text.bold',
@@ -92,7 +85,12 @@ export default ({ wpm = 265, report }: { wpm?: number, report: (result: Result) 
       'text.underline',
       'text.code',
       'link',
-    ], visitor)
+    ], (node) => {
+      if (node.type.startsWith('text.')) content.push(_.get('value')(node))
+      if (node.type === 'link') {
+        content.push(_.get('description')(node))
+      }
+    })
 
     const text = content.join(' ')
 

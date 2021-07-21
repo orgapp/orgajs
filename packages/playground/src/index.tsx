@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-import { LivePreview, LiveProvider, LiveError } from 'react-live';
+import React, { useEffect } from 'react'
+import { LivePreview, LiveProvider, LiveError } from 'react-live'
 import reorg from '@orgajs/reorg'
 import toRehype from '@orgajs/reorg-rehype'
 import toEstree from '@orgajs/rehype-estree'
 import toJsx from '@orgajs/estree-jsx'
 import { OrgaProvider, orga } from '@orgajs/react'
-import Tabs from './tabs'
 import JSONTree from 'react-json-tree'
 import Editor, { useMonaco } from '@monaco-editor/react'
 import { tokenizer } from './org-syntax'
-
+import { Tabs, Tab, TabPanel, TabList } from 'react-tabs'
+import 'react-tabs/style/react-tabs.css'
 
 const theme = {
   background: '#f5f8fa',
@@ -82,7 +82,9 @@ const Playground = ({ code, onChange, style }) => {
       const code = processor.processSync(src)
       result.jsx = String(code)
     } catch (err) {
-
+      // TODO: handle the error
+      console.log({ err })
+      throw err
     }
 
     return result
@@ -117,10 +119,6 @@ const Playground = ({ code, onChange, style }) => {
 
   const components = {}
   const props = {}
-
-  const Panel = ({label, children}) => <div style={{
-    height: '100%',
-  }} label={label}>{children}</div>
 
   return (
     <LiveProvider
@@ -162,17 +160,24 @@ const Playground = ({ code, onChange, style }) => {
           backgroundColor: theme.surface,
           height: '100%',
           width: '50%',
-        }} theme={theme} defaultTab='preview'>
-          <Panel label='oast'>
+        }} defaultIndex={4}>
+          <TabList>
+            <Tab style={{color: theme.lightText}}>oast</Tab>
+            <Tab style={{color: theme.lightText}}>rehype</Tab>
+            <Tab style={{color: theme.lightText}}>estree</Tab>
+            <Tab style={{color: theme.lightText}}>jsx</Tab>
+            <Tab style={{color: theme.lightText}}>preview</Tab>
+          </TabList>
+          <TabPanel style={{padding: '0.4em 0.8em'}}>
             <JSONTree data={oast} theme={treeTheme} invertTheme={true}/>
-          </Panel>
-          <Panel label='rehype'>
+          </TabPanel>
+          <TabPanel style={{padding: '0.4em 0.8em'}}>
             <JSONTree data={rehype} theme={treeTheme} invertTheme={true}/>
-          </Panel>
-          <Panel label='estree'>
+          </TabPanel>
+          <TabPanel style={{padding: '0.4em 0.8em'}}>
             <JSONTree data={estree} theme={treeTheme} invertTheme={true}/>
-          </Panel>
-          <Panel label='jsx'>
+          </TabPanel>
+          <TabPanel style={{ height: '100%' }}>
             <Editor
               value={jsx}
               theme={theme.code}
@@ -183,8 +188,10 @@ const Playground = ({ code, onChange, style }) => {
                 scrollBeyondLastLine: false,
               }}
             />
-          </Panel>
-          <LivePreview label='preview'/>
+          </TabPanel>
+          <TabPanel style={{padding: '0.4em 0.8em'}}>
+            <LivePreview label='preview'/>
+          </TabPanel>
         </Tabs>
         <LiveError/>
       </div>

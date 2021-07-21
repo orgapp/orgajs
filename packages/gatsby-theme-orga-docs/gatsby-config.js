@@ -23,12 +23,6 @@ module.exports = themeOptions => {
       `gatsby-plugin-image`,
       `gatsby-plugin-sharp`,
       `gatsby-transformer-sharp`,
-      {
-        resolve: 'gatsby-plugin-page-creator',
-        options: {
-          path: path.join(__dirname, 'src/pages')
-        }
-      },
       ...options.location.map(path => ({
         resolve: 'gatsby-plugin-page-creator',
         options: { path },

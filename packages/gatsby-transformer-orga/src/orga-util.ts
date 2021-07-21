@@ -1,4 +1,4 @@
-import _ from 'lodash/fp'
+import { mapValues } from 'lodash/fp'
 import { parse, Document, Section } from 'orga'
 import { Node } from 'unist'
 
@@ -7,7 +7,7 @@ const shouldBeArray = (key: string) => [`keywords`, `tags`].includes(key)
 // TODO: open this up once this is resolved:
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/27194
 // @ts-ignore
-export const processMeta = _.mapValues.convert({ cap: false })((v, k) => {
+export const processMeta = mapValues.convert({ cap: false })((v, k) => {
   if (shouldBeArray(k) && typeof v === `string`) {
     return v.match(/[^ ]+/g)
   }

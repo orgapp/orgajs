@@ -13,8 +13,8 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 14
-    - name: bootstrap and test
+    - name: run unit tests
       run: |
         yarn install
-        yarn run compile
+        yarn build
         yarn test

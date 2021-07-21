@@ -8,7 +8,7 @@ export default (context: Context) => (node: List): HNode => {
   const { h } = context
 
   let tagName = node.ordered ? 'ol' : 'ul'
-  if (node.children.every(i => i.tag)) {
+  if (node.children.every(i => i['tag'])) {
     tagName = 'dl'
   }
   return h(tagName, node.attributes.attr_html as Properties)(

@@ -46,8 +46,8 @@ type CreateOrgaElement = typeof React.createElement & {
   Fragment: typeof React.Fragment
 }
 
-function orga(type, props) {
-  const args = arguments
+function orga(...args) {
+  const [type, props] = args
   const orgaType = props && props.orgaType
   if (typeof type === 'string' || orgaType) {
     const argsLength = args.length
@@ -57,7 +57,7 @@ function orga(type, props) {
 
     const newProps: any = {}
     for (const key in props) {
-      if (props.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(props, key)) {
         newProps[key] = props[key]
       }
     }

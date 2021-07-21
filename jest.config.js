@@ -9,7 +9,7 @@ const esModules = [
   'comma-separated-tokens',
 ].join('|')
 
-export default {
+module.exports = {
   // projects: ['<rootDir>/packages/*/jest.config.js'],
   preset: 'ts-jest/presets/js-with-ts',
   transformIgnorePatterns: [
