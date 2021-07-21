@@ -1,7 +1,7 @@
 import { Transformer } from 'unified'
-import toEstree from './hast-to-estree.js'
-import { DEFAULT_OPTIONS, Options } from './options.js'
-import processEstree from './process-estree.js'
+import toEstree from './hast-to-estree'
+import { DEFAULT_OPTIONS, Options } from './options'
+import processEstree from './process-estree'
 
 function rehype2estree (options: Partial<Options> = {}): Transformer {
   return transformer

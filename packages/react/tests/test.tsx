@@ -55,7 +55,7 @@ const run = async value => {
 }
 
 
-describe('@orgajs/react', () => {
+describe.skip('@orgajs/react', () => {
   test('should work', async () => {
     const Content = await run('* hi')
     const string = renderToString(<Content />)

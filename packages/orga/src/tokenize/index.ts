@@ -149,9 +149,9 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
 
   const modify = (f: (t: Token) => Token, offset = 0): void => {
     const pos = cursor + offset
-    const token = peek(offset);
+    const token = peek(offset)
     if (token !== undefined) {
-      tokens[pos] = f(token);
+      tokens[pos] = f(token)
     }
   }
 
@@ -201,5 +201,5 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
     },
     substring,
     modify
-  };
+  }
 }

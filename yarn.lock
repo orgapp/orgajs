@@ -4149,7 +4149,6 @@ __metadata:
     "@orgajs/reorg-rehype": ^2.4.9
     "@types/react": ^17.0.14
     "@types/react-dom": ^17.0.9
-    esbuild: ^0.12.9
     react-json-tree: ^0.15.0
     react-live: ^2.2.3
     react-tabs: ^3.2.2
@@ -10320,15 +10319,6 @@ __metadata:
     es6-iterator: ^2.0.3
     es6-symbol: ^3.1.1
   checksum: 8dfd50b2919e16cf246ea9d5f9271eef466924248bc98a48a718cc149d0f67b708628c8e4bd32fa945a813c7780f94270f21ac16fff33c854a348db7e19f084d
-  languageName: node
-  linkType: hard
-
-"esbuild@npm:^0.12.9":
-  version: 0.12.9
-  resolution: "esbuild@npm:0.12.9"
-  bin:
-    esbuild: bin/esbuild
-  checksum: e88720c29ec272c24640db25acdec841ad266bb42d8bb8930270141c82834314a05184f90ac68a74139721741c52ba343776ba4f69b2cf41a7a31c343e6fc867
   languageName: node
   linkType: hard
 

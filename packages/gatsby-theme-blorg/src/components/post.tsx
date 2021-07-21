@@ -47,7 +47,7 @@ export default ({ data }) => {
           </Flex>
           <Link to={`/${post.category}`}>
             <Text sx={{ p: 2, textAlign: 'right' }}>
-              Read more stories about "{post.category}" ->
+              Read more stories about "{post.category}"
           </Text>
           </Link>
           <PostShare post={post}/>

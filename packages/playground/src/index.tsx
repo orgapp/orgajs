@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { LivePreview, LiveProvider, LiveError } from 'react-live';
+import React, { useEffect } from 'react'
+import { LivePreview, LiveProvider, LiveError } from 'react-live'
 import reorg from '@orgajs/reorg'
 import toRehype from '@orgajs/reorg-rehype'
 import toEstree from '@orgajs/rehype-estree'
@@ -82,7 +82,9 @@ const Playground = ({ code, onChange, style }) => {
       const code = processor.processSync(src)
       result.jsx = String(code)
     } catch (err) {
-
+      // TODO: handle the error
+      console.log({ err })
+      throw err
     }
 
     return result

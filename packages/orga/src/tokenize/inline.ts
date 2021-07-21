@@ -46,39 +46,39 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
   }
 
   const tokFootnoteAnonOrInline = (): Token[] => {
-    const tokens: Token[] = [];
+    const tokens: Token[] = []
 
-    let m = match(/^\[fn:(\w*):/);
-    if (!m) return [];
+    let m = match(/^\[fn:(\w*):/)
+    if (!m) return []
     tokens.push({
       type: 'footnote.inline.begin',
       label: m.captures[1],
       position: m.position,
-    });
-    jump(m.position.end);
+    })
+    jump(m.position.end)
 
-    m = match(/^\]/);
+    m = match(/^\]/)
     if (m) {
       // empty body
-      tokens.push({ type: 'text.plain', value: '', position: { start: m.position.start, end: m.position.start, indent: m.position.indent } });
+      tokens.push({ type: 'text.plain', value: '', position: { start: m.position.start, end: m.position.start, indent: m.position.indent } })
     } else {
-      tokens.push(...tokenize({ reader }, { ignoring: [']'] }));
+      tokens.push(...tokenize({ reader }, { ignoring: [']'] }))
     }
 
-    m = match(/^\]/);
-    if (!m) return [];
+    m = match(/^\]/)
+    if (!m) return []
     tokens.push({
       type: 'footnote.reference.end',
       position: m.position
-    });
+    })
 
-    jump(tokens[0].position.start);
+    jump(tokens[0].position.start)
 
-    return tokens;
+    return tokens
   }
 
   const tokFootnote = (): FootnoteReference => {
-    const m = match(/^\[fn:(\w+)\]/);
+    const m = match(/^\[fn:(\w+)\]/)
     if (m) {
       return {
         type: 'footnote.reference',
@@ -112,9 +112,9 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
 
   const tryTo = (tok: () => PhrasingContent) => {
     return tryToTokens(() => {
-      const r = tok();
-      return r ? [r] : [];
-    });
+      const r = tok()
+      return r ? [r] : []
+    })
   }
 
   const cleanup = () => {
@@ -144,13 +144,13 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
     const char = getChar()
 
     if (ignoring.includes(char)) {
-      return [];
+      return []
     }
 
     if (char === '[') {
       if (tryTo(tokLink)) return tok()
       if (tryTo(tokFootnote)) return tok()
-      if (tryToTokens(tokFootnoteAnonOrInline)) return tok();
+      if (tryToTokens(tokFootnoteAnonOrInline)) return tok()
     }
 
     if (MARKERS[char]) {
