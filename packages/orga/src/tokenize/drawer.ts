@@ -8,9 +8,10 @@ interface Props {
 export default ({ reader }: Props) : Token[] => {
   const { match, eat } = reader
 
-  const m = match(/^:(\w+):(?=\s*$)/)
+  const drawerReg = /^:(\w+):(?=\s*$)/;
+  const m = match(drawerReg);
   if (m) {
-    eat('line')
+    eat(drawerReg);
     const name = m.captures[1]
     if (name.toLowerCase() === 'end') {
       return [{

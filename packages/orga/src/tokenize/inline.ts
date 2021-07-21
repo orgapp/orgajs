@@ -1,5 +1,5 @@
 import { Point } from 'unist'
-import { isEqual } from '../position'
+import { isGreaterOrEqual } from '../position'
 import { Reader } from '../reader'
 import { FootnoteReference, Link, PhrasingContent, StyledText, Token, Newline } from '../types'
 import uri from '../uri'
@@ -118,7 +118,7 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
   }
 
   const cleanup = () => {
-    if (isEqual(cursor, now())) return
+    if (isGreaterOrEqual(cursor, now())) return
     const position = { start: { ...cursor }, end: { ...now() } }
     const value = substring(position)
     _tokens.push({
@@ -129,17 +129,20 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
   }
 
   const tokNewline = (): Newline => {
-    const m = match(/^\n/)
-    if (!m) return undefined
-    return {
-      type: 'newline',
-      position: m.position,
+    const save = { ...now() };
+    const newline = eat('char');
+    jump(save);
+    if (newline.value === '\n') {
+      return {
+        type: 'newline',
+        position: newline.position,
+      };
     }
   }
 
   const tok = () => {
-    if (isEqual(now(), end)) {
-      return
+    if (isGreaterOrEqual(now(), end)) {
+      return;
     }
     const char = getChar()
 
