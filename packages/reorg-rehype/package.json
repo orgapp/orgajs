@@ -22,5 +22,8 @@
   },
   "dependencies": {
     "oast-to-hast": "^2.4.9"
+  },
+  "devDependencies": {
+    "unified": "9.2.2"
   }
 }

@@ -22,5 +22,9 @@
     "@orgajs/estree-jsx": "^2.4.9",
     "@orgajs/rehype-estree": "^2.4.9",
     "@orgajs/reorg-rehype": "^2.4.9"
+  },
+  "devDependencies": {
+    "@types/hast": "^2.3.2",
+    "@types/node": "^16.4.0"
   }
 }

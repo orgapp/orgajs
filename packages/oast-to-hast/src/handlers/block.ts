@@ -1,6 +1,5 @@
 import { Block } from 'orga'
 import { Context, HNode } from '../'
-import highlight from './_highlight'
 
 export default (context: Context) => (node: Block): HNode => {
 

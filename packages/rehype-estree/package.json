@@ -28,6 +28,10 @@
     "periscopic": "2.0.3"
   },
   "devDependencies": {
-    "estree-jsx": "^0.0.1"
+    "@types/estree": "^0.0.50",
+    "@types/hast": "^2.3.2",
+    "@types/unist": "^2.0.6",
+    "estree-jsx": "^0.0.1",
+    "unified": "9.2.2"
   }
 }

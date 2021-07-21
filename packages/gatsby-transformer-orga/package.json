@@ -34,5 +34,12 @@
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b",
     "prepublishOnly": "yarn build"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.12",
+    "@types/lodash": "^4.14.171",
+    "@types/node": "^16.4.0",
+    "@types/unist": "^2.0.6",
+    "gatsby": "^3.10.0"
   }
 }

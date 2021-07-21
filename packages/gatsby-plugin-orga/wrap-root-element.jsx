@@ -1,6 +1,6 @@
 import { OrgaProvider } from '@orgajs/react'
 import React from 'react'
-import * as components from './loaders/orga-components'
+import * as components from './dist/orga-components'
 
 // TODO: process config
 

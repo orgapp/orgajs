@@ -74,7 +74,6 @@ export default (text: string) => {
     if (ln < 1 || ln > lines.length) return undefined
     const nextLine = lines[ln]
     const endIndex = nextLine ? nextLine - 1 : text.length
-    // console.log({ nextLine, endIndex, end: location(endIndex) })
     return {
       start: { line: ln, column: 1 },
       end: location(endIndex),
@@ -88,9 +87,6 @@ export default (text: string) => {
     let endIndex: number
     if (end === 'EOL') {
       const lp = linePosition(start.line)
-      if (!lp) {
-        console.log({ start })
-      }
       endIndex = toIndex(linePosition(start.line).end)
     } else if (end === 'EOF') {
       endIndex = text.length
