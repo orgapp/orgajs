@@ -15,8 +15,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.3.1",
-    "jest": "27.0.4",
-    "jest-cli": "27.0.4",
+    "jest": "27.0.6",
+    "jest-cli": "27.0.6",
     "lerna": "^4.0.0",
     "prettier": "^2.3.1",
     "ts-jest": "^27.0.3",
@@ -25,6 +25,7 @@
   "scripts": {
     "clean": "yarn workspaces foreach run clean",
     "build": "tsc -b tsconfig.packages.json",
+    "release": "lerna version",
     "publish": "lerna publish",
     "publish:ci": "lerna publish --conventional-commits --create-release github --yes",
     "publish-next": "lerna publish --dist-tag=next --bump=prerelease",
