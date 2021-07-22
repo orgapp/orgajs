@@ -44,7 +44,26 @@ The React Framework
 
 Because orga is native to webpack, it's fairly simply to intergrate with nextjs. Example project.
 
+** React
+You can render react components directly in your org file. Something like this:
+#+begin_src org
+,* Hello World
+
+Let's render *the box*.
+
+,#+begin_export html
+<div style={{
+  backgroundColor: 'gold',
+  padding: '1em',
+  border: '1px solid black',
+  boxShadow: '5px 5px'
+}}>I am a box with shadow</div>
+,#+end_export
+#+end_src
+
+[[https://orga.js.org/playground/?text=*%20Hello%20World%0A%0ALet's%20render%20*the%20box*.%0A%0A%23%2Bbegin_export%20html%0A%3Cdiv%20style%3D%7B%7B%0A%20%20backgroundColor%3A%20'gold'%2C%20%0A%20%20padding%3A%20'1em'%2C%0A%20%20border%3A%20'1px%20solid%20black'%2C%0A%20%20boxShadow%3A%20'5px%205px'%0A%7D%7D%3EI%20am%20a%20box%20with%20shadow%3C%2Fdiv%3E%0A%23%2Bend_export%0A][Try it our yourself in the playground]].
 
 
+* Contribute
 
-* React
+See the [[file:CONTRIBUTING.org][contributing file]] for ways to get started.
