@@ -9381,7 +9381,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.14.0":
+"date-fns@npm:^2.14.0, date-fns@npm:^2.22.1":
   version: 2.22.1
   resolution: "date-fns@npm:2.22.1"
   checksum: a89dc6cdf3929b3f0d54d129a3c288df995fc3e6c8099dacc215e5404b4950fc8551d11a58968dfd3b8d576d0c5e637072f615e8f9c3e47d82c81e3952007d5b
@@ -19066,6 +19066,7 @@ fsevents@^1.2.7:
   resolution: "orga@workspace:packages/orga"
   dependencies:
     "@types/unist": ^2.0.6
+    date-fns: ^2.22.1
     date-fns-tz: ^1.1.4
     del-cli: ^3.0.1
     text-kit: ^2.4.9
