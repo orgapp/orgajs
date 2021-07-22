@@ -40,10 +40,15 @@ function isCjChar(char) {
   return cjRanges.some(([from, to]) => charCode >= from && charCode < to)
 }
 
-type Result = { timeToRead: number, wordCount: number }
+type Result = { timeToRead: number; wordCount: number }
 
-export default ({ wpm = 265, report }: { wpm?: number, report: (result: Result) => void }) => {
-
+export default ({
+  wpm = 265,
+  report,
+}: {
+  wpm?: number
+  report: (result: Result) => void
+}) => {
   const count = (pureText: string) => {
     let timeToRead = 0
 
@@ -60,7 +65,8 @@ export default ({ wpm = 265, report }: { wpm?: number, report: (result: Result) 
 
     // Multiply non-latin character string length by 0.56, because
     // on average one word consists of 2 characters in both Chinese and Japanese
-    const wordCount = _.words(latinChars.join(``)).length + cjChars.length * 0.56
+    const wordCount =
+      _.words(latinChars.join(``)).length + cjChars.length * 0.56
 
     timeToRead = Math.round(wordCount / wpm)
     if (timeToRead === 0) {
@@ -75,27 +81,28 @@ export default ({ wpm = 265, report }: { wpm?: number, report: (result: Result) 
   const content: string[] = []
 
   return (tree) => {
-
-    visit(tree, [
-      'text.plain',
-      'text.bold',
-      'text.verbatim',
-      'text.italic',
-      'text.strikeThrough',
-      'text.underline',
-      'text.code',
-      'link',
-    ], (node) => {
-      if (node.type.startsWith('text.')) content.push(_.get('value')(node))
-      if (node.type === 'link') {
-        content.push(_.get('description')(node))
+    visit(
+      tree,
+      [
+        'text.plain',
+        'text.bold',
+        'text.verbatim',
+        'text.italic',
+        'text.strikeThrough',
+        'text.underline',
+        'text.code',
+        'link',
+      ],
+      (node) => {
+        if (node.type.startsWith('text.')) content.push(_.get('value')(node))
+        if (node.type === 'link') {
+          content.push(_.get('description')(node))
+        }
       }
-    })
+    )
 
     const text = content.join(' ')
 
     report(count(text))
-
   }
 }
-

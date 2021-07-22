@@ -56,5 +56,4 @@ export default (lexer: Lexer): Table | undefined => {
   }
 
   return parse()
-
 }

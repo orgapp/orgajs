@@ -1,7 +1,6 @@
 import parse from '../uri'
 
 describe('Parsing Link', () => {
-
   it('recon local file', () => {
     expect(parse(`file:/hello.org`)).toMatchSnapshot()
     expect(parse(`./hello.org`)).toMatchSnapshot()

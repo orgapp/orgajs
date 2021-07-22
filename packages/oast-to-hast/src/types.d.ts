@@ -1,8 +1,8 @@
 interface Element extends Node {
-  readonly tagName: string;
-  properties: object;
+  readonly tagName: string
+  properties: object
 }
 
 interface Literal extends Node {
-  value: string;
+  value: string
 }

@@ -1,16 +1,10 @@
 import { orga } from '@orgajs/react'
 import React, { useMemo } from 'react'
 
-function OrgaRenderer({
-  scope = {},
-  children,
-  ...props
-}) {
-
+function OrgaRenderer({ scope = {}, children, ...props }) {
   console.log('>>', { scope: Object.keys(scope) })
 
   const End = useMemo(() => {
-
     if (!children) return null
 
     const fullScope = {
@@ -19,9 +13,8 @@ function OrgaRenderer({
       ...scope,
     }
 
-
     const keys = Object.keys(fullScope)
-    const values = keys.map(key => fullScope[key])
+    const values = keys.map((key) => fullScope[key])
 
     const fn = new Function('_fn', ...keys, `${children}`)
     console.log('>>>>>>>>>>>>>>>>>>>>>>>>')

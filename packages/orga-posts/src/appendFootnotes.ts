@@ -12,7 +12,6 @@ const getRoot = (node: Node): Node => {
 }
 
 export default () => {
-
   const findFootnotes = (root: Node, label: string): Footnote => {
     const selector = `footnote[label=${label}]`
     return select(selector, root) as Footnote
@@ -21,7 +20,6 @@ export default () => {
   const footnotes: Footnote[] = []
 
   const transformer: Transformer = (tree) => {
-
     const root = getRoot(tree)
 
     // @ts-ignore FIXME
@@ -36,7 +34,7 @@ export default () => {
       // @ts-ignore FIXME
       tree.children.push({ type: 'html', value: '<dl id="footnotes">' })
       // @ts-ignore FIXME
-      footnotes.forEach(fn => tree.children.push(fn))
+      footnotes.forEach((fn) => tree.children.push(fn))
       // @ts-ignore FIXME
       tree.children.push({ type: 'html', value: '</dl>' })
     }

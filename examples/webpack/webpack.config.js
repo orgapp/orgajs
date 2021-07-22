@@ -9,7 +9,7 @@ const config = {
       {
         test: /\.js$/,
         use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.org$/,
@@ -18,15 +18,12 @@ const config = {
           {
             loader: '@orgajs/loader',
             options: {
-              plugins: [
-                toRehype,
-                toEstree,
-                toJsx,
-              ]
-            }
-          }],
+              plugins: [toRehype, toEstree, toJsx],
+            },
+          },
+        ],
       },
-    ]
+    ],
   },
 }
 

@@ -5,7 +5,7 @@ export const isEqual = (p1: Point, p2: Point) => {
 }
 
 export const isGreaterOrEqual = (p1: Point, p2: Point) => {
-  return isEqual(p1, p2) || before(p1)(p2);
+  return isEqual(p1, p2) || before(p1)(p2)
 }
 
 const compare = (p1: Point, p2: Point): boolean => {

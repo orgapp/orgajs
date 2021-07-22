@@ -7,30 +7,26 @@ const extensions = ['.org']
 
 const basePath = '/'
 
-const orgxResolverPassthrough = fieldName => async (
-  source,
-  args,
-  context,
-  info
-) => {
-  const type = info.schema.getType(`Orga`)
-  const mdxNode = context.nodeModel.getNodeById({
-    id: source.parent
-  })
+const orgxResolverPassthrough =
+  (fieldName) => async (source, args, context, info) => {
+    const type = info.schema.getType(`Orga`)
+    const mdxNode = context.nodeModel.getNodeById({
+      id: source.parent,
+    })
 
-  const resolver = type.getFields()[fieldName].resolve
-  const result = await resolver(mdxNode, args, context, {
-    fieldName
-  })
+    const resolver = type.getFields()[fieldName].resolve
+    const result = await resolver(mdxNode, args, context, {
+      fieldName,
+    })
 
-  return result
-}
+    return result
+  }
 
 const unstable_shouldOnCreateNode = ({ node }) => {
   return node.internal.type === 'Orga'
 }
 
-exports.unstable_shouldOnCreateNode  = unstable_shouldOnCreateNode
+exports.unstable_shouldOnCreateNode = unstable_shouldOnCreateNode
 
 exports.sourceNodes = ({ actions, schema }) => {
   const { createTypes } = actions
@@ -48,24 +44,21 @@ exports.sourceNodes = ({ actions, schema }) => {
         layout: {
           type: 'String!',
           resolve: orgxResolverPassthrough('layout'),
-        }
+        },
       },
       interfaces: ['Node'],
     })
   )
 }
 
-exports.onCreateNode = async ({
-  node, actions, getNode, createNodeId,
-}) => {
-
+exports.onCreateNode = async ({ node, actions, getNode, createNodeId }) => {
   const { createNode, createParentChildLink } = actions
 
   if (!unstable_shouldOnCreateNode({ node })) {
     return
   }
 
-  const getSlug = node => {
+  const getSlug = (node) => {
     const { dir } = path.parse(node.relativePath)
     const fullPath = [basePath, dir, node.name]
     return path.join(...fullPath)
@@ -81,7 +74,10 @@ exports.onCreateNode = async ({
     children: [],
     internal: {
       type: 'Docs',
-      contentDigest: crypto.createHash('md5').update(JSON.stringify(fieldData)).digest('hex'),
+      contentDigest: crypto
+        .createHash('md5')
+        .update(JSON.stringify(fieldData))
+        .digest('hex'),
       content: JSON.stringify(fieldData),
       description: 'Docs',
     },

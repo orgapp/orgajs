@@ -1,7 +1,7 @@
 const path = require('path')
 const withDefaults = require('./utils/default-options')
 
-module.exports = themeOptions => {
+module.exports = (themeOptions) => {
   const options = withDefaults(themeOptions)
   return {
     siteMetadata: {
@@ -16,14 +16,14 @@ module.exports = themeOptions => {
           defaultLayout: require.resolve('./src/components/layout.tsx'),
           components: {
             ...options.components,
-          }
+          },
         },
       },
       `gatsby-plugin-react-helmet`,
       `gatsby-plugin-image`,
       `gatsby-plugin-sharp`,
       `gatsby-transformer-sharp`,
-      ...options.location.map(path => ({
+      ...options.location.map((path) => ({
         resolve: 'gatsby-plugin-page-creator',
         options: { path },
       })),

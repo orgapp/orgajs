@@ -35,7 +35,10 @@ export default {
   'table.cell': tableCell,
   footnote,
   'footnote.reference': footnoteReference,
-  hr: ({ h }) => () => h('hr')(),
+  hr:
+    ({ h }) =>
+    () =>
+      h('hr')(),
   drawer: () => () => undefined,
   priority: () => () => undefined,
   html,

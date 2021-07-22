@@ -34,7 +34,7 @@ export default {
         bg: 'highlight',
       },
       cursor: 'pointer',
-    }
+    },
   },
   links: {
     nav: {
@@ -64,7 +64,7 @@ export default {
         borderRadius: 4,
         width: '100%',
         overflowX: 'scroll',
-      }
+      },
     },
   },
 }

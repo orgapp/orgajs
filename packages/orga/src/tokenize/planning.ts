@@ -5,13 +5,12 @@ import { parse as parseTimestamp } from '../timestamp'
 import { Token } from '../types'
 
 interface Props {
-  reader: Reader;
-  keywords: string[];
-  timezone: string;
+  reader: Reader
+  keywords: string[]
+  timezone: string
 }
 
-
-export default ({ reader, keywords, timezone }: Props) : Token[] => {
+export default ({ reader, keywords, timezone }: Props): Token[] => {
   const { eat, substring, now, getLine } = reader
 
   const p = RegExp(`(${keywords.join('|')}):`, 'g')
@@ -21,7 +20,8 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
   const { line, column } = now()
 
   const getLocation = (offset: number): Point => ({
-    line, column: column + offset,
+    line,
+    column: column + offset,
   })
 
   const all: Token[] = []

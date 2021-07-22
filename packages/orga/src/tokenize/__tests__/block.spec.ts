@@ -1,8 +1,8 @@
-import tok from "./tok"
+import tok from './tok'
 
-describe("tokenize block", () => {
-  it("knows block begins", () => {
-    expect(tok("#+BEGIN_SRC swift")).toMatchInlineSnapshot(`
+describe('tokenize block', () => {
+  it('knows block begins', () => {
+    expect(tok('#+BEGIN_SRC swift')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+BEGIN_SRC swift",
@@ -15,7 +15,7 @@ describe("tokenize block", () => {
       ]
     `)
 
-    expect(tok("#+begin_src swift")).toMatchInlineSnapshot(`
+    expect(tok('#+begin_src swift')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+begin_src swift",
@@ -27,7 +27,7 @@ describe("tokenize block", () => {
         },
       ]
     `)
-    expect(tok("#+begin_example")).toMatchInlineSnapshot(`
+    expect(tok('#+begin_example')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+begin_example",
@@ -37,7 +37,7 @@ describe("tokenize block", () => {
         },
       ]
     `)
-    expect(tok("#+begin_ex😀mple")).toMatchInlineSnapshot(`
+    expect(tok('#+begin_ex😀mple')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+begin_ex😀mple",
@@ -47,7 +47,7 @@ describe("tokenize block", () => {
         },
       ]
     `)
-    expect(tok("#+begin_src swift :tangle code.swift")).toMatchInlineSnapshot(`
+    expect(tok('#+begin_src swift :tangle code.swift')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+begin_src swift :tangle code.swift",
@@ -63,8 +63,8 @@ describe("tokenize block", () => {
     `)
   })
 
-  it("knows these are not block begins", () => {
-    expect(tok("#+begi😀n_src swift")).toMatchInlineSnapshot(`
+  it('knows these are not block begins', () => {
+    expect(tok('#+begi😀n_src swift')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+begi😀n_src swift",
@@ -75,8 +75,8 @@ describe("tokenize block", () => {
     `)
   })
 
-  it("knows block ends", () => {
-    expect(tok("#+END_SRC")).toMatchInlineSnapshot(`
+  it('knows block ends', () => {
+    expect(tok('#+END_SRC')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+END_SRC",
@@ -85,7 +85,7 @@ describe("tokenize block", () => {
         },
       ]
     `)
-    expect(tok("  #+END_SRC")).toMatchInlineSnapshot(`
+    expect(tok('  #+END_SRC')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+END_SRC",
@@ -94,7 +94,7 @@ describe("tokenize block", () => {
         },
       ]
     `)
-    expect(tok("#+end_src")).toMatchInlineSnapshot(`
+    expect(tok('#+end_src')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+end_src",
@@ -103,7 +103,7 @@ describe("tokenize block", () => {
         },
       ]
     `)
-    expect(tok("#+end_SRC")).toMatchInlineSnapshot(`
+    expect(tok('#+end_SRC')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+end_SRC",
@@ -112,7 +112,7 @@ describe("tokenize block", () => {
         },
       ]
     `)
-    expect(tok("#+end_S😀RC")).toMatchInlineSnapshot(`
+    expect(tok('#+end_S😀RC')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+end_S😀RC",
@@ -121,7 +121,7 @@ describe("tokenize block", () => {
         },
       ]
     `)
-    expect(tok("#+end_SRC ")).toMatchInlineSnapshot(`
+    expect(tok('#+end_SRC ')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+end_SRC ",
@@ -132,8 +132,8 @@ describe("tokenize block", () => {
     `)
   })
 
-  it("knows these are not block ends", () => {
-    expect(tok("#+end_src param")).toMatchInlineSnapshot(`
+  it('knows these are not block ends', () => {
+    expect(tok('#+end_src param')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+end_src param",

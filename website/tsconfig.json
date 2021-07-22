@@ -1,20 +1,15 @@
 {
-    "extends": "../tsconfig.base.json",
-    "include": [
-        "./src/**/*"
-    ],
-    "compilerOptions": {
-        "target": "ESNext",
-        /* "module": "ESNext", */
-        "lib": [
-            "DOM",
-            "ES2017"
-        ],
-        "jsx": "react",
-        "strict": true,
-        "esModuleInterop": true,
-        "noEmit": true,
-        "skipLibCheck": true,
-        "emitDecoratorMetadata": true
-    }
+  "extends": "../tsconfig.base.json",
+  "include": ["./src/**/*"],
+  "compilerOptions": {
+    "target": "ESNext",
+    /* "module": "ESNext", */
+    "lib": ["DOM", "ES2017"],
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true
+  }
 }

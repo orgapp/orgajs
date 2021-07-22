@@ -10,7 +10,7 @@ import { all } from './transform'
 // it's more of a convention for plugins to pass html through
 // see details here: https://github.com/syntax-tree/hast/issues/20
 interface Raw extends Literal {
-    type: 'raw';
+  type: 'raw'
 }
 export type HNode = Element | Comment | Text | Raw
 
@@ -28,10 +28,11 @@ const build = ({
   tagName,
   properties,
   children = [],
-} : {
-  tagName: string;
-  properties?: Properties;
-  children?: Array<HNode>}): Element => {
+}: {
+  tagName: string
+  properties?: Properties
+  children?: Array<HNode>
+}): Element => {
   return {
     type: 'element',
     tagName,
@@ -40,16 +41,15 @@ const build = ({
   }
 }
 
-const h = (
-  tagName: string,
-  properties: Properties | undefined = undefined
-) => (...children: HNode[]): HNode => {
-  return build({
-    tagName,
-    properties,
-    children,
-  })
-}
+const h =
+  (tagName: string, properties: Properties | undefined = undefined) =>
+  (...children: HNode[]): HNode => {
+    return build({
+      tagName,
+      properties,
+      children,
+    })
+  }
 
 const defaultContext = {
   ...defaultOptions,
@@ -75,12 +75,18 @@ export default (
 
   const eTags = oast.properties['exclude_tags']
   if (eTags) {
-    context.excludeTags = eTags.split(/\s+/).map(t => t.trim()).filter(Boolean)
+    context.excludeTags = eTags
+      .split(/\s+/)
+      .map((t) => t.trim())
+      .filter(Boolean)
   }
 
   const sTags = oast.properties['select_tags']
   if (sTags) {
-    context.selectTags = sTags.split(/\s+/).map(t => t.trim()).filter(Boolean)
+    context.selectTags = sTags
+      .split(/\s+/)
+      .map((t) => t.trim())
+      .filter(Boolean)
   }
   const children = all(context)(oast.children) as Root['children']
 

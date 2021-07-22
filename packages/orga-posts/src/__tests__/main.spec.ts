@@ -25,6 +25,5 @@ some other content
     const posts = await build({ text: content, filename: 'smoke' })
 
     // console.log({ posts })
-
   })
 })

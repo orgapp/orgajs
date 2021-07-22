@@ -1,5 +1,5 @@
 // TODO: find a way to test this
-const { onCreateNode } = require("../gatsby-node")
+const { onCreateNode } = require('../gatsby-node')
 
 describe.skip('gatsby transformer', () => {
   it('Works', async () => {
@@ -21,7 +21,7 @@ console.log("hello world")
 #+END_SRC
 `
     // Make some fake functions its expecting.
-    const loadNodeContent = node => Promise.resolve(node.content)
+    const loadNodeContent = (node) => Promise.resolve(node.content)
 
     node.content = content
     const createNode = jest.fn()
@@ -37,6 +37,5 @@ console.log("hello world")
       expect(createNode).toHaveBeenCalledTimes(1)
       expect(createParentChildLink).toHaveBeenCalledTimes(1)
     })
-
   })
 })

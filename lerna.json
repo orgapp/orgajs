@@ -11,7 +11,5 @@
       "message": "chore(release): %s"
     }
   },
-  "packages": [
-    "packages/*"
-  ]
+  "packages": ["packages/*"]
 }

@@ -1,7 +1,11 @@
 export default async ({
-  node, actions, getNode, loadNodeContent, createNodeId, createContentDigest,
+  node,
+  actions,
+  getNode,
+  loadNodeContent,
+  createNodeId,
+  createContentDigest,
 }) => {
-
   // if (!unstable_shouldOnCreateNode({ node })) {
   //   return
   // }

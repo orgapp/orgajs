@@ -8,9 +8,10 @@ import reorg from '@orgajs/reorg'
 import toRehype from '@orgajs/reorg-rehype'
 import { inspect } from 'util'
 
-export default async ({
-  store, pathPrefix, actions, schema, cache, reporter,
-}, pluginOptions) => {
+export default async (
+  { store, pathPrefix, actions, schema, cache, reporter },
+  pluginOptions
+) => {
   const { createTypes } = actions
 
   const { defaultLayouts } = pluginOptions
@@ -27,9 +28,10 @@ export default async ({
     this.Compiler = compiler
   }
 
-  async function compile (node) {
-    const payloadCacheKey =
-      `gatsby-plugin-orga-entrie-payload-${node.internal.contentDigest}-${pathPrefix || ''}`
+  async function compile(node) {
+    const payloadCacheKey = `gatsby-plugin-orga-entrie-payload-${
+      node.internal.contentDigest
+    }-${pathPrefix || ''}`
 
     const cachedPayload = await cache.get(payloadCacheKey)
     if (cachedPayload) return cachedPayload
@@ -41,11 +43,9 @@ export default async ({
     }
 
     function processImportsExports() {
-
       return transform
 
       function transform(tree) {
-
         walk(tree, {
           enter: function (node) {
             if (node.type === 'ImportDeclaration') {
@@ -61,7 +61,10 @@ export default async ({
             }
 
             if (node.type === 'ExportNamedDeclaration') {
-              console.log(`TODO: export named declaration:`, inspect(node, false, null, true))
+              console.log(
+                `TODO: export named declaration:`,
+                inspect(node, false, null, true)
+              )
               // TODO: save this for later
               this.remove()
             }
@@ -71,11 +74,10 @@ export default async ({
               // TODO: save this for later
               this.remove()
             }
-          }
+          },
         })
 
         return tree
-
       }
 
       // this.Compiler = compiler
@@ -103,7 +105,6 @@ export default async ({
       body: {
         type: 'String!',
         async resolve(orgaNode) {
-
           reporter.log('getting html')
           const { body } = await compile(orgaNode)
           return body
@@ -163,8 +164,8 @@ export default async ({
         async resolve(orgaNode) {
           const { layout } = await compile(orgaNode)
           return layout
-        }
-      }
+        },
+      },
     },
     interfaces: ['Node'],
   })

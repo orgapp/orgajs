@@ -2,7 +2,7 @@ import { Reader } from '../reader'
 import { Token } from '../types'
 import { tokenize as tokenizeInline } from './inline'
 
-export default ({ reader }: { reader: Reader }) : Token[] => {
+export default ({ reader }: { reader: Reader }): Token[] => {
   const { match, eat, getChar, jump } = reader
 
   if (getChar() !== '|') return []
@@ -11,10 +11,12 @@ export default ({ reader }: { reader: Reader }) : Token[] => {
     return [{ type: 'table.hr', position: eat('line').position }]
   }
 
-  let tokens: Token[] = [{
-    type: 'table.columnSeparator',
-    position: eat('char').position,
-  }]
+  let tokens: Token[] = [
+    {
+      type: 'table.columnSeparator',
+      position: eat('char').position,
+    },
+  ]
 
   const tokCells = (): void => {
     const m = match(/\|/)
@@ -30,7 +32,6 @@ export default ({ reader }: { reader: Reader }) : Token[] => {
   }
 
   tokCells()
-
 
   return tokens
 }

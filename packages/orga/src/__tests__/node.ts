@@ -14,7 +14,6 @@ import { tokenize } from '../lexer'
 
 describe('Node', () => {
   it('works', () => {
-
     const content = `
 * headline
 #+BEGIN_SRC javascript

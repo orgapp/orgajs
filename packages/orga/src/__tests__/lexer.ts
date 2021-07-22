@@ -6,9 +6,9 @@ import { inspect } from 'util'
 const debug = (text: string) => {
   const { substring } = map(text)
   const { all } = tokenize(text)
-  const data = all().map(token => ({
+  const data = all().map((token) => ({
     ...token,
-    content: substring(token.position)
+    content: substring(token.position),
   }))
 
   console.log(inspect(data, false, null, true))
@@ -27,14 +27,14 @@ another line
 
 `
     // debug(text)
-
   })
 
   it.skip('knows these are timestamps', () => {
     expect(lexer.tokenize('<2019-08-19 Mon>')).toMatchSnapshot()
     expect(lexer.tokenize('<2019-08-19 Mon 13:20>')).toMatchSnapshot()
     expect(lexer.tokenize('<2019-08-19 Mon 13:20-14:00>')).toMatchSnapshot()
-    expect(lexer.tokenize('<2019-08-19 Mon>--<2019-08-20 Tue>')).toMatchSnapshot()
+    expect(
+      lexer.tokenize('<2019-08-19 Mon>--<2019-08-20 Tue>')
+    ).toMatchSnapshot()
   })
-
 })

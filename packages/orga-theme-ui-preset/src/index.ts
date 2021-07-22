@@ -30,8 +30,7 @@ const colors = {
 }
 
 const fonts = {
-  body:
-  'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+  body: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
   heading: 'inherit',
   monospace: 'Menlo, monospace',
 }
@@ -62,7 +61,7 @@ const cards = {
     '&:hover': {
       boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
     },
-  }
+  },
 }
 
 const buttons = {
@@ -78,7 +77,7 @@ const buttons = {
     '&:hover': {
       cursor: 'pointer',
     },
-  }
+  },
 }
 
 const badges = {
@@ -90,7 +89,7 @@ const badges = {
       color: 'text',
       transform: 'scale(1.1)',
     },
-  }
+  },
 }
 
 const layout = {
@@ -222,36 +221,56 @@ const styles = {
       fontSize: 1,
       color: 'secondary',
     },
-    '.footnote-content p': {
-    },
+    '.footnote-content p': {},
   },
 }
 
 const hljs = [
   {
     selectors: ['comment', 'operator', 'punctuation'],
-    style: { color: 'gray' }
+    style: { color: 'gray' },
   },
   {
     selectors: ['comment'],
-    style: { fontStyle: 'italic' }
+    style: { fontStyle: 'italic' },
   },
   {
     selectors: ['keyword'],
-    style: { color: 'primary' }
+    style: { color: 'primary' },
   },
   {
-    selectors: ['class', 'type', 'title', 'number', 'variable', 'symbol', 'function', 'params', 'regexp'],
-    style: { color: 'secondary' }
+    selectors: [
+      'class',
+      'type',
+      'title',
+      'number',
+      'variable',
+      'symbol',
+      'function',
+      'params',
+      'regexp',
+    ],
+    style: { color: 'secondary' },
   },
   {
-    selectors: ['selector-tag', 'selector-id', 'selector-class', 'selector-attr', 'selector-pseudo', 'built_in', 'string'],
-    style: { color: 'secondary' }
+    selectors: [
+      'selector-tag',
+      'selector-id',
+      'selector-class',
+      'selector-attr',
+      'selector-pseudo',
+      'built_in',
+      'string',
+    ],
+    style: { color: 'secondary' },
   },
-].reduce((styles, { selectors, style }) => ({
-  ...styles,
-  [`${selectors.map(s => `.hljs-${s}`).join(',')}`]: style,
-}), {})
+].reduce(
+  (styles, { selectors, style }) => ({
+    ...styles,
+    [`${selectors.map((s) => `.hljs-${s}`).join(',')}`]: style,
+  }),
+  {}
+)
 
 export const orga = {
   useColorSchemeMediaQuery: true,
@@ -283,9 +302,10 @@ export const orga = {
     '.comment': {
       fontStyle: 'italic',
     },
-    '.property,.tag,.boolean,.number,.constant,.symbol,.deleted,.function,.class-name,.regex,.important,.variable': {
-      color: 'purple',
-    },
+    '.property,.tag,.boolean,.number,.constant,.symbol,.deleted,.function,.class-name,.regex,.important,.variable':
+      {
+        color: 'purple',
+      },
     '.atrule,.attr-value,.keyword': {
       color: 'primary',
     },

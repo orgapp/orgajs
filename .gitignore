@@ -98,6 +98,9 @@ dist
 public
 .cache
 
+# private
+.archive
+
 # yarn 2
 .yarn/*
 !.yarn/patches

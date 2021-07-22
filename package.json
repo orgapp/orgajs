@@ -17,11 +17,12 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.3.1",
-    "husky": "^7.0.1",
+    "husky": "^7.0.0",
     "jest": "27.0.6",
     "jest-cli": "27.0.6",
     "lerna": "^4.0.0",
-    "prettier": "^2.3.1",
+    "lint-staged": ">=10",
+    "prettier": "^2.3.2",
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.5"
   },
@@ -37,8 +38,8 @@
     "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",
     "watch": "tsc -b tsconfig.packages.json -w",
-    "format": "prettier .",
-    "build-libs": "./scripts/build-esm.sh"
+    "format": "prettier --write .",
+    "postinstall": "husky install"
   },
   "workspaces": {
     "packages": [
@@ -46,5 +47,9 @@
       "./examples/*",
       "./website"
     ]
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
+    "*.{js,jsx,ts,tsx,md,html,css,json}": "prettier --write"
   }
 }

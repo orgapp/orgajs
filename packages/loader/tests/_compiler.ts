@@ -36,7 +36,7 @@ export default (fixture, options = {}) => {
             {
               loader: path.resolve(__dirname, '../dist'),
               options,
-            }
+            },
           ],
         },
       ],

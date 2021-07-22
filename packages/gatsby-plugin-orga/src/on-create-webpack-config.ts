@@ -12,7 +12,6 @@ export default (
   { stage, loaders, actions, plugins, cache, ...other },
   pluginOptions
 ) => {
-
   const { defaultLayout, components } = pluginOptions
 
   actions.setWebpackConfig({
@@ -34,8 +33,8 @@ export default (
                   toRehype,
                   [toEstree, { defaultLayout }],
                   [toJsx, { renderer }],
-                ]
-              }
+                ],
+              },
             },
           ],
         },
@@ -48,12 +47,12 @@ export default (
               loader: path.join(
                 'gatsby-plugin-orga',
                 'loaders',
-                'orga-components',
+                'orga-components'
               ),
               options: {
                 components,
               },
-            }
+            },
           ],
         },
       ],

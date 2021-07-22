@@ -3,7 +3,6 @@ import { Drawer } from '../types'
 import { Lexer } from '../tokenize'
 
 export default (lexer: Lexer): Drawer | undefined => {
-
   const { peek, eat, substring } = lexer
 
   const begin = peek()
@@ -14,7 +13,8 @@ export default (lexer: Lexer): Drawer | undefined => {
     type: 'drawer',
     name: begin.name,
     position: begin.position,
-    value: '' }
+    value: '',
+  }
   eat()
 
   const content = peek()

@@ -7,14 +7,13 @@ const defaultOptions = {
   columns: 2,
   indexPath: '/',
   imageMaxWidth: 1380,
-  categoryIndexPath: category => `/${category}`,
-  tagIndexPath: tag => `/:${tag}:`,
-  slug: ({ export_file_name }) =>
-    path.resolve('/', export_file_name || ''),
+  categoryIndexPath: (category) => `/${category}`,
+  tagIndexPath: (tag) => `/:${tag}:`,
+  slug: ({ export_file_name }) => path.resolve('/', export_file_name || ''),
   postRedirect: () => [],
 }
 
-module.exports = options => {
+module.exports = (options) => {
   return {
     ...defaultOptions,
     ...options,

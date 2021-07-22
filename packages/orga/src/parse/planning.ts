@@ -2,7 +2,6 @@ import { Lexer } from '../tokenize'
 import { Planning } from '../types'
 
 export default (lexer: Lexer): Planning[] => {
-
   const { peek, eat } = lexer
 
   const all: Planning[] = []
@@ -19,7 +18,7 @@ export default (lexer: Lexer): Planning[] => {
       position: {
         start: keyword.position.start,
         end: timestamp.position.end,
-      }
+      },
     }
     eat()
     eat()

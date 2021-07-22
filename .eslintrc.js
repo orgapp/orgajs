@@ -5,10 +5,7 @@ module.exports = {
     jest: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: [
-    '@typescript-eslint',
-    'import',
-  ],
+  plugins: ['@typescript-eslint', 'import'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -27,15 +24,15 @@ module.exports = {
     'import/resolver': {
       node: {
         extensions: ['.js', '.ts', '.tsx', '.d.ts'],
-        paths: [ 'node_modules/', 'node_modules/@types/' ]
-      }
-    }
+        paths: ['node_modules/', 'node_modules/@types/'],
+      },
+    },
   },
   rules: {
     'import/no-extraneous-dependencies': ['warn'],
-    'semi': ['error', 'never'],
+    semi: ['error', 'never'],
     // TODO: remove this eventually
-    "@typescript-eslint/ban-ts-comment": "off",
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
   // overrides: [
   //   {

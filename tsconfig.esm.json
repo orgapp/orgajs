@@ -9,14 +9,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowJs": true,
-    "lib": [
-      "ES2020"
-    ]
+    "lib": ["ES2020"]
   },
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts",
-    "**/__tests__/**",
-    "tests/**"
-  ]
+  "exclude": ["node_modules", "**/*.spec.ts", "**/__tests__/**", "tests/**"]
 }

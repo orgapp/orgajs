@@ -11,7 +11,6 @@ export interface ComponentsProp {
    * @defaultValue false
    */
   disableParentContext?: boolean
-
 }
 
 export interface ComponentDictionary {

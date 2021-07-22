@@ -6,13 +6,7 @@ describe('Reader', () => {
 * TODO headline one
 
 `
-    const {
-      EOF,
-      eat,
-      getChar,
-      getLine,
-      substring,
-    } = read(text)
+    const { EOF, eat, getChar, getLine, substring } = read(text)
 
     // console.log({
     //   currentLine: currentLine(),

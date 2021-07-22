@@ -3,7 +3,6 @@ import { Block } from '../types'
 import { Lexer } from '../tokenize'
 
 export default (lexer: Lexer): Block | undefined => {
-
   const { peek, eat, substring } = lexer
 
   const begin = peek()
@@ -44,21 +43,28 @@ export default (lexer: Lexer): Block | undefined => {
    */
   const align = (content: string) => {
     let indent = -1
-    return content.trimRight().split('\n').map(line => {
-      const _indent = line.search(/\S/)
-      if (indent === -1) {
-        indent = _indent
-      }
-      if (indent === -1) return ''
-      return line.substring(Math.min(_indent, indent))
-    }).join('\n')
+    return content
+      .trimRight()
+      .split('\n')
+      .map((line) => {
+        const _indent = line.search(/\S/)
+        if (indent === -1) {
+          indent = _indent
+        }
+        if (indent === -1) return ''
+        return line.substring(Math.min(_indent, indent))
+      })
+      .join('\n')
   }
 
   const parse = (): Block | undefined => {
     const n = peek()
     if (!n || n.type === 'stars') return undefined
     eat()
-    if (n.type === 'block.end' && n.name.toLowerCase() === begin.name.toLowerCase()) {
+    if (
+      n.type === 'block.end' &&
+      n.name.toLowerCase() === begin.name.toLowerCase()
+    ) {
       range.end = n.position.start
       eat('newline')
       block.value = align(substring(range))

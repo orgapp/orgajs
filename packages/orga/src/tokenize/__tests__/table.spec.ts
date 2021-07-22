@@ -1,8 +1,8 @@
-import tok from "./tok"
+import tok from './tok'
 
-describe("tokenize table", () => {
-  it("knows table hr", () => {
-    expect(tok("|----+---+----|")).toMatchInlineSnapshot(`
+describe('tokenize table', () => {
+  it('knows table hr', () => {
+    expect(tok('|----+---+----|')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|----+---+----|",
@@ -10,7 +10,7 @@ describe("tokenize table", () => {
         },
       ]
     `)
-    expect(tok("|--=-+---+----|")).toMatchInlineSnapshot(`
+    expect(tok('|--=-+---+----|')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|--=-+---+----|",
@@ -18,7 +18,7 @@ describe("tokenize table", () => {
         },
       ]
     `)
-    expect(tok("  |----+---+----|")).toMatchInlineSnapshot(`
+    expect(tok('  |----+---+----|')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|----+---+----|",
@@ -26,7 +26,7 @@ describe("tokenize table", () => {
         },
       ]
     `)
-    expect(tok("|----+---+----")).toMatchInlineSnapshot(`
+    expect(tok('|----+---+----')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|----+---+----",
@@ -34,7 +34,7 @@ describe("tokenize table", () => {
         },
       ]
     `)
-    expect(tok("|---")).toMatchInlineSnapshot(`
+    expect(tok('|---')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|---",
@@ -42,7 +42,7 @@ describe("tokenize table", () => {
         },
       ]
     `)
-    expect(tok("|-")).toMatchInlineSnapshot(`
+    expect(tok('|-')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|-",
@@ -52,8 +52,8 @@ describe("tokenize table", () => {
     `)
   })
 
-  it("knows these are not table separators", () => {
-    expect(tok("----+---+----|")).toMatchInlineSnapshot(`
+  it('knows these are not table separators', () => {
+    expect(tok('----+---+----|')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "----+---+----|",
@@ -64,8 +64,8 @@ describe("tokenize table", () => {
     `)
   })
 
-  it("knows table rows", () => {
-    expect(tok("| batman | superman | wonder woman |")).toMatchInlineSnapshot(`
+  it('knows table rows', () => {
+    expect(tok('| batman | superman | wonder woman |')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|",
@@ -206,7 +206,7 @@ describe("tokenize table", () => {
       ]
     `)
     // with empty cell
-    expect(tok("||  world   | |")).toMatchInlineSnapshot(`
+    expect(tok('||  world   | |')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|",
@@ -238,7 +238,7 @@ describe("tokenize table", () => {
     `)
   })
 
-  it("knows these are not table rows", () => {
+  it('knows these are not table rows', () => {
     expect(tok(" hello | world | y'all |")).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -248,7 +248,7 @@ describe("tokenize table", () => {
         },
       ]
     `)
-    expect(tok("|+")).toMatchInlineSnapshot(`
+    expect(tok('|+')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|",

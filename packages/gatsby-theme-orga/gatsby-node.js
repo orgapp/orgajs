@@ -7,7 +7,6 @@ const createIndex = require('./utils/create-index')
 const _ = require('lodash/fp')
 const { createContentDigest, slash, joinPath } = require('gatsby-core-utils')
 
-
 const debug = Debug(`gatsby-theme-orga`)
 
 // Ensure that content directories exist at site-level
@@ -15,11 +14,9 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
   const { program } = store.getState()
   const { contentPath } = withDefaults(themeOptions)
 
-  const dirs = [
-    path.join(program.directory, contentPath),
-  ]
+  const dirs = [path.join(program.directory, contentPath)]
 
-  dirs.forEach(dir => {
+  dirs.forEach((dir) => {
     debug(`Initializing ${dir} directory`)
     if (!fs.existsSync(dir)) {
       mkdirp.sync(dir)
@@ -27,22 +24,18 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
   })
 }
 
-const orgResolverPassthrough = (fieldName) => async (
-  source,
-  args,
-  context,
-  info
-) => {
-  const type = info.schema.getType('OrgContent')
-  const mdxNode = context.nodeModel.getNodeById({
-    id: source.parent,
-  })
-  const resolver = type.getFields()[fieldName].resolve
-  const result = await resolver(mdxNode, args, context, {
-    fieldName,
-  })
-  return result
-}
+const orgResolverPassthrough =
+  (fieldName) => async (source, args, context, info) => {
+    const type = info.schema.getType('OrgContent')
+    const mdxNode = context.nodeModel.getNodeById({
+      id: source.parent,
+    })
+    const resolver = type.getFields()[fieldName].resolve
+    const result = await resolver(mdxNode, args, context, {
+      fieldName,
+    })
+    return result
+  }
 
 function validURL(str) {
   try {
@@ -55,46 +48,48 @@ function validURL(str) {
 
 exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
   const { createTypes } = actions
-  createTypes(schema.buildObjectType({
-    name: 'OrgPost',
-    fields: {
-      id: { type: 'ID!' },
-      title: { type: 'String!' },
-      category: { type: 'String' },
-      tags: { type: '[String]!' },
-      slug: { type: 'String!' },
-      redirects: { type: '[String]!' },
-      timeToRead: {
-        type: 'Int!',
-        resolve: orgResolverPassthrough('timeToRead'),
-      },
-      wordCount: {
-        type: 'Int!',
-        resolve: orgResolverPassthrough('wordCount'),
-      },
-      keyword: { type: 'String' },
-      date: { type: 'Date', extensions: { dateformat: {} } },
-      excerpt: {
-        type: 'String!',
-        resolve: orgResolverPassthrough('excerpt'),
-      },
-      html: {
-        type: 'String!',
-        resolve: orgResolverPassthrough('html'),
-      },
-      image: {
-        type: `File`,
-        resolve: async (source, args, context, info) => {
-          if (source.image___NODE) {
-            return context.nodeModel.getNodeById({ id: source.image___NODE })
-          } else if (source.image) {
-            return processRelativeImage(source, context, `image`)
-          }
+  createTypes(
+    schema.buildObjectType({
+      name: 'OrgPost',
+      fields: {
+        id: { type: 'ID!' },
+        title: { type: 'String!' },
+        category: { type: 'String' },
+        tags: { type: '[String]!' },
+        slug: { type: 'String!' },
+        redirects: { type: '[String]!' },
+        timeToRead: {
+          type: 'Int!',
+          resolve: orgResolverPassthrough('timeToRead'),
+        },
+        wordCount: {
+          type: 'Int!',
+          resolve: orgResolverPassthrough('wordCount'),
+        },
+        keyword: { type: 'String' },
+        date: { type: 'Date', extensions: { dateformat: {} } },
+        excerpt: {
+          type: 'String!',
+          resolve: orgResolverPassthrough('excerpt'),
+        },
+        html: {
+          type: 'String!',
+          resolve: orgResolverPassthrough('html'),
+        },
+        image: {
+          type: `File`,
+          resolve: async (source, args, context, info) => {
+            if (source.image___NODE) {
+              return context.nodeModel.getNodeById({ id: source.image___NODE })
+            } else if (source.image) {
+              return processRelativeImage(source, context, `image`)
+            }
+          },
         },
       },
-    },
-    interfaces: ['Node'],
-  }))
+      interfaces: ['Node'],
+    })
+  )
 }
 
 function processRelativeImage(source, context, type) {
@@ -120,11 +115,8 @@ function processRelativeImage(source, context, type) {
 const PostTemplate = require.resolve(`./src/templates/post-query`)
 const PostsTemplate = require.resolve(`./src/templates/posts-query`)
 
-const withAndWithoutTrailingSlash = v => {
-  return [
-    v,
-    v.endsWith('/') ? v.slice(0, -1) : `${v}/`,
-  ]
+const withAndWithoutTrailingSlash = (v) => {
+  return [v, v.endsWith('/') ? v.slice(0, -1) : `${v}/`]
 }
 
 exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
@@ -140,30 +132,27 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   } = withDefaults(themeOptions)
 
   const result = await graphql(`
-  {
-    allOrgPost(
-      sort: { fields: [date, title], order: DESC }, limit: 1000
-    ) {
-      nodes {
-        id
-        category
-        tags
-        slug
-        redirects
+    {
+      allOrgPost(sort: { fields: [date, title], order: DESC }, limit: 1000) {
+        nodes {
+          id
+          category
+          tags
+          slug
+          redirects
+        }
       }
     }
-  }
-`)
+  `)
 
   if (result.errors) {
     reporter.panic(result.errors)
   }
 
-  const posts = result
-        .data.allOrgPost.nodes
+  const posts = result.data.allOrgPost.nodes
 
   // create posts
-  posts.forEach(post => {
+  posts.forEach((post) => {
     createPage({
       path: post.slug,
       component: PostTemplate,
@@ -171,8 +160,8 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     })
 
     // handle redirects
-    post.redirects.forEach(oldPath => {
-      withAndWithoutTrailingSlash(oldPath).forEach(op =>
+    post.redirects.forEach((oldPath) => {
+      withAndWithoutTrailingSlash(oldPath).forEach((op) =>
         createRedirect({
           fromPath: op,
           toPath: post.slug,
@@ -181,7 +170,6 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
         })
       )
     })
-
   })
 
   // create category index
@@ -189,10 +177,10 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     const categories = _.flow(
       _.map(_.get('category')),
       _.uniq,
-      _.filter(Boolean),
+      _.filter(Boolean)
     )(posts)
 
-    categories.forEach(category => {
+    categories.forEach((category) => {
       const basePath = categoryIndexPath(category)
       if (!basePath) return
       createIndex({
@@ -208,18 +196,15 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 
   // create tag index
   if (tagIndexPath) {
-    const tags = _.flow(
-      _.flatMap(_.get('tags')),
-      _.uniq,
-    )(posts)
+    const tags = _.flow(_.flatMap(_.get('tags')), _.uniq)(posts)
 
-    tags.forEach(tag => {
+    tags.forEach((tag) => {
       const basePath = tagIndexPath(tag)
       if (!basePath) return
       createIndex({
         basePath,
         createPage,
-        posts: posts.filter(p => p.tags.includes(tag)),
+        posts: posts.filter((p) => p.tags.includes(tag)),
         pagination,
         component: PostsTemplate,
         context: { tag, columns },
@@ -235,14 +220,14 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
       posts,
       pagination,
       component: PostsTemplate,
-        context: { columns },
+      context: { columns },
     })
   }
 }
 
 // Add custom url pathname for blog posts.
 
-const makeAbsolute = p => joinPath('/', p)
+const makeAbsolute = (p) => joinPath('/', p)
 
 exports.onCreateNode = async (
   { node, actions, getNode, createNodeId, store, cache, reporter },
@@ -258,7 +243,9 @@ exports.onCreateNode = async (
   if (typeof redirects === 'string') {
     redirects = [redirects]
   } else if (!Array.isArray(redirects)) {
-    reporter.panic(`postRedirect returns wrong type, expecting string or array of strings, actually got ${typeof redirects}`)
+    reporter.panic(
+      `postRedirect returns wrong type, expecting string or array of strings, actually got ${typeof redirects}`
+    )
   }
 
   const orgaPostId = createNodeId(`${node.id} >>> OrgPost`)
@@ -294,7 +281,7 @@ exports.onCreateNode = async (
       contentDigest: createContentDigest(fieldData),
       content: JSON.stringify(fieldData),
       description: 'Orga implementation of the BlogPost interface',
-    }
+    },
   })
 
   createParentChildLink({ parent: node, child: getNode(orgaPostId) })

@@ -6,7 +6,7 @@ const defaultOptions = {
   components: {},
 }
 
-module.exports = options => {
+module.exports = (options) => {
   return {
     ...defaultOptions,
     ...options,

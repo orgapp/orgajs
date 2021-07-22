@@ -1,12 +1,12 @@
-import tok from "./tok"
+import tok from './tok'
 
 const options = {
-  timezone: "Pacific/Auckland",
+  timezone: 'Pacific/Auckland',
 }
 
-describe("tokenize planning", () => {
-  it("knows plannings", () => {
-    expect(tok("DEADLINE: <2018-01-01 Mon>", options)).toMatchInlineSnapshot(`
+describe('tokenize planning', () => {
+  it('knows plannings', () => {
+    expect(tok('DEADLINE: <2018-01-01 Mon>', options)).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "DEADLINE:",
@@ -23,7 +23,7 @@ describe("tokenize planning", () => {
         },
       ]
     `)
-    expect(tok("  DEADLINE: <2018-01-01 Mon>", options)).toMatchInlineSnapshot(`
+    expect(tok('  DEADLINE: <2018-01-01 Mon>', options)).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "DEADLINE:",
@@ -40,7 +40,7 @@ describe("tokenize planning", () => {
         },
       ]
     `)
-    expect(tok(" \tDEADLINE: <2018-01-01 Mon>", options))
+    expect(tok(' \tDEADLINE: <2018-01-01 Mon>', options))
       .toMatchInlineSnapshot(`
       Array [
         Object {
@@ -58,7 +58,7 @@ describe("tokenize planning", () => {
         },
       ]
     `)
-    expect(tok(" \t DEADLINE: <2018-01-01 Mon>", options))
+    expect(tok(' \t DEADLINE: <2018-01-01 Mon>', options))
       .toMatchInlineSnapshot(`
       Array [
         Object {
@@ -78,9 +78,9 @@ describe("tokenize planning", () => {
     `)
   })
 
-  it("know multiple plannings", () => {
+  it('know multiple plannings', () => {
     expect(
-      tok("DEADLINE: <2020-07-03 Fri> SCHEDULED: <2020-07-03 Fri>", options)
+      tok('DEADLINE: <2020-07-03 Fri> SCHEDULED: <2020-07-03 Fri>', options)
     ).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -113,8 +113,8 @@ describe("tokenize planning", () => {
     `)
   })
 
-  it("knows these are not plannings", () => {
-    expect(tok("dEADLINE: <2018-01-01 Mon>", options)).toMatchInlineSnapshot(`
+  it('knows these are not plannings', () => {
+    expect(tok('dEADLINE: <2018-01-01 Mon>', options)).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "dEADLINE: <2018-01-01 Mon>",

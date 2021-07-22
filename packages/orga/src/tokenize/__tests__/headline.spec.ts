@@ -1,8 +1,8 @@
-import tok from "./tok"
+import tok from './tok'
 
-describe("tokenize headline", () => {
-  it("knows headlines", () => {
-    expect(tok("** a headline")).toMatchInlineSnapshot(`
+describe('tokenize headline', () => {
+  it('knows headlines', () => {
+    expect(tok('** a headline')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "**",
@@ -17,7 +17,7 @@ describe("tokenize headline", () => {
       ]
     `)
 
-    expect(tok("** _headline_")).toMatchInlineSnapshot(`
+    expect(tok('** _headline_')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "**",
@@ -32,7 +32,7 @@ describe("tokenize headline", () => {
       ]
     `)
 
-    expect(tok("**   a headline")).toMatchInlineSnapshot(`
+    expect(tok('**   a headline')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "**",
@@ -47,7 +47,7 @@ describe("tokenize headline", () => {
       ]
     `)
 
-    expect(tok("***** a headline")).toMatchInlineSnapshot(`
+    expect(tok('***** a headline')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "*****",
@@ -62,7 +62,7 @@ describe("tokenize headline", () => {
       ]
     `)
 
-    expect(tok("* a 😀line")).toMatchInlineSnapshot(`
+    expect(tok('* a 😀line')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "*",
@@ -77,7 +77,7 @@ describe("tokenize headline", () => {
       ]
     `)
 
-    expect(tok("* TODO [#A] a headline     :tag1:tag2:"))
+    expect(tok('* TODO [#A] a headline     :tag1:tag2:'))
       .toMatchInlineSnapshot(`
       Array [
         Object {
@@ -114,7 +114,7 @@ describe("tokenize headline", () => {
 
     expect(
       tok(
-        "* TODO [#A] a headline :tag1:123:#hash:@at:org-mode:under_score:98%:"
+        '* TODO [#A] a headline :tag1:123:#hash:@at:org-mode:under_score:98%:'
       )
     ).toMatchInlineSnapshot(`
       Array [
@@ -156,8 +156,8 @@ describe("tokenize headline", () => {
     `)
   })
 
-  it("knows these are not headlines", () => {
-    expect(tok("*not a headline")).toMatchInlineSnapshot(`
+  it('knows these are not headlines', () => {
+    expect(tok('*not a headline')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "*not a headline",
@@ -167,7 +167,7 @@ describe("tokenize headline", () => {
       ]
     `)
 
-    expect(tok(" * not a headline")).toMatchInlineSnapshot(`
+    expect(tok(' * not a headline')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "* not a headline",
@@ -176,7 +176,7 @@ describe("tokenize headline", () => {
         },
       ]
     `)
-    expect(tok("*_* not a headline")).toMatchInlineSnapshot(`
+    expect(tok('*_* not a headline')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "*_*",
@@ -190,7 +190,7 @@ describe("tokenize headline", () => {
         },
       ]
     `)
-    expect(tok("not a headline")).toMatchInlineSnapshot(`
+    expect(tok('not a headline')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "not a headline",

@@ -6,7 +6,6 @@ export default (options: { base: number }) => {
   const { base } = options
 
   return (tree, file) => {
-
     // @ts-ignore
     visit<Headline>(tree, 'headline', (headline, index, parent) => {
       if (headline.level === base) {
@@ -16,5 +15,4 @@ export default (options: { base: number }) => {
       headline.level = headline.level - base + 1
     })
   }
-
 }

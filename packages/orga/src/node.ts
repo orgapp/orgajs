@@ -7,48 +7,50 @@ const clone = ({ start, end }: Position): Position => ({
   end: { ...end },
 })
 
-const adjustPosition = (parent: Parent) => (child: Node): void => {
-  let dirty = false
+const adjustPosition =
+  (parent: Parent) =>
+  (child: Node): void => {
+    let dirty = false
 
-  if (!child.position) return
-  if (parent.position) {
-    const belowLowerBound = before(parent.position.start)
-    const aboveUpperBound = after(parent.position.end)
+    if (!child.position) return
+    if (parent.position) {
+      const belowLowerBound = before(parent.position.start)
+      const aboveUpperBound = after(parent.position.end)
 
-    if (isEmpty(parent.position)) {
+      if (isEmpty(parent.position)) {
+        parent.position = clone(child.position)
+        dirty = true
+      } else if (belowLowerBound(child.position.start)) {
+        parent.position.start = { ...child.position.start }
+        dirty = true
+      } else if (aboveUpperBound(child.position.end)) {
+        parent.position.end = { ...child.position.end }
+        dirty = true
+      }
+    } else {
       parent.position = clone(child.position)
       dirty = true
-    } else if (belowLowerBound(child.position.start)) {
-      parent.position.start = { ...child.position.start }
-      dirty = true
-    }else if (aboveUpperBound(child.position.end)) {
-      parent.position.end = { ...child.position.end }
-      dirty = true
     }
-  } else {
-    parent.position = clone(child.position)
-    dirty = true
+
+    if (!!parent.parent && dirty) {
+      adjustPosition(parent.parent)(parent)
+    }
   }
 
-  if (!!parent.parent && dirty) {
-    adjustPosition(parent.parent)(parent)
+export const push =
+  <P extends Parent>(p: P) =>
+  (n: Node & P['children'][number]): P => {
+    if (!n) return p
+    adjustPosition(p)(n)
+    const node = n as Parent
+    if (node) {
+      node.parent = p
+    }
+    p.children.push(n)
+    return p
   }
-}
-
-
-export const push = <P extends Parent>(p: P) => (n: Node & P['children'][number]): P => {
-  if (!n) return p
-  adjustPosition(p)(n)
-  const node = n as Parent
-  if (node) {
-    node.parent = p
-  }
-  p.children.push(n)
-  return p
-}
 
 export const map = (transform: (n: Node) => any) => (node: Node) => {
-
   const result = {
     type: node.type,
     ...transform(node),
@@ -61,9 +63,9 @@ export const map = (transform: (n: Node) => any) => (node: Node) => {
 }
 
 interface DumpContext {
-  text: string;
-  lines?: string[];
-  indent?: number;
+  text: string
+  lines?: string[]
+  indent?: number
 }
 
 // export const dump = (text: string, indent: number = 0) => <T extends Parent>(tree: T): string[] => {
