@@ -19015,7 +19015,7 @@ fsevents@^1.2.7:
     jest: 27.0.6
     jest-cli: 27.0.6
     lerna: ^4.0.0
-    prettier: ^2.3.1
+    prettier: ^2.3.2
     ts-jest: ^27.0.3
     typescript: ^4.3.5
   languageName: unknown
@@ -20488,15 +20488,6 @@ fsevents@^1.2.7:
   bin:
     prettier: bin-prettier.js
   checksum: 92c6c9f4b87eba1f28466edee57dd18c80d00b858edda77d46d1950d20e6e302b68ee255fc91133ba931e63c4577b5ae30da194d9626a8f3c0177778b91bf056
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "prettier@npm:2.3.1"
-  bin:
-    prettier: bin-prettier.js
-  checksum: 9b4a695b87ce5f510fc20feec01cce7371f0fa0b92ffe79d543f6be52e2004c532861629de4d7ab1c577e1f649dce3cfccd62cb2ca6526b1da8d9c63eb84bf36
   languageName: node
   linkType: hard
 

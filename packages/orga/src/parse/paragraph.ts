@@ -3,7 +3,7 @@ import { FootnoteReference, Paragraph, PhrasingContent, Token } from '../types'
 import { isPhrasingContent } from '../utils'
 import { Lexer } from '../tokenize'
 
-const isWhitespaces = node => {
+const isWhitespaces = (node) => {
   return node.type === 'text.plain' && node.value.trim().length === 0
 }
 
@@ -17,24 +17,24 @@ export default function paragraph(lexer: Lexer): Paragraph | undefined {
     attributes: {},
   })
 
-
   const build = (p: Paragraph = undefined): Paragraph | undefined => {
     const token = peek()
     if (!token || eolCount >= 2) {
       return p
     }
 
-    function readAFootnote(par: Paragraph | FootnoteReference = p): PhrasingContent | undefined {
+    function readAFootnote(
+      par: Paragraph | FootnoteReference = p
+    ): PhrasingContent | undefined {
       if (token.type === 'footnote.inline.begin') {
         eat()
-        const fn: FootnoteReference =
-        {
+        const fn: FootnoteReference = {
           children: [],
           type: 'footnote.reference',
           label: token.label,
         }
         let inner: Token
-        while (inner = peek()) {
+        while ((inner = peek())) {
           if (inner.type === 'footnote.inline.begin') {
             // nested footnote reference
             readAFootnote(fn)
@@ -95,5 +95,4 @@ export default function paragraph(lexer: Lexer): Paragraph | undefined {
   }
 
   return p
-
 }

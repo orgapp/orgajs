@@ -1,8 +1,8 @@
-import tok from "./tok"
+import tok from './tok'
 
-describe("Inline Tokenization", () => {
-  it("recon single emphasis", () => {
-    expect(tok("hello *world*, welcome to *org-mode*.")).toMatchInlineSnapshot(`
+describe('Inline Tokenization', () => {
+  it('recon single emphasis', () => {
+    expect(tok('hello *world*, welcome to *org-mode*.')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "hello ",
@@ -33,8 +33,8 @@ describe("Inline Tokenization", () => {
     `)
   })
 
-  it("recon emphasises at different locations", () => {
-    expect(tok("one *two* three")).toMatchInlineSnapshot(`
+  it('recon emphasises at different locations', () => {
+    expect(tok('one *two* three')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "one ",
@@ -53,7 +53,7 @@ describe("Inline Tokenization", () => {
         },
       ]
     `)
-    expect(tok("*one* two three")).toMatchInlineSnapshot(`
+    expect(tok('*one* two three')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "*one*",
@@ -67,7 +67,7 @@ describe("Inline Tokenization", () => {
         },
       ]
     `)
-    expect(tok("one two *three*")).toMatchInlineSnapshot(`
+    expect(tok('one two *three*')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "one two ",
@@ -83,7 +83,7 @@ describe("Inline Tokenization", () => {
     `)
   })
 
-  it("recon link", () => {
+  it('recon link', () => {
     expect(tok(`hello [[./image/logo.png]]`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -137,7 +137,7 @@ describe("Inline Tokenization", () => {
     `)
   })
 
-  it("recon footnote reference", () => {
+  it('recon footnote reference', () => {
     expect(tok(`hello[fn:1] world.`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -160,7 +160,7 @@ describe("Inline Tokenization", () => {
     `)
   })
 
-  it("recon anonymous footnote reference", () => {
+  it('recon anonymous footnote reference', () => {
     expect(tok('hello[fn::Anonymous] world.')).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -191,7 +191,7 @@ describe("Inline Tokenization", () => {
     `)
   })
 
-  it("recon anonymous footnote reference with inner footnote reference", () => {
+  it('recon anonymous footnote reference with inner footnote reference', () => {
     expect(tok('hello[fn::[fn::Anonymous]] world.')).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -231,7 +231,7 @@ describe("Inline Tokenization", () => {
     `)
   })
 
-  it("recon anonymous footnote reference with empty body", () => {
+  it('recon anonymous footnote reference with empty body', () => {
     expect(tok('hello[fn::] world.')).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -262,8 +262,9 @@ describe("Inline Tokenization", () => {
     `)
   })
 
-  it("recon named inline footnote", () => {
-    expect(tok('hello[fn:named:Inline named footnote] world.')).toMatchInlineSnapshot(`
+  it('recon named inline footnote', () => {
+    expect(tok('hello[fn:named:Inline named footnote] world.'))
+      .toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "hello",
@@ -293,7 +294,7 @@ describe("Inline Tokenization", () => {
     `)
   })
 
-  it("recon invalid inline markups", () => {
+  it('recon invalid inline markups', () => {
     expect(tok(`*,word*`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -375,7 +376,7 @@ describe("Inline Tokenization", () => {
     `)
   })
 
-  it("recon emphasises with 2 chars", () => {
+  it('recon emphasises with 2 chars', () => {
     expect(tok(`*12*`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -396,7 +397,7 @@ describe("Inline Tokenization", () => {
     `)
   })
 
-  it("recon mixed emphasis", () => {
+  it('recon mixed emphasis', () => {
     expect(
       tok(
         "[[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~, the round pegs in the +round+ square holes..."
@@ -470,7 +471,7 @@ describe("Inline Tokenization", () => {
     `)
   })
 
-  it("can handle something more complicated", () => {
+  it('can handle something more complicated', () => {
     const content = `
 Special characters =~= and =!=. Also =~/.this/path= and ~that~ thing.
 `

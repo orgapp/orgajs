@@ -7,7 +7,7 @@ import path from 'path'
 const getCircularReplacer = () => {
   const seen = new WeakSet()
   return (key, value) => {
-    if (typeof value === "object" && value !== null) {
+    if (typeof value === 'object' && value !== null) {
       if (seen.has(value)) {
         return
       }
@@ -18,8 +18,9 @@ const getCircularReplacer = () => {
 }
 
 export = async function onCreateNode(
-  { node, loadNodeContent, actions, cache, pathPrefix, reporter }, pluginOptions) {
-
+  { node, loadNodeContent, actions, cache, pathPrefix, reporter },
+  pluginOptions
+) {
   const { createNode, createParentChildLink, createNodeField } = actions
   const { slug } = withDefault(pluginOptions)
   // We only care about org content. The mime is not useful for us. Use extension directly
@@ -34,10 +35,7 @@ export = async function onCreateNode(
   async function createOrgFileNode(fileNode) {
     const content = await loadNodeContent(fileNode)
 
-    const contentDigest = crypto
-      .createHash(`md5`)
-      .update(content)
-      .digest(`hex`)
+    const contentDigest = crypto.createHash(`md5`).update(content).digest(`hex`)
     const orgFileNode: any = {
       id: `${fileNode.id} >>> OrgFile`,
       children: [],
@@ -67,14 +65,16 @@ export = async function onCreateNode(
     posts.forEach(({ ast, ...post }, index) => {
       const id = `${orgFileNode.id} >>> OrgContent[${index}]`
       const absolutePath = `${orgFileNode.fileAbsolutePath}::*${post.title}`
-      const contentDigest =
-        crypto.createHash(`md5`)
-          .update(JSON.stringify(ast, getCircularReplacer()))
-          .digest(`hex`)
+      const contentDigest = crypto
+        .createHash(`md5`)
+        .update(JSON.stringify(ast, getCircularReplacer()))
+        .digest(`hex`)
 
       const s = slug(post)
       if (!path.isAbsolute(s)) {
-        reporter.warn(`Generated slug is not absolute: ${s}. Slug should normally be absolute path.`)
+        reporter.warn(
+          `Generated slug is not absolute: ${s}. Slug should normally be absolute path.`
+        )
       }
 
       const n = {

@@ -3,10 +3,10 @@ import { Reader } from '../reader'
 import { tokenize as tokenizeInline } from './inline'
 
 interface Props {
-  reader: Reader;
+  reader: Reader
 }
 
-export default ({ reader }: Props) : Token[] => {
+export default ({ reader }: Props): Token[] => {
   const { now, match, eat, jump, substring } = reader
 
   let tokens: Token[] = []

@@ -1,12 +1,13 @@
-import { GatsbyNode } from "gatsby"
+import { GatsbyNode } from 'gatsby'
 import * as fs from 'fs-extra'
 import { compile } from './orga'
 import { inspect } from 'util'
 import * as _ from 'lodash/fp'
 
-const onCreatePage: GatsbyNode['onCreatePage'] = async ({
-  page, cache, actions,
-}, options) => {
+const onCreatePage: GatsbyNode['onCreatePage'] = async (
+  { page, cache, actions },
+  options
+) => {
   if (page.context.properties) return
 
   const { deletePage, createPage } = actions
@@ -19,7 +20,7 @@ const onCreatePage: GatsbyNode['onCreatePage'] = async ({
     context: {
       ...page.context,
       properties,
-    }
+    },
   })
   // console.log(inspect(properties, false, null, true))
 }

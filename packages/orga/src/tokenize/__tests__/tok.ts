@@ -1,6 +1,6 @@
-import { read } from "text-kit"
+import { read } from 'text-kit'
 import { ParseOptions } from '../../options'
-import { tokenize } from "../index"
+import { tokenize } from '../index'
 
 export default (text: string, options: Partial<ParseOptions> = {}) => {
   const { substring } = read(text)

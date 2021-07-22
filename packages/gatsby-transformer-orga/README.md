@@ -4,13 +4,13 @@ Parses [org-mode](https://orgmode.org) files using [Orga](https://github.com/org
 
 ## Install
 
-``` sh
+```sh
 npm install --save gatsby-transformer-orga
 ```
 
 ## How to Use
 
-``` javascript
+```javascript
 // In your gatsby-config.js
 plugins: [`gatsby-transformer-orga`]
 ```

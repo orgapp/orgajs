@@ -1,4 +1,4 @@
-import { Primitive } from "../types"
+import { Primitive } from '../types'
 import primitive from './_primitive'
 
 export default (text: string): { [key: string]: Primitive } => {

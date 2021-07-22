@@ -8,7 +8,7 @@ module.exports = () => {
         if (declaration) {
           path.replaceWith(declaration)
         }
-      }
-    }
+      },
+    },
   }
 }

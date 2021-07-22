@@ -44,7 +44,6 @@ const treeTheme = {
 }
 
 const Playground = ({ code, onChange, style }) => {
-
   const monaco = useMonaco()
   useEffect(() => {
     if (monaco) {
@@ -64,7 +63,7 @@ const Playground = ({ code, onChange, style }) => {
     }
 
     const saveTo = (path: string) => {
-      return () => tree => {
+      return () => (tree) => {
         result[path] = tree
         return tree
       }
@@ -72,12 +71,12 @@ const Playground = ({ code, onChange, style }) => {
 
     try {
       const processor = reorg()
-            .use(saveTo('oast'))
-            .use(toRehype)
-            .use(saveTo('rehype'))
-            .use(toEstree, { skipExport: true, skipImport: true })
-            .use(saveTo('estree'))
-            .use(toJsx, { renderer: '' })
+        .use(saveTo('oast'))
+        .use(toRehype)
+        .use(saveTo('rehype'))
+        .use(toEstree, { skipExport: true, skipImport: true })
+        .use(saveTo('estree'))
+        .use(toJsx, { renderer: '' })
 
       const code = processor.processSync(src)
       result.jsx = String(code)
@@ -96,9 +95,9 @@ const Playground = ({ code, onChange, style }) => {
     let jsx = ''
     try {
       const processor = reorg()
-            .use(toRehype)
-            .use(toEstree, { skipExport: true, skipImport: true })
-            .use(toJsx, { renderer: '' })
+        .use(toRehype)
+        .use(toEstree, { skipExport: true, skipImport: true })
+        .use(toJsx, { renderer: '' })
 
       const code = processor.processSync(text)
 
@@ -130,23 +129,32 @@ const Playground = ({ code, onChange, style }) => {
         props,
       }}
       noInline={true}
-      transformCode={(code) => compile(code)}>
-      <div style={{
-        display: 'flex',
-        color: theme.text,
-        minHeight: '540px',
-        backgroundColor: theme.background,
-        border: `1px solid ${theme.border}`,
-        height: '100%',
-        ...style,
-      }}>
-        <div style={{ gridArea: 'input', width: '50%', borderRight: `1px solid ${theme.border}` }}>
+      transformCode={(code) => compile(code)}
+    >
+      <div
+        style={{
+          display: 'flex',
+          color: theme.text,
+          minHeight: '540px',
+          backgroundColor: theme.background,
+          border: `1px solid ${theme.border}`,
+          height: '100%',
+          ...style,
+        }}
+      >
+        <div
+          style={{
+            gridArea: 'input',
+            width: '50%',
+            borderRight: `1px solid ${theme.border}`,
+          }}
+        >
           <Editor
             value={code}
             onChange={(value) => onChange(value)}
             theme={theme.code}
-            language='org-mode'
-            path='text.org'
+            language="org-mode"
+            path="text.org"
             options={{
               minimap: {
                 enabled: false,
@@ -155,45 +163,48 @@ const Playground = ({ code, onChange, style }) => {
             }}
           />
         </div>
-        <Tabs style={{
-          gridArea: 'output',
-          backgroundColor: theme.surface,
-          height: '100%',
-          width: '50%',
-        }} defaultIndex={4}>
+        <Tabs
+          style={{
+            gridArea: 'output',
+            backgroundColor: theme.surface,
+            height: '100%',
+            width: '50%',
+          }}
+          defaultIndex={4}
+        >
           <TabList>
-            <Tab style={{color: theme.lightText}}>oast</Tab>
-            <Tab style={{color: theme.lightText}}>rehype</Tab>
-            <Tab style={{color: theme.lightText}}>estree</Tab>
-            <Tab style={{color: theme.lightText}}>jsx</Tab>
-            <Tab style={{color: theme.lightText}}>preview</Tab>
+            <Tab style={{ color: theme.lightText }}>oast</Tab>
+            <Tab style={{ color: theme.lightText }}>rehype</Tab>
+            <Tab style={{ color: theme.lightText }}>estree</Tab>
+            <Tab style={{ color: theme.lightText }}>jsx</Tab>
+            <Tab style={{ color: theme.lightText }}>preview</Tab>
           </TabList>
-          <TabPanel style={{padding: '0.4em 0.8em'}}>
-            <JSONTree data={oast} theme={treeTheme} invertTheme={true}/>
+          <TabPanel style={{ padding: '0.4em 0.8em' }}>
+            <JSONTree data={oast} theme={treeTheme} invertTheme={true} />
           </TabPanel>
-          <TabPanel style={{padding: '0.4em 0.8em'}}>
-            <JSONTree data={rehype} theme={treeTheme} invertTheme={true}/>
+          <TabPanel style={{ padding: '0.4em 0.8em' }}>
+            <JSONTree data={rehype} theme={treeTheme} invertTheme={true} />
           </TabPanel>
-          <TabPanel style={{padding: '0.4em 0.8em'}}>
-            <JSONTree data={estree} theme={treeTheme} invertTheme={true}/>
+          <TabPanel style={{ padding: '0.4em 0.8em' }}>
+            <JSONTree data={estree} theme={treeTheme} invertTheme={true} />
           </TabPanel>
           <TabPanel style={{ height: '100%' }}>
             <Editor
               value={jsx}
               theme={theme.code}
-              language='javascript'
-              path='text.jsx'
+              language="javascript"
+              path="text.jsx"
               options={{
                 readOnly: true,
                 scrollBeyondLastLine: false,
               }}
             />
           </TabPanel>
-          <TabPanel style={{padding: '0.4em 0.8em'}}>
-            <LivePreview label='preview'/>
+          <TabPanel style={{ padding: '0.4em 0.8em' }}>
+            <LivePreview label="preview" />
           </TabPanel>
         </Tabs>
-        <LiveError/>
+        <LiveError />
       </div>
     </LiveProvider>
   )

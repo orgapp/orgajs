@@ -9,12 +9,11 @@ const createPages = ({
   component,
   context,
 }) => {
-
   if (!pagination) {
     createPage({
       path: basePath,
       component,
-      context: { ids: posts.map(_.get('id')), ...context }
+      context: { ids: posts.map(_.get('id')), ...context },
     })
     return
   }
@@ -31,7 +30,7 @@ const createPages = ({
       path: getLink(i),
       component,
       context: {
-        ids: posts.map(p => p.id),
+        ids: posts.map((p) => p.id),
         currentPage: i + 1,
         next: getLink(i + 1),
         prev: getLink(i - 1),
@@ -44,7 +43,7 @@ const createPages = ({
         path: basePath,
         component,
         context: {
-          ids: posts.map(p => p.id),
+          ids: posts.map((p) => p.id),
           currentPage: i + 1,
           next: getLink(i + 1),
           prev: getLink(i - 1),
@@ -53,7 +52,6 @@ const createPages = ({
       })
     }
   })
-
 }
 
 module.exports = createPages

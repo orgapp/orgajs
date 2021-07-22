@@ -15,7 +15,7 @@ const customGenerator = Object.assign({}, astring['GENERATOR'], {
   JSXOpeningFragment: JSXOpeningFragment,
   JSXSpreadAttribute: JSXSpreadAttribute,
   // ExpressionStatement: wrapper,
-  JSXText: JSXText
+  JSXText: JSXText,
 })
 
 // `attr="something"`
@@ -151,7 +151,6 @@ function JSXText(node, state) {
 
 // wrapper
 function wrapper(node, state) {
-
   this[node.expression.type](node.expression, state)
 }
 

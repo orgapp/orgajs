@@ -7,6 +7,5 @@ export default (context: Context) => (node: Paragraph) => {
 
   const properties = node.attributes.attr_html as { [key: string]: Primitive }
 
-  return h('p', properties)(
-    ...all({ ...context, properties })(node.children))
+  return h('p', properties)(...all({ ...context, properties })(node.children))
 }

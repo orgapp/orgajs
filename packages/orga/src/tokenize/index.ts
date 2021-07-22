@@ -16,35 +16,29 @@ import { Position } from 'unist'
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
 export interface Lexer {
-  eat: (type?: string) => Token | undefined;
-  eatAll: (type: string) => number;
-  peek: (offset?: number) => Token | undefined;
-  match: (cond: RegExp | string, offset?: number) => boolean;
-  all: () => Token[];
-  save: () => number;
-  restore: (point: number) => void;
-  addInBufferTodoKeywords: (text: string) => void;
-  substring: (position: Position) => string;
+  eat: (type?: string) => Token | undefined
+  eatAll: (type: string) => number
+  peek: (offset?: number) => Token | undefined
+  match: (cond: RegExp | string, offset?: number) => boolean
+  all: () => Token[]
+  save: () => number
+  restore: (point: number) => void
+  addInBufferTodoKeywords: (text: string) => void
+  substring: (position: Position) => string
   /** Modify the next token (or the token at the given offset). */
-  modify(f: (t: Token) => Token, offset?: number): void;
+  modify(f: (t: Token) => Token, offset?: number): void
 }
 
-export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lexer => {
-
+export const tokenize = (
+  text: string,
+  options: Partial<ParseOptions> = {}
+): Lexer => {
   const { timezone, todos } = { ...defaultOptions, ...options }
 
   const reader = read(text)
 
-  const {
-    isStartOfLine,
-    eat,
-    getLine,
-    getChar,
-    now,
-    match,
-    EOF,
-    substring,
-  } = reader
+  const { isStartOfLine, eat, getLine, getChar, now, match, EOF, substring } =
+    reader
 
   const globalTodoKeywordSets = todos.map(todoKeywordSet)
 
@@ -52,7 +46,8 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
 
   const todoKeywordSets = () => {
     return inBufferTodoKeywordSets.length === 0
-      ? globalTodoKeywordSets : inBufferTodoKeywordSets
+      ? globalTodoKeywordSets
+      : inBufferTodoKeywordSets
   }
 
   let tokens: Token[] = []
@@ -64,10 +59,12 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
     if (EOF()) return []
 
     if (getChar() === '\n') {
-      return [{
-        type: 'newline',
-        position: eat('char').position,
-      }]
+      return [
+        {
+          type: 'newline',
+          position: eat('char').position,
+        },
+      ]
     }
 
     if (isStartOfLine() && match(/^\*+\s+/)) {
@@ -82,20 +79,22 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
       return tokenizePlanning({
         reader,
         keywords: PLANNING_KEYWORDS,
-        timezone })
+        timezone,
+      })
     }
 
     if (l.startsWith('#+')) {
-
       const keyword = match(/^\s*#\+(\w+):\s*(.*)$/)
       if (keyword) {
         eat('line')
-        return [{
-          type: 'keyword',
-          key: keyword.captures[1],
-          value: keyword.captures[2],
-          position: keyword.position,
-        }]
+        return [
+          {
+            type: 'keyword',
+            key: keyword.captures[1],
+            value: keyword.captures[2],
+            position: keyword.position,
+          },
+        ]
       }
 
       const block = tokenizeBlock({ reader })
@@ -109,11 +108,13 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
       const comment = match(/^#\s+(.*)$/)
       if (comment) {
         eat('line')
-        return [ {
-          type: 'comment',
-          position: comment.position,
-          value: comment.captures[1],
-        } ]
+        return [
+          {
+            type: 'comment',
+            position: comment.position,
+            value: comment.captures[1],
+          },
+        ]
       }
     }
 
@@ -124,10 +125,12 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
 
     const hr = eat(/^\s*-{5,}\s*$/).position
     if (!isEmpty(hr)) {
-      return [{
-        type: 'hr',
-        position: hr,
-      }]
+      return [
+        {
+          type: 'hr',
+          position: hr,
+        },
+      ]
     }
 
     if (now().column === 1) {
@@ -139,7 +142,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
     return inlineTok({ reader })
   }
 
-  const peek = (offset = 0) : Token | undefined => {
+  const peek = (offset = 0): Token | undefined => {
     const pos = cursor + offset
     if (pos >= tokens.length) {
       tokens = tokens.concat(tok())
@@ -170,7 +173,9 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
     eat: _eat,
     eatAll: (type: string): number => {
       let count = 0
-      while(_eat(type)) { count += 1 }
+      while (_eat(type)) {
+        count += 1
+      }
       return count
     },
     match: (cond, offset = 0) => {
@@ -182,7 +187,7 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
       return cond.test(token.type)
     },
 
-    all: (max: number | undefined = undefined) : Token[] => {
+    all: (max: number | undefined = undefined): Token[] => {
       let _all: Token[] = []
       let tokens = tok()
       while (tokens.length > 0) {
@@ -194,12 +199,14 @@ export const tokenize = (text: string, options: Partial<ParseOptions> = {}): Lex
 
     save: () => cursor,
 
-    restore: (point) => { cursor = point },
+    restore: (point) => {
+      cursor = point
+    },
 
     addInBufferTodoKeywords: (text) => {
       inBufferTodoKeywordSets.push(todoKeywordSet(text))
     },
     substring,
-    modify
+    modify,
   }
 }

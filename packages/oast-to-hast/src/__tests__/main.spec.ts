@@ -1,5 +1,5 @@
-import { parse } from "orga"
-import toHAST from "../"
+import { parse } from 'orga'
+import toHAST from '../'
 
 const transform = (text) => {
   const oast = parse(text)
@@ -7,8 +7,8 @@ const transform = (text) => {
   return toHAST(oast)
 }
 
-describe("Main", () => {
-  it("works", () => {
+describe('Main', () => {
+  it('works', () => {
     const text = `
 * hello *world*
 [[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~,
@@ -20,7 +20,7 @@ describe("Main", () => {
     // console.log(inspect(hast, false, null, true))
   })
 
-  it("pass properties of oast to hast data field", () => {
+  it('pass properties of oast to hast data field', () => {
     const hast = transform(`
 #+TITLE: Hello
 #+cover: image/cover.png

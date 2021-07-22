@@ -4,14 +4,12 @@ import { Timestamp } from './types'
 
 export const parse = (
   input: string,
-  { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone } = {},
+  { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone } = {}
 ): Timestamp | undefined => {
-
   const { match, eat, getChar, jump } = read(input)
 
   eat('whitespaces')
   const timestamp = () => {
-
     // opening
     const { value: opening } = eat(/[<[]/g)
     if (opening.length === 0) return
@@ -41,9 +39,10 @@ export const parse = (
 
     // closing
     const closing = getChar()
-    if ((opening === '[' && closing === ']') ||
-      (opening === '<' && closing === '>')) {
-
+    if (
+      (opening === '[' && closing === ']') ||
+      (opening === '<' && closing === '>')
+    ) {
       eat('char')
       return {
         date: zonedTimeToUtc(date, timezone),
@@ -52,9 +51,7 @@ export const parse = (
     }
 
     // opening closing does not match
-
   }
-
 
   const ts = timestamp()
   if (!ts) return

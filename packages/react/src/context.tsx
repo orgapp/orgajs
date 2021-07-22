@@ -3,12 +3,14 @@
 import React from 'react'
 import { ComponentDictionary, ComponentsProp } from './types'
 
-const isFunction = obj => typeof obj === 'function'
+const isFunction = (obj) => typeof obj === 'function'
 
 const OrgaContext = React.createContext<ComponentsProp>({})
 
 export const useOrgaComponents = (
-  components: ComponentDictionary | ((props: ComponentsProp) => ComponentDictionary)
+  components:
+    | ComponentDictionary
+    | ((props: ComponentsProp) => ComponentDictionary)
 ) => {
   const contextComponents = React.useContext(OrgaContext)
 
@@ -24,7 +26,9 @@ export const OrgaProvider = ({ components, children }) => {
   const allComponents = useOrgaComponents(components)
 
   return (
-    <OrgaContext.Provider value={allComponents}>{children}</OrgaContext.Provider>
+    <OrgaContext.Provider value={allComponents}>
+      {children}
+    </OrgaContext.Provider>
   )
 }
 

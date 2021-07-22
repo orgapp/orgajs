@@ -4,8 +4,6 @@
     "rootDir": "./src",
     "outDir": "./dist"
   },
-  "references": [
-    { "path": "../orga-posts" }
-  ],
+  "references": [{ "path": "../orga-posts" }],
   "include": ["./src"]
 }

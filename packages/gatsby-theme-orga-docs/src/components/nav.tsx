@@ -5,11 +5,5 @@ import Right from './right'
 import Placeholder from './placeholder'
 
 export default () => {
-
-  return (
-    <Placeholder>
-      Navbar
-    </Placeholder>
-  )
+  return <Placeholder>Navbar</Placeholder>
 }
-

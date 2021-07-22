@@ -3,10 +3,10 @@ import { Token } from '../types'
 import { tokenize as tokenizeInline } from './inline'
 
 interface Props {
-  reader: Reader;
+  reader: Reader
 }
 
-export default ({ reader }: Props) : Token[] => {
+export default ({ reader }: Props): Token[] => {
   const { match, jump, eat } = reader
   let tokens: Token[] = []
   const m = match(/^\[fn:([^\]]+)\](?=\s)/)

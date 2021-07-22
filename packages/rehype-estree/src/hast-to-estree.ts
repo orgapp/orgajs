@@ -4,7 +4,8 @@ import { Handler, Options } from './options'
 import { Parser } from 'acorn'
 import jsx from 'acorn-jsx'
 
-const deepGet = (p: string) => (o: any) => p.split('.').reduce((a, v) => a[v], o)
+const deepGet = (p: string) => (o: any) =>
+  p.split('.').reduce((a, v) => a[v], o)
 
 const parse = (code: string) => {
   return Parser.extend(jsx()).parse(code, {
@@ -13,12 +14,18 @@ const parse = (code: string) => {
   })
 }
 
-const getRawHandler = ({ path, skipImport }: { path: string, skipImport: boolean }) => {
+const getRawHandler = ({
+  path,
+  skipImport,
+}: {
+  path: string
+  skipImport: boolean
+}) => {
   // @ts-ignore
   const handler: Handler = (node, context) => {
     const estree = parse(deepGet(path)(node))
     // @ts-ignore TODO: get rid of this
-    const expressions = estree.body.filter(child => {
+    const expressions = estree.body.filter((child) => {
       if (child.type === 'ImportDeclaration') {
         if (!skipImport) {
           context.esm.push(child)
@@ -58,28 +65,23 @@ function toEstree(node: HastNode, options: Options) {
           {
             type: 'VariableDeclarator',
             id: { type: 'Identifier', name: key },
-            init: { type: 'Literal', value: value, raw: `'${value}'` }
-          }
+            init: { type: 'Literal', value: value, raw: `'${value}'` },
+          },
         ],
-        kind: 'const'
+        kind: 'const',
       },
       specifiers: [],
       source: null,
-      exportKind: 'value'
-    }
-    ))
+      exportKind: 'value',
+    }))
   }
 
   const estree = hast2estree(node, { space, handlers })
   if (exports) {
-    estree.body = [
-      ...exports,
-      ...estree.body,
-    ]
+    estree.body = [...exports, ...estree.body]
   }
 
   return estree
-
 }
 
 export default toEstree

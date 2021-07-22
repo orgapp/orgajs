@@ -3,7 +3,6 @@ import { Lexer } from '../tokenize'
 import { Headline } from '../types'
 
 export default (lexer: Lexer): Headline => {
-
   const { peek, eat } = lexer
 
   const parse = (headline: Headline): Headline => {
@@ -43,5 +42,7 @@ export default (lexer: Lexer): Headline => {
     type: 'headline',
     actionable: false,
     content: '',
-    children: [], level: -1 })
+    children: [],
+    level: -1,
+  })
 }

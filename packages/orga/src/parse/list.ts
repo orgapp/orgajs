@@ -20,8 +20,7 @@ export default (lexer: Lexer): List | undefined => {
 
   const parseListItem = (listItem: ListItem): ListItem => {
     const token = peek()
-    if (!token || token.type === 'newline')
-      return listItem
+    if (!token || token.type === 'newline') return listItem
 
     if (token.type === 'list.item.tag') {
       listItem.tag = token.value
@@ -45,7 +44,7 @@ export default (lexer: Lexer): List | undefined => {
     eolCount = 0
 
     if (token.type !== 'list.item.bullet' || list.indent > token.indent) {
-        return list
+      return list
     }
     if (list.indent < token.indent) {
       push(list)(parse(newList(token)))
@@ -53,12 +52,12 @@ export default (lexer: Lexer): List | undefined => {
       const li = parseListItem({
         type: 'list.item',
         indent: token.indent,
-        children: [] })
+        children: [],
+      })
       push(list)(li)
     }
     return parse(list)
   }
 
   return parse(newList(token))
-
 }

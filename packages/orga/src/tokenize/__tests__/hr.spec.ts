@@ -1,8 +1,8 @@
-import tok from "./tok"
+import tok from './tok'
 
-describe("tokenize hr", () => {
-  it("knows horizontal rules", () => {
-    expect(tok("-----")).toMatchInlineSnapshot(`
+describe('tokenize hr', () => {
+  it('knows horizontal rules', () => {
+    expect(tok('-----')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "-----",
@@ -10,7 +10,7 @@ describe("tokenize hr", () => {
         },
       ]
     `)
-    expect(tok("------")).toMatchInlineSnapshot(`
+    expect(tok('------')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "------",
@@ -18,7 +18,7 @@ describe("tokenize hr", () => {
         },
       ]
     `)
-    expect(tok("--------")).toMatchInlineSnapshot(`
+    expect(tok('--------')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "--------",
@@ -26,7 +26,7 @@ describe("tokenize hr", () => {
         },
       ]
     `)
-    expect(tok("  -----")).toMatchInlineSnapshot(`
+    expect(tok('  -----')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "-----",
@@ -34,7 +34,7 @@ describe("tokenize hr", () => {
         },
       ]
     `)
-    expect(tok("-----   ")).toMatchInlineSnapshot(`
+    expect(tok('-----   ')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "-----   ",
@@ -42,7 +42,7 @@ describe("tokenize hr", () => {
         },
       ]
     `)
-    expect(tok("  -----   ")).toMatchInlineSnapshot(`
+    expect(tok('  -----   ')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "-----   ",
@@ -50,7 +50,7 @@ describe("tokenize hr", () => {
         },
       ]
     `)
-    expect(tok("  -----  \t ")).toMatchInlineSnapshot(`
+    expect(tok('  -----  \t ')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "-----  	 ",
@@ -60,8 +60,8 @@ describe("tokenize hr", () => {
     `)
   })
 
-  it("knows these are not horizontal rules", () => {
-    expect(tok("----")).toMatchInlineSnapshot(`
+  it('knows these are not horizontal rules', () => {
+    expect(tok('----')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "----",
@@ -70,7 +70,7 @@ describe("tokenize hr", () => {
         },
       ]
     `)
-    expect(tok("- ----")).toMatchInlineSnapshot(`
+    expect(tok('- ----')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "-",
@@ -85,7 +85,7 @@ describe("tokenize hr", () => {
         },
       ]
     `)
-    expect(tok("-----a")).toMatchInlineSnapshot(`
+    expect(tok('-----a')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "-----a",
@@ -94,7 +94,7 @@ describe("tokenize hr", () => {
         },
       ]
     `)
-    expect(tok("_-----")).toMatchInlineSnapshot(`
+    expect(tok('_-----')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "_-----",
@@ -103,7 +103,7 @@ describe("tokenize hr", () => {
         },
       ]
     `)
-    expect(tok("-----    a")).toMatchInlineSnapshot(`
+    expect(tok('-----    a')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "-----    a",

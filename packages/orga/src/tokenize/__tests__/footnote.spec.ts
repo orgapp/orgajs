@@ -1,8 +1,8 @@
-import tok from "./tok"
+import tok from './tok'
 
-describe("tokenize footnote", () => {
-  it("knows footnotes", () => {
-    expect(tok("[fn:1] a footnote")).toMatchInlineSnapshot(`
+describe('tokenize footnote', () => {
+  it('knows footnotes', () => {
+    expect(tok('[fn:1] a footnote')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "[fn:1]",
@@ -16,7 +16,7 @@ describe("tokenize footnote", () => {
         },
       ]
     `)
-    expect(tok("[fn:word] a footnote")).toMatchInlineSnapshot(`
+    expect(tok('[fn:word] a footnote')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "[fn:word]",
@@ -30,7 +30,7 @@ describe("tokenize footnote", () => {
         },
       ]
     `)
-    expect(tok("[fn:word_] a footnote")).toMatchInlineSnapshot(`
+    expect(tok('[fn:word_] a footnote')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "[fn:word_]",
@@ -44,7 +44,7 @@ describe("tokenize footnote", () => {
         },
       ]
     `)
-    expect(tok("[fn:wor1d_] a footnote")).toMatchInlineSnapshot(`
+    expect(tok('[fn:wor1d_] a footnote')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "[fn:wor1d_]",
@@ -60,8 +60,8 @@ describe("tokenize footnote", () => {
     `)
   })
 
-  it("knows these are not footnotes", () => {
-    expect(tok("[fn:1]: not a footnote")).toMatchInlineSnapshot(`
+  it('knows these are not footnotes', () => {
+    expect(tok('[fn:1]: not a footnote')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "[fn:1]",
@@ -76,7 +76,7 @@ describe("tokenize footnote", () => {
         },
       ]
     `)
-    expect(tok(" [fn:1] not a footnote")).toMatchInlineSnapshot(`
+    expect(tok(' [fn:1] not a footnote')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "[fn:1]",
@@ -91,7 +91,7 @@ describe("tokenize footnote", () => {
         },
       ]
     `)
-    expect(tok("[[fn:1] not a footnote")).toMatchInlineSnapshot(`
+    expect(tok('[[fn:1] not a footnote')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "[",
@@ -111,7 +111,7 @@ describe("tokenize footnote", () => {
         },
       ]
     `)
-    expect(tok("\t[fn:1] not a footnote")).toMatchInlineSnapshot(`
+    expect(tok('\t[fn:1] not a footnote')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "[fn:1]",

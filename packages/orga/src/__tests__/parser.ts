@@ -4,7 +4,10 @@ import { parse } from '../parse'
 import Parser from '../parser'
 
 describe('Parser', () => {
-  const parser = new Parser({ todos: ['TODO', 'DONE'], timezone: 'Pacific/Auckland' })
+  const parser = new Parser({
+    todos: ['TODO', 'DONE'],
+    timezone: 'Pacific/Auckland',
+  })
   it.only('works', () => {
     const content = `
 #+TITLE: hello world
@@ -104,7 +107,6 @@ content
 ** #HEADLINE# 2.2
 `
     expect(parser.parse(content)).toMatchSnapshot()
-
   })
 
   it('can handle unordered list', () => {
@@ -167,7 +169,6 @@ Cupertino, California that designs, develops, and sells consumer electronics,
 `
     expect(parser.parse(brokenByIndent)).toMatchSnapshot()
   })
-
 
   it('can handle descriptive list', () => {
     const descriptive = `

@@ -4,8 +4,6 @@
     "rootDir": "./src",
     "outDir": "./dist"
   },
-  "references": [
-    { "path": "../oast-to-hast" }
-  ],
+  "references": [{ "path": "../oast-to-hast" }],
   "include": ["./src"]
 }

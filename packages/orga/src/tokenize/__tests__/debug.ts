@@ -6,9 +6,9 @@ import chalk from 'chalk'
 export default (text: string): void => {
   const { substring } = read(text)
   const tokens = tokenize(text).all()
-  const data = tokens.map(token => ({
+  const data = tokens.map((token) => ({
     ...token,
-    _content: substring(token.position)
+    _content: substring(token.position),
   }))
 
   const lines = [

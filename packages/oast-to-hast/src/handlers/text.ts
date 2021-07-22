@@ -5,7 +5,9 @@ import { Context, HNode } from '../'
 type Handler = (context: Context) => (node: Literal) => HNode
 
 const wrap = (tagName: string): Handler => {
-  return ({ h }) => (node: Literal) => h(tagName)(u('text', node.value))
+  return ({ h }) =>
+    (node: Literal) =>
+      h(tagName)(u('text', node.value))
 }
 
 export const bold = wrap('strong')

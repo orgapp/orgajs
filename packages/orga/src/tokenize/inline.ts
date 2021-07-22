@@ -1,7 +1,14 @@
 import { Point } from 'unist'
 import { isGreaterOrEqual } from '../position'
 import { Reader } from '../reader'
-import { FootnoteReference, Link, PhrasingContent, StyledText, Token, Newline } from '../types'
+import {
+  FootnoteReference,
+  Link,
+  PhrasingContent,
+  StyledText,
+  Token,
+  Newline,
+} from '../types'
 import uri from '../uri'
 import { escape } from '../utils'
 
@@ -13,7 +20,7 @@ const MARKERS: { [key: string]: StyledText['type'] } = {
   '=': 'text.verbatim',
   '/': 'text.italic',
   '+': 'text.strikeThrough',
-  '_': 'text.underline',
+  _: 'text.underline',
   '~': 'text.code',
 }
 
@@ -23,7 +30,10 @@ interface Props {
   end?: Point
 }
 
-export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring: string[] } = { ignoring: [] }): Token[] => {
+export const tokenize = (
+  { reader, start, end }: Props,
+  { ignoring }: { ignoring: string[] } = { ignoring: [] }
+): Token[] => {
   const { now, eat, eol, match, jump, substring, getChar } = reader
   start = start || { ...now() }
   end = end || { ...eol() }
@@ -60,7 +70,15 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
     m = match(/^\]/)
     if (m) {
       // empty body
-      tokens.push({ type: 'text.plain', value: '', position: { start: m.position.start, end: m.position.start, indent: m.position.indent } })
+      tokens.push({
+        type: 'text.plain',
+        value: '',
+        position: {
+          start: m.position.start,
+          end: m.position.start,
+          indent: m.position.indent,
+        },
+      })
     } else {
       tokens.push(...tokenize({ reader }, { ignoring: [']'] }))
     }
@@ -69,7 +87,7 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
     if (!m) return []
     tokens.push({
       type: 'footnote.reference.end',
-      position: m.position
+      position: m.position,
     })
 
     jump(tokens[0].position.start)
@@ -91,7 +109,13 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
 
   const tokStyledText = (marker: string) => (): StyledText => {
     const m = match(
-      RegExp(`^${escape(marker)}(${BORDER}(?:.*?(?:${BORDER}))??)${escape(marker)}(?=(${POST}.*))`, 'm'))
+      RegExp(
+        `^${escape(marker)}(${BORDER}(?:.*?(?:${BORDER}))??)${escape(
+          marker
+        )}(?=(${POST}.*))`,
+        'm'
+      )
+    )
     if (!m) return undefined
     return {
       type: MARKERS[marker],
@@ -129,20 +153,20 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
   }
 
   const tokNewline = (): Newline => {
-    const save = { ...now() };
-    const newline = eat('char');
-    jump(save);
+    const save = { ...now() }
+    const newline = eat('char')
+    jump(save)
     if (newline.value === '\n') {
       return {
         type: 'newline',
         position: newline.position,
-      };
+      }
     }
   }
 
   const tok = () => {
     if (isGreaterOrEqual(now(), end)) {
-      return;
+      return
     }
     const char = getChar()
 
@@ -172,5 +196,4 @@ export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring
   tok()
   cleanup()
   return _tokens
-
 }

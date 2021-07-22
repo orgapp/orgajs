@@ -5,22 +5,30 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import { graphql, useStaticQuery } from "gatsby"
-import PropTypes from "prop-types"
-import React from "react"
-import Helmet from "react-helmet"
+import { graphql, useStaticQuery } from 'gatsby'
+import PropTypes from 'prop-types'
+import React from 'react'
+import Helmet from 'react-helmet'
 
 interface Props {
-  title: string;
-  description: string;
-  lang: string;
-  keywords: string[];
-  meta: any;
-  imageSource: string;
-  imageAlt: string;
+  title: string
+  description: string
+  lang: string
+  keywords: string[]
+  meta: any
+  imageSource: string
+  imageAlt: string
 }
 
-function SEO({ description, lang, meta, keywords, title, imageSource, imageAlt }: Partial<Props>) {
+function SEO({
+  description,
+  lang,
+  meta,
+  keywords,
+  title,
+  imageSource,
+  imageAlt,
+}: Partial<Props>) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -83,40 +91,40 @@ function SEO({ description, lang, meta, keywords, title, imageSource, imageAlt }
         .concat(
           imageSource
             ? [
-              {
-                name: `og:image`,
-                content: image,
-              },
-              {
-                name: `og:image:alt`,
-                content: imageAltText,
-              },
-              {
-                name: `twitter:image`,
-                content: image,
-              },
-              {
-                name: `twitter:image:alt`,
-                content: imageAltText,
-              },
-              {
-                name: `twitter:card`,
-                content: `summary_large_image`,
-              },
-            ]
+                {
+                  name: `og:image`,
+                  content: image,
+                },
+                {
+                  name: `og:image:alt`,
+                  content: imageAltText,
+                },
+                {
+                  name: `twitter:image`,
+                  content: image,
+                },
+                {
+                  name: `twitter:image:alt`,
+                  content: imageAltText,
+                },
+                {
+                  name: `twitter:card`,
+                  content: `summary_large_image`,
+                },
+              ]
             : [
-              {
-                name: `twitter:card`,
-                content: `summary`,
-              },
-            ]
-
-        ).concat(
+                {
+                  name: `twitter:card`,
+                  content: `summary`,
+                },
+              ]
+        )
+        .concat(
           keywords.length > 0
             ? {
-              name: `keywords`,
-              content: keywords.join(`, `),
-            }
+                name: `keywords`,
+                content: keywords.join(`, `),
+              }
             : []
         )
         .concat(meta)}

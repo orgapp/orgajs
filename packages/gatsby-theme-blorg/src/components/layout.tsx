@@ -6,18 +6,19 @@ import Footer from './footer'
 import Header from './header'
 
 type NamedChildrenSlots = {
-  header?: ReactChild;
-  footer?: ReactChild;
-  body: ReactChild;
+  header?: ReactChild
+  footer?: ReactChild
+  body: ReactChild
 }
 
-const isNamedSlots = (children: any): children is NamedChildrenSlots => typeof children === 'object' && 'body' in children
+const isNamedSlots = (children: any): children is NamedChildrenSlots =>
+  typeof children === 'object' && 'body' in children
 
 const Layout = ({ children }) => {
   const { title } = useSiteMetadata()
 
-  let header: ReactChild = <Header title={title}/>
-  let footer: ReactChild = <Footer/>
+  let header: ReactChild = <Header title={title} />
+  let footer: ReactChild = <Footer />
   let body = children
 
   if (isNamedSlots(children)) {
@@ -27,19 +28,22 @@ const Layout = ({ children }) => {
   }
   return (
     <Styled.root>
-      <Container sx={{
-        p: 3,
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-        maxWidth: 900,
-      }}
+      <Container
+        sx={{
+          p: 3,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          maxWidth: 900,
+        }}
       >
-        { header }
-        <div sx={{ display: 'flex', flexDirection: 'column', flex: '1 1 auto' }}>
+        {header}
+        <div
+          sx={{ display: 'flex', flexDirection: 'column', flex: '1 1 auto' }}
+        >
           {body}
         </div>
-        { footer }
+        {footer}
       </Container>
     </Styled.root>
   )

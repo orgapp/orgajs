@@ -4,9 +4,7 @@ import * as components from './dist/orga-components'
 
 // TODO: process config
 
-
 const WrapRootElement = ({ element }, options) => {
-
   // let wrapper = undefined
 
   // const { components } = options
@@ -21,11 +19,7 @@ const WrapRootElement = ({ element }, options) => {
 
   // console.log({ components })
 
-  return (
-    <OrgaProvider components={{ ...components }}>
-      { element }
-    </OrgaProvider>
-  )
+  return <OrgaProvider components={{ ...components }}>{element}</OrgaProvider>
 }
 
 export default WrapRootElement

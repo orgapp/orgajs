@@ -1,16 +1,28 @@
-import { BaseNode, Declaration, ExportDefaultDeclaration, ExportNamedDeclaration, ExpressionStatement } from 'estree'
+import {
+  BaseNode,
+  Declaration,
+  ExportDefaultDeclaration,
+  ExportNamedDeclaration,
+  ExpressionStatement,
+} from 'estree'
 import { JSXElement, JSXFragment, JSXOpeningElement } from 'estree-jsx'
 import _ from 'lodash'
 
-export function isExportNamedDeclaration(node: BaseNode): node is ExportNamedDeclaration {
+export function isExportNamedDeclaration(
+  node: BaseNode
+): node is ExportNamedDeclaration {
   return node.type === 'ExportNamedDeclaration'
 }
 
-export function isExportDefaultDeclaration(node: BaseNode): node is ExportDefaultDeclaration {
+export function isExportDefaultDeclaration(
+  node: BaseNode
+): node is ExportDefaultDeclaration {
   return node.type === 'ExportDefaultDeclaration'
 }
 
-export function isExpressionStatement(node: BaseNode): node is ExpressionStatement {
+export function isExpressionStatement(
+  node: BaseNode
+): node is ExpressionStatement {
   return node.type === 'ExpressionStatement'
 }
 
@@ -35,5 +47,9 @@ export function isJSXIdentifier(oe: JSXOpeningElement) {
 }
 
 export function isDeclaration(node: BaseNode): node is Declaration {
-  return node.type === 'VariableDeclaration' || node.type === 'FunctionDeclaration' || node.type === 'ClassDeclaration'
+  return (
+    node.type === 'VariableDeclaration' ||
+    node.type === 'FunctionDeclaration' ||
+    node.type === 'ClassDeclaration'
+  )
 }

@@ -5,26 +5,18 @@ import { Token } from '../types'
 import { tokenize } from './inline'
 
 interface Props {
-  reader: Reader;
-  todoKeywordSets: TodoKeywordSet[];
+  reader: Reader
+  todoKeywordSets: TodoKeywordSet[]
 }
 
-export default ({ reader, todoKeywordSets }: Props) : Token[] => {
-
-  const {
-    match,
-    now,
-    eol,
-    eat,
-    jump,
-    substring,
-  } = reader
+export default ({ reader, todoKeywordSets }: Props): Token[] => {
+  const { match, now, eol, eat, jump, substring } = reader
 
   // TODO: cache this, for performance sake
-  const todos = todoKeywordSets.flatMap(s => s.keywords)
+  const todos = todoKeywordSets.flatMap((s) => s.keywords)
 
   const isActionable = (keyword: string): boolean => {
-    return !!todoKeywordSets.find(s => s.actionables.includes(keyword))
+    return !!todoKeywordSets.find((s) => s.actionables.includes(keyword))
   }
 
   let buffer: Token[] = []
@@ -68,14 +60,16 @@ export default ({ reader, todoKeywordSets }: Props) : Token[] => {
 
   buffer = buffer.concat(tokens)
 
-
   if (tags) {
     eat('whitespaces')
     const tagsPosition = { start: now(), end: tags.position.end }
     const s = substring(tagsPosition)
     buffer.push({
       type: 'tags',
-      tags: s.split(':').map(t => t.trim()).filter(Boolean),
+      tags: s
+        .split(':')
+        .map((t) => t.trim())
+        .filter(Boolean),
       position: { start: now(), end: tags.position.end },
     })
     jump(tags.position.end)
