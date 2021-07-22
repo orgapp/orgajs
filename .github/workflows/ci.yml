@@ -1,12 +1,10 @@
-name: UT
+name: CI
 
 on: [push, pull_request]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js
@@ -15,6 +13,6 @@ jobs:
         node-version: 14
     - name: run unit tests
       run: |
-        yarn install
+        yarn install --immutable
         yarn build
         yarn test

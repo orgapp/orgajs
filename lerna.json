@@ -1,9 +1,17 @@
 {
-  "packages": [
-    "packages/*",
-    "examples/*"
-  ],
-  "npmClient": "yarn",
   "version": "2.4.9",
-  "useWorkspaces": true
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "command": {
+    "version": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "createRelease": "github",
+      "exact": true,
+      "message": "chore(release): %s"
+    }
+  },
+  "packages": [
+    "packages/*"
+  ]
 }
