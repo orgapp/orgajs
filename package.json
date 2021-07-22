@@ -29,9 +29,6 @@
   "scripts": {
     "clean": "yarn workspaces foreach run clean",
     "build": "tsc -b tsconfig.packages.json",
-    "release": "lerna version",
-    "publish": "lerna publish",
-    "publish:ci": "lerna publish --conventional-commits --create-release github --yes",
     "publish-next": "lerna publish --dist-tag=next --bump=prerelease",
     "test": "jest",
     "lint": "eslint packages --ext js,jsx,ts,tsx",
@@ -39,6 +36,8 @@
     "test:watch": "jest --watch",
     "watch": "tsc -b tsconfig.packages.json -w",
     "format": "prettier --write .",
+    "ci": "yarn install --immutable",
+    "ci:publish": "lerna publish",
     "postinstall": "husky install"
   },
   "workspaces": {
