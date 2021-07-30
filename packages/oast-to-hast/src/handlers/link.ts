@@ -9,15 +9,17 @@ export default (context: Context) =>
 
     const type = mime.getType(value)
     if (type && type.startsWith('image')) {
-      let cap = ''
+      let cap: string | undefined
       if ('parent' in node) {
         const p = node['parent'] as Paragraph
         cap = (p.attributes['caption'] as string) || description
       }
-      return h('figure')(
-        h('img', { src: node.value, ...properties })(),
-        h('figcaption')(u('text', cap))
-      )
+
+      let image = h('img', { src: node.value, ...properties })()
+      if (cap && cap.length > 0) {
+        image = h('figure')(image, h('figcaption')(u('text', cap)))
+      }
+      return image
     }
 
     return h('a', { href: value })(u('text', description || value))

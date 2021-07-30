@@ -1,13 +1,13 @@
-import toEstree from '@orgajs/rehype-estree'
-import { walk } from 'estree-walker'
-import crypto from 'crypto'
-import { generate } from 'astring'
-import { BaseNode } from 'estree'
 import toJsx from '@orgajs/estree-jsx'
+import toEstree from '@orgajs/rehype-estree'
 import reorg from '@orgajs/reorg'
 import toRehype from '@orgajs/reorg-rehype'
-import { inspect } from 'util'
+import { generate } from 'astring'
+import crypto from 'crypto'
+import { BaseNode } from 'estree'
+import { walk } from 'estree-walker'
 import { get } from 'lodash/fp'
+import { GatsbyCache } from 'gatsby'
 
 const renderer = `import React from 'react'
 import {orga} from '@orgajs/react'
@@ -19,8 +19,13 @@ export async function compile({
   cache,
 }: {
   content: string
-  cache: any
-}) {
+  cache: GatsbyCache
+}): Promise<{
+  code: string
+  properties: Record<string, unknown>
+  imports: string[]
+  exports: string[]
+}> {
   const digest = crypto.createHash('sha256').update(content).digest('hex')
 
   const payloadCacheKey = `gatsby-plugin-orga-entrie-payload-${digest}`

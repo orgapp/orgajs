@@ -1,4 +1,4 @@
-const path = require('path')
+/* eslint-disable @typescript-eslint/no-var-requires */
 const withDefaults = require('./utils/default-options')
 
 module.exports = (themeOptions) => {
@@ -10,6 +10,10 @@ module.exports = (themeOptions) => {
       description: `Description placeholder`,
     },
     plugins: [
+      `gatsby-plugin-react-helmet`,
+      `gatsby-plugin-image`,
+      `gatsby-plugin-sharp`,
+      `gatsby-transformer-sharp`,
       {
         resolve: 'gatsby-plugin-orga',
         options: {
@@ -19,12 +23,12 @@ module.exports = (themeOptions) => {
           },
         },
       },
-      `gatsby-plugin-react-helmet`,
-      `gatsby-plugin-image`,
-      `gatsby-plugin-sharp`,
-      `gatsby-transformer-sharp`,
       ...options.location.map((path) => ({
         resolve: 'gatsby-plugin-page-creator',
+        options: { path },
+      })),
+      ...options.location.map((path) => ({
+        resolve: 'gatsby-source-filesystem',
         options: { path },
       })),
       {

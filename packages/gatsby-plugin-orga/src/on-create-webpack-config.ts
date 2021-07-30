@@ -1,17 +1,19 @@
-import toEstree from '@orgajs/rehype-estree'
-import * as path from 'path'
 import toJsx from '@orgajs/estree-jsx'
+import toEstree from '@orgajs/rehype-estree'
 import toRehype from '@orgajs/reorg-rehype'
+import { GatsbyNode } from 'gatsby'
+import * as path from 'path'
+import processImages from './plugins/process-images'
 
 const renderer = `import React from 'react'
 import {orga} from '@orgajs/react'
 import { graphql } from 'gatsby'
 `
-
-export default (
-  { stage, loaders, actions, plugins, cache, ...other },
+const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (
+  api,
   pluginOptions
 ) => {
+  const { stage, loaders, actions, plugins, cache } = api
   const { defaultLayout, components } = pluginOptions
 
   actions.setWebpackConfig({
@@ -31,6 +33,7 @@ export default (
               options: {
                 plugins: [
                   toRehype,
+                  [processImages, { gatsby: api }],
                   [toEstree, { defaultLayout }],
                   [toJsx, { renderer }],
                 ],
@@ -64,3 +67,4 @@ export default (
     ],
   })
 }
+export default onCreateWebpackConfig

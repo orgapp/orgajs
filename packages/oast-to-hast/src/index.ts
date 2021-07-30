@@ -51,14 +51,11 @@ const h =
     })
   }
 
-const defaultContext = {
-  ...defaultOptions,
-  data: {},
-  h,
-  u,
+export interface Context extends Options {
+  data: any
+  h: typeof h
+  u: typeof u
 }
-
-export type Context = typeof defaultContext
 
 export { Handler }
 
@@ -67,8 +64,12 @@ export default (
   options: Partial<Options> = {}
 ): Root => {
   // TODO: get metadata
-  const context = {
-    ...defaultContext,
+
+  const context: Context = {
+    ...defaultOptions,
+    data: {},
+    h,
+    u,
     ...options,
     handlers: { ...handlers, ...options.handlers },
   }
