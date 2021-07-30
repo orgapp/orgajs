@@ -37,6 +37,6 @@
   },
   "devDependencies": {
     "@types/hast": "^2.3.2",
-    "@types/unist": "^2.0.6"
+    "@types/unist": "2.0.3"
   }
 }

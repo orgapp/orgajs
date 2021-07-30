@@ -14,7 +14,6 @@
     "directory": "packages/orga"
   },
   "scripts": {
-    "build": "yarn clean && yarn compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b",
     "prepublishOnly": "yarn build"
@@ -25,7 +24,7 @@
     "text-kit": "^2.4.9"
   },
   "devDependencies": {
-    "@types/unist": "^2.0.6",
+    "@types/unist": "2.0.3",
     "del-cli": "^3.0.1",
     "typescript": "^4.3.2"
   }
