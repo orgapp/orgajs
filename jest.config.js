@@ -23,7 +23,7 @@ module.exports = {
   testMatch: [
     '**/__tests__/**/*.spec.ts',
     '**/tests/**/*.spec.ts',
-    '**/tests/**/*.test.ts',
+    '**/*.test.ts',
   ],
   // Disabling diagnostics, TODO: turn this back on
   // globals: {

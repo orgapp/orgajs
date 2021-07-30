@@ -1,6 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+import todoKeywordSet from './todo-keyword-set'
 
-exports[`TodoKeywordSet works 1`] = `
+const debug = (text: string) => {
+  const tks = todoKeywordSet(text)
+  console.log(`${text}:`, tks)
+}
+
+describe('TodoKeywordSet', () => {
+  it('works', () => {
+    expect(todoKeywordSet('TODO | DONE')).toMatchInlineSnapshot(`
 Object {
   "actionables": Array [
     "TODO",
@@ -13,9 +20,8 @@ Object {
     "DONE",
   ],
 }
-`;
-
-exports[`TodoKeywordSet works 2`] = `
+`)
+    expect(todoKeywordSet('TODO DONE')).toMatchInlineSnapshot(`
 Object {
   "actionables": Array [
     "TODO",
@@ -28,26 +34,8 @@ Object {
     "DONE",
   ],
 }
-`;
-
-exports[`TodoKeywordSet works 3`] = `
-Object {
-  "actionables": Array [
-    "TODO",
-    "NEXT",
-  ],
-  "done": Array [
-    "DONE",
-  ],
-  "keywords": Array [
-    "TODO",
-    "NEXT",
-    "DONE",
-  ],
-}
-`;
-
-exports[`TodoKeywordSet works 4`] = `
+`)
+    expect(todoKeywordSet(' TODO NEXT  |  DONE ')).toMatchInlineSnapshot(`
 Object {
   "actionables": Array [
     "TODO",
@@ -62,9 +50,24 @@ Object {
     "DONE",
   ],
 }
-`;
-
-exports[`TodoKeywordSet works 5`] = `
+`)
+    expect(todoKeywordSet('TODO NEXT DONE')).toMatchInlineSnapshot(`
+Object {
+  "actionables": Array [
+    "TODO",
+    "NEXT",
+  ],
+  "done": Array [
+    "DONE",
+  ],
+  "keywords": Array [
+    "TODO",
+    "NEXT",
+    "DONE",
+  ],
+}
+`)
+    expect(todoKeywordSet('TODO | DONE CANCELLED')).toMatchInlineSnapshot(`
 Object {
   "actionables": Array [
     "TODO",
@@ -79,4 +82,6 @@ Object {
     "CANCELLED",
   ],
 }
-`;
+`)
+  })
+})
