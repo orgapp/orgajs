@@ -1,8 +1,14 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const withDefaults = require('./utils/default-options')
+const defaultOptions = {
+  location: ['docs'],
+  imageMaxWidth: 1380,
+  components: {},
+}
 
 module.exports = (themeOptions) => {
-  const options = withDefaults(themeOptions)
+  const options = {
+    ...defaultOptions,
+    ...themeOptions,
+  }
   return {
     siteMetadata: {
       title: `Title Placeholder`,

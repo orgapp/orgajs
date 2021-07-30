@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { useLocation } from '@reach/router'
 import { useStaticQuery, graphql } from 'gatsby'
 
-const SEO = ({ title, description, image, article }) => {
+interface SEOProps {
+  title: string
+  description: string
+  image: string
+  article: boolean
+}
+
+const SEO = ({
+  title,
+  description,
+  image,
+  article,
+}: Partial<SEOProps>): ReactElement => {
   const { pathname } = useLocation()
   const { site } = useStaticQuery(query)
 

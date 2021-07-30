@@ -1,7 +1,6 @@
 import toEstree from '@orgajs/rehype-estree'
-const toRehype = require('@orgajs/reorg-rehype')
-// const toEstree = require('@orgajs/rehype-estree')
-const toJsx = require('@orgajs/estree-jsx')
+import toRehype from '@orgajs/reorg-rehype'
+import toJsx from '@orgajs/estree-jsx'
 
 module.exports =
   (pluginOptions: any = {}) =>

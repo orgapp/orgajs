@@ -1,4 +1,4 @@
-import { Comment, Element, Properties, Root, Text } from 'hast'
+import { Comment, Element, Properties, Root, Text, Literal } from 'hast'
 import { Document, Section } from 'orga'
 import u from 'unist-builder'
 import handlers, { Handler } from './handlers'

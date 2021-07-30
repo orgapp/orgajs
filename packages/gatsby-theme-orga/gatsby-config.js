@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const withDefaults = require('./utils/default-options')
 
 module.exports = (themeOptions) => {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require(`fs`)
 const path = require(`path`)
 const mkdirp = require(`mkdirp`)
@@ -6,6 +7,7 @@ const withDefaults = require('./utils/default-options')
 const createIndex = require('./utils/create-index')
 const _ = require('lodash/fp')
 const { createContentDigest, slash, joinPath } = require('gatsby-core-utils')
+const { createRemoteFileNode } = require('gatsby-source-filesystem')
 
 const debug = Debug(`gatsby-theme-orga`)
 
