@@ -22,6 +22,6 @@
   },
   "dependencies": {
     "@orgajs/reorg-parse": "^2.4.9",
-    "unified": "^9.1.0"
+    "unified": "9.2.2"
   }
 }

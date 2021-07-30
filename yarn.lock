@@ -4291,6 +4291,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@orgajs/getting-started@workspace:examples/getting-started":
+  version: 0.0.0-use.local
+  resolution: "@orgajs/getting-started@workspace:examples/getting-started"
+  dependencies:
+    "@orgajs/reorg": ^2.4.9
+    "@orgajs/reorg-rehype": ^2.4.9
+    rehype-stringify: ^8.0.0
+    unified: 9.2.2
+    unified-stream: ^1.0.6
+  languageName: unknown
+  linkType: soft
+
 "@orgajs/loader@^2.4.9, @orgajs/loader@workspace:packages/loader":
   version: 0.0.0-use.local
   resolution: "@orgajs/loader@workspace:packages/loader"
@@ -4328,6 +4340,7 @@ __metadata:
   dependencies:
     "@monaco-editor/react": ^4.2.1
     "@orgajs/estree-jsx": ^2.4.9
+    "@orgajs/react": ^2.4.9
     "@orgajs/rehype-estree": ^2.4.9
     "@orgajs/reorg": ^2.4.9
     "@orgajs/reorg-rehype": ^2.4.9
@@ -4382,7 +4395,7 @@ __metadata:
     del-cli: ^3.0.1
     orga: ^2.4.9
     typescript: ^4.3.2
-    unified: ^9.1.0
+    unified: 9.2.2
   languageName: unknown
   linkType: soft
 
@@ -4400,7 +4413,7 @@ __metadata:
   resolution: "@orgajs/reorg@workspace:packages/reorg"
   dependencies:
     "@orgajs/reorg-parse": ^2.4.9
-    unified: ^9.1.0
+    unified: 9.2.2
   languageName: unknown
   linkType: soft
 
@@ -5369,7 +5382,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/unist@npm:*, @types/unist@npm:^2.0.0, @types/unist@npm:^2.0.2":
+"@types/unist@npm:*, @types/unist@npm:2.0.3, @types/unist@npm:^2.0.0, @types/unist@npm:^2.0.2":
   version: 2.0.3
   resolution: "@types/unist@npm:2.0.3"
   checksum: 42e0dc4ac75a27c4bb91a3f8e82edfd8819cacb6edda08bdfb436700ea01a587faa30017fde744b0a0b33825f5e37686398c1eb5b664cabc3a72a6b3757f85a5
@@ -11094,18 +11107,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"example@workspace:examples/getting-started":
-  version: 0.0.0-use.local
-  resolution: "example@workspace:examples/getting-started"
-  dependencies:
-    "@orgajs/reorg": ^2.4.9
-    "@orgajs/reorg-rehype": ^2.4.9
-    rehype-stringify: ^8.0.0
-    unified: ^9.1.0
-    unified-stream: ^1.0.6
-  languageName: unknown
-  linkType: soft
-
 "execa@npm:^0.7.0":
   version: 0.7.0
   resolution: "execa@npm:0.7.0"
@@ -12342,6 +12343,7 @@ fsevents@^1.2.7:
     "@types/node": ^16.4.0
     "@types/react": ^17.0.14
     "@types/react-dom": ^17.0.9
+    "@types/unist": 2.0.3
     astring: ^1.7.5
     dataloader: ^2.0.0
     del-cli: ^3.0.1
@@ -12354,9 +12356,14 @@ fsevents@^1.2.7:
     loader-utils: ^2.0.0
     lodash: ^4.17.21
     typescript: ^4.3.2
+    unified: 9.2.2
+    unist-builder: 2.0.3
+    unist-util-select: 3.0.4
+    unist-util-visit: 2.0.3
   peerDependencies:
     "@orgajs/loader": ^1.0.0
     "@orgajs/react": ^1.0.0
+    gatsby-plugin-sharp: "*"
     react: ^16.9.0 || ^17.0.0
     react-dom: ^16.9.0 || ^17.0.0
   languageName: unknown
@@ -12814,7 +12821,7 @@ fsevents@^1.2.7:
     "@types/fs-extra": ^9.0.12
     "@types/lodash": ^4.14.171
     "@types/node": ^16.4.0
-    "@types/unist": ^2.0.6
+    "@types/unist": 2.0.3
     bluebird: ^3.7.0
     gatsby: ^3.10.0
     gatsby-core-utils: ^2.2.0
@@ -12826,7 +12833,7 @@ fsevents@^1.2.7:
     orga: ^2.4.9
     orga-posts: ^2.4.9
     rehype-stringify: ^8.0.0
-    unified: ^9.1.0
+    unified: 9.2.2
     unist-builder: ^2.0.3
     unist-util-map: ^2.0.1
     unist-util-select: ^3.0.1
@@ -18780,7 +18787,7 @@ fsevents@^1.2.7:
   resolution: "oast-to-hast@workspace:packages/oast-to-hast"
   dependencies:
     "@types/hast": ^2.3.2
-    "@types/unist": ^2.0.6
+    "@types/unist": 2.0.3
     mime: ^2.4.4
     orga: ^2.4.9
     prismjs: ^1.17.1
@@ -19041,7 +19048,7 @@ fsevents@^1.2.7:
   dependencies:
     "@orgajs/reorg-rehype": ^2.4.9
     "@types/hast": ^2.3.2
-    "@types/unist": ^2.0.6
+    "@types/unist": 2.0.3
     lodash: ^4.17.21
     orga: ^2.4.9
     rehype-highlight: ^4.0.0
@@ -19065,7 +19072,7 @@ fsevents@^1.2.7:
   version: 0.0.0-use.local
   resolution: "orga@workspace:packages/orga"
   dependencies:
-    "@types/unist": ^2.0.6
+    "@types/unist": 2.0.3
     date-fns: ^2.22.1
     date-fns-tz: ^1.1.4
     del-cli: ^3.0.1
@@ -24771,20 +24778,6 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"unified@npm:^9.1.0":
-  version: 9.2.1
-  resolution: "unified@npm:9.2.1"
-  dependencies:
-    bail: ^1.0.0
-    extend: ^3.0.0
-    is-buffer: ^2.0.0
-    is-plain-obj: ^2.0.0
-    trough: ^1.0.0
-    vfile: ^4.0.0
-  checksum: 7997e5471db476dfc241c319d06f009d3940f8a3819899f4de12a497eaee3654b345068d34832c96d30ddf187e8ad6d6a7a42ce69aeed84586ee8fcd6870de96
-  languageName: node
-  linkType: hard
-
 "union-value@npm:^1.0.0":
   version: 1.0.1
   resolution: "union-value@npm:1.0.1"
@@ -24831,7 +24824,7 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"unist-builder@npm:^2.0.3":
+"unist-builder@npm:2.0.3, unist-builder@npm:^2.0.3":
   version: 2.0.3
   resolution: "unist-builder@npm:2.0.3"
   checksum: 64f9231bac9050b65d8cb97bc64e93782f93551e4a6a4e75ff89f580fa92740520bbd9ec44b7917c29785d498a3f432c326c5f55bd44e8949b98f5f63b14ec44
@@ -24905,7 +24898,7 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"unist-util-select@npm:^3.0.1, unist-util-select@npm:^3.0.2":
+"unist-util-select@npm:3.0.4, unist-util-select@npm:^3.0.1, unist-util-select@npm:^3.0.2":
   version: 3.0.4
   resolution: "unist-util-select@npm:3.0.4"
   dependencies:

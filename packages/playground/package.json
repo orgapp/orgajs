@@ -22,6 +22,7 @@
   "dependencies": {
     "@monaco-editor/react": "^4.2.1",
     "@orgajs/estree-jsx": "^2.4.9",
+    "@orgajs/react": "^2.4.9",
     "@orgajs/rehype-estree": "^2.4.9",
     "@orgajs/reorg": "^2.4.9",
     "@orgajs/reorg-rehype": "^2.4.9",

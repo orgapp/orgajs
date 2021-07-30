@@ -1,8 +1,7 @@
 import path from 'path'
-import { GatsbyNode } from 'gatsby'
 import { compile } from './orga'
 
-const preprocessSource: GatsbyNode['preprocessSource'] = async (
+const preprocessSource = async (
   { filename, contents, cache },
   pluginOptions
 ) => {
