@@ -1,0 +1,1692 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can handle table 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "attributes": Object {},
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 16,
+                      "line": 1,
+                      "offset": 15,
+                    },
+                    "start": Object {
+                      "column": 2,
+                      "line": 1,
+                      "offset": 1,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Name         ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 16,
+                  "line": 1,
+                  "offset": 15,
+                },
+                "start": Object {
+                  "column": 2,
+                  "line": 1,
+                  "offset": 1,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 29,
+                      "line": 1,
+                      "offset": 28,
+                    },
+                    "start": Object {
+                      "column": 17,
+                      "line": 1,
+                      "offset": 16,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Species    ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 29,
+                  "line": 1,
+                  "offset": 28,
+                },
+                "start": Object {
+                  "column": 17,
+                  "line": 1,
+                  "offset": 16,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 38,
+                      "line": 1,
+                      "offset": 37,
+                    },
+                    "start": Object {
+                      "column": 30,
+                      "line": 1,
+                      "offset": 29,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Gender ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 38,
+                  "line": 1,
+                  "offset": 37,
+                },
+                "start": Object {
+                  "column": 30,
+                  "line": 1,
+                  "offset": 29,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 53,
+                      "line": 1,
+                      "offset": 52,
+                    },
+                    "start": Object {
+                      "column": 39,
+                      "line": 1,
+                      "offset": 38,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Role         ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 53,
+                  "line": 1,
+                  "offset": 52,
+                },
+                "start": Object {
+                  "column": 39,
+                  "line": 1,
+                  "offset": 38,
+                },
+              },
+              "type": "table.cell",
+            },
+          ],
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 53,
+              "line": 1,
+              "offset": 52,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 1,
+              "offset": 1,
+            },
+          },
+          "type": "table.row",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 1,
+              "line": 3,
+              "offset": 108,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 54,
+            },
+          },
+          "type": "table.hr",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 16,
+                      "line": 3,
+                      "offset": 123,
+                    },
+                    "start": Object {
+                      "column": 2,
+                      "line": 3,
+                      "offset": 109,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Bruce Wayne  ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 16,
+                  "line": 3,
+                  "offset": 123,
+                },
+                "start": Object {
+                  "column": 2,
+                  "line": 3,
+                  "offset": 109,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 29,
+                      "line": 3,
+                      "offset": 136,
+                    },
+                    "start": Object {
+                      "column": 17,
+                      "line": 3,
+                      "offset": 124,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Human      ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 29,
+                  "line": 3,
+                  "offset": 136,
+                },
+                "start": Object {
+                  "column": 17,
+                  "line": 3,
+                  "offset": 124,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 38,
+                      "line": 3,
+                      "offset": 145,
+                    },
+                    "start": Object {
+                      "column": 30,
+                      "line": 3,
+                      "offset": 137,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " M      ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 38,
+                  "line": 3,
+                  "offset": 145,
+                },
+                "start": Object {
+                  "column": 30,
+                  "line": 3,
+                  "offset": 137,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 53,
+                      "line": 3,
+                      "offset": 160,
+                    },
+                    "start": Object {
+                      "column": 39,
+                      "line": 3,
+                      "offset": 146,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Batman       ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 53,
+                  "line": 3,
+                  "offset": 160,
+                },
+                "start": Object {
+                  "column": 39,
+                  "line": 3,
+                  "offset": 146,
+                },
+              },
+              "type": "table.cell",
+            },
+          ],
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 53,
+              "line": 3,
+              "offset": 160,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 3,
+              "offset": 109,
+            },
+          },
+          "type": "table.row",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 16,
+                      "line": 4,
+                      "offset": 177,
+                    },
+                    "start": Object {
+                      "column": 2,
+                      "line": 4,
+                      "offset": 163,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Clark Kent   ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 16,
+                  "line": 4,
+                  "offset": 177,
+                },
+                "start": Object {
+                  "column": 2,
+                  "line": 4,
+                  "offset": 163,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 29,
+                      "line": 4,
+                      "offset": 190,
+                    },
+                    "start": Object {
+                      "column": 17,
+                      "line": 4,
+                      "offset": 178,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Kryptonian ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 29,
+                  "line": 4,
+                  "offset": 190,
+                },
+                "start": Object {
+                  "column": 17,
+                  "line": 4,
+                  "offset": 178,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 38,
+                      "line": 4,
+                      "offset": 199,
+                    },
+                    "start": Object {
+                      "column": 30,
+                      "line": 4,
+                      "offset": 191,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " M      ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 38,
+                  "line": 4,
+                  "offset": 199,
+                },
+                "start": Object {
+                  "column": 30,
+                  "line": 4,
+                  "offset": 191,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 53,
+                      "line": 4,
+                      "offset": 214,
+                    },
+                    "start": Object {
+                      "column": 39,
+                      "line": 4,
+                      "offset": 200,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Superman     ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 53,
+                  "line": 4,
+                  "offset": 214,
+                },
+                "start": Object {
+                  "column": 39,
+                  "line": 4,
+                  "offset": 200,
+                },
+              },
+              "type": "table.cell",
+            },
+          ],
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 53,
+              "line": 4,
+              "offset": 214,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 4,
+              "offset": 163,
+            },
+          },
+          "type": "table.row",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 16,
+                      "line": 5,
+                      "offset": 231,
+                    },
+                    "start": Object {
+                      "column": 2,
+                      "line": 5,
+                      "offset": 217,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Diana Prince ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 16,
+                  "line": 5,
+                  "offset": 231,
+                },
+                "start": Object {
+                  "column": 2,
+                  "line": 5,
+                  "offset": 217,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 29,
+                      "line": 5,
+                      "offset": 244,
+                    },
+                    "start": Object {
+                      "column": 17,
+                      "line": 5,
+                      "offset": 232,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Amazonian  ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 29,
+                  "line": 5,
+                  "offset": 244,
+                },
+                "start": Object {
+                  "column": 17,
+                  "line": 5,
+                  "offset": 232,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 38,
+                      "line": 5,
+                      "offset": 253,
+                    },
+                    "start": Object {
+                      "column": 30,
+                      "line": 5,
+                      "offset": 245,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " F      ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 38,
+                  "line": 5,
+                  "offset": 253,
+                },
+                "start": Object {
+                  "column": 30,
+                  "line": 5,
+                  "offset": 245,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 53,
+                      "line": 5,
+                      "offset": 268,
+                    },
+                    "start": Object {
+                      "column": 39,
+                      "line": 5,
+                      "offset": 254,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Wonder Woman ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 53,
+                  "line": 5,
+                  "offset": 268,
+                },
+                "start": Object {
+                  "column": 39,
+                  "line": 5,
+                  "offset": 254,
+                },
+              },
+              "type": "table.cell",
+            },
+          ],
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 53,
+              "line": 5,
+              "offset": 268,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 5,
+              "offset": 217,
+            },
+          },
+          "type": "table.row",
+        },
+      ],
+      "parent": [Circular],
+      "position": Object {
+        "end": Object {
+          "column": 53,
+          "line": 5,
+          "offset": 268,
+        },
+        "start": Object {
+          "column": 2,
+          "line": 1,
+          "offset": 1,
+        },
+      },
+      "type": "table",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 53,
+      "line": 5,
+      "offset": 268,
+    },
+    "start": Object {
+      "column": 2,
+      "line": 1,
+      "offset": 1,
+    },
+  },
+  "properties": Object {},
+  "type": "document",
+}
+`;
+
+exports[`can handle table with inline style 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "attributes": Object {},
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 18,
+                      "line": 1,
+                      "offset": 17,
+                    },
+                    "start": Object {
+                      "column": 2,
+                      "line": 1,
+                      "offset": 1,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Name           ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 18,
+                  "line": 1,
+                  "offset": 17,
+                },
+                "start": Object {
+                  "column": 2,
+                  "line": 1,
+                  "offset": 1,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 33,
+                      "line": 1,
+                      "offset": 32,
+                    },
+                    "start": Object {
+                      "column": 19,
+                      "line": 1,
+                      "offset": 18,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Species      ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 33,
+                  "line": 1,
+                  "offset": 32,
+                },
+                "start": Object {
+                  "column": 19,
+                  "line": 1,
+                  "offset": 18,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 42,
+                      "line": 1,
+                      "offset": 41,
+                    },
+                    "start": Object {
+                      "column": 34,
+                      "line": 1,
+                      "offset": 33,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Gender ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 42,
+                  "line": 1,
+                  "offset": 41,
+                },
+                "start": Object {
+                  "column": 34,
+                  "line": 1,
+                  "offset": 33,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 57,
+                      "line": 1,
+                      "offset": 56,
+                    },
+                    "start": Object {
+                      "column": 43,
+                      "line": 1,
+                      "offset": 42,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Role         ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 57,
+                  "line": 1,
+                  "offset": 56,
+                },
+                "start": Object {
+                  "column": 43,
+                  "line": 1,
+                  "offset": 42,
+                },
+              },
+              "type": "table.cell",
+            },
+          ],
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 57,
+              "line": 1,
+              "offset": 56,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 1,
+              "offset": 1,
+            },
+          },
+          "type": "table.row",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 1,
+              "line": 3,
+              "offset": 116,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 58,
+            },
+          },
+          "type": "table.hr",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 3,
+                      "line": 3,
+                      "offset": 118,
+                    },
+                    "start": Object {
+                      "column": 2,
+                      "line": 3,
+                      "offset": 117,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 16,
+                      "line": 3,
+                      "offset": 131,
+                    },
+                    "start": Object {
+                      "column": 3,
+                      "line": 3,
+                      "offset": 118,
+                    },
+                  },
+                  "type": "text.bold",
+                  "value": "Bruce Wayne",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 18,
+                      "line": 3,
+                      "offset": 133,
+                    },
+                    "start": Object {
+                      "column": 16,
+                      "line": 3,
+                      "offset": 131,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": "  ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 18,
+                  "line": 3,
+                  "offset": 133,
+                },
+                "start": Object {
+                  "column": 2,
+                  "line": 3,
+                  "offset": 117,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 20,
+                      "line": 3,
+                      "offset": 135,
+                    },
+                    "start": Object {
+                      "column": 19,
+                      "line": 3,
+                      "offset": 134,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 25,
+                      "line": 3,
+                      "offset": 140,
+                    },
+                    "start": Object {
+                      "column": 20,
+                      "line": 3,
+                      "offset": 135,
+                    },
+                  },
+                  "type": "text.strikeThrough",
+                  "value": "Bat",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 33,
+                      "line": 3,
+                      "offset": 148,
+                    },
+                    "start": Object {
+                      "column": 25,
+                      "line": 3,
+                      "offset": 140,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " Human  ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 33,
+                  "line": 3,
+                  "offset": 148,
+                },
+                "start": Object {
+                  "column": 19,
+                  "line": 3,
+                  "offset": 134,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 42,
+                      "line": 3,
+                      "offset": 157,
+                    },
+                    "start": Object {
+                      "column": 34,
+                      "line": 3,
+                      "offset": 149,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " M      ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 42,
+                  "line": 3,
+                  "offset": 157,
+                },
+                "start": Object {
+                  "column": 34,
+                  "line": 3,
+                  "offset": 149,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 44,
+                      "line": 3,
+                      "offset": 159,
+                    },
+                    "start": Object {
+                      "column": 43,
+                      "line": 3,
+                      "offset": 158,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+                Object {
+                  "description": "Batman",
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 92,
+                      "line": 3,
+                      "offset": 207,
+                    },
+                    "start": Object {
+                      "column": 44,
+                      "line": 3,
+                      "offset": 159,
+                    },
+                  },
+                  "protocol": "https",
+                  "search": undefined,
+                  "type": "link",
+                  "value": "https://en.wikipedia.org/wiki/Batman",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 99,
+                      "line": 3,
+                      "offset": 214,
+                    },
+                    "start": Object {
+                      "column": 92,
+                      "line": 3,
+                      "offset": 207,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": "       ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 99,
+                  "line": 3,
+                  "offset": 214,
+                },
+                "start": Object {
+                  "column": 43,
+                  "line": 3,
+                  "offset": 158,
+                },
+              },
+              "type": "table.cell",
+            },
+          ],
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 99,
+              "line": 3,
+              "offset": 214,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 3,
+              "offset": 117,
+            },
+          },
+          "type": "table.row",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 3,
+                      "line": 4,
+                      "offset": 218,
+                    },
+                    "start": Object {
+                      "column": 2,
+                      "line": 4,
+                      "offset": 217,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 15,
+                      "line": 4,
+                      "offset": 230,
+                    },
+                    "start": Object {
+                      "column": 3,
+                      "line": 4,
+                      "offset": 218,
+                    },
+                  },
+                  "type": "text.underline",
+                  "value": "Clark Kent",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 18,
+                      "line": 4,
+                      "offset": 233,
+                    },
+                    "start": Object {
+                      "column": 15,
+                      "line": 4,
+                      "offset": 230,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": "   ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 18,
+                  "line": 4,
+                  "offset": 233,
+                },
+                "start": Object {
+                  "column": 2,
+                  "line": 4,
+                  "offset": 217,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 20,
+                      "line": 4,
+                      "offset": 235,
+                    },
+                    "start": Object {
+                      "column": 19,
+                      "line": 4,
+                      "offset": 234,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 32,
+                      "line": 4,
+                      "offset": 247,
+                    },
+                    "start": Object {
+                      "column": 20,
+                      "line": 4,
+                      "offset": 235,
+                    },
+                  },
+                  "type": "text.verbatim",
+                  "value": "Kryptonian",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 33,
+                      "line": 4,
+                      "offset": 248,
+                    },
+                    "start": Object {
+                      "column": 32,
+                      "line": 4,
+                      "offset": 247,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 33,
+                  "line": 4,
+                  "offset": 248,
+                },
+                "start": Object {
+                  "column": 19,
+                  "line": 4,
+                  "offset": 234,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 42,
+                      "line": 4,
+                      "offset": 257,
+                    },
+                    "start": Object {
+                      "column": 34,
+                      "line": 4,
+                      "offset": 249,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " M      ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 42,
+                  "line": 4,
+                  "offset": 257,
+                },
+                "start": Object {
+                  "column": 34,
+                  "line": 4,
+                  "offset": 249,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 44,
+                      "line": 4,
+                      "offset": 259,
+                    },
+                    "start": Object {
+                      "column": 43,
+                      "line": 4,
+                      "offset": 258,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+                Object {
+                  "description": "Superman",
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 96,
+                      "line": 4,
+                      "offset": 311,
+                    },
+                    "start": Object {
+                      "column": 44,
+                      "line": 4,
+                      "offset": 259,
+                    },
+                  },
+                  "protocol": "https",
+                  "search": undefined,
+                  "type": "link",
+                  "value": "https://en.wikipedia.org/wiki/Superman",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 101,
+                      "line": 4,
+                      "offset": 316,
+                    },
+                    "start": Object {
+                      "column": 96,
+                      "line": 4,
+                      "offset": 311,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": "     ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 101,
+                  "line": 4,
+                  "offset": 316,
+                },
+                "start": Object {
+                  "column": 43,
+                  "line": 4,
+                  "offset": 258,
+                },
+              },
+              "type": "table.cell",
+            },
+          ],
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 101,
+              "line": 4,
+              "offset": 316,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 4,
+              "offset": 217,
+            },
+          },
+          "type": "table.row",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 3,
+                      "line": 5,
+                      "offset": 320,
+                    },
+                    "start": Object {
+                      "column": 2,
+                      "line": 5,
+                      "offset": 319,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 17,
+                      "line": 5,
+                      "offset": 334,
+                    },
+                    "start": Object {
+                      "column": 3,
+                      "line": 5,
+                      "offset": 320,
+                    },
+                  },
+                  "type": "text.italic",
+                  "value": "Diana Prince",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 18,
+                      "line": 5,
+                      "offset": 335,
+                    },
+                    "start": Object {
+                      "column": 17,
+                      "line": 5,
+                      "offset": 334,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 18,
+                  "line": 5,
+                  "offset": 335,
+                },
+                "start": Object {
+                  "column": 2,
+                  "line": 5,
+                  "offset": 319,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 20,
+                      "line": 5,
+                      "offset": 337,
+                    },
+                    "start": Object {
+                      "column": 19,
+                      "line": 5,
+                      "offset": 336,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 31,
+                      "line": 5,
+                      "offset": 348,
+                    },
+                    "start": Object {
+                      "column": 20,
+                      "line": 5,
+                      "offset": 337,
+                    },
+                  },
+                  "type": "text.code",
+                  "value": "Amazonian",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 33,
+                      "line": 5,
+                      "offset": 350,
+                    },
+                    "start": Object {
+                      "column": 31,
+                      "line": 5,
+                      "offset": 348,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": "  ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 33,
+                  "line": 5,
+                  "offset": 350,
+                },
+                "start": Object {
+                  "column": 19,
+                  "line": 5,
+                  "offset": 336,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 42,
+                      "line": 5,
+                      "offset": 359,
+                    },
+                    "start": Object {
+                      "column": 34,
+                      "line": 5,
+                      "offset": 351,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " F      ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 42,
+                  "line": 5,
+                  "offset": 359,
+                },
+                "start": Object {
+                  "column": 34,
+                  "line": 5,
+                  "offset": 351,
+                },
+              },
+              "type": "table.cell",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 44,
+                      "line": 5,
+                      "offset": 361,
+                    },
+                    "start": Object {
+                      "column": 43,
+                      "line": 5,
+                      "offset": 360,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+                Object {
+                  "description": "Wonder Woman",
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 104,
+                      "line": 5,
+                      "offset": 421,
+                    },
+                    "start": Object {
+                      "column": 44,
+                      "line": 5,
+                      "offset": 361,
+                    },
+                  },
+                  "protocol": "https",
+                  "search": undefined,
+                  "type": "link",
+                  "value": "https://en.wikipedia.org/wiki/Wonder_Woman",
+                },
+                Object {
+                  "parent": [Circular],
+                  "position": Object {
+                    "end": Object {
+                      "column": 105,
+                      "line": 5,
+                      "offset": 422,
+                    },
+                    "start": Object {
+                      "column": 104,
+                      "line": 5,
+                      "offset": 421,
+                    },
+                  },
+                  "type": "text.plain",
+                  "value": " ",
+                },
+              ],
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 105,
+                  "line": 5,
+                  "offset": 422,
+                },
+                "start": Object {
+                  "column": 43,
+                  "line": 5,
+                  "offset": 360,
+                },
+              },
+              "type": "table.cell",
+            },
+          ],
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 105,
+              "line": 5,
+              "offset": 422,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 5,
+              "offset": 319,
+            },
+          },
+          "type": "table.row",
+        },
+      ],
+      "parent": [Circular],
+      "position": Object {
+        "end": Object {
+          "column": 105,
+          "line": 5,
+          "offset": 422,
+        },
+        "start": Object {
+          "column": 2,
+          "line": 1,
+          "offset": 1,
+        },
+      },
+      "type": "table",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 105,
+      "line": 5,
+      "offset": 422,
+    },
+    "start": Object {
+      "column": 2,
+      "line": 1,
+      "offset": 1,
+    },
+  },
+  "properties": Object {},
+  "type": "document",
+}
+`;

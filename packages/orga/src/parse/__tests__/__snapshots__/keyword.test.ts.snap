@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can handle TODO keywords 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "actionable": true,
+          "children": Array [
+            Object {
+              "level": 1,
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 2,
+                  "line": 3,
+                  "offset": 27,
+                },
+                "start": Object {
+                  "column": 1,
+                  "line": 3,
+                  "offset": 26,
+                },
+              },
+              "type": "stars",
+            },
+            Object {
+              "actionable": true,
+              "keyword": "NEXT",
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 7,
+                  "line": 3,
+                  "offset": 32,
+                },
+                "start": Object {
+                  "column": 3,
+                  "line": 3,
+                  "offset": 28,
+                },
+              },
+              "type": "todo",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 21,
+                  "line": 3,
+                  "offset": 46,
+                },
+                "start": Object {
+                  "column": 8,
+                  "line": 3,
+                  "offset": 33,
+                },
+              },
+              "type": "text.plain",
+              "value": "Some Headline",
+            },
+          ],
+          "content": "Some Headline",
+          "keyword": "NEXT",
+          "level": 1,
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 21,
+              "line": 3,
+              "offset": 46,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 3,
+              "offset": 26,
+            },
+          },
+          "type": "headline",
+        },
+      ],
+      "level": 1,
+      "parent": [Circular],
+      "position": Object {
+        "end": Object {
+          "column": 21,
+          "line": 3,
+          "offset": 46,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 3,
+          "offset": 26,
+        },
+      },
+      "properties": Object {},
+      "type": "section",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 21,
+      "line": 3,
+      "offset": 46,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 3,
+      "offset": 26,
+    },
+  },
+  "properties": Object {},
+  "type": "document",
+}
+`;
+
+exports[`can handle multiple TODO keywords 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "actionable": true,
+          "children": Array [
+            Object {
+              "level": 1,
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 2,
+                  "line": 5,
+                  "offset": 78,
+                },
+                "start": Object {
+                  "column": 1,
+                  "line": 5,
+                  "offset": 77,
+                },
+              },
+              "type": "stars",
+            },
+            Object {
+              "actionable": true,
+              "keyword": "DRAFT",
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 8,
+                  "line": 5,
+                  "offset": 84,
+                },
+                "start": Object {
+                  "column": 3,
+                  "line": 5,
+                  "offset": 79,
+                },
+              },
+              "type": "todo",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 22,
+                  "line": 5,
+                  "offset": 98,
+                },
+                "start": Object {
+                  "column": 9,
+                  "line": 5,
+                  "offset": 85,
+                },
+              },
+              "type": "text.plain",
+              "value": "Some Headline",
+            },
+          ],
+          "content": "Some Headline",
+          "keyword": "DRAFT",
+          "level": 1,
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 22,
+              "line": 5,
+              "offset": 98,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 5,
+              "offset": 77,
+            },
+          },
+          "type": "headline",
+        },
+      ],
+      "level": 1,
+      "parent": [Circular],
+      "position": Object {
+        "end": Object {
+          "column": 22,
+          "line": 5,
+          "offset": 98,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 77,
+        },
+      },
+      "properties": Object {},
+      "type": "section",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 22,
+      "line": 5,
+      "offset": 98,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 5,
+      "offset": 77,
+    },
+  },
+  "properties": Object {},
+  "type": "document",
+}
+`;

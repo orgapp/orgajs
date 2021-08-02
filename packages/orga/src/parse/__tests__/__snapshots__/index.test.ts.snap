@@ -1,0 +1,436 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`works 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "actionable": true,
+          "children": Array [
+            Object {
+              "level": 1,
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 2,
+                  "line": 5,
+                  "offset": 67,
+                },
+                "start": Object {
+                  "column": 1,
+                  "line": 5,
+                  "offset": 66,
+                },
+              },
+              "type": "stars",
+            },
+            Object {
+              "actionable": true,
+              "keyword": "NEXT",
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 7,
+                  "line": 5,
+                  "offset": 72,
+                },
+                "start": Object {
+                  "column": 3,
+                  "line": 5,
+                  "offset": 68,
+                },
+              },
+              "type": "todo",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 20,
+                  "line": 5,
+                  "offset": 85,
+                },
+                "start": Object {
+                  "column": 8,
+                  "line": 5,
+                  "offset": 73,
+                },
+              },
+              "type": "text.plain",
+              "value": "headline one",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 1,
+                  "line": 6,
+                  "offset": 86,
+                },
+                "start": Object {
+                  "column": 20,
+                  "line": 5,
+                  "offset": 85,
+                },
+              },
+              "type": "newline",
+            },
+          ],
+          "content": "headline one",
+          "keyword": "NEXT",
+          "level": 1,
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 1,
+              "line": 6,
+              "offset": 86,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 5,
+              "offset": 66,
+            },
+          },
+          "type": "headline",
+        },
+        Object {
+          "keyword": "DEADLINE",
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 27,
+              "line": 6,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 6,
+            },
+          },
+          "timestamp": Object {
+            "date": 2017-12-31T11:00:00.000Z,
+            "end": undefined,
+          },
+          "type": "planning",
+        },
+        Object {
+          "name": "PROPERTIES",
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 6,
+              "line": 10,
+              "offset": 153,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 7,
+              "offset": 113,
+            },
+          },
+          "type": "drawer",
+          "value": "key: value
+key: value",
+        },
+        Object {
+          "attributes": Object {},
+          "children": Array [
+            Object {
+              "description": "Here's",
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 49,
+                  "line": 12,
+                  "offset": 203,
+                },
+                "start": Object {
+                  "column": 1,
+                  "line": 12,
+                  "offset": 155,
+                },
+              },
+              "protocol": "https",
+              "search": undefined,
+              "type": "link",
+              "value": "https://github.com/xiaoxinghu/orgajs",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 57,
+                  "line": 12,
+                  "offset": 211,
+                },
+                "start": Object {
+                  "column": 49,
+                  "line": 12,
+                  "offset": 203,
+                },
+              },
+              "type": "text.plain",
+              "value": " to the ",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 64,
+                  "line": 12,
+                  "offset": 218,
+                },
+                "start": Object {
+                  "column": 57,
+                  "line": 12,
+                  "offset": 211,
+                },
+              },
+              "type": "text.bold",
+              "value": "crazy",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 75,
+                  "line": 12,
+                  "offset": 229,
+                },
+                "start": Object {
+                  "column": 64,
+                  "line": 12,
+                  "offset": 218,
+                },
+              },
+              "type": "text.plain",
+              "value": " ones, the ",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 84,
+                  "line": 12,
+                  "offset": 238,
+                },
+                "start": Object {
+                  "column": 75,
+                  "line": 12,
+                  "offset": 229,
+                },
+              },
+              "type": "text.italic",
+              "value": "misfits",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 90,
+                  "line": 12,
+                  "offset": 244,
+                },
+                "start": Object {
+                  "column": 84,
+                  "line": 12,
+                  "offset": 238,
+                },
+              },
+              "type": "text.plain",
+              "value": ", the ",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 98,
+                  "line": 12,
+                  "offset": 252,
+                },
+                "start": Object {
+                  "column": 90,
+                  "line": 12,
+                  "offset": 244,
+                },
+              },
+              "type": "text.underline",
+              "value": "rebels",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 104,
+                  "line": 12,
+                  "offset": 258,
+                },
+                "start": Object {
+                  "column": 98,
+                  "line": 12,
+                  "offset": 252,
+                },
+              },
+              "type": "text.plain",
+              "value": ", the ",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 119,
+                  "line": 12,
+                  "offset": 273,
+                },
+                "start": Object {
+                  "column": 104,
+                  "line": 12,
+                  "offset": 258,
+                },
+              },
+              "type": "text.code",
+              "value": "troublemakers",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 120,
+                  "line": 12,
+                  "offset": 274,
+                },
+                "start": Object {
+                  "column": 119,
+                  "line": 12,
+                  "offset": 273,
+                },
+              },
+              "type": "text.plain",
+              "value": ",",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 1,
+                  "line": 13,
+                  "offset": 275,
+                },
+                "start": Object {
+                  "column": 120,
+                  "line": 12,
+                  "offset": 274,
+                },
+              },
+              "type": "text.plain",
+              "value": " ",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 23,
+                  "line": 13,
+                  "offset": 297,
+                },
+                "start": Object {
+                  "column": 1,
+                  "line": 13,
+                  "offset": 275,
+                },
+              },
+              "type": "text.plain",
+              "value": "the round pegs in the ",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 30,
+                  "line": 13,
+                  "offset": 304,
+                },
+                "start": Object {
+                  "column": 23,
+                  "line": 13,
+                  "offset": 297,
+                },
+              },
+              "type": "text.strikeThrough",
+              "value": "round",
+            },
+            Object {
+              "parent": [Circular],
+              "position": Object {
+                "end": Object {
+                  "column": 46,
+                  "line": 13,
+                  "offset": 320,
+                },
+                "start": Object {
+                  "column": 30,
+                  "line": 13,
+                  "offset": 304,
+                },
+              },
+              "type": "text.plain",
+              "value": " square holes...",
+            },
+          ],
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 46,
+              "line": 13,
+              "offset": 320,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 12,
+              "offset": 155,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "level": 1,
+      "parent": [Circular],
+      "position": Object {
+        "end": Object {
+          "column": 46,
+          "line": 13,
+          "offset": 320,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 66,
+        },
+      },
+      "properties": Object {
+        "date": "2018-01-01",
+        "title": "hello world",
+      },
+      "type": "section",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 46,
+      "line": 13,
+      "offset": 320,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 5,
+      "offset": 66,
+    },
+  },
+  "properties": Object {
+    "date": "2018-01-01",
+    "title": "hello world",
+  },
+  "type": "document",
+}
+`;

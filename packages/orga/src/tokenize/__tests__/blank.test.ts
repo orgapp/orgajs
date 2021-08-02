@@ -1,7 +1,7 @@
 import tok from './tok'
 
-describe('Tokenize Blanks', () => {
-  it('knows blank', () => {
+describe('tokenize blanks', () => {
+  it('could handle blanks', () => {
     expect(tok('')).toMatchInlineSnapshot(`Array []`)
     expect(tok(' ')).toMatchInlineSnapshot(`Array []`)
     expect(tok('    ')).toMatchInlineSnapshot(`Array []`)
