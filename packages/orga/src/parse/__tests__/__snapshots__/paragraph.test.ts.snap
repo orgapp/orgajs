@@ -197,8 +197,7 @@ Object {
               "offset": 159,
             },
           },
-          "type": "text.plain",
-          "value": " ",
+          "type": "newline",
         },
         Object {
           "parent": [Circular],
@@ -251,13 +250,29 @@ Object {
           "type": "text.plain",
           "value": " square holes...",
         },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 1,
+              "line": 5,
+              "offset": 206,
+            },
+            "start": Object {
+              "column": 46,
+              "line": 4,
+              "offset": 205,
+            },
+          },
+          "type": "newline",
+        },
       ],
       "parent": [Circular],
       "position": Object {
         "end": Object {
           "column": 1,
-          "line": 6,
-          "offset": 207,
+          "line": 5,
+          "offset": 206,
         },
         "start": Object {
           "column": 1,
@@ -294,6 +309,22 @@ Object {
           "type": "link",
           "value": "logo.png",
         },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 19,
+              "line": 7,
+              "offset": 249,
+            },
+            "start": Object {
+              "column": 18,
+              "line": 7,
+              "offset": 248,
+            },
+          },
+          "type": "newline",
+        },
       ],
       "parent": [Circular],
       "position": Object {
@@ -319,8 +350,7 @@ Object {
     },
     "start": Object {
       "column": 1,
-      "line": 3,
-      "offset": 40,
+      "line": 1,
     },
   },
   "properties": Object {},

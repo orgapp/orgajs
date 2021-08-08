@@ -1,48 +1,66 @@
-import { push } from '../node'
-import { Lexer } from '../tokenize'
-import { Headline } from '../types'
+import { Action } from '.'
+import { Headline, Priority, Stars, Tags, Todo } from '../types'
+import { isPhrasingContent } from '../utils'
 
-export default (lexer: Lexer): Headline => {
-  const { peek, eat } = lexer
+const headline: Action = (token: Stars, context) => {
+  const { enter } = context
 
-  const parse = (headline: Headline): Headline => {
-    const a = push(headline)
-
-    const token = peek()
-    if (!token) return headline
-    if (token.type === 'newline') {
-      push(headline)(token)
-      eat()
-      return headline
-    }
-
-    if (token.type === 'stars') {
-      headline.level = token.level
-    }
-
-    if (token.type === 'todo') {
-      headline.keyword = token.keyword
-      headline.actionable = token.actionable
-    }
-
-    if ('value' in token) {
-      headline.content += token.value
-    }
-
-    if (token.type === 'tags') {
-      headline.tags = token.tags
-    }
-
-    a(token)
-    eat()
-    return parse(headline)
-  }
-
-  return parse({
+  const headline: Headline = enter({
     type: 'headline',
     actionable: false,
     content: '',
     children: [],
-    level: -1,
+    level: token.level || context.level,
   })
+
+  return {
+    name: 'headline',
+    rules: [
+      {
+        test: 'newline',
+        action: (_, { push, exit, lexer }) => {
+          push(lexer.eat())
+          exit(headline.type)
+          return 'break'
+        },
+      },
+      {
+        test: 'todo',
+        action: (token: Todo) => {
+          headline.keyword = token.keyword
+          headline.actionable = token.actionable
+          return 'next'
+        },
+      },
+      {
+        test: 'tags',
+        action: (token: Tags) => {
+          headline.tags = token.tags
+          return 'next'
+        },
+      },
+      {
+        test: 'priority',
+        action: (token: Priority) => {
+          headline.priority = token.value
+          return 'next'
+        },
+      },
+      {
+        test: isPhrasingContent,
+        action: (token) => {
+          headline.content += `${token.value}`
+          return 'next'
+        },
+      },
+      {
+        test: /.*/,
+        action: (_, { push, lexer }) => {
+          push(lexer.eat())
+        },
+      },
+    ],
+  }
 }
+
+export default headline

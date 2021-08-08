@@ -1,16 +1,65 @@
-import { push } from '../node'
-import { Lexer } from '../tokenize'
-import { List, ListItem, ListItemBullet } from '../types'
+import { Action, Handler, not } from '.'
+import { ListItem, ListItemBullet, ListItemTag } from '../types'
+import { isPhrasingContent } from '../utils'
 
-export default (lexer: Lexer): List | undefined => {
-  const { peek, eat } = lexer
-
-  const token = peek()
-  if (!token || token.type !== 'list.item.bullet') return undefined
+const listItem: Action = (token: ListItemBullet, { enter, consume }) => {
+  const item: ListItem = enter({
+    type: 'list.item',
+    indent: token.indent,
+    children: [],
+  })
+  consume()
 
   let eolCount = 0
 
-  const newList = (token: ListItemBullet): List => ({
+  return {
+    name: 'list item',
+    rules: [
+      {
+        test: not('newline'),
+        action: () => {
+          eolCount = 0
+          return 'next'
+        },
+      },
+      {
+        test: 'newline',
+        action: (_, { exit, consume }) => {
+          eolCount += 1
+          if (eolCount > 1) {
+            exit(item.type)
+            return 'break'
+          }
+          consume()
+        },
+      },
+      {
+        test: 'list.item.tag',
+        action: (token: ListItemTag, { consume }) => {
+          item.tag = token.value
+          consume()
+        },
+      },
+      {
+        test: 'list.item.checkbox',
+        action: (_, { consume }) => {
+          consume()
+        },
+      },
+      { test: isPhrasingContent, action: (_, { consume }) => consume() },
+      {
+        test: /.*/,
+        action: (_, { exit }) => {
+          exit('list.item')
+          return 'break'
+        },
+      },
+    ],
+  }
+}
+
+const list: Action = (token: ListItemBullet, context) => {
+  context.enter({
     type: 'list',
     indent: token.indent,
     ordered: token.ordered,
@@ -18,46 +67,44 @@ export default (lexer: Lexer): List | undefined => {
     attributes: {},
   })
 
-  const parseListItem = (listItem: ListItem): ListItem => {
-    const token = peek()
-    if (!token || token.type === 'newline') return listItem
+  const indent = token.indent
 
-    if (token.type === 'list.item.tag') {
-      listItem.tag = token.value
-    } else {
-      push(listItem)(token)
-    }
+  const handler: Handler = {
+    name: 'list',
+    rules: [
+      {
+        test: 'stars',
+        action: (_, { exit }) => {
+          exit('list')
+          return 'break'
+        },
+      },
+      {
+        test: 'newline',
+        action: (_, { exit, lexer }) => {
+          exit('list')
+          return 'break'
+        },
+      },
+      {
+        test: 'list.item.bullet',
+        action: (token: ListItemBullet, context) => {
+          const { exit } = context
 
-    eat()
-    return parseListItem(listItem)
+          if (indent > token.indent) {
+            exit('list')
+            return 'break'
+          } else if (indent === token.indent) {
+            return listItem(token, context)
+          } else {
+            return list(token, context)
+          }
+        },
+      },
+    ],
   }
 
-  const parse = (list: List): List => {
-    const token = peek()
-    if (!token || token.type === 'stars' || eolCount > 1) return list
-    if (token.type === 'newline') {
-      eat()
-      eolCount += 1
-      return parse(list)
-    }
-
-    eolCount = 0
-
-    if (token.type !== 'list.item.bullet' || list.indent > token.indent) {
-      return list
-    }
-    if (list.indent < token.indent) {
-      push(list)(parse(newList(token)))
-    } else {
-      const li = parseListItem({
-        type: 'list.item',
-        indent: token.indent,
-        children: [],
-      })
-      push(list)(li)
-    }
-    return parse(list)
-  }
-
-  return parse(newList(token))
+  return handler
 }
+
+export default list

@@ -36,5 +36,7 @@ export const debug = (text: string) => {
 }
 
 export const parse = (text: string) => {
-  return _parse(tokenize(text, { timezone: 'Pacific/Auckland' }))
+  const lexer = tokenize(text, { timezone: 'Pacific/Auckland' })
+  // console.log({ tokens: lexer.all() })
+  return _parse(lexer)
 }

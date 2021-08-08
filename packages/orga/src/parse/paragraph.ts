@@ -1,13 +1,122 @@
+import { Action, Handler, not } from '.'
 import { push } from '../node'
-import { FootnoteReference, Paragraph, PhrasingContent, Token } from '../types'
-import { isPhrasingContent } from '../utils'
 import { Lexer } from '../tokenize'
+import {
+  FootnoteInlineBegin,
+  FootnoteReference,
+  Paragraph,
+  PhrasingContent,
+  Token,
+} from '../types'
+import { clone, isPhrasingContent } from '../utils'
 
-const isWhitespaces = (node) => {
-  return node.type === 'text.plain' && node.value.trim().length === 0
+const isWhitespaces = (node: Token) => {
+  return (
+    (node.type === 'text.plain' && node.value.trim().length === 0) ||
+    node.type === 'newline'
+  )
 }
 
-export default function paragraph(lexer: Lexer): Paragraph | undefined {
+const footnote: Action = (token: FootnoteInlineBegin, { enter, lexer }) => {
+  enter({
+    type: 'footnote.reference',
+    label: token.label,
+    children: [],
+  })
+  lexer.eat()
+
+  return {
+    name: 'footnote',
+    rules: [
+      {
+        test: 'footnote.inline.begin',
+        action: (token, context) => {
+          return footnote(token, context)
+        },
+      },
+      {
+        test: 'footnote.reference.end',
+        action: (_, { push, lexer, exit }) => {
+          push(lexer.eat())
+          exit('footnote.reference')
+          return 'break'
+        },
+      },
+      {
+        test: /.*/,
+        action: (token, { restore, lexer }) => {
+          restore()
+        },
+      },
+    ],
+  }
+}
+
+const paragraph: Action = (
+  _,
+  { save, enter, restore, exit, attributes }
+): Handler => {
+  save()
+  let eolCount = 0
+  const paragraph = enter({
+    type: 'paragraph',
+    children: [],
+    attributes: clone(attributes),
+  })
+
+  const finish = () => {
+    if (
+      paragraph.children.length === 0 ||
+      paragraph.children.every(isWhitespaces)
+    ) {
+      restore()
+    } else {
+      exit('paragraph')
+    }
+  }
+
+  return {
+    name: 'paragraph',
+    rules: [
+      {
+        test: 'newline',
+        action: (_, { push, exit, lexer: { eat } }) => {
+          eolCount += 1
+          if (eolCount >= 2) {
+            finish()
+            return 'break'
+          }
+          return 'next'
+        },
+      },
+      {
+        test: not('newline'),
+        action: () => {
+          eolCount = 0
+          return 'next'
+        },
+      },
+      {
+        test: isPhrasingContent,
+        action: (_, { push, lexer: { eat } }) => {
+          push(eat())
+        },
+      },
+      // catch all
+      {
+        test: /.*/,
+        action: () => {
+          finish()
+          return 'break'
+        },
+      },
+    ],
+  }
+}
+
+export default paragraph
+
+const old = (lexer: Lexer): Paragraph | undefined => {
   const { peek, eat } = lexer
   let eolCount = 0
 

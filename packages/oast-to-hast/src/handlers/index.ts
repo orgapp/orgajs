@@ -24,6 +24,10 @@ export default {
   'text.verbatim': verbatim,
   'text.strikeThrough': strikeThrough,
   'text.underline': underline,
+  newline:
+    ({ u }) =>
+    () =>
+      u('text', ' '),
   paragraph,
   link,
   block,

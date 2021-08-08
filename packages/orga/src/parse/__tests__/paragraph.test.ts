@@ -1,5 +1,5 @@
+import { Position } from 'unist'
 import { tokenize } from '../../tokenize'
-import { parse } from '../index'
 import {
   Document,
   Headline,
@@ -7,8 +7,7 @@ import {
   Section,
   Stars,
 } from '../../types'
-import debug from './debug'
-import { Position } from 'unist'
+import { parse } from '../index'
 
 describe('Parse Paragraph', () => {
   it('works', () => {

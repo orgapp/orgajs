@@ -13,7 +13,7 @@ console.log('world')
   ).toMatchSnapshot()
 })
 
-it('should handle broken blocks (missing end)', () => {
+it.only('should handle broken blocks (missing end)', () => {
   expect(
     parse(
       `

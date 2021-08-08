@@ -1,78 +1,92 @@
-import { Position } from 'unist'
-import { Block } from '../types'
-import { Lexer } from '../tokenize'
+import { Action, Handler } from '.'
+import { BlockBegin, BlockEnd } from '../types'
 
-export default (lexer: Lexer): Block | undefined => {
-  const { peek, eat, substring } = lexer
+/*
+ * find the indentation of the block and apply it to
+ * the rest of the block.
+ *
+ * The indentation of the first non-blank line is used as standard.
+ * The following lines use the lesser one between its own
+ * indentation and the standard. Leading and trailing blank lines
+ * are omitted.
+ */
+const align = (content: string) => {
+  let indent = -1
+  return content
+    .trimRight()
+    .split('\n')
+    .map((line) => {
+      const _indent = line.search(/\S/)
+      if (indent === -1) {
+        indent = _indent
+      }
+      if (indent === -1) return ''
+      return line.substring(Math.min(_indent, indent))
+    })
+    .join('\n')
+    .trim()
+}
 
-  const begin = peek()
+const block: Action = (
+  begin: BlockBegin,
+  { save, push, enter, lexer }
+): Handler => {
+  save()
+  const contentStart = begin.position.end
+  const blockName = begin.name.toLowerCase()
 
-  if (!begin || begin.type !== 'block.begin') return undefined
-
-  const block: Block = {
+  const block = enter({
     type: 'block',
     name: begin.name,
     params: begin.params,
-    position: begin.position,
     value: '',
     attributes: {},
-  }
-  // const a = push(block)
-  // a(n)
-  eat()
-  let contentStart = begin.position.end
-  const nl = eat('newline')
-  if (nl) {
-    contentStart = nl.position.end
-  }
-  eat('newline')
+    children: [],
+  })
+  push(lexer.eat())
 
-  const range: Position = {
-    start: contentStart,
-    end: begin.position.end,
+  return {
+    name: 'block',
+    rules: [
+      {
+        test: 'newline',
+        action: (_, { restore }) => {
+          return 'next'
+        },
+      },
+      {
+        test: 'block.end',
+        action: (token: BlockEnd, { exit, push, lexer }) => {
+          const { eat } = lexer
+          if (token.name.toLowerCase() !== blockName) return 'next'
+          block.value = align(
+            lexer.substring({
+              start: contentStart,
+              end: token.position.start,
+            })
+          )
+          push(eat())
+          eat('newline')
+          exit('block')
+          return 'break'
+        },
+      },
+      {
+        test: ['stars', 'EOF'],
+        action: (token, { restore, lexer }) => {
+          console.log(`>> got ${token}`)
+          restore()
+          lexer.modify((t) => ({
+            type: 'text.plain',
+            value: lexer.substring(t.position),
+            position: t.position,
+          }))
+          return 'break'
+        },
+      },
+      { test: /./, action: (_, { push, lexer }) => push(lexer.eat()) },
+    ],
   }
-
-  /*
-   * find the indentation of the block and apply it to
-   * the rest of the block.
-   *
-   * The indentation of the first non-blank line is used as standard.
-   * The following lines use the lesser one between its own
-   * indentation and the standard. Leading and trailing blank lines
-   * are omitted.
-   */
-  const align = (content: string) => {
-    let indent = -1
-    return content
-      .trimRight()
-      .split('\n')
-      .map((line) => {
-        const _indent = line.search(/\S/)
-        if (indent === -1) {
-          indent = _indent
-        }
-        if (indent === -1) return ''
-        return line.substring(Math.min(_indent, indent))
-      })
-      .join('\n')
-  }
-
-  const parse = (): Block | undefined => {
-    const n = peek()
-    if (!n || n.type === 'stars') return undefined
-    eat()
-    if (
-      n.type === 'block.end' &&
-      n.name.toLowerCase() === begin.name.toLowerCase()
-    ) {
-      range.end = n.position.start
-      eat('newline')
-      block.value = align(substring(range))
-      block.position.end = n.position.end
-      return block
-    }
-    return parse()
-  }
-
-  return parse()
 }
+
+export default block

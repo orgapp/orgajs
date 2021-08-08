@@ -106,8 +106,8 @@ Object {
     },
     "start": Object {
       "column": 1,
-      "line": 3,
-      "offset": 26,
+      "line": 1,
+      "offset": 0,
     },
   },
   "properties": Object {},
@@ -221,8 +221,8 @@ Object {
     },
     "start": Object {
       "column": 1,
-      "line": 5,
-      "offset": 77,
+      "line": 1,
+      "offset": 0,
     },
   },
   "properties": Object {},
