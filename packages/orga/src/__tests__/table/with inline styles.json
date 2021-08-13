@@ -1,0 +1,1178 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "table",
+      "children": [
+        {
+          "type": "table.row",
+          "children": [
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " Name           ",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 2,
+                      "offset": 1
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 18,
+                      "offset": 17
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 2,
+                  "offset": 1
+                },
+                "end": {
+                  "line": 1,
+                  "column": 18,
+                  "offset": 17
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 18,
+                  "offset": 17
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19,
+                  "offset": 18
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " Species      ",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 19,
+                      "offset": 18
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 33,
+                      "offset": 32
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 19,
+                  "offset": 18
+                },
+                "end": {
+                  "line": 1,
+                  "column": 33,
+                  "offset": 32
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 33,
+                  "offset": 32
+                },
+                "end": {
+                  "line": 1,
+                  "column": 34,
+                  "offset": 33
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " Gender ",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 34,
+                      "offset": 33
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 42,
+                      "offset": 41
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 34,
+                  "offset": 33
+                },
+                "end": {
+                  "line": 1,
+                  "column": 42,
+                  "offset": 41
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 42,
+                  "offset": 41
+                },
+                "end": {
+                  "line": 1,
+                  "column": 43,
+                  "offset": 42
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " Role         ",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 43,
+                      "offset": 42
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 57,
+                      "offset": 56
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 43,
+                  "offset": 42
+                },
+                "end": {
+                  "line": 1,
+                  "column": 57,
+                  "offset": 56
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 57,
+                  "offset": 56
+                },
+                "end": {
+                  "line": 1,
+                  "column": 58,
+                  "offset": 57
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1
+            },
+            "end": {
+              "line": 2,
+              "column": 1,
+              "offset": 58
+            }
+          }
+        },
+        {
+          "type": "table.hr",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1,
+              "offset": 58
+            },
+            "end": {
+              "line": 3,
+              "column": 1,
+              "offset": 116
+            }
+          }
+        },
+        {
+          "type": "table.row",
+          "children": [
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 2,
+                      "offset": 117
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 3,
+                      "offset": 118
+                    }
+                  }
+                },
+                {
+                  "type": "text.bold",
+                  "value": "Bruce Wayne",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 3,
+                      "offset": 118
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 16,
+                      "offset": 131
+                    }
+                  }
+                },
+                {
+                  "type": "text.plain",
+                  "value": "  ",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 16,
+                      "offset": 131
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 18,
+                      "offset": 133
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 2,
+                  "offset": 117
+                },
+                "end": {
+                  "line": 3,
+                  "column": 18,
+                  "offset": 133
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 18,
+                  "offset": 133
+                },
+                "end": {
+                  "line": 3,
+                  "column": 19,
+                  "offset": 134
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 19,
+                      "offset": 134
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 20,
+                      "offset": 135
+                    }
+                  }
+                },
+                {
+                  "type": "text.strikeThrough",
+                  "value": "Bat",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 20,
+                      "offset": 135
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 25,
+                      "offset": 140
+                    }
+                  }
+                },
+                {
+                  "type": "text.plain",
+                  "value": " Human  ",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 25,
+                      "offset": 140
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 33,
+                      "offset": 148
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 19,
+                  "offset": 134
+                },
+                "end": {
+                  "line": 3,
+                  "column": 33,
+                  "offset": 148
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 33,
+                  "offset": 148
+                },
+                "end": {
+                  "line": 3,
+                  "column": 34,
+                  "offset": 149
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " M      ",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 34,
+                      "offset": 149
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 42,
+                      "offset": 157
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 34,
+                  "offset": 149
+                },
+                "end": {
+                  "line": 3,
+                  "column": 42,
+                  "offset": 157
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 42,
+                  "offset": 157
+                },
+                "end": {
+                  "line": 3,
+                  "column": 43,
+                  "offset": 158
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 43,
+                      "offset": 158
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 44,
+                      "offset": 159
+                    }
+                  }
+                },
+                {
+                  "type": "link",
+                  "description": "Batman",
+                  "protocol": "https",
+                  "value": "https://en.wikipedia.org/wiki/Batman",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 44,
+                      "offset": 159
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 92,
+                      "offset": 207
+                    }
+                  }
+                },
+                {
+                  "type": "text.plain",
+                  "value": "       ",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 92,
+                      "offset": 207
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 99,
+                      "offset": 214
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 43,
+                  "offset": 158
+                },
+                "end": {
+                  "line": 3,
+                  "column": 99,
+                  "offset": 214
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 99,
+                  "offset": 214
+                },
+                "end": {
+                  "line": 3,
+                  "column": 100,
+                  "offset": 215
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 1,
+              "offset": 116
+            },
+            "end": {
+              "line": 4,
+              "column": 1,
+              "offset": 216
+            }
+          }
+        },
+        {
+          "type": "table.row",
+          "children": [
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 2,
+                      "offset": 217
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 3,
+                      "offset": 218
+                    }
+                  }
+                },
+                {
+                  "type": "text.underline",
+                  "value": "Clark Kent",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 3,
+                      "offset": 218
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 15,
+                      "offset": 230
+                    }
+                  }
+                },
+                {
+                  "type": "text.plain",
+                  "value": "   ",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 15,
+                      "offset": 230
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 18,
+                      "offset": 233
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 2,
+                  "offset": 217
+                },
+                "end": {
+                  "line": 4,
+                  "column": 18,
+                  "offset": 233
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 18,
+                  "offset": 233
+                },
+                "end": {
+                  "line": 4,
+                  "column": 19,
+                  "offset": 234
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 19,
+                      "offset": 234
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 20,
+                      "offset": 235
+                    }
+                  }
+                },
+                {
+                  "type": "text.verbatim",
+                  "value": "Kryptonian",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 20,
+                      "offset": 235
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 32,
+                      "offset": 247
+                    }
+                  }
+                },
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 32,
+                      "offset": 247
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 33,
+                      "offset": 248
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 19,
+                  "offset": 234
+                },
+                "end": {
+                  "line": 4,
+                  "column": 33,
+                  "offset": 248
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 33,
+                  "offset": 248
+                },
+                "end": {
+                  "line": 4,
+                  "column": 34,
+                  "offset": 249
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " M      ",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 34,
+                      "offset": 249
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 42,
+                      "offset": 257
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 34,
+                  "offset": 249
+                },
+                "end": {
+                  "line": 4,
+                  "column": 42,
+                  "offset": 257
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 42,
+                  "offset": 257
+                },
+                "end": {
+                  "line": 4,
+                  "column": 43,
+                  "offset": 258
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 43,
+                      "offset": 258
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 44,
+                      "offset": 259
+                    }
+                  }
+                },
+                {
+                  "type": "link",
+                  "description": "Superman",
+                  "protocol": "https",
+                  "value": "https://en.wikipedia.org/wiki/Superman",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 44,
+                      "offset": 259
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 96,
+                      "offset": 311
+                    }
+                  }
+                },
+                {
+                  "type": "text.plain",
+                  "value": "     ",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 96,
+                      "offset": 311
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 101,
+                      "offset": 316
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 43,
+                  "offset": 258
+                },
+                "end": {
+                  "line": 4,
+                  "column": 101,
+                  "offset": 316
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 101,
+                  "offset": 316
+                },
+                "end": {
+                  "line": 4,
+                  "column": 102,
+                  "offset": 317
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 4,
+              "column": 1,
+              "offset": 216
+            },
+            "end": {
+              "line": 5,
+              "column": 1,
+              "offset": 318
+            }
+          }
+        },
+        {
+          "type": "table.row",
+          "children": [
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 2,
+                      "offset": 319
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 3,
+                      "offset": 320
+                    }
+                  }
+                },
+                {
+                  "type": "text.italic",
+                  "value": "Diana Prince",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 3,
+                      "offset": 320
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 17,
+                      "offset": 334
+                    }
+                  }
+                },
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 17,
+                      "offset": 334
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 18,
+                      "offset": 335
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 2,
+                  "offset": 319
+                },
+                "end": {
+                  "line": 5,
+                  "column": 18,
+                  "offset": 335
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 18,
+                  "offset": 335
+                },
+                "end": {
+                  "line": 5,
+                  "column": 19,
+                  "offset": 336
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 19,
+                      "offset": 336
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 20,
+                      "offset": 337
+                    }
+                  }
+                },
+                {
+                  "type": "text.code",
+                  "value": "Amazonian",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 20,
+                      "offset": 337
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 31,
+                      "offset": 348
+                    }
+                  }
+                },
+                {
+                  "type": "text.plain",
+                  "value": "  ",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 31,
+                      "offset": 348
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 33,
+                      "offset": 350
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 19,
+                  "offset": 336
+                },
+                "end": {
+                  "line": 5,
+                  "column": 33,
+                  "offset": 350
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 33,
+                  "offset": 350
+                },
+                "end": {
+                  "line": 5,
+                  "column": 34,
+                  "offset": 351
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " F      ",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 34,
+                      "offset": 351
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 42,
+                      "offset": 359
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 34,
+                  "offset": 351
+                },
+                "end": {
+                  "line": 5,
+                  "column": 42,
+                  "offset": 359
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 42,
+                  "offset": 359
+                },
+                "end": {
+                  "line": 5,
+                  "column": 43,
+                  "offset": 360
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 43,
+                      "offset": 360
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 44,
+                      "offset": 361
+                    }
+                  }
+                },
+                {
+                  "type": "link",
+                  "description": "Wonder Woman",
+                  "protocol": "https",
+                  "value": "https://en.wikipedia.org/wiki/Wonder_Woman",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 44,
+                      "offset": 361
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 104,
+                      "offset": 421
+                    }
+                  }
+                },
+                {
+                  "type": "text.plain",
+                  "value": " ",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 104,
+                      "offset": 421
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 105,
+                      "offset": 422
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 43,
+                  "offset": 360
+                },
+                "end": {
+                  "line": 5,
+                  "column": 105,
+                  "offset": 422
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 105,
+                  "offset": 422
+                },
+                "end": {
+                  "line": 5,
+                  "column": 106,
+                  "offset": 423
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 5,
+              "column": 1,
+              "offset": 318
+            },
+            "end": {
+              "line": 5,
+              "column": 107,
+              "offset": 424
+            }
+          }
+        }
+      ],
+      "attributes": {},
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 107,
+          "offset": 424
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 5,
+      "column": 107,
+      "offset": 424
+    }
+  }
+}

@@ -7,7 +7,7 @@ const specs = []
 // set to true for updating snapshots
 // TODO: find a way to use jest cli option -u, if it's possible
 // also remove redundant snapshots
-const update = true
+const update = false
 
 const readSpec = (dir: string = __dirname) => {
   const files = readdirSync(dir)
