@@ -1,0 +1,7 @@
+[fn:1] Content of the footnote.
+And here is another line.
+
+still belongs to fn:1
+
+
+This is not.
