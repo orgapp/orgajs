@@ -45,9 +45,7 @@ const drawer: Action = (begin: DrawerBegin, context) => {
       },
       {
         test: /.*/,
-        action: (_, { lexer }) => {
-          lexer.eat()
-        },
+        action: (_, { consume }) => consume(),
       },
     ],
   }

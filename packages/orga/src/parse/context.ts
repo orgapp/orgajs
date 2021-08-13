@@ -17,7 +17,7 @@ export interface Context {
   // control
   // -
   enter: Enter
-  exit: (predicate: Predicate) => Parent | void
+  exit: (predicate: Predicate, strict?: boolean) => Parent | void
   push: (node: Node) => void
   save: () => void
   restore: () => void
@@ -80,12 +80,13 @@ export function createContext(lexer: Lexer): Context {
     return node
   }
 
-  const exit = (predicate: Predicate) => {
+  const exit = (predicate: Predicate, strict = true) => {
     if (stack.length === 0) return // never exit the root
     const last = stack[stack.length - 1]
     if (test(last, predicate)) {
       return pop()
     }
+    assert(!strict, `can not strictly exit ${predicate}`)
   }
 
   const exitTo = (predicate: Predicate) => {
@@ -93,24 +94,21 @@ export function createContext(lexer: Lexer): Context {
   }
 
   const exitAll = (predicate: Predicate) => {
-    if (exit(predicate)) {
+    if (exit(predicate, false)) {
       exitAll(predicate)
     }
   }
 
-  const getLevel = (index = -1): number => {
-    if (index === -1) {
-      return getLevel(stack.length - 1)
+  const getLevel = (): number => {
+    let index = stack.length - 1
+    while (index > 0) {
+      const node = stack[index]
+      if (node.type === 'section' && typeof node.level === 'number') {
+        return node.level
+      }
+      index -= 1
     }
-
-    const n = stack[index]
-    if (n.type === 'document') {
-      return 0
-    }
-    if (n && typeof n.level === 'number') {
-      return n.level
-    }
-    return getLevel(index - 1)
+    return 0
   }
 
   const push = (node: Node) => {
@@ -118,7 +116,7 @@ export function createContext(lexer: Lexer): Context {
     assert(stack.length > 0, 'unexpected empty stack')
     const parent = stack[stack.length - 1]
     parent.children.push(node)
-    node.parent = parent
+    // node.parent = parent
   }
 
   return {

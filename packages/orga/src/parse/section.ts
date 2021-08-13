@@ -1,15 +1,18 @@
-import { Action, Handler } from '.'
+import { Action } from '.'
 import { Stars } from '../types'
+import drawer from './drawer'
 import headline from './headline'
 import planning from './planning'
-import drawer from './drawer'
 
-const section: Action = (token: Stars, context): Handler => {
+const section: Action = (token: Stars, context) => {
   const { enter, exit, exitTo } = context
 
-  exit('footnote')
+  // stars break footnote
+  exit('footnote', false)
 
-  if (token.level <= context.level) {
+  const level = token.level
+
+  if (level <= context.level) {
     exitTo('section')
     exit('section')
     return
@@ -17,10 +20,12 @@ const section: Action = (token: Stars, context): Handler => {
 
   enter({
     type: 'section',
-    level: token.level,
+    level: level,
     properties: {},
     children: [],
   })
+
+  let headlineProcessed = false
 
   return {
     name: 'section',
@@ -28,22 +33,19 @@ const section: Action = (token: Stars, context): Handler => {
       {
         test: 'stars',
         action: (token: Stars, context) => {
+          if (headlineProcessed) return 'break'
+          headlineProcessed = true
           return headline(token, context)
         },
       },
       {
         test: 'planning.keyword',
-        action: () => {
-          return planning
-        },
+        action: planning,
       },
       {
         test: 'drawer.begin',
-        action: (token, context) => {
-          return drawer(token, context)
-        },
+        action: drawer,
       },
-      { test: /.*/, action: () => 'break' },
     ],
   }
 }

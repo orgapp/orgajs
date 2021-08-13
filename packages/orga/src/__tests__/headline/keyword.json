@@ -1,0 +1,330 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "section",
+      "level": 1,
+      "properties": {},
+      "children": [
+        {
+          "type": "headline",
+          "actionable": true,
+          "content": "with keyword",
+          "children": [
+            {
+              "type": "stars",
+              "level": 1,
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 1,
+                  "offset": 26
+                },
+                "end": {
+                  "line": 3,
+                  "column": 2,
+                  "offset": 27
+                }
+              }
+            },
+            {
+              "type": "todo",
+              "keyword": "TODO",
+              "actionable": true,
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 3,
+                  "offset": 28
+                },
+                "end": {
+                  "line": 3,
+                  "column": 7,
+                  "offset": 32
+                }
+              }
+            },
+            {
+              "type": "text.plain",
+              "value": "with keyword",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 8,
+                  "offset": 33
+                },
+                "end": {
+                  "line": 3,
+                  "column": 20,
+                  "offset": 45
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 20,
+                  "offset": 45
+                },
+                "end": {
+                  "line": 4,
+                  "column": 1,
+                  "offset": 46
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 1,
+              "offset": 26
+            },
+            "end": {
+              "line": 4,
+              "column": 1,
+              "offset": 46
+            }
+          },
+          "keyword": "TODO"
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 3,
+          "column": 1,
+          "offset": 26
+        },
+        "end": {
+          "line": 4,
+          "column": 1,
+          "offset": 46
+        }
+      }
+    },
+    {
+      "type": "section",
+      "level": 1,
+      "properties": {},
+      "children": [
+        {
+          "type": "headline",
+          "actionable": true,
+          "content": "with keyword",
+          "children": [
+            {
+              "type": "stars",
+              "level": 1,
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 1,
+                  "offset": 46
+                },
+                "end": {
+                  "line": 4,
+                  "column": 2,
+                  "offset": 47
+                }
+              }
+            },
+            {
+              "type": "todo",
+              "keyword": "NEXT",
+              "actionable": true,
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 3,
+                  "offset": 48
+                },
+                "end": {
+                  "line": 4,
+                  "column": 7,
+                  "offset": 52
+                }
+              }
+            },
+            {
+              "type": "text.plain",
+              "value": "with keyword",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 8,
+                  "offset": 53
+                },
+                "end": {
+                  "line": 4,
+                  "column": 20,
+                  "offset": 65
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 20,
+                  "offset": 65
+                },
+                "end": {
+                  "line": 5,
+                  "column": 1,
+                  "offset": 66
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 4,
+              "column": 1,
+              "offset": 46
+            },
+            "end": {
+              "line": 5,
+              "column": 1,
+              "offset": 66
+            }
+          },
+          "keyword": "NEXT"
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 4,
+          "column": 1,
+          "offset": 46
+        },
+        "end": {
+          "line": 5,
+          "column": 1,
+          "offset": 66
+        }
+      }
+    },
+    {
+      "type": "section",
+      "level": 1,
+      "properties": {},
+      "children": [
+        {
+          "type": "headline",
+          "actionable": false,
+          "content": "with keyword",
+          "children": [
+            {
+              "type": "stars",
+              "level": 1,
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 1,
+                  "offset": 66
+                },
+                "end": {
+                  "line": 5,
+                  "column": 2,
+                  "offset": 67
+                }
+              }
+            },
+            {
+              "type": "todo",
+              "keyword": "DONE",
+              "actionable": false,
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 3,
+                  "offset": 68
+                },
+                "end": {
+                  "line": 5,
+                  "column": 7,
+                  "offset": 72
+                }
+              }
+            },
+            {
+              "type": "text.plain",
+              "value": "with keyword",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 8,
+                  "offset": 73
+                },
+                "end": {
+                  "line": 5,
+                  "column": 20,
+                  "offset": 85
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 20,
+                  "offset": 85
+                },
+                "end": {
+                  "line": 5,
+                  "column": 21,
+                  "offset": 86
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 5,
+              "column": 1,
+              "offset": 66
+            },
+            "end": {
+              "line": 5,
+              "column": 21,
+              "offset": 86
+            }
+          },
+          "keyword": "DONE"
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 5,
+          "column": 1,
+          "offset": 66
+        },
+        "end": {
+          "line": 5,
+          "column": 21,
+          "offset": 86
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 5,
+      "column": 21,
+      "offset": 86
+    }
+  }
+}

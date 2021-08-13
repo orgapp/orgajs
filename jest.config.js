@@ -11,6 +11,7 @@ const esModules = [
 
 module.exports = {
   // projects: ['<rootDir>/packages/*/jest.config.js'],
+  verbose: true,
   preset: 'ts-jest/presets/js-with-ts',
   transformIgnorePatterns: [
     `/node_modules/(?!${esModules}).+/`,
