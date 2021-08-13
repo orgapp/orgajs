@@ -1,0 +1,70 @@
+{
+  "type": "document",
+  "properties": {
+    "title": "this is the title",
+    "tags": "tag1 tag2"
+  },
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text.plain",
+          "value": "hello",
+          "position": {
+            "start": {
+              "line": 4,
+              "column": 1,
+              "offset": 46
+            },
+            "end": {
+              "line": 4,
+              "column": 6,
+              "offset": 51
+            }
+          }
+        },
+        {
+          "type": "newline",
+          "position": {
+            "start": {
+              "line": 4,
+              "column": 6,
+              "offset": 51
+            },
+            "end": {
+              "line": 4,
+              "column": 7,
+              "offset": 52
+            }
+          }
+        }
+      ],
+      "attributes": {},
+      "position": {
+        "start": {
+          "line": 4,
+          "column": 1,
+          "offset": 46
+        },
+        "end": {
+          "line": 4,
+          "column": 7,
+          "offset": 52
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 4,
+      "column": 7,
+      "offset": 52
+    }
+  }
+}

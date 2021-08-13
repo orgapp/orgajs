@@ -1,0 +1,122 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "section",
+      "level": 1,
+      "properties": {},
+      "children": [
+        {
+          "type": "headline",
+          "actionable": true,
+          "content": "Some Headline",
+          "children": [
+            {
+              "type": "stars",
+              "level": 1,
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 1,
+                  "offset": 26
+                },
+                "end": {
+                  "line": 3,
+                  "column": 2,
+                  "offset": 27
+                }
+              }
+            },
+            {
+              "type": "todo",
+              "keyword": "NEXT",
+              "actionable": true,
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 3,
+                  "offset": 28
+                },
+                "end": {
+                  "line": 3,
+                  "column": 7,
+                  "offset": 32
+                }
+              }
+            },
+            {
+              "type": "text.plain",
+              "value": "Some Headline",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 8,
+                  "offset": 33
+                },
+                "end": {
+                  "line": 3,
+                  "column": 21,
+                  "offset": 46
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 21,
+                  "offset": 46
+                },
+                "end": {
+                  "line": 3,
+                  "column": 22,
+                  "offset": 47
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 1,
+              "offset": 26
+            },
+            "end": {
+              "line": 3,
+              "column": 22,
+              "offset": 47
+            }
+          },
+          "keyword": "NEXT"
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 3,
+          "column": 1,
+          "offset": 26
+        },
+        "end": {
+          "line": 3,
+          "column": 22,
+          "offset": 47
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 3,
+      "column": 22,
+      "offset": 47
+    }
+  }
+}
