@@ -5,14 +5,18 @@
     {
       "type": "block",
       "name": "SRC",
-      "params": ["javascript"],
+      "params": [
+        "javascript"
+      ],
       "value": "console.log('hello')\nconsole.log('world')",
       "attributes": {},
       "children": [
         {
           "type": "block.begin",
           "name": "SRC",
-          "params": ["javascript"],
+          "params": [
+            "javascript"
+          ],
           "position": {
             "start": {
               "line": 1,
