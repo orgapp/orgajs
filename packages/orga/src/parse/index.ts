@@ -66,7 +66,7 @@ const main: Handler = {
           context.attributes = {}
         }
         if (numerOfNewlines > 1) {
-          exit('footnote')
+          exit('footnote', false)
         }
         return 'next'
       },
