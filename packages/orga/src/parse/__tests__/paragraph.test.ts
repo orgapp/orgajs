@@ -9,7 +9,7 @@ import {
 } from '../../types'
 import { parse } from '../index'
 
-describe('Parse Paragraph', () => {
+describe.skip('Parse Paragraph', () => {
   it('works', () => {
     const content = `
 #+ATTR_HTML: :style background: black;
