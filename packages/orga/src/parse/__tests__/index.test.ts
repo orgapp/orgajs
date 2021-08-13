@@ -3,7 +3,7 @@ import { tokenize } from '../../tokenize'
 import { parse } from './utils'
 import path from 'path'
 
-it('works', () => {
+it.skip('works', () => {
   expect(
     parse(
       `

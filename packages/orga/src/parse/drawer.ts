@@ -19,7 +19,7 @@ const drawer: Action = (begin: DrawerBegin, context) => {
     name: 'drawer',
     rules: [
       {
-        test: 'stars',
+        test: ['stars', 'EOF'],
         action: (_, { restore, lexer }) => {
           restore()
           lexer.modify((t) => ({
