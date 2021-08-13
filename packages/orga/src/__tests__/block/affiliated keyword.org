@@ -1,0 +1,16 @@
+#+NAME: code_block
+#+BEGIN_SRC javascript
+console.log('named code block')
+#+END_SRC
+
+
+#+NAME: code_block
+
+#+BEGIN_SRC javascript
+console.log('no name')
+#+END_SRC
+
+#+NOP: code_block
+#+BEGIN_SRC javascript
+console.log('no name')
+#+END_SRC

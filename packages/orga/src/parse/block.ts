@@ -29,7 +29,7 @@ const align = (content: string) => {
 
 const block: Action = (
   begin: BlockBegin,
-  { save, push, enter, lexer }
+  { save, push, enter, lexer, attributes }
 ): Handler => {
   save()
   const contentStart = begin.position.end
@@ -40,7 +40,7 @@ const block: Action = (
     name: begin.name,
     params: begin.params,
     value: '',
-    attributes: {},
+    attributes: { ...attributes },
     children: [],
   })
   push(lexer.eat())
@@ -73,8 +73,7 @@ const block: Action = (
       },
       {
         test: ['stars', 'EOF'],
-        action: (token, { restore, lexer }) => {
-          console.log(`>> got ${token}`)
+        action: (_, { restore, lexer }) => {
           restore()
           lexer.modify((t) => ({
             type: 'text.plain',
