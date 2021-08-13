@@ -65,14 +65,14 @@ describe('tokenize block', () => {
 
   it('knows these are not block begins', () => {
     expect(tok('#+begi😀n_src swift')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#+begi😀n_src swift",
-          "type": "text.plain",
-          "value": "#+begi😀n_src swift",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": "#+begi😀n_src swift",
+    "type": "text",
+    "value": "#+begi😀n_src swift",
+  },
+]
+`)
   })
 
   it('knows block ends', () => {
@@ -134,13 +134,13 @@ describe('tokenize block', () => {
 
   it('knows these are not block ends', () => {
     expect(tok('#+end_src param')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#+end_src param",
-          "type": "text.plain",
-          "value": "#+end_src param",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": "#+end_src param",
+    "type": "text",
+    "value": "#+end_src param",
+  },
+]
+`)
   })
 })

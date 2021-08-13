@@ -6,7 +6,7 @@
       "type": "paragraph",
       "children": [
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "reference footnote ",
           "position": {
             "start": {
@@ -90,7 +90,7 @@
           "type": "paragraph",
           "children": [
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "Content of the footnote.",
               "position": {
                 "start": {
@@ -164,7 +164,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "console.log('footnote with code block')",
               "position": {
                 "start": {

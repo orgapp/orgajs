@@ -1,18 +1,21 @@
-import { Literal } from 'hast'
-import u from 'unist-builder'
+import { Style, Text } from 'orga'
 import { Context, HNode } from '../'
 
-type Handler = (context: Context) => (node: Literal) => HNode
-
-const wrap = (tagName: string): Handler => {
-  return ({ h }) =>
-    (node: Literal) =>
-      h(tagName)(u('text', node.value))
+const wrapper: Record<Style, string> = {
+  bold: 'strong',
+  italic: 'i',
+  code: 'code',
+  verbatim: 'code',
+  underline: 'u',
+  strikeThrough: 'del',
 }
 
-export const bold = wrap('strong')
-export const italic = wrap('i')
-export const code = wrap('code')
-export const verbatim = wrap('code')
-export const underline = wrap('u')
-export const strikeThrough = wrap('del')
+export default (context: Context) =>
+  (node: Text): HNode => {
+    const { u, h } = context
+    let e: HNode = u('text', node.value)
+    if (node.style) {
+      e = h(wrapper[node.style])(e)
+    }
+    return e
+  }

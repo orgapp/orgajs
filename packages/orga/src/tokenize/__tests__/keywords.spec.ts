@@ -36,22 +36,22 @@ describe('tokenize keywords', () => {
 
   it('knows these are not keywords', () => {
     expect(tok('#+KEY : Value')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#+KEY : Value",
-          "type": "text.plain",
-          "value": "#+KEY : Value",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": "#+KEY : Value",
+    "type": "text",
+    "value": "#+KEY : Value",
+  },
+]
+`)
     expect(tok('#+KE Y: Value')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#+KE Y: Value",
-          "type": "text.plain",
-          "value": "#+KE Y: Value",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": "#+KE Y: Value",
+    "type": "text",
+    "value": "#+KE Y: Value",
+  },
+]
+`)
   })
 })

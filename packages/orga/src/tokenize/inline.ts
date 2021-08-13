@@ -5,9 +5,10 @@ import {
   FootnoteReference,
   Link,
   PhrasingContent,
-  StyledText,
+  Text,
   Token,
   Newline,
+  Style,
 } from '../types'
 import uri from '../uri'
 import { escape } from '../utils'
@@ -15,13 +16,13 @@ import { escape } from '../utils'
 const POST = `[\\s-\\.,:!?'\\)}]|$`
 const BORDER = `[^,'"\\s]`
 
-const MARKERS: { [key: string]: StyledText['type'] } = {
-  '*': 'text.bold',
-  '=': 'text.verbatim',
-  '/': 'text.italic',
-  '+': 'text.strikeThrough',
-  _: 'text.underline',
-  '~': 'text.code',
+const MARKERS: { [key: string]: Style } = {
+  '*': 'bold',
+  '=': 'verbatim',
+  '/': 'italic',
+  '+': 'strikeThrough',
+  _: 'underline',
+  '~': 'code',
 }
 
 interface Props {
@@ -71,7 +72,7 @@ export const tokenize = (
     if (m) {
       // empty body
       tokens.push({
-        type: 'text.plain',
+        type: 'text',
         value: '',
         position: {
           start: m.position.start,
@@ -107,7 +108,7 @@ export const tokenize = (
     }
   }
 
-  const tokStyledText = (marker: string) => (): StyledText => {
+  const tokStyledText = (marker: string) => (): Text => {
     const m = match(
       RegExp(
         `^${escape(marker)}(${BORDER}(?:.*?(?:${BORDER}))??)${escape(
@@ -118,7 +119,8 @@ export const tokenize = (
     )
     if (!m) return undefined
     return {
-      type: MARKERS[marker],
+      type: 'text',
+      style: MARKERS[marker],
       value: m.captures[1],
       position: m.position,
     }
@@ -146,7 +148,7 @@ export const tokenize = (
     const position = { start: { ...cursor }, end: { ...now() } }
     const value = substring(position)
     _tokens.push({
-      type: 'text.plain',
+      type: 'text',
       value,
       position,
     })

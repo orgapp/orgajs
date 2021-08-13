@@ -46,7 +46,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "with keyword",
               "position": {
                 "start": {
@@ -150,7 +150,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "with keyword",
               "position": {
                 "start": {
@@ -254,7 +254,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "with keyword",
               "position": {
                 "start": {

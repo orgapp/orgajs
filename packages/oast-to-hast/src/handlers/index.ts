@@ -10,7 +10,7 @@ import list, { checkbox as listItemCheckbox, item as listItem } from './list'
 import paragraph from './paragraph'
 import section from './section'
 import { table, tableCell, tableRow } from './table'
-import { bold, code, italic, strikeThrough, underline, verbatim } from './text'
+import text from './text'
 
 export type Handler = (context: Context) => (node: Node) => HNode
 
@@ -18,12 +18,7 @@ export default {
   keyword,
   section,
   headline,
-  'text.bold': bold,
-  'text.italic': italic,
-  'text.code': code,
-  'text.verbatim': verbatim,
-  'text.strikeThrough': strikeThrough,
-  'text.underline': underline,
+  text,
   newline:
     ({ u }) =>
     () =>

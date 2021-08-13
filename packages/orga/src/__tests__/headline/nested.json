@@ -28,7 +28,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "headline 1",
               "position": {
                 "start": {
@@ -76,7 +76,7 @@
           "type": "paragraph",
           "children": [
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "Paragraph",
               "position": {
                 "start": {
@@ -148,7 +148,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": "headline 1.1",
                   "position": {
                     "start": {
@@ -220,7 +220,7 @@
                       }
                     },
                     {
-                      "type": "text.plain",
+                      "type": "text",
                       "value": "headline 1.1.1",
                       "position": {
                         "start": {
@@ -269,7 +269,7 @@
                   "type": "paragraph",
                   "children": [
                     {
-                      "type": "text.plain",
+                      "type": "text",
                       "value": "content",
                       "position": {
                         "start": {
@@ -369,7 +369,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": "headline 1.2",
                   "position": {
                     "start": {
@@ -468,7 +468,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "headline 2",
               "position": {
                 "start": {
@@ -540,7 +540,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": "headline 2.2",
                   "position": {
                     "start": {

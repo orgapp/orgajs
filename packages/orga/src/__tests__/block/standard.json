@@ -31,7 +31,7 @@
           }
         },
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "console.log('hello')",
           "position": {
             "start": {
@@ -62,7 +62,7 @@
           }
         },
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "console.log('world')",
           "position": {
             "start": {

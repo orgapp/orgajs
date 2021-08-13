@@ -29,7 +29,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "Apple is an American multinational technology company headquartered in",
               "position": {
                 "start": {
@@ -60,7 +60,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "Cupertino, California that designs, develops, and sells consumer electronics,",
               "position": {
                 "start": {
@@ -91,7 +91,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "computer software, and online services.",
               "position": {
                 "start": {
@@ -157,7 +157,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "Orange",
               "position": {
                 "start": {
@@ -223,7 +223,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "Banana",
               "position": {
                 "start": {

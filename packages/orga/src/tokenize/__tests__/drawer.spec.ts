@@ -42,32 +42,32 @@ describe('tokenize drawer', () => {
 
   it('knows these are not drawer begins', () => {
     expect(tok('PROPERTIES:')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "PROPERTIES:",
-          "type": "text.plain",
-          "value": "PROPERTIES:",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": "PROPERTIES:",
+    "type": "text",
+    "value": "PROPERTIES:",
+  },
+]
+`)
     expect(tok(':PROPERTIES')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":PROPERTIES",
-          "type": "text.plain",
-          "value": ":PROPERTIES",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": ":PROPERTIES",
+    "type": "text",
+    "value": ":PROPERTIES",
+  },
+]
+`)
     expect(tok(':PR OPERTIES:')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":PR OPERTIES:",
-          "type": "text.plain",
-          "value": ":PR OPERTIES:",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": ":PR OPERTIES:",
+    "type": "text",
+    "value": ":PR OPERTIES:",
+  },
+]
+`)
   })
 
   it('knows drawer ends', () => {
@@ -107,31 +107,31 @@ describe('tokenize drawer', () => {
 
   it('knows these are not drawer ends', () => {
     expect(tok('END:')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "END:",
-          "type": "text.plain",
-          "value": "END:",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": "END:",
+    "type": "text",
+    "value": "END:",
+  },
+]
+`)
     expect(tok(':END')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":END",
-          "type": "text.plain",
-          "value": ":END",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": ":END",
+    "type": "text",
+    "value": ":END",
+  },
+]
+`)
     expect(tok(':ENDed')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":ENDed",
-          "type": "text.plain",
-          "value": ":ENDed",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": ":ENDed",
+    "type": "text",
+    "value": ":ENDed",
+  },
+]
+`)
   })
 })

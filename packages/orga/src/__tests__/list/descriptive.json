@@ -45,7 +45,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "it's apple",
               "position": {
                 "start": {
@@ -112,7 +112,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "Orange",
               "position": {
                 "start": {
@@ -198,7 +198,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "XBox",
               "position": {
                 "start": {
@@ -280,7 +280,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "for the gamers",
               "position": {
                 "start": {

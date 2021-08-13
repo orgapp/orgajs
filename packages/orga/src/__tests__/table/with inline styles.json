@@ -12,7 +12,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Name           ",
                   "position": {
                     "start": {
@@ -60,7 +60,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Species      ",
                   "position": {
                     "start": {
@@ -108,7 +108,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Gender ",
                   "position": {
                     "start": {
@@ -156,7 +156,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Role         ",
                   "position": {
                     "start": {
@@ -235,7 +235,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {
@@ -251,7 +251,8 @@
                   }
                 },
                 {
-                  "type": "text.bold",
+                  "type": "text",
+                  "style": "bold",
                   "value": "Bruce Wayne",
                   "position": {
                     "start": {
@@ -267,7 +268,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": "  ",
                   "position": {
                     "start": {
@@ -315,7 +316,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {
@@ -331,7 +332,8 @@
                   }
                 },
                 {
-                  "type": "text.strikeThrough",
+                  "type": "text",
+                  "style": "strikeThrough",
                   "value": "Bat",
                   "position": {
                     "start": {
@@ -347,7 +349,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Human  ",
                   "position": {
                     "start": {
@@ -395,7 +397,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " M      ",
                   "position": {
                     "start": {
@@ -443,7 +445,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {
@@ -477,7 +479,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": "       ",
                   "position": {
                     "start": {
@@ -542,7 +544,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {
@@ -558,7 +560,8 @@
                   }
                 },
                 {
-                  "type": "text.underline",
+                  "type": "text",
+                  "style": "underline",
                   "value": "Clark Kent",
                   "position": {
                     "start": {
@@ -574,7 +577,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": "   ",
                   "position": {
                     "start": {
@@ -622,7 +625,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {
@@ -638,7 +641,8 @@
                   }
                 },
                 {
-                  "type": "text.verbatim",
+                  "type": "text",
+                  "style": "verbatim",
                   "value": "Kryptonian",
                   "position": {
                     "start": {
@@ -654,7 +658,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {
@@ -702,7 +706,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " M      ",
                   "position": {
                     "start": {
@@ -750,7 +754,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {
@@ -784,7 +788,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": "     ",
                   "position": {
                     "start": {
@@ -849,7 +853,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {
@@ -865,7 +869,8 @@
                   }
                 },
                 {
-                  "type": "text.italic",
+                  "type": "text",
+                  "style": "italic",
                   "value": "Diana Prince",
                   "position": {
                     "start": {
@@ -881,7 +886,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {
@@ -929,7 +934,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {
@@ -945,7 +950,8 @@
                   }
                 },
                 {
-                  "type": "text.code",
+                  "type": "text",
+                  "style": "code",
                   "value": "Amazonian",
                   "position": {
                     "start": {
@@ -961,7 +967,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": "  ",
                   "position": {
                     "start": {
@@ -1009,7 +1015,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " F      ",
                   "position": {
                     "start": {
@@ -1057,7 +1063,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {
@@ -1091,7 +1097,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " ",
                   "position": {
                     "start": {

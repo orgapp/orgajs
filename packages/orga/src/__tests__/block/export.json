@@ -35,7 +35,7 @@
           }
         },
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "<p>world!</p>",
           "position": {
             "start": {

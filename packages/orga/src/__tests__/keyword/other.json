@@ -9,7 +9,7 @@
       "type": "paragraph",
       "children": [
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "hello",
           "position": {
             "start": {

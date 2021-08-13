@@ -28,7 +28,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "with deadline",
               "position": {
                 "start": {
@@ -161,7 +161,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "with deadline and scheduled",
               "position": {
                 "start": {

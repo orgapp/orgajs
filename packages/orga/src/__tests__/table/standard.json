@@ -12,7 +12,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Name         ",
                   "position": {
                     "start": {
@@ -60,7 +60,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Species    ",
                   "position": {
                     "start": {
@@ -108,7 +108,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Gender ",
                   "position": {
                     "start": {
@@ -156,7 +156,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Role         ",
                   "position": {
                     "start": {
@@ -235,7 +235,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Bruce Wayne  ",
                   "position": {
                     "start": {
@@ -283,7 +283,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Human      ",
                   "position": {
                     "start": {
@@ -331,7 +331,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " M      ",
                   "position": {
                     "start": {
@@ -379,7 +379,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Batman       ",
                   "position": {
                     "start": {
@@ -444,7 +444,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Clark Kent   ",
                   "position": {
                     "start": {
@@ -492,7 +492,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Kryptonian ",
                   "position": {
                     "start": {
@@ -540,7 +540,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " M      ",
                   "position": {
                     "start": {
@@ -588,7 +588,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Superman     ",
                   "position": {
                     "start": {
@@ -653,7 +653,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Diana Prince ",
                   "position": {
                     "start": {
@@ -701,7 +701,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Amazonian  ",
                   "position": {
                     "start": {
@@ -749,7 +749,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " F      ",
                   "position": {
                     "start": {
@@ -797,7 +797,7 @@
               "type": "table.cell",
               "children": [
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": " Wonder Woman ",
                   "position": {
                     "start": {

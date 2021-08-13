@@ -6,7 +6,7 @@
       "type": "paragraph",
       "children": [
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "some text here",
           "position": {
             "start": {
@@ -68,7 +68,7 @@
       "type": "paragraph",
       "children": [
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "some other text here",
           "position": {
             "start": {
@@ -99,7 +99,7 @@
           }
         },
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "some more",
           "position": {
             "start": {

@@ -46,7 +46,7 @@ the round pegs in the +round+ square holes...
   }
 
   const text = (text: string, pos?: Position): PhrasingContent => ({
-    type: 'text.plain',
+    type: 'text',
     value: text,
     ...(pos === undefined ? {} : { position: pos }),
   })

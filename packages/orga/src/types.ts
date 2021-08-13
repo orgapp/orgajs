@@ -151,7 +151,7 @@ export type Token =
   | DrawerEnd
   | Comment
 
-export type PhrasingContent = StyledText | Link | FootnoteReference | Newline
+export type PhrasingContent = Text | Link | FootnoteReference | Newline
 
 export interface HorizontalRule extends Node {
   type: 'hr'
@@ -161,15 +161,17 @@ export interface Newline extends Node {
   type: 'newline'
 }
 
-export interface StyledText extends Literal {
-  type:
-    | 'text.plain'
-    | 'text.bold'
-    | 'text.verbatim'
-    | 'text.italic'
-    | 'text.strikeThrough'
-    | 'text.underline'
-    | 'text.code'
+export type Style =
+  | 'bold'
+  | 'verbatim'
+  | 'italic'
+  | 'strikeThrough'
+  | 'underline'
+  | 'code'
+
+export interface Text extends Literal {
+  type: 'text'
+  style?: Style
 }
 
 export interface Link extends Literal {
@@ -178,6 +180,18 @@ export interface Link extends Literal {
   description: string
   value: string
   search?: string | number
+}
+
+type Pair = Style | 'link.description'
+
+export interface Open<T> extends Node {
+  type: 'open'
+  name: T
+}
+
+export interface Close extends Node {
+  type: 'close'
+  name: Pair
 }
 
 /**

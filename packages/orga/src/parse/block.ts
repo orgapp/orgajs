@@ -76,7 +76,7 @@ const block: Action = (
         action: (_, { restore, lexer }) => {
           restore()
           lexer.modify((t) => ({
-            type: 'text.plain',
+            type: 'text',
             value: lexer.substring(t.position),
             position: t.position,
           }))

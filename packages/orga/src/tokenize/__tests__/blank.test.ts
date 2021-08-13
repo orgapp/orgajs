@@ -13,13 +13,13 @@ describe('tokenize blanks', () => {
 
   it('knows these are not blanks', () => {
     expect(tok(' a ')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "a ",
-          "type": "text.plain",
-          "value": "a ",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": "a ",
+    "type": "text",
+    "value": "a ",
+  },
+]
+`)
   })
 })

@@ -46,7 +46,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "Some Headline",
               "position": {
                 "start": {

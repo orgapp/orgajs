@@ -11,7 +11,7 @@ describe('tokenize headline', () => {
         },
         Object {
           "_text": "a headline",
-          "type": "text.plain",
+          "type": "text",
           "value": "a headline",
         },
       ]
@@ -26,7 +26,8 @@ describe('tokenize headline', () => {
         },
         Object {
           "_text": "_headline_",
-          "type": "text.underline",
+          "style": "underline",
+          "type": "text",
           "value": "headline",
         },
       ]
@@ -41,7 +42,7 @@ describe('tokenize headline', () => {
         },
         Object {
           "_text": "a headline",
-          "type": "text.plain",
+          "type": "text",
           "value": "a headline",
         },
       ]
@@ -56,7 +57,7 @@ describe('tokenize headline', () => {
         },
         Object {
           "_text": "a headline",
-          "type": "text.plain",
+          "type": "text",
           "value": "a headline",
         },
       ]
@@ -71,7 +72,7 @@ describe('tokenize headline', () => {
         },
         Object {
           "_text": "a 😀line",
-          "type": "text.plain",
+          "type": "text",
           "value": "a 😀line",
         },
       ]
@@ -98,7 +99,7 @@ describe('tokenize headline', () => {
         },
         Object {
           "_text": "a headline",
-          "type": "text.plain",
+          "type": "text",
           "value": "a headline",
         },
         Object {
@@ -136,7 +137,7 @@ describe('tokenize headline', () => {
         },
         Object {
           "_text": "a headline",
-          "type": "text.plain",
+          "type": "text",
           "value": "a headline",
         },
         Object {
@@ -161,7 +162,7 @@ describe('tokenize headline', () => {
       Array [
         Object {
           "_text": "*not a headline",
-          "type": "text.plain",
+          "type": "text",
           "value": "*not a headline",
         },
       ]
@@ -171,7 +172,7 @@ describe('tokenize headline', () => {
       Array [
         Object {
           "_text": "* not a headline",
-          "type": "text.plain",
+          "type": "text",
           "value": "* not a headline",
         },
       ]
@@ -180,12 +181,13 @@ describe('tokenize headline', () => {
       Array [
         Object {
           "_text": "*_*",
-          "type": "text.bold",
+          "style": "bold",
+          "type": "text",
           "value": "_",
         },
         Object {
           "_text": " not a headline",
-          "type": "text.plain",
+          "type": "text",
           "value": " not a headline",
         },
       ]
@@ -194,7 +196,7 @@ describe('tokenize headline', () => {
       Array [
         Object {
           "_text": "not a headline",
-          "type": "text.plain",
+          "type": "text",
           "value": "not a headline",
         },
       ]

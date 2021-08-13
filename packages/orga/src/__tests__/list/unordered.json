@@ -29,7 +29,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "apple",
               "position": {
                 "start": {
@@ -95,7 +95,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "banana",
               "position": {
                 "start": {
@@ -161,7 +161,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "orange",
               "position": {
                 "start": {

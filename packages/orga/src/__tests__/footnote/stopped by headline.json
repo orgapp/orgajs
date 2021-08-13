@@ -26,7 +26,7 @@
           "type": "paragraph",
           "children": [
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "Content of the footnote.",
               "position": {
                 "start": {
@@ -57,7 +57,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "And here is another line.",
               "position": {
                 "start": {
@@ -143,7 +143,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "A Headline",
               "position": {
                 "start": {

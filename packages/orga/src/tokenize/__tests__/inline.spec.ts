@@ -6,27 +6,29 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "hello ",
-          "type": "text.plain",
+          "type": "text",
           "value": "hello ",
         },
         Object {
           "_text": "*world*",
-          "type": "text.bold",
+          "style": "bold",
+          "type": "text",
           "value": "world",
         },
         Object {
           "_text": ", welcome to ",
-          "type": "text.plain",
+          "type": "text",
           "value": ", welcome to ",
         },
         Object {
           "_text": "*org-mode*",
-          "type": "text.bold",
+          "style": "bold",
+          "type": "text",
           "value": "org-mode",
         },
         Object {
           "_text": ".",
-          "type": "text.plain",
+          "type": "text",
           "value": ".",
         },
       ]
@@ -38,17 +40,18 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "one ",
-          "type": "text.plain",
+          "type": "text",
           "value": "one ",
         },
         Object {
           "_text": "*two*",
-          "type": "text.bold",
+          "style": "bold",
+          "type": "text",
           "value": "two",
         },
         Object {
           "_text": " three",
-          "type": "text.plain",
+          "type": "text",
           "value": " three",
         },
       ]
@@ -57,12 +60,13 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "*one*",
-          "type": "text.bold",
+          "style": "bold",
+          "type": "text",
           "value": "one",
         },
         Object {
           "_text": " two three",
-          "type": "text.plain",
+          "type": "text",
           "value": " two three",
         },
       ]
@@ -71,12 +75,13 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "one two ",
-          "type": "text.plain",
+          "type": "text",
           "value": "one two ",
         },
         Object {
           "_text": "*three*",
-          "type": "text.bold",
+          "style": "bold",
+          "type": "text",
           "value": "three",
         },
       ]
@@ -88,7 +93,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "hello ",
-          "type": "text.plain",
+          "type": "text",
           "value": "hello ",
         },
         Object {
@@ -105,7 +110,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "hello ",
-          "type": "text.plain",
+          "type": "text",
           "value": "hello ",
         },
         Object {
@@ -122,7 +127,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "hello ",
-          "type": "text.plain",
+          "type": "text",
           "value": "hello ",
         },
         Object {
@@ -142,7 +147,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "hello",
-          "type": "text.plain",
+          "type": "text",
           "value": "hello",
         },
         Object {
@@ -153,7 +158,7 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": " world.",
-          "type": "text.plain",
+          "type": "text",
           "value": " world.",
         },
       ]
@@ -165,7 +170,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "hello",
-          "type": "text.plain",
+          "type": "text",
           "value": "hello",
         },
         Object {
@@ -175,7 +180,7 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": "Anonymous",
-          "type": "text.plain",
+          "type": "text",
           "value": "Anonymous",
         },
         Object {
@@ -184,7 +189,7 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": " world.",
-          "type": "text.plain",
+          "type": "text",
           "value": " world.",
         },
       ]
@@ -196,7 +201,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "hello",
-          "type": "text.plain",
+          "type": "text",
           "value": "hello",
         },
         Object {
@@ -211,7 +216,7 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": "Anonymous",
-          "type": "text.plain",
+          "type": "text",
           "value": "Anonymous",
         },
         Object {
@@ -224,7 +229,7 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": " world.",
-          "type": "text.plain",
+          "type": "text",
           "value": " world.",
         },
       ]
@@ -236,7 +241,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "hello",
-          "type": "text.plain",
+          "type": "text",
           "value": "hello",
         },
         Object {
@@ -246,7 +251,7 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": "",
-          "type": "text.plain",
+          "type": "text",
           "value": "",
         },
         Object {
@@ -255,7 +260,7 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": " world.",
-          "type": "text.plain",
+          "type": "text",
           "value": " world.",
         },
       ]
@@ -268,7 +273,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "hello",
-          "type": "text.plain",
+          "type": "text",
           "value": "hello",
         },
         Object {
@@ -278,7 +283,7 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": "Inline named footnote",
-          "type": "text.plain",
+          "type": "text",
           "value": "Inline named footnote",
         },
         Object {
@@ -287,7 +292,7 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": " world.",
-          "type": "text.plain",
+          "type": "text",
           "value": " world.",
         },
       ]
@@ -299,7 +304,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "*,word*",
-          "type": "text.plain",
+          "type": "text",
           "value": "*,word*",
         },
       ]
@@ -308,7 +313,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "*word,*",
-          "type": "text.plain",
+          "type": "text",
           "value": "*word,*",
         },
       ]
@@ -317,7 +322,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "*'word*",
-          "type": "text.plain",
+          "type": "text",
           "value": "*'word*",
         },
       ]
@@ -326,7 +331,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "*word'*",
-          "type": "text.plain",
+          "type": "text",
           "value": "*word'*",
         },
       ]
@@ -336,7 +341,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "*\\"word*",
-          "type": "text.plain",
+          "type": "text",
           "value": "*\\"word*",
         },
       ]
@@ -345,7 +350,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "*word\\"*",
-          "type": "text.plain",
+          "type": "text",
           "value": "*word\\"*",
         },
       ]
@@ -360,7 +365,7 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": "word*",
-          "type": "text.plain",
+          "type": "text",
           "value": "word*",
         },
       ]
@@ -369,7 +374,7 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "*word *",
-          "type": "text.plain",
+          "type": "text",
           "value": "*word *",
         },
       ]
@@ -381,7 +386,8 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "*12*",
-          "type": "text.bold",
+          "style": "bold",
+          "type": "text",
           "value": "12",
         },
       ]
@@ -390,7 +396,8 @@ describe('Inline Tokenization', () => {
       Array [
         Object {
           "_text": "*1*",
-          "type": "text.bold",
+          "style": "bold",
+          "type": "text",
           "value": "1",
         },
       ]
@@ -414,57 +421,62 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": " to the ",
-          "type": "text.plain",
+          "type": "text",
           "value": " to the ",
         },
         Object {
           "_text": "*crazy*",
-          "type": "text.bold",
+          "style": "bold",
+          "type": "text",
           "value": "crazy",
         },
         Object {
           "_text": " ones, the ",
-          "type": "text.plain",
+          "type": "text",
           "value": " ones, the ",
         },
         Object {
           "_text": "/misfits/",
-          "type": "text.italic",
+          "style": "italic",
+          "type": "text",
           "value": "misfits",
         },
         Object {
           "_text": ", the ",
-          "type": "text.plain",
+          "type": "text",
           "value": ", the ",
         },
         Object {
           "_text": "_rebels_",
-          "type": "text.underline",
+          "style": "underline",
+          "type": "text",
           "value": "rebels",
         },
         Object {
           "_text": ", the ",
-          "type": "text.plain",
+          "type": "text",
           "value": ", the ",
         },
         Object {
           "_text": "~troublemakers~",
-          "type": "text.code",
+          "style": "code",
+          "type": "text",
           "value": "troublemakers",
         },
         Object {
           "_text": ", the round pegs in the ",
-          "type": "text.plain",
+          "type": "text",
           "value": ", the round pegs in the ",
         },
         Object {
           "_text": "+round+",
-          "type": "text.strikeThrough",
+          "style": "strikeThrough",
+          "type": "text",
           "value": "round",
         },
         Object {
           "_text": " square holes...",
-          "type": "text.plain",
+          "type": "text",
           "value": " square holes...",
         },
       ]
@@ -484,47 +496,51 @@ Special characters =~= and =!=. Also =~/.this/path= and ~that~ thing.
         },
         Object {
           "_text": "Special characters ",
-          "type": "text.plain",
+          "type": "text",
           "value": "Special characters ",
         },
         Object {
           "_text": "=~=",
-          "type": "text.verbatim",
+          "style": "verbatim",
+          "type": "text",
           "value": "~",
         },
         Object {
           "_text": " and ",
-          "type": "text.plain",
+          "type": "text",
           "value": " and ",
         },
         Object {
           "_text": "=!=",
-          "type": "text.verbatim",
+          "style": "verbatim",
+          "type": "text",
           "value": "!",
         },
         Object {
           "_text": ". Also ",
-          "type": "text.plain",
+          "type": "text",
           "value": ". Also ",
         },
         Object {
           "_text": "=~/.this/path=",
-          "type": "text.verbatim",
+          "style": "verbatim",
+          "type": "text",
           "value": "~/.this/path",
         },
         Object {
           "_text": " and ",
-          "type": "text.plain",
+          "type": "text",
           "value": " and ",
         },
         Object {
           "_text": "~that~",
-          "type": "text.code",
+          "style": "code",
+          "type": "text",
           "value": "that",
         },
         Object {
           "_text": " thing.",
-          "type": "text.plain",
+          "type": "text",
           "value": " thing.",
         },
         Object {

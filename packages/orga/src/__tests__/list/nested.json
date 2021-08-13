@@ -29,7 +29,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "apple",
               "position": {
                 "start": {
@@ -100,7 +100,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": "iPhone",
                   "position": {
                     "start": {
@@ -166,7 +166,7 @@
                   }
                 },
                 {
-                  "type": "text.plain",
+                  "type": "text",
                   "value": "Mac",
                   "position": {
                     "start": {
@@ -247,7 +247,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "banana",
               "position": {
                 "start": {
@@ -313,7 +313,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "orange",
               "position": {
                 "start": {

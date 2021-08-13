@@ -12,7 +12,7 @@ import { clone, isPhrasingContent } from '../utils'
 
 const isWhitespaces = (node: Token) => {
   return (
-    (node.type === 'text.plain' && node.value.trim().length === 0) ||
+    (node.type === 'text' && node.value.trim().length === 0) ||
     node.type === 'newline'
   )
 }
@@ -170,7 +170,7 @@ const old = (lexer: Lexer): Paragraph | undefined => {
       eat()
       eolCount += 1
       p = p || createParagraph()
-      push(p)({ type: 'text.plain', value: ' ', position: token.position })
+      push(p)({ type: 'text', value: ' ', position: token.position })
       return build(p)
     }
 

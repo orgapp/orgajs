@@ -28,7 +28,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "headline with properties",
               "position": {
                 "start": {
@@ -109,7 +109,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": ":CATEGORY: test",
               "position": {
                 "start": {
@@ -140,7 +140,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": ":Effort:   5",
               "position": {
                 "start": {
@@ -239,7 +239,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "headline with drawer",
               "position": {
                 "start": {
@@ -321,7 +321,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "here are",
               "position": {
                 "start": {
@@ -352,7 +352,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "some log",
               "position": {
                 "start": {

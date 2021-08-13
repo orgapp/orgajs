@@ -69,22 +69,22 @@ describe('tokenize comment', () => {
 
   it('knows these are not comments', () => {
     expect(tok('#not a comment')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#not a comment",
-          "type": "text.plain",
-          "value": "#not a comment",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": "#not a comment",
+    "type": "text",
+    "value": "#not a comment",
+  },
+]
+`)
     expect(tok('  #not a comment')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "#not a comment",
-          "type": "text.plain",
-          "value": "#not a comment",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": "#not a comment",
+    "type": "text",
+    "value": "#not a comment",
+  },
+]
+`)
   })
 })

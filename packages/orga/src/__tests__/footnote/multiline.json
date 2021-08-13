@@ -6,7 +6,7 @@
       "type": "paragraph",
       "children": [
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "reference footnote ",
           "position": {
             "start": {
@@ -90,7 +90,7 @@
           "type": "paragraph",
           "children": [
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "Content of the footnote.",
               "position": {
                 "start": {
@@ -121,7 +121,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": "And here is ",
               "position": {
                 "start": {
@@ -137,7 +137,8 @@
               }
             },
             {
-              "type": "text.bold",
+              "type": "text",
+              "style": "bold",
               "value": "another",
               "position": {
                 "start": {
@@ -153,7 +154,7 @@
               }
             },
             {
-              "type": "text.plain",
+              "type": "text",
               "value": " line.",
               "position": {
                 "start": {

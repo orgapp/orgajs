@@ -115,13 +115,13 @@ describe('tokenize planning', () => {
 
   it('knows these are not plannings', () => {
     expect(tok('dEADLINE: <2018-01-01 Mon>', options)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "dEADLINE: <2018-01-01 Mon>",
-          "type": "text.plain",
-          "value": "dEADLINE: <2018-01-01 Mon>",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": "dEADLINE: <2018-01-01 Mon>",
+    "type": "text",
+    "value": "dEADLINE: <2018-01-01 Mon>",
+  },
+]
+`)
   })
 })

@@ -35,7 +35,7 @@
           }
         },
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "console.log('named code block')",
           "position": {
             "start": {
@@ -124,7 +124,7 @@
           }
         },
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "console.log('no name')",
           "position": {
             "start": {
@@ -213,7 +213,7 @@
           }
         },
         {
-          "type": "text.plain",
+          "type": "text",
           "value": "console.log('no name')",
           "position": {
             "start": {
