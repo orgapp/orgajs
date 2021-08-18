@@ -150,6 +150,9 @@ export type Token =
   | DrawerBegin
   | DrawerEnd
   | Comment
+  | Opening
+  | Closing
+  | LinkPath
 
 export type PhrasingContent = Text | Link | FootnoteReference | Newline
 
@@ -174,24 +177,29 @@ export interface Text extends Literal {
   style?: Style
 }
 
-export interface Link extends Literal {
+export interface Link extends Parent {
   type: 'link'
+  path: LinkPath
+  children: PhrasingContent[]
+}
+
+export interface LinkPath extends Literal {
+  type: 'link.path'
   protocol: string
-  description: string
   value: string
   search?: string | number
 }
 
-type Pair = Style | 'link.description'
+export type Enclosed = Style | 'link' | 'footnote.reference'
 
-export interface Open<T> extends Node {
-  type: 'open'
-  name: T
+export interface Opening extends Node {
+  type: 'opening'
+  element: Enclosed
 }
 
-export interface Close extends Node {
-  type: 'close'
-  name: Pair
+export interface Closing extends Node {
+  type: 'closing'
+  element: Enclosed
 }
 
 /**

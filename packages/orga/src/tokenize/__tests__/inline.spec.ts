@@ -97,12 +97,21 @@ describe('Inline Tokenization', () => {
           "value": "hello ",
         },
         Object {
-          "_text": "[[./image/logo.png]]",
-          "description": undefined,
+          "_text": "[",
+          "element": "link",
+          "type": "opening",
+        },
+        Object {
+          "_text": "[./image/logo.png]",
           "protocol": "file",
           "search": undefined,
-          "type": "link",
+          "type": "link.path",
           "value": "./image/logo.png",
+        },
+        Object {
+          "_text": "]",
+          "element": "link",
+          "type": "closing",
         },
       ]
     `)
@@ -114,12 +123,26 @@ describe('Inline Tokenization', () => {
           "value": "hello ",
         },
         Object {
-          "_text": "[[Internal Link][link]]",
-          "description": "link",
+          "_text": "[",
+          "element": "link",
+          "type": "opening",
+        },
+        Object {
+          "_text": "[Internal Link]",
           "protocol": "internal",
           "search": undefined,
-          "type": "link",
+          "type": "link.path",
           "value": "Internal Link",
+        },
+        Object {
+          "_text": "link",
+          "type": "text",
+          "value": "link",
+        },
+        Object {
+          "_text": "]",
+          "element": "link",
+          "type": "closing",
         },
       ]
     `)
@@ -131,12 +154,65 @@ describe('Inline Tokenization', () => {
           "value": "hello ",
         },
         Object {
-          "_text": "[[../image/logo.png][logo]]",
-          "description": "logo",
+          "_text": "[",
+          "element": "link",
+          "type": "opening",
+        },
+        Object {
+          "_text": "[../image/logo.png]",
           "protocol": "file",
           "search": undefined,
-          "type": "link",
+          "type": "link.path",
           "value": "../image/logo.png",
+        },
+        Object {
+          "_text": "logo",
+          "type": "text",
+          "value": "logo",
+        },
+        Object {
+          "_text": "]",
+          "element": "link",
+          "type": "closing",
+        },
+      ]
+    `)
+
+    expect(tok(`that is a [[../image/logo.png][/nice/ logo]]`))
+      .toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "_text": "that is a ",
+          "type": "text",
+          "value": "that is a ",
+        },
+        Object {
+          "_text": "[",
+          "element": "link",
+          "type": "opening",
+        },
+        Object {
+          "_text": "[../image/logo.png]",
+          "protocol": "file",
+          "search": undefined,
+          "type": "link.path",
+          "value": "../image/logo.png",
+        },
+        Object {
+          "_text": "/nice/",
+          "style": "italic",
+          "type": "text",
+          "value": "nice",
+        },
+        Object {
+          "_text": " logo",
+          "type": "text",
+          "value": " logo",
+        },
+        Object {
+          "_text": "]",
+          "element": "link",
+          "type": "closing",
         },
       ]
     `)
@@ -151,10 +227,19 @@ describe('Inline Tokenization', () => {
           "value": "hello",
         },
         Object {
-          "_text": "[fn:1]",
-          "children": Array [],
+          "_text": "[fn:",
+          "element": "footnote.reference",
+          "type": "opening",
+        },
+        Object {
+          "_text": "1",
           "label": "1",
-          "type": "footnote.reference",
+          "type": "footnote.label",
+        },
+        Object {
+          "_text": "]",
+          "element": "footnote.reference",
+          "type": "closing",
         },
         Object {
           "_text": " world.",
@@ -174,9 +259,9 @@ describe('Inline Tokenization', () => {
           "value": "hello",
         },
         Object {
-          "_text": "[fn::",
-          "label": "",
-          "type": "footnote.inline.begin",
+          "_text": "[fn:",
+          "element": "footnote.reference",
+          "type": "opening",
         },
         Object {
           "_text": "Anonymous",
@@ -185,7 +270,8 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": "]",
-          "type": "footnote.reference.end",
+          "element": "footnote.reference",
+          "type": "closing",
         },
         Object {
           "_text": " world.",
@@ -205,14 +291,14 @@ describe('Inline Tokenization', () => {
           "value": "hello",
         },
         Object {
-          "_text": "[fn::",
-          "label": "",
-          "type": "footnote.inline.begin",
+          "_text": "[fn:",
+          "element": "footnote.reference",
+          "type": "opening",
         },
         Object {
-          "_text": "[fn::",
-          "label": "",
-          "type": "footnote.inline.begin",
+          "_text": "[fn:",
+          "element": "footnote.reference",
+          "type": "opening",
         },
         Object {
           "_text": "Anonymous",
@@ -221,11 +307,13 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": "]",
-          "type": "footnote.reference.end",
+          "element": "footnote.reference",
+          "type": "closing",
         },
         Object {
           "_text": "]",
-          "type": "footnote.reference.end",
+          "element": "footnote.reference",
+          "type": "closing",
         },
         Object {
           "_text": " world.",
@@ -245,18 +333,14 @@ describe('Inline Tokenization', () => {
           "value": "hello",
         },
         Object {
-          "_text": "[fn::",
-          "label": "",
-          "type": "footnote.inline.begin",
-        },
-        Object {
-          "_text": "",
-          "type": "text",
-          "value": "",
+          "_text": "[fn:",
+          "element": "footnote.reference",
+          "type": "opening",
         },
         Object {
           "_text": "]",
-          "type": "footnote.reference.end",
+          "element": "footnote.reference",
+          "type": "closing",
         },
         Object {
           "_text": " world.",
@@ -277,9 +361,14 @@ describe('Inline Tokenization', () => {
           "value": "hello",
         },
         Object {
-          "_text": "[fn:named:",
+          "_text": "[fn:",
+          "element": "footnote.reference",
+          "type": "opening",
+        },
+        Object {
+          "_text": "named",
           "label": "named",
-          "type": "footnote.inline.begin",
+          "type": "footnote.label",
         },
         Object {
           "_text": "Inline named footnote",
@@ -288,7 +377,8 @@ describe('Inline Tokenization', () => {
         },
         Object {
           "_text": "]",
-          "type": "footnote.reference.end",
+          "element": "footnote.reference",
+          "type": "closing",
         },
         Object {
           "_text": " world.",
@@ -300,62 +390,6 @@ describe('Inline Tokenization', () => {
   })
 
   it('recon invalid inline markups', () => {
-    expect(tok(`*,word*`)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*,word*",
-          "type": "text",
-          "value": "*,word*",
-        },
-      ]
-    `)
-    expect(tok(`*word,*`)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*word,*",
-          "type": "text",
-          "value": "*word,*",
-        },
-      ]
-    `)
-    expect(tok(`*'word*`)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*'word*",
-          "type": "text",
-          "value": "*'word*",
-        },
-      ]
-    `)
-    expect(tok(`*word'*`)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*word'*",
-          "type": "text",
-          "value": "*word'*",
-        },
-      ]
-    `)
-
-    expect(tok(`*"word*`)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*\\"word*",
-          "type": "text",
-          "value": "*\\"word*",
-        },
-      ]
-    `)
-    expect(tok(`*word"*`)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "*word\\"*",
-          "type": "text",
-          "value": "*word\\"*",
-        },
-      ]
-    `)
-
     expect(tok(`* word*`)).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -412,12 +446,26 @@ describe('Inline Tokenization', () => {
     ).toMatchInlineSnapshot(`
       Array [
         Object {
-          "_text": "[[https://github.com/xiaoxinghu/orgajs][Here's]]",
-          "description": "Here's",
+          "_text": "[",
+          "element": "link",
+          "type": "opening",
+        },
+        Object {
+          "_text": "[https://github.com/xiaoxinghu/orgajs]",
           "protocol": "https",
           "search": undefined,
-          "type": "link",
+          "type": "link.path",
           "value": "https://github.com/xiaoxinghu/orgajs",
+        },
+        Object {
+          "_text": "Here's",
+          "type": "text",
+          "value": "Here's",
+        },
+        Object {
+          "_text": "]",
+          "element": "link",
+          "type": "closing",
         },
         Object {
           "_text": " to the ",

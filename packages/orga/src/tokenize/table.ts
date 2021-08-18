@@ -1,8 +1,8 @@
-import { Reader } from '../reader'
+import { Reader } from 'text-kit'
 import { Token } from '../types'
 import { tokenize as tokenizeInline } from './inline'
 
-export default ({ reader }: { reader: Reader }): Token[] => {
+export default (reader: Reader): Token[] => {
   const { match, eat, getChar, jump } = reader
 
   if (getChar() !== '|') return []
@@ -11,7 +11,7 @@ export default ({ reader }: { reader: Reader }): Token[] => {
     return [{ type: 'table.hr', position: eat('line').position }]
   }
 
-  let tokens: Token[] = [
+  const tokens: Token[] = [
     {
       type: 'table.columnSeparator',
       position: eat('char').position,
@@ -21,7 +21,8 @@ export default ({ reader }: { reader: Reader }): Token[] => {
   const tokCells = (): void => {
     const m = match(/\|/)
     const end = m && m.position.start
-    tokens = tokens.concat(tokenizeInline({ reader, end }))
+    const inline = tokenizeInline(reader.read({ end }))
+    tokens.push(...inline)
     if (!m) return
     tokens.push({
       type: 'table.columnSeparator',

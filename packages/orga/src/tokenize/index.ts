@@ -1,6 +1,6 @@
+import { read } from 'text-kit'
+import { Position } from 'unist'
 import defaultOptions, { ParseOptions } from '../options'
-import { isEmpty } from '../position'
-import { read } from '../reader'
 import todoKeywordSet, { TodoKeywordSet } from '../todo-keyword-set'
 import { Token } from '../types'
 import tokenizeBlock from './block'
@@ -11,7 +11,6 @@ import { tokenize as inlineTok } from './inline'
 import tokenizeListItem from './list'
 import tokenizePlanning from './planning'
 import tokenizeTable from './table'
-import { Position } from 'unist'
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
@@ -37,8 +36,7 @@ export const tokenize = (
 
   const reader = read(text)
 
-  const { isStartOfLine, eat, getLine, getChar, now, match, EOF, substring } =
-    reader
+  const { isStartOfLine, now, eat, getLine, getChar, match, substring } = reader
 
   const globalTodoKeywordSets = todos.map(todoKeywordSet)
 
@@ -56,7 +54,7 @@ export const tokenize = (
 
   const tok = (): Token[] => {
     eat('whitespaces')
-    if (EOF()) return []
+    if (!getChar()) return []
 
     if (getChar() === '\n') {
       return [
@@ -67,7 +65,7 @@ export const tokenize = (
       ]
     }
 
-    if (isStartOfLine() && match(/^\*+\s+/)) {
+    if (reader.isStartOfLine && match(/^\*+\s+/)) {
       return tokenizeHeadline({
         reader,
         todoKeywordSets: todoKeywordSets(),
@@ -83,28 +81,28 @@ export const tokenize = (
       })
     }
 
-    if (l.startsWith('#+')) {
+    if (match(/^#\+/)) {
       const keyword = match(/^\s*#\+(\w+):\s*(.*)$/)
       if (keyword) {
         eat('line')
         return [
           {
             type: 'keyword',
-            key: keyword.captures[1],
-            value: keyword.captures[2],
+            key: keyword.result[1],
+            value: keyword.result[2],
             position: keyword.position,
           },
         ]
       }
 
-      const block = tokenizeBlock({ reader })
+      const block = tokenizeBlock(reader)
       if (block.length > 0) return block
     }
 
-    const list = tokenizeListItem({ reader })
+    const list = tokenizeListItem(reader)
     if (list.length > 0) return list
 
-    if (l.startsWith('# ')) {
+    if (match(/^#\s/)) {
       const comment = match(/^#\s+(.*)$/)
       if (comment) {
         eat('line')
@@ -112,34 +110,34 @@ export const tokenize = (
           {
             type: 'comment',
             position: comment.position,
-            value: comment.captures[1],
+            value: comment.result[1],
           },
         ]
       }
     }
 
-    const drawer = tokenizeDrawer({ reader })
+    const drawer = tokenizeDrawer(reader)
     if (drawer.length > 0) return drawer
-    const table = tokenizeTable({ reader })
+    const table = tokenizeTable(reader)
     if (table.length > 0) return table
 
-    const hr = eat(/^\s*-{5,}\s*$/).position
-    if (!isEmpty(hr)) {
+    const hr = eat(/^\s*-{5,}\s*$/)
+    if (hr) {
       return [
         {
           type: 'hr',
-          position: hr,
+          position: hr.position,
         },
       ]
     }
 
     if (now().column === 1) {
-      const footnote = tokenizeFootnote({ reader })
+      const footnote = tokenizeFootnote(reader)
       if (footnote.length > 0) return footnote
     }
 
     // last resort
-    return inlineTok({ reader })
+    return inlineTok(reader)
   }
 
   const peek = (offset = 0): Token | undefined => {
@@ -206,7 +204,7 @@ export const tokenize = (
     addInBufferTodoKeywords: (text) => {
       inBufferTodoKeywordSets.push(todoKeywordSet(text))
     },
-    substring,
+    substring: (pos) => reader.substring(pos.start, pos.end),
     modify,
   }
 }

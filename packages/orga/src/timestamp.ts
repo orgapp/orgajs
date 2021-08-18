@@ -1,5 +1,5 @@
 import { zonedTimeToUtc } from 'date-fns-tz'
-import { read } from './reader'
+import { read } from 'text-kit'
 import { Timestamp } from './types'
 
 export const parse = (
@@ -11,9 +11,9 @@ export const parse = (
   eat('whitespaces')
   const timestamp = () => {
     // opening
-    const { value: opening } = eat(/[<[]/g)
-    if (opening.length === 0) return
-    const active = opening === '<'
+    const opening = eat(/[<[]/g)
+    if (!opening) return
+    const active = opening.value === '<'
 
     // date
     const { value: _date } = eat(/\d{4}-\d{2}-\d{2}/)
@@ -30,9 +30,9 @@ export const parse = (
     // time
     const time = match(/(\d{2}:\d{2})(?:-(\d{2}:\d{2}))?/)
     if (time) {
-      date = `${_date} ${time.captures[1]}`
-      if (time.captures[2]) {
-        end = `${_date} ${time.captures[2]}`
+      date = `${_date} ${time.result[1]}`
+      if (time.result[2]) {
+        end = `${_date} ${time.result[2]}`
       }
       jump(time.position.end)
     }
@@ -40,8 +40,8 @@ export const parse = (
     // closing
     const closing = getChar()
     if (
-      (opening === '[' && closing === ']') ||
-      (opening === '<' && closing === '>')
+      (opening.value === '[' && closing === ']') ||
+      (opening.value === '<' && closing === '>')
     ) {
       eat('char')
       return {
@@ -57,8 +57,8 @@ export const parse = (
   if (!ts) return
 
   if (!ts.end) {
-    const { value: doubleDash } = eat(/--/)
-    if (doubleDash.length > 0) {
+    const doubleDash = eat(/--/)
+    if (doubleDash) {
       const end = timestamp()
       if (end) {
         ts.end = end.date

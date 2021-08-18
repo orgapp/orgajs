@@ -1,12 +1,8 @@
 import { Token } from '../types'
-import { Reader } from '../reader'
+import { Reader } from 'text-kit'
 import { tokenize as tokenizeInline } from './inline'
 
-interface Props {
-  reader: Reader
-}
-
-export default ({ reader }: Props): Token[] => {
+export default (reader: Reader): Token[] => {
   const { now, match, eat, jump, substring } = reader
 
   let tokens: Token[] = []
@@ -18,7 +14,7 @@ export default ({ reader }: Props): Token[] => {
   tokens.push({
     type: 'list.item.bullet',
     indent,
-    ordered: /^\d/.test(bullet.captures[1]),
+    ordered: /^\d/.test(bullet.result[1]),
     position: bullet.position,
   })
 
@@ -29,7 +25,7 @@ export default ({ reader }: Props): Token[] => {
   if (checkbox) {
     tokens.push({
       type: 'list.item.checkbox',
-      checked: checkbox.captures[1] !== ' ',
+      checked: checkbox.result[1] !== ' ',
       position: checkbox.position,
     })
     jump(checkbox.position.end)
@@ -42,13 +38,13 @@ export default ({ reader }: Props): Token[] => {
     const pos = { start: now(), end: tagMark.position.start }
     tokens.push({
       type: 'list.item.tag',
-      value: substring(pos),
+      value: substring(pos.start, pos.end),
       position: pos,
     })
     jump(tagMark.position.end)
   }
 
-  tokens = tokens.concat(tokenizeInline({ reader }))
+  tokens = tokens.concat(tokenizeInline(reader))
 
   return tokens
 }
