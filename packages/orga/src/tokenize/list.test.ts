@@ -1,9 +1,9 @@
-import tok from './tok'
+import tokenize from './__tests__/tok'
 
 describe('tokenize list item', () => {
   it('knows list items', () => {
     // unordered
-    expect(tok('- buy milk')).toMatchInlineSnapshot(`
+    expect(tokenize('- buy milk')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "-",
@@ -18,7 +18,7 @@ Array [
   },
 ]
 `)
-    expect(tok('+ buy milk')).toMatchInlineSnapshot(`
+    expect(tokenize('+ buy milk')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "+",
@@ -34,7 +34,7 @@ Array [
 ]
 `)
     // ordered
-    expect(tok('1. buy milk')).toMatchInlineSnapshot(`
+    expect(tokenize('1. buy milk')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "1.",
@@ -49,7 +49,7 @@ Array [
   },
 ]
 `)
-    expect(tok('12. buy milk')).toMatchInlineSnapshot(`
+    expect(tokenize('12. buy milk')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "12.",
@@ -64,7 +64,7 @@ Array [
   },
 ]
 `)
-    expect(tok('123) buy milk')).toMatchInlineSnapshot(`
+    expect(tokenize('123) buy milk')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "123)",
@@ -80,7 +80,7 @@ Array [
 ]
 `)
     // checkbox
-    expect(tok('- [x] buy milk checked')).toMatchInlineSnapshot(`
+    expect(tokenize('- [x] buy milk checked')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "-",
@@ -100,7 +100,7 @@ Array [
   },
 ]
 `)
-    expect(tok('- [X] buy milk checked')).toMatchInlineSnapshot(`
+    expect(tokenize('- [X] buy milk checked')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "-",
@@ -120,7 +120,7 @@ Array [
   },
 ]
 `)
-    expect(tok('- [-] buy milk checked')).toMatchInlineSnapshot(`
+    expect(tokenize('- [-] buy milk checked')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "-",
@@ -140,7 +140,7 @@ Array [
   },
 ]
 `)
-    expect(tok('- [ ] buy milk unchecked')).toMatchInlineSnapshot(`
+    expect(tokenize('- [ ] buy milk unchecked')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "-",
@@ -161,7 +161,7 @@ Array [
 ]
 `)
     // indent
-    expect(tok('  - buy milk')).toMatchInlineSnapshot(`
+    expect(tokenize('  - buy milk')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "-",
@@ -177,7 +177,7 @@ Array [
 ]
 `)
     // tag
-    expect(tok('- item1 :: description here')).toMatchInlineSnapshot(`
+    expect(tokenize('- item1 :: description here')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "-",
@@ -197,7 +197,7 @@ Array [
   },
 ]
 `)
-    expect(tok('- item2\n :: description here')).toMatchInlineSnapshot(`
+    expect(tokenize('- item2\n :: description here')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "-",
@@ -222,7 +222,7 @@ Array [
   },
 ]
 `)
-    expect(tok('- [x] item3 :: description here')).toMatchInlineSnapshot(`
+    expect(tokenize('- [x] item3 :: description here')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "-",
@@ -250,7 +250,7 @@ Array [
   })
 
   it('knows these are not list items', () => {
-    expect(tok('-not item')).toMatchInlineSnapshot(`
+    expect(tokenize('-not item')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "-not item",
@@ -259,7 +259,7 @@ Array [
   },
 ]
 `)
-    expect(tok('1.not item')).toMatchInlineSnapshot(`
+    expect(tokenize('1.not item')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "1.not item",
@@ -268,7 +268,7 @@ Array [
   },
 ]
 `)
-    expect(tok('8)not item')).toMatchInlineSnapshot(`
+    expect(tokenize('8)not item')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "8)not item",
@@ -277,7 +277,7 @@ Array [
   },
 ]
 `)
-    expect(tok('8a) not item')).toMatchInlineSnapshot(`
+    expect(tokenize('8a) not item')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "8a) not item",

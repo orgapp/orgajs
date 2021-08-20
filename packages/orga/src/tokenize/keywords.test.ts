@@ -1,8 +1,8 @@
-import tok from './tok'
+import tokenize from './__tests__/tok'
 
 describe('tokenize keywords', () => {
   it('knows keywords', () => {
-    expect(tok('#+KEY: Value')).toMatchInlineSnapshot(`
+    expect(tokenize('#+KEY: Value')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+KEY: Value",
@@ -12,7 +12,7 @@ describe('tokenize keywords', () => {
         },
       ]
     `)
-    expect(tok('#+KEY: Another Value')).toMatchInlineSnapshot(`
+    expect(tokenize('#+KEY: Another Value')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+KEY: Another Value",
@@ -22,7 +22,7 @@ describe('tokenize keywords', () => {
         },
       ]
     `)
-    expect(tok('#+KEY: value : Value')).toMatchInlineSnapshot(`
+    expect(tokenize('#+KEY: value : Value')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#+KEY: value : Value",
@@ -35,7 +35,7 @@ describe('tokenize keywords', () => {
   })
 
   it('knows these are not keywords', () => {
-    expect(tok('#+KEY : Value')).toMatchInlineSnapshot(`
+    expect(tokenize('#+KEY : Value')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "#+KEY : Value",
@@ -44,7 +44,7 @@ Array [
   },
 ]
 `)
-    expect(tok('#+KE Y: Value')).toMatchInlineSnapshot(`
+    expect(tokenize('#+KE Y: Value')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "#+KE Y: Value",

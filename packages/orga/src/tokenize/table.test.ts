@@ -1,8 +1,8 @@
-import tok from './tok'
+import tokenize from './__tests__/tok'
 
 describe('tokenize table', () => {
   it('knows table hr', () => {
-    expect(tok('|----+---+----|')).toMatchInlineSnapshot(`
+    expect(tokenize('|----+---+----|')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|----+---+----|",
@@ -10,7 +10,7 @@ describe('tokenize table', () => {
         },
       ]
     `)
-    expect(tok('|--=-+---+----|')).toMatchInlineSnapshot(`
+    expect(tokenize('|--=-+---+----|')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|--=-+---+----|",
@@ -18,7 +18,7 @@ describe('tokenize table', () => {
         },
       ]
     `)
-    expect(tok('  |----+---+----|')).toMatchInlineSnapshot(`
+    expect(tokenize('  |----+---+----|')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|----+---+----|",
@@ -26,7 +26,7 @@ describe('tokenize table', () => {
         },
       ]
     `)
-    expect(tok('|----+---+----')).toMatchInlineSnapshot(`
+    expect(tokenize('|----+---+----')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|----+---+----",
@@ -34,7 +34,7 @@ describe('tokenize table', () => {
         },
       ]
     `)
-    expect(tok('|---')).toMatchInlineSnapshot(`
+    expect(tokenize('|---')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|---",
@@ -42,7 +42,7 @@ describe('tokenize table', () => {
         },
       ]
     `)
-    expect(tok('|-')).toMatchInlineSnapshot(`
+    expect(tokenize('|-')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "|-",
@@ -53,7 +53,7 @@ describe('tokenize table', () => {
   })
 
   it('knows these are not table separators', () => {
-    expect(tok('----+---+----|')).toMatchInlineSnapshot(`
+    expect(tokenize('----+---+----|')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "----+---+----|",
@@ -65,7 +65,8 @@ Array [
   })
 
   it('knows table rows', () => {
-    expect(tok('| batman | superman | wonder woman |')).toMatchInlineSnapshot(`
+    expect(tokenize('| batman | superman | wonder woman |'))
+      .toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "|",
@@ -100,7 +101,7 @@ Array [
   },
 ]
 `)
-    expect(tok("| hello | world | y'all |")).toMatchInlineSnapshot(`
+    expect(tokenize("| hello | world | y'all |")).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "|",
@@ -135,7 +136,7 @@ Array [
   },
 ]
 `)
-    expect(tok("   | hello | world | y'all |")).toMatchInlineSnapshot(`
+    expect(tokenize("   | hello | world | y'all |")).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "|",
@@ -170,7 +171,7 @@ Array [
   },
 ]
 `)
-    expect(tok("|    hello |  world   |y'all |")).toMatchInlineSnapshot(`
+    expect(tokenize("|    hello |  world   |y'all |")).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "|",
@@ -206,7 +207,7 @@ Array [
 ]
 `)
     // with empty cell
-    expect(tok('||  world   | |')).toMatchInlineSnapshot(`
+    expect(tokenize('||  world   | |')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "|",
@@ -239,7 +240,7 @@ Array [
   })
 
   it('knows these are not table rows', () => {
-    expect(tok(" hello | world | y'all |")).toMatchInlineSnapshot(`
+    expect(tokenize(" hello | world | y'all |")).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "hello | world | y'all |",
@@ -248,7 +249,7 @@ Array [
   },
 ]
 `)
-    expect(tok('|+')).toMatchInlineSnapshot(`
+    expect(tokenize('|+')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "|",

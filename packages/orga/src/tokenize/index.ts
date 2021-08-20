@@ -122,7 +122,7 @@ export const tokenize = (
       ]
     }
 
-    if (now().column === 1) {
+    if (isStartOfLine()) {
       const footnote = tokenizeFootnote(reader)
       if (footnote.length > 0) return footnote
     }

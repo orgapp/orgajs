@@ -94,6 +94,7 @@
         },
         {
           "type": "block.end",
+          "name": "SRC",
           "position": {
             "start": {
               "line": 4,
@@ -102,11 +103,10 @@
             },
             "end": {
               "line": 4,
-              "column": 10,
-              "offset": 74
+              "column": 11,
+              "offset": 75
             }
-          },
-          "name": "SRC"
+          }
         }
       ],
       "position": {
@@ -117,8 +117,8 @@
         },
         "end": {
           "line": 4,
-          "column": 10,
-          "offset": 74
+          "column": 11,
+          "offset": 75
         }
       }
     }
@@ -131,8 +131,8 @@
     },
     "end": {
       "line": 4,
-      "column": 10,
-      "offset": 74
+      "column": 11,
+      "offset": 75
     }
   }
 }

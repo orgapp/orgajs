@@ -11,7 +11,8 @@
           "position": {
             "start": {
               "line": 1,
-              "column": 1
+              "column": 1,
+              "offset": 0
             },
             "end": {
               "line": 1,
@@ -22,7 +23,56 @@
         },
         {
           "type": "footnote.reference",
-          "label": "1",
+          "children": [
+            {
+              "type": "opening",
+              "element": "footnote.reference",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 20,
+                  "offset": 19
+                },
+                "end": {
+                  "line": 1,
+                  "column": 24,
+                  "offset": 23
+                }
+              }
+            },
+            {
+              "type": "footnote.label",
+              "label": "1",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 24,
+                  "offset": 23
+                },
+                "end": {
+                  "line": 1,
+                  "column": 25,
+                  "offset": 24
+                }
+              }
+            },
+            {
+              "type": "closing",
+              "element": "footnote.reference",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 25,
+                  "offset": 24
+                },
+                "end": {
+                  "line": 1,
+                  "column": 26,
+                  "offset": 25
+                }
+              }
+            }
+          ],
           "position": {
             "start": {
               "line": 1,
@@ -35,7 +85,7 @@
               "offset": 25
             }
           },
-          "children": []
+          "label": "1"
         },
         {
           "type": "newline",
@@ -57,7 +107,8 @@
       "position": {
         "start": {
           "line": 1,
-          "column": 1
+          "column": 1,
+          "offset": 0
         },
         "end": {
           "line": 2,
@@ -153,7 +204,8 @@
   "position": {
     "start": {
       "line": 1,
-      "column": 1
+      "column": 1,
+      "offset": 0
     },
     "end": {
       "line": 3,

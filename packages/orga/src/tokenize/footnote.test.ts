@@ -1,8 +1,8 @@
-import tok from './tok'
+import tokenize from './__tests__/tok'
 
 describe('tokenize footnote', () => {
   it('knows footnotes', () => {
-    expect(tok('[fn:1] a footnote')).toMatchInlineSnapshot(`
+    expect(tokenize('[fn:1] a footnote')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "[fn:1]",
@@ -16,7 +16,7 @@ Array [
   },
 ]
 `)
-    expect(tok('[fn:word] a footnote')).toMatchInlineSnapshot(`
+    expect(tokenize('[fn:word] a footnote')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "[fn:word]",
@@ -30,7 +30,7 @@ Array [
   },
 ]
 `)
-    expect(tok('[fn:word_] a footnote')).toMatchInlineSnapshot(`
+    expect(tokenize('[fn:word_] a footnote')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "[fn:word_]",
@@ -44,7 +44,7 @@ Array [
   },
 ]
 `)
-    expect(tok('[fn:wor1d_] a footnote')).toMatchInlineSnapshot(`
+    expect(tokenize('[fn:wor1d_] a footnote')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "[fn:wor1d_]",
@@ -61,13 +61,22 @@ Array [
   })
 
   it('knows these are not footnotes', () => {
-    expect(tok('[fn:1]: not a footnote')).toMatchInlineSnapshot(`
+    expect(tokenize('[fn:1]: not a footnote')).toMatchInlineSnapshot(`
 Array [
   Object {
-    "_text": "[fn:1]",
-    "children": Array [],
+    "_text": "[fn:",
+    "element": "footnote.reference",
+    "type": "opening",
+  },
+  Object {
+    "_text": "1",
     "label": "1",
-    "type": "footnote.reference",
+    "type": "footnote.label",
+  },
+  Object {
+    "_text": "]",
+    "element": "footnote.reference",
+    "type": "closing",
   },
   Object {
     "_text": ": not a footnote",
@@ -76,13 +85,22 @@ Array [
   },
 ]
 `)
-    expect(tok(' [fn:1] not a footnote')).toMatchInlineSnapshot(`
+    expect(tokenize(' [fn:1] not a footnote')).toMatchInlineSnapshot(`
 Array [
   Object {
-    "_text": "[fn:1]",
-    "children": Array [],
+    "_text": "[fn:",
+    "element": "footnote.reference",
+    "type": "opening",
+  },
+  Object {
+    "_text": "1",
     "label": "1",
-    "type": "footnote.reference",
+    "type": "footnote.label",
+  },
+  Object {
+    "_text": "]",
+    "element": "footnote.reference",
+    "type": "closing",
   },
   Object {
     "_text": " not a footnote",
@@ -91,7 +109,7 @@ Array [
   },
 ]
 `)
-    expect(tok('[[fn:1] not a footnote')).toMatchInlineSnapshot(`
+    expect(tokenize('[[fn:1] not a footnote')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "[",
@@ -99,10 +117,19 @@ Array [
     "value": "[",
   },
   Object {
-    "_text": "[fn:1]",
-    "children": Array [],
+    "_text": "[fn:",
+    "element": "footnote.reference",
+    "type": "opening",
+  },
+  Object {
+    "_text": "1",
     "label": "1",
-    "type": "footnote.reference",
+    "type": "footnote.label",
+  },
+  Object {
+    "_text": "]",
+    "element": "footnote.reference",
+    "type": "closing",
   },
   Object {
     "_text": " not a footnote",
@@ -111,13 +138,22 @@ Array [
   },
 ]
 `)
-    expect(tok('\t[fn:1] not a footnote')).toMatchInlineSnapshot(`
+    expect(tokenize('\t[fn:1] not a footnote')).toMatchInlineSnapshot(`
 Array [
   Object {
-    "_text": "[fn:1]",
-    "children": Array [],
+    "_text": "[fn:",
+    "element": "footnote.reference",
+    "type": "opening",
+  },
+  Object {
+    "_text": "1",
     "label": "1",
-    "type": "footnote.reference",
+    "type": "footnote.label",
+  },
+  Object {
+    "_text": "]",
+    "element": "footnote.reference",
+    "type": "closing",
   },
   Object {
     "_text": " not a footnote",

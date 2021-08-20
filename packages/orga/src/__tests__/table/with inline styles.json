@@ -204,7 +204,8 @@
           "position": {
             "start": {
               "line": 1,
-              "column": 1
+              "column": 1,
+              "offset": 0
             },
             "end": {
               "line": 2,
@@ -462,9 +463,73 @@
                 },
                 {
                   "type": "link",
-                  "description": "Batman",
-                  "protocol": "https",
-                  "value": "https://en.wikipedia.org/wiki/Batman",
+                  "children": [
+                    {
+                      "type": "opening",
+                      "element": "link",
+                      "position": {
+                        "start": {
+                          "line": 3,
+                          "column": 44,
+                          "offset": 159
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 45,
+                          "offset": 160
+                        }
+                      }
+                    },
+                    {
+                      "type": "link.path",
+                      "protocol": "https",
+                      "value": "https://en.wikipedia.org/wiki/Batman",
+                      "position": {
+                        "start": {
+                          "line": 3,
+                          "column": 45,
+                          "offset": 160
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 83,
+                          "offset": 198
+                        }
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "value": "Batman",
+                      "position": {
+                        "start": {
+                          "line": 3,
+                          "column": 84,
+                          "offset": 199
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 90,
+                          "offset": 205
+                        }
+                      }
+                    },
+                    {
+                      "type": "closing",
+                      "element": "link",
+                      "position": {
+                        "start": {
+                          "line": 3,
+                          "column": 91,
+                          "offset": 206
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 92,
+                          "offset": 207
+                        }
+                      }
+                    }
+                  ],
                   "position": {
                     "start": {
                       "line": 3,
@@ -476,6 +541,10 @@
                       "column": 92,
                       "offset": 207
                     }
+                  },
+                  "path": {
+                    "protocol": "https",
+                    "value": "https://en.wikipedia.org/wiki/Batman"
                   }
                 },
                 {
@@ -771,9 +840,73 @@
                 },
                 {
                   "type": "link",
-                  "description": "Superman",
-                  "protocol": "https",
-                  "value": "https://en.wikipedia.org/wiki/Superman",
+                  "children": [
+                    {
+                      "type": "opening",
+                      "element": "link",
+                      "position": {
+                        "start": {
+                          "line": 4,
+                          "column": 44,
+                          "offset": 259
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 45,
+                          "offset": 260
+                        }
+                      }
+                    },
+                    {
+                      "type": "link.path",
+                      "protocol": "https",
+                      "value": "https://en.wikipedia.org/wiki/Superman",
+                      "position": {
+                        "start": {
+                          "line": 4,
+                          "column": 45,
+                          "offset": 260
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 85,
+                          "offset": 300
+                        }
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "value": "Superman",
+                      "position": {
+                        "start": {
+                          "line": 4,
+                          "column": 86,
+                          "offset": 301
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 94,
+                          "offset": 309
+                        }
+                      }
+                    },
+                    {
+                      "type": "closing",
+                      "element": "link",
+                      "position": {
+                        "start": {
+                          "line": 4,
+                          "column": 95,
+                          "offset": 310
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 96,
+                          "offset": 311
+                        }
+                      }
+                    }
+                  ],
                   "position": {
                     "start": {
                       "line": 4,
@@ -785,6 +918,10 @@
                       "column": 96,
                       "offset": 311
                     }
+                  },
+                  "path": {
+                    "protocol": "https",
+                    "value": "https://en.wikipedia.org/wiki/Superman"
                   }
                 },
                 {
@@ -1080,9 +1217,73 @@
                 },
                 {
                   "type": "link",
-                  "description": "Wonder Woman",
-                  "protocol": "https",
-                  "value": "https://en.wikipedia.org/wiki/Wonder_Woman",
+                  "children": [
+                    {
+                      "type": "opening",
+                      "element": "link",
+                      "position": {
+                        "start": {
+                          "line": 5,
+                          "column": 44,
+                          "offset": 361
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 45,
+                          "offset": 362
+                        }
+                      }
+                    },
+                    {
+                      "type": "link.path",
+                      "protocol": "https",
+                      "value": "https://en.wikipedia.org/wiki/Wonder_Woman",
+                      "position": {
+                        "start": {
+                          "line": 5,
+                          "column": 45,
+                          "offset": 362
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 89,
+                          "offset": 406
+                        }
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "value": "Wonder Woman",
+                      "position": {
+                        "start": {
+                          "line": 5,
+                          "column": 90,
+                          "offset": 407
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 102,
+                          "offset": 419
+                        }
+                      }
+                    },
+                    {
+                      "type": "closing",
+                      "element": "link",
+                      "position": {
+                        "start": {
+                          "line": 5,
+                          "column": 103,
+                          "offset": 420
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 104,
+                          "offset": 421
+                        }
+                      }
+                    }
+                  ],
                   "position": {
                     "start": {
                       "line": 5,
@@ -1094,6 +1295,10 @@
                       "column": 104,
                       "offset": 421
                     }
+                  },
+                  "path": {
+                    "protocol": "https",
+                    "value": "https://en.wikipedia.org/wiki/Wonder_Woman"
                   }
                 },
                 {
@@ -1160,7 +1365,8 @@
       "position": {
         "start": {
           "line": 1,
-          "column": 1
+          "column": 1,
+          "offset": 0
         },
         "end": {
           "line": 5,
@@ -1173,7 +1379,8 @@
   "position": {
     "start": {
       "line": 1,
-      "column": 1
+      "column": 1,
+      "offset": 0
     },
     "end": {
       "line": 5,

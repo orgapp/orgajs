@@ -1,8 +1,8 @@
-import tok from './tok'
+import tokenize from './__tests__/tok'
 
 describe('tokenize comment', () => {
   it('knows comments', () => {
-    expect(tok('# a comment')).toMatchInlineSnapshot(`
+    expect(tokenize('# a comment')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "# a comment",
@@ -11,7 +11,7 @@ describe('tokenize comment', () => {
         },
       ]
     `)
-    expect(tok('# ')).toMatchInlineSnapshot(`
+    expect(tokenize('# ')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "# ",
@@ -20,7 +20,7 @@ describe('tokenize comment', () => {
         },
       ]
     `)
-    expect(tok('# a comment😯')).toMatchInlineSnapshot(`
+    expect(tokenize('# a comment😯')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "# a comment😯",
@@ -29,7 +29,7 @@ describe('tokenize comment', () => {
         },
       ]
     `)
-    expect(tok(' # a comment')).toMatchInlineSnapshot(`
+    expect(tokenize(' # a comment')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "# a comment",
@@ -38,7 +38,7 @@ describe('tokenize comment', () => {
         },
       ]
     `)
-    expect(tok('  \t  # a comment')).toMatchInlineSnapshot(`
+    expect(tokenize('  \t  # a comment')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "# a comment",
@@ -47,7 +47,7 @@ describe('tokenize comment', () => {
         },
       ]
     `)
-    expect(tok('#   a comment')).toMatchInlineSnapshot(`
+    expect(tokenize('#   a comment')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#   a comment",
@@ -56,7 +56,7 @@ describe('tokenize comment', () => {
         },
       ]
     `)
-    expect(tok('#    \t a comment')).toMatchInlineSnapshot(`
+    expect(tokenize('#    \t a comment')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "#    	 a comment",
@@ -68,7 +68,7 @@ describe('tokenize comment', () => {
   })
 
   it('knows these are not comments', () => {
-    expect(tok('#not a comment')).toMatchInlineSnapshot(`
+    expect(tokenize('#not a comment')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "#not a comment",
@@ -77,7 +77,7 @@ Array [
   },
 ]
 `)
-    expect(tok('  #not a comment')).toMatchInlineSnapshot(`
+    expect(tokenize('  #not a comment')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "#not a comment",

@@ -1,8 +1,8 @@
-import tok from './tok'
+import tokenize from './__tests__/tok'
 
 describe('tokenize drawer', () => {
   it('knows drawer begins', () => {
-    expect(tok(':PROPERTIES:')).toMatchInlineSnapshot(`
+    expect(tokenize(':PROPERTIES:')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": ":PROPERTIES:",
@@ -11,7 +11,7 @@ describe('tokenize drawer', () => {
         },
       ]
     `)
-    expect(tok('  :properties:')).toMatchInlineSnapshot(`
+    expect(tokenize('  :properties:')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": ":properties:",
@@ -20,7 +20,7 @@ describe('tokenize drawer', () => {
         },
       ]
     `)
-    expect(tok('  :properties:  ')).toMatchInlineSnapshot(`
+    expect(tokenize('  :properties:  ')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": ":properties:",
@@ -29,7 +29,7 @@ describe('tokenize drawer', () => {
         },
       ]
     `)
-    expect(tok('  :prop_erties:  ')).toMatchInlineSnapshot(`
+    expect(tokenize('  :prop_erties:  ')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": ":prop_erties:",
@@ -41,7 +41,7 @@ describe('tokenize drawer', () => {
   })
 
   it('knows these are not drawer begins', () => {
-    expect(tok('PROPERTIES:')).toMatchInlineSnapshot(`
+    expect(tokenize('PROPERTIES:')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "PROPERTIES:",
@@ -50,7 +50,7 @@ Array [
   },
 ]
 `)
-    expect(tok(':PROPERTIES')).toMatchInlineSnapshot(`
+    expect(tokenize(':PROPERTIES')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": ":PROPERTIES",
@@ -59,7 +59,7 @@ Array [
   },
 ]
 `)
-    expect(tok(':PR OPERTIES:')).toMatchInlineSnapshot(`
+    expect(tokenize(':PR OPERTIES:')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": ":PR OPERTIES:",
@@ -71,7 +71,7 @@ Array [
   })
 
   it('knows drawer ends', () => {
-    expect(tok(':END:')).toMatchInlineSnapshot(`
+    expect(tokenize(':END:')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": ":END:",
@@ -79,7 +79,7 @@ Array [
         },
       ]
     `)
-    expect(tok('  :end:')).toMatchInlineSnapshot(`
+    expect(tokenize('  :end:')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": ":end:",
@@ -87,7 +87,7 @@ Array [
         },
       ]
     `)
-    expect(tok('  :end:  ')).toMatchInlineSnapshot(`
+    expect(tokenize('  :end:  ')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": ":end:",
@@ -95,7 +95,7 @@ Array [
         },
       ]
     `)
-    expect(tok('  :end:  ')).toMatchInlineSnapshot(`
+    expect(tokenize('  :end:  ')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": ":end:",
@@ -106,7 +106,7 @@ Array [
   })
 
   it('knows these are not drawer ends', () => {
-    expect(tok('END:')).toMatchInlineSnapshot(`
+    expect(tokenize('END:')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": "END:",
@@ -115,7 +115,7 @@ Array [
   },
 ]
 `)
-    expect(tok(':END')).toMatchInlineSnapshot(`
+    expect(tokenize(':END')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": ":END",
@@ -124,7 +124,7 @@ Array [
   },
 ]
 `)
-    expect(tok(':ENDed')).toMatchInlineSnapshot(`
+    expect(tokenize(':ENDed')).toMatchInlineSnapshot(`
 Array [
   Object {
     "_text": ":ENDed",

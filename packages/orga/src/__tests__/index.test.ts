@@ -1,7 +1,9 @@
-import { promises as fs, readdirSync, lstatSync, existsSync } from 'fs'
+import { existsSync, lstatSync, promises as fs, readdirSync } from 'fs'
 import { diff } from 'jest-diff'
 import * as path from 'path'
 import { parse } from '../index'
+import { tokenize } from '../tokenize'
+import { inspect } from 'util'
 
 const specs = []
 // set to true for updating snapshots
@@ -66,7 +68,6 @@ expect.extend({
           contextLines: 5,
           expand: false,
         })
-        message = 'does not match tree'
       }
     }
     return {
@@ -76,8 +77,8 @@ expect.extend({
   },
 })
 
-describe.skip('parser', () => {
-  test.each(specs)('$name', async ({ input, output }) => {
+describe('parser', () => {
+  test.each(specs)('$name', async ({ input }) => {
     await expect(input).toMatchTree()
   })
 })

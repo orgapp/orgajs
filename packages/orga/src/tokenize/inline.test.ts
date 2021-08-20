@@ -1,8 +1,9 @@
-import tok from './tok'
+import tokenize from './__tests__/tok'
 
 describe('Inline Tokenization', () => {
   it('recon single emphasis', () => {
-    expect(tok('hello *world*, welcome to *org-mode*.')).toMatchInlineSnapshot(`
+    expect(tokenize('hello *world*, welcome to *org-mode*.'))
+      .toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "hello ",
@@ -36,7 +37,7 @@ describe('Inline Tokenization', () => {
   })
 
   it('recon emphasises at different locations', () => {
-    expect(tok('one *two* three')).toMatchInlineSnapshot(`
+    expect(tokenize('one *two* three')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "one ",
@@ -56,7 +57,7 @@ describe('Inline Tokenization', () => {
         },
       ]
     `)
-    expect(tok('*one* two three')).toMatchInlineSnapshot(`
+    expect(tokenize('*one* two three')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "*one*",
@@ -71,7 +72,7 @@ describe('Inline Tokenization', () => {
         },
       ]
     `)
-    expect(tok('one two *three*')).toMatchInlineSnapshot(`
+    expect(tokenize('one two *three*')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "one two ",
@@ -89,7 +90,7 @@ describe('Inline Tokenization', () => {
   })
 
   it('recon link', () => {
-    expect(tok(`hello [[./image/logo.png]]`)).toMatchInlineSnapshot(`
+    expect(tokenize(`hello [[./image/logo.png]]`)).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "hello ",
@@ -115,7 +116,7 @@ describe('Inline Tokenization', () => {
         },
       ]
     `)
-    expect(tok(`hello [[Internal Link][link]]`)).toMatchInlineSnapshot(`
+    expect(tokenize(`hello [[Internal Link][link]]`)).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "hello ",
@@ -146,7 +147,8 @@ describe('Inline Tokenization', () => {
         },
       ]
     `)
-    expect(tok(`hello [[../image/logo.png][logo]]`)).toMatchInlineSnapshot(`
+    expect(tokenize(`hello [[../image/logo.png][logo]]`))
+      .toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "hello ",
@@ -178,7 +180,7 @@ describe('Inline Tokenization', () => {
       ]
     `)
 
-    expect(tok(`that is a [[../image/logo.png][/nice/ logo]]`))
+    expect(tokenize(`that is a [[../image/logo.png][/nice/ logo]]`))
       .toMatchInlineSnapshot(`
       Array [
         Object {
@@ -219,7 +221,7 @@ describe('Inline Tokenization', () => {
   })
 
   it('recon footnote reference', () => {
-    expect(tok(`hello[fn:1] world.`)).toMatchInlineSnapshot(`
+    expect(tokenize(`hello[fn:1] world.`)).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "hello",
@@ -251,7 +253,7 @@ describe('Inline Tokenization', () => {
   })
 
   it('recon anonymous footnote reference', () => {
-    expect(tok('hello[fn::Anonymous] world.')).toMatchInlineSnapshot(`
+    expect(tokenize('hello[fn::Anonymous] world.')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "hello",
@@ -283,7 +285,8 @@ describe('Inline Tokenization', () => {
   })
 
   it('recon anonymous footnote reference with inner footnote reference', () => {
-    expect(tok('hello[fn::[fn::Anonymous]] world.')).toMatchInlineSnapshot(`
+    expect(tokenize('hello[fn::[fn::Anonymous]] world.'))
+      .toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "hello",
@@ -325,7 +328,7 @@ describe('Inline Tokenization', () => {
   })
 
   it('recon anonymous footnote reference with empty body', () => {
-    expect(tok('hello[fn::] world.')).toMatchInlineSnapshot(`
+    expect(tokenize('hello[fn::] world.')).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "hello",
@@ -352,7 +355,7 @@ describe('Inline Tokenization', () => {
   })
 
   it('recon named inline footnote', () => {
-    expect(tok('hello[fn:named:Inline named footnote] world.'))
+    expect(tokenize('hello[fn:named:Inline named footnote] world.'))
       .toMatchInlineSnapshot(`
       Array [
         Object {
@@ -390,7 +393,7 @@ describe('Inline Tokenization', () => {
   })
 
   it('recon invalid inline markups', () => {
-    expect(tok(`* word*`)).toMatchInlineSnapshot(`
+    expect(tokenize(`* word*`)).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "*",
@@ -404,7 +407,7 @@ describe('Inline Tokenization', () => {
         },
       ]
     `)
-    expect(tok(`*word *`)).toMatchInlineSnapshot(`
+    expect(tokenize(`*word *`)).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "*word *",
@@ -416,7 +419,7 @@ describe('Inline Tokenization', () => {
   })
 
   it('recon emphasises with 2 chars', () => {
-    expect(tok(`*12*`)).toMatchInlineSnapshot(`
+    expect(tokenize(`*12*`)).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "*12*",
@@ -426,7 +429,7 @@ describe('Inline Tokenization', () => {
         },
       ]
     `)
-    expect(tok(`*1*`)).toMatchInlineSnapshot(`
+    expect(tokenize(`*1*`)).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "*1*",
@@ -440,7 +443,7 @@ describe('Inline Tokenization', () => {
 
   it('recon mixed emphasis', () => {
     expect(
-      tok(
+      tokenize(
         "[[https://github.com/xiaoxinghu/orgajs][Here's]] to the *crazy* ones, the /misfits/, the _rebels_, the ~troublemakers~, the round pegs in the +round+ square holes..."
       )
     ).toMatchInlineSnapshot(`
@@ -535,7 +538,7 @@ describe('Inline Tokenization', () => {
     const content = `
 Special characters =~= and =!=. Also =~/.this/path= and ~that~ thing.
 `
-    expect(tok(content)).toMatchInlineSnapshot(`
+    expect(tokenize(content)).toMatchInlineSnapshot(`
       Array [
         Object {
           "_text": "
