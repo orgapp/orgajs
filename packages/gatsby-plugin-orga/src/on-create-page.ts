@@ -11,7 +11,7 @@ const onCreatePage: GatsbyNode['onCreatePage'] = async (
   const { deletePage, createPage } = actions
 
   const content = await fs.readFile(page.component, `utf8`)
-  const { code, imports, properties } = await compile({ content, cache })
+  const { code, imports, properties = {} } = await compile({ content, cache })
   deletePage(page)
   createPage({
     ...page,
