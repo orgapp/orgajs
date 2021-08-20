@@ -86,7 +86,14 @@ export function createContext(lexer: Lexer): Context {
     if (test(last, predicate)) {
       return pop()
     }
-    assert(!strict, `can not strictly exit ${predicate}`)
+    assert(
+      !strict,
+      `
+can not strictly exit ${predicate},
+actual: ${last.type}
+location: line: ${last.position.start.line}, column: ${last.position.start.column}
+`.trim()
+    )
   }
 
   const exitTo = (predicate: Predicate) => {

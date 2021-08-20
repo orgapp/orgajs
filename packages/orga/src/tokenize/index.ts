@@ -11,6 +11,7 @@ import { tokenize as inlineTok } from './inline'
 import tokenizeListItem from './list'
 import tokenizePlanning from './planning'
 import tokenizeTable from './table'
+import tokenizeKeyword from './keyword'
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
@@ -36,7 +37,7 @@ export const tokenize = (
 
   const reader = read(text)
 
-  const { isStartOfLine, now, eat, getLine, getChar, match, substring } = reader
+  const { now, eat, getLine, getChar, match, isStartOfLine } = reader
 
   const globalTodoKeywordSets = todos.map(todoKeywordSet)
 
@@ -65,7 +66,7 @@ export const tokenize = (
       ]
     }
 
-    if (reader.isStartOfLine && match(/^\*+\s+/)) {
+    if (isStartOfLine() && match(/^\*+\s+/my)) {
       return tokenizeHeadline({
         reader,
         todoKeywordSets: todoKeywordSets(),
@@ -81,19 +82,9 @@ export const tokenize = (
       })
     }
 
-    if (match(/^#\+/)) {
-      const keyword = match(/^\s*#\+(\w+):\s*(.*)$/)
-      if (keyword) {
-        eat('line')
-        return [
-          {
-            type: 'keyword',
-            key: keyword.result[1],
-            value: keyword.result[2],
-            position: keyword.position,
-          },
-        ]
-      }
+    if (l.startsWith('#+')) {
+      const keyword = tokenizeKeyword(reader)
+      if (keyword.length > 0) return keyword
 
       const block = tokenizeBlock(reader)
       if (block.length > 0) return block
@@ -102,8 +93,8 @@ export const tokenize = (
     const list = tokenizeListItem(reader)
     if (list.length > 0) return list
 
-    if (match(/^#\s/)) {
-      const comment = match(/^#\s+(.*)$/)
+    if (match(/^#\s/y)) {
+      const comment = match(/^#\s+(.*)$/my)
       if (comment) {
         eat('line')
         return [
@@ -121,7 +112,7 @@ export const tokenize = (
     const table = tokenizeTable(reader)
     if (table.length > 0) return table
 
-    const hr = eat(/^\s*-{5,}\s*$/)
+    const hr = eat(/^\s*-{5,}\s*$/my)
     if (hr) {
       return [
         {

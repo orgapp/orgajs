@@ -179,15 +179,18 @@ export interface Text extends Literal {
 
 export interface Link extends Parent {
   type: 'link'
-  path: LinkPath
+  path: LinkInfo
   children: PhrasingContent[]
 }
 
-export interface LinkPath extends Literal {
-  type: 'link.path'
+interface LinkInfo {
   protocol: string
   value: string
   search?: string | number
+}
+
+export interface LinkPath extends Literal, LinkInfo {
+  type: 'link.path'
 }
 
 export type Enclosed = Style | 'link' | 'footnote.reference'

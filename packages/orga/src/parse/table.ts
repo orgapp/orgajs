@@ -1,6 +1,7 @@
 import { Action } from '.'
 import { isPhrasingContent } from '../utils'
 import { Context } from './context'
+import content from './content'
 
 const tableCell: Action = (_, { enter }: Context) => {
   enter({
@@ -20,9 +21,7 @@ const tableCell: Action = (_, { enter }: Context) => {
       },
       {
         test: isPhrasingContent,
-        action: (_, { consume }) => {
-          consume()
-        },
+        action: content,
       },
       {
         test: /.*/,
@@ -35,7 +34,7 @@ const tableCell: Action = (_, { enter }: Context) => {
   }
 }
 
-const tableRow = (_, { enter, consume, lexer }: Context) => {
+const tableRow = (_, { enter, lexer }: Context) => {
   enter({
     type: 'table.row',
     children: [],

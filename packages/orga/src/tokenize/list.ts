@@ -3,13 +3,13 @@ import { Reader } from 'text-kit'
 import { tokenize as tokenizeInline } from './inline'
 
 export default (reader: Reader): Token[] => {
-  const { now, match, eat, jump, substring } = reader
+  const { now, match, eat, jump, substring, endOfLine } = reader
 
   let tokens: Token[] = []
 
   const indent = now().column - 1
 
-  const bullet = match(/^([-+]|\d+[.)])(?=\s)/)
+  const bullet = match(/^([-+]|\d+[.)])(?=\s)/y)
   if (!bullet) return []
   tokens.push({
     type: 'list.item.bullet',
@@ -21,7 +21,7 @@ export default (reader: Reader): Token[] => {
   jump(bullet.position.end)
   eat('whitespaces')
 
-  const checkbox = match(/^\[(x|X|-| )\](?=\s)/)
+  const checkbox = match(/^\[(x|X|-| )\](?=\s)/y)
   if (checkbox) {
     tokens.push({
       type: 'list.item.checkbox',
@@ -33,7 +33,7 @@ export default (reader: Reader): Token[] => {
 
   eat('whitespaces')
 
-  const tagMark = match(/\s+::\s+/)
+  const tagMark = match(/\s+::\s+/, { end: endOfLine() })
   if (tagMark) {
     const pos = { start: now(), end: tagMark.position.start }
     tokens.push({

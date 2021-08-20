@@ -3,23 +3,32 @@ import { Token } from '../types'
 import { tokenize as tokenizeInline } from './inline'
 
 export default (reader: Reader): Token[] => {
-  const { match, eat, getChar, jump } = reader
+  const { match, eat, getChar, jump, endOfLine } = reader
+  const char = getChar()
 
-  if (getChar() !== '|') return []
+  if (char !== '|') return []
 
   if (getChar(1) === '-') {
-    return [{ type: 'table.hr', position: eat('line').position }]
+    const hr = eat('line')
+    return [{ type: 'table.hr', position: hr.position }]
   }
 
   const tokens: Token[] = [
     {
       type: 'table.columnSeparator',
-      position: eat('char').position,
+      position: eat().position,
     },
   ]
 
   const tokCells = (): void => {
-    const m = match(/\|/)
+    if (getChar() === '\n') {
+      tokens.push({
+        type: 'newline',
+        position: eat().position,
+      })
+      return
+    }
+    const m = match(/\|/, { end: endOfLine() })
     const end = m && m.position.start
     const inline = tokenizeInline(reader.read({ end }))
     tokens.push(...inline)

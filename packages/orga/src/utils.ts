@@ -14,6 +14,7 @@ export const isPhrasingContent = (token: Token): token is PhrasingContent => {
   return (
     token.type === 'text' ||
     token.type === 'footnote.reference' ||
+    token.type === 'opening' ||
     token.type === 'link' ||
     token.type === 'newline'
   )
