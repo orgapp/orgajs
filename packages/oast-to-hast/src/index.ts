@@ -1,5 +1,5 @@
 import { Comment, Element, Properties, Root, Text, Literal } from 'hast'
-import { Document, Section } from 'orga'
+import { Attributes, Document, Section } from 'orga'
 import u from 'unist-builder'
 import handlers, { Handler } from './handlers'
 import { all } from './transform'
@@ -18,8 +18,10 @@ const defaultOptions = {
   excludeTags: ['noexport'],
   selectTags: [] as string[],
   highlight: true,
+  attributes: {} as Attributes,
   properties: {} as Properties,
-  handlers: {} as { [key: string]: Handler },
+  handlers: {} as Record<string, Handler>,
+  defaultHandler: (element: string) => handlers[element],
 }
 
 export type Options = typeof defaultOptions

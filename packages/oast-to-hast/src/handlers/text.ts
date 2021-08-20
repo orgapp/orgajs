@@ -10,12 +10,11 @@ const wrapper: Record<Style, string> = {
   strikeThrough: 'del',
 }
 
-export default (context: Context) =>
-  (node: Text): HNode => {
-    const { u, h } = context
-    let e: HNode = u('text', node.value)
-    if (node.style) {
-      e = h(wrapper[node.style])(e)
-    }
-    return e
+export default (node: Text, context: Context) => {
+  const { u, h } = context
+  let e: HNode = u('text', node.value)
+  if (node.style) {
+    e = h(wrapper[node.style])(e)
   }
+  return e
+}

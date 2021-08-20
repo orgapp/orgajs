@@ -1,8 +1,7 @@
 import { HTML } from 'orga'
-import { Context, HNode } from '../'
+import { Context } from '../'
 
-export default (context: Context) =>
-  (node: HTML): HNode => {
-    const { u } = context
-    return u('raw', node.value)
-  }
+export default (node: HTML, context: Context) => {
+  const { u } = context
+  return u('raw', node.value)
+}
