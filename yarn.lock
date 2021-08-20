@@ -4309,6 +4309,7 @@ __metadata:
   dependencies:
     "@orgajs/react": ^2.4.9
     "@orgajs/reorg": ^2.4.9
+    babel-loader: ^8.2.2
     html-loader: ^2.1.2
     loader-utils: ^2.0.0
     memfs: ^3.2.2
