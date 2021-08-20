@@ -87,8 +87,10 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
     }
   }
 
-  const match = (pattern: RegExp) => {
-    const str = core.text.substring(cursor, end)
+  const match = (pattern: RegExp, range: Partial<Position> = {}) => {
+    const s = range.start?.offset || cursor
+    const e = range.end?.offset || end
+    const str = core.text.substring(s, e)
     const m = pattern.exec(str)
     if (!m) return
     return {
@@ -129,6 +131,10 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
     }
   }
 
+  const isStartOfLine = () => {
+    return cursor === 0 || getChar(-1) === '\n'
+  }
+
   return {
     ...core,
     getChar,
@@ -137,12 +143,13 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
     jump,
     match,
     findClosing,
-    get isStartOfLine() {
-      return cursor === 0 || core.text[cursor - 1] === '\n'
-    },
+    isStartOfLine,
     now: () => {
       return now()
     },
+
+    beginOfLine: () => core.beginOfLine(cursor),
+    endOfLine: () => core.endOfLine(cursor),
 
     read: (range: Partial<Range> = {}) => {
       return reader(_core, {

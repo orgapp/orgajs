@@ -28,8 +28,22 @@ export default <T extends CoreAPI>(core: T) => {
 
     return result
   }
+
+  const endOfLine = (ln: Point | number) => {
+    const pos = linePosition(ln)
+    if (!pos) return undefined
+    return pos.end
+  }
+
+  const beginOfLine = (ln: Point | number) => {
+    const pos = linePosition(ln)
+    if (!pos) return undefined
+    return pos.start
+  }
   return {
     ...core,
     linePosition,
+    endOfLine,
+    beginOfLine,
   }
 }
