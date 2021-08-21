@@ -45,15 +45,48 @@
               }
             },
             {
-              "type": "tags",
-              "tags": [
-                "PROPERTIES"
-              ],
+              "type": "newline",
               "position": {
                 "start": {
                   "line": 1,
                   "column": 27,
                   "offset": 26
+                },
+                "end": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 27
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 1,
+              "offset": 27
+            }
+          }
+        },
+        {
+          "type": "drawer",
+          "name": "PROPERTIES",
+          "value": "\n:CATEGORY: test\n:Effort:   5\n",
+          "children": [
+            {
+              "type": "drawer.begin",
+              "name": "PROPERTIES",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 27
                 },
                 "end": {
                   "line": 2,
@@ -76,28 +109,7 @@
                   "offset": 40
                 }
               }
-            }
-          ],
-          "level": 1,
-          "position": {
-            "start": {
-              "line": 1,
-              "column": 1,
-              "offset": 0
             },
-            "end": {
-              "line": 3,
-              "column": 1,
-              "offset": 40
-            }
-          },
-          "tags": [
-            "PROPERTIES"
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
             {
               "type": "text",
               "value": ":CATEGORY: test",
@@ -161,8 +173,7 @@
               }
             },
             {
-              "type": "text",
-              "value": ":END:",
+              "type": "drawer.end",
               "position": {
                 "start": {
                   "line": 5,
@@ -175,34 +186,18 @@
                   "offset": 74
                 }
               }
-            },
-            {
-              "type": "newline",
-              "position": {
-                "start": {
-                  "line": 5,
-                  "column": 6,
-                  "offset": 74
-                },
-                "end": {
-                  "line": 6,
-                  "column": 1,
-                  "offset": 75
-                }
-              }
             }
           ],
-          "attributes": {},
           "position": {
             "start": {
-              "line": 3,
+              "line": 2,
               "column": 1,
-              "offset": 40
+              "offset": 27
             },
             "end": {
-              "line": 6,
-              "column": 1,
-              "offset": 75
+              "line": 5,
+              "column": 6,
+              "offset": 74
             }
           }
         }
@@ -263,15 +258,48 @@
               }
             },
             {
-              "type": "tags",
-              "tags": [
-                "LOG"
-              ],
+              "type": "newline",
               "position": {
                 "start": {
                   "line": 7,
                   "column": 23,
                   "offset": 98
+                },
+                "end": {
+                  "line": 8,
+                  "column": 1,
+                  "offset": 99
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 7,
+              "column": 1,
+              "offset": 76
+            },
+            "end": {
+              "line": 8,
+              "column": 1,
+              "offset": 99
+            }
+          }
+        },
+        {
+          "type": "drawer",
+          "name": "LOG",
+          "value": "\nhere are\nsome log\n",
+          "children": [
+            {
+              "type": "drawer.begin",
+              "name": "LOG",
+              "position": {
+                "start": {
+                  "line": 8,
+                  "column": 1,
+                  "offset": 99
                 },
                 "end": {
                   "line": 8,
@@ -294,28 +322,7 @@
                   "offset": 105
                 }
               }
-            }
-          ],
-          "level": 1,
-          "position": {
-            "start": {
-              "line": 7,
-              "column": 1,
-              "offset": 76
             },
-            "end": {
-              "line": 9,
-              "column": 1,
-              "offset": 105
-            }
-          },
-          "tags": [
-            "LOG"
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
             {
               "type": "text",
               "value": "here are",
@@ -377,19 +384,33 @@
                   "offset": 123
                 }
               }
+            },
+            {
+              "type": "drawer.end",
+              "position": {
+                "start": {
+                  "line": 11,
+                  "column": 1,
+                  "offset": 123
+                },
+                "end": {
+                  "line": 11,
+                  "column": 6,
+                  "offset": 128
+                }
+              }
             }
           ],
-          "attributes": {},
           "position": {
             "start": {
-              "line": 9,
+              "line": 8,
               "column": 1,
-              "offset": 105
+              "offset": 99
             },
             "end": {
               "line": 11,
-              "column": 1,
-              "offset": 123
+              "column": 6,
+              "offset": 128
             }
           }
         }

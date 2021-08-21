@@ -4,7 +4,7 @@ import { Token } from '../types'
 export default (reader: Reader): Token[] => {
   const { match, jump } = reader
 
-  const drawerReg = /^:(\w+):(?=\s*$)/
+  const drawerReg = /:(\w+):(?=[ \t]*$)/my
   const m = match(drawerReg)
   if (m) {
     jump(m.position.end)

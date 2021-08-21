@@ -73,6 +73,9 @@ export const tokenize = (
       })
     }
 
+    const drawer = tokenizeDrawer(reader)
+    if (drawer.length > 0) return drawer
+
     const l = getLine()
     if (PLANNING_KEYWORDS.some((k) => l.startsWith(k))) {
       return tokenizePlanning({
@@ -107,8 +110,6 @@ export const tokenize = (
       }
     }
 
-    const drawer = tokenizeDrawer(reader)
-    if (drawer.length > 0) return drawer
     const table = tokenizeTable(reader)
     if (table.length > 0) return table
 

@@ -17,9 +17,9 @@ const headline: Action = (token: Stars, context) => {
     name: 'headline',
     rules: [
       {
-        test: 'newline',
-        action: (_, { push, exit, lexer }) => {
-          push(lexer.eat())
+        test: ['newline', 'EOF'],
+        action: (_, { exit, consume }) => {
+          consume()
           exit(headline.type)
           return 'break'
         },

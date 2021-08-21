@@ -49,7 +49,7 @@ export default ({ reader, todoKeywordSets }: Props): Token[] => {
 
   eat('whitespaces')
 
-  const tags = match(/\s+(:(?:[\w@_#%-]+:)+)[ \t]*$/gm)
+  const tags = match(/[ \t]+(:(?:[\w@_#%-]+:)+)[ \t]*$/gm)
   let contentEnd = eol(now().line)
   if (tags) {
     contentEnd = tags.position.start

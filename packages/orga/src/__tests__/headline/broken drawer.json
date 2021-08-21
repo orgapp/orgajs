@@ -45,15 +45,46 @@
               }
             },
             {
-              "type": "tags",
-              "tags": [
-                "PROPERTIES"
-              ],
+              "type": "newline",
               "position": {
                 "start": {
                   "line": 1,
                   "column": 11,
                   "offset": 10
+                },
+                "end": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 11
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 1,
+              "offset": 11
+            }
+          }
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": ":PROPERTIES:",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 11
                 },
                 "end": {
                   "line": 2,
@@ -76,28 +107,7 @@
                   "offset": 24
                 }
               }
-            }
-          ],
-          "level": 1,
-          "position": {
-            "start": {
-              "line": 1,
-              "column": 1,
-              "offset": 0
             },
-            "end": {
-              "line": 3,
-              "column": 1,
-              "offset": 24
-            }
-          },
-          "tags": [
-            "PROPERTIES"
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
             {
               "type": "text",
               "value": "key1: value1",
@@ -164,9 +174,9 @@
           "attributes": {},
           "position": {
             "start": {
-              "line": 3,
+              "line": 2,
               "column": 1,
-              "offset": 24
+              "offset": 11
             },
             "end": {
               "line": 5,
