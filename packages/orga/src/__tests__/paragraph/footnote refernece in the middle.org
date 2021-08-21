@@ -1,0 +1,1 @@
+with footnote[fn:1] in the middle.
