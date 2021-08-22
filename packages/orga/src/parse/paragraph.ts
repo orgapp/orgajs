@@ -1,48 +1,13 @@
 import { Action, Handler, not } from '.'
-import { FootnoteInlineBegin, Token } from '../types'
+import { Token } from '../types'
 import { clone, isPhrasingContent } from '../utils'
-import content from './content'
+import phrasingContent from './phrasing'
 
 const isWhitespaces = (node: Token) => {
   return (
     (node.type === 'text' && node.value.trim().length === 0) ||
     node.type === 'newline'
   )
-}
-
-const footnote: Action = (token: FootnoteInlineBegin, { enter, lexer }) => {
-  enter({
-    type: 'footnote.reference',
-    label: token.label,
-    children: [],
-  })
-  lexer.eat()
-
-  return {
-    name: 'footnote',
-    rules: [
-      {
-        test: 'footnote.inline.begin',
-        action: (token, context) => {
-          return footnote(token, context)
-        },
-      },
-      {
-        test: 'footnote.reference.end',
-        action: (_, { push, lexer, exit }) => {
-          push(lexer.eat())
-          exit('footnote.reference')
-          return 'break'
-        },
-      },
-      {
-        test: /.*/,
-        action: (token, { restore, lexer }) => {
-          restore()
-        },
-      },
-    ],
-  }
 }
 
 const paragraph: Action = (
@@ -93,7 +58,7 @@ const paragraph: Action = (
       },
       {
         test: isPhrasingContent,
-        action: content,
+        action: phrasingContent,
       },
       // catch all
       {

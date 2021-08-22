@@ -1,5 +1,5 @@
 #+title: Orga
-#+html: import {Flex,Button} from 'theme-ui'
+#+html: import {Flex,NavLink} from 'theme-ui'
 #+html: import {Link} from 'gatsby'
 #+html: export {default} from '../website/src/components/landing'
 
@@ -8,16 +8,10 @@
 #+end_export
 
 #+begin_export html
-<Flex sx={{gap: '0.2em', py: 2}}>
-  <Link to='/getting-started/'>
-    <Button>Documentation</Button>
-  </Link>
-  <Link to='/playground'>
-    <Button>Playground</Button>
-  </Link>
-  <a href='https://github.com/orgapp/orgajs'>
-    <Button>GitHub</Button>
-  </a>
+<Flex as='nav' sx={{gap: '0.2em', py: 2}}>
+  <NavLink as={Link} to='/getting-started/'>Documentation</NavLink>
+  <NavLink as={Link} to='/getting-started/'>Playground</NavLink>
+  <NavLink href='https://github.com/orgapp/orgajs'>GitHub</NavLink>
 </Flex>
 #+end_export
 

@@ -1,7 +1,7 @@
 import { Action } from '.'
 import { isPhrasingContent } from '../utils'
 import { Context } from './context'
-import content from './content'
+import phrasingContent from './phrasing'
 
 const tableCell: Action = (_, { enter }: Context) => {
   enter({
@@ -21,7 +21,7 @@ const tableCell: Action = (_, { enter }: Context) => {
       },
       {
         test: isPhrasingContent,
-        action: content,
+        action: phrasingContent,
       },
       {
         test: /.*/,

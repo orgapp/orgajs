@@ -1,7 +1,7 @@
 import { Action, Handler, not } from '.'
 import { ListItem, ListItemBullet, ListItemTag } from '../types'
 import { isPhrasingContent } from '../utils'
-import content from './content'
+import phrasingContent from './phrasing'
 
 const listItem: Action = (token: ListItemBullet, { enter, consume }) => {
   const item: ListItem = enter({
@@ -47,7 +47,7 @@ const listItem: Action = (token: ListItemBullet, { enter, consume }) => {
           consume()
         },
       },
-      { test: isPhrasingContent, action: content },
+      { test: isPhrasingContent, action: phrasingContent },
       {
         test: /.*/,
         action: (_, { exit }) => {

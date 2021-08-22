@@ -1,6 +1,7 @@
 import { Action } from '.'
 import { Headline, Priority, Stars, Tags, Todo } from '../types'
 import { isPhrasingContent } from '../utils'
+import phrasingContent from './phrasing'
 
 const headline: Action = (token: Stars, context) => {
   const { enter } = context
@@ -48,10 +49,7 @@ const headline: Action = (token: Stars, context) => {
       },
       {
         test: isPhrasingContent,
-        action: (token) => {
-          headline.content += `${token.value}`
-          return 'next'
-        },
+        action: phrasingContent,
       },
       {
         test: /.*/,

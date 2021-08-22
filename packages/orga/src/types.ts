@@ -143,8 +143,6 @@ export type Token =
   | TableColumnSeparator
   | PhrasingContent
   | FootnoteLabel
-  | FootnoteInlineBegin
-  | FootnoteReferenceEnd
   | BlockBegin
   | BlockEnd
   | DrawerBegin
@@ -228,15 +226,6 @@ export interface FootnoteReference extends Parent {
   type: 'footnote.reference'
   label: string
   children: PhrasingContent[]
-}
-
-export interface FootnoteInlineBegin extends Node {
-  type: 'footnote.inline.begin'
-  label: string
-}
-
-export interface FootnoteReferenceEnd extends Node {
-  type: 'footnote.reference.end'
 }
 
 // headline tokens

@@ -36,17 +36,7 @@ export default {
       cursor: 'pointer',
     },
   },
-  links: {
-    nav: {
-      px: 2,
-      py: 1,
-      // textTransform: 'uppercase',
-      '&:hover': {
-        bg: 'highlight',
-      },
-      borderRadius: '0.2em',
-    },
-  },
+  links: {},
   styles: {
     root: {
       fontFamily: 'body',

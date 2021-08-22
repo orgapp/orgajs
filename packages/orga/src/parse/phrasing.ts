@@ -2,7 +2,7 @@ import assert from 'assert'
 import { Handler } from '.'
 import { Closing, FootnoteLabel, LinkPath, Opening } from '../types'
 
-const content: Handler = {
+const phrasingContent: Handler = {
   name: 'inline',
   rules: [
     {
@@ -54,4 +54,4 @@ const content: Handler = {
   ],
 }
 
-export default content
+export default phrasingContent
