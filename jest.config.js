@@ -21,11 +21,7 @@ module.exports = {
     `__tests__/fixtures`,
   ],
   rootDir: './',
-  testMatch: [
-    '**/__tests__/**/*.spec.ts',
-    '**/tests/**/*.spec.ts',
-    '**/*.test.ts',
-  ],
+  testMatch: ['**/*.test.ts'],
   // Disabling diagnostics, TODO: turn this back on
   // globals: {
   //   'ts-jest': {
