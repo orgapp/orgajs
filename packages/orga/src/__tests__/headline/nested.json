@@ -10,7 +10,6 @@
         {
           "type": "headline",
           "actionable": false,
-          "content": "headline 1",
           "children": [
             {
               "type": "stars",
@@ -131,7 +130,6 @@
             {
               "type": "headline",
               "actionable": false,
-              "content": "headline 1.1",
               "children": [
                 {
                   "type": "stars",
@@ -203,7 +201,6 @@
                 {
                   "type": "headline",
                   "actionable": false,
-                  "content": "headline 1.1.1",
                   "children": [
                     {
                       "type": "stars",
@@ -352,7 +349,6 @@
             {
               "type": "headline",
               "actionable": false,
-              "content": "headline 1.2",
               "children": [
                 {
                   "type": "stars",
@@ -452,7 +448,6 @@
         {
           "type": "headline",
           "actionable": false,
-          "content": "headline 2",
           "children": [
             {
               "type": "stars",
@@ -524,7 +519,6 @@
             {
               "type": "headline",
               "actionable": false,
-              "content": "headline 2.2",
               "children": [
                 {
                   "type": "stars",

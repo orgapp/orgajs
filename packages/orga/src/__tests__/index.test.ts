@@ -2,8 +2,6 @@ import { existsSync, lstatSync, promises as fs, readdirSync } from 'fs'
 import { diff } from 'jest-diff'
 import * as path from 'path'
 import { parse } from '../index'
-import { tokenize } from '../tokenize'
-import { inspect } from 'util'
 
 const specs = []
 // set to true for updating snapshots

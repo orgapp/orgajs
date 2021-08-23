@@ -9,7 +9,6 @@ const headline: Action = (token: Stars, context) => {
   const headline: Headline = enter({
     type: 'headline',
     actionable: false,
-    content: '',
     children: [],
     level: token.level || context.level,
   })

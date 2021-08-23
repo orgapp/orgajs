@@ -124,7 +124,6 @@
         {
           "type": "headline",
           "actionable": false,
-          "content": "A Headline",
           "children": [
             {
               "type": "stars",

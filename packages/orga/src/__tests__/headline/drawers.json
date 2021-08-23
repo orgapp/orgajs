@@ -10,7 +10,6 @@
         {
           "type": "headline",
           "actionable": false,
-          "content": "headline with properties",
           "children": [
             {
               "type": "stars",
@@ -223,7 +222,6 @@
         {
           "type": "headline",
           "actionable": false,
-          "content": "headline with drawer",
           "children": [
             {
               "type": "stars",

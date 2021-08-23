@@ -10,7 +10,6 @@
         {
           "type": "headline",
           "actionable": true,
-          "content": "Some Headline",
           "children": [
             {
               "type": "stars",

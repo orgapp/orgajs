@@ -10,7 +10,6 @@
         {
           "type": "headline",
           "actionable": true,
-          "content": "with keyword",
           "children": [
             {
               "type": "stars",
@@ -114,7 +113,6 @@
         {
           "type": "headline",
           "actionable": true,
-          "content": "with keyword",
           "children": [
             {
               "type": "stars",
@@ -218,7 +216,6 @@
         {
           "type": "headline",
           "actionable": false,
-          "content": "with keyword",
           "children": [
             {
               "type": "stars",

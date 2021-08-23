@@ -108,7 +108,6 @@ export interface Headline extends Parent {
   keyword?: string
   actionable: boolean
   priority?: string
-  content: string
   tags?: string[]
 }
 

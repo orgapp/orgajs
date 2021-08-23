@@ -10,7 +10,6 @@
         {
           "type": "headline",
           "actionable": false,
-          "content": "with deadline",
           "children": [
             {
               "type": "stars",
@@ -145,7 +144,6 @@
         {
           "type": "headline",
           "actionable": false,
-          "content": "with deadline and scheduled",
           "children": [
             {
               "type": "stars",
