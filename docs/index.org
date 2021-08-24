@@ -1,16 +1,19 @@
 #+title: Orga
 #+html: import {Flex,NavLink} from 'theme-ui'
 #+html: import {Link} from 'gatsby'
+#+html: import Banner from '../website/src/components/banner'
 #+html: export {default} from '../website/src/components/landing'
 
 #+begin_export html
-<Space>✨ org-mode 🚀 JavaScript ✨</Space>
+<Banner slogan='taking org-mode to the moon'>
+org-mode 🚀 JavaScript
+</Banner>
 #+end_export
 
 #+begin_export html
-<Flex as='nav' sx={{gap: '0.2em', py: 2}}>
+<Flex as='nav' sx={{gap: '1em', py: 2}}>
   <NavLink as={Link} to='/getting-started/'>Documentation</NavLink>
-  <NavLink as={Link} to='/getting-started/'>Playground</NavLink>
+  <NavLink as={Link} to='/playground/'>Playground</NavLink>
   <NavLink href='https://github.com/orgapp/orgajs'>GitHub</NavLink>
 </Flex>
 #+end_export
@@ -36,6 +39,14 @@ The =orga= parser is completely compatible with unified. Which means you get to 
 ** [[https://webpack.js.org][Webpack]]
 =@orgajs/loader= is a webpack loader that made orga native citizen of webpack ecosystem. Coupled with plugins, it works smoothly. Take a look at the example.
 
+
+** [[https://reactjs.org/][React]]
+#+begin_quote
+A JavaScript library for building user interfaces
+#+end_quote
+Good news for people who generate websites with org-mode, you can embed react components directly inside org-mode files. Take a look at the source of this page to get a taste.
+
+
 ** [[https://www.gatsbyjs.com][Gatsby]]
 
 #+BEGIN_QUOTE
@@ -51,4 +62,3 @@ The React Framework
 
 Because orga is native to webpack, it's fairly simply to intergrate with nextjs. Example project.
 
-* React
