@@ -44,7 +44,7 @@ The =orga= parser is completely compatible with unified. Which means you get to 
 #+begin_quote
 A JavaScript library for building user interfaces
 #+end_quote
-Good news for people who generate websites with org-mode, you can embed react components directly inside org-mode files. Take a look at the source of this page to get a taste.
+Good news for people who generate websites with org-mode, you can embed react components directly inside org-mode files. Take a look at the [[https://github.com/orgapp/orgajs/blob/develop/docs/index.org][source of this page]] to get a taste.
 
 
 ** [[https://www.gatsbyjs.com][Gatsby]]
