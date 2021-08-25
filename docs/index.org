@@ -1,22 +1,6 @@
 #+title: Orga
-#+html: import {Flex,NavLink} from 'theme-ui'
-#+html: import {Link} from 'gatsby'
-#+html: import Banner from '../website/src/components/banner'
+#+subtitle: org-mode 🚀 JavaScript
 #+html: export {default} from '../website/src/components/landing'
-
-#+begin_export html
-<Banner slogan='taking org-mode to the moon'>
-org-mode 🚀 JavaScript
-</Banner>
-#+end_export
-
-#+begin_export html
-<Flex as='nav' sx={{gap: '1em', py: 2}}>
-  <NavLink as={Link} to='/getting-started/'>Documentation</NavLink>
-  <NavLink as={Link} to='/playground/'>Playground</NavLink>
-  <NavLink href='https://github.com/orgapp/orgajs'>GitHub</NavLink>
-</Flex>
-#+end_export
 
 * What Is It
 

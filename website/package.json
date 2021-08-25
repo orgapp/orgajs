@@ -18,7 +18,9 @@
     "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
-    "react-icons": "^4.2.0"
+    "react-icons": "^4.2.0",
+    "react-spring": "^9.2.4",
+    "use-sound": "^4.0.1"
   },
   "devDependencies": {
     "prettier": "2.2.1"
