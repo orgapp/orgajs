@@ -1,5 +1,5 @@
 #+title: Orga
-#+subtitle: org-mode 🚀 JavaScript
+#+subtitle: org-mode < JavaScript
 #+html: export {default} from '../website/src/components/landing'
 
 * What Is It

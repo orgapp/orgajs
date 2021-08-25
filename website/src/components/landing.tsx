@@ -1,8 +1,8 @@
 /** @jsxImportSource theme-ui */
-import { get } from 'lodash'
 import { Link } from 'gatsby'
-import { Flex, NavLink } from 'theme-ui'
 import SEO from 'gatsby-theme-orga-docs/src/components/seo'
+import { get } from 'lodash'
+import { Flex, Heading, NavLink, Paragraph, Text } from 'theme-ui'
 import Banner from './banner'
 
 export default ({ children, pageContext }) => {
@@ -35,8 +35,13 @@ export default ({ children, pageContext }) => {
         }}
       >
         <Banner sx={{ py: '1em' }}>
-          <h1>{title}</h1>
-          <p>{subtitle}</p>
+          <Heading sx={{ fontFamily: 'Game Boy' }}>{title}</Heading>
+          <div sx={{ overflow: 'hidden' }}>
+            <Text sx={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>
+              {'-'.repeat(50)}
+            </Text>
+          </div>
+          <Paragraph sx={{ fontFamily: 'Game Boy' }}>{subtitle}</Paragraph>
         </Banner>
         <Flex as="nav" sx={{ gap: '1em', py: 2 }}>
           <NavLink as={Link} to="/getting-started/">

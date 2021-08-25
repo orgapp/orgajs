@@ -1,9 +1,32 @@
 /** @jsxImportSource theme-ui */
 import { useEffect, useState } from 'react'
+import { animated, useSpring } from 'react-spring'
 import useSound from 'use-sound'
 import startupSound from '../sounds/startup.m4a'
 import Switch from './switch'
-import { useSpring, animated } from 'react-spring'
+
+const H_GUT = '60px'
+
+const Strips = ({ sx }) => (
+  <div
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      height: '100%',
+      width: '100%',
+      ...sx,
+    }}
+  >
+    <div sx={{ px: '1em' }}>
+      <div
+        sx={{ bg: 'purple', borderRadius: 3, height: 6, width: '100%' }}
+      ></div>
+      <div sx={{ bg: 'transparent', height: 3, width: '100%' }}></div>
+      <div sx={{ bg: 'blue', borderRadius: 1, height: 2, width: '100%' }}></div>
+    </div>
+  </div>
+)
 
 const Banner = ({
   slogan = 'taking org-mode to the moon',
@@ -14,15 +37,15 @@ const Banner = ({
 
   const [isOn, turnOn] = useState(true)
   const [play] = useSound(startupSound)
-  const flyin = useSpring({
+  const [flyin, animate] = useSpring({
     opacity: isOn ? 1 : 0,
     marginTop: isOn ? 0 : -300,
+    reset: true,
+    cancel: !isOn,
     config: {
       duration: 4000,
     },
   })
-
-  let timer
 
   const powerToggled = () => {
     turnOn(!isOn)
@@ -50,10 +73,10 @@ const Banner = ({
         sx={{
           margin: '0.5em 0',
           display: 'grid',
-          gridTemplateColumns: '60px auto 60px',
+          gridTemplateColumns: `${H_GUT} auto ${H_GUT}`,
           gridTemplateRows: '30px auto 30px',
           gridTemplateAreas: `
-"top top top"
+"top top topR"
 "left screen right"
 "bottom bottom bottom"
         `,
@@ -68,18 +91,23 @@ const Banner = ({
       >
         <div
           sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
             gridArea: 'top',
             color: mute,
-            textAlign: 'right',
-            margin: 'auto 60px',
+            // margin: 'auto 0',
           }}
         >
-          {slogan}
+          <Strips sx={{ flexGrow: 1 }} />
+          <div sx={{ flexShrink: 0 }}>{slogan}</div>
         </div>
+        <Strips sx={{ gridArea: 'topR' }} />
         <div
           sx={{
             gridArea: 'left',
             color: mute,
+            alignSelf: 'center',
           }}
         >
           <div
@@ -89,8 +117,7 @@ const Banner = ({
               backgroundColor: isOn ? 'red' : '#222328',
               borderRadius: '50%',
               margin: 'auto',
-              marginTop: '30px',
-              marginBottom: '10px',
+              marginBottom: '1em',
             }}
           ></div>
           battery
@@ -104,7 +131,7 @@ const Banner = ({
             color: '#214812',
             fontFamily: 'Game Boy',
             fontSize: '15px',
-            minHeight: 100,
+            height: '10em',
             boxShadow: 'inset 5px 5px 10px #000000',
             overflow: 'hidden',
           }}
