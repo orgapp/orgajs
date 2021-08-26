@@ -1,7 +1,7 @@
 /** @jsxImportSource theme-ui */
-import { useEffect, useState } from 'react'
+import { Howl } from 'howler'
+import { useState } from 'react'
 import { animated, useSpring } from 'react-spring'
-import useSound from 'use-sound'
 import startupSound from '../sounds/startup.m4a'
 import Switch from './switch'
 
@@ -36,39 +36,32 @@ const Banner = ({
   const mute = '#bebebe'
 
   const [isOn, turnOn] = useState(true)
-  const [play] = useSound(startupSound)
-  const [flyin, animate] = useSpring({
+
+  const sound = new Howl({
+    src: [startupSound],
+    onend: function () {
+      console.log('play sound end')
+    },
+  })
+  const flyin = useSpring({
     opacity: isOn ? 1 : 0,
-    marginTop: isOn ? 0 : -300,
+    marginTop: isOn ? 0 : -400,
+    onRest: (args) => {
+      if (!args.cancelled && isOn) {
+        console.log('play sound')
+        sound.play()
+      }
+    },
+    immediate: !isOn,
     reset: true,
-    cancel: !isOn,
     config: {
-      duration: 4000,
+      duration: 3400,
     },
   })
 
-  const powerToggled = () => {
-    turnOn(!isOn)
-  }
-
-  useEffect(() => {
-    if (isOn) {
-      play()
-      /* timer = setTimeout(() => {
-       *   setShowContent(true)
-       * }, 1500)
-       * return () => {
-       *   clearTimeout(timer)
-       * } */
-    } else {
-      /* setShowContent(false)
-       * clearTimeout(timer) */
-    }
-  }, [isOn])
-
   return (
     <div {...props}>
-      <Switch checked={isOn} onChange={powerToggled} />
+      <Switch checked={isOn} onChange={() => turnOn(!isOn)} />
       <div
         sx={{
           margin: '0.5em 0',
@@ -124,6 +117,9 @@ const Banner = ({
         </div>
         <div
           sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             padding: '2em',
             backgroundColor: isOn ? '#9bbc12' : '#6f6c0c',
             border: '1px solid #535745',
@@ -132,11 +128,11 @@ const Banner = ({
             fontFamily: 'Game Boy',
             fontSize: '15px',
             height: '10em',
-            boxShadow: 'inset 5px 5px 10px #000000',
+            boxShadow: 'inset 3px 3px 6px #000000',
             overflow: 'hidden',
           }}
         >
-          {isOn && <animated.div style={flyin}>{children}</animated.div>}
+          {<animated.div style={flyin}>{children}</animated.div>}
         </div>
         <div sx={{ gridArea: 'right' }}></div>
       </div>

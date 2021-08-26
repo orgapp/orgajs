@@ -1,12 +1,7 @@
 #+title: Orga
-#+HTML: <p align="center"><img src="assets/logo.png" width="300" height="300" style="border-radius: 1em;"/></p>
-
-#+begin_quote
-✨ org-mode 🚀 JavaScript ✨
-#+end_quote
-
-- [[https://orga.js.org/getting-started/][Documentation]]
-- [[https://orga.js.org/playground][Playground]]
+#+subtitle: org-mode < JavaScript
+#+html: <p align="center"><img src="assets/logo.png" width="300" height="300" style="border-radius: 1em;"/></p>
+#+html: export {default} from './website/src/components/landing'
 
 * What Is It
 
@@ -29,22 +24,12 @@ The =orga= parser is completely compatible with unified. Which means you get to 
 ** [[https://webpack.js.org][Webpack]]
 =@orgajs/loader= is a webpack loader that made orga native citizen of webpack ecosystem. Coupled with plugins, it works smoothly. Take a look at the example.
 
-** [[https://www.gatsbyjs.com][Gatsby]]
 
-#+BEGIN_QUOTE
-Build blazing fast, modern apps and websites with React
-#+END_QUOTE
-
-=gatsby-plugin-orga= is a powerful plugin that plug org-mode into gatsby system. This website is built with gatsby and =gatsby-theme-orga-docs= theme. Here is a minimal example.
-
-** [[https://nextjs.org][Nextjs]]
+** [[https://reactjs.org/][React]]
 #+begin_quote
-The React Framework
+A JavaScript library for building user interfaces
 #+end_quote
 
-Because orga is native to webpack, it's fairly simply to intergrate with nextjs. Example project.
-
-** React
 You can render react components directly in your org file. Something like this:
 #+begin_src org
 ,* Hello World
@@ -62,6 +47,21 @@ Let's render *the box*.
 #+end_src
 
 [[https://orga.js.org/playground/?text=*%20Hello%20World%0A%0ALet's%20render%20*the%20box*.%0A%0A%23%2Bbegin_export%20html%0A%3Cdiv%20style%3D%7B%7B%0A%20%20backgroundColor%3A%20'gold'%2C%20%0A%20%20padding%3A%20'1em'%2C%0A%20%20border%3A%20'1px%20solid%20black'%2C%0A%20%20boxShadow%3A%20'5px%205px'%0A%7D%7D%3EI%20am%20a%20box%20with%20shadow%3C%2Fdiv%3E%0A%23%2Bend_export%0A][Try it our yourself in the playground]].
+
+** [[https://www.gatsbyjs.com][Gatsby]]
+
+#+BEGIN_QUOTE
+Build blazing fast, modern apps and websites with React
+#+END_QUOTE
+
+=gatsby-plugin-orga= is a powerful plugin that plug org-mode into gatsby system. This website is built with gatsby and =gatsby-theme-orga-docs= theme. Here is a minimal example.
+
+** [[https://nextjs.org][Nextjs]]
+#+begin_quote
+The React Framework
+#+end_quote
+
+Because orga is native to webpack, it's fairly simply to intergrate with nextjs. Example project.
 
 
 * Contribute

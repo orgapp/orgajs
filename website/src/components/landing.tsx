@@ -32,15 +32,11 @@ export default ({ children, pageContext }) => {
           maxWidth: 768,
           mx: 'auto',
           px: '1em',
+          pb: '6em',
         }}
       >
         <Banner sx={{ py: '1em' }}>
           <Heading sx={{ fontFamily: 'Game Boy' }}>{title}</Heading>
-          <div sx={{ overflow: 'hidden' }}>
-            <Text sx={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>
-              {'-'.repeat(50)}
-            </Text>
-          </div>
           <Paragraph sx={{ fontFamily: 'Game Boy' }}>{subtitle}</Paragraph>
         </Banner>
         <Flex as="nav" sx={{ gap: '1em', py: 2 }}>
@@ -89,7 +85,7 @@ export default ({ children, pageContext }) => {
               transform: 'rotate(-20deg)',
             }}
           >
-            {[...Array(5)].map((i) => (
+            {[...Array(5)].map((_, i) => (
               <Bar key={`bar-${i}`} />
             ))}
           </div>

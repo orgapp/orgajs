@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import Hightlight, { defaultProps, Language } from 'prism-react-renderer'
-import theme from 'prism-react-renderer/themes/github'
+import theme from './theme'
 import React, { useEffect, useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import {
@@ -8,6 +8,8 @@ import {
   FaClipboardCheck as ClipboardCheckIcon,
 } from 'react-icons/fa'
 import { Box, IconButton } from 'theme-ui'
+
+require('./langs')
 
 const aliases: Record<string, Language | undefined> = {
   js: 'javascript',

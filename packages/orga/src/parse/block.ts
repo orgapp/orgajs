@@ -1,32 +1,6 @@
 import { Action, Handler } from '.'
 import { BlockBegin, BlockEnd } from '../types'
 
-/*
- * find the indentation of the block and apply it to
- * the rest of the block.
- *
- * The indentation of the first non-blank line is used as standard.
- * The following lines use the lesser one between its own
- * indentation and the standard. Leading and trailing blank lines
- * are omitted.
- */
-const align = (content: string) => {
-  let indent = -1
-  return content
-    .trimRight()
-    .split('\n')
-    .map((line) => {
-      const _indent = line.search(/\S/)
-      if (indent === -1) {
-        indent = _indent
-      }
-      if (indent === -1) return ''
-      return line.substring(Math.min(_indent, indent))
-    })
-    .join('\n')
-    .trim()
-}
-
 const block: Action = (
   begin: BlockBegin,
   { save, push, enter, lexer, attributes }
@@ -45,15 +19,41 @@ const block: Action = (
   })
   push(lexer.eat())
 
+  /*
+   * find the indentation of the block and apply it to
+   * the rest of the block.
+   *
+   * The indentation of the first non-blank line is used as standard.
+   * The following lines use the lesser one between its own
+   * indentation and the standard. Leading and trailing blank lines
+   * are omitted.
+   */
+  const align = (content: string) => {
+    let indent = -1
+    return content
+      .trimRight()
+      .split('\n')
+      .map((line) => {
+        const _indent = line.search(/\S/)
+        if (indent === -1) {
+          indent = _indent
+        }
+        if (indent === -1) return ''
+        let result = line.substring(Math.min(_indent, indent))
+
+        // remove escaping char ,
+        if (block.name.toLowerCase() === 'src' && block.params[0] === 'org') {
+          result = result.replace(/^(\s*),/, '$1')
+        }
+        return result
+      })
+      .join('\n')
+      .trim()
+  }
+
   return {
     name: 'block',
     rules: [
-      {
-        test: 'newline',
-        action: (_, { restore }) => {
-          return 'next'
-        },
-      },
       {
         test: 'block.end',
         action: (token: BlockEnd, { exit, push, lexer }) => {
