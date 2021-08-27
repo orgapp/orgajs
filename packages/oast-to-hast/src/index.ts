@@ -12,7 +12,11 @@ import { all } from './transform'
 interface Raw extends Literal {
   type: 'raw'
 }
-export type HNode = Element | Comment | Text | Raw
+
+interface JSX extends Literal {
+  type: 'jsx'
+}
+export type HNode = Element | Comment | Text | Raw | JSX
 
 const defaultOptions = {
   excludeTags: ['noexport'],

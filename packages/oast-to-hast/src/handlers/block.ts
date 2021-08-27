@@ -1,5 +1,6 @@
 import { Block } from 'orga'
 import { Context, HNode } from '../'
+import parseHTML from './_parseHTML'
 
 export default (node: Block, context: Context) => {
   const { h, u } = context
@@ -18,7 +19,10 @@ export default (node: Block, context: Context) => {
     case 'center':
       return h('center')(u('text', node.value))
     case 'export':
-      return u('raw', node.value)
+      if (node.params[0].toLowerCase() === 'html') {
+        return parseHTML(node.value, context)
+      }
+      return u((node.params[0] || 'raw').toLowerCase(), node.value)
     case 'comment':
       return undefined
     default:
