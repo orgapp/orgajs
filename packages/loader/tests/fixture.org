@@ -2,6 +2,6 @@
 * TODO headline one
 The box does not exist.
 
-#+BEGIN_EXPORT html
+#+BEGIN_EXPORT jsx
 <Box>in a box</Box>
 #+END_EXPORT
