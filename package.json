@@ -37,7 +37,7 @@
     "watch": "tsc -b tsconfig.packages.json -w",
     "format": "prettier --write .",
     "ci": "yarn install --immutable",
-    "ci:publish": "lerna publish",
+    "ci:publish": "lerna publish --yes",
     "postinstall": "husky install"
   },
   "workspaces": {
