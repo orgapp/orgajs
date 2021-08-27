@@ -19,8 +19,8 @@ const keyword: Action = (token: Keyword, context) => {
     }
   } else if (key === 'todo') {
     lexer.addInBufferTodoKeywords(value)
-  } else if (key === 'html') {
-    push({ type: 'html', value })
+  } else if (key === 'html' || key === 'jsx') {
+    push({ type: key, value })
   } else if (context.parent.type === 'document') {
     context.parent.properties[key] = value
   }

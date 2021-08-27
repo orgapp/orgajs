@@ -1,7 +1,7 @@
 import { HTML } from 'orga'
 import { Context } from '../'
+import parseHTML from './_parseHTML'
 
 export default (node: HTML, context: Context) => {
-  const { u } = context
-  return u('raw', node.value)
+  return parseHTML(node.value, context)
 }

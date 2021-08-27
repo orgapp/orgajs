@@ -41,6 +41,7 @@ export default {
   'footnote.reference': footnoteReference,
   hr: (_, { h }) => h('hr')(),
   html,
+  jsx: (n, { u }) => u('jsx', { value: n.value }),
   'link.path': ignore,
   drawer: ignore,
   priority: ignore,
