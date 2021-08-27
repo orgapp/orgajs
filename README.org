@@ -18,10 +18,10 @@ It integrates natively with popular tools.
 ☔️ interface for parsing, inspecting, transforming, and serializing content through syntax trees
 #+END_QUOTE
 
-The =orga= parser is completely compatible with unified. Which means you get to take advantage of the works of others put into the pipeline. [[https://github.com/retextjs/retext][linting for natural language]], [[https://alexjs.com][correct your writing]], [[https://wooorm.com/write-music/][write music]]? etc.
+The =orga= parser is completely compatible with unified. Which means you get to take advantage of the works of others put into the pipeline. [[https://github.com/retextjs/retext][linting for natural language]], [[https://alexjs.com][correct your writing]], [[https://wooorm.com/write-music/][write music]]? etc. Here is [[https://github.com/orgapp/orgajs/tree/develop/examples/getting-started][an example]].
 
 ** [[https://webpack.js.org][Webpack]]
-=@orgajs/loader= is a webpack loader that made orga native citizen of webpack ecosystem. Coupled with plugins, it works smoothly. Take a look at the example.
+=@orgajs/loader= is a webpack loader that made orga native citizen of webpack ecosystem. Coupled with plugins, it works smoothly. Take a look at [[https://github.com/orgapp/orgajs/tree/develop/examples/webpack][the example project]].
 
 
 ** [[https://reactjs.org/][React]]
@@ -53,14 +53,14 @@ Let's render *the box*.
 Build blazing fast, modern apps and websites with React
 #+END_QUOTE
 
-=gatsby-plugin-orga= is a powerful plugin that plug org-mode into gatsby system. This website is built with gatsby and =gatsby-theme-orga-docs= theme. Here is a minimal example.
+=gatsby-plugin-orga= is a powerful plugin that plug org-mode into gatsby system. This website is built with gatsby and =gatsby-theme-orga-docs= theme. Here is a [[https://github.com/orgapp/orgajs/tree/develop/examples/gatsby][minimal example project]].
 
 ** [[https://nextjs.org][Nextjs]]
 #+begin_quote
 The React Framework
 #+end_quote
 
-Because orga is native to webpack, it's fairly simply to intergrate with nextjs. Example project.
+Because orga is native to webpack, it's fairly simply to intergrate with nextjs. [[https://github.com/orgapp/orgajs/tree/develop/examples/next][Example project]].
 
 
 * Contribute
