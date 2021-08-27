@@ -1,7 +1,6 @@
 #+title: Orga
 #+subtitle: org-mode < JavaScript
-#+html: <p align="center"><img src="assets/logo.png" width="300" height="300" style="border-radius: 1em;"/></p>
-#+html: export {default} from './website/src/components/landing'
+#+jsx: export {default} from './website/src/components/landing'
 
 * What Is It
 
@@ -36,7 +35,7 @@ You can render react components directly in your org file. Something like this:
 
 Let's render *the box*.
 
-,#+begin_export html
+,#+begin_export jsx
 <div style={{
   backgroundColor: 'gold',
   padding: '1em',
