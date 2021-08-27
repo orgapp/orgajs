@@ -4241,7 +4241,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@orgajs/estree-jsx@^2.4.9, @orgajs/estree-jsx@workspace:packages/estree-jsx":
+"@orgajs/estree-jsx@2.5.0, @orgajs/estree-jsx@workspace:packages/estree-jsx":
   version: 0.0.0-use.local
   resolution: "@orgajs/estree-jsx@workspace:packages/estree-jsx"
   dependencies:
@@ -4254,10 +4254,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/example-gatsby@workspace:examples/gatsby"
   dependencies:
-    "@orgajs/loader": ^2.4.9
-    "@orgajs/react": ^2.4.9
+    "@orgajs/loader": 2.5.0
+    "@orgajs/react": 2.5.0
     gatsby: ^3.10.0
-    gatsby-plugin-orga: ^2.4.9
+    gatsby-plugin-orga: 2.5.0
     gatsby-source-filesystem: ^3.3.0
     react: ^17.0.1
     react-dom: ^17.0.1
@@ -4268,9 +4268,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/example-next@workspace:examples/next"
   dependencies:
-    "@orgajs/loader": ^2.4.9
-    "@orgajs/next": ^2.4.9
-    "@orgajs/react": ^2.4.9
+    "@orgajs/loader": 2.5.0
+    "@orgajs/next": 2.5.0
+    "@orgajs/react": 2.5.0
     next: ^11.1.0
     react: 17.0.2
     react-dom: 17.0.2
@@ -4284,10 +4284,10 @@ __metadata:
     "@babel/core": ^7.13.15
     "@babel/preset-env": ^7.13.15
     "@babel/preset-react": ^7.13.13
-    "@orgajs/estree-jsx": ^2.4.9
-    "@orgajs/loader": ^2.4.9
-    "@orgajs/rehype-estree": ^2.4.9
-    "@orgajs/reorg-rehype": ^2.4.9
+    "@orgajs/estree-jsx": 2.5.0
+    "@orgajs/loader": 2.5.0
+    "@orgajs/rehype-estree": 2.5.0
+    "@orgajs/reorg-rehype": 2.5.0
     babel-loader: ^8.2.2
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -4301,20 +4301,20 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/getting-started@workspace:examples/getting-started"
   dependencies:
-    "@orgajs/reorg": ^2.4.9
-    "@orgajs/reorg-rehype": ^2.4.9
+    "@orgajs/reorg": 2.5.0
+    "@orgajs/reorg-rehype": 2.5.0
     rehype-stringify: ^8.0.0
     unified: 9.2.2
     unified-stream: ^1.0.6
   languageName: unknown
   linkType: soft
 
-"@orgajs/loader@^2.4.9, @orgajs/loader@workspace:packages/loader":
+"@orgajs/loader@2.5.0, @orgajs/loader@workspace:packages/loader":
   version: 0.0.0-use.local
   resolution: "@orgajs/loader@workspace:packages/loader"
   dependencies:
-    "@orgajs/react": ^2.4.9
-    "@orgajs/reorg": ^2.4.9
+    "@orgajs/react": 2.5.0
+    "@orgajs/reorg": 2.5.0
     babel-loader: ^8.2.2
     html-loader: ^2.1.2
     loader-utils: ^2.0.0
@@ -4326,13 +4326,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/next@^2.4.9, @orgajs/next@workspace:packages/next":
+"@orgajs/next@2.5.0, @orgajs/next@workspace:packages/next":
   version: 0.0.0-use.local
   resolution: "@orgajs/next@workspace:packages/next"
   dependencies:
-    "@orgajs/estree-jsx": ^2.4.9
-    "@orgajs/rehype-estree": ^2.4.9
-    "@orgajs/reorg-rehype": ^2.4.9
+    "@orgajs/estree-jsx": 2.5.0
+    "@orgajs/rehype-estree": 2.5.0
+    "@orgajs/reorg-rehype": 2.5.0
     "@types/hast": ^2.3.2
     "@types/node": ^16.4.0
   peerDependencies:
@@ -4341,16 +4341,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/playground@^2.4.9, @orgajs/playground@workspace:packages/playground":
+"@orgajs/playground@2.5.0, @orgajs/playground@workspace:packages/playground":
   version: 0.0.0-use.local
   resolution: "@orgajs/playground@workspace:packages/playground"
   dependencies:
     "@monaco-editor/react": ^4.2.1
-    "@orgajs/estree-jsx": ^2.4.9
-    "@orgajs/react": ^2.4.9
-    "@orgajs/rehype-estree": ^2.4.9
-    "@orgajs/reorg": ^2.4.9
-    "@orgajs/reorg-rehype": ^2.4.9
+    "@orgajs/estree-jsx": 2.5.0
+    "@orgajs/react": 2.5.0
+    "@orgajs/rehype-estree": 2.5.0
+    "@orgajs/reorg": 2.5.0
+    "@orgajs/reorg-rehype": 2.5.0
     "@types/react": ^17.0.14
     "@types/react-dom": ^17.0.9
     react-json-tree: ^0.15.0
@@ -4363,12 +4363,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/react@^2.4.9, @orgajs/react@workspace:packages/react":
+"@orgajs/react@2.5.0, @orgajs/react@workspace:packages/react":
   version: 0.0.0-use.local
   resolution: "@orgajs/react@workspace:packages/react"
   dependencies:
     "@babel/plugin-transform-react-jsx": ^7.13.12
-    "@orgajs/reorg": ^2.4.9
+    "@orgajs/reorg": 2.5.0
     babel-plugin-remove-export-keywords: ^1.6.22
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -4377,7 +4377,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/rehype-estree@^2.4.9, @orgajs/rehype-estree@workspace:packages/rehype-estree":
+"@orgajs/rehype-estree@2.5.0, @orgajs/rehype-estree@workspace:packages/rehype-estree":
   version: 0.0.0-use.local
   resolution: "@orgajs/rehype-estree@workspace:packages/rehype-estree"
   dependencies:
@@ -4395,31 +4395,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/reorg-parse@^2.4.9, @orgajs/reorg-parse@workspace:packages/reorg-parse":
+"@orgajs/reorg-parse@2.5.0, @orgajs/reorg-parse@workspace:packages/reorg-parse":
   version: 0.0.0-use.local
   resolution: "@orgajs/reorg-parse@workspace:packages/reorg-parse"
   dependencies:
     del-cli: ^3.0.1
-    orga: ^2.4.9
+    orga: 2.5.0
     typescript: ^4.3.2
     unified: 9.2.2
   languageName: unknown
   linkType: soft
 
-"@orgajs/reorg-rehype@^2.4.9, @orgajs/reorg-rehype@workspace:packages/reorg-rehype":
+"@orgajs/reorg-rehype@2.5.0, @orgajs/reorg-rehype@workspace:packages/reorg-rehype":
   version: 0.0.0-use.local
   resolution: "@orgajs/reorg-rehype@workspace:packages/reorg-rehype"
   dependencies:
-    oast-to-hast: ^2.4.9
+    oast-to-hast: 2.5.0
     unified: 9.2.2
   languageName: unknown
   linkType: soft
 
-"@orgajs/reorg@^2.4.9, @orgajs/reorg@workspace:packages/reorg":
+"@orgajs/reorg@2.5.0, @orgajs/reorg@workspace:packages/reorg":
   version: 0.0.0-use.local
   resolution: "@orgajs/reorg@workspace:packages/reorg"
   dependencies:
-    "@orgajs/reorg-parse": ^2.4.9
+    "@orgajs/reorg-parse": 2.5.0
     unified: 9.2.2
   languageName: unknown
   linkType: soft
@@ -4428,11 +4428,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/website@workspace:website"
   dependencies:
-    "@orgajs/playground": ^2.4.9
+    "@orgajs/playground": 2.5.0
     babel-preset-gatsby: ^1.10.0
     gatsby: ^3.10.0
     gatsby-source-filesystem: ^3.10.0
-    gatsby-theme-orga-docs: ^2.4.9
+    gatsby-theme-orga-docs: 2.5.0
     gh-pages: ^3.2.3
     howler: ^2.2.3
     prettier: 2.2.1
@@ -12434,7 +12434,7 @@ fsevents@^1.2.7:
   resolution: "gatsby-blorg@workspace:examples/gatsby-blorg"
   dependencies:
     gatsby: ^3.10.0
-    gatsby-theme-blorg: ^2.4.9
+    gatsby-theme-blorg: 2.5.0
     prop-types: ^15.7.2
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -12593,7 +12593,7 @@ fsevents@^1.2.7:
     gatsby-plugin-react-helmet: ^4.2.0
     gatsby-plugin-sharp: ^3.2.1
     gatsby-source-filesystem: ^3.2.0
-    gatsby-theme-orga: ^2.4.9
+    gatsby-theme-orga: 2.5.0
     gatsby-transformer-sharp: ^3.2.0
     prop-types: ^15.7.2
     react: ^17.0.2
@@ -12709,16 +12709,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-orga@^2.4.9, gatsby-plugin-orga@workspace:packages/gatsby-plugin-orga":
+"gatsby-plugin-orga@2.5.0, gatsby-plugin-orga@workspace:packages/gatsby-plugin-orga":
   version: 0.0.0-use.local
   resolution: "gatsby-plugin-orga@workspace:packages/gatsby-plugin-orga"
   dependencies:
-    "@orgajs/estree-jsx": ^2.4.9
-    "@orgajs/loader": ^2.4.9
-    "@orgajs/react": ^2.4.9
-    "@orgajs/rehype-estree": ^2.4.9
-    "@orgajs/reorg": ^2.4.9
-    "@orgajs/reorg-rehype": ^2.4.9
+    "@orgajs/estree-jsx": 2.5.0
+    "@orgajs/loader": 2.5.0
+    "@orgajs/react": 2.5.0
+    "@orgajs/rehype-estree": 2.5.0
+    "@orgajs/reorg": 2.5.0
+    "@orgajs/reorg-rehype": 2.5.0
     "@types/estree": ^0.0.50
     "@types/fs-extra": ^9.0.12
     "@types/node": ^16.4.0
@@ -13134,7 +13134,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"gatsby-theme-blorg@^2.4.9, gatsby-theme-blorg@workspace:packages/gatsby-theme-blorg":
+"gatsby-theme-blorg@2.5.0, gatsby-theme-blorg@workspace:packages/gatsby-theme-blorg":
   version: 0.0.0-use.local
   resolution: "gatsby-theme-blorg@workspace:packages/gatsby-theme-blorg"
   dependencies:
@@ -13145,10 +13145,10 @@ fsevents@^1.2.7:
     gatsby-plugin-sharp: ^3.2.1
     gatsby-plugin-theme-ui: 0.6.2
     gatsby-source-filesystem: ^3.2.0
-    gatsby-theme-orga: ^2.4.9
+    gatsby-theme-orga: 2.5.0
     gatsby-transformer-sharp: ^3.2.0
     gatsby-transformer-toml: ^3.2.0
-    orga-theme-ui-preset: ^2.4.9
+    orga-theme-ui-preset: 2.5.0
     polished: ^3.4.1
     react-icons: ^3.8.0
     theme-ui: ^0.6.2
@@ -13157,7 +13157,7 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"gatsby-theme-orga-docs@^2.4.9, gatsby-theme-orga-docs@workspace:packages/gatsby-theme-orga-docs":
+"gatsby-theme-orga-docs@2.5.0, gatsby-theme-orga-docs@workspace:packages/gatsby-theme-orga-docs":
   version: 0.0.0-use.local
   resolution: "gatsby-theme-orga-docs@workspace:packages/gatsby-theme-orga-docs"
   dependencies:
@@ -13166,7 +13166,7 @@ fsevents@^1.2.7:
     "@reach/router": ^1.3.4
     del-cli: ^3.0.1
     gatsby-plugin-image: ^1.9.0
-    gatsby-plugin-orga: ^2.4.9
+    gatsby-plugin-orga: 2.5.0
     gatsby-plugin-page-creator: ^3.9.0
     gatsby-plugin-react-helmet: ^4.9.0
     gatsby-plugin-sharp: ^3.9.0
@@ -13183,12 +13183,12 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"gatsby-theme-orga@^2.4.9, gatsby-theme-orga@workspace:packages/gatsby-theme-orga":
+"gatsby-theme-orga@2.5.0, gatsby-theme-orga@workspace:packages/gatsby-theme-orga":
   version: 0.0.0-use.local
   resolution: "gatsby-theme-orga@workspace:packages/gatsby-theme-orga"
   dependencies:
     gatsby-source-filesystem: ^3.2.0
-    gatsby-transformer-orga: ^2.4.9
+    gatsby-transformer-orga: 2.5.0
   peerDependencies:
     gatsby: ^3.0.0
     react: ^17.0.0
@@ -13196,7 +13196,7 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"gatsby-transformer-orga@^2.4.9, gatsby-transformer-orga@workspace:packages/gatsby-transformer-orga":
+"gatsby-transformer-orga@2.5.0, gatsby-transformer-orga@workspace:packages/gatsby-transformer-orga":
   version: 0.0.0-use.local
   resolution: "gatsby-transformer-orga@workspace:packages/gatsby-transformer-orga"
   dependencies:
@@ -13211,9 +13211,9 @@ fsevents@^1.2.7:
     is-relative-url: ^3.0.0
     mime: ^2.4.4
     moment: ^2.24.0
-    oast-to-hast: ^2.4.9
-    orga: ^2.4.9
-    orga-posts: ^2.4.9
+    oast-to-hast: 2.5.0
+    orga: 2.5.0
+    orga-posts: 2.5.0
     rehype-stringify: ^8.0.0
     unified: 9.2.2
     unist-builder: ^2.0.3
@@ -19284,7 +19284,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"oast-to-hast@^2.4.9, oast-to-hast@workspace:packages/oast-to-hast":
+"oast-to-hast@2.5.0, oast-to-hast@workspace:packages/oast-to-hast":
   version: 0.0.0-use.local
   resolution: "oast-to-hast@workspace:packages/oast-to-hast"
   dependencies:
@@ -19292,7 +19292,7 @@ fsevents@^1.2.7:
     "@types/unist": 2.0.3
     hast-util-from-parse5: 6.0.1
     mime: ^2.4.4
-    orga: ^2.4.9
+    orga: 2.5.0
     parse5: ^6.0.1
     prismjs: ^1.17.1
     unist-builder: ^2.0.3
@@ -19557,15 +19557,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"orga-posts@^2.4.9, orga-posts@workspace:packages/orga-posts":
+"orga-posts@2.5.0, orga-posts@workspace:packages/orga-posts":
   version: 0.0.0-use.local
   resolution: "orga-posts@workspace:packages/orga-posts"
   dependencies:
-    "@orgajs/reorg-rehype": ^2.4.9
+    "@orgajs/reorg-rehype": 2.5.0
     "@types/hast": ^2.3.2
     "@types/unist": 2.0.3
     lodash: ^4.17.21
-    orga: ^2.4.9
+    orga: 2.5.0
     rehype-highlight: ^4.0.0
     rehype-stringify: ^8.0.0
     unified: 9.2.2
@@ -19575,7 +19575,7 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"orga-theme-ui-preset@^2.4.9, orga-theme-ui-preset@workspace:packages/orga-theme-ui-preset":
+"orga-theme-ui-preset@2.5.0, orga-theme-ui-preset@workspace:packages/orga-theme-ui-preset":
   version: 0.0.0-use.local
   resolution: "orga-theme-ui-preset@workspace:packages/orga-theme-ui-preset"
   dependencies:
@@ -19583,7 +19583,7 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"orga@^2.4.9, orga@workspace:packages/orga":
+"orga@2.5.0, orga@workspace:packages/orga":
   version: 0.0.0-use.local
   resolution: "orga@workspace:packages/orga"
   dependencies:
@@ -19591,7 +19591,7 @@ fsevents@^1.2.7:
     date-fns: ^2.22.1
     date-fns-tz: ^1.1.4
     del-cli: ^3.0.1
-    text-kit: ^2.4.9
+    text-kit: 2.5.0
     typescript: ^4.3.2
   languageName: unknown
   linkType: soft
@@ -24524,7 +24524,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"text-kit@^2.4.9, text-kit@workspace:packages/text-kit":
+"text-kit@2.5.0, text-kit@workspace:packages/text-kit":
   version: 0.0.0-use.local
   resolution: "text-kit@workspace:packages/text-kit"
   dependencies:
