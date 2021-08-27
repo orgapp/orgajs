@@ -84,9 +84,9 @@ const tokenizeText =
     jump(closing)
     // check border
     if (getChar(-1).match(/\s/)) return
-    // TODO: check post
-    // const post = getChar(1)
-    // if (post && !/[\\s-\\.,:!?'\\)}]|$/.test(post)) return
+    // check post
+    const post = getChar(1)
+    if (post && ` \t\n-.,;:!?')}["`.indexOf(post) === -1) return
 
     const valueEnd = now()
     eat() // closing
