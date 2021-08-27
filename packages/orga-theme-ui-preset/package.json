@@ -13,8 +13,7 @@
   "scripts": {
     "build": "yarn clean && yarn compile",
     "clean": "del ./dist",
-    "compile": "tsc -b",
-    "prepublishOnly": "yarn build"
+    "compile": "tsc -b"
   },
   "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/orga-theme-ui-preset#readme",
   "repository": {

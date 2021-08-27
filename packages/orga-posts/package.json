@@ -16,8 +16,7 @@
   "scripts": {
     "build": "yarn clean && yarn compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b",
-    "prepublishOnly": "yarn build"
+    "compile": "tsc -b"
   },
   "keywords": [
     "org-mode",

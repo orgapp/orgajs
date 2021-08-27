@@ -15,8 +15,7 @@
   },
   "scripts": {
     "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b",
-    "prepublishOnly": "yarn build"
+    "compile": "tsc -b"
   },
   "dependencies": {
     "date-fns": "^2.22.1",
