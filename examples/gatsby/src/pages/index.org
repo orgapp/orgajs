@@ -1,16 +1,16 @@
 #+TITLE: Orga + Gatsby = Awesome
-#+HTML: import Box from '../components/box'
-#+HTML: import Layout from '../components/layout'
-#+HTML: export default Layout
+#+jsx: import Box from '../components/box'
+#+jsx: import Layout from '../components/layout'
+#+jsx: export default Layout
 
 * Hi
-You can /embed/ react components like [[https://mdxjs.com/][mdx]], but better, with =export html block=.
+You can /embed/ react components like [[https://mdxjs.com/][mdx]], but better, with =export jsx block=.
 
-#+begin_export html
+#+begin_export jsx
 <Box>that tomato box</Box>
 #+end_export
 
-#+begin_export html
+#+begin_export jsx
 export const query = graphql`
 query HomePageQuery {
     site {

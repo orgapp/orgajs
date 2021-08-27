@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "example",
+  "name": "@orgajs/getting-started",
   "version": "2.4.9",
   "description": "",
   "main": "index.js",
@@ -15,7 +15,7 @@
     "@orgajs/reorg": "^2.4.9",
     "@orgajs/reorg-rehype": "^2.4.9",
     "rehype-stringify": "^8.0.0",
-    "unified": "^9.1.0",
+    "unified": "9.2.2",
     "unified-stream": "^1.0.6"
   }
 }

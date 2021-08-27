@@ -4,6 +4,6 @@
 
 welcome to orga.
 
-#+begin_export html
+#+begin_export jsx
 <Box>tomato box</Box>
 #+end_export

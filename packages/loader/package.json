@@ -3,7 +3,7 @@
   "version": "2.4.9",
   "description": "Load org-mode content through orga.",
   "main": "dist/index.js",
-  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/loader#readme",
   "repository": {
@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b",
     "prepublishOnly": "yarn build"
   },
@@ -28,9 +28,10 @@
   },
   "devDependencies": {
     "@orgajs/react": "^2.4.9",
+    "babel-loader": "^8.2.2",
     "html-loader": "^2.1.2",
     "memfs": "^3.2.2",
     "react": "^17.0.2",
-    "webpack": "^5.31.2"
+    "webpack": "^5.51.1"
   }
 }

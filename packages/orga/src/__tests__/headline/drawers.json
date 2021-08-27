@@ -1,0 +1,442 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "section",
+      "level": 1,
+      "properties": {},
+      "children": [
+        {
+          "type": "headline",
+          "actionable": false,
+          "children": [
+            {
+              "type": "stars",
+              "level": 1,
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 2,
+                  "offset": 1
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "headline with properties",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 3,
+                  "offset": 2
+                },
+                "end": {
+                  "line": 1,
+                  "column": 27,
+                  "offset": 26
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 27,
+                  "offset": 26
+                },
+                "end": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 27
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 1,
+              "offset": 27
+            }
+          }
+        },
+        {
+          "type": "drawer",
+          "name": "PROPERTIES",
+          "value": "\n:CATEGORY: test\n:Effort:   5\n",
+          "children": [
+            {
+              "type": "drawer.begin",
+              "name": "PROPERTIES",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 27
+                },
+                "end": {
+                  "line": 2,
+                  "column": 13,
+                  "offset": 39
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 13,
+                  "offset": 39
+                },
+                "end": {
+                  "line": 3,
+                  "column": 1,
+                  "offset": 40
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": ":CATEGORY: test",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 1,
+                  "offset": 40
+                },
+                "end": {
+                  "line": 3,
+                  "column": 16,
+                  "offset": 55
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 16,
+                  "offset": 55
+                },
+                "end": {
+                  "line": 4,
+                  "column": 1,
+                  "offset": 56
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": ":Effort:   5",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 1,
+                  "offset": 56
+                },
+                "end": {
+                  "line": 4,
+                  "column": 13,
+                  "offset": 68
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 13,
+                  "offset": 68
+                },
+                "end": {
+                  "line": 5,
+                  "column": 1,
+                  "offset": 69
+                }
+              }
+            },
+            {
+              "type": "drawer.end",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 1,
+                  "offset": 69
+                },
+                "end": {
+                  "line": 5,
+                  "column": 6,
+                  "offset": 74
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1,
+              "offset": 27
+            },
+            "end": {
+              "line": 5,
+              "column": 6,
+              "offset": 74
+            }
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 1,
+          "offset": 76
+        }
+      }
+    },
+    {
+      "type": "section",
+      "level": 1,
+      "properties": {},
+      "children": [
+        {
+          "type": "headline",
+          "actionable": false,
+          "children": [
+            {
+              "type": "stars",
+              "level": 1,
+              "position": {
+                "start": {
+                  "line": 7,
+                  "column": 1,
+                  "offset": 76
+                },
+                "end": {
+                  "line": 7,
+                  "column": 2,
+                  "offset": 77
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "headline with drawer",
+              "position": {
+                "start": {
+                  "line": 7,
+                  "column": 3,
+                  "offset": 78
+                },
+                "end": {
+                  "line": 7,
+                  "column": 23,
+                  "offset": 98
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 7,
+                  "column": 23,
+                  "offset": 98
+                },
+                "end": {
+                  "line": 8,
+                  "column": 1,
+                  "offset": 99
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 7,
+              "column": 1,
+              "offset": 76
+            },
+            "end": {
+              "line": 8,
+              "column": 1,
+              "offset": 99
+            }
+          }
+        },
+        {
+          "type": "drawer",
+          "name": "LOG",
+          "value": "\nhere are\nsome log\n",
+          "children": [
+            {
+              "type": "drawer.begin",
+              "name": "LOG",
+              "position": {
+                "start": {
+                  "line": 8,
+                  "column": 1,
+                  "offset": 99
+                },
+                "end": {
+                  "line": 8,
+                  "column": 6,
+                  "offset": 104
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 8,
+                  "column": 6,
+                  "offset": 104
+                },
+                "end": {
+                  "line": 9,
+                  "column": 1,
+                  "offset": 105
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "here are",
+              "position": {
+                "start": {
+                  "line": 9,
+                  "column": 1,
+                  "offset": 105
+                },
+                "end": {
+                  "line": 9,
+                  "column": 9,
+                  "offset": 113
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 9,
+                  "column": 9,
+                  "offset": 113
+                },
+                "end": {
+                  "line": 10,
+                  "column": 1,
+                  "offset": 114
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "some log",
+              "position": {
+                "start": {
+                  "line": 10,
+                  "column": 1,
+                  "offset": 114
+                },
+                "end": {
+                  "line": 10,
+                  "column": 9,
+                  "offset": 122
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 10,
+                  "column": 9,
+                  "offset": 122
+                },
+                "end": {
+                  "line": 11,
+                  "column": 1,
+                  "offset": 123
+                }
+              }
+            },
+            {
+              "type": "drawer.end",
+              "position": {
+                "start": {
+                  "line": 11,
+                  "column": 1,
+                  "offset": 123
+                },
+                "end": {
+                  "line": 11,
+                  "column": 6,
+                  "offset": 128
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 8,
+              "column": 1,
+              "offset": 99
+            },
+            "end": {
+              "line": 11,
+              "column": 6,
+              "offset": 128
+            }
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 7,
+          "column": 1,
+          "offset": 76
+        },
+        "end": {
+          "line": 11,
+          "column": 7,
+          "offset": 129
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 11,
+      "column": 7,
+      "offset": 129
+    }
+  }
+}

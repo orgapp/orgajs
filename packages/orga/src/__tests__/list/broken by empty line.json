@@ -1,0 +1,336 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "list",
+      "indent": 0,
+      "ordered": false,
+      "children": [
+        {
+          "type": "list.item",
+          "indent": 0,
+          "children": [
+            {
+              "type": "list.item.bullet",
+              "indent": 0,
+              "ordered": false,
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 2,
+                  "offset": 1
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "Apple is an American multinational technology company headquartered in",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 3,
+                  "offset": 2
+                },
+                "end": {
+                  "line": 1,
+                  "column": 73,
+                  "offset": 72
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 73,
+                  "offset": 72
+                },
+                "end": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 73
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "Cupertino, California that designs, develops, and sells consumer electronics,",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 3,
+                  "offset": 75
+                },
+                "end": {
+                  "line": 2,
+                  "column": 80,
+                  "offset": 152
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 80,
+                  "offset": 152
+                },
+                "end": {
+                  "line": 3,
+                  "column": 1,
+                  "offset": 153
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 3,
+              "column": 1,
+              "offset": 153
+            }
+          }
+        }
+      ],
+      "attributes": {},
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 1,
+          "offset": 153
+        }
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "computer software, and online services.",
+          "position": {
+            "start": {
+              "line": 4,
+              "column": 3,
+              "offset": 156
+            },
+            "end": {
+              "line": 4,
+              "column": 42,
+              "offset": 195
+            }
+          }
+        },
+        {
+          "type": "newline",
+          "position": {
+            "start": {
+              "line": 4,
+              "column": 42,
+              "offset": 195
+            },
+            "end": {
+              "line": 5,
+              "column": 1,
+              "offset": 196
+            }
+          }
+        }
+      ],
+      "attributes": {},
+      "position": {
+        "start": {
+          "line": 4,
+          "column": 3,
+          "offset": 156
+        },
+        "end": {
+          "line": 5,
+          "column": 1,
+          "offset": 196
+        }
+      }
+    },
+    {
+      "type": "list",
+      "indent": 0,
+      "ordered": false,
+      "children": [
+        {
+          "type": "list.item",
+          "indent": 0,
+          "children": [
+            {
+              "type": "list.item.bullet",
+              "indent": 0,
+              "ordered": false,
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 1,
+                  "offset": 196
+                },
+                "end": {
+                  "line": 5,
+                  "column": 2,
+                  "offset": 197
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "Orange",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 3,
+                  "offset": 198
+                },
+                "end": {
+                  "line": 5,
+                  "column": 9,
+                  "offset": 204
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 9,
+                  "offset": 204
+                },
+                "end": {
+                  "line": 6,
+                  "column": 1,
+                  "offset": 205
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 5,
+              "column": 1,
+              "offset": 196
+            },
+            "end": {
+              "line": 6,
+              "column": 1,
+              "offset": 205
+            }
+          }
+        },
+        {
+          "type": "list.item",
+          "indent": 0,
+          "children": [
+            {
+              "type": "list.item.bullet",
+              "indent": 0,
+              "ordered": false,
+              "position": {
+                "start": {
+                  "line": 6,
+                  "column": 1,
+                  "offset": 205
+                },
+                "end": {
+                  "line": 6,
+                  "column": 2,
+                  "offset": 206
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "Banana",
+              "position": {
+                "start": {
+                  "line": 6,
+                  "column": 3,
+                  "offset": 207
+                },
+                "end": {
+                  "line": 6,
+                  "column": 9,
+                  "offset": 213
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 6,
+                  "column": 9,
+                  "offset": 213
+                },
+                "end": {
+                  "line": 6,
+                  "column": 10,
+                  "offset": 214
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 6,
+              "column": 1,
+              "offset": 205
+            },
+            "end": {
+              "line": 6,
+              "column": 10,
+              "offset": 214
+            }
+          }
+        }
+      ],
+      "attributes": {},
+      "position": {
+        "start": {
+          "line": 5,
+          "column": 1,
+          "offset": 196
+        },
+        "end": {
+          "line": 6,
+          "column": 10,
+          "offset": 214
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 6,
+      "column": 10,
+      "offset": 214
+    }
+  }
+}

@@ -1,15 +1,6 @@
-/** @jsx jsx */
-import { jsx } from 'theme-ui'
-import Left from './left'
-import Right from './right'
+import React from 'react'
 import Placeholder from './placeholder'
 
 export default () => {
-
-  return (
-    <Placeholder>
-      Navbar
-    </Placeholder>
-  )
+  return <Placeholder>Navbar</Placeholder>
 }
-

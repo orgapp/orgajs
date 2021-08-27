@@ -6,16 +6,13 @@ export default (options: { base: number }) => {
   const { base } = options
 
   return (tree, file) => {
-
-    const visitor: Visitor<Headline> = (headline: Headline, index: number, parent: Parent) => {
+    // @ts-ignore
+    visit<Headline>(tree, 'headline', (headline, index, parent) => {
       if (headline.level === base) {
         parent.children.splice(index, 1)
         return [visit.SKIP, index]
       }
       headline.level = headline.level - base + 1
-    }
-
-    visit(tree, 'headline', visitor)
+    })
   }
-
 }

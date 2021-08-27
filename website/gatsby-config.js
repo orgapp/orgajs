@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path')
+
 module.exports = {
   siteMetadata: {
     title: 'Orga',
@@ -18,14 +21,20 @@ module.exports = {
     {
       resolve: 'gatsby-theme-orga-docs',
       options: {
-        locations: ['../docs'],
+        location: ['../docs'],
         components: {
           Space: require.resolve('./src/components/space.tsx'),
           Notice: require.resolve('./src/components/notice.tsx'),
-          pre: require.resolve('./src/components/code-block.tsx'),
-          code: require.resolve('./src/components/code.tsx'),
+          CodeBlock: require.resolve('./src/components/code-block/index.tsx'),
         },
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: path.join(__dirname, `src`, `images`),
+      },
+    },
   ],
-};
+}

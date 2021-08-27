@@ -1,36 +1,51 @@
-import { Reader } from '../reader'
+import assert from 'assert'
+import { Reader } from 'text-kit'
 import { Token } from '../types'
 import { tokenize as tokenizeInline } from './inline'
 
-export default ({ reader }: { reader: Reader }) : Token[] => {
-  const { match, eat, getChar, jump } = reader
+export default (reader: Reader): Token[] => {
+  const { match, eat, getChar, jump, endOfLine } = reader
+  const char = getChar()
 
-  if (getChar() !== '|') return []
+  if (char !== '|') return []
 
   if (getChar(1) === '-') {
-    return [{ type: 'table.hr', position: eat('line').position }]
+    const hr = eat('line')
+    return [{ type: 'table.hr', position: hr.position }]
   }
 
-  let tokens: Token[] = [{
+  const startColumnSeparator: Token = {
     type: 'table.columnSeparator',
-    position: eat('char').position,
-  }]
+    position: eat().position,
+  }
+
+  const tokens: Token[] = []
 
   const tokCells = (): void => {
-    const m = match(/\|/)
+    const m = match(/(\||\n|$)/m, { end: endOfLine() })
+    assert(m, 'what is happening')
+
     const end = m && m.position.start
-    tokens = tokens.concat(tokenizeInline({ reader, end }))
-    if (!m) return
+    const inline = tokenizeInline(reader.read({ end }))
+    tokens.push(...inline)
+    jump(m.position.start)
+    const c = getChar()
+    jump(m.position.end)
+    if (!c) return
+
     tokens.push({
-      type: 'table.columnSeparator',
+      type: c === '|' ? 'table.columnSeparator' : 'newline',
       position: m.position,
     })
-    jump(m.position.end)
-    tokCells()
+
+    if (c === '|') tokCells()
   }
 
   tokCells()
 
+  if (tokens.length === 0) {
+    console.log(` >>> empty tokens <<< `)
+  }
 
-  return tokens
+  return [startColumnSeparator, ...tokens]
 }

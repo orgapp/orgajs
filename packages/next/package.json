@@ -10,8 +10,8 @@
   },
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
-    "compile": "node ./build.js",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
+    "compile": "tsc -b",
     "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
@@ -24,6 +24,7 @@
     "@orgajs/reorg-rehype": "^2.4.9"
   },
   "devDependencies": {
-    "esbuild": "^0.12.9"
+    "@types/hast": "^2.3.2",
+    "@types/node": "^16.4.0"
   }
 }

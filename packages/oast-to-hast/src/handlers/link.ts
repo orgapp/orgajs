@@ -1,23 +1,36 @@
 import mime from 'mime'
-import { Link, Paragraph } from 'orga'
+import { Link } from 'orga'
 import { Context, HNode } from '../'
+import { all } from '../transform'
 
-export default (context: Context) => (node: Link): HNode => {
-  const { h, u, properties } = context
-  const { value, description } = node
+export default (node: Link, context: Context) => {
+  const { h, u, properties, attributes } = context
+  const { path, children } = node
 
-  const type = mime.getType(value)
-  if (type && type.startsWith('image')) {
-    const p = node.parent as Paragraph
-    return h('figure')(
-      h('img', { src: node.value, ...properties })(),
-      h('figcaption')(
-        u('text', p.attributes['caption'] as string || description || '')
-      )
-    )
+  const type = mime.getType(path.value)
+
+  let description: HNode[] = []
+  if (children.length > 0) {
+    description = all(context)(children)
+  } else {
+    description = [u('text', path.value)]
   }
 
-  return h('a', { href: value })(
-    u('text', description || value)
-  )
+  if (type && type.startsWith('image')) {
+    let cap: HNode | undefined
+    const c = attributes['caption'] as string
+    if (c) {
+      cap = h('figcaption')(u('text', c))
+    } else if (children.length > 0) {
+      cap = h('figcaption')(...description)
+    }
+
+    let image = h('img', { src: path.value, ...properties })()
+    if (cap) {
+      image = h('figure')(image, cap)
+    }
+    return image
+  }
+
+  return h('a', { href: path.value })(...description)
 }

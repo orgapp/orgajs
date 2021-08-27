@@ -2,7 +2,7 @@
   "name": "text-kit",
   "version": "2.4.9",
   "description": "bundle of useful tools for manipulating text",
-  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/text-kit#readme",
   "repository": {
     "type": "git",
@@ -20,11 +20,17 @@
   ],
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "test": "jest"
   },
   "bugs": {
     "url": "https://github.com/orgapp/orgajs/issues"
+  },
+  "devDependencies": {
+    "@types/unist": "^2.0.0",
+    "jest": "^27.0.6",
+    "typescript": "^4.3.5"
   }
 }

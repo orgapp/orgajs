@@ -1,9 +1,8 @@
 import { Block } from 'orga'
 import { Context, HNode } from '../'
-import highlight from './_highlight'
+import parseHTML from './_parseHTML'
 
-export default (context: Context) => (node: Block): HNode => {
-
+export default (node: Block, context: Context) => {
   const { h, u } = context
 
   const name = node.name.toLowerCase()
@@ -11,30 +10,22 @@ export default (context: Context) => (node: Block): HNode => {
   if (name === 'src') {
     const body: HNode = u('text', node.value)
     const lang = node.params[0]
-    // if (lang && context.highlight) {
-    //   body = u('raw', highlight(lang, node.value))
-    // }
-    return h('pre')(
-      h('code', { className: [`language-${lang}`] })(
-        body
-      )
-    )
+    return h('pre')(h('code', { className: [`language-${lang}`] })(body))
   }
 
-  switch(name) {
+  switch (name) {
     case 'quote':
-      return h('blockquote')(
-        u('text', node.value)
-      )
+      return h('blockquote')(u('text', node.value))
     case 'center':
-      return h('center')(
-        u('text', node.value)
-      )
+      return h('center')(u('text', node.value))
     case 'export':
-      return u('raw', node.value)
+      if (node.params[0].toLowerCase() === 'html') {
+        return parseHTML(node.value, context)
+      }
+      return u((node.params[0] || 'raw').toLowerCase(), node.value)
     case 'comment':
+      return undefined
     default:
-      return h('pre', { className: [name] })(
-        u('text', node.value))
+      return h('pre', { className: [name] })(u('text', node.value))
   }
 }

@@ -1,5 +1,3 @@
 import OrgaRenderer from './dist/orga-renderer'
 
-export {
-  OrgaRenderer
-}
+export { OrgaRenderer }

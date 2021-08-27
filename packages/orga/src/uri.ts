@@ -1,9 +1,9 @@
 const URL_PATTERN = /(?:([a-z][a-z0-9+.-]*):)?(.*)/i
 
 interface LinkInfo {
-  protocol: string;
-  value: string;
-  search?: string | number;
+  protocol: string
+  value: string
+  search?: string | number
 }
 
 const isFilePath = (str: string): boolean => {
@@ -13,7 +13,9 @@ const isFilePath = (str: string): boolean => {
 export default (link: string): LinkInfo | undefined => {
   const m = URL_PATTERN.exec(link)
   if (!m) return undefined
-  const protocol = (m[1] || (isFilePath(m[2]) ? `file` : `internal`)).toLowerCase()
+  const protocol = (
+    m[1] || (isFilePath(m[2]) ? `file` : `internal`)
+  ).toLowerCase()
   let value = m[2]
   if (/https?/.test(protocol)) {
     value = `${protocol}:${value}`
@@ -28,6 +30,4 @@ export default (link: string): LinkInfo | undefined => {
     }
   }
   return { protocol, value, search }
-
 }
-

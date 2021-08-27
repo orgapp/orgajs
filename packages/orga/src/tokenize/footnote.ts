@@ -1,25 +1,21 @@
-import { Reader } from '../reader'
+import { Reader } from 'text-kit'
 import { Token } from '../types'
 import { tokenize as tokenizeInline } from './inline'
 
-interface Props {
-  reader: Reader;
-}
-
-export default ({ reader }: Props) : Token[] => {
+export default (reader: Reader): Token[] => {
   const { match, jump, eat } = reader
   let tokens: Token[] = []
-  const m = match(/^\[fn:([^\]]+)\](?=\s)/)
+  const m = match(/^\[fn:([^\]]+)\](?=\s)/y)
   if (!m) return []
   tokens.push({
     type: 'footnote.label',
-    label: m.captures[1],
+    label: m.result[1],
     position: m.position,
   })
   jump(m.position.end)
   eat('whitespaces')
 
-  tokens = tokens.concat(tokenizeInline({ reader }))
+  tokens = tokens.concat(tokenizeInline(reader))
 
   return tokens
 }

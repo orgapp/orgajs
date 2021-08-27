@@ -5,11 +5,11 @@ import { ComponentDictionary } from './types'
 const TYPE_PROP_NAME = 'orgaType'
 
 interface OrgaPropsType {
-  children?: React.ReactNode;
-  parentName: string;
-  orgaType: string;
-  originalType: string;
-  components?: ComponentDictionary;
+  children?: React.ReactNode
+  parentName: string
+  orgaType: string
+  originalType: string
+  components?: ComponentDictionary
 }
 
 const DEFAULTS = {
@@ -17,28 +17,29 @@ const DEFAULTS = {
   wrapper: ({ children }) => React.createElement(React.Fragment, {}, children),
 }
 
+const OrgaCreateElement = React.forwardRef<ComponentType, OrgaPropsType>(
+  (props, ref) => {
+    const {
+      components: propComponents,
+      parentName,
+      orgaType,
+      originalType,
+      ...etc
+    } = props
 
-const OrgaCreateElement = React.forwardRef<ComponentType, OrgaPropsType>((props, ref) => {
-  const {
-    components: propComponents,
-    parentName,
-    orgaType,
-    originalType,
-    ...etc
-  } = props
+    const type = orgaType
 
-  const type = orgaType
+    const components = useOrgaComponents(propComponents)
 
-  const components = useOrgaComponents(propComponents)
+    const Component =
+      components[`${parentName}.${type}`] ||
+      components[type] ||
+      DEFAULTS[type] ||
+      originalType
 
-  const Component =
-    components[`${parentName}.${type}`] ||
-    components[type] ||
-    DEFAULTS[type] ||
-    originalType
-
-  return React.createElement(Component, { ref, ...etc })
-})
+    return React.createElement(Component, { ref, ...etc })
+  }
+)
 
 OrgaCreateElement.displayName = 'OrgaCreateElement'
 
@@ -46,8 +47,8 @@ type CreateOrgaElement = typeof React.createElement & {
   Fragment: typeof React.Fragment
 }
 
-function orga(type, props) {
-  const args = arguments
+function orga(...args) {
+  const [type, props] = args
   const orgaType = props && props.orgaType
   if (typeof type === 'string' || orgaType) {
     const argsLength = args.length
@@ -57,7 +58,7 @@ function orga(type, props) {
 
     const newProps: any = {}
     for (const key in props) {
-      if (props.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(props, key)) {
         newProps[key] = props[key]
       }
     }

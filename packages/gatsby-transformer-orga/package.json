@@ -2,7 +2,7 @@
   "name": "gatsby-transformer-orga",
   "description": "Gatsby transformer plugin for org-mode with orga",
   "version": "2.4.9",
-  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "dependencies": {
     "bluebird": "^3.7.0",
     "gatsby-core-utils": "^2.2.0",
@@ -14,7 +14,7 @@
     "orga": "^2.4.9",
     "orga-posts": "^2.4.9",
     "rehype-stringify": "^8.0.0",
-    "unified": "^9.1.0",
+    "unified": "9.2.2",
     "unist-builder": "^2.0.3",
     "unist-util-map": "^2.0.1",
     "unist-util-select": "^3.0.1",
@@ -31,8 +31,15 @@
   },
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b",
     "prepublishOnly": "yarn build"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.12",
+    "@types/lodash": "^4.14.171",
+    "@types/node": "^16.4.0",
+    "@types/unist": "2.0.3",
+    "gatsby": "^3.10.0"
   }
 }

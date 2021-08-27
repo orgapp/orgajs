@@ -1,15 +1,16 @@
-import toEstree from '@orgajs/rehype-estree'
-import toRehype from '@orgajs/reorg-rehype'
-import toJsx from '@orgajs/estree-jsx'
+/* eslint-disable @typescript-eslint/no-var-requires */
+const toJsx = require('@orgajs/estree-jsx')
+const toEstree = require('@orgajs/rehype-estree')
+const toRehype = require('@orgajs/reorg-rehype')
 
-const config = {
+module.exports = {
   mode: 'development',
   module: {
     rules: [
       {
         test: /\.js$/,
         use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.org$/,
@@ -18,16 +19,11 @@ const config = {
           {
             loader: '@orgajs/loader',
             options: {
-              plugins: [
-                toRehype,
-                toEstree,
-                toJsx,
-              ]
-            }
-          }],
+              plugins: [toRehype, toEstree, toJsx],
+            },
+          },
+        ],
       },
-    ]
+    ],
   },
 }
-
-export default config

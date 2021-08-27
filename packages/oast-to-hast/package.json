@@ -6,22 +6,25 @@
     "dist"
   ],
   "main": "dist/index.js",
-  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/master/packages/oast-to-hast",
   "dependencies": {
+    "hast-util-from-parse5": "6.0.1",
     "mime": "^2.4.4",
     "orga": "^2.4.9",
+    "parse5": "^6.0.1",
     "prismjs": "^1.17.1",
     "unist-builder": "^2.0.3"
   },
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b",
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
-    "@types/hast": "^2.3.1"
+    "@types/hast": "^2.3.2",
+    "@types/unist": "2.0.3"
   }
 }

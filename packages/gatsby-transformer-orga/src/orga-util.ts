@@ -1,4 +1,4 @@
-import _ from 'lodash/fp'
+import { mapValues } from 'lodash/fp'
 import { parse, Document, Section } from 'orga'
 import { Node } from 'unist'
 
@@ -7,17 +7,15 @@ const shouldBeArray = (key: string) => [`keywords`, `tags`].includes(key)
 // TODO: open this up once this is resolved:
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/27194
 // @ts-ignore
-export const processMeta = _.mapValues.convert({ cap: false })((v, k) => {
+export const processMeta = mapValues.convert({ cap: false })((v, k) => {
   if (shouldBeArray(k) && typeof v === `string`) {
     return v.match(/[^ ]+/g)
   }
   return v
 })
 
-const astCacheKey = node =>
-      `transformer-orga-ast-${
-    node.internal.contentDigest
-  }`
+const astCacheKey = (node) =>
+  `transformer-orga-ast-${node.internal.contentDigest}`
 
 const ASTPromiseMap = new Map()
 
@@ -29,10 +27,10 @@ export const getAST = async ({ node, cache }): Promise<Document | Section> => {
   }
   if (ASTPromiseMap.has(cacheKey)) return await ASTPromiseMap.get(cacheKey)
   const ASTGenerationPromise = getOrgAST(node)
-  ASTGenerationPromise.then(ast => {
+  ASTGenerationPromise.then((ast) => {
     cache.set(cacheKey, ast)
     ASTPromiseMap.delete(cacheKey)
-  }).catch(err => {
+  }).catch((err) => {
     ASTPromiseMap.delete(cacheKey)
     return err
   })
@@ -44,7 +42,7 @@ export const getAST = async ({ node, cache }): Promise<Document | Section> => {
 }
 
 async function getOrgAST(node): Promise<Document> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const ast = parse(node.internal.content)
     resolve(ast)
   })

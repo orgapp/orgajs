@@ -1,9 +1,13 @@
 import reorg2rehype from '@orgajs/reorg-rehype'
 import * as _ from 'lodash/fp'
 import {
-  Document, Headline, Parent, parse,
-  ParseOptions, parseTimestamp,
-  Section
+  Document,
+  Headline,
+  Parent,
+  parse,
+  ParseOptions,
+  parseTimestamp,
+  Section,
 } from 'orga'
 import highlight from 'rehype-highlight'
 import html from 'rehype-stringify'
@@ -15,12 +19,12 @@ import processFootnotes from './processFootnotes'
 import _statistics from './statistics'
 
 interface Metadata {
-  title: string;
-  category: string;
-  export_file_name: string;
-  keyword: string;
-  tags: string[];
-  date?: Date;
+  title: string
+  category: string
+  export_file_name: string
+  keyword: string
+  tags: string[]
+  date?: Date
 }
 
 const pTimestamp = (obj: any) => {
@@ -31,28 +35,32 @@ const pTimestamp = (obj: any) => {
 }
 
 const defaultToHtmlOptions = {
-  transform: (tree: Parent): void => {}
+  transform: (tree: Parent): void => {},
 }
 
 export interface Post extends Metadata {
-  ast?: Parent;
-  html: (options: typeof defaultToHtmlOptions) => Promise<string>;
+  ast?: Parent
+  html: (options: typeof defaultToHtmlOptions) => Promise<string>
 }
 
 interface BuildProps {
-  text: string;
-  filename: string;
-  transform?: (tree: Parent) => void;
-  options?: Partial<ParseOptions>;
+  text: string
+  filename: string
+  transform?: (tree: Parent) => void
+  options?: Partial<ParseOptions>
 }
 
 const sanitise = (title: string) => {
-  return title.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase()
+  return title
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/gi, '')
+    .toLowerCase()
 }
 
-
-const extractMetadata = (tree: Section | Document, fallbacks: Partial<Metadata> = {}): Metadata => {
-
+const extractMetadata = (
+  tree: Section | Document,
+  fallbacks: Partial<Metadata> = {}
+): Metadata => {
   const getTitle = (metadata: any) => {
     const { title, export_title, ...rest } = metadata
     let theTitle = export_title || title
@@ -65,18 +73,13 @@ const extractMetadata = (tree: Section | Document, fallbacks: Partial<Metadata> 
       ...rest,
       title: theTitle || 'Untitled',
     }
-
   }
 
   const getDate = (metadata: any) => {
-    const {
-      date, export_date, publish_date,
-      ...rest
-    } = metadata
+    const { date, export_date, publish_date, ...rest } = metadata
 
-    let timestamp = pTimestamp(date) ||
-      pTimestamp(export_date) ||
-      pTimestamp(publish_date)
+    let timestamp =
+      pTimestamp(date) || pTimestamp(export_date) || pTimestamp(publish_date)
 
     if (!timestamp && tree.type === 'section') {
       timestamp = _.get('timestamp')(select(`planning[keyword=CLOSED]`, tree))
@@ -94,14 +97,16 @@ const extractMetadata = (tree: Section | Document, fallbacks: Partial<Metadata> 
       const headline = select('headline', tree) as Headline
       tags = headline.tags || tags
     } else {
-
-      tags = _.reduce((result: string[], k: string) =>
-        _.flow(
-          _.get(k),
-          _.split(' '),
-          _.filter(_.identity),
-          _.union(result),
-        )(metadata), [])(['keywords', 'tags'])
+      tags = _.reduce(
+        (result: string[], k: string) =>
+          _.flow(
+            _.get(k),
+            _.split(' '),
+            _.filter(_.identity),
+            _.union(result)
+          )(metadata),
+        []
+      )(['keywords', 'tags'])
     }
 
     return {
@@ -122,7 +127,7 @@ const extractMetadata = (tree: Section | Document, fallbacks: Partial<Metadata> 
     if (metadata.export_file_name) return metadata
     return {
       ...metadata,
-      export_file_name: sanitise(metadata.title)
+      export_file_name: sanitise(metadata.title),
     }
   }
 
@@ -131,7 +136,7 @@ const extractMetadata = (tree: Section | Document, fallbacks: Partial<Metadata> 
     getDate,
     getTags,
     getExportFileName,
-    getKeyword,
+    getKeyword
   )({ ...fallbacks, ...tree.properties })
 }
 
@@ -139,7 +144,10 @@ export const build = async ({ text, filename, options }: BuildProps) => {
   const ast = parse(text, options)
   const category = ast.properties['category'] || filename || ''
 
-  const keywords = (ast.properties.orga_publish_keyword || '').split(' ').map(k => k.trim()).filter(k => k.length > 0)
+  const keywords = (ast.properties.orga_publish_keyword || '')
+    .split(' ')
+    .map((k) => k.trim())
+    .filter((k) => k.length > 0)
 
   // section
   if (keywords.length > 0) {
@@ -158,10 +166,12 @@ export const build = async ({ text, filename, options }: BuildProps) => {
   }
 
   // document
-  return [{
-    ...extractMetadata(ast, { export_file_name: filename }),
-    ast,
-  }]
+  return [
+    {
+      ...extractMetadata(ast, { export_file_name: filename }),
+      ast,
+    },
+  ]
 }
 
 export const toHtml = async (tree: Parent, options = defaultToHtmlOptions) => {
@@ -180,8 +190,9 @@ export const toHtml = async (tree: Parent, options = defaultToHtmlOptions) => {
 
 export const statistics = async (tree: Parent) => {
   let report: { timeToRead: number; wordCount: number }
-  const processor = unified()
-    .use(_statistics, { report: (result) => report = result })
+  const processor = unified().use(_statistics, {
+    report: (result) => (report = result),
+  })
   processor.run(tree)
   return report
 }

@@ -17,31 +17,47 @@
   ],
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
-    "compile": "node ./scripts/build.js",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
+    "compile": "tsc -b",
     "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
     "@orgajs/loader": "^1.0.0",
     "@orgajs/react": "^1.0.0",
+    "gatsby-plugin-sharp": "*",
     "react": "^16.9.0 || ^17.0.0",
     "react-dom": "^16.9.0 || ^17.0.0"
   },
   "dependencies": {
     "@orgajs/estree-jsx": "^2.4.9",
     "@orgajs/rehype-estree": "^2.4.9",
+    "@orgajs/reorg": "^2.4.9",
     "@orgajs/reorg-rehype": "^2.4.9",
+    "astring": "^1.7.5",
     "dataloader": "^2.0.0",
-    "estree-util-build-jsx": "^2.0.0",
+    "estree-util-build-jsx": "1.1.1",
+    "estree-walker": "2.0.2",
+    "fs-extra": "^10.0.0",
     "gatsby-core-utils": "^2.3.0",
-    "memory-fs": "^0.5.0",
-    "p-queue": "^7.1.0"
+    "gatsby-plugin-page-creator": "^3.10.0",
+    "loader-utils": "^2.0.0",
+    "lodash": "^4.17.21",
+    "unist-builder": "2.0.3",
+    "unist-util-select": "3.0.4",
+    "unist-util-visit": "2.0.3"
   },
   "devDependencies": {
     "@orgajs/loader": "^2.4.9",
     "@orgajs/react": "^2.4.9",
+    "@types/estree": "^0.0.50",
+    "@types/fs-extra": "^9.0.12",
+    "@types/node": "^16.4.0",
+    "@types/react": "^17.0.14",
+    "@types/react-dom": "^17.0.9",
+    "@types/unist": "2.0.3",
     "del-cli": "^3.0.1",
-    "esbuild": "^0.12.6",
-    "typescript": "^4.3.2"
+    "gatsby": "^3.10.0",
+    "typescript": "^4.3.2",
+    "unified": "9.2.2"
   }
 }

@@ -1,4 +1,4 @@
-import Image from "gatsby-image"
+import Image from 'gatsby-image'
 
 const PostHero = ({ post }) => (
   <div>

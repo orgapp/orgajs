@@ -13,7 +13,4 @@ export const parse = (
   return _parse(tokenize(text, { ...defaultOptions, ...options }))
 }
 
-export {
-  parseTimestamp,
-  ParseOptions,
-}
+export { parseTimestamp, ParseOptions }

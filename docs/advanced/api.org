@@ -2,6 +2,6 @@
 #+published: true
 #+position: 1
 
-#+html: <Notice>This page is a WIP</Notice>
+#+jsx: <Notice>This page is a WIP</Notice>
 
 Describe the API.

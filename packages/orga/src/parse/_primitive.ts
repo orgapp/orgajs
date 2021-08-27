@@ -1,4 +1,4 @@
-import { Primitive } from "../types"
+import { Primitive } from '../types'
 
 export default (value: string): Primitive => {
   const num = Number(value)

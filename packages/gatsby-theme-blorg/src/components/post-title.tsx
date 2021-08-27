@@ -1,5 +1,5 @@
-import React from "react"
-import { Styled } from "theme-ui"
+import React from 'react'
+import { Styled } from 'theme-ui'
 
 const PostTitle = (props) => <Styled.h1 {...props} />
 

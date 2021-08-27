@@ -1,0 +1,48 @@
+#+title: How to contribute to orgajs
+
+Hi 👋 🦄.
+
+* Getting Started
+Make sure you have latest yarn installed locally.
+To get started with the repo, after cloning the repo.
+
+#+begin_src sh
+yarn install
+#+end_src
+
+* Ways to Contribute
+
+** Improve documentation
+Documentations resides in the [[file:docs][docs]] folder. The content will be published to the [[https://orga.js.org][official website]]. As a user of the library and tools, you are the best person for writing them. Any help with documentation would be appreciated greatly.
+
+** Write code and tests
+It's often a good idea to create an issue to discuss the bug or feature before creating a pull request to prevent from doing unnecessary work.
+
+** Discussion
+Have some cool ideas? Let's talk about it in the [[https://github.com/orgapp/orgajs/discussions][Discussions]] tab.
+
+* Commit Messages
+
+We are following the [[https://www.conventionalcommits.org/en/v1.0.0/][conventional commits]] standards, an example would be:
+
+#+begin_example
+feat(parser): add new syntax
+
+this is a body
+#+end_example
+
+The above commit message would result in a minor version bump when it is merged into master for release. Take a look at the spec for more details. This is for extracting changelog and streamline version bump automatically.
+
+* Run Unit Tests
+
+#+begin_src sh
+yarn build # always build before running tests
+yarn test
+#+end_src
+
+* Submitting Pull Requests
+Please submit pull requests against =develop= branch. =master= is for releasing.
+
+* Releasing
+All packages in orgajs is automatically released once merged into master. That's why the commit message is extra important. Especially when there are =BRAKING CHANGE=.
+

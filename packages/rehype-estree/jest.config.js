@@ -5,9 +5,7 @@ export default {
     // '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   rootDir: './',
-  testMatch: [
-    '/**/*.test.ts',
-  ],
+  testMatch: ['/**/*.test.ts'],
   testEnvironment: 'node',
   extensionsToTreatAsEsm: ['.ts'],
   // Disabling diagnostics, TODO: turn this back on
@@ -15,6 +13,6 @@ export default {
     'ts-jest': {
       useESM: true,
       // diagnostics: false
-    }
+    },
   },
 }

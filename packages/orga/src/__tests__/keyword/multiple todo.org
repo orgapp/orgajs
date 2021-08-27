@@ -1,0 +1,5 @@
+#+TODO: TODO NEXT | DONE
+#+TODO: DRAFT PUBLISHED
+#+TODO: BUG(b) FEATURE(f) | DONE(d)
+
+* DRAFT Some Headline

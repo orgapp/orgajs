@@ -1,0 +1,332 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "section",
+      "level": 1,
+      "properties": {},
+      "children": [
+        {
+          "type": "headline",
+          "actionable": false,
+          "children": [
+            {
+              "type": "stars",
+              "level": 1,
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 2,
+                  "offset": 1
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "with deadline",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 3,
+                  "offset": 2
+                },
+                "end": {
+                  "line": 1,
+                  "column": 16,
+                  "offset": 15
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 16,
+                  "offset": 15
+                },
+                "end": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 16
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 1
+            }
+          }
+        },
+        {
+          "type": "planning",
+          "keyword": "DEADLINE",
+          "timestamp": {
+            "date": "2021-08-19T12:00:00.000Z"
+          },
+          "children": [
+            {
+              "type": "planning.keyword",
+              "value": "DEADLINE",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 1
+                },
+                "end": {
+                  "line": 2,
+                  "column": 10
+                }
+              }
+            },
+            {
+              "type": "planning.timestamp",
+              "value": {
+                "date": "2021-08-19T12:00:00.000Z"
+              },
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 10
+                },
+                "end": {
+                  "line": 2,
+                  "column": 28
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1
+            },
+            "end": {
+              "line": 3,
+              "column": 1,
+              "offset": 43
+            }
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 4,
+          "column": 1,
+          "offset": 44
+        }
+      }
+    },
+    {
+      "type": "section",
+      "level": 1,
+      "properties": {},
+      "children": [
+        {
+          "type": "headline",
+          "actionable": false,
+          "children": [
+            {
+              "type": "stars",
+              "level": 1,
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 1,
+                  "offset": 44
+                },
+                "end": {
+                  "line": 4,
+                  "column": 2,
+                  "offset": 45
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "with deadline and scheduled",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 3,
+                  "offset": 46
+                },
+                "end": {
+                  "line": 4,
+                  "column": 30,
+                  "offset": 73
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 30,
+                  "offset": 73
+                },
+                "end": {
+                  "line": 5,
+                  "column": 1,
+                  "offset": 74
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 4,
+              "column": 1,
+              "offset": 44
+            },
+            "end": {
+              "line": 5,
+              "column": 1
+            }
+          }
+        },
+        {
+          "type": "planning",
+          "keyword": "DEADLINE",
+          "timestamp": {
+            "date": "2021-08-26T12:00:00.000Z"
+          },
+          "children": [
+            {
+              "type": "planning.keyword",
+              "value": "DEADLINE",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 1
+                },
+                "end": {
+                  "line": 5,
+                  "column": 10
+                }
+              }
+            },
+            {
+              "type": "planning.timestamp",
+              "value": {
+                "date": "2021-08-26T12:00:00.000Z"
+              },
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 10
+                },
+                "end": {
+                  "line": 5,
+                  "column": 28
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 5,
+              "column": 1
+            },
+            "end": {
+              "line": 5,
+              "column": 28
+            }
+          }
+        },
+        {
+          "type": "planning",
+          "keyword": "SCHEDULED",
+          "timestamp": {
+            "date": "2021-08-02T12:00:00.000Z"
+          },
+          "children": [
+            {
+              "type": "planning.keyword",
+              "value": "SCHEDULED",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 28
+                },
+                "end": {
+                  "line": 5,
+                  "column": 38
+                }
+              }
+            },
+            {
+              "type": "planning.timestamp",
+              "value": {
+                "date": "2021-08-02T12:00:00.000Z"
+              },
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 38
+                },
+                "end": {
+                  "line": 5,
+                  "column": 56
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 5,
+              "column": 28
+            },
+            "end": {
+              "line": 5,
+              "column": 56
+            }
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 4,
+          "column": 1,
+          "offset": 44
+        },
+        "end": {
+          "line": 5,
+          "column": 56
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 5,
+      "column": 56
+    }
+  }
+}

@@ -18,16 +18,13 @@
     "declaration": true,
     "jsx": "react",
     "allowJs": true,
-    "lib": [
-      "ES2020"
-    ]
+    "lib": ["ES2020"]
   },
   "exclude": [
     "node_modules",
     "**/*.spec.ts",
+    "**/*.test.ts",
     "**/__tests__/**",
-    "tests/**",
-    "**/*.spec.ts"
+    "tests/**"
   ]
-
 }

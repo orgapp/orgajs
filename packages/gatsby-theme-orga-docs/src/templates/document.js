@@ -9,22 +9,16 @@ const Document = (props) => {
   // const Layout = import(data.document.layout)
   return (
     <>
-      { data.document && data.document.body &&
+      {data.document && data.document.body && (
         <>
           <h2>Rendered</h2>
-          <OrgaRenderer scope={{ Layout }}>
-            {data.document.body}
-          </OrgaRenderer>
+          <OrgaRenderer scope={{ Layout }}>{data.document.body}</OrgaRenderer>
           <h2>Code</h2>
-          <pre>
-            {data.document.body}
-          </pre>
+          <pre>{data.document.body}</pre>
         </>
-      }
+      )}
       <h2>Props</h2>
-      <pre>
-        {JSON.stringify(props, null, 2)}
-      </pre>
+      <pre>{JSON.stringify(props, null, 2)}</pre>
     </>
   )
 }

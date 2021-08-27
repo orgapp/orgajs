@@ -1,8 +1,5 @@
-module.exports = options => {
-
-  const {
-    preset = 'orga-theme-ui-preset',
-  } = options
+module.exports = (options) => {
+  const { preset = 'orga-theme-ui-preset' } = options
 
   return {
     siteMetadata: {
@@ -14,18 +11,10 @@ module.exports = options => {
       social: [
         { name: 'twitter', url: 'https://twitter.com/xiaoxinghu' },
         { name: 'website', url: 'https://huxiaoxing.com' },
-        { name: 'email', url: 'mailto:contact@huxiaoxing.com' },
+        { name: 'email', url: 'mailto:contact@huxx.org' },
       ],
     },
     plugins: [
-      {
-        resolve: `gatsby-plugin-typescript`,
-        options: {
-          isTSX: true, // defaults to false
-          jsxPragma: `jsx`, // defaults to "React"
-          allExtensions: true, // defaults to false
-        },
-      },
       {
         resolve: 'gatsby-theme-orga',
         options: {
@@ -48,7 +37,7 @@ module.exports = options => {
         resolve: 'gatsby-plugin-theme-ui',
         options: {
           preset: preset,
-        }
+        },
       },
     ],
   }

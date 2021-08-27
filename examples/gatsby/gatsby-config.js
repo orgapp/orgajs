@@ -13,4 +13,4 @@ module.exports = {
     },
     { resolve: 'gatsby-plugin-orga' },
   ],
-};
+}

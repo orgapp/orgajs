@@ -1,9 +1,9 @@
+name: Build and Publish
+
 on:
   push:
     branches:
       - master
-
-name: Build and Publish
 
 jobs:
   build:
@@ -30,8 +30,8 @@ jobs:
           git config --global user.name 'GitHub Action'
           git config --global user.email 'github-action@users.noreply.github.com'
       - name: install modules
-        run: yarn install --frozen-lockfile --check-files
-      - name: compile
-        run: yarn compile
+        run: yarn ci
+      - name: build
+        run: yarn build
       - name: publish
-        run: yarn publish:ci
+        run: yarn ci:publish

@@ -4,8 +4,6 @@
     "rootDir": "./src",
     "outDir": "./dist"
   },
-  "references": [
-    { "path": "../reorg-parse" }
-  ],
+  "references": [{ "path": "../reorg-parse" }],
   "include": ["./src"]
 }

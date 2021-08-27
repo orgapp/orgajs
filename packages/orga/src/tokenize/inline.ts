@@ -1,173 +1,215 @@
+import { Reader } from 'text-kit'
 import { Point } from 'unist'
-import { isEqual } from '../position'
-import { Reader } from '../reader'
-import { FootnoteReference, Link, PhrasingContent, StyledText, Token, Newline } from '../types'
+import { Style, Token } from '../types'
 import uri from '../uri'
-import { escape } from '../utils'
 
-const POST = `[\\s-\\.,:!?'\\)}]|$`
-const BORDER = `[^,'"\\s]`
-
-const MARKERS: { [key: string]: StyledText['type'] } = {
-  '*': 'text.bold',
-  '=': 'text.verbatim',
-  '/': 'text.italic',
-  '+': 'text.strikeThrough',
-  '_': 'text.underline',
-  '~': 'text.code',
+const MARKERS: { [key: string]: Style } = {
+  '*': 'bold',
+  '=': 'verbatim',
+  '/': 'italic',
+  '+': 'strikeThrough',
+  _: 'underline',
+  '~': 'code',
 }
 
-interface Props {
-  reader: Reader
-  start?: Point
-  end?: Point
+const tokenizeLink: Tokenizer = (reader: Reader) => {
+  const tokens: Token[] = []
+  const { match, eat, findClosing, jump, getChar, now } = reader
+  const linkOpening = eat(/^\[/)
+  if (!linkOpening) return
+
+  tokens.push({
+    type: 'opening',
+    element: 'link',
+    position: linkOpening.position,
+  })
+
+  const linkClosing = findClosing(linkOpening.position.start)
+  if (!linkClosing) return
+  const path = match(/^\[([^\]]*)\]/)
+  if (!path) return
+  const linkInfo = uri(path.result[1])
+  if (!linkInfo) return
+
+  tokens.push({
+    type: 'link.path',
+    ...linkInfo,
+    position: { ...path.position },
+  })
+  jump(path.position.end)
+  if (getChar() === '[') {
+    const descClosing = findClosing()
+    if (!descClosing) {
+      return
+    }
+    eat() // descOpening
+    const desc = tokenize(reader.read({ end: descClosing }), [
+      tokenizeText(now()),
+    ])
+    tokens.push(...desc)
+  }
+
+  jump(linkClosing)
+  tokens.push({
+    type: 'closing',
+    element: 'link',
+    position: eat().position,
+  })
+
+  return tokens
 }
 
-export const tokenize = ({ reader, start, end }: Props, { ignoring }: { ignoring: string[] } = { ignoring: [] }): Token[] => {
-  const { now, eat, eol, match, jump, substring, getChar } = reader
-  start = start || { ...now() }
-  end = end || { ...eol() }
-  jump(start)
+const tokenizeText =
+  (bol: Point | undefined = undefined) =>
+  (reader: Reader) => {
+    const tokens: Token[] = []
+    const { now, eat, jump, getChar, findClosing, substring } = reader
+    const marker = getChar()
+    const style = MARKERS[marker]
+    if (!style) return
+    // check pre
+    const pre = getChar(-1)
+    const isBOL = (bol && bol.offset === now().offset) || now().column === 1
+    if (!isBOL && !/[\s({'"]/.test(pre)) return
+    const tokenStart = now()
 
-  let cursor: Point = { ...start }
+    const closing = findClosing(now())
+    if (!closing) return
+
+    eat()
+    const valueStart = now()
+    // check border
+    if (getChar().match(/\s/)) return
+
+    jump(closing)
+    // check border
+    if (getChar(-1).match(/\s/)) return
+    // check post
+    const post = getChar(1)
+    if (post && ` \t\n-.,;:!?')}["`.indexOf(post) === -1) return
+
+    const valueEnd = now()
+    eat() // closing
+    tokens.push({
+      type: 'text',
+      style,
+      value: substring(valueStart, valueEnd),
+      position: { start: tokenStart, end: now() },
+    })
+    return tokens
+  }
+
+const tokFootnoteRefernece = (reader: Reader) => {
+  const tokens: Token[] = []
+
+  const { eat, now, jump } = reader
+  const fnb = eat(/^\[fn:/)
+  if (!fnb) return
+  tokens.push({
+    type: 'opening',
+    element: 'footnote.reference',
+    position: fnb.position,
+  })
+  const closing = reader.findClosing(fnb.position.start)
+  if (!closing) return
+  const label = eat(/^[\w_-]+/)
+  if (label) {
+    tokens.push({
+      type: 'footnote.label',
+      label: label.value,
+      position: label.position,
+    })
+  }
+  if (label && now().offset === closing.offset) {
+    tokens.push({
+      type: 'closing',
+      element: 'footnote.reference',
+      position: eat().position,
+    })
+    return tokens
+  }
+
+  if (!eat(/^:/)) return
+  const defRange = {
+    start: now(),
+    end: closing,
+  }
+
+  const more = tokenize(reader.read(defRange))
+  tokens.push(...more)
+  jump(closing)
+
+  tokens.push({
+    type: 'closing',
+    element: 'footnote.reference',
+    position: eat().position,
+  })
+
+  return tokens
+}
+
+type Tokenizer = (reader: Reader) => Token[] | undefined
+
+const ALL: Tokenizer[] = [tokFootnoteRefernece, tokenizeLink, tokenizeText()]
+
+export const tokenize = (
+  reader: Reader,
+  tokenizers: Tokenizer[] = ALL,
+  { ignoring }: { ignoring: string[] } = { ignoring: [] }
+): Token[] => {
+  const { now, eat, jump, substring, getChar, toPoint } = reader
 
   const _tokens: Token[] = []
 
-  const tokLink = (): Link => {
-    const m = match(/^\[\[([^\]]*)\](?:\[([^\]]*)\])?\]/m)
-    if (!m) return undefined
-    const linkInfo = uri(m.captures[1])
-    return {
-      type: 'link',
-      description: m.captures[2],
-      ...linkInfo,
-      position: m.position,
-    }
-  }
+  let cursor = now().offset
 
-  const tokFootnoteAnonOrInline = (): Token[] => {
-    const tokens: Token[] = [];
-
-    let m = match(/^\[fn:(\w*):/);
-    if (!m) return [];
-    tokens.push({
-      type: 'footnote.inline.begin',
-      label: m.captures[1],
-      position: m.position,
-    });
-    jump(m.position.end);
-
-    m = match(/^\]/);
-    if (m) {
-      // empty body
-      tokens.push({ type: 'text.plain', value: '', position: { start: m.position.start, end: m.position.start, indent: m.position.indent } });
-    } else {
-      tokens.push(...tokenize({ reader }, { ignoring: [']'] }));
+  const push = (...tokens: Token[]) => {
+    if (tokens.length === 0) return
+    // collect plain text
+    const textEnd = tokens[0].position.start
+    if (cursor < textEnd.offset) {
+      _tokens.push({
+        type: 'text',
+        value: substring(cursor, textEnd),
+        position: { start: toPoint(cursor), end: { ...textEnd } },
+      })
     }
 
-    m = match(/^\]/);
-    if (!m) return [];
-    tokens.push({
-      type: 'footnote.reference.end',
-      position: m.position
-    });
-
-    jump(tokens[0].position.start);
-
-    return tokens;
+    cursor = tokens[tokens.length - 1].position.end.offset
+    _tokens.push(...tokens)
   }
 
-  const tokFootnote = (): FootnoteReference => {
-    const m = match(/^\[fn:(\w+)\]/);
-    if (m) {
-      return {
-        type: 'footnote.reference',
-        label: m.captures[1],
-        position: m.position,
-        children: [],
+  main: while (getChar()) {
+    const newline = eat('newline')
+    if (newline) {
+      push({
+        type: 'newline',
+        position: newline.position,
+      })
+      break // newline breaks inline
+    }
+
+    for (const t of tokenizers) {
+      const r = reader.read()
+      const tokens = t(r)
+      if (tokens) {
+        push(...tokens)
+        jump(r.now())
+        continue main
       }
     }
+
+    eat()
   }
 
-  const tokStyledText = (marker: string) => (): StyledText => {
-    const m = match(
-      RegExp(`^${escape(marker)}(${BORDER}(?:.*?(?:${BORDER}))??)${escape(marker)}(?=(${POST}.*))`, 'm'))
-    if (!m) return undefined
-    return {
-      type: MARKERS[marker],
-      value: m.captures[1],
-      position: m.position,
-    }
-  }
-
-  const tryToTokens = (tok: () => Token[]) => {
-    const tokens = tok()
-    if (tokens.length === 0) return false
-    cleanup()
-    _tokens.push(...tokens)
-    jump(tokens[tokens.length - 1].position.end)
-    cursor = { ...now() }
-    return true
-  }
-
-  const tryTo = (tok: () => PhrasingContent) => {
-    return tryToTokens(() => {
-      const r = tok();
-      return r ? [r] : [];
-    });
-  }
-
-  const cleanup = () => {
-    if (isEqual(cursor, now())) return
-    const position = { start: { ...cursor }, end: { ...now() } }
-    const value = substring(position)
+  if (cursor < now().offset) {
+    const value = substring(cursor, reader.now())
     _tokens.push({
-      type: 'text.plain',
+      type: 'text',
       value,
-      position,
+      position: { start: toPoint(cursor), end: reader.now() },
     })
   }
 
-  const tokNewline = (): Newline => {
-    const m = match(/^\n/)
-    if (!m) return undefined
-    return {
-      type: 'newline',
-      position: m.position,
-    }
-  }
-
-  const tok = () => {
-    if (isEqual(now(), end)) {
-      return
-    }
-    const char = getChar()
-
-    if (ignoring.includes(char)) {
-      return [];
-    }
-
-    if (char === '[') {
-      if (tryTo(tokLink)) return tok()
-      if (tryTo(tokFootnote)) return tok()
-      if (tryToTokens(tokFootnoteAnonOrInline)) return tok();
-    }
-
-    if (MARKERS[char]) {
-      const pre = getChar(-1)
-      if (now().column === 1 || /[\s({'"]/.test(pre)) {
-        if (tryTo(tokStyledText(char))) return tok()
-      }
-    }
-
-    if (tryTo(tokNewline)) return tok()
-
-    eat()
-    tok()
-  }
-
-  tok()
-  cleanup()
   return _tokens
-
 }

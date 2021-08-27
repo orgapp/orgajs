@@ -2,11 +2,9 @@
   "name": "@orgajs/example-webpack",
   "private": true,
   "version": "2.4.9",
-  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
-  "main": "index.js",
-  "type": "module",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "scripts": {
-    "build": "webpack -p",
+    "build": "webpack",
     "webpack": "webpack",
     "start": "webpack serve"
   },
@@ -21,8 +19,8 @@
     "babel-loader": "^8.2.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "webpack": "^5.33.2",
-    "webpack-cli": "^4.6.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
   }
 }

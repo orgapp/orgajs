@@ -1,0 +1,3 @@
+reference footnote [fn:1]
+
+[fn:1] Content of the footnote.

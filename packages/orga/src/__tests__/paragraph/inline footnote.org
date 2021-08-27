@@ -1,0 +1,1 @@
+with [fn:3:inline footnote].

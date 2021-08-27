@@ -1,0 +1,236 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "list",
+      "indent": 0,
+      "ordered": false,
+      "children": [
+        {
+          "type": "list.item",
+          "indent": 0,
+          "children": [
+            {
+              "type": "list.item.bullet",
+              "indent": 0,
+              "ordered": false,
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 2,
+                  "offset": 1
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "apple",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 3,
+                  "offset": 2
+                },
+                "end": {
+                  "line": 1,
+                  "column": 8,
+                  "offset": 7
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 8,
+                  "offset": 7
+                },
+                "end": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 8
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 1,
+              "offset": 8
+            }
+          }
+        },
+        {
+          "type": "list.item",
+          "indent": 0,
+          "children": [
+            {
+              "type": "list.item.bullet",
+              "indent": 0,
+              "ordered": false,
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 8
+                },
+                "end": {
+                  "line": 2,
+                  "column": 2,
+                  "offset": 9
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "banana",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 3,
+                  "offset": 10
+                },
+                "end": {
+                  "line": 2,
+                  "column": 9,
+                  "offset": 16
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 9,
+                  "offset": 16
+                },
+                "end": {
+                  "line": 3,
+                  "column": 1,
+                  "offset": 17
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1,
+              "offset": 8
+            },
+            "end": {
+              "line": 3,
+              "column": 1,
+              "offset": 17
+            }
+          }
+        },
+        {
+          "type": "list.item",
+          "indent": 0,
+          "children": [
+            {
+              "type": "list.item.bullet",
+              "indent": 0,
+              "ordered": false,
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 1,
+                  "offset": 17
+                },
+                "end": {
+                  "line": 3,
+                  "column": 2,
+                  "offset": 18
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "orange",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 3,
+                  "offset": 19
+                },
+                "end": {
+                  "line": 3,
+                  "column": 9,
+                  "offset": 25
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 9,
+                  "offset": 25
+                },
+                "end": {
+                  "line": 3,
+                  "column": 10,
+                  "offset": 26
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 1,
+              "offset": 17
+            },
+            "end": {
+              "line": 3,
+              "column": 10,
+              "offset": 26
+            }
+          }
+        }
+      ],
+      "attributes": {},
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 10,
+          "offset": 26
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 3,
+      "column": 10,
+      "offset": 26
+    }
+  }
+}

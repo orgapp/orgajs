@@ -1,0 +1,289 @@
+{
+  "type": "document",
+  "properties": {
+    "nop": "code_block"
+  },
+  "children": [
+    {
+      "type": "block",
+      "name": "SRC",
+      "params": [
+        "javascript"
+      ],
+      "value": "console.log('named code block')",
+      "attributes": {
+        "name": "code_block"
+      },
+      "children": [
+        {
+          "type": "block.begin",
+          "name": "SRC",
+          "params": [
+            "javascript"
+          ],
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1,
+              "offset": 19
+            },
+            "end": {
+              "line": 2,
+              "column": 23,
+              "offset": 41
+            }
+          }
+        },
+        {
+          "type": "text",
+          "value": "console.log('named code block')",
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 1,
+              "offset": 42
+            },
+            "end": {
+              "line": 3,
+              "column": 32,
+              "offset": 73
+            }
+          }
+        },
+        {
+          "type": "newline",
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 32,
+              "offset": 73
+            },
+            "end": {
+              "line": 4,
+              "column": 1,
+              "offset": 74
+            }
+          }
+        },
+        {
+          "type": "block.end",
+          "name": "SRC",
+          "position": {
+            "start": {
+              "line": 4,
+              "column": 1,
+              "offset": 74
+            },
+            "end": {
+              "line": 5,
+              "column": 1,
+              "offset": 84
+            }
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 2,
+          "column": 1,
+          "offset": 19
+        },
+        "end": {
+          "line": 6,
+          "column": 1,
+          "offset": 85
+        }
+      }
+    },
+    {
+      "type": "block",
+      "name": "SRC",
+      "params": [
+        "javascript"
+      ],
+      "value": "console.log('no name')",
+      "attributes": {},
+      "children": [
+        {
+          "type": "block.begin",
+          "name": "SRC",
+          "params": [
+            "javascript"
+          ],
+          "position": {
+            "start": {
+              "line": 9,
+              "column": 1,
+              "offset": 106
+            },
+            "end": {
+              "line": 9,
+              "column": 23,
+              "offset": 128
+            }
+          }
+        },
+        {
+          "type": "text",
+          "value": "console.log('no name')",
+          "position": {
+            "start": {
+              "line": 10,
+              "column": 1,
+              "offset": 129
+            },
+            "end": {
+              "line": 10,
+              "column": 23,
+              "offset": 151
+            }
+          }
+        },
+        {
+          "type": "newline",
+          "position": {
+            "start": {
+              "line": 10,
+              "column": 23,
+              "offset": 151
+            },
+            "end": {
+              "line": 11,
+              "column": 1,
+              "offset": 152
+            }
+          }
+        },
+        {
+          "type": "block.end",
+          "name": "SRC",
+          "position": {
+            "start": {
+              "line": 11,
+              "column": 1,
+              "offset": 152
+            },
+            "end": {
+              "line": 12,
+              "column": 1,
+              "offset": 162
+            }
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 9,
+          "column": 1,
+          "offset": 106
+        },
+        "end": {
+          "line": 13,
+          "column": 1,
+          "offset": 163
+        }
+      }
+    },
+    {
+      "type": "block",
+      "name": "SRC",
+      "params": [
+        "javascript"
+      ],
+      "value": "console.log('no name')",
+      "attributes": {},
+      "children": [
+        {
+          "type": "block.begin",
+          "name": "SRC",
+          "params": [
+            "javascript"
+          ],
+          "position": {
+            "start": {
+              "line": 14,
+              "column": 1,
+              "offset": 181
+            },
+            "end": {
+              "line": 14,
+              "column": 23,
+              "offset": 203
+            }
+          }
+        },
+        {
+          "type": "text",
+          "value": "console.log('no name')",
+          "position": {
+            "start": {
+              "line": 15,
+              "column": 1,
+              "offset": 204
+            },
+            "end": {
+              "line": 15,
+              "column": 23,
+              "offset": 226
+            }
+          }
+        },
+        {
+          "type": "newline",
+          "position": {
+            "start": {
+              "line": 15,
+              "column": 23,
+              "offset": 226
+            },
+            "end": {
+              "line": 16,
+              "column": 1,
+              "offset": 227
+            }
+          }
+        },
+        {
+          "type": "block.end",
+          "name": "SRC",
+          "position": {
+            "start": {
+              "line": 16,
+              "column": 1,
+              "offset": 227
+            },
+            "end": {
+              "line": 16,
+              "column": 11,
+              "offset": 237
+            }
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 14,
+          "column": 1,
+          "offset": 181
+        },
+        "end": {
+          "line": 16,
+          "column": 11,
+          "offset": 237
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 16,
+      "column": 11,
+      "offset": 237
+    }
+  }
+}

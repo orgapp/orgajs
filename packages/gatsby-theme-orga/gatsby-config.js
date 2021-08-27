@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const withDefaults = require('./utils/default-options')
 
-module.exports = themeOptions => {
+module.exports = (themeOptions) => {
   const options = withDefaults(themeOptions)
   return {
     siteMetadata: {
@@ -20,9 +21,9 @@ module.exports = themeOptions => {
         options: {
           name: options.contentPath,
           path: options.contentPath,
-          ignore: ['**/\.*', '**/*.db-journal'],
+          ignore: ['**/.*', '**/*.db-journal'],
         },
       },
-    ]
+    ],
   }
 }

@@ -1,18 +1,16 @@
 import { Point } from 'unist'
-import { Reader } from '../reader'
-// import { inspect }  from 'util'
+import { Reader } from 'text-kit'
 import { parse as parseTimestamp } from '../timestamp'
 import { Token } from '../types'
 
 interface Props {
-  reader: Reader;
-  keywords: string[];
-  timezone: string;
+  reader: Reader
+  keywords: string[]
+  timezone: string
 }
 
-
-export default ({ reader, keywords, timezone }: Props) : Token[] => {
-  const { eat, substring, now, getLine } = reader
+export default ({ reader, keywords, timezone }: Props): Token[] => {
+  const { now, eat, substring, getLine } = reader
 
   const p = RegExp(`(${keywords.join('|')}):`, 'g')
 
@@ -21,7 +19,8 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
   const { line, column } = now()
 
   const getLocation = (offset: number): Point => ({
-    line, column: column + offset,
+    line,
+    column: column + offset,
   })
 
   const all: Token[] = []
@@ -33,7 +32,7 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
     if (type !== 'planning.keyword') return
     const endLocation = getLocation(end)
     const timestampPosition = { start: position.end, end: endLocation }
-    const value = substring(timestampPosition)
+    const value = substring(timestampPosition.start, timestampPosition.end)
     all.push({
       type: 'planning.timestamp',
       value: parseTimestamp(value, { timezone }),
@@ -57,6 +56,5 @@ export default ({ reader, keywords, timezone }: Props) : Token[] => {
   parseLastTimestamp(currentLine.length)
   eat('line')
 
-  // console.log(inspect(all, false, null, true))
   return all
 }

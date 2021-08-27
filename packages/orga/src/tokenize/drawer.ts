@@ -1,28 +1,29 @@
-import { Reader } from '../reader'
+import { Reader } from 'text-kit'
 import { Token } from '../types'
 
-interface Props {
-  reader: Reader;
-}
+export default (reader: Reader): Token[] => {
+  const { match, jump } = reader
 
-export default ({ reader }: Props) : Token[] => {
-  const { match, eat } = reader
-
-  const m = match(/^:(\w+):(?=\s*$)/)
+  const drawerReg = /:(\w+):(?=[ \t]*$)/my
+  const m = match(drawerReg)
   if (m) {
-    eat('line')
-    const name = m.captures[1]
+    jump(m.position.end)
+    const name = m.result[1]
     if (name.toLowerCase() === 'end') {
-      return [{
-        type: 'drawer.end',
-        position: m.position,
-      }]
+      return [
+        {
+          type: 'drawer.end',
+          position: m.position,
+        },
+      ]
     } else {
-      return [{
-        type: 'drawer.begin',
-        name,
-        position: m.position,
-      }]
+      return [
+        {
+          type: 'drawer.begin',
+          name,
+          position: m.position,
+        },
+      ]
     }
   }
 

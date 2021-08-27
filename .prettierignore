@@ -1,0 +1,9 @@
+.archive
+.cache
+node_modules
+.next
+public
+lib
+**/dist/**
+.yarn/*
+**/__tests__/**/*.json

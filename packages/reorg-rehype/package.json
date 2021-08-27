@@ -6,7 +6,7 @@
     "dist"
   ],
   "main": "dist/index.js",
-  "author": "Xiaoxing Hu <hi@huxiaoxing.com>",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/reorg-rehype#readme",
   "repository": {
@@ -16,11 +16,14 @@
   },
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist/* && rm -rf tsconfig.tsbuildinfo",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "oast-to-hast": "^2.4.9"
+  },
+  "devDependencies": {
+    "unified": "9.2.2"
   }
 }

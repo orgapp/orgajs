@@ -34,19 +34,9 @@ export default {
         bg: 'highlight',
       },
       cursor: 'pointer',
-    }
-  },
-  links: {
-    nav: {
-      px: 2,
-      py: 1,
-      // textTransform: 'uppercase',
-      '&:hover': {
-        bg: 'highlight',
-      },
-      borderRadius: '0.2em',
     },
   },
+  links: {},
   styles: {
     root: {
       fontFamily: 'body',
@@ -64,7 +54,7 @@ export default {
         borderRadius: 4,
         width: '100%',
         overflowX: 'scroll',
-      }
+      },
     },
   },
 }

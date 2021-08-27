@@ -1,8 +1,8 @@
 export interface Options {
-  skipExport: boolean,
-  wrapExport: boolean,
-  pragma: string,
-  renderer: string,
+  skipExport: boolean
+  wrapExport: boolean
+  pragma: string
+  renderer: string
 }
 
 export const DEFAULT_OPTIONS: Options = {
@@ -14,4 +14,3 @@ export const DEFAULT_OPTIONS: Options = {
   renderer: `import React from 'react'
 import {orga} from '@orgajs/react'`,
 }
-
