@@ -1,7 +1,7 @@
 {
   "name": "gatsby-transformer-orga",
   "description": "Gatsby transformer plugin for org-mode with orga",
-  "version": "2.4.9",
+  "version": "2.5.0",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "dependencies": {
     "bluebird": "^3.7.0",
@@ -10,9 +10,9 @@
     "is-relative-url": "^3.0.0",
     "mime": "^2.4.4",
     "moment": "^2.24.0",
-    "oast-to-hast": "^2.4.9",
-    "orga": "^2.4.9",
-    "orga-posts": "^2.4.9",
+    "oast-to-hast": "2.5.0",
+    "orga": "2.5.0",
+    "orga-posts": "2.5.0",
     "rehype-stringify": "^8.0.0",
     "unified": "9.2.2",
     "unist-builder": "^2.0.3",

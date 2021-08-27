@@ -1,6 +1,6 @@
 {
   "name": "text-kit",
-  "version": "2.4.9",
+  "version": "2.5.0",
   "description": "bundle of useful tools for manipulating text",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/text-kit#readme",

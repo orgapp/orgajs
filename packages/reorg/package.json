@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/reorg",
-  "version": "2.4.9",
+  "version": "2.5.0",
   "description": "orga processor for unifiedjs",
   "files": [
     "dist"
@@ -21,7 +21,7 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@orgajs/reorg-parse": "^2.4.9",
+    "@orgajs/reorg-parse": "2.5.0",
     "unified": "9.2.2"
   }
 }
