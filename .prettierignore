@@ -6,3 +6,4 @@ public
 lib
 **/dist/**
 .yarn/*
+**/__tests__/**/*.json

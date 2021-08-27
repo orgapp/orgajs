@@ -1,8 +1,8 @@
+import { Parser } from 'acorn'
+import jsx from 'acorn-jsx'
 import { Node as HastNode } from 'hast'
 import hast2estree from 'hast-util-to-estree'
 import { Handler, Options } from './options'
-import { Parser } from 'acorn'
-import jsx from 'acorn-jsx'
 
 const deepGet = (p: string) => (o: any) =>
   p.split('.').reduce((a, v) => a[v], o)
@@ -14,7 +14,7 @@ const parse = (code: string) => {
   })
 }
 
-const getRawHandler = ({
+const getJSXHandler = ({
   path,
   skipImport,
 }: {
@@ -41,15 +41,15 @@ const getRawHandler = ({
 }
 
 function toEstree(node: HastNode, options: Options) {
-  const { space, skipImport, parseRaw, handlers } = options
+  const { space, skipImport, parseJSX, handlers } = options
 
-  for (const p of parseRaw) {
+  for (const p of parseJSX) {
     const [key, ...rest] = p.split('.')
     if (!key) {
       throw new Error('somethings wrong')
     }
     const path = rest.length > 0 ? rest.join('.') : 'value'
-    handlers[key] = getRawHandler({ path, skipImport })
+    handlers[key] = getJSXHandler({ path, skipImport })
   }
 
   let exports

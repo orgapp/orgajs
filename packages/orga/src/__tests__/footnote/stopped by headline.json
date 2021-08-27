@@ -1,0 +1,217 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "footnote",
+      "label": "1",
+      "children": [
+        {
+          "type": "footnote.label",
+          "label": "1",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 7,
+              "offset": 6
+            }
+          }
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Content of the footnote.",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 8,
+                  "offset": 7
+                },
+                "end": {
+                  "line": 1,
+                  "column": 32,
+                  "offset": 31
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 32,
+                  "offset": 31
+                },
+                "end": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 32
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "And here is another line.",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 32
+                },
+                "end": {
+                  "line": 2,
+                  "column": 26,
+                  "offset": 57
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 26,
+                  "offset": 57
+                },
+                "end": {
+                  "line": 3,
+                  "column": 1,
+                  "offset": 58
+                }
+              }
+            }
+          ],
+          "attributes": {},
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 8,
+              "offset": 7
+            },
+            "end": {
+              "line": 3,
+              "column": 1,
+              "offset": 58
+            }
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 1,
+          "offset": 58
+        }
+      }
+    },
+    {
+      "type": "section",
+      "level": 1,
+      "properties": {},
+      "children": [
+        {
+          "type": "headline",
+          "actionable": false,
+          "children": [
+            {
+              "type": "stars",
+              "level": 1,
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 1,
+                  "offset": 58
+                },
+                "end": {
+                  "line": 3,
+                  "column": 2,
+                  "offset": 59
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "A Headline",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 3,
+                  "offset": 60
+                },
+                "end": {
+                  "line": 3,
+                  "column": 13,
+                  "offset": 70
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 13,
+                  "offset": 70
+                },
+                "end": {
+                  "line": 3,
+                  "column": 14,
+                  "offset": 71
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 1,
+              "offset": 58
+            },
+            "end": {
+              "line": 3,
+              "column": 14,
+              "offset": 71
+            }
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 3,
+          "column": 1,
+          "offset": 58
+        },
+        "end": {
+          "line": 3,
+          "column": 14,
+          "offset": 71
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 3,
+      "column": 14,
+      "offset": 71
+    }
+  }
+}

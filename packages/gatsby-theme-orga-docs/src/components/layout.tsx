@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { PageProps } from 'gatsby'
 import { get } from 'lodash'
-import { Container, MenuButton, IconButton, jsx } from 'theme-ui'
-import Nav from './nav'
-import Side from './side'
 import { useState } from 'react'
+import { IconButton, jsx, MenuButton } from 'theme-ui'
+import Nav from './nav'
 import SEO from './seo'
+import Side from './side'
 
 const HEADER_HEIGHT = '48px'
 const SIDEBAR_WIDTH = '250px'

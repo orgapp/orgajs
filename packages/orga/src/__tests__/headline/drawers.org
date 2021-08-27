@@ -1,0 +1,11 @@
+* headline with properties
+:PROPERTIES:
+:CATEGORY: test
+:Effort:   5
+:END:
+
+* headline with drawer
+:LOG:
+here are
+some log
+:END:

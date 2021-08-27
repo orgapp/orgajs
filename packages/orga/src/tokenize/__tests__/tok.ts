@@ -7,6 +7,6 @@ export default (text: string, options: Partial<ParseOptions> = {}) => {
   const tokens = tokenize(text, options).all()
   return tokens.map(({ position, ...token }) => ({
     ...token,
-    _text: substring(position),
+    _text: substring(position.start, position.end),
   }))
 }

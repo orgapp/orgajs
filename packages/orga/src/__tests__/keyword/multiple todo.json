@@ -1,0 +1,121 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "section",
+      "level": 1,
+      "properties": {},
+      "children": [
+        {
+          "type": "headline",
+          "actionable": true,
+          "children": [
+            {
+              "type": "stars",
+              "level": 1,
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 1,
+                  "offset": 86
+                },
+                "end": {
+                  "line": 5,
+                  "column": 2,
+                  "offset": 87
+                }
+              }
+            },
+            {
+              "type": "todo",
+              "keyword": "DRAFT",
+              "actionable": true,
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 3,
+                  "offset": 88
+                },
+                "end": {
+                  "line": 5,
+                  "column": 8,
+                  "offset": 93
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "Some Headline",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 9,
+                  "offset": 94
+                },
+                "end": {
+                  "line": 5,
+                  "column": 22,
+                  "offset": 107
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 22,
+                  "offset": 107
+                },
+                "end": {
+                  "line": 5,
+                  "column": 23,
+                  "offset": 108
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 5,
+              "column": 1,
+              "offset": 86
+            },
+            "end": {
+              "line": 5,
+              "column": 23,
+              "offset": 108
+            }
+          },
+          "keyword": "DRAFT"
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 5,
+          "column": 1,
+          "offset": 86
+        },
+        "end": {
+          "line": 5,
+          "column": 23,
+          "offset": 108
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 5,
+      "column": 23,
+      "offset": 108
+    }
+  }
+}

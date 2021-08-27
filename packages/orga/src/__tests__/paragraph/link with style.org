@@ -1,0 +1,1 @@
+test [[https://orga.js.org/][*link* with /style/]].

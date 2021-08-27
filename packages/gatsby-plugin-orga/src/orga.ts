@@ -50,29 +50,10 @@ export async function compile({
         enter: function (node: any) {
           /* extract named exports, pass them in to react props (pageContext) */
           if (node.type === 'ExportNamedDeclaration') {
-            // if (get('node.declaration.declarations[0].init.tag')(node) === 'graphql') {
-            //   return
-            // }
             namedExports.push(node)
-            // this.remove()
           }
 
           /* -- we don't render org files ourself now, it's going to webpack -- */
-
-          // replace export default with return statement
-          // if (node.type === 'ExportDefaultDeclaration') {
-          //   this.replace({
-          //     type: 'ReturnStatement',
-          //     // @ts-ignore
-          //     argument: node.declaration,
-          //   })
-          // }
-
-          // if (node.type.startsWith('Import')) {
-          //   console.log(`TODO: import:`, inspect(node, false, null, true))
-          //   // TODO: save this for later
-          //   this.remove()
-          // }
         },
       })
 
@@ -89,9 +70,6 @@ export async function compile({
     .use(toJsx, { renderer })
 
   const code = await processor.process(content)
-
-  // console.dir('-------- code ----------')
-  // console.dir(`${code}`)
 
   result.code = `${code}`
 

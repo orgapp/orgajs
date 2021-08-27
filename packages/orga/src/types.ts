@@ -108,7 +108,6 @@ export interface Headline extends Parent {
   keyword?: string
   actionable: boolean
   priority?: string
-  content: string
   tags?: string[]
 }
 
@@ -143,15 +142,16 @@ export type Token =
   | TableColumnSeparator
   | PhrasingContent
   | FootnoteLabel
-  | FootnoteInlineBegin
-  | FootnoteReferenceEnd
   | BlockBegin
   | BlockEnd
   | DrawerBegin
   | DrawerEnd
   | Comment
+  | Opening
+  | Closing
+  | LinkPath
 
-export type PhrasingContent = StyledText | Link | FootnoteReference | Newline
+export type PhrasingContent = Text | Link | FootnoteReference | Newline
 
 export interface HorizontalRule extends Node {
   type: 'hr'
@@ -161,23 +161,45 @@ export interface Newline extends Node {
   type: 'newline'
 }
 
-export interface StyledText extends Literal {
-  type:
-    | 'text.plain'
-    | 'text.bold'
-    | 'text.verbatim'
-    | 'text.italic'
-    | 'text.strikeThrough'
-    | 'text.underline'
-    | 'text.code'
+export type Style =
+  | 'bold'
+  | 'verbatim'
+  | 'italic'
+  | 'strikeThrough'
+  | 'underline'
+  | 'code'
+
+export interface Text extends Literal {
+  type: 'text'
+  style?: Style
 }
 
-export interface Link extends Literal {
+export interface Link extends Parent {
   type: 'link'
+  path: LinkInfo
+  children: PhrasingContent[]
+}
+
+interface LinkInfo {
   protocol: string
-  description: string
   value: string
   search?: string | number
+}
+
+export interface LinkPath extends Literal, LinkInfo {
+  type: 'link.path'
+}
+
+export type Enclosed = Style | 'link' | 'footnote.reference'
+
+export interface Opening extends Node {
+  type: 'opening'
+  element: Enclosed
+}
+
+export interface Closing extends Node {
+  type: 'closing'
+  element: Enclosed
 }
 
 /**
@@ -203,15 +225,6 @@ export interface FootnoteReference extends Parent {
   type: 'footnote.reference'
   label: string
   children: PhrasingContent[]
-}
-
-export interface FootnoteInlineBegin extends Node {
-  type: 'footnote.inline.begin'
-  label: string
-}
-
-export interface FootnoteReferenceEnd extends Node {
-  type: 'footnote.reference.end'
 }
 
 // headline tokens

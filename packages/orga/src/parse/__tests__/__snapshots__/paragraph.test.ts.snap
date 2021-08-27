@@ -1,0 +1,359 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parse Paragraph works 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "attributes": Object {
+        "attr_html": Object {
+          "style": "background: black;",
+        },
+      },
+      "children": Array [
+        Object {
+          "description": "Here's",
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 49,
+              "line": 3,
+              "offset": 88,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 3,
+              "offset": 40,
+            },
+          },
+          "protocol": "https",
+          "search": undefined,
+          "type": "link",
+          "value": "https://github.com/xiaoxinghu/orgajs",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 57,
+              "line": 3,
+              "offset": 96,
+            },
+            "start": Object {
+              "column": 49,
+              "line": 3,
+              "offset": 88,
+            },
+          },
+          "type": "text.plain",
+          "value": " to the ",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 64,
+              "line": 3,
+              "offset": 103,
+            },
+            "start": Object {
+              "column": 57,
+              "line": 3,
+              "offset": 96,
+            },
+          },
+          "type": "text.bold",
+          "value": "crazy",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 75,
+              "line": 3,
+              "offset": 114,
+            },
+            "start": Object {
+              "column": 64,
+              "line": 3,
+              "offset": 103,
+            },
+          },
+          "type": "text.plain",
+          "value": " ones, the ",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 84,
+              "line": 3,
+              "offset": 123,
+            },
+            "start": Object {
+              "column": 75,
+              "line": 3,
+              "offset": 114,
+            },
+          },
+          "type": "text.italic",
+          "value": "misfits",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 90,
+              "line": 3,
+              "offset": 129,
+            },
+            "start": Object {
+              "column": 84,
+              "line": 3,
+              "offset": 123,
+            },
+          },
+          "type": "text.plain",
+          "value": ", the ",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 98,
+              "line": 3,
+              "offset": 137,
+            },
+            "start": Object {
+              "column": 90,
+              "line": 3,
+              "offset": 129,
+            },
+          },
+          "type": "text.underline",
+          "value": "rebels",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 104,
+              "line": 3,
+              "offset": 143,
+            },
+            "start": Object {
+              "column": 98,
+              "line": 3,
+              "offset": 137,
+            },
+          },
+          "type": "text.plain",
+          "value": ", the ",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 119,
+              "line": 3,
+              "offset": 158,
+            },
+            "start": Object {
+              "column": 104,
+              "line": 3,
+              "offset": 143,
+            },
+          },
+          "type": "text.code",
+          "value": "troublemakers",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 120,
+              "line": 3,
+              "offset": 159,
+            },
+            "start": Object {
+              "column": 119,
+              "line": 3,
+              "offset": 158,
+            },
+          },
+          "type": "text.plain",
+          "value": ",",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 1,
+              "line": 4,
+              "offset": 160,
+            },
+            "start": Object {
+              "column": 120,
+              "line": 3,
+              "offset": 159,
+            },
+          },
+          "type": "newline",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 23,
+              "line": 4,
+              "offset": 182,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 4,
+              "offset": 160,
+            },
+          },
+          "type": "text.plain",
+          "value": "the round pegs in the ",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 30,
+              "line": 4,
+              "offset": 189,
+            },
+            "start": Object {
+              "column": 23,
+              "line": 4,
+              "offset": 182,
+            },
+          },
+          "type": "text.strikeThrough",
+          "value": "round",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 46,
+              "line": 4,
+              "offset": 205,
+            },
+            "start": Object {
+              "column": 30,
+              "line": 4,
+              "offset": 189,
+            },
+          },
+          "type": "text.plain",
+          "value": " square holes...",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 1,
+              "line": 5,
+              "offset": 206,
+            },
+            "start": Object {
+              "column": 46,
+              "line": 4,
+              "offset": 205,
+            },
+          },
+          "type": "newline",
+        },
+      ],
+      "parent": [Circular],
+      "position": Object {
+        "end": Object {
+          "column": 1,
+          "line": 5,
+          "offset": 206,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 3,
+          "offset": 40,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "attributes": Object {
+        "attr_html": Object {
+          "width": 300,
+        },
+      },
+      "children": Array [
+        Object {
+          "description": undefined,
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 18,
+              "line": 7,
+              "offset": 248,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 7,
+              "offset": 231,
+            },
+          },
+          "protocol": "file",
+          "search": undefined,
+          "type": "link",
+          "value": "logo.png",
+        },
+        Object {
+          "parent": [Circular],
+          "position": Object {
+            "end": Object {
+              "column": 19,
+              "line": 7,
+              "offset": 249,
+            },
+            "start": Object {
+              "column": 18,
+              "line": 7,
+              "offset": 248,
+            },
+          },
+          "type": "newline",
+        },
+      ],
+      "parent": [Circular],
+      "position": Object {
+        "end": Object {
+          "column": 19,
+          "line": 7,
+          "offset": 249,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 231,
+        },
+      },
+      "type": "paragraph",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 19,
+      "line": 7,
+      "offset": 249,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "properties": Object {},
+  "type": "document",
+}
+`;

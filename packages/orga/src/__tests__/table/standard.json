@@ -1,0 +1,887 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "table",
+      "children": [
+        {
+          "type": "table.row",
+          "children": [
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Name         ",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 2,
+                      "offset": 1
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 16,
+                      "offset": 15
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 2,
+                  "offset": 1
+                },
+                "end": {
+                  "line": 1,
+                  "column": 16,
+                  "offset": 15
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 16,
+                  "offset": 15
+                },
+                "end": {
+                  "line": 1,
+                  "column": 17,
+                  "offset": 16
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Species    ",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 17,
+                      "offset": 16
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 29,
+                      "offset": 28
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 17,
+                  "offset": 16
+                },
+                "end": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 29,
+                  "offset": 28
+                },
+                "end": {
+                  "line": 1,
+                  "column": 30,
+                  "offset": 29
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Gender ",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 30,
+                      "offset": 29
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 38,
+                      "offset": 37
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 30,
+                  "offset": 29
+                },
+                "end": {
+                  "line": 1,
+                  "column": 38,
+                  "offset": 37
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 38,
+                  "offset": 37
+                },
+                "end": {
+                  "line": 1,
+                  "column": 39,
+                  "offset": 38
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Role         ",
+                  "position": {
+                    "start": {
+                      "line": 1,
+                      "column": 39,
+                      "offset": 38
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 53,
+                      "offset": 52
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 39,
+                  "offset": 38
+                },
+                "end": {
+                  "line": 1,
+                  "column": 53,
+                  "offset": 52
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 53,
+                  "offset": 52
+                },
+                "end": {
+                  "line": 1,
+                  "column": 54,
+                  "offset": 53
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 1,
+              "offset": 54
+            }
+          }
+        },
+        {
+          "type": "table.hr",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1,
+              "offset": 54
+            },
+            "end": {
+              "line": 3,
+              "column": 1,
+              "offset": 108
+            }
+          }
+        },
+        {
+          "type": "table.row",
+          "children": [
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Bruce Wayne  ",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 2,
+                      "offset": 109
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 16,
+                      "offset": 123
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 2,
+                  "offset": 109
+                },
+                "end": {
+                  "line": 3,
+                  "column": 16,
+                  "offset": 123
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 16,
+                  "offset": 123
+                },
+                "end": {
+                  "line": 3,
+                  "column": 17,
+                  "offset": 124
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Human      ",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 17,
+                      "offset": 124
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 29,
+                      "offset": 136
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 17,
+                  "offset": 124
+                },
+                "end": {
+                  "line": 3,
+                  "column": 29,
+                  "offset": 136
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 29,
+                  "offset": 136
+                },
+                "end": {
+                  "line": 3,
+                  "column": 30,
+                  "offset": 137
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " M      ",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 30,
+                      "offset": 137
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 38,
+                      "offset": 145
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 30,
+                  "offset": 137
+                },
+                "end": {
+                  "line": 3,
+                  "column": 38,
+                  "offset": 145
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 38,
+                  "offset": 145
+                },
+                "end": {
+                  "line": 3,
+                  "column": 39,
+                  "offset": 146
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Batman       ",
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 39,
+                      "offset": 146
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 53,
+                      "offset": 160
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 39,
+                  "offset": 146
+                },
+                "end": {
+                  "line": 3,
+                  "column": 53,
+                  "offset": 160
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 53,
+                  "offset": 160
+                },
+                "end": {
+                  "line": 3,
+                  "column": 54,
+                  "offset": 161
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 1,
+              "offset": 108
+            },
+            "end": {
+              "line": 4,
+              "column": 1,
+              "offset": 162
+            }
+          }
+        },
+        {
+          "type": "table.row",
+          "children": [
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Clark Kent   ",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 2,
+                      "offset": 163
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 16,
+                      "offset": 177
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 2,
+                  "offset": 163
+                },
+                "end": {
+                  "line": 4,
+                  "column": 16,
+                  "offset": 177
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 16,
+                  "offset": 177
+                },
+                "end": {
+                  "line": 4,
+                  "column": 17,
+                  "offset": 178
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Kryptonian ",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 17,
+                      "offset": 178
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 29,
+                      "offset": 190
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 17,
+                  "offset": 178
+                },
+                "end": {
+                  "line": 4,
+                  "column": 29,
+                  "offset": 190
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 29,
+                  "offset": 190
+                },
+                "end": {
+                  "line": 4,
+                  "column": 30,
+                  "offset": 191
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " M      ",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 30,
+                      "offset": 191
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 38,
+                      "offset": 199
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 30,
+                  "offset": 191
+                },
+                "end": {
+                  "line": 4,
+                  "column": 38,
+                  "offset": 199
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 38,
+                  "offset": 199
+                },
+                "end": {
+                  "line": 4,
+                  "column": 39,
+                  "offset": 200
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Superman     ",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "column": 39,
+                      "offset": 200
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 53,
+                      "offset": 214
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 39,
+                  "offset": 200
+                },
+                "end": {
+                  "line": 4,
+                  "column": 53,
+                  "offset": 214
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "column": 53,
+                  "offset": 214
+                },
+                "end": {
+                  "line": 4,
+                  "column": 54,
+                  "offset": 215
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 4,
+              "column": 1,
+              "offset": 162
+            },
+            "end": {
+              "line": 5,
+              "column": 1,
+              "offset": 216
+            }
+          }
+        },
+        {
+          "type": "table.row",
+          "children": [
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Diana Prince ",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 2,
+                      "offset": 217
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 16,
+                      "offset": 231
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 2,
+                  "offset": 217
+                },
+                "end": {
+                  "line": 5,
+                  "column": 16,
+                  "offset": 231
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 16,
+                  "offset": 231
+                },
+                "end": {
+                  "line": 5,
+                  "column": 17,
+                  "offset": 232
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Amazonian  ",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 17,
+                      "offset": 232
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 29,
+                      "offset": 244
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 17,
+                  "offset": 232
+                },
+                "end": {
+                  "line": 5,
+                  "column": 29,
+                  "offset": 244
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 29,
+                  "offset": 244
+                },
+                "end": {
+                  "line": 5,
+                  "column": 30,
+                  "offset": 245
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " F      ",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 30,
+                      "offset": 245
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 38,
+                      "offset": 253
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 30,
+                  "offset": 245
+                },
+                "end": {
+                  "line": 5,
+                  "column": 38,
+                  "offset": 253
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 38,
+                  "offset": 253
+                },
+                "end": {
+                  "line": 5,
+                  "column": 39,
+                  "offset": 254
+                }
+              }
+            },
+            {
+              "type": "table.cell",
+              "children": [
+                {
+                  "type": "text",
+                  "value": " Wonder Woman ",
+                  "position": {
+                    "start": {
+                      "line": 5,
+                      "column": 39,
+                      "offset": 254
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 53,
+                      "offset": 268
+                    }
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 39,
+                  "offset": 254
+                },
+                "end": {
+                  "line": 5,
+                  "column": 53,
+                  "offset": 268
+                }
+              }
+            },
+            {
+              "type": "table.columnSeparator",
+              "position": {
+                "start": {
+                  "line": 5,
+                  "column": 53,
+                  "offset": 268
+                },
+                "end": {
+                  "line": 5,
+                  "column": 54,
+                  "offset": 269
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 5,
+              "column": 1,
+              "offset": 216
+            },
+            "end": {
+              "line": 5,
+              "column": 55,
+              "offset": 270
+            }
+          }
+        }
+      ],
+      "attributes": {},
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 5,
+          "column": 55,
+          "offset": 270
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 5,
+      "column": 55,
+      "offset": 270
+    }
+  }
+}

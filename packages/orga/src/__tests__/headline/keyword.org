@@ -1,0 +1,5 @@
+#+TODO: TODO NEXT | DONE
+
+* TODO with keyword
+* NEXT with keyword
+* DONE with keyword

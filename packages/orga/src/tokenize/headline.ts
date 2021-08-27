@@ -1,5 +1,4 @@
-import { isEmpty } from '../position'
-import { Reader } from '../reader'
+import { Reader } from 'text-kit'
 import { TodoKeywordSet } from '../todo-keyword-set'
 import { Token } from '../types'
 import { tokenize } from './inline'
@@ -22,7 +21,7 @@ export default ({ reader, todoKeywordSets }: Props): Token[] => {
   let buffer: Token[] = []
 
   const stars = eat(/^\*+(?=\s)/)
-  if (isEmpty(stars.position)) throw Error('not gonna happen')
+  if (!stars) throw Error('not gonna happen')
   buffer.push({
     type: 'stars',
     level: stars.value.length,
@@ -31,7 +30,7 @@ export default ({ reader, todoKeywordSets }: Props): Token[] => {
 
   eat('whitespaces')
   const keyword = eat(RegExp(`^${todos.map(escape).join('|')}(?=\\s)`))
-  if (!isEmpty(keyword.position)) {
+  if (keyword) {
     buffer.push({
       type: 'todo',
       keyword: keyword.value,
@@ -41,7 +40,7 @@ export default ({ reader, todoKeywordSets }: Props): Token[] => {
   }
   eat('whitespaces')
   const priority = eat(/^\[#(A|B|C)\](?=\s)/)
-  if (!isEmpty(priority.position)) {
+  if (priority) {
     buffer.push({
       type: 'priority',
       ...priority,
@@ -50,20 +49,22 @@ export default ({ reader, todoKeywordSets }: Props): Token[] => {
 
   eat('whitespaces')
 
-  const tags = match(/\s+(:(?:[\w@_#%-]+:)+)[ \t]*$/gm)
-  let contentEnd = eol()
+  const tags = match(/[ \t]+(:(?:[\w@_#%-]+:)+)[ \t]*$/gm)
+  let contentEnd = eol(now().line)
   if (tags) {
     contentEnd = tags.position.start
   }
 
-  const tokens = tokenize({ reader, end: contentEnd })
+  const r = reader.read({ end: contentEnd })
+  const tokens = tokenize(r)
+  jump(r.now())
 
   buffer = buffer.concat(tokens)
 
   if (tags) {
     eat('whitespaces')
     const tagsPosition = { start: now(), end: tags.position.end }
-    const s = substring(tagsPosition)
+    const s = substring(tagsPosition.start, tagsPosition.end)
     buffer.push({
       type: 'tags',
       tags: s

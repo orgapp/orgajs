@@ -1,5 +1,5 @@
-import { Comment, Element, Properties, Root, Text } from 'hast'
-import { Document, Section } from 'orga'
+import { Comment, Element, Properties, Root, Text, Literal } from 'hast'
+import { Attributes, Document, Section } from 'orga'
 import u from 'unist-builder'
 import handlers, { Handler } from './handlers'
 import { all } from './transform'
@@ -12,14 +12,20 @@ import { all } from './transform'
 interface Raw extends Literal {
   type: 'raw'
 }
-export type HNode = Element | Comment | Text | Raw
+
+interface JSX extends Literal {
+  type: 'jsx'
+}
+export type HNode = Element | Comment | Text | Raw | JSX
 
 const defaultOptions = {
   excludeTags: ['noexport'],
   selectTags: [] as string[],
   highlight: true,
+  attributes: {} as Attributes,
   properties: {} as Properties,
-  handlers: {} as { [key: string]: Handler },
+  handlers: {} as Record<string, Handler>,
+  defaultHandler: (element: string) => handlers[element],
 }
 
 export type Options = typeof defaultOptions

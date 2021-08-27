@@ -2,6 +2,8 @@ import toJsx from '@orgajs/estree-jsx'
 import toEstree from '@orgajs/rehype-estree'
 import toRehype from '@orgajs/reorg-rehype'
 import { GatsbyNode } from 'gatsby'
+import { HNode, Context, Handler } from 'oast-to-hast'
+import { Block } from 'orga'
 import * as path from 'path'
 import processImages from './plugins/process-images'
 
@@ -15,6 +17,18 @@ const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (
 ) => {
   const { stage, loaders, actions, plugins, cache } = api
   const { defaultLayout, components } = pluginOptions
+
+  const handleBlock: Handler = (node: Block, context) => {
+    const { h, u, defaultHandler } = context
+    const name = node.name.toLowerCase()
+
+    if (name === 'src') {
+      const body: HNode = u('text', node.value)
+      const lang = node.params[0]
+      return h('CodeBlock', { className: [`language-${lang}`] })(body)
+    }
+    return defaultHandler(node.type)
+  }
 
   actions.setWebpackConfig({
     module: {
@@ -32,7 +46,7 @@ const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (
               loader: '@orgajs/loader',
               options: {
                 plugins: [
-                  toRehype,
+                  [toRehype, { handlers: { block: handleBlock } }],
                   [processImages, { gatsby: api }],
                   [toEstree, { defaultLayout }],
                   [toJsx, { renderer }],
@@ -53,7 +67,16 @@ const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (
                 'orga-components'
               ),
               options: {
-                components,
+                components: {
+                  CodeBlock: require.resolve(
+                    path.join(
+                      'gatsby-plugin-orga',
+                      'components',
+                      'code-block.tsx'
+                    )
+                  ),
+                  ...(components as Record<string, unknown>),
+                },
               },
             },
           ],

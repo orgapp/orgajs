@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui'
 
 const colors = ['#F9E267', '#332F21']
 
-export default ({ children, style }) => (
+export default ({ children, style = {} }) => (
   <div
     sx={{
       display: 'flex',

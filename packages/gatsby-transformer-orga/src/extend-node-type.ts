@@ -115,7 +115,7 @@ module.exports = async (
           if (node.protocol === 'file') {
             let linkPath = posix.join(
               getNode(getNode(orgContentNode.parent).parent).dir,
-              normalize(node.value)
+              normalize(node.path.value)
             )
 
             if (
@@ -152,10 +152,10 @@ module.exports = async (
 
           // TODO: transform internal link of file based content to anchor? i.e. can't find the linkToOrg
           if (node.protocol === `internal`) {
-            if (node.value.startsWith('#')) {
+            if (node.path.value.startsWith('#')) {
               // internal link by CUSTOM_ID
               const linkToOrg = orgContent.find(
-                (f) => f.metadata.custom_id === node.value.substring(1)
+                (f) => f.metadata.custom_id === node.path.value.substring(1)
               )
               node.value = getSlug(linkToOrg) || node.value
             } else {

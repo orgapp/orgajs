@@ -10,36 +10,40 @@ import list, { checkbox as listItemCheckbox, item as listItem } from './list'
 import paragraph from './paragraph'
 import section from './section'
 import { table, tableCell, tableRow } from './table'
-import { bold, code, italic, strikeThrough, underline, verbatim } from './text'
+import text from './text'
 
-export type Handler = (context: Context) => (node: Node) => HNode
+// export type Handler = (context: Context) => (node: Node) => HNode
+export type Handler = (
+  node: Node,
+  context: Context
+) => HNode | Handler | undefined
+
+const ignore: Handler = () => undefined
 
 export default {
   keyword,
   section,
   headline,
-  'text.bold': bold,
-  'text.italic': italic,
-  'text.code': code,
-  'text.verbatim': verbatim,
-  'text.strikeThrough': strikeThrough,
-  'text.underline': underline,
+  text,
+  newline: (_, { u }) => u('text', ' '),
   paragraph,
   link,
   block,
   list,
   'list.item': listItem,
+  'list.item.tag': ignore,
+  'list.item.bullet': ignore,
   'list.item.checkbox': listItemCheckbox,
   table,
   'table.row': tableRow,
   'table.cell': tableCell,
   footnote,
   'footnote.reference': footnoteReference,
-  hr:
-    ({ h }) =>
-    () =>
-      h('hr')(),
-  drawer: () => () => undefined,
-  priority: () => () => undefined,
+  hr: (_, { h }) => h('hr')(),
   html,
+  jsx: (n, { u }) => u('jsx', { value: n.value }),
+  'link.path': ignore,
+  drawer: ignore,
+  priority: ignore,
+  'table.seperator': ignore,
 } as { [key: string]: Handler }

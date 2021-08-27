@@ -1,42 +1,54 @@
-import { Position } from 'unist'
-import { Drawer } from '../types'
-import { Lexer } from '../tokenize'
+import { Action } from '.'
+import { DrawerBegin } from '../types'
 
-export default (lexer: Lexer): Drawer | undefined => {
-  const { peek, eat, substring } = lexer
-
-  const begin = peek()
-
-  if (!begin || begin.type !== 'drawer.begin') return undefined
-
-  const drawer: Drawer = {
+const drawer: Action = (begin: DrawerBegin, context) => {
+  const { save, enter, push, exit, lexer } = context
+  const { eat } = lexer
+  save()
+  const drawer = enter({
     type: 'drawer',
     name: begin.name,
-    position: begin.position,
     value: '',
-  }
-  eat()
+    children: [],
+  })
+  push(eat())
 
-  const content = peek()
-  if (content === undefined) {
-    return undefined
-  }
-  const contentPosition: Position = content.position
+  const contentStart = begin.position.end
 
-  const parse = (): Drawer | undefined => {
-    const n = peek()
-    if (!n || n.type === 'stars') return undefined
-    eat()
-    if (n.type === 'drawer.end') {
-      contentPosition.end = n.position.start
-      eat('newline')
-      drawer.value = substring(contentPosition).trim()
-      drawer.position.end = n.position.end
-      return drawer
-    } else {
-      return parse()
-    }
+  return {
+    name: 'drawer',
+    rules: [
+      {
+        test: ['stars', 'EOF'],
+        action: (_, { restore, lexer }) => {
+          restore()
+          lexer.modify((t) => ({
+            type: 'text',
+            value: lexer.substring(t.position),
+            position: t.position,
+          }))
+          return 'break'
+        },
+      },
+      {
+        test: 'drawer.end',
+        action: (token, { lexer, push }) => {
+          push(lexer.eat())
+          drawer.value = lexer.substring({
+            start: contentStart,
+            end: token.position.start,
+          })
+          exit('drawer')
+          eat('newline')
+          return 'break'
+        },
+      },
+      {
+        test: /.*/,
+        action: (_, { consume }) => consume(),
+      },
+    ],
   }
-
-  return parse()
 }
+
+export default drawer

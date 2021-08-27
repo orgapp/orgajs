@@ -11,6 +11,7 @@ const esModules = [
 
 module.exports = {
   // projects: ['<rootDir>/packages/*/jest.config.js'],
+  verbose: true,
   preset: 'ts-jest/presets/js-with-ts',
   transformIgnorePatterns: [
     `/node_modules/(?!${esModules}).+/`,
@@ -20,11 +21,7 @@ module.exports = {
     `__tests__/fixtures`,
   ],
   rootDir: './',
-  testMatch: [
-    '**/__tests__/**/*.spec.ts',
-    '**/tests/**/*.spec.ts',
-    '**/tests/**/*.test.ts',
-  ],
+  testMatch: ['**/*.test.ts'],
   // Disabling diagnostics, TODO: turn this back on
   // globals: {
   //   'ts-jest': {

@@ -1,34 +1,48 @@
-import { Lexer } from '../tokenize'
-import { Planning } from '../types'
+import { Handler } from '.'
+import { PlanningKeyword } from '../types'
+import drawer from './drawer'
 
-export default (lexer: Lexer): Planning[] => {
-  const { peek, eat } = lexer
+const planning: Handler = {
+  name: 'planning',
+  rules: [
+    {
+      test: 'planning.keyword',
+      action: (keyword: PlanningKeyword, context) => {
+        const { lexer, enter, push, exit } = context
+        const { eat, eatAll, peek } = lexer
+        const timestamp = peek(1)
+        if (!timestamp || timestamp.type !== 'planning.timestamp') {
+          return 'break'
+        }
+        enter({
+          type: 'planning',
+          keyword: keyword.value,
+          timestamp: timestamp.value,
+          children: [],
+        })
 
-  const all: Planning[] = []
+        push(eat()) // keyword
+        push(eat()) // timestamp
+        exit('planning')
 
-  const parse = (): void => {
-    const keyword = peek()
-    const timestamp = peek(1)
-    if (!keyword || keyword.type !== 'planning.keyword') return
-    if (!timestamp || timestamp.type !== 'planning.timestamp') return
-    const planning: Planning = {
-      type: 'planning',
-      keyword: keyword.value,
-      timestamp: timestamp.value,
-      position: {
-        start: keyword.position.start,
-        end: timestamp.position.end,
+        if (eatAll('newline') > 1) {
+          return 'break'
+        }
       },
-    }
-    eat()
-    eat()
-
-    all.push(planning)
-    parse()
-  }
-
-  parse()
-  const nl = peek()
-  if (nl && nl.type === 'newline') eat()
-  return all
+    },
+    {
+      test: 'drawer.begin',
+      action: (token, context) => {
+        return drawer(token, context)
+      },
+    },
+    {
+      test: /.*/,
+      action: () => {
+        return 'break'
+      },
+    },
+  ],
 }
+
+export default planning
