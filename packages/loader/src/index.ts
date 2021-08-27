@@ -30,8 +30,6 @@ export default function (source) {
         }
 
         const code = `${file}`
-        // console.log(`--- jsx code ---`)
-        // console.dir(code)
         callback(null, code)
       }
     )

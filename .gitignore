@@ -94,10 +94,6 @@ dist
 .npmrc
 *.tsbuildinfo
 
-# gatsby
-public
-.cache
-
 # private
 .archive
 

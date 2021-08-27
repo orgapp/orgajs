@@ -1,8 +1,9 @@
-import toEstree from '@orgajs/rehype-estree'
-import toRehype from '@orgajs/reorg-rehype'
-import toJsx from '@orgajs/estree-jsx'
+/* eslint-disable @typescript-eslint/no-var-requires */
+const toJsx = require('@orgajs/estree-jsx')
+const toEstree = require('@orgajs/rehype-estree')
+const toRehype = require('@orgajs/reorg-rehype')
 
-const config = {
+module.exports = {
   mode: 'development',
   module: {
     rules: [
@@ -26,5 +27,3 @@ const config = {
     ],
   },
 }
-
-export default config

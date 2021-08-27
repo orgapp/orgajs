@@ -13,4 +13,4 @@ function rehype2estree(options: Partial<Options> = {}): Transformer {
   }
 }
 
-export default rehype2estree
+export = rehype2estree

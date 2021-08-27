@@ -1,7 +1,7 @@
 #+TITLE: Try Orga Post
-#+HTML: import Box from '../components/box'
+#+jsx: import Box from '../components/box'
 
-#+begin_export html
+#+begin_export jsx
 export default ({ title, data, children }) =>
   <div style={{ borderStyle: 'solid', padding: 20, minHeight: '100vh' }}>
     <h1 style={{ color: 'blue' }}>{ data.site.siteMetadata.title }</h1>
@@ -15,12 +15,12 @@ export default ({ title, data, children }) =>
 * Hi Post
 Thanks for choosing =orga=.
 
-#+begin_export html
+#+begin_export jsx
 <Box>that tomato box</Box>
 #+end_export
 
 
-#+begin_export html
+#+begin_export jsx
 export const pageQuery = graphql`{
   site {
     siteMetadata {
