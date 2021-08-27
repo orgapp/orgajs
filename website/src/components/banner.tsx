@@ -39,16 +39,12 @@ const Banner = ({
 
   const sound = new Howl({
     src: [startupSound],
-    onend: function () {
-      console.log('play sound end')
-    },
   })
   const flyin = useSpring({
     opacity: isOn ? 1 : 0,
     marginTop: isOn ? 0 : -400,
     onRest: (args) => {
       if (!args.cancelled && isOn) {
-        console.log('play sound')
         sound.play()
       }
     },

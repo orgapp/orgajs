@@ -67,33 +67,27 @@ const tokenizeText =
     const marker = getChar()
     const style = MARKERS[marker]
     if (!style) return
-    // console.log(` ++ ${marker} -> ${style}, line: "${reader.getLine()}"`)
     // check pre
     const pre = getChar(-1)
     const isBOL = (bol && bol.offset === now().offset) || now().column === 1
     if (!isBOL && !/[\s({'"]/.test(pre)) return
-    // console.log(`  > pre checked`)
     const tokenStart = now()
 
     const closing = findClosing(now())
     if (!closing) return
-    // console.log(`  > found closing`)
 
     eat()
     const valueStart = now()
     // check border
     if (getChar().match(/\s/)) return
-    // console.log(`  > left border checked`)
 
     jump(closing)
     // check border
     if (getChar(-1).match(/\s/)) return
-    // console.log(`  > right border checked`)
     // TODO: check post
     // const post = getChar(1)
     // if (post && !/[\\s-\\.,:!?'\\)}]|$/.test(post)) return
 
-    // console.log(':yeah:')
     const valueEnd = now()
     eat() // closing
     tokens.push({

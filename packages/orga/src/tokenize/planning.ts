@@ -56,6 +56,5 @@ export default ({ reader, keywords, timezone }: Props): Token[] => {
   parseLastTimestamp(currentLine.length)
   eat('line')
 
-  // console.log(inspect(all, false, null, true))
   return all
 }

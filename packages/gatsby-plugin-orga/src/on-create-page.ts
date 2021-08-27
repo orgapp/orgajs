@@ -21,7 +21,6 @@ const onCreatePage: GatsbyNode['onCreatePage'] = async (
       file: page.component,
     },
   })
-  // console.log(inspect(properties, false, null, true))
 }
 
 export default onCreatePage

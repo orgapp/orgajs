@@ -3,7 +3,6 @@ import toHAST from '../'
 
 const transform = (text) => {
   const oast = parse(text)
-  // console.log(inspect(oast, false, null, true))
   return toHAST(oast)
 }
 
@@ -17,7 +16,6 @@ describe('Main', () => {
 
     const tree = parse(text)
     const hast = toHAST(tree)
-    // console.log(inspect(hast, false, null, true))
   })
 
   it('pass properties of oast to hast data field', () => {

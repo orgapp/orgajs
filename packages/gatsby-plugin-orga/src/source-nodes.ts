@@ -1,11 +1,9 @@
 import toEstree from '@orgajs/rehype-estree'
+import reorg from '@orgajs/reorg'
+import toRehype from '@orgajs/reorg-rehype'
 import { generate } from 'astring'
 import { buildJsx } from 'estree-util-build-jsx'
 import { walk } from 'estree-walker'
-import { resolve } from 'dns'
-import toJsx from '@orgajs/estree-jsx'
-import reorg from '@orgajs/reorg'
-import toRehype from '@orgajs/reorg-rehype'
 import { inspect } from 'util'
 
 export default async (
@@ -18,7 +16,6 @@ export default async (
 
   function toFunc() {
     const compiler = (estree) => {
-      // console.log(inspect(estree, false, null, true))
       const tree = buildJsx(estree, {
         pragma: 'orga',
         pragmaFrag: 'orga.Fragment',
@@ -48,9 +45,6 @@ export default async (
       function transform(tree) {
         walk(tree, {
           enter: function (node) {
-            if (node.type === 'ImportDeclaration') {
-            }
-
             // replace export default with return statement
             if (node.type === 'ExportDefaultDeclaration') {
               this.replace({
@@ -79,8 +73,6 @@ export default async (
 
         return tree
       }
-
-      // this.Compiler = compiler
     }
 
     const processor = reorg()
@@ -88,7 +80,6 @@ export default async (
       .use(toEstree)
       .use(processImportsExports)
       .use(toFunc)
-    // .use(toJsx)
 
     const code = await processor.process(node.internal.content)
 
@@ -108,55 +99,6 @@ export default async (
           reporter.log('getting html')
           const { body } = await compile(orgaNode)
           return body
-
-          // if (!orgaHTMLLoader) orgaHTMLLoader = loader({ cache, reporter, store })
-          // const html = await orgaHTMLLoader.load({ body: code })
-
-          // return `${html}`
-          // const webpackConfig = cloneDeep(store.getState().webpack)
-          // const outputPath = path.join(cache.directory, 'webpack')
-          // webpackConfig.externals = undefined
-          // webpackConfig.output = {
-          //   filename: `${path.basename(orgaNode.fileAbsolutePath)}.js`,
-          //   path: outputPath,
-          //   libraryTarget: 'commonjs',
-          // }
-          // webpackConfig.plugins = webpackConfig.plugins || []
-          // webpackConfig.externalsPresets = {
-          //   node: true,
-          // }
-          //
-          // webpackConfig.entry = orgaNode.fileAbsolutePath
-          //
-          // const compiler = webpack(webpackConfig)
-          //
-          // console.log(inspect(webpackConfig, false, null, true))
-          //
-          // return new Promise((resolve) => {
-          //   compiler.run((err, stats) => {
-          //     if (err) {
-          //       reporter.error(err.stack || err)
-          //       if (has(err, 'details')) {
-          //         reporter.error(`gatsby-plugin-orga\n` + get(err, 'details'))
-          //       }
-          //       return
-          //     }
-          //
-          //     const info = stats.toJson()
-          //     if (stats.hasErrors()) {
-          //       reporter.error(`gatsby-plugin-orga\n` + info.errors)
-          //     }
-          //
-          //     if (stats.hasWarnings()) {
-          //       reporter.warn(`gatsby-plugin-orga\n` + info.warnings)
-          //     }
-          //
-          //     console.log(inspect(info, false, null, true))
-          //     resolve('info.modules')
-          //
-          //   })
-          // })
-          //
         },
       },
       layout: {
