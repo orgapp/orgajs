@@ -22,7 +22,6 @@
     "build": "yarn clean && yarn compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b",
-    "prepublishOnly": "yarn build",
     "test": "jest"
   },
   "bugs": {

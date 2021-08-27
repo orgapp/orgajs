@@ -20,8 +20,7 @@
   "scripts": {
     "build": "yarn clean && yarn compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b",
-    "prepublishOnly": "yarn build"
+    "compile": "tsc -b"
   },
   "devDependencies": {
     "@types/hast": "^2.3.2",
