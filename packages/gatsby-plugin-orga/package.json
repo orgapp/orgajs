@@ -12,6 +12,7 @@
   },
   "files": [
     "/dist",
+    "/components",
     "*.js",
     "*.jsx"
   ],
