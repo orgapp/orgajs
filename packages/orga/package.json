@@ -1,6 +1,6 @@
 {
   "name": "orga",
-  "version": "3.0.0",
+  "version": "2.6.0",
   "description": "org-mode parser",
   "files": [
     "dist"
@@ -20,7 +20,7 @@
   "dependencies": {
     "date-fns": "^2.22.1",
     "date-fns-tz": "^1.1.4",
-    "text-kit": "3.0.0"
+    "text-kit": "2.6.0"
   },
   "devDependencies": {
     "@types/unist": "2.0.3",

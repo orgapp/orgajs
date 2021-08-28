@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-orga",
-  "version": "3.0.0",
+  "version": "2.6.0",
   "description": "gatsby theme for orga.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "homepage": "https://github.com/orgapp/orgajs#readme",
@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "gatsby-source-filesystem": "^3.2.0",
-    "gatsby-transformer-orga": "3.0.0"
+    "gatsby-transformer-orga": "2.6.0"
   },
   "peerDependencies": {
     "gatsby": "^3.0.0",

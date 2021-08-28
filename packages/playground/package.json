@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/playground",
-  "version": "3.0.0",
+  "version": "2.6.0",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -21,11 +21,11 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.2.1",
-    "@orgajs/estree-jsx": "3.0.0",
-    "@orgajs/react": "3.0.0",
-    "@orgajs/rehype-estree": "3.0.0",
-    "@orgajs/reorg": "3.0.0",
-    "@orgajs/reorg-rehype": "3.0.0",
+    "@orgajs/estree-jsx": "2.6.0",
+    "@orgajs/react": "2.6.0",
+    "@orgajs/rehype-estree": "2.6.0",
+    "@orgajs/reorg": "2.6.0",
+    "@orgajs/reorg-rehype": "2.6.0",
     "react-json-tree": "^0.15.0",
     "react-live": "^2.2.3",
     "react-tabs": "^3.2.2"
