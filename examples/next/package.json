@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/example-next",
-  "version": "2.6.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,9 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "@orgajs/loader": "2.6.0",
-    "@orgajs/next": "2.6.0",
-    "@orgajs/react": "2.6.0",
+    "@orgajs/loader": "3.0.0",
+    "@orgajs/next": "3.0.0",
+    "@orgajs/react": "3.0.0",
     "next": "^11.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
