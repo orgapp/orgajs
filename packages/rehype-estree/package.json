@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/rehype-estree",
-  "version": "2.6.0",
+  "version": "3.0.0",
   "description": "hast to estree",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
