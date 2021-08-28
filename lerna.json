@@ -11,5 +11,6 @@
       "message": "chore(release): %s"
     }
   },
+  "ignoreChanges": ["**/__tests__/**", "**/*.test.ts", "**/*.snap", "**/*.org"],
   "packages": ["packages/*"]
 }
