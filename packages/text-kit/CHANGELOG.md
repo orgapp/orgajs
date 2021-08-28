@@ -1,20 +1,5 @@
 # Change Log
 
-## 3.0.0
-
-### Major Changes
-
-- 4fa4fa0: # Features
-
-  - more powerful and flexible lexer and parser
-  - webpack support
-  - `jsx` support
-  - better code block rendering
-  - better image processing in gatsby
-  - updated examples
-  - tons of bug fixes
-  - brand new `gatsby-plugin-orga`
-
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
