@@ -1,0 +1,319 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "section",
+      "level": 1,
+      "properties": {},
+      "children": [
+        {
+          "type": "headline",
+          "actionable": false,
+          "children": [
+            {
+              "type": "stars",
+              "level": 1,
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 2,
+                  "offset": 1
+                }
+              }
+            },
+            {
+              "type": "text",
+              "value": "headline1",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 3,
+                  "offset": 2
+                },
+                "end": {
+                  "line": 1,
+                  "column": 12,
+                  "offset": 11
+                }
+              }
+            },
+            {
+              "type": "newline",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 12,
+                  "offset": 11
+                },
+                "end": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 12
+                }
+              }
+            }
+          ],
+          "level": 1,
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 1,
+              "offset": 12
+            }
+          }
+        },
+        {
+          "type": "section",
+          "level": 2,
+          "properties": {},
+          "children": [
+            {
+              "type": "headline",
+              "actionable": false,
+              "children": [
+                {
+                  "type": "stars",
+                  "level": 2,
+                  "position": {
+                    "start": {
+                      "line": 2,
+                      "column": 1,
+                      "offset": 12
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 3,
+                      "offset": 14
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": "headline2",
+                  "position": {
+                    "start": {
+                      "line": 2,
+                      "column": 4,
+                      "offset": 15
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 13,
+                      "offset": 24
+                    }
+                  }
+                },
+                {
+                  "type": "tags",
+                  "tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "position": {
+                    "start": {
+                      "line": 2,
+                      "column": 14,
+                      "offset": 25
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 25,
+                      "offset": 36
+                    }
+                  }
+                },
+                {
+                  "type": "newline",
+                  "position": {
+                    "start": {
+                      "line": 2,
+                      "column": 25,
+                      "offset": 36
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 1,
+                      "offset": 37
+                    }
+                  }
+                }
+              ],
+              "level": 2,
+              "position": {
+                "start": {
+                  "line": 2,
+                  "column": 1,
+                  "offset": 12
+                },
+                "end": {
+                  "line": 3,
+                  "column": 1,
+                  "offset": 37
+                }
+              },
+              "tags": [
+                "tag1",
+                "tag2"
+              ]
+            },
+            {
+              "type": "section",
+              "level": 3,
+              "properties": {},
+              "children": [
+                {
+                  "type": "headline",
+                  "actionable": false,
+                  "children": [
+                    {
+                      "type": "stars",
+                      "level": 3,
+                      "position": {
+                        "start": {
+                          "line": 3,
+                          "column": 1,
+                          "offset": 37
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 4,
+                          "offset": 40
+                        }
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "value": "headline3",
+                      "position": {
+                        "start": {
+                          "line": 3,
+                          "column": 5,
+                          "offset": 41
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 14,
+                          "offset": 50
+                        }
+                      }
+                    },
+                    {
+                      "type": "tags",
+                      "tags": [
+                        "#tag",
+                        "@tag"
+                      ],
+                      "position": {
+                        "start": {
+                          "line": 3,
+                          "column": 15,
+                          "offset": 51
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 26,
+                          "offset": 62
+                        }
+                      }
+                    },
+                    {
+                      "type": "newline",
+                      "position": {
+                        "start": {
+                          "line": 3,
+                          "column": 26,
+                          "offset": 62
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 27,
+                          "offset": 63
+                        }
+                      }
+                    }
+                  ],
+                  "level": 3,
+                  "position": {
+                    "start": {
+                      "line": 3,
+                      "column": 1,
+                      "offset": 37
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 27,
+                      "offset": 63
+                    }
+                  },
+                  "tags": [
+                    "#tag",
+                    "@tag"
+                  ]
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 1,
+                  "offset": 37
+                },
+                "end": {
+                  "line": 3,
+                  "column": 27,
+                  "offset": 63
+                }
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1,
+              "offset": 12
+            },
+            "end": {
+              "line": 3,
+              "column": 27,
+              "offset": 63
+            }
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 27,
+          "offset": 63
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 3,
+      "column": 27,
+      "offset": 63
+    }
+  }
+}

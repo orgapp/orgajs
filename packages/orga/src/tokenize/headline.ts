@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default ({ reader, todoKeywordSets }: Props): Token[] => {
-  const { match, now, eol, eat, jump, substring } = reader
+  const { match, now, eol, eat, jump, substring, endOfLine } = reader
 
   // TODO: cache this, for performance sake
   const todos = todoKeywordSets.flatMap((s) => s.keywords)
@@ -49,7 +49,7 @@ export default ({ reader, todoKeywordSets }: Props): Token[] => {
 
   eat('whitespaces')
 
-  const tags = match(/[ \t]+(:(?:[\w@_#%-]+:)+)[ \t]*$/gm)
+  const tags = match(/[ \t]+(:(?:[\w@_#%-]+:)+)[ \t]*$/m, { end: endOfLine() })
   let contentEnd = eol(now().line)
   if (tags) {
     contentEnd = tags.position.start
