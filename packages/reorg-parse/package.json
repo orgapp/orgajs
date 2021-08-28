@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/reorg-parse",
-  "version": "3.0.0",
+  "version": "2.6.0",
   "description": "orga parser for unifiedjs",
   "files": [
     "dist"
@@ -20,7 +20,7 @@
     "compile": "tsc -b"
   },
   "dependencies": {
-    "orga": "3.0.0"
+    "orga": "2.6.0"
   },
   "devDependencies": {
     "del-cli": "^3.0.1",
