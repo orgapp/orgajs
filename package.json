@@ -32,7 +32,7 @@
     "format": "prettier --write .",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "yarn build && yarn changeset pubish",
+    "release": "yarn build && yarn changeset publish",
     "postinstall": "husky install"
   },
   "workspaces": {
