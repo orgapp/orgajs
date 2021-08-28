@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/reorg",
-  "version": "2.6.0",
+  "version": "3.0.0",
   "description": "orga processor for unifiedjs",
   "files": [
     "dist"
@@ -20,7 +20,7 @@
     "compile": "tsc -b"
   },
   "dependencies": {
-    "@orgajs/reorg-parse": "2.6.0",
+    "@orgajs/reorg-parse": "3.0.0",
     "unified": "9.2.2"
   }
 }
