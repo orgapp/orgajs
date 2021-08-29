@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.1
+
+### Patch Changes
+
+- d55bc8b: fix gatsby-plugin-orga by adding missing components folder
+
 ## 3.0.0
 
 ### Major Changes
