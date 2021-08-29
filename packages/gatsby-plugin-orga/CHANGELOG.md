@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.0.2
+
+### Patch Changes
+
+- b3f5197: - add missing files
+  - add missing dependencies
+
 ## 3.0.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-orga",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Orga integration for Gatsby",
   "main": "index.js",
   "license": "MIT",
