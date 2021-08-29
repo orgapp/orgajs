@@ -13,6 +13,7 @@
   "files": [
     "/dist",
     "/components",
+    "/loaders",
     "*.js",
     "*.jsx"
   ],
@@ -22,13 +23,14 @@
     "compile": "tsc -b"
   },
   "peerDependencies": {
-    "@orgajs/loader": "^3.0.0",
-    "@orgajs/react": "^3.0.0",
     "gatsby-plugin-sharp": "*",
     "react": "^16.9.0 || ^17.0.0",
-    "react-dom": "^16.9.0 || ^17.0.0"
+    "react-dom": "^16.9.0 || ^17.0.0",
+    "gatsby": "^2.0.0"
   },
   "dependencies": {
+    "@orgajs/loader": "^3.0.0",
+    "@orgajs/react": "^3.0.0",
     "@orgajs/estree-jsx": "3.0.0",
     "@orgajs/rehype-estree": "3.0.0",
     "@orgajs/reorg": "3.0.0",
@@ -47,8 +49,6 @@
     "unist-util-visit": "2.0.3"
   },
   "devDependencies": {
-    "@orgajs/loader": "3.0.0",
-    "@orgajs/react": "3.0.0",
     "@types/estree": "^0.0.50",
     "@types/fs-extra": "^9.0.12",
     "@types/node": "^16.4.0",
