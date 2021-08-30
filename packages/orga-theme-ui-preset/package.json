@@ -12,10 +12,10 @@
   ],
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "clean": "del ./dist",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b"
   },
-  "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/orga-theme-ui-preset#readme",
+  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/orga-theme-ui-preset#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/orgapp/orgajs.git",
