@@ -45,5 +45,6 @@ export default {
   'link.path': ignore,
   drawer: ignore,
   priority: ignore,
+  planning: ignore,
   'table.seperator': ignore,
 } as { [key: string]: Handler }

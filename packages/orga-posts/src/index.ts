@@ -13,6 +13,7 @@ import highlight from 'rehype-highlight'
 import html from 'rehype-stringify'
 import unified from 'unified'
 import { select, selectAll } from 'unist-util-select'
+import visit from 'unist-util-visit'
 import appendFootnotes from './appendFootnotes'
 import leveling from './leveling'
 import processFootnotes from './processFootnotes'
@@ -35,7 +36,9 @@ const pTimestamp = (obj: any) => {
 }
 
 const defaultToHtmlOptions = {
-  transform: (tree: Parent): void => {},
+  transform: (tree: Parent): void => {
+    return
+  },
 }
 
 export interface Post extends Metadata {
@@ -57,6 +60,16 @@ const sanitise = (title: string) => {
     .toLowerCase()
 }
 
+const extractContent = (headline: Headline) => {
+  let content = ''
+  visit(headline, (n) => {
+    if (n.type === 'text') {
+      content += n.value
+    }
+  })
+  return content
+}
+
 const extractMetadata = (
   tree: Section | Document,
   fallbacks: Partial<Metadata> = {}
@@ -66,7 +79,7 @@ const extractMetadata = (
     let theTitle = export_title || title
     if (tree.type === 'section') {
       const headline = select('headline', tree) as Headline
-      theTitle = headline.content
+      theTitle = extractContent(headline)
     }
 
     return {
@@ -156,13 +169,13 @@ export const build = async ({ text, filename, options }: BuildProps) => {
         const headline = select('headline', s) as Headline
         return keywords.includes(headline.keyword)
       })
-      .map(async (section: Section) => {
+      .map((section: Section) => {
         return {
           ...extractMetadata(section, { category }),
           ast: section,
         }
       })
-    return await Promise.all(sections)
+    return sections
   }
 
   // document

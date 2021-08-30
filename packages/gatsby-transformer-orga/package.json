@@ -3,6 +3,10 @@
   "description": "Gatsby transformer plugin for org-mode with orga",
   "version": "3.0.0",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "files": [
+    "dist/*",
+    "*.js"
+  ],
   "dependencies": {
     "bluebird": "^3.7.0",
     "gatsby-core-utils": "^2.2.0",

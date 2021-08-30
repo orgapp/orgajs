@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { ReactChild } from 'react'
-import { Container, jsx, Styled } from 'theme-ui'
+import { Container, jsx, Themed } from 'theme-ui'
 import { useSiteMetadata } from '../hooks'
 import Footer from './footer'
 import Header from './header'
@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
     body = children.body
   }
   return (
-    <Styled.root>
+    <Themed.root>
       <Container
         sx={{
           p: 3,
@@ -45,7 +45,7 @@ const Layout = ({ children }) => {
         </div>
         {footer}
       </Container>
-    </Styled.root>
+    </Themed.root>
   )
 }
 
