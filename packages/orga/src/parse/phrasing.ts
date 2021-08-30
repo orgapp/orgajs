@@ -24,7 +24,8 @@ const phrasingContent: Handler = {
     },
     {
       test: 'link.path',
-      action: (token: LinkPath, { parent, consume }) => {
+      action: (token: LinkPath, { getParent, consume }) => {
+        const parent = getParent()
         assert(parent.type === 'link', 'expect parent to be link')
         parent.path = {
           protocol: token.protocol,
@@ -36,7 +37,8 @@ const phrasingContent: Handler = {
     },
     {
       test: 'footnote.label',
-      action: (token: FootnoteLabel, { parent, consume }) => {
+      action: (token: FootnoteLabel, { getParent, consume }) => {
+        const parent = getParent()
         assert(
           parent.type === 'footnote.reference',
           'expect parent to be footnote.reference'

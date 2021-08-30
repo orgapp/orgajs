@@ -1,10 +1,18 @@
 import defaultOptions, { ParseOptions } from './options'
 import { parse as _parse } from './parse'
 import { parse as parseTimestamp } from './timestamp'
-import { tokenize } from './tokenize'
+import { Lexer, tokenize as _tokenize } from './tokenize'
 import { Document } from './types'
 
 export * from './types'
+export { parseTimestamp, ParseOptions }
+
+export const tokenize = (
+  text: string,
+  options: Partial<ParseOptions> = {}
+): Lexer => {
+  return _tokenize(text, { ...defaultOptions, ...options })
+}
 
 export const parse = (
   text: string,
@@ -12,5 +20,3 @@ export const parse = (
 ): Document => {
   return _parse(tokenize(text, { ...defaultOptions, ...options }))
 }
-
-export { parseTimestamp, ParseOptions }

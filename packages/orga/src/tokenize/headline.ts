@@ -29,7 +29,7 @@ export default ({ reader, todoKeywordSets }: Props): Token[] => {
   })
 
   eat('whitespaces')
-  const keyword = eat(RegExp(`^${todos.map(escape).join('|')}(?=\\s)`))
+  const keyword = eat(RegExp(`${todos.map(escape).join('|')}(?=\\s)`, 'y'))
   if (keyword) {
     buffer.push({
       type: 'todo',
@@ -39,7 +39,7 @@ export default ({ reader, todoKeywordSets }: Props): Token[] => {
     })
   }
   eat('whitespaces')
-  const priority = eat(/^\[#(A|B|C)\](?=\s)/)
+  const priority = eat(/^\[#(A|B|C)\](?=\s)/y)
   if (priority) {
     buffer.push({
       type: 'priority',

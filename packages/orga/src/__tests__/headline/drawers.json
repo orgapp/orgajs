@@ -5,7 +5,10 @@
     {
       "type": "section",
       "level": 1,
-      "properties": {},
+      "properties": {
+        "category": "test",
+        "effort": "5"
+      },
       "children": [
         {
           "type": "headline",
