@@ -4,7 +4,7 @@
   "description": "hast to estree",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
-  "repository": "https://github.com/orgapp/orgajs/tree/master/packages/rehype-estree",
+  "repository": "https://github.com/orgapp/orgajs/tree/main/packages/rehype-estree",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "files": [

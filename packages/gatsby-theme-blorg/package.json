@@ -15,7 +15,7 @@
     "url": "https://github.com/orgapp/orgajs.git",
     "directory": "packages/gatsby-theme-blorg"
   },
-  "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/gatsby-theme-blorg#readme",
+  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/gatsby-theme-blorg#readme",
   "peerDependencies": {
     "gatsby": "^3.0.0"
   },

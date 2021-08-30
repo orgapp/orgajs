@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
-  "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/loader#readme",
+  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/loader#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/orgapp/orgajs.git",
