@@ -4,7 +4,7 @@
   "description": "Orga integration for Gatsby",
   "main": "index.js",
   "license": "MIT",
-  "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/gatsby-plugin-orga#readme",
+  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/gatsby-plugin-orga#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com:orgapp/orgajs.git",
@@ -23,15 +23,15 @@
     "compile": "tsc -b"
   },
   "peerDependencies": {
+    "gatsby": "^2.0.0",
     "gatsby-plugin-sharp": "*",
     "react": "^16.9.0 || ^17.0.0",
-    "react-dom": "^16.9.0 || ^17.0.0",
-    "gatsby": "^2.0.0"
+    "react-dom": "^16.9.0 || ^17.0.0"
   },
   "dependencies": {
+    "@orgajs/estree-jsx": "3.0.0",
     "@orgajs/loader": "^3.0.0",
     "@orgajs/react": "^3.0.0",
-    "@orgajs/estree-jsx": "3.0.0",
     "@orgajs/rehype-estree": "3.0.0",
     "@orgajs/reorg": "3.0.0",
     "@orgajs/reorg-rehype": "3.0.0",

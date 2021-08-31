@@ -1,0 +1,34 @@
+{
+  "name": "gatsby-theme-orga-posts-core",
+  "version": "3.0.0",
+  "description": "gatsby theme for orga.js",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "homepage": "https://github.com/orgapp/orgajs#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "keywords": [
+    "gatsby",
+    "org-mode",
+    "orga"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/orgapp/orgajs/issues"
+  },
+  "dependencies": {
+    "gatsby-core-utils": "^2.12.0",
+    "gatsby-plugin-image": "^1.12.0",
+    "gatsby-plugin-sharp": "^3.12.0",
+    "gatsby-source-filesystem": "^3.2.0",
+    "gatsby-transformer-orga": "3.0.0",
+    "gatsby-transformer-sharp": "^3.12.0",
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "gatsby": "^3.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  }
+}

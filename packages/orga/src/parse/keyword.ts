@@ -6,7 +6,7 @@ import _primitive from './_primitive'
 const AFFILIATED_KEYWORDS = ['caption', 'header', 'name', 'plot', 'results']
 
 const keyword: Action = (token: Keyword, context) => {
-  const { push, lexer } = context
+  const { push, lexer, getParent } = context
   const key = token.key.toLowerCase()
   const { value } = token
 
@@ -21,8 +21,8 @@ const keyword: Action = (token: Keyword, context) => {
     lexer.addInBufferTodoKeywords(value)
   } else if (key === 'html' || key === 'jsx') {
     push({ type: key, value })
-  } else if (context.parent.type === 'document') {
-    context.parent.properties[key] = value
+  } else if (getParent().type === 'document') {
+    getParent().properties[key] = value
   }
 
   lexer.eat()

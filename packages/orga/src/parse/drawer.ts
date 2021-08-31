@@ -1,5 +1,5 @@
 import { Action } from '.'
-import { DrawerBegin } from '../types'
+import { DrawerBegin, Section } from '../types'
 
 const drawer: Action = (begin: DrawerBegin, context) => {
   const { save, enter, push, exit, lexer } = context
@@ -32,14 +32,28 @@ const drawer: Action = (begin: DrawerBegin, context) => {
       },
       {
         test: 'drawer.end',
-        action: (token, { lexer, push }) => {
+        action: (token, { lexer, push, getParent }) => {
           push(lexer.eat())
           drawer.value = lexer.substring({
             start: contentStart,
             end: token.position.start,
           })
+
           exit('drawer')
           eat('newline')
+
+          if (drawer.name.toLowerCase() === 'properties') {
+            const section = getParent() as Section
+            section.properties = drawer.value
+              .split('\n')
+              .reduce((accu, current) => {
+                const m = current.match(/\s*:(.+?):\s*(.+)\s*$/)
+                if (m) {
+                  return { ...accu, [m[1].toLowerCase()]: m[2] }
+                }
+                return accu
+              }, section.properties)
+          }
           return 'break'
         },
       },

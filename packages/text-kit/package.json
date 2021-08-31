@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "description": "bundle of useful tools for manipulating text",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
-  "homepage": "https://github.com/orgapp/orgajs/tree/master/packages/text-kit#readme",
+  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/text-kit#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/orgapp/orgajs.git",

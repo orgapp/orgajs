@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { LivePreview, LiveProvider, LiveError } from 'react-live'
+import { tokenize } from 'orga'
 import reorg from '@orgajs/reorg'
 import toRehype from '@orgajs/reorg-rehype'
 import toEstree from '@orgajs/rehype-estree'
@@ -56,6 +57,7 @@ const Playground = ({ code, onChange, style }) => {
 
   function getOutputs(src: string) {
     const result = {
+      tokens: tokenize(src).all(),
       oast: undefined,
       rehype: undefined,
       estree: undefined,
@@ -89,7 +91,7 @@ const Playground = ({ code, onChange, style }) => {
     return result
   }
 
-  const { oast, rehype, estree, jsx } = getOutputs(code)
+  const { tokens, oast, rehype, estree, jsx } = getOutputs(code)
 
   function compile(text: string) {
     let jsx = ''
@@ -170,9 +172,10 @@ const Playground = ({ code, onChange, style }) => {
             height: '100%',
             width: '50%',
           }}
-          defaultIndex={4}
+          defaultIndex={5}
         >
           <TabList>
+            <Tab style={{ color: theme.lightText }}>tokens</Tab>
             <Tab style={{ color: theme.lightText }}>oast</Tab>
             <Tab style={{ color: theme.lightText }}>rehype</Tab>
             <Tab style={{ color: theme.lightText }}>estree</Tab>
@@ -180,7 +183,28 @@ const Playground = ({ code, onChange, style }) => {
             <Tab style={{ color: theme.lightText }}>preview</Tab>
           </TabList>
           <TabPanel style={{ padding: '0.4em 0.8em' }}>
-            <JSONTree data={oast} theme={treeTheme} invertTheme={true} />
+            <JSONTree
+              data={tokens}
+              theme={treeTheme}
+              invertTheme={true}
+              getItemString={(type, data) => <span>{data.type}</span>}
+            />
+          </TabPanel>
+          <TabPanel style={{ padding: '0.4em 0.8em' }}>
+            <JSONTree
+              data={oast}
+              theme={treeTheme}
+              invertTheme={true}
+              getItemString={(type, data, itemType, itemString, keyPath) =>
+                type === 'Object' ? (
+                  <span>{data.type}</span>
+                ) : (
+                  <span>
+                    {itemType} {itemString}
+                  </span>
+                )
+              }
+            />
           </TabPanel>
           <TabPanel style={{ padding: '0.4em 0.8em' }}>
             <JSONTree data={rehype} theme={treeTheme} invertTheme={true} />

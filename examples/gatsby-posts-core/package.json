@@ -1,0 +1,23 @@
+{
+  "name": "example-gatsby-posts-core",
+  "version": "1.0.0",
+  "private": true,
+  "description": "My Gatsby Site",
+  "author": "Xiaoxing Hu",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "gatsby": "^3.10.0",
+    "gatsby-theme-orga-posts-core": "workspace:packages/gatsby-theme-orga-posts-core",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}

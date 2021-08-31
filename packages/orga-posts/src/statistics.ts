@@ -1,6 +1,5 @@
 import * as _ from 'lodash/fp'
-import { Node } from 'unist'
-import visit, { Visitor } from 'unist-util-visit'
+import visit from 'unist-util-visit'
 
 // Unicode ranges for Han (Chinese) and Hiragana/Katakana (Japanese) characters
 const cjRanges = [
@@ -81,28 +80,14 @@ export default ({
   const content: string[] = []
 
   return (tree) => {
-    visit(
-      tree,
-      [
-        'text.plain',
-        'text.bold',
-        'text.verbatim',
-        'text.italic',
-        'text.strikeThrough',
-        'text.underline',
-        'text.code',
-        'link',
-      ],
-      (node) => {
-        if (node.type.startsWith('text.')) content.push(_.get('value')(node))
-        if (node.type === 'link') {
-          content.push(_.get('description')(node))
-        }
+    visit(tree, ['text', 'link'], (node) => {
+      if (node.type === 'text') content.push(_.get('value')(node))
+      if (node.type === 'link') {
+        content.push(_.get('description')(node))
       }
-    )
+    })
 
     const text = content.join(' ')
-
     report(count(text))
   }
 }
