@@ -1,0 +1,11 @@
+#+TITLE: File based post
+#+DATE: <2019-11-16 Sat>
+#+CATEGORY: posts
+#+EXCLUDE_TAGS: apple
+
+
+This is a file based post.
+
+* Hello Apple :apple:
+* Hello Orange
+* Hello Again :apple:
