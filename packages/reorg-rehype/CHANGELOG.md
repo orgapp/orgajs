@@ -1,5 +1,35 @@
 # Change Log
 
+## 3.0.1
+
+### Patch Changes
+
+- 6ed76057: # rename gatsby themes
+
+  - gatsby-theme-orga -> gatsby-theme-orga-posts-core
+  - gatsby-theme-blorg -> gatsby-theme-orga-posts
+
+  # add example projects
+
+  - gatsby-posts
+  - gatsby-posts-core
+
+- 759e6149: # Bug Fixes
+
+  - fix lexer for parsing headline with todo keyword
+  - fix properties drawer issue
+  - fix orga-theme-ui-preset package
+  - fix gatsby-transformer-orga & gatsby-theme-blorg
+
+  # Improved Playground
+
+  - add `tokens` view
+  - show node type in tree views
+
+- Updated dependencies [6ed76057]
+- Updated dependencies [759e6149]
+  - oast-to-hast@3.0.1
+
 ## 3.0.0
 
 ### Major Changes

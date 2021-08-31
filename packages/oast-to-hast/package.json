@@ -1,6 +1,6 @@
 {
   "name": "oast-to-hast",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Transform OAST to HAST",
   "files": [
     "dist"
@@ -12,7 +12,7 @@
   "dependencies": {
     "hast-util-from-parse5": "6.0.1",
     "mime": "^2.4.4",
-    "orga": "3.0.0",
+    "orga": "3.0.1",
     "parse5": "^6.0.1",
     "prismjs": "^1.17.1",
     "unist-builder": "^2.0.3"
