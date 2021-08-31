@@ -10394,7 +10394,7 @@ __metadata:
   resolution: "example-gatsby-posts-core@workspace:examples/gatsby-posts-core"
   dependencies:
     gatsby: ^3.10.0
-    gatsby-theme-orga-posts-core: "workspace:packages/gatsby-theme-orga"
+    gatsby-theme-orga-posts-core: "workspace:packages/gatsby-theme-orga-posts-core"
     react: ^17.0.1
     react-dom: ^17.0.1
   languageName: unknown
@@ -12078,15 +12078,17 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"gatsby-theme-orga-posts-core@3.0.0, gatsby-theme-orga-posts-core@workspace:packages/gatsby-theme-orga":
+"gatsby-theme-orga-posts-core@3.0.0, gatsby-theme-orga-posts-core@workspace:packages/gatsby-theme-orga-posts-core":
   version: 0.0.0-use.local
-  resolution: "gatsby-theme-orga-posts-core@workspace:packages/gatsby-theme-orga"
+  resolution: "gatsby-theme-orga-posts-core@workspace:packages/gatsby-theme-orga-posts-core"
   dependencies:
+    gatsby-core-utils: ^2.12.0
     gatsby-plugin-image: ^1.12.0
     gatsby-plugin-sharp: ^3.12.0
     gatsby-source-filesystem: ^3.2.0
     gatsby-transformer-orga: 3.0.0
     gatsby-transformer-sharp: ^3.12.0
+    lodash: ^4.17.21
   peerDependencies:
     gatsby: ^3.0.0
     react: ^17.0.0
