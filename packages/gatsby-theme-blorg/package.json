@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-theme-blorg",
+  "name": "gatsby-theme-orga-posts",
   "version": "3.0.0",
-  "description": "gatsby org-mode theme for blog",
+  "description": "gatsby org-mode theme for blog-like websites",
   "main": "index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "keywords": [
@@ -13,9 +13,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/orgapp/orgajs.git",
-    "directory": "packages/gatsby-theme-blorg"
+    "directory": "packages/gatsby-theme-orga-posts"
   },
-  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/gatsby-theme-blorg#readme",
+  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/gatsby-theme-orga-posts#readme",
   "peerDependencies": {
     "gatsby": "^3.0.0"
   },

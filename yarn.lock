@@ -1967,177 +1967,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/cli@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/cli@npm:12.1.4"
-  dependencies:
-    "@commitlint/format": ^12.1.4
-    "@commitlint/lint": ^12.1.4
-    "@commitlint/load": ^12.1.4
-    "@commitlint/read": ^12.1.4
-    "@commitlint/types": ^12.1.4
-    lodash: ^4.17.19
-    resolve-from: 5.0.0
-    resolve-global: 1.0.0
-    yargs: ^16.2.0
-  bin:
-    commitlint: cli.js
-  checksum: 3c00e43e7594961232e553b4cdff56f48f722a89e76ccaf2f8bd666e7679912e8a4e8d4906d20f8a376db13b85c0de610b69c8b8fa1d8e0d099eef5482c80e4d
-  languageName: node
-  linkType: hard
-
-"@commitlint/config-conventional@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/config-conventional@npm:12.1.4"
-  dependencies:
-    conventional-changelog-conventionalcommits: ^4.3.1
-  checksum: 3bcc963d88a130f50d3d2b12a29a11eff6c0a553ad945595fe1d9d36052be662a011c2a6784ce88ede8c91b5aaadf5517c3f533747e91c799e0fe3281338d98c
-  languageName: node
-  linkType: hard
-
-"@commitlint/ensure@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/ensure@npm:12.1.4"
-  dependencies:
-    "@commitlint/types": ^12.1.4
-    lodash: ^4.17.19
-  checksum: 8e37ce6f17a1d88cf5a73bccc6da1f602459e7260e7c33a3d58be1ddf1f88ed95179b53f926ddf5ca8f65ab6c8978a45d520fb107c7c1b6e5a7786f1788b1579
-  languageName: node
-  linkType: hard
-
-"@commitlint/execute-rule@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/execute-rule@npm:12.1.4"
-  checksum: eb3303aa056c170a9408b5e6c61ec9c2111dcc9758e6d1927e03670047fda9df3bea2258d2f158d403ccb2d4f3ad928dbedcd21ec459f1a53ded355329ddc6f8
-  languageName: node
-  linkType: hard
-
-"@commitlint/format@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/format@npm:12.1.4"
-  dependencies:
-    "@commitlint/types": ^12.1.4
-    chalk: ^4.0.0
-  checksum: 5c3e060c16b5371209b4906d5c0e76dbaedac9b6802480a4bcf2d9fc66ba6b25097fa0d7d3305f5bdc55280c0a227e3352312238773a608440931c53de8eedf6
-  languageName: node
-  linkType: hard
-
-"@commitlint/is-ignored@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/is-ignored@npm:12.1.4"
-  dependencies:
-    "@commitlint/types": ^12.1.4
-    semver: 7.3.5
-  checksum: 3014cc30b56b5a5e8765030bef1f563c7201441700fa0d9c6c2be4b929f9ecf7b882b0c50d247e9eb9478f40abebb580b9678a11763054df988dcc14a8da19e1
-  languageName: node
-  linkType: hard
-
-"@commitlint/lint@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/lint@npm:12.1.4"
-  dependencies:
-    "@commitlint/is-ignored": ^12.1.4
-    "@commitlint/parse": ^12.1.4
-    "@commitlint/rules": ^12.1.4
-    "@commitlint/types": ^12.1.4
-  checksum: 89626f21aa42909553e1bf9b1ece6b1bb4d69dc4b96c0da1e0ed471491ad99088bfec5230381d6822f047b72ac531edda98130606314cb561ddc82df045e6cf7
-  languageName: node
-  linkType: hard
-
-"@commitlint/load@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/load@npm:12.1.4"
-  dependencies:
-    "@commitlint/execute-rule": ^12.1.4
-    "@commitlint/resolve-extends": ^12.1.4
-    "@commitlint/types": ^12.1.4
-    chalk: ^4.0.0
-    cosmiconfig: ^7.0.0
-    lodash: ^4.17.19
-    resolve-from: ^5.0.0
-  checksum: a26befcdcff1097f6c674f998cedf117fd6c85cadd5a23cbb1ab37bffb5f5aa0b33f66467dd9e438260f195258775c297f408f44387a9829a9e260ac48ccc5c9
-  languageName: node
-  linkType: hard
-
-"@commitlint/message@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/message@npm:12.1.4"
-  checksum: 14ecee992e33bef3ab66f8fe029c50098cb9334ae37ecc7419d76ef889506124793b3577232f235f53e9aa27a36aa75eb44377b61bee89ed07c072eec55178f9
-  languageName: node
-  linkType: hard
-
-"@commitlint/parse@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/parse@npm:12.1.4"
-  dependencies:
-    "@commitlint/types": ^12.1.4
-    conventional-changelog-angular: ^5.0.11
-    conventional-commits-parser: ^3.0.0
-  checksum: 69651cdaf8c6023335e9de4c2d869c1dffc621b373165800c6baa69c3fe95eb7e164b109765229f919bf1a00e0ce6b5f4967fa07b69dc46ed5ae5aa229fde69d
-  languageName: node
-  linkType: hard
-
-"@commitlint/read@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/read@npm:12.1.4"
-  dependencies:
-    "@commitlint/top-level": ^12.1.4
-    "@commitlint/types": ^12.1.4
-    fs-extra: ^9.0.0
-    git-raw-commits: ^2.0.0
-  checksum: 6c33374476ca44904edc393479cc069f2a91c1b2cbf94f499056f9bce947ba09bb39cca6aa0c27ee742508aaac636efb71ae4ccca19fb870c2d813b792148c35
-  languageName: node
-  linkType: hard
-
-"@commitlint/resolve-extends@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/resolve-extends@npm:12.1.4"
-  dependencies:
-    import-fresh: ^3.0.0
-    lodash: ^4.17.19
-    resolve-from: ^5.0.0
-    resolve-global: ^1.0.0
-  checksum: aa20e302c432450fc51b42a6f7776a9c9294e4708a4968a3ea0d4a16225a489478d463061948a3a0d2f204f73d95fcdf60648b8a6692033249966c9c67aa6a7c
-  languageName: node
-  linkType: hard
-
-"@commitlint/rules@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/rules@npm:12.1.4"
-  dependencies:
-    "@commitlint/ensure": ^12.1.4
-    "@commitlint/message": ^12.1.4
-    "@commitlint/to-lines": ^12.1.4
-    "@commitlint/types": ^12.1.4
-  checksum: 711720e0b3334533bdc841bf8b3b13bb034dfbabf5a3076539d8e88c9f2df0d6f494ca9240a3a980d55f17782d634696f4531a7faf52e7c6c3d455ba39d374b3
-  languageName: node
-  linkType: hard
-
-"@commitlint/to-lines@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/to-lines@npm:12.1.4"
-  checksum: e2a46e3737489ec2b0643d7c0efeceb0e56637f355666353214577c6727f2a94d37d5d9dd91736313e4e18fd36e2e2b345b8268d25cf30a359cd8f00bacc29ce
-  languageName: node
-  linkType: hard
-
-"@commitlint/top-level@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/top-level@npm:12.1.4"
-  dependencies:
-    find-up: ^5.0.0
-  checksum: 25aae63e31cb60fe1d26d390eb3276ff0be0c916b8b30196725d4715784dfecb4ce6bfba1443044ab68c95f906e159e5e753674f68e8c4b9f337988b00cbbb30
-  languageName: node
-  linkType: hard
-
-"@commitlint/types@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/types@npm:12.1.4"
-  dependencies:
-    chalk: ^4.0.0
-  checksum: 64e01b1cbd94cdee861ac31ef658041dd330e671897cbe1a19304e02577054322696c7b02b46b205e8a3a2b58cac10965316cc1473ca041b6f131a39b6d46a81
-  languageName: node
-  linkType: hard
-
 "@discoveryjs/json-ext@npm:^0.5.0":
   version: 0.5.3
   resolution: "@discoveryjs/json-ext@npm:0.5.3"
@@ -3500,7 +3329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@orgajs/estree-jsx@2.6.0, @orgajs/estree-jsx@workspace:packages/estree-jsx":
+"@orgajs/estree-jsx@3.0.0, @orgajs/estree-jsx@workspace:packages/estree-jsx":
   version: 0.0.0-use.local
   resolution: "@orgajs/estree-jsx@workspace:packages/estree-jsx"
   dependencies:
@@ -3513,10 +3342,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/example-gatsby@workspace:examples/gatsby"
   dependencies:
-    "@orgajs/loader": 2.6.0
-    "@orgajs/react": 2.6.0
+    "@orgajs/loader": 3.0.0
+    "@orgajs/react": 3.0.0
     gatsby: ^3.10.0
-    gatsby-plugin-orga: 2.6.0
+    gatsby-plugin-orga: 3.0.2
     gatsby-source-filesystem: ^3.3.0
     react: ^17.0.1
     react-dom: ^17.0.1
@@ -3527,9 +3356,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/example-next@workspace:examples/next"
   dependencies:
-    "@orgajs/loader": 2.6.0
-    "@orgajs/next": 2.6.0
-    "@orgajs/react": 2.6.0
+    "@orgajs/loader": 3.0.0
+    "@orgajs/next": 3.0.0
+    "@orgajs/react": 3.0.0
     next: ^11.1.0
     react: 17.0.2
     react-dom: 17.0.2
@@ -3543,10 +3372,10 @@ __metadata:
     "@babel/core": ^7.13.15
     "@babel/preset-env": ^7.13.15
     "@babel/preset-react": ^7.13.13
-    "@orgajs/estree-jsx": 2.6.0
-    "@orgajs/loader": 2.6.0
-    "@orgajs/rehype-estree": 2.6.0
-    "@orgajs/reorg-rehype": 2.6.0
+    "@orgajs/estree-jsx": 3.0.0
+    "@orgajs/loader": 3.0.0
+    "@orgajs/rehype-estree": 3.0.0
+    "@orgajs/reorg-rehype": 3.0.0
     babel-loader: ^8.2.2
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -3560,20 +3389,20 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/getting-started@workspace:examples/getting-started"
   dependencies:
-    "@orgajs/reorg": 2.6.0
-    "@orgajs/reorg-rehype": 2.6.0
+    "@orgajs/reorg": 3.0.0
+    "@orgajs/reorg-rehype": 3.0.0
     rehype-stringify: ^8.0.0
     unified: 9.2.2
     unified-stream: ^1.0.6
   languageName: unknown
   linkType: soft
 
-"@orgajs/loader@2.6.0, @orgajs/loader@workspace:packages/loader":
+"@orgajs/loader@3.0.0, @orgajs/loader@^3.0.0, @orgajs/loader@workspace:packages/loader":
   version: 0.0.0-use.local
   resolution: "@orgajs/loader@workspace:packages/loader"
   dependencies:
-    "@orgajs/react": 2.6.0
-    "@orgajs/reorg": 2.6.0
+    "@orgajs/react": 3.0.0
+    "@orgajs/reorg": 3.0.0
     babel-loader: ^8.2.2
     html-loader: ^2.1.2
     loader-utils: ^2.0.0
@@ -3585,13 +3414,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/next@2.6.0, @orgajs/next@workspace:packages/next":
+"@orgajs/next@3.0.0, @orgajs/next@workspace:packages/next":
   version: 0.0.0-use.local
   resolution: "@orgajs/next@workspace:packages/next"
   dependencies:
-    "@orgajs/estree-jsx": 2.6.0
-    "@orgajs/rehype-estree": 2.6.0
-    "@orgajs/reorg-rehype": 2.6.0
+    "@orgajs/estree-jsx": 3.0.0
+    "@orgajs/rehype-estree": 3.0.0
+    "@orgajs/reorg-rehype": 3.0.0
     "@types/hast": ^2.3.2
     "@types/node": ^16.4.0
   peerDependencies:
@@ -3600,16 +3429,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/playground@2.6.0, @orgajs/playground@workspace:packages/playground":
+"@orgajs/playground@3.0.0, @orgajs/playground@workspace:packages/playground":
   version: 0.0.0-use.local
   resolution: "@orgajs/playground@workspace:packages/playground"
   dependencies:
     "@monaco-editor/react": ^4.2.1
-    "@orgajs/estree-jsx": 2.6.0
-    "@orgajs/react": 2.6.0
-    "@orgajs/rehype-estree": 2.6.0
-    "@orgajs/reorg": 2.6.0
-    "@orgajs/reorg-rehype": 2.6.0
+    "@orgajs/estree-jsx": 3.0.0
+    "@orgajs/react": 3.0.0
+    "@orgajs/rehype-estree": 3.0.0
+    "@orgajs/reorg": 3.0.0
+    "@orgajs/reorg-rehype": 3.0.0
     "@types/react": ^17.0.14
     "@types/react-dom": ^17.0.9
     react-json-tree: ^0.15.0
@@ -3622,12 +3451,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/react@2.6.0, @orgajs/react@workspace:packages/react":
+"@orgajs/react@3.0.0, @orgajs/react@^3.0.0, @orgajs/react@workspace:packages/react":
   version: 0.0.0-use.local
   resolution: "@orgajs/react@workspace:packages/react"
   dependencies:
     "@babel/plugin-transform-react-jsx": ^7.13.12
-    "@orgajs/reorg": 2.6.0
+    "@orgajs/reorg": 3.0.0
     babel-plugin-remove-export-keywords: ^1.6.22
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -3636,7 +3465,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/rehype-estree@2.6.0, @orgajs/rehype-estree@workspace:packages/rehype-estree":
+"@orgajs/rehype-estree@3.0.0, @orgajs/rehype-estree@workspace:packages/rehype-estree":
   version: 0.0.0-use.local
   resolution: "@orgajs/rehype-estree@workspace:packages/rehype-estree"
   dependencies:
@@ -3654,31 +3483,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/reorg-parse@2.6.0, @orgajs/reorg-parse@workspace:packages/reorg-parse":
+"@orgajs/reorg-parse@3.0.0, @orgajs/reorg-parse@workspace:packages/reorg-parse":
   version: 0.0.0-use.local
   resolution: "@orgajs/reorg-parse@workspace:packages/reorg-parse"
   dependencies:
     del-cli: ^3.0.1
-    orga: 2.6.0
+    orga: 3.0.0
     typescript: ^4.3.2
     unified: 9.2.2
   languageName: unknown
   linkType: soft
 
-"@orgajs/reorg-rehype@2.6.0, @orgajs/reorg-rehype@workspace:packages/reorg-rehype":
+"@orgajs/reorg-rehype@3.0.0, @orgajs/reorg-rehype@workspace:packages/reorg-rehype":
   version: 0.0.0-use.local
   resolution: "@orgajs/reorg-rehype@workspace:packages/reorg-rehype"
   dependencies:
-    oast-to-hast: 2.6.0
+    oast-to-hast: 3.0.0
     unified: 9.2.2
   languageName: unknown
   linkType: soft
 
-"@orgajs/reorg@2.6.0, @orgajs/reorg@workspace:packages/reorg":
+"@orgajs/reorg@3.0.0, @orgajs/reorg@workspace:packages/reorg":
   version: 0.0.0-use.local
   resolution: "@orgajs/reorg@workspace:packages/reorg"
   dependencies:
-    "@orgajs/reorg-parse": 2.6.0
+    "@orgajs/reorg-parse": 3.0.0
     unified: 9.2.2
   languageName: unknown
   linkType: soft
@@ -3687,11 +3516,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/website@workspace:website"
   dependencies:
-    "@orgajs/playground": 2.6.0
+    "@orgajs/playground": 3.0.0
     babel-preset-gatsby: ^1.10.0
     gatsby: ^3.10.0
     gatsby-source-filesystem: ^3.10.0
-    gatsby-theme-orga-docs: 2.6.0
+    gatsby-theme-orga-docs: 3.0.2
     gh-pages: ^3.2.3
     howler: ^2.2.3
     prettier: 2.2.1
@@ -5451,18 +5280,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"JSONStream@npm:^1.0.4":
-  version: 1.3.5
-  resolution: "JSONStream@npm:1.3.5"
-  dependencies:
-    jsonparse: ^1.2.0
-    through: ">=2.2.7 <3"
-  bin:
-    JSONStream: ./bin.js
-  checksum: e9849f8a52cde19c95d7fbf0bdab7bde1f31c9fbf2062e47044817eeebb31217c99aaa041366f377243aa852c64fa144c4397ef76965d6491eb47827464d8479
-  languageName: node
-  linkType: hard
-
 "abab@npm:^2.0.3, abab@npm:^2.0.5":
   version: 2.0.5
   resolution: "abab@npm:2.0.5"
@@ -5930,13 +5747,6 @@ __metadata:
   version: 2.1.2
   resolution: "array-flatten@npm:2.1.2"
   checksum: 46bfb198da424765f26350a8d8b207deade75d493e6d26417bfebb4027857b9fef8f5ae3bacd0b912f9a9fd2c04e2ec140c7183c0408e10950579e9d5c9dea25
-  languageName: node
-  linkType: hard
-
-"array-ify@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "array-ify@npm:1.0.0"
-  checksum: 1ba3a81a151f8df0eaafa25e47c8493803ebfa6b2f7918038ae52342b5d3d3ebee56fd57886a0c973ad9eb5faa8dee07c7d2716b582f4c741bb89a104b172461
   languageName: node
   linkType: hard
 
@@ -7945,16 +7755,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"compare-func@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "compare-func@npm:2.0.0"
-  dependencies:
-    array-ify: ^1.0.0
-    dot-prop: ^5.1.0
-  checksum: 825690b828f028acf270578cd4d9ea0751987b474095cd47093a29ac087a21e5de2db86b83cc0cecb935dfca952ba8bbcd7ead240fe6b3b7ecb1a66a8b109d28
-  languageName: node
-  linkType: hard
-
 "component-emitter@npm:^1.2.1, component-emitter@npm:~1.3.0":
   version: 1.3.0
   resolution: "component-emitter@npm:1.3.0"
@@ -8122,44 +7922,6 @@ __metadata:
     fast-copy: ^2.1.0
     qs: ^6.9.4
   checksum: 1ee091460635750e08eb2dd5ad27067654e043eb63112844dcec6386cd6e71890db19c5356569b560a2132773e2b8a356c1e1a490ee4e3789642a372a735c030
-  languageName: node
-  linkType: hard
-
-"conventional-changelog-angular@npm:^5.0.11":
-  version: 5.0.12
-  resolution: "conventional-changelog-angular@npm:5.0.12"
-  dependencies:
-    compare-func: ^2.0.0
-    q: ^1.5.1
-  checksum: 984545414fecb06d61a1af3cf2eefaa8cc71adb309f7e517f4dca65945a55d1f25813a7644934f372e7ea8bef5336ed92e9325a65af739f23f843dd1a363fc63
-  languageName: node
-  linkType: hard
-
-"conventional-changelog-conventionalcommits@npm:^4.3.1":
-  version: 4.6.0
-  resolution: "conventional-changelog-conventionalcommits@npm:4.6.0"
-  dependencies:
-    compare-func: ^2.0.0
-    lodash: ^4.17.15
-    q: ^1.5.1
-  checksum: 60114ccba24cb59c0cd4afd4974998343f21313d447f854a2b9403396405b9cf539747b2aa4b4c8e3c6360fcfd5d00961d23d8e74306f0536afcfe165eaee54e
-  languageName: node
-  linkType: hard
-
-"conventional-commits-parser@npm:^3.0.0":
-  version: 3.2.1
-  resolution: "conventional-commits-parser@npm:3.2.1"
-  dependencies:
-    JSONStream: ^1.0.4
-    is-text-path: ^1.0.1
-    lodash: ^4.17.15
-    meow: ^8.0.0
-    split2: ^3.0.0
-    through2: ^4.0.0
-    trim-off-newlines: ^1.0.0
-  bin:
-    conventional-commits-parser: cli.js
-  checksum: 9a8d4aaab55299e189683d4eef22fc93d170d0bdfa3dbd61cb149dfbdf6c78a9fa598fd8beb2b340225814707e1b4374dc01bb8acb957c107489f2b2ec3b6d8a
   languageName: node
   linkType: hard
 
@@ -8848,13 +8610,6 @@ __metadata:
   version: 1.0.7
   resolution: "damerau-levenshtein@npm:1.0.7"
   checksum: c40684e3f10ed546bb4ce7482224a51ce51b3b97e87ac485796048328e88674650153291aa160f5f01a773d16e4fc722ead6852a43b8cd74b1e92b44b6ba1dba
-  languageName: node
-  linkType: hard
-
-"dargs@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "dargs@npm:7.0.0"
-  checksum: ca99396d247c46a90e53b67b95ffd005588c15a1162ca6a7bf4fa6213b51d341f4e82b70a4d0e8086e6e13e1c757b966524d237bbd0454efcffafcc1008d5a59
   languageName: node
   linkType: hard
 
@@ -9607,7 +9362,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dot-prop@npm:^5.1.0, dot-prop@npm:^5.2.0":
+"dot-prop@npm:^5.2.0":
   version: 5.3.0
   resolution: "dot-prop@npm:5.3.0"
   dependencies:
@@ -11414,7 +11169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^9.0.0, fs-extra@npm:^9.1.0":
+"fs-extra@npm:^9.1.0":
   version: 9.1.0
   resolution: "fs-extra@npm:9.1.0"
   dependencies:
@@ -11506,7 +11261,7 @@ fsevents@^1.2.7:
   resolution: "gatsby-blorg@workspace:examples/gatsby-blorg"
   dependencies:
     gatsby: ^3.10.0
-    gatsby-theme-blorg: 2.6.0
+    gatsby-theme-orga-posts: 3.0.0
     prop-types: ^15.7.2
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -11654,26 +11409,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"gatsby-orga@workspace:examples/gatsby-orga-site":
-  version: 0.0.0-use.local
-  resolution: "gatsby-orga@workspace:examples/gatsby-orga-site"
-  dependencies:
-    gatsby: ^3.10.0
-    gatsby-image: ^3.2.0
-    gatsby-plugin-manifest: ^3.2.0
-    gatsby-plugin-offline: ^4.2.0
-    gatsby-plugin-react-helmet: ^4.2.0
-    gatsby-plugin-sharp: ^3.2.1
-    gatsby-source-filesystem: ^3.2.0
-    gatsby-theme-orga: 2.6.0
-    gatsby-transformer-sharp: ^3.2.0
-    prop-types: ^15.7.2
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-helmet: ^6.1.0
-  languageName: unknown
-  linkType: soft
-
 "gatsby-page-utils@npm:^1.10.0":
   version: 1.10.0
   resolution: "gatsby-page-utils@npm:1.10.0"
@@ -11747,21 +11482,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-manifest@npm:^3.2.0":
-  version: 3.7.0
-  resolution: "gatsby-plugin-manifest@npm:3.7.0"
-  dependencies:
-    "@babel/runtime": ^7.14.0
-    gatsby-core-utils: ^2.7.0
-    gatsby-plugin-utils: ^1.7.0
-    semver: ^7.3.5
-    sharp: ^0.28.1
-  peerDependencies:
-    gatsby: ^3.0.0-next.0
-  checksum: a944edd3f83f10f69bf29cd45190fd0c07830c05597966acc17de40f029371d77c72caf0405e48cf42fd5be2977000bfa2f1dbd80ed0cb11a1f0eb57e1de9366
-  languageName: node
-  linkType: hard
-
 "gatsby-plugin-offline@npm:^4.2.0":
   version: 4.7.0
   resolution: "gatsby-plugin-offline@npm:4.7.0"
@@ -11781,16 +11501,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-orga@2.6.0, gatsby-plugin-orga@workspace:packages/gatsby-plugin-orga":
+"gatsby-plugin-orga@3.0.2, gatsby-plugin-orga@workspace:packages/gatsby-plugin-orga":
   version: 0.0.0-use.local
   resolution: "gatsby-plugin-orga@workspace:packages/gatsby-plugin-orga"
   dependencies:
-    "@orgajs/estree-jsx": 2.6.0
-    "@orgajs/loader": 2.6.0
-    "@orgajs/react": 2.6.0
-    "@orgajs/rehype-estree": 2.6.0
-    "@orgajs/reorg": 2.6.0
-    "@orgajs/reorg-rehype": 2.6.0
+    "@orgajs/estree-jsx": 3.0.0
+    "@orgajs/loader": ^3.0.0
+    "@orgajs/react": ^3.0.0
+    "@orgajs/rehype-estree": 3.0.0
+    "@orgajs/reorg": 3.0.0
+    "@orgajs/reorg-rehype": 3.0.0
     "@types/estree": ^0.0.50
     "@types/fs-extra": ^9.0.12
     "@types/node": ^16.4.0
@@ -11814,8 +11534,7 @@ fsevents@^1.2.7:
     unist-util-select: 3.0.4
     unist-util-visit: 2.0.3
   peerDependencies:
-    "@orgajs/loader": ^1.0.0
-    "@orgajs/react": ^1.0.0
+    gatsby: ^2.0.0
     gatsby-plugin-sharp: "*"
     react: ^16.9.0 || ^17.0.0
     react-dom: ^16.9.0 || ^17.0.0
@@ -11990,17 +11709,6 @@ fsevents@^1.2.7:
   peerDependencies:
     gatsby: ^3.0.0-next.0
   checksum: 3aafafa1b1b9581e62244db7f2c01b1e9eb564348c9f09e9b8e3e01a23f9b82dc6e1133cd60cb1d3201345a963b0e84db546bc480c851ea6a8401906d659c80c
-  languageName: node
-  linkType: hard
-
-"gatsby-plugin-utils@npm:^1.7.0":
-  version: 1.7.0
-  resolution: "gatsby-plugin-utils@npm:1.7.0"
-  dependencies:
-    joi: ^17.2.1
-  peerDependencies:
-    gatsby: ^3.0.0-next.0
-  checksum: 4bcb97cace1c73288abea7c4815172e4a98baca6c1a611659e9b6c302753c734103af637bd085699259d1f2db583573826e788699926441ad2c40863366c79ef
   languageName: node
   linkType: hard
 
@@ -12206,30 +11914,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"gatsby-theme-blorg@2.6.0, gatsby-theme-blorg@workspace:packages/gatsby-theme-blorg":
-  version: 0.0.0-use.local
-  resolution: "gatsby-theme-blorg@workspace:packages/gatsby-theme-blorg"
-  dependencies:
-    gatsby-image: ^3.2.0
-    gatsby-plugin-emotion: ^6.2.0
-    gatsby-plugin-offline: ^4.2.0
-    gatsby-plugin-react-helmet: ^4.2.0
-    gatsby-plugin-sharp: ^3.2.1
-    gatsby-plugin-theme-ui: 0.6.2
-    gatsby-source-filesystem: ^3.2.0
-    gatsby-theme-orga: 2.6.0
-    gatsby-transformer-sharp: ^3.2.0
-    gatsby-transformer-toml: ^3.2.0
-    orga-theme-ui-preset: 2.6.0
-    polished: ^3.4.1
-    react-icons: ^3.8.0
-    theme-ui: ^0.6.2
-  peerDependencies:
-    gatsby: ^3.0.0
-  languageName: unknown
-  linkType: soft
-
-"gatsby-theme-orga-docs@2.6.0, gatsby-theme-orga-docs@workspace:packages/gatsby-theme-orga-docs":
+"gatsby-theme-orga-docs@3.0.2, gatsby-theme-orga-docs@workspace:packages/gatsby-theme-orga-docs":
   version: 0.0.0-use.local
   resolution: "gatsby-theme-orga-docs@workspace:packages/gatsby-theme-orga-docs"
   dependencies:
@@ -12238,7 +11923,7 @@ fsevents@^1.2.7:
     "@reach/router": ^1.3.4
     del-cli: ^3.0.1
     gatsby-plugin-image: ^1.9.0
-    gatsby-plugin-orga: 2.6.0
+    gatsby-plugin-orga: 3.0.2
     gatsby-plugin-page-creator: ^3.9.0
     gatsby-plugin-react-helmet: ^4.9.0
     gatsby-plugin-sharp: ^3.9.0
@@ -12255,12 +11940,35 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"gatsby-theme-orga@2.6.0, gatsby-theme-orga@workspace:packages/gatsby-theme-orga":
+"gatsby-theme-orga-posts@3.0.0, gatsby-theme-orga-posts@workspace:packages/gatsby-theme-blorg":
+  version: 0.0.0-use.local
+  resolution: "gatsby-theme-orga-posts@workspace:packages/gatsby-theme-blorg"
+  dependencies:
+    gatsby-image: ^3.2.0
+    gatsby-plugin-emotion: ^6.2.0
+    gatsby-plugin-offline: ^4.2.0
+    gatsby-plugin-react-helmet: ^4.2.0
+    gatsby-plugin-sharp: ^3.2.1
+    gatsby-plugin-theme-ui: 0.6.2
+    gatsby-source-filesystem: ^3.2.0
+    gatsby-theme-orga: 3.0.0
+    gatsby-transformer-sharp: ^3.2.0
+    gatsby-transformer-toml: ^3.2.0
+    orga-theme-ui-preset: 3.0.0
+    polished: ^3.4.1
+    react-icons: ^3.8.0
+    theme-ui: ^0.6.2
+  peerDependencies:
+    gatsby: ^3.0.0
+  languageName: unknown
+  linkType: soft
+
+"gatsby-theme-orga@3.0.0, gatsby-theme-orga@workspace:packages/gatsby-theme-orga":
   version: 0.0.0-use.local
   resolution: "gatsby-theme-orga@workspace:packages/gatsby-theme-orga"
   dependencies:
     gatsby-source-filesystem: ^3.2.0
-    gatsby-transformer-orga: 2.6.0
+    gatsby-transformer-orga: 3.0.0
   peerDependencies:
     gatsby: ^3.0.0
     react: ^17.0.0
@@ -12268,7 +11976,7 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"gatsby-transformer-orga@2.6.0, gatsby-transformer-orga@workspace:packages/gatsby-transformer-orga":
+"gatsby-transformer-orga@3.0.0, gatsby-transformer-orga@workspace:packages/gatsby-transformer-orga":
   version: 0.0.0-use.local
   resolution: "gatsby-transformer-orga@workspace:packages/gatsby-transformer-orga"
   dependencies:
@@ -12283,9 +11991,9 @@ fsevents@^1.2.7:
     is-relative-url: ^3.0.0
     mime: ^2.4.4
     moment: ^2.24.0
-    oast-to-hast: 2.6.0
-    orga: 2.6.0
-    orga-posts: 2.6.0
+    oast-to-hast: 3.0.0
+    orga: 3.0.0
+    orga-posts: 3.0.0
     rehype-stringify: ^8.0.0
     unified: 9.2.2
     unist-builder: ^2.0.3
@@ -12686,21 +12394,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"git-raw-commits@npm:^2.0.0":
-  version: 2.0.10
-  resolution: "git-raw-commits@npm:2.0.10"
-  dependencies:
-    dargs: ^7.0.0
-    lodash: ^4.17.15
-    meow: ^8.0.0
-    split2: ^3.0.0
-    through2: ^4.0.0
-  bin:
-    git-raw-commits: cli.js
-  checksum: 8c8769db98108a40c978c028680e798499b3aa0a560ac2fc02544aa75c8541fc07fb92cffd8041b7ed68e06db1041c2ada33c3d6ba2f520328813ebe741521ea
-  languageName: node
-  linkType: hard
-
 "git-up@npm:^4.0.2":
   version: 4.0.2
   resolution: "git-up@npm:4.0.2"
@@ -12755,15 +12448,6 @@ fsevents@^1.2.7:
     once: ^1.3.0
     path-is-absolute: ^1.0.0
   checksum: 352f74f08247db5420161a2f68f2bd84b53228b5fcfc9dcc37cd54d3f19ec0232495d84aeff1286d0727059e9fdc1031400e00b971bdc59e30f8f82b199c9d02
-  languageName: node
-  linkType: hard
-
-"global-dirs@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "global-dirs@npm:0.1.1"
-  dependencies:
-    ini: ^1.3.4
-  checksum: 0d46e90b45e35fef757ef468fd497ea249787dafb20b76597ac0a1c129d8e8d7f09db4640a2f7ed12d1057159197af94ef4eea74c0be9c7c1c2c3bec5f0a6834
   languageName: node
   linkType: hard
 
@@ -13447,15 +13131,6 @@ fsevents@^1.2.7:
   dependencies:
     lru-cache: ^6.0.0
   checksum: 686512459ccb7e7eac7833fc4e8e35a0533c0dda5f516025f276ecb620b316010b853c785439ac63702e044ab56b2485cf7e1b088c1f9a46675b9496f7a45683
-  languageName: node
-  linkType: hard
-
-"hosted-git-info@npm:^4.0.1":
-  version: 4.0.2
-  resolution: "hosted-git-info@npm:4.0.2"
-  dependencies:
-    lru-cache: ^6.0.0
-  checksum: 838315facefdb2d0beb99c68d5a419e5f4f6151385fac4aff021d5817349b77f7780f18e04f48b11ad0fbeaf6ac5594351bc3eecdb353b8db41a4e080abdde67
   languageName: node
   linkType: hard
 
@@ -14795,15 +14470,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"is-text-path@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "is-text-path@npm:1.0.1"
-  dependencies:
-    text-extensions: ^1.0.0
-  checksum: 7c46df2e802e4ec57ee3c75664a32008625c4fbccf9e0a4bb7713f84983075b4e1386711c3764d3a67a1fc54a4b3a27ebdb0350bdeb80aaddd56166bf4f5654e
-  languageName: node
-  linkType: hard
-
 "is-typed-array@npm:^1.1.3":
   version: 1.1.5
   resolution: "is-typed-array@npm:1.1.5"
@@ -15826,13 +15492,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"jsonparse@npm:^1.2.0":
-  version: 1.3.1
-  resolution: "jsonparse@npm:1.3.1"
-  checksum: 6669acd7b39cdc4a4cbb078d1a19d2a07cb81651d5045b907b4d067e5c453d060a274f348b53c51ed817456f1cdfc709a13a76ca47c8304547f03843c043ebcb
-  languageName: node
-  linkType: hard
-
 "jsx-ast-utils@npm:^2.4.1 || ^3.0.0, jsx-ast-utils@npm:^3.1.0":
   version: 3.2.0
   resolution: "jsx-ast-utils@npm:3.2.0"
@@ -16824,25 +16483,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"meow@npm:^8.0.0":
-  version: 8.1.2
-  resolution: "meow@npm:8.1.2"
-  dependencies:
-    "@types/minimist": ^1.2.0
-    camelcase-keys: ^6.2.2
-    decamelize-keys: ^1.1.0
-    hard-rejection: ^2.1.0
-    minimist-options: 4.1.0
-    normalize-package-data: ^3.0.0
-    read-pkg-up: ^7.0.1
-    redent: ^3.0.0
-    trim-newlines: ^3.0.0
-    type-fest: ^0.18.0
-    yargs-parser: ^20.2.3
-  checksum: 7246c3e824298dc1ceddc4b9930bf6a04df8f240d09e76ee180c4f9168df3d6a7d27593a5a3ef7005efbc1557780981e169a7acac56120c7bf2f99f5f54563aa
-  languageName: node
-  linkType: hard
-
 "merge-descriptors@npm:1.0.1":
   version: 1.0.1
   resolution: "merge-descriptors@npm:1.0.1"
@@ -17149,7 +16789,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"minimist-options@npm:4.1.0, minimist-options@npm:^4.0.2":
+"minimist-options@npm:^4.0.2":
   version: 4.1.0
   resolution: "minimist-options@npm:4.1.0"
   dependencies:
@@ -17745,18 +17385,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"normalize-package-data@npm:^3.0.0":
-  version: 3.0.2
-  resolution: "normalize-package-data@npm:3.0.2"
-  dependencies:
-    hosted-git-info: ^4.0.1
-    resolve: ^1.20.0
-    semver: ^7.3.4
-    validate-npm-package-license: ^3.0.1
-  checksum: a1053ccfe091bbb83692deaad52450d3d214858bd02063a9267d38d618f13045528b81fef8729417303136c0b34ad5bfcf78d48aa0a3e36a90615726897e24e9
-  languageName: node
-  linkType: hard
-
 "normalize-path@npm:^2.1.1":
   version: 2.1.1
   resolution: "normalize-path@npm:2.1.1"
@@ -17896,7 +17524,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"oast-to-hast@2.6.0, oast-to-hast@workspace:packages/oast-to-hast":
+"oast-to-hast@3.0.0, oast-to-hast@workspace:packages/oast-to-hast":
   version: 0.0.0-use.local
   resolution: "oast-to-hast@workspace:packages/oast-to-hast"
   dependencies:
@@ -17904,7 +17532,7 @@ fsevents@^1.2.7:
     "@types/unist": 2.0.3
     hast-util-from-parse5: 6.0.1
     mime: ^2.4.4
-    orga: 2.6.0
+    orga: 3.0.0
     parse5: ^6.0.1
     prismjs: ^1.17.1
     unist-builder: ^2.0.3
@@ -18162,15 +17790,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"orga-posts@2.6.0, orga-posts@workspace:packages/orga-posts":
+"orga-posts@3.0.0, orga-posts@workspace:packages/orga-posts":
   version: 0.0.0-use.local
   resolution: "orga-posts@workspace:packages/orga-posts"
   dependencies:
-    "@orgajs/reorg-rehype": 2.6.0
+    "@orgajs/reorg-rehype": 3.0.0
     "@types/hast": ^2.3.2
     "@types/unist": 2.0.3
     lodash: ^4.17.21
-    orga: 2.6.0
+    orga: 3.0.0
     rehype-highlight: ^4.0.0
     rehype-stringify: ^8.0.0
     unified: 9.2.2
@@ -18180,7 +17808,7 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"orga-theme-ui-preset@2.6.0, orga-theme-ui-preset@workspace:packages/orga-theme-ui-preset":
+"orga-theme-ui-preset@3.0.0, orga-theme-ui-preset@workspace:packages/orga-theme-ui-preset":
   version: 0.0.0-use.local
   resolution: "orga-theme-ui-preset@workspace:packages/orga-theme-ui-preset"
   dependencies:
@@ -18188,7 +17816,7 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"orga@2.6.0, orga@workspace:packages/orga":
+"orga@3.0.0, orga@workspace:packages/orga":
   version: 0.0.0-use.local
   resolution: "orga@workspace:packages/orga"
   dependencies:
@@ -18196,7 +17824,7 @@ fsevents@^1.2.7:
     date-fns: ^2.22.1
     date-fns-tz: ^1.1.4
     del-cli: ^3.0.1
-    text-kit: 2.6.0
+    text-kit: 3.0.0
     typescript: ^4.3.2
   languageName: unknown
   linkType: soft
@@ -18209,8 +17837,6 @@ fsevents@^1.2.7:
     "@babel/plugin-syntax-jsx": ^7.12.13
     "@babel/preset-react": ^7.13.13
     "@changesets/cli": ^2.16.0
-    "@commitlint/cli": ^12.1.4
-    "@commitlint/config-conventional": ^12.1.4
     "@types/jest": ^26.0.24
     "@typescript-eslint/eslint-plugin": ^4.26.1
     "@typescript-eslint/parser": ^4.26.1
@@ -19934,7 +19560,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"q@npm:^1.1.2, q@npm:^1.5.1":
+"q@npm:^1.1.2":
   version: 1.5.1
   resolution: "q@npm:1.5.1"
   checksum: f610c1295a4f1b334affbe5333bc8c6160b907d011a62f1c6d05d4ca985535ea271fd8684e1e655b4659cc5b71f5be9ac4ccc84482d869b5a0576955598a7dca
@@ -20455,17 +20081,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:3, readable-stream@npm:^3.0.0, readable-stream@npm:^3.0.6, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.5.0, readable-stream@npm:^3.6.0":
-  version: 3.6.0
-  resolution: "readable-stream@npm:3.6.0"
-  dependencies:
-    inherits: ^2.0.3
-    string_decoder: ^1.1.1
-    util-deprecate: ^1.0.1
-  checksum: f178b1daa80d9e58ebba71dbb08486430aa6f0dea3a22a1b7401f3f6983077d0bc0edea43099db06b8d006c9ad48d6383e8fb72c05d5b187670aeaf1b9b44f00
-  languageName: node
-  linkType: hard
-
 "readable-stream@npm:^2.0.0, readable-stream@npm:^2.0.1, readable-stream@npm:^2.0.2, readable-stream@npm:^2.0.6, readable-stream@npm:^2.2.2, readable-stream@npm:^2.3.0, readable-stream@npm:^2.3.3, readable-stream@npm:^2.3.5, readable-stream@npm:^2.3.6, readable-stream@npm:~2.3.6":
   version: 2.3.7
   resolution: "readable-stream@npm:2.3.7"
@@ -20478,6 +20093,17 @@ fsevents@^1.2.7:
     string_decoder: ~1.1.1
     util-deprecate: ~1.0.1
   checksum: 6e3826560627a751feb3a8aec073ef94c6e47b8c8e06eb5d136323b5f09db9d2077c23a42a8d54ed0123695af54b36c1e4271a8ec55112b15f4b89020d8dec72
+  languageName: node
+  linkType: hard
+
+"readable-stream@npm:^3.0.6, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.5.0, readable-stream@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "readable-stream@npm:3.6.0"
+  dependencies:
+    inherits: ^2.0.3
+    string_decoder: ^1.1.1
+    util-deprecate: ^1.0.1
+  checksum: f178b1daa80d9e58ebba71dbb08486430aa6f0dea3a22a1b7401f3f6983077d0bc0edea43099db06b8d006c9ad48d6383e8fb72c05d5b187670aeaf1b9b44f00
   languageName: node
   linkType: hard
 
@@ -20922,15 +20548,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"resolve-global@npm:1.0.0, resolve-global@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "resolve-global@npm:1.0.0"
-  dependencies:
-    global-dirs: ^0.1.1
-  checksum: 337635c53b22fcaf1fa2a49ef3da34167893582ab3200bc28f7f013cb0a617db03c7f21ab7b124a6a85e8725cade7f3fb0f4618e54fed2e507078ce8a4c5c58b
-  languageName: node
-  linkType: hard
-
 "resolve-url@npm:^0.2.1":
   version: 0.2.1
   resolution: "resolve-url@npm:0.2.1"
@@ -21290,7 +20907,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"semver@npm:7.3.5, semver@npm:7.x, semver@npm:^7.2.1, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5":
+"semver@npm:7.x, semver@npm:^7.2.1, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5":
   version: 7.3.5
   resolution: "semver@npm:7.3.5"
   dependencies:
@@ -21442,7 +21059,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.28.0, sharp@npm:^0.28.1":
+"sharp@npm:^0.28.0":
   version: 0.28.3
   resolution: "sharp@npm:0.28.3"
   dependencies:
@@ -21948,15 +21565,6 @@ resolve@^2.0.0-next.3:
   dependencies:
     extend-shallow: ^3.0.0
   checksum: 9b610d1509f8213dad7d38b5f0b49109ab53c2a93e7886c370a66b9eeb723706cd01b04b61b3d906ff6369314429412f8fad54b93d57fa50103d85884f0c175f
-  languageName: node
-  linkType: hard
-
-"split2@npm:^3.0.0":
-  version: 3.2.2
-  resolution: "split2@npm:3.2.2"
-  dependencies:
-    readable-stream: ^3.0.0
-  checksum: 04bf20af25bfe917edbb7f719cc9dbd2ca16633e4e6a5e343a8c834310aafd802c74b3aceb96acf3571545b0340d55d2d3273dbee8f9bc6a811371dcfbe0c8a7
   languageName: node
   linkType: hard
 
@@ -22904,14 +22512,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"text-extensions@npm:^1.0.0":
-  version: 1.9.0
-  resolution: "text-extensions@npm:1.9.0"
-  checksum: fecf1f4962209f8309cd90b045305c417016c4afa34d9df58b0885b7031da57acdef0771512eb031dbc795759972089ff099ba944b0437576d0012eb20db7825
-  languageName: node
-  linkType: hard
-
-"text-kit@2.6.0, text-kit@workspace:packages/text-kit":
+"text-kit@3.0.0, text-kit@workspace:packages/text-kit":
   version: 0.0.0-use.local
   resolution: "text-kit@workspace:packages/text-kit"
   dependencies:
@@ -22961,16 +22562,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"through2@npm:^4.0.0":
-  version: 4.0.2
-  resolution: "through2@npm:4.0.2"
-  dependencies:
-    readable-stream: 3
-  checksum: 5a844792cf4fcdda0640ed3c619498724b2dfacfc24da438e1478bfd8d10a2831bd5824cf4ca8ec28a4fcd569b2acc7e8b0a673d269003009cb90e140e57a0ba
-  languageName: node
-  linkType: hard
-
-"through@npm:>=2.2.7 <3, through@npm:^2.3.6, through@npm:^2.3.8":
+"through@npm:^2.3.6, through@npm:^2.3.8":
   version: 2.3.8
   resolution: "through@npm:2.3.8"
   checksum: 918d9151680b5355990011eb8c4b02e8cb8cf6e9fb6ea3d3e5a1faa688343789e261634ae35de4ea9167ab029d1e7bac6af2fe61b843931768d405fdc3e8897c
@@ -23212,13 +22804,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"trim-off-newlines@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "trim-off-newlines@npm:1.0.1"
-  checksum: c590b9e8c1d91ac1b57b65f8ed7cc7837e702d86f47c725462cc7e03f3850dfa92a32f956d350632208aa78e9be03917a21d9ef5d139c30be13bb51bf576209f
-  languageName: node
-  linkType: hard
-
 "trim-repeated@npm:^1.0.0":
   version: 1.0.0
   resolution: "trim-repeated@npm:1.0.0"
@@ -23450,13 +23035,6 @@ resolve@^2.0.0-next.3:
   version: 0.13.1
   resolution: "type-fest@npm:0.13.1"
   checksum: 11acce4f34c75a838914bdc4a0133d2dd0864e313897471974880df82624159521bae691a6100ff99f93be2d0f8871ecdab18573d2c67e61905cf2f5cbfa52a6
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^0.18.0":
-  version: 0.18.1
-  resolution: "type-fest@npm:0.18.1"
-  checksum: 0d6d338e72b625a0d2c8fb4c138f5221301e40ac127e1b909bc12890ce358ef9cf11136e13aa0efd82e248bbeefd7148c01985dce2e5ab79d47a2efa75dfe8d2
   languageName: node
   linkType: hard
 
@@ -25293,7 +24871,7 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:20.x, yargs-parser@npm:^20.2.3":
+"yargs-parser@npm:20.x":
   version: 20.2.7
   resolution: "yargs-parser@npm:20.2.7"
   checksum: 124e7f1c24c9609d5d1c343f14b83289634e19bb43770708ebb6a19852647aaa0f89edcbf0e5b18a21bee77f54513ab5051518b2950cda69eb607a7c6251aa4f
@@ -25364,7 +24942,7 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"yargs@npm:^16.0.3, yargs@npm:^16.1.0, yargs@npm:^16.2.0":
+"yargs@npm:^16.0.3, yargs@npm:^16.1.0":
   version: 16.2.0
   resolution: "yargs@npm:16.2.0"
   dependencies:

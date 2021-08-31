@@ -6,7 +6,7 @@
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "dependencies": {
     "gatsby": "^3.10.0",
-    "gatsby-theme-blorg": "3.0.0",
+    "gatsby-theme-orga-posts": "3.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

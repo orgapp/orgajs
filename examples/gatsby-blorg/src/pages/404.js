@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout } from 'gatsby-theme-blorg'
+import { Layout } from 'gatsby-theme-orga-posts'
 
 const NotFound = () => {
   return (
