@@ -10,6 +10,9 @@ module.exports = (themeOptions) => {
       description: `Description placeholder`,
     },
     plugins: [
+      `gatsby-plugin-image`,
+      `gatsby-plugin-sharp`,
+      `gatsby-transformer-sharp`,
       {
         resolve: `gatsby-transformer-orga`,
         options: {

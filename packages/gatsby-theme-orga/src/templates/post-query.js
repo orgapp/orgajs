@@ -17,10 +17,7 @@ export const pageQuery = graphql`
       wordCount
       image {
         childImageSharp {
-          fluid(maxWidth: $maxWidth) {
-            ...GatsbyImageSharpFluid
-            src
-          }
+          gatsbyImageData(width: $maxWidth)
         }
       }
     }

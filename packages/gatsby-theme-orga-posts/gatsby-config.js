@@ -16,15 +16,13 @@ module.exports = (options) => {
     },
     plugins: [
       {
-        resolve: 'gatsby-theme-orga',
+        resolve: 'gatsby-theme-orga-posts-core',
         options: {
           ...options,
         },
       },
       `gatsby-plugin-react-helmet`,
       `gatsby-plugin-emotion`,
-      `gatsby-transformer-sharp`,
-      `gatsby-plugin-sharp`,
       {
         resolve: `gatsby-source-filesystem`,
         options: {
