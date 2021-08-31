@@ -1,5 +1,17 @@
 # Change Log
 
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies [6ed76057]
+- Updated dependencies [759e6149]
+  - @orgajs/estree-jsx@3.0.1
+  - @orgajs/loader@3.0.1
+  - @orgajs/rehype-estree@3.0.1
+  - @orgajs/reorg-rehype@3.0.1
+  - @orgajs/react@3.0.0
+
 ## 3.0.0
 
 ### Major Changes
