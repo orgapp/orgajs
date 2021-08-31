@@ -30,7 +30,7 @@ module.exports = (options) => {
         options: {
           name: `data`,
           path: `src`,
-          ignore: [`**/\.*`], // ignore files starting with a dot
+          ignore: ['**/.*'], // ignore files starting with a dot
         },
       },
       {

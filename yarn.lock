@@ -10328,6 +10328,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"example-gatsby-posts@workspace:examples/gatsby-posts":
+  version: 0.0.0-use.local
+  resolution: "example-gatsby-posts@workspace:examples/gatsby-posts"
+  dependencies:
+    gatsby: ^3.10.0
+    gatsby-theme-orga-posts: 3.0.0
+    prop-types: ^15.7.2
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-helmet: ^6.1.0
+  languageName: unknown
+  linkType: soft
+
 "execa@npm:^0.7.0":
   version: 0.7.0
   resolution: "execa@npm:0.7.0"
@@ -11256,19 +11269,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"gatsby-blorg@workspace:examples/gatsby-blorg":
-  version: 0.0.0-use.local
-  resolution: "gatsby-blorg@workspace:examples/gatsby-blorg"
-  dependencies:
-    gatsby: ^3.10.0
-    gatsby-theme-orga-posts: 3.0.0
-    prop-types: ^15.7.2
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-helmet: ^6.1.0
-  languageName: unknown
-  linkType: soft
-
 "gatsby-cli@npm:^3.10.0":
   version: 3.10.0
   resolution: "gatsby-cli@npm:3.10.0"
@@ -11940,9 +11940,9 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"gatsby-theme-orga-posts@3.0.0, gatsby-theme-orga-posts@workspace:packages/gatsby-theme-blorg":
+"gatsby-theme-orga-posts@3.0.0, gatsby-theme-orga-posts@workspace:packages/gatsby-theme-orga-posts":
   version: 0.0.0-use.local
-  resolution: "gatsby-theme-orga-posts@workspace:packages/gatsby-theme-blorg"
+  resolution: "gatsby-theme-orga-posts@workspace:packages/gatsby-theme-orga-posts"
   dependencies:
     gatsby-image: ^3.2.0
     gatsby-plugin-emotion: ^6.2.0
