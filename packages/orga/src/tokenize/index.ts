@@ -1,17 +1,19 @@
-import { read } from 'text-kit'
+import { read, Reader } from 'text-kit'
 import { Position } from 'unist'
 import defaultOptions, { ParseOptions } from '../options'
 import todoKeywordSet, { TodoKeywordSet } from '../todo-keyword-set'
 import { Token } from '../types'
-import tokenizeBlock from './block'
-import tokenizeDrawer from './drawer'
-import tokenizeFootnote from './footnote'
-import tokenizeHeadline from './headline'
+import block from './block'
+import comment from './comment'
+import drawer from './drawer'
+import footnote from './footnote'
+import headline from './headline'
+import hr from './hr'
 import { tokenize as inlineTok } from './inline'
-import tokenizeListItem from './list'
-import tokenizePlanning from './planning'
-import tokenizeTable from './table'
-import tokenizeKeyword from './keyword'
+import keyword from './keyword'
+import listItem from './list'
+import planning from './planning'
+import table from './table'
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
@@ -29,6 +31,8 @@ export interface Lexer {
   modify(f: (t: Token) => Token, offset?: number): void
 }
 
+type Tokenizer = (reader: Reader) => Token[] | Token | void
+
 export const tokenize = (
   text: string,
   options: Partial<ParseOptions> = {}
@@ -37,7 +41,7 @@ export const tokenize = (
 
   const reader = read(text)
 
-  const { now, eat, getLine, getChar, match, isStartOfLine } = reader
+  const { eat, getChar } = reader
 
   const globalTodoKeywordSets = todos.map(todoKeywordSet)
 
@@ -54,82 +58,48 @@ export const tokenize = (
   let cursor = 0
 
   const tok = (): Token[] => {
-    eat('whitespaces')
-    if (!getChar()) return []
+    const all: Token[] = []
+    // const emptyLine = tokenizeEmptyLine(reader)
+    // if (emptyLine) {
+    //   all.push(emptyLine)
+    // }
 
-    if (getChar() === '\n') {
-      return [
-        {
+    eat('whitespaces')
+
+    if (!getChar()) return all
+
+    const tokenizers: Tokenizer[] = [
+      ({ getChar, eat }) =>
+        getChar() === '\n' && {
           type: 'newline',
           position: eat('char').position,
         },
-      ]
-    }
+      headline(todoKeywordSets()),
+      drawer,
+      planning({ keywords: PLANNING_KEYWORDS, timezone }),
+      keyword,
+      block,
+      listItem,
+      comment,
+      table,
+      hr,
+      footnote,
+    ]
 
-    if (isStartOfLine() && match(/^\*+\s+/my)) {
-      return tokenizeHeadline({
-        reader,
-        todoKeywordSets: todoKeywordSets(),
-      })
-    }
-
-    const drawer = tokenizeDrawer(reader)
-    if (drawer.length > 0) return drawer
-
-    const l = getLine()
-    if (PLANNING_KEYWORDS.some((k) => l.startsWith(k))) {
-      return tokenizePlanning({
-        reader,
-        keywords: PLANNING_KEYWORDS,
-        timezone,
-      })
-    }
-
-    if (l.startsWith('#+')) {
-      const keyword = tokenizeKeyword(reader)
-      if (keyword.length > 0) return keyword
-
-      const block = tokenizeBlock(reader)
-      if (block.length > 0) return block
-    }
-
-    const list = tokenizeListItem(reader)
-    if (list.length > 0) return list
-
-    if (match(/^#\s/y)) {
-      const comment = match(/^#\s+(.*)$/my)
-      if (comment) {
-        eat('line')
-        return [
-          {
-            type: 'comment',
-            position: comment.position,
-            value: comment.result[1],
-          },
-        ]
+    for (const t of tokenizers) {
+      // console.log({ now: reader.now() })
+      const result = t(reader)
+      if (!result) continue
+      const tokens = Array.isArray(result) ? result : [result]
+      if (tokens.length > 0) {
+        return [...all, ...tokens]
       }
     }
 
-    const table = tokenizeTable(reader)
-    if (table.length > 0) return table
-
-    const hr = eat(/^\s*-{5,}\s*$/my)
-    if (hr) {
-      return [
-        {
-          type: 'hr',
-          position: hr.position,
-        },
-      ]
-    }
-
-    if (isStartOfLine()) {
-      const footnote = tokenizeFootnote(reader)
-      if (footnote.length > 0) return footnote
-    }
+    // console.log('none of them matches', { line: reader.getLine(), now: reader.now() })
 
     // last resort
-    return inlineTok(reader)
+    return [...all, ...inlineTok(reader)]
   }
 
   const peek = (offset = 0): Token | undefined => {
