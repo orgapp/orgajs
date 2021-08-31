@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies [0119c613]
+  - gatsby-transformer-orga@3.0.2
+
 ## 3.0.1
 
 ### Patch Changes

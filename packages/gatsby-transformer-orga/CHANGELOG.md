@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.2
+
+### Patch Changes
+
+- 0119c613: add missing files in gatsby-transformer-orga
+
 ## 3.0.1
 
 ### Patch Changes
