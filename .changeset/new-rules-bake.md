@@ -1,7 +1,8 @@
 ---
 '@orgajs/estree-jsx': patch
 'gatsby-plugin-orga': patch
-'gatsby-theme-blorg': patch
+'gatsby-theme-orga-posts': patch
+'gatsby-theme-orga-posts-core': patch
 'gatsby-transformer-orga': patch
 '@orgajs/loader': patch
 'oast-to-hast': patch
