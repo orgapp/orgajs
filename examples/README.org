@@ -1,0 +1,44 @@
+#+TITLE: Examples
+
+* A Little Bit Of Details About Gatsby Examples
+
+If you are trying to choose a gatsby example, here are some technical differences you should know.
+There are currently two styles of rendering org-mode content in gatsby.
+
+** [[file:~/Code/orgajs/packages/gatsby-transformer-orga/][gatsby-transformer-orga]] (original)
+This is the original implementation. To draw parity from the markdown world, the implementation is similar to gatsby-transformer-remark. It's a gatsby [[https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/creating-a-transformer-plugin/]["transfomer"]] plugin. To summaries, it taps into gatsby's build lifecycle and transform data source into gatsby nodes, eventually render them as web pages. You will get custom graphql types (=OrgContent=, if use the [[file:~/Code/orgajs/packages/gatsby-theme-orga-posts-core/][gatsby-theme-posts-core]] or [[file:~/Code/orgajs/packages/gatsby-theme-orga-posts/][gatsby-theme-posts]], it gets translated into =OrgPost= type). So you can generate your own custom pages like a post list page, with access to the org-mode content via graphql queries. Another special feature is the ability to generate multiple pages from sections within single org-mode file. Basically your org-mode files are *data*. Take a look at the following examples for details.
+- [[file:gatsby-posts/][gatsby-posts]]
+- [[file:gatsby-posts-core/][gatsby-posts-core]]
+
+** [[file:~/Code/orgajs/packages/gatsby-plugin-orga/][gatsby-plugin-orga]] (new)
+This is the latest implementation from the v3.x release. This is the equivalent of [[https://mdxjs.com][mdx]] on the markdown side. It is powered by the webpack loader [[file:~/Code/orgajs/packages/loader/][@orgajs/loader]], which enables orga to be easily integrated with a much wider range of tools (e.g. next.js, webpack, create-react-app etc...).
+
+You will get these new features
+- render react components in org-mode file, just like mdx
+- per file custom layout
+- passing arbitrary data to layout component via =#+key: value=.
+- replace default components with your own react components.
+
+Basically Your org files are powerful *pages*. the [[file:gatsby/][gatsby example project]] is a minimal setup. For more advanced example, you can draw some inspirations from the [[file:~/Code/orgajs/website/][website]] (it's source code for https://orga.js.org).
+
+** The Themes
+There are a couple of [[https://www.gatsbyjs.com/docs/themes/][gatsby themes]] you can choose if you want some out of the box goodies.
+
+- gatsby-theme-orga-posts-core :: Powered by =gatsby-transformer-orga=, transform your org files into blog posts, with zero UI elements (it literally print out stringified JSON objects by default). It's totally up to you to customize the look and feel.
+- gatsby-theme-orga-posts :: A wrapper around =gatsby-theme-posts-core=, with opinionated design. Yet still customizable to certain extend through [[https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/shadowing/][component shadowing]].
+- gatsby-theme-orga-docs :: Powered by =gatsby-plugin-orga=, this is what the [[file:~/Code/orgajs/website/][website]] is using. It's designed for documentation kind of websites, with swappable components (through shadowing)
+
+
+* Which example to follow
+
+If you...
+
+- use next.js
+  [[file:next/][next]]
+- want total control, build from scratch, use webpack
+  [[file:webpack/][webpack]]
+- use gatsby, want out-of-the-box blog-like website, mostly okay with the default layout
+  [[file:gatsby-posts/][gatsby-posts]]
+- use gatsby, want highly customized website
+  [[file:gatsby/][gatsby]]
+  if one-to-many export is needed: [[file:gatsby-posts-core/][gatsby-posts-core]].
