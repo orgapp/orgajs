@@ -1,5 +1,5 @@
 {
-  "name": "example-gatsby-posts-core",
+  "name": "@orgajs/example-gatsby-posts-core",
   "version": "1.0.2",
   "private": true,
   "description": "My Gatsby Site",
