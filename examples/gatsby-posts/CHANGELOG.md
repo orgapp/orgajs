@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.0.3
+
+### Patch Changes
+
+- Updated dependencies [eeea0c54]
+  - gatsby-theme-orga-posts@3.1.0
+
 ## 3.0.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies [eeea0c54]
+  - @orgajs/loader@3.1.0
+  - @orgajs/next@4.0.0
+
 ## 3.0.1
 
 ### Patch Changes

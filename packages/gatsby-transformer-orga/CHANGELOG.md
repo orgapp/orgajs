@@ -1,5 +1,18 @@
 # Change Log
 
+## 3.1.0
+
+### Minor Changes
+
+- eeea0c54: introduce new token: empty line
+
+### Patch Changes
+
+- Updated dependencies [eeea0c54]
+  - oast-to-hast@3.1.0
+  - orga@3.1.0
+  - orga-posts@3.1.0
+
 ## 3.0.2
 
 ### Patch Changes

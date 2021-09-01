@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.0.0
+
+### Minor Changes
+
+- eeea0c54: introduce new token: empty line
+
+### Patch Changes
+
+- Updated dependencies [eeea0c54]
+  - @orgajs/loader@3.1.0
+  - @orgajs/reorg-rehype@3.0.2
+  - @orgajs/react@3.0.0
+
 ## 3.0.1
 
 ### Patch Changes
