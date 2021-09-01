@@ -1,5 +1,6 @@
 import { Reader } from 'text-kit'
 import { Point } from 'unist'
+import { Tokenizer } from '.'
 import { Style, Token } from '../types'
 import uri from '../uri'
 
@@ -148,8 +149,6 @@ const tokFootnoteRefernece = (reader: Reader) => {
   return tokens
 }
 
-type Tokenizer = (reader: Reader) => Token[] | undefined
-
 const ALL: Tokenizer[] = [tokFootnoteRefernece, tokenizeLink, tokenizeText()]
 
 export const tokenize = (
@@ -193,7 +192,7 @@ export const tokenize = (
       const r = reader.read()
       const tokens = t(r)
       if (tokens) {
-        push(...tokens)
+        push(...(Array.isArray(tokens) ? tokens : [tokens]))
         jump(r.now())
         continue main
       }

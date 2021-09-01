@@ -3,6 +3,21 @@
   "properties": {},
   "children": [
     {
+      "type": "emptyLine",
+      "position": {
+        "start": {
+          "line": 4,
+          "column": 1,
+          "offset": 85
+        },
+        "end": {
+          "line": 5,
+          "column": 1,
+          "offset": 86
+        }
+      }
+    },
+    {
       "type": "section",
       "level": 1,
       "properties": {},

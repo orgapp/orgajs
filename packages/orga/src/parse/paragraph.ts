@@ -1,4 +1,4 @@
-import { Action, Handler, not } from '.'
+import { Action, Handler } from '.'
 import { Token } from '../types'
 import { clone, isPhrasingContent } from '../utils'
 import phrasingContent from './phrasing'
@@ -6,7 +6,8 @@ import phrasingContent from './phrasing'
 const isWhitespaces = (node: Token) => {
   return (
     (node.type === 'text' && node.value.trim().length === 0) ||
-    node.type === 'newline'
+    node.type === 'newline' ||
+    node.type === 'emptyLine'
   )
 }
 
@@ -15,7 +16,6 @@ const paragraph: Action = (
   { save, enter, restore, exit, exitTo, attributes }
 ): Handler => {
   save()
-  let eolCount = 0
   const paragraph = enter({
     type: 'paragraph',
     children: [],
@@ -39,21 +39,17 @@ const paragraph: Action = (
     name: 'paragraph',
     rules: [
       {
-        test: 'newline',
+        test: 'emptyLine',
         action: (_, { consume }) => {
-          eolCount += 1
-          if (eolCount >= 2) {
-            finish()
-            return 'break'
-          }
           consume()
+          finish()
+          return 'break'
         },
       },
       {
-        test: not('newline'),
-        action: () => {
-          eolCount = 0
-          return 'next'
+        test: 'newline',
+        action: (_, { consume }) => {
+          consume()
         },
       },
       {

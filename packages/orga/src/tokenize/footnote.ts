@@ -2,8 +2,9 @@ import { Reader } from 'text-kit'
 import { Token } from '../types'
 import { tokenize as tokenizeInline } from './inline'
 
-export default (reader: Reader): Token[] => {
-  const { match, jump, eat } = reader
+export default (reader: Reader): Token[] | void => {
+  const { isStartOfLine, match, jump, eat } = reader
+  if (!isStartOfLine()) return
   let tokens: Token[] = []
   const m = match(/^\[fn:([^\]]+)\](?=\s)/y)
   if (!m) return []

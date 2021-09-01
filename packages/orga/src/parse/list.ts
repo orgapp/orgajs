@@ -1,4 +1,4 @@
-import { Action, Handler, not } from '.'
+import { Action, Handler } from '.'
 import { ListItem, ListItemBullet, ListItemTag } from '../types'
 import { isPhrasingContent } from '../utils'
 import phrasingContent from './phrasing'
@@ -11,29 +11,18 @@ const listItem: Action = (token: ListItemBullet, { enter, consume }) => {
   })
   consume()
 
-  let eolCount = 0
-
   return {
     name: 'list item',
     rules: [
       {
-        test: not('newline'),
-        action: () => {
-          eolCount = 0
-          return 'next'
-        },
-      },
-      {
-        test: 'newline',
+        test: 'emptyLine',
         action: (_, { exit, consume }) => {
-          eolCount += 1
-          if (eolCount > 1) {
-            exit(item.type)
-            return 'break'
-          }
           consume()
+          exit(item.type)
+          return 'break'
         },
       },
+      { test: 'newline', action: (_, { consume }) => consume() },
       {
         test: 'list.item.tag',
         action: (token: ListItemTag, { consume }) => {
@@ -81,8 +70,9 @@ const list: Action = (token: ListItemBullet, context) => {
         },
       },
       {
-        test: 'newline',
-        action: (_, { exit, lexer }) => {
+        test: ['emptyLine', 'newline'],
+        action: (_, { exit, consume }) => {
+          consume()
           exit('list')
           return 'break'
         },
@@ -100,6 +90,13 @@ const list: Action = (token: ListItemBullet, context) => {
           } else {
             return list(token, context)
           }
+        },
+      },
+      {
+        test: /.*/,
+        action: (_, { exit }) => {
+          exit('list')
+          return 'break'
         },
       },
     ],

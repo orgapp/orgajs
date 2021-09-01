@@ -1,5 +1,5 @@
 {
-  "name": "example-gatsby-posts",
+  "name": "@orgajs/example-gatsby-posts",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Gatsby",
   "version": "3.0.2",
@@ -18,8 +18,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "predevelop": "rm -rf .cache public",
-    "develop": "gatsby develop",
+    "develop": "gatsby clean && gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",

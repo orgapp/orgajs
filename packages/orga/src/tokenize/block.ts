@@ -1,7 +1,7 @@
 import { Reader } from 'text-kit'
 import { Token } from '../types'
 
-export default (reader: Reader): Token[] => {
+export default (reader: Reader): Token[] | void => {
   const { match, eat, endOfLine } = reader
 
   const b = match(/#\+begin_([^\s\n]+)\s*(.*)$/imy, { end: endOfLine() })
@@ -32,6 +32,4 @@ export default (reader: Reader): Token[] => {
       },
     ]
   }
-
-  return []
 }

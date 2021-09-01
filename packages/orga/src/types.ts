@@ -129,6 +129,7 @@ export type Token =
   | Keyword
   | Todo
   | Newline
+  | EmptyLine
   | HorizontalRule
   | Stars
   | Priority
@@ -159,6 +160,10 @@ export interface HorizontalRule extends Node {
 
 export interface Newline extends Node {
   type: 'newline'
+}
+
+export interface EmptyLine extends Node {
+  type: 'emptyLine'
 }
 
 export type Style =
