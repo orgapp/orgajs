@@ -4,9 +4,9 @@
 
 You should choose...
 
-- [[file:gatsby/][gatsby]] :: if you use gatsby, want highly customized website, render react component directly in org file.
-- [[file:gatsby-posts/][gatsby-posts]] :: if you use gatsby, want out-of-the-box blog-like website, mostly okay with the default layout
-- [[file:gatsby-posts-core/][gatsby-posts-core]] :: if one-to-many export is needed
+- [[file:gatsby/][gatsby]] :: if you use gatsby, want highly customized website, render react component directly in org file. okay with one page per org file.
+- [[file:gatsby-posts/][gatsby-posts]] :: if you use gatsby, want out-of-the-box blog-like website. Organize posts into either files or sections in files. Mostly okay with the default layout.
+- [[file:gatsby-posts-core/][gatsby-posts-core]] :: if you want to customize gatsby-posts to the bone.
 - [[file:next/][next]] :: if you use next.js
 - [[file:webpack/][webpack]] :: if you want total control, build from scratch, use webpack
 
