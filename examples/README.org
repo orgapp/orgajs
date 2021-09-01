@@ -1,8 +1,18 @@
 #+TITLE: Examples
 
+* Which Example To Follow
+
+You should choose...
+
+- [[file:gatsby/][gatsby]] :: if you use gatsby, want highly customized website, render react component directly in org file.
+- [[file:gatsby-posts/][gatsby-posts]] :: if you use gatsby, want out-of-the-box blog-like website, mostly okay with the default layout
+- [[file:gatsby-posts-core/][gatsby-posts-core]] :: if one-to-many export is needed
+- [[file:next/][next]] :: if you use next.js
+- [[file:webpack/][webpack]] :: if you want total control, build from scratch, use webpack
+
 * A Little Bit Of Details About Gatsby Examples
 
-If you are trying to choose a gatsby example, here are some technical differences you should know.
+If you are trying to choose a gatsby example, here are some technical details that you should know.
 There are currently two styles of rendering org-mode content in gatsby.
 
 ** [[file:~/Code/orgajs/packages/gatsby-transformer-orga/][gatsby-transformer-orga]] (original)
@@ -22,23 +32,9 @@ You will get these new features
 Basically Your org files are powerful *pages*. the [[file:gatsby/][gatsby example project]] is a minimal setup. For more advanced example, you can draw some inspirations from the [[file:~/Code/orgajs/website/][website]] (it's source code for https://orga.js.org).
 
 ** The Themes
-There are a couple of [[https://www.gatsbyjs.com/docs/themes/][gatsby themes]] you can choose if you want some out of the box goodies.
+There are a couple of [[https://www.gatsbyjs.com/docs/themes/][gatsby themes]] you can choose from if you want some out of the box goodies. Also they are good resources for creating your own theme.
 
-- gatsby-theme-orga-posts-core :: Powered by =gatsby-transformer-orga=, transform your org files into blog posts, with zero UI elements (it literally print out stringified JSON objects by default). It's totally up to you to customize the look and feel.
-- gatsby-theme-orga-posts :: A wrapper around =gatsby-theme-posts-core=, with opinionated design. Yet still customizable to certain extend through [[https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/shadowing/][component shadowing]].
+- gatsby-theme-orga-posts-core :: Powered by =gatsby-transformer-orga=, it transforms your org files into blog posts, with zero UI elements (it literally print out stringified JSON objects by default). It's totally up to you to customize the look and feel.
+- gatsby-theme-orga-posts :: A wrapper around =gatsby-theme-posts-core=, with opinionated UI design. Yet still customizable to certain extend through [[https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/shadowing/][component shadowing]].
 - gatsby-theme-orga-docs :: Powered by =gatsby-plugin-orga=, this is what the [[file:~/Code/orgajs/website/][website]] is using. It's designed for documentation kind of websites, with swappable components (through shadowing)
 
-
-* Which example to follow
-
-If you...
-
-- use next.js
-  [[file:next/][next]]
-- want total control, build from scratch, use webpack
-  [[file:webpack/][webpack]]
-- use gatsby, want out-of-the-box blog-like website, mostly okay with the default layout
-  [[file:gatsby-posts/][gatsby-posts]]
-- use gatsby, want highly customized website
-  [[file:gatsby/][gatsby]]
-  if one-to-many export is needed: [[file:gatsby-posts-core/][gatsby-posts-core]].
