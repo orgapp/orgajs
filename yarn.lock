@@ -3375,6 +3375,30 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@orgajs/example-gatsby-posts-core@workspace:examples/gatsby-posts-core":
+  version: 0.0.0-use.local
+  resolution: "@orgajs/example-gatsby-posts-core@workspace:examples/gatsby-posts-core"
+  dependencies:
+    gatsby: ^3.10.0
+    gatsby-theme-orga-posts-core: 3.0.2
+    react: ^17.0.1
+    react-dom: ^17.0.1
+  languageName: unknown
+  linkType: soft
+
+"@orgajs/example-gatsby-posts@workspace:examples/gatsby-posts":
+  version: 0.0.0-use.local
+  resolution: "@orgajs/example-gatsby-posts@workspace:examples/gatsby-posts"
+  dependencies:
+    gatsby: ^3.10.0
+    gatsby-theme-orga-posts: 3.0.2
+    prop-types: ^15.7.2
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-helmet: ^6.1.0
+  languageName: unknown
+  linkType: soft
+
 "@orgajs/example-gatsby@workspace:examples/gatsby":
   version: 0.0.0-use.local
   resolution: "@orgajs/example-gatsby@workspace:examples/gatsby"
@@ -10389,30 +10413,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"example-gatsby-posts-core@workspace:examples/gatsby-posts-core":
-  version: 0.0.0-use.local
-  resolution: "example-gatsby-posts-core@workspace:examples/gatsby-posts-core"
-  dependencies:
-    gatsby: ^3.10.0
-    gatsby-theme-orga-posts-core: 3.0.2
-    react: ^17.0.1
-    react-dom: ^17.0.1
-  languageName: unknown
-  linkType: soft
-
-"example-gatsby-posts@workspace:examples/gatsby-posts":
-  version: 0.0.0-use.local
-  resolution: "example-gatsby-posts@workspace:examples/gatsby-posts"
-  dependencies:
-    gatsby: ^3.10.0
-    gatsby-theme-orga-posts: 3.0.2
-    prop-types: ^15.7.2
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-helmet: ^6.1.0
-  languageName: unknown
-  linkType: soft
-
 "execa@npm:^0.7.0":
   version: 0.7.0
   resolution: "execa@npm:0.7.0"
@@ -11660,7 +11660,7 @@ fsevents@^1.2.7:
     unist-util-select: 3.0.4
     unist-util-visit: 2.0.3
   peerDependencies:
-    gatsby: ^2.0.0
+    gatsby: ^3.0.0
     gatsby-plugin-sharp: "*"
     react: ^16.9.0 || ^17.0.0
     react-dom: ^16.9.0 || ^17.0.0
