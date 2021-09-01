@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.0
+
+### Minor Changes
+
+- eeea0c54: introduce new token: empty line
+
 ## 3.0.1
 
 ### Patch Changes
