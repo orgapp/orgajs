@@ -6,6 +6,21 @@
   },
   "children": [
     {
+      "type": "emptyLine",
+      "position": {
+        "start": {
+          "line": 3,
+          "column": 1,
+          "offset": 45
+        },
+        "end": {
+          "line": 4,
+          "column": 1,
+          "offset": 46
+        }
+      }
+    },
+    {
       "type": "paragraph",
       "children": [
         {

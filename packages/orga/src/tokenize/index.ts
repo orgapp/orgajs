@@ -14,6 +14,7 @@ import keyword from './keyword'
 import listItem from './list'
 import planning from './planning'
 import table from './table'
+import emptyLines from './empty'
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
@@ -31,7 +32,7 @@ export interface Lexer {
   modify(f: (t: Token) => Token, offset?: number): void
 }
 
-type Tokenizer = (reader: Reader) => Token[] | Token | void
+export type Tokenizer = (reader: Reader) => Token[] | Token | void
 
 export const tokenize = (
   text: string,
@@ -41,7 +42,7 @@ export const tokenize = (
 
   const reader = read(text)
 
-  const { isStartOfLine, eat, getChar } = reader
+  const { eat, getChar } = reader
 
   const globalTodoKeywordSets = todos.map(todoKeywordSet)
 
@@ -58,16 +59,7 @@ export const tokenize = (
   let cursor = 0
 
   const tok = (): Token[] => {
-    const all: Token[] = []
-    if (isStartOfLine()) {
-      const l = reader.getLine()
-      if (l && l.replace(/\s/g, '').length === 0) {
-        all.push({
-          type: 'emptyLine',
-          position: reader.eat('line').position,
-        })
-      }
-    }
+    const all = emptyLines(reader)
 
     eat('whitespaces')
 
@@ -104,7 +96,10 @@ export const tokenize = (
     // console.log('none of them matches', { line: reader.getLine(), now: reader.now() })
 
     // last resort
-    return [...all, ...inlineTok(reader)]
+    const currentLine = reader.read({ end: reader.endOfLine() })
+    const inlineTokens = inlineTok(currentLine)
+    reader.jump(currentLine.now())
+    return [...all, ...inlineTokens]
   }
 
   const peek = (offset = 0): Token | undefined => {

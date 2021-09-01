@@ -58,19 +58,15 @@ const main: Handler = {
   name: 'main',
   rules: [
     {
-      test: 'newline',
+      test: 'emptyLine',
       action: (_, context) => {
-        const { lexer, exit } = context
-        const numerOfNewlines = lexer.eatAll('newline')
-        if (numerOfNewlines > 0) {
-          context.attributes = {}
-        }
-        if (numerOfNewlines > 1) {
-          exit('footnote', false)
-        }
-        return 'next'
+        const { consume, exit } = context
+        context.attributes = {}
+        exit('footnote', false)
+        consume()
       },
     },
+    { test: 'newline', action: (_, { consume }) => consume() },
     { test: 'stars', action: section },
     { test: 'keyword', action: keyword },
     { test: 'list.item.bullet', action: list },

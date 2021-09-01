@@ -3,7 +3,6 @@
 console.log('named code block')
 #+END_SRC
 
-
 #+NAME: code_block
 
 #+BEGIN_SRC javascript

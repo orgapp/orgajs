@@ -18,8 +18,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "predevelop": "rm -rf .cache public",
-    "develop": "gatsby develop",
+    "develop": "gatsby clean && gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",

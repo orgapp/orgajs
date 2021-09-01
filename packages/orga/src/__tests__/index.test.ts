@@ -46,20 +46,26 @@ declare global {
 }
 
 expect.extend({
-  async toMatchTree(file) {
+  async toMatchTree({ text, file, tree }) {
     let message = 'should not match tree'
     let pass = false
-
-    const text = await fs.readFile(file, { encoding: 'utf8' })
-    const tree = parse(text, { timezone: 'Pacific/Auckland' })
     const json = JSON.stringify(tree, null, 2)
     const treeFile = file.replace(/\.org$/, '.json')
-    if (!existsSync(treeFile) || update) {
+    let baseline = ''
+    let shouldUpdate = update
+    if (existsSync(treeFile)) {
+      baseline = await fs.readFile(treeFile, { encoding: 'utf8' })
+      if (baseline.startsWith('update')) {
+        shouldUpdate = true
+      }
+    } else {
+      shouldUpdate = true
+    }
+    if (shouldUpdate) {
       pass = true
       console.log(` - write tree to ${treeFile}`)
       await fs.writeFile(treeFile, json, 'utf8')
     } else {
-      const baseline = await fs.readFile(treeFile, { encoding: 'utf8' })
       pass = this.equals(baseline.trim(), json.trim())
       if (!pass) {
         message = diff(baseline, json, {
@@ -77,6 +83,8 @@ expect.extend({
 
 describe('parser', () => {
   test.each(specs)('$name', async ({ input }) => {
-    await expect(input).toMatchTree()
+    const text = await fs.readFile(input, { encoding: 'utf8' })
+    const tree = parse(text, { timezone: 'Pacific/Auckland' })
+    await expect({ text, tree, file: input }).toMatchTree()
   })
 })
