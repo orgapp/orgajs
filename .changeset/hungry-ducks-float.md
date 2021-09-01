@@ -1,11 +1,6 @@
 ---
-'@orgajs/example-gatsby-posts': minor
-'@orgajs/example-gatsby-posts-core': minor
 'gatsby-transformer-orga': minor
-'@orgajs/example-gatsby': minor
 '@orgajs/getting-started': minor
-'@orgajs/example-next': minor
-'@orgajs/example-webpack': minor
 'gatsby-plugin-orga': minor
 'gatsby-theme-orga-docs': minor
 'gatsby-theme-orga-posts': minor
