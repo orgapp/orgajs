@@ -41,7 +41,7 @@ export const tokenize = (
 
   const reader = read(text)
 
-  const { eat, getChar } = reader
+  const { isStartOfLine, eat, getChar } = reader
 
   const globalTodoKeywordSets = todos.map(todoKeywordSet)
 
@@ -59,10 +59,15 @@ export const tokenize = (
 
   const tok = (): Token[] => {
     const all: Token[] = []
-    // const emptyLine = tokenizeEmptyLine(reader)
-    // if (emptyLine) {
-    //   all.push(emptyLine)
-    // }
+    if (isStartOfLine()) {
+      const l = reader.getLine()
+      if (l && l.replace(/\s/g, '').length === 0) {
+        all.push({
+          type: 'emptyLine',
+          position: reader.eat('line').position,
+        })
+      }
+    }
 
     eat('whitespaces')
 

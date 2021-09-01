@@ -539,67 +539,67 @@ describe('Inline Tokenization', () => {
 Special characters =~= and =!=. Also =~/.this/path= and ~that~ thing.
 `
     expect(tokenize(content)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": "
-      ",
-          "type": "newline",
-        },
-        Object {
-          "_text": "Special characters ",
-          "type": "text",
-          "value": "Special characters ",
-        },
-        Object {
-          "_text": "=~=",
-          "style": "verbatim",
-          "type": "text",
-          "value": "~",
-        },
-        Object {
-          "_text": " and ",
-          "type": "text",
-          "value": " and ",
-        },
-        Object {
-          "_text": "=!=",
-          "style": "verbatim",
-          "type": "text",
-          "value": "!",
-        },
-        Object {
-          "_text": ". Also ",
-          "type": "text",
-          "value": ". Also ",
-        },
-        Object {
-          "_text": "=~/.this/path=",
-          "style": "verbatim",
-          "type": "text",
-          "value": "~/.this/path",
-        },
-        Object {
-          "_text": " and ",
-          "type": "text",
-          "value": " and ",
-        },
-        Object {
-          "_text": "~that~",
-          "style": "code",
-          "type": "text",
-          "value": "that",
-        },
-        Object {
-          "_text": " thing.",
-          "type": "text",
-          "value": " thing.",
-        },
-        Object {
-          "_text": "
-      ",
-          "type": "newline",
-        },
-      ]
-    `)
+Array [
+  Object {
+    "_text": "
+",
+    "type": "emptyLine",
+  },
+  Object {
+    "_text": "Special characters ",
+    "type": "text",
+    "value": "Special characters ",
+  },
+  Object {
+    "_text": "=~=",
+    "style": "verbatim",
+    "type": "text",
+    "value": "~",
+  },
+  Object {
+    "_text": " and ",
+    "type": "text",
+    "value": " and ",
+  },
+  Object {
+    "_text": "=!=",
+    "style": "verbatim",
+    "type": "text",
+    "value": "!",
+  },
+  Object {
+    "_text": ". Also ",
+    "type": "text",
+    "value": ". Also ",
+  },
+  Object {
+    "_text": "=~/.this/path=",
+    "style": "verbatim",
+    "type": "text",
+    "value": "~/.this/path",
+  },
+  Object {
+    "_text": " and ",
+    "type": "text",
+    "value": " and ",
+  },
+  Object {
+    "_text": "~that~",
+    "style": "code",
+    "type": "text",
+    "value": "that",
+  },
+  Object {
+    "_text": " thing.",
+    "type": "text",
+    "value": " thing.",
+  },
+  Object {
+    "_text": "
+",
+    "type": "newline",
+  },
+]
+`)
   })
 })
