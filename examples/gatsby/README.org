@@ -1,4 +1,4 @@
-#+title: Orgajs Gatsby Example
+#+title: Orgajs + Gatsby
 
 This project demonstrates how to use orgajs in a Gatsby website.
 
@@ -6,20 +6,6 @@ This project demonstrates how to use orgajs in a Gatsby website.
 
 * Running locally
 
-1. clone the repo
-   #+begin_src sh
-   git clone git@github.com:orgapp/orgajs.git
-   #+end_src
-2. navigate to this example
-   #+begin_src sh
-   cd orgajs/examples/gatsby
-   #+end_src
-3. install dependencies
-   #+begin_src sh
-   yarn
-   #+end_src
-4. run the site
-   #+begin_src sh
-   yarn develop
-   #+end_src
-
+#+begin_src shell
+yarn develop
+#+end_src

@@ -63,6 +63,9 @@ The React Framework
 Because orga is native to webpack, it's fairly simply to intergrate with nextjs. [[https://github.com/orgapp/orgajs/tree/develop/examples/next][Example project]].
 
 
+* Examples
+Take a look at the [[https://github.com/orgapp/orgajs/tree/main/examples][collection of examples]] to quickly get started.
+
 * Contribute
 
 See the [[file:CONTRIBUTING.org][contributing file]] for ways to get started.

@@ -1,0 +1,14 @@
+#+title: Webpack + Orga
+
+This is a minimal webpack website that recognizes org-mode files as pages.
+
+-----
+
+* Running locally
+
+See the [[file:~/Code/orgajs/examples/README.org][setup instructions]] before using this project.
+
+#+begin_src shell
+yarn start
+#+end_src
+
