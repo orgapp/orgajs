@@ -6,6 +6,8 @@ This project demonstrates how to use orgajs in a Gatsby website.
 
 * Running locally
 
+See the [[file:../README.org][setup instructions]] before using this project.
+
 #+begin_src shell
 yarn develop
 #+end_src

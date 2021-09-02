@@ -6,7 +6,7 @@ This example creates a blog-like website with zero style.
 
 * Running locally
 
-See the [[file:~/Code/orgajs/examples/README.org][setup instructions]] before using this project.
+See the [[file:../README.org][setup instructions]] before using this project.
 
 #+begin_src shell
 yarn develop
