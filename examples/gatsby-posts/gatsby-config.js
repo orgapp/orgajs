@@ -5,6 +5,12 @@ module.exports = {
     author: `Xiaoxing Hu`,
     twitter: 'xiaoxinghu',
     github: 'xiaoxinghu',
+    siteUrl: `https://orga.js.org`,
+    social: [
+      { name: 'twitter', url: 'https://twitter.com/xiaoxinghu' },
+      { name: 'website', url: 'https://huxiaoxing.com' },
+      { name: 'email', url: 'mailto:contact@huxx.org' },
+    ],
   },
   plugins: [
     {
