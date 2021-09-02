@@ -20,10 +20,11 @@
     "gatsby": "^3.0.0"
   },
   "dependencies": {
-    "gatsby-image": "^3.2.0",
     "gatsby-plugin-emotion": "^6.2.0",
+    "gatsby-plugin-image": "^1.13.0",
     "gatsby-plugin-offline": "^4.2.0",
     "gatsby-plugin-react-helmet": "^4.2.0",
+    "gatsby-plugin-sharp": "^3.13.0",
     "gatsby-plugin-theme-ui": "0.6.2",
     "gatsby-theme-orga-posts-core": "3.1.0",
     "gatsby-transformer-toml": "^3.2.0",

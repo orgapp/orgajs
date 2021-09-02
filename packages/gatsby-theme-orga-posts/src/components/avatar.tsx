@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { graphql, useStaticQuery } from 'gatsby'
-import Image from 'gatsby-image'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { jsx } from 'theme-ui'
 
 export default ({ width = [80, 120] }) => {
@@ -8,17 +8,16 @@ export default ({ width = [80, 120] }) => {
     query BioQuery {
       avatar: file(absolutePath: { regex: "/avatar.(jpeg|jpg|gif|png)/" }) {
         childImageSharp {
-          fluid(maxWidth: 120, maxHeight: 120) {
-            ...GatsbyImageSharpFluid_noBase64
-          }
+          gatsbyImageData(width: 120, height: 120, layout: CONSTRAINED)
         }
       }
     }
   `)
 
   return (
-    <Image
-      fluid={avatar.childImageSharp.fluid}
+    <GatsbyImage
+      image={getImage(avatar)}
+      alt={''}
       sx={{
         width,
         borderRadius: '50%',

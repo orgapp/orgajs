@@ -1,10 +1,10 @@
-import Image from 'gatsby-image'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 const PostHero = ({ post }) => (
   <div>
     {post?.image?.childImageSharp && (
-      <Image
-        fluid={post.image.childImageSharp.fluid}
+      <GatsbyImage
+        image={getImage(post.image)}
         alt={post.imageAlt ? post.imageAlt : post.excerpt}
       />
     )}

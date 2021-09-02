@@ -12,6 +12,8 @@ import { FaTags as TagsIcon } from 'react-icons/fa'
 import SEO from './seo'
 import Tags from './tags'
 
+import { getSrc } from "gatsby-plugin-image"
+
 export default ({ data }) => {
   const post = data.orgPost
 
@@ -20,7 +22,7 @@ export default ({ data }) => {
       <SEO
         title={post.title}
         description={post.excerpt}
-        imageSource={post.image?.childImageSharp?.fluid.src}
+        imageSource={getSrc(post.image)}
         keywords={[post.category, ...(post.tags || [])]}
       />
       <Container variant="content">
