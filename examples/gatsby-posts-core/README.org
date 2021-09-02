@@ -1,0 +1,25 @@
+#+title: Gatsby Blog-like Website (without styles)
+
+This example creates a blog-like website with zero style.
+
+-----
+
+* Running locally
+
+See the [[file:../README.org][setup instructions]] before using this project.
+
+#+begin_src shell
+yarn develop
+#+end_src
+
+* Where Things Are
+
+#+begin_example
+.
++-- README.org
++-- content // your content is here by default
+│   +-- posts.org
+│   +-- ...
+│
++-- src // your typical gatsby stuff
+#+end_example

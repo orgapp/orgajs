@@ -1,6 +1,6 @@
-#+title: Orgajs + Gatsby
+#+title: Webpack + Orga
 
-This project demonstrates how to use orgajs in a Gatsby website.
+This is a minimal webpack website that recognizes org-mode files as pages.
 
 -----
 
@@ -9,5 +9,6 @@ This project demonstrates how to use orgajs in a Gatsby website.
 See the [[file:../README.org][setup instructions]] before using this project.
 
 #+begin_src shell
-yarn develop
+yarn start
 #+end_src
+

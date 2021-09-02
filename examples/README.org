@@ -1,5 +1,18 @@
 #+TITLE: Examples
 
+* Setup
+
+Before using any of the examples, you have to build the monorepo.
+
+#+begin_src shell
+git clone git@github.com:orgapp/orgajs.git
+cd orgajs
+yarn
+yarn build
+#+end_src
+
+Now you can =cd= into specific example project directory and start hacking.
+
 * Which Example To Follow
 
 You should choose...
