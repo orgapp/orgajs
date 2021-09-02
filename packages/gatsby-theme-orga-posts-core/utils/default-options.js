@@ -8,6 +8,8 @@ const defaultOptions = {
   columns: 2,
   indexPath: '/',
   imageMaxWidth: 1380,
+  listImageWidth: 200,
+  listImageHeight: 134,
   categoryIndexPath: (category) => `/${category}`,
   tagIndexPath: (tag) => `/:${tag}:`,
   slug: ({ export_file_name }) => path.resolve('/', export_file_name || ''),

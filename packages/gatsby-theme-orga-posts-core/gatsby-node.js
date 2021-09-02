@@ -130,6 +130,8 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     categoryIndexPath,
     tagIndexPath,
     imageMaxWidth,
+    listImageWidth,
+    listImageHeight,
     columns,
   } = withDefaults(themeOptions)
 
@@ -175,6 +177,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   })
 
   // create category index
+  const indexContextDefault = { columns, width: listImageWidth, height: listImageHeight }
   if (categoryIndexPath) {
     const categories = _.flow(
       _.map(_.get('category')),
@@ -191,7 +194,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
         posts: _.filter({ category })(posts),
         pagination,
         component: PostsTemplate,
-        context: { columns },
+        context: { ...indexContextDefault },
       })
     })
   }
@@ -209,7 +212,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
         posts: posts.filter((p) => p.tags.includes(tag)),
         pagination,
         component: PostsTemplate,
-        context: { tag, columns },
+        context: { ...indexContextDefault, tag },
       })
     })
   }
@@ -222,7 +225,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
       posts,
       pagination,
       component: PostsTemplate,
-      context: { columns },
+      context: { ...indexContextDefault },
     })
   }
 }
