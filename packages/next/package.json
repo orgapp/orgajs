@@ -20,7 +20,8 @@
   "dependencies": {
     "@orgajs/estree-jsx": "3.0.1",
     "@orgajs/rehype-estree": "3.0.1",
-    "@orgajs/reorg-rehype": "3.0.2"
+    "@orgajs/reorg-rehype": "3.0.2",
+    "ast-types": "^0.14.2"
   },
   "devDependencies": {
     "@types/hast": "^2.3.2",
