@@ -1,11 +1,10 @@
 import { Properties } from 'hast'
 import { List, ListItem, ListItemCheckbox } from 'orga'
 import { Context } from '../'
-import { all } from '../transform'
 
 /* Transform a list. */
 export default (node: List, context: Context) => {
-  const { h } = context
+  const { h, all } = context
 
   let tagName = node.ordered ? 'ol' : 'ul'
   if (node.children.every((i) => i['tag'])) {
@@ -14,18 +13,18 @@ export default (node: List, context: Context) => {
   return h(
     tagName,
     node.attributes.attr_html as Properties
-  )(...all(context)(node.children))
+  )(...all(node.children, context))
 }
 
 export const item = (node: ListItem, context: Context) => {
-  const { h, u } = context
+  const { h, u, all } = context
   if (node.tag) {
     return h('div')(
       h('dt')(u('text', node.tag)),
-      h('dd')(...all(context)(node.children))
+      h('dd')(...all(node.children, context))
     )
   }
-  return h('li')(...all(context)(node.children))
+  return h('li')(...all(node.children, context))
 }
 
 export const checkbox = (node: ListItemCheckbox, { h }: Context) => {

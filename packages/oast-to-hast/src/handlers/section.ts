@@ -1,6 +1,5 @@
 import { Headline, Section } from 'orga'
 import { Context } from '../'
-import { all } from '../transform'
 
 const match = (array1: string[], array2: string[]): boolean => {
   if (!array1 || !array2) return false
@@ -8,7 +7,7 @@ const match = (array1: string[], array2: string[]): boolean => {
 }
 
 export default (node: Section, context: Context) => {
-  const { selectTags, excludeTags, h } = context
+  const { selectTags, excludeTags, h, all } = context
 
   const headline = node.children.find((n) => n.type === 'headline') as Headline
   // if (!headline) return undefined
@@ -21,5 +20,5 @@ export default (node: Section, context: Context) => {
     }
   }
 
-  return h('div', { className: ['section'] })(...all(context)(node.children))
+  return h('div', { className: ['section'] })(...all(node.children, context))
 }

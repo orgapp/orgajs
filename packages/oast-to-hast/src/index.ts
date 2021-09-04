@@ -1,8 +1,9 @@
 import { Comment, Element, Properties, Root, Text, Literal } from 'hast'
+import { Node } from 'unist'
 import { Attributes, Document, Section } from 'orga'
 import u from 'unist-builder'
 import handlers, { Handler } from './handlers'
-import { all } from './transform'
+import { all as _all } from './transform'
 
 // the raw type is used to pass literal html directly
 // it's useful for things like code block with syntax highlight
@@ -59,6 +60,7 @@ const h =
 
 export interface Context extends Options {
   data: any
+  all: <C extends Context>(nodes: Node[], context: C) => HNode[]
   h: typeof h
   u: typeof u
 }
@@ -78,6 +80,9 @@ export default (
     u,
     ...options,
     handlers: { ...handlers, ...options.handlers },
+    all: function (nodes, context) {
+      return _all(context)(nodes)
+    },
   }
 
   const eTags = oast.properties['exclude_tags']
@@ -95,7 +100,7 @@ export default (
       .map((t) => t.trim())
       .filter(Boolean)
   }
-  const children = all(context)(oast.children) as Root['children']
+  const children = _all(context)(oast.children) as Root['children']
 
   return u('root', { data: oast.properties }, children)
 }

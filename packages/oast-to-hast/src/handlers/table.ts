@@ -1,23 +1,23 @@
 import { Properties } from 'hast'
 import { Table, TableCell, TableRow } from 'orga'
 import { Context, HNode } from '../'
-import { all } from '../transform'
 
 interface TableContext extends Context {
   isHead: boolean
 }
 
 export const tableRow = (node: TableRow, context: TableContext) => {
-  return context.h('tr')(...all(context)(node.children))
+  const { h, all } = context
+  return h('tr')(...all(node.children, context))
 }
 
 export const tableCell = (node: TableCell, context: TableContext) => {
-  const { isHead, h } = context
-  return h(isHead ? 'th' : 'td')(...all(context)(node.children))
+  const { isHead, h, all } = context
+  return h(isHead ? 'th' : 'td')(...all(node.children, context))
 }
 
 export const table = (node: Table, context: Context) => {
-  const { h, u } = context
+  const { h, u, all } = context
 
   const nodes: HNode[] = []
   let children = node.children
@@ -32,7 +32,7 @@ export const table = (node: Table, context: Context) => {
     const isHead = hrCount === 0 && i > 0
 
     nodes.push(
-      h(isHead ? 'thead' : 'tbody')(...all({ ...context, isHead })(chunk))
+      h(isHead ? 'thead' : 'tbody')(...all(chunk, { ...context, isHead }))
     )
 
     hrCount += 1

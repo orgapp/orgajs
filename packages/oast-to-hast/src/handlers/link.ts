@@ -1,17 +1,16 @@
 import mime from 'mime'
 import { Link } from 'orga'
 import { Context, HNode } from '../'
-import { all } from '../transform'
 
 export default (node: Link, context: Context) => {
-  const { h, u, properties, attributes } = context
+  const { h, u, all, properties, attributes } = context
   const { path, children } = node
 
   const type = mime.getType(path.value)
 
   let description: HNode[] = []
   if (children.length > 0) {
-    description = all(context)(children)
+    description = all(children, context)
   } else {
     description = [u('text', path.value)]
   }
