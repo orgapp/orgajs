@@ -8,7 +8,6 @@ function estree2jsx(options: Partial<Options> = {}) {
 
   function compiler(tree) {
     const code = toJs(tree)
-    console.dir(code)
     return [settings.pragma, settings.renderer, code].join('\n')
   }
 

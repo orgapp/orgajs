@@ -19,11 +19,6 @@ interface PluginOptions {
   }
 }
 
-const debug = () => (tree, file) => {
-  console.dir(file.contents)
-  return tree
-}
-
 const link: Handler = (node: Link, context) => {
   const { h, all, defaultHandler } = context
   if (node.path.protocol === 'file' && node.path.value.endsWith('.org')) {
