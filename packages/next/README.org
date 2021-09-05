@@ -1,0 +1,19 @@
+#+TITLE: @orgajs/next
+
+Use [[https://github.com/orgapp/orgajs][Orga]] with [[https://github.com/vercel/next.js][Next.js]].
+
+* Installation
+
+#+begin_src shell
+yarn add @orgajs/next @orgajs/loader @orgajs/react
+#+end_src
+
+* Usage
+
+#+begin_src javascript
+// next.config.js
+const withOrga = require('@orgajs/next')()
+module.exports = withOrga({
+  pageExtensions: ['js', 'jsx', 'tsx', 'org']
+})
+#+end_src

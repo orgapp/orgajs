@@ -3483,7 +3483,6 @@ __metadata:
     "@orgajs/estree-jsx": 3.0.1
     "@orgajs/rehype-estree": 3.0.1
     "@orgajs/reorg-rehype": 3.0.2
-    "@orgajs/reorg-shiki": 1.0.0
     "@types/hast": ^2.3.2
     "@types/node": ^16.4.0
     ast-types: ^0.14.2

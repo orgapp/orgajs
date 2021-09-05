@@ -1,57 +1,59 @@
 import toJsx, { Options as EstreeJsxOptions } from '@orgajs/estree-jsx'
 import toEstree, { Options as RehypeEstreeOptions } from '@orgajs/rehype-estree'
 import toRehype, { Options as ReorgRehypeOptions } from '@orgajs/reorg-rehype'
-import { Handler } from 'oast-to-hast'
-import { Link } from 'orga'
+import { Plugin } from 'unified'
 import { processImage } from './image'
+import handleLink from './link'
 
 const renderer = `import React from 'react'
 import {orga} from '@orgajs/react'
-import { graphql } from 'gatsby'
 `
 
 interface PluginOptions {
   extension: RegExp
-  options: {
-    reorg_rehype: ReorgRehypeOptions
-    rehype_estree: RehypeEstreeOptions
-    estree_jsx: EstreeJsxOptions
+  reorg: { plugins: Plugin[] }
+  rehype: Partial<ReorgRehypeOptions> & { plugins: Plugin[] }
+  estree: Partial<RehypeEstreeOptions> & { plugins: Plugin[] }
+  jsx: Partial<EstreeJsxOptions>
+}
+
+const withDefault = (options: Partial<PluginOptions>): PluginOptions => {
+  const { handlers: rehypeHandlers, ...rehypeOptions } = options.rehype || {}
+  return {
+    extension: options.extension || /\.org$/,
+    reorg: { plugins: [], ...options.reorg },
+    rehype: {
+      plugins: [],
+      handlers: { link: handleLink, ...rehypeHandlers },
+      ...rehypeOptions,
+    },
+    estree: { plugins: [], ...options.estree },
+    jsx: { renderer, ...options.jsx },
   }
 }
 
-const link: Handler = (node: Link, context) => {
-  const { h, all, defaultHandler } = context
-  if (node.path.protocol === 'file' && node.path.value.endsWith('.org')) {
-    return h('Link', {
-      href: node.path.value.replace(/\.org$/, ''),
-    })(...all(node.children, context))
-  }
-  return defaultHandler(node.type)
-}
-
-module.exports =
-  (pluginOptions: Partial<PluginOptions> = {}) =>
+const plugin =
+  (options: Partial<PluginOptions> = {}) =>
   (nextConfig: any = {}) => {
-    const {
-      reorg_rehype = { handlers: { link } },
-      rehype_estree = { jsx: true },
-      estree_jsx = {},
-    } = pluginOptions.options || {}
+    const pluginOptions = withDefault(options)
 
     return Object.assign({}, nextConfig, {
       webpack(config, options) {
         config.module.rules.push({
-          test: pluginOptions.extension || /\.org$/,
+          test: pluginOptions.extension,
           use: [
             options.defaultLoaders.babel,
             {
               loader: require.resolve('@orgajs/loader'),
               options: {
                 plugins: [
-                  [toRehype, reorg_rehype],
-                  [toEstree, rehype_estree],
+                  ...pluginOptions.reorg.plugins,
+                  [toRehype, pluginOptions.rehype],
+                  ...pluginOptions.rehype.plugins,
+                  [toEstree, pluginOptions.estree],
+                  ...pluginOptions.estree.plugins,
                   [processImage],
-                  [toJsx, estree_jsx],
+                  [toJsx, pluginOptions.jsx],
                 ],
               },
             },
@@ -66,3 +68,5 @@ module.exports =
       },
     })
   }
+
+export = plugin
