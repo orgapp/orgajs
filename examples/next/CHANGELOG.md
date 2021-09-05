@@ -1,5 +1,17 @@
 # Change Log
 
+## 3.0.3
+
+### Patch Changes
+
+- 7f209ff5: - enhance options of @orgajs/next
+  - make @orgajs/reorg-shiki more customizable
+  - enhance next.js example project to show off more of the features
+- Updated dependencies [7f209ff5]
+- Updated dependencies [7f209ff5]
+  - @orgajs/next@3.1.1
+  - @orgajs/reorg-shiki@1.0.1
+
 ## 3.0.2
 
 ### Patch Changes

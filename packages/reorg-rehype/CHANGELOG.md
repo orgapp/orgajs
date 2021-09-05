@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.0.3
+
+### Patch Changes
+
+- 7f209ff5: export Options type
+- Updated dependencies [7f209ff5]
+  - oast-to-hast@3.1.1
+
 ## 3.0.2
 
 ### Patch Changes

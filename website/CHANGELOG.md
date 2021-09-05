@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.1.1
+
+### Patch Changes
+
+- @orgajs/playground@3.1.1
+- gatsby-theme-orga-docs@3.1.1
+
 ## 3.1.0
 
 ### Minor Changes

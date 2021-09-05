@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/reorg-rehype",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "rehype support for orga",
   "files": [
     "dist"
@@ -20,7 +20,7 @@
     "compile": "tsc -b"
   },
   "dependencies": {
-    "oast-to-hast": "3.1.0"
+    "oast-to-hast": "3.1.1"
   },
   "devDependencies": {
     "unified": "9.2.2"

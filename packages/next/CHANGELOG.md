@@ -1,5 +1,18 @@
 # Change Log
 
+## 3.1.1
+
+### Patch Changes
+
+- 7f209ff5: @orgajs/next: process images
+- 7f209ff5: - enhance options of @orgajs/next
+  - make @orgajs/reorg-shiki more customizable
+  - enhance next.js example project to show off more of the features
+- Updated dependencies [7f209ff5]
+  - @orgajs/estree-jsx@3.0.2
+  - @orgajs/rehype-estree@3.0.2
+  - @orgajs/reorg-rehype@3.0.3
+
 ## 4.0.0
 
 ### Minor Changes
