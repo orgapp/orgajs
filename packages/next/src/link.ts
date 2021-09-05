@@ -3,9 +3,13 @@ import { Link } from 'orga'
 
 const handleLink: Handler = (node: Link, context) => {
   const { h, all, defaultHandler } = context
-  if (node.path.protocol === 'file' && node.path.value.endsWith('.org')) {
+
+  if (
+    node.path.protocol === 'file' &&
+    /\.(org|jsx?|tsx)$/.test(node.path.value)
+  ) {
     return h('Link', {
-      href: node.path.value.replace(/\.org$/, ''),
+      href: node.path.value.replace(/\.[^/.]+$/, ''),
     })(...all(node.children, context))
   }
   return defaultHandler(node.type)
