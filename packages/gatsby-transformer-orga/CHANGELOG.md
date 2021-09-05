@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [7f209ff5]
+  - oast-to-hast@3.1.1
+  - orga-posts@3.1.1
+
 ## 3.1.0
 
 ### Minor Changes

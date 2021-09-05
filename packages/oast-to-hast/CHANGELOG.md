@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.1
+
+### Patch Changes
+
+- 7f209ff5: oast-to-hast: add `all` function to context
+
 ## 3.1.0
 
 ### Minor Changes

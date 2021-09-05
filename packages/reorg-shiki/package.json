@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/reorg-shiki",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "reorg plugin that highlight code blocks with shiki",
   "files": [
     "dist"

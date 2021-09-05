@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.2
+
+### Patch Changes
+
+- 7f209ff5: export Options type
+
 ## 3.0.1
 
 ### Patch Changes
