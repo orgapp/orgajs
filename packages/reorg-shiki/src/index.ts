@@ -1,11 +1,12 @@
-import { getHighlighter } from 'shiki'
+import { getHighlighter, BUNDLED_LANGUAGES } from 'shiki'
 import { Plugin, Transformer } from 'unified'
 import map from 'unist-util-map'
 
-const plugin: Plugin = () => {
+const plugin: Plugin = ({ theme = 'github-light', langs = [] } = {}) => {
   const transformer: Transformer = async (tree) => {
     const highligher = await getHighlighter({
-      theme: 'github-light',
+      theme,
+      langs: [...BUNDLED_LANGUAGES, ...langs],
     })
 
     return map(tree, (node) => {
