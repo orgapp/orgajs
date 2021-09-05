@@ -3,6 +3,8 @@ import toEstree from './hast-to-estree'
 import { DEFAULT_OPTIONS, Options } from './options'
 import processEstree from './process-estree'
 
+export type { Options }
+
 function rehype2estree(options: Partial<Options> = {}): Transformer {
   return transformer
 
@@ -13,4 +15,4 @@ function rehype2estree(options: Partial<Options> = {}): Transformer {
   }
 }
 
-export = rehype2estree
+export default rehype2estree

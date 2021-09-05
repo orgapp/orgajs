@@ -1,0 +1,10 @@
+#+TITLE: Special Page
+
+#+jsx: export {default} from '../components/special-layout.tsx'
+
+This page uses special layout.
+
+#+begin_src js
+// some comments
+console.log('hello world')
+#+end_src

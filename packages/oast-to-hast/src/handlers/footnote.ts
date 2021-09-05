@@ -1,6 +1,5 @@
 import { Footnote, FootnoteReference } from 'orga'
 import { Context } from '../'
-import { all } from '../transform'
 
 export const footnoteReference = (
   node: FootnoteReference,
@@ -14,10 +13,10 @@ export const footnoteReference = (
 }
 
 export const footnote = (node: Footnote, context: Context) => {
-  const { h } = context
+  const { h, all } = context
   return h('div', {
     id: `fn-${node.label}`,
     className: ['footnote'],
     dataLabel: node.label,
-  })(...all(context)(node.children))
+  })(...all(node.children, context))
 }

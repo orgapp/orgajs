@@ -1,6 +1,8 @@
 import toHAST, { Options } from 'oast-to-hast'
 import { Transformer } from 'unified'
 
+export type { Options }
+
 function reorg2rehype(options: Partial<Options> = {}): Transformer {
   return transformer
   function transformer(node) {
@@ -8,4 +10,4 @@ function reorg2rehype(options: Partial<Options> = {}): Transformer {
   }
 }
 
-export = reorg2rehype
+export default reorg2rehype

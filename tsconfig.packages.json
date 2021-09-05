@@ -16,6 +16,7 @@
     { "path": "packages/gatsby-transformer-orga" },
     { "path": "packages/orga-posts" },
     { "path": "packages/orga-theme-ui-preset" },
-    { "path": "packages/playground" }
+    { "path": "packages/playground" },
+    { "path": "packages/reorg-shiki" }
   ]
 }

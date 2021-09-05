@@ -1,6 +1,8 @@
 import toJs from './estree-to-js'
 import { DEFAULT_OPTIONS, Options } from './options'
 
+export type { Options }
+
 function estree2jsx(options: Partial<Options> = {}) {
   const settings = { ...DEFAULT_OPTIONS, ...options }
 
@@ -12,4 +14,4 @@ function estree2jsx(options: Partial<Options> = {}) {
   this.Compiler = compiler
 }
 
-export = estree2jsx
+export default estree2jsx
