@@ -1,6 +1,5 @@
 #+TITLE: Special Page
-
-#+jsx: export {default} from '../components/special-layout.tsx'
+#+layout: "../components/special-layout.tsx"
 
 This page uses special layout.
 

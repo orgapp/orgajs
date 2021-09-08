@@ -108,7 +108,7 @@ const Playground = ({ code, onChange, style }) => {
 
     render(
       <OrgaProvider components={components}>
-        <MDXContent {...props} />
+        <OrgaContent {...props} />
       </OrgaProvider>
     )
   `

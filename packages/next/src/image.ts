@@ -1,5 +1,19 @@
-import { builders as b, namedTypes as n, visit } from 'ast-types'
+import { Literal } from 'estree'
+import { JSXAttribute, JSXOpeningElement, JSXSimpleAttribute } from 'estree-jsx'
+import { BaseNode, walk } from 'estree-walker'
 import { Plugin, Transformer } from 'unified'
+
+function isJSXOpeningElement(node: BaseNode): node is JSXOpeningElement {
+  return node.type === 'JSXOpeningElement'
+}
+
+function isJSXAttribute(node: BaseNode): node is JSXSimpleAttribute {
+  return node.type === 'JSXAttribute'
+}
+
+function isLiteral(node: BaseNode): node is Literal {
+  return node.type === 'Literal'
+}
 
 export const processImage: Plugin = () => {
   const transformer: Transformer = async (tree, file) => {
@@ -7,32 +21,46 @@ export const processImage: Plugin = () => {
 
     const _import = (path: string) => {
       const varName = `image${imports.length}`
-      imports.push(
-        b.importDeclaration(
-          [b.importDefaultSpecifier(b.identifier(varName))],
-          b.literal(path),
-          'value'
-        )
-      )
+      imports.push({
+        type: 'ImportDeclaration',
+        specifiers: [
+          {
+            type: 'ImportDefaultSpecifier',
+            local: {
+              type: 'Identifier',
+              name: varName,
+            },
+          },
+        ],
+        source: {
+          type: 'Literal',
+          value: path,
+          raw: `'${path}'`,
+        },
+      })
       return varName
     }
 
-    visit(tree, {
-      visitJSXOpeningElement(path) {
-        const node = path.node
-        if (n.JSXIdentifier.check(node.name) && node.name.name === 'img') {
-          for (const attr of node.attributes || []) {
-            if (
-              n.JSXAttribute.check(attr) &&
-              attr.name.name === 'src' &&
-              n.Literal.check(attr.value)
-            ) {
-              const varName = _import(`${attr.value.value}`)
-              attr.value = b.jsxExpressionContainer(b.identifier(varName))
-            }
-          }
+    walk(tree, {
+      enter(node, parent) {
+        if (
+          isJSXAttribute(node) &&
+          node.name.name === 'src' &&
+          isJSXOpeningElement(parent) &&
+          isLiteral(node.value)
+        ) {
+          const varName = _import(`${node.value.value}`)
+          this.replace({
+            ...node,
+            value: {
+              type: 'JSXExpressionContainer',
+              expression: {
+                type: 'Identifier',
+                name: varName,
+              },
+            },
+          } as JSXAttribute)
         }
-        this.traverse(path)
       },
     })
 

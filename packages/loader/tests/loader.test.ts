@@ -22,19 +22,19 @@ import React from 'react';
 import { orga } from '@orgajs/react';
 
 const makeShortcode = name => props => {
-  console.warn(\\"Component \`%s\` was not imported, exported, or provided by MDXProvider as global scope\\", name);
+  console.warn(\\"Component \`%s\` was not imported, exported, or provided by OrgaProvider as global scope\\", name);
   return orga(\\"div\\", props);
 };
 
 const Box = makeShortcode(\\"Box\\");
 export const title = 'hello orga';
-const MDXLayout = \\"wrapper\\";
+const OrgaLayout = \\"wrapper\\";
 
-function MDXContent({
+function OrgaContent({
   components,
   ...props
 }) {
-  return orga(MDXLayout, _extends({
+  return orga(OrgaLayout, _extends({
     components: components
   }, props), orga(\\"div\\", {
     className: \\"section\\"
@@ -48,7 +48,7 @@ function MDXContent({
   }, \\"in a box\\")));
 }
 
-MDXContent.isMDXComponent = true;
-export default MDXContent;"
+OrgaContent.isOrgaComponent = true;
+export default OrgaContent;"
 `)
 })

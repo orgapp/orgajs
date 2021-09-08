@@ -11,8 +11,7 @@ export interface Options {
   handlers: { [key: string]: Handler }
   skipExport: boolean
   skipImport: boolean
-  // TODO: do we need this?
-  wrapExport: boolean
+  wrapExport?: string
 }
 
 export const DEFAULT_OPTIONS: Options = {
@@ -22,5 +21,4 @@ export const DEFAULT_OPTIONS: Options = {
   handlers: {},
   skipExport: false,
   skipImport: false,
-  wrapExport: false,
 }
