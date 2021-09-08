@@ -1,6 +1,6 @@
 import { Declaration, Expression, Identifier, Literal } from 'estree'
 
-const layoutBuilder = (name = 'MDXLayout') => {
+const layoutBuilder = (name = 'OrgaLayout') => {
   let _layout: any
   const id = { type: 'Identifier', name }
 

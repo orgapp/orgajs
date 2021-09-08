@@ -37,8 +37,8 @@ function processEstree(estree, options: Options) {
   // Do this here because `estree` currently only includes import/exports
   // and we don’t have to walk all the JSX to figure out the top scope.
   let inTopScope = [
-    'MDXLayout',
-    'MDXContent',
+    'OrgaLayout',
+    'OrgaContent',
     ...analyze(estree).scope.declarations.keys(),
   ]
 
@@ -94,7 +94,7 @@ function processEstree(estree, options: Options) {
 
       if (check.isDeclaration(node)) {
         const names = analyze(node).scope.declarations.keys()
-        const clean = [...names].filter((n) => n !== 'MDXContent')
+        const clean = [...names].filter((n) => n !== 'OrgaContent')
         if (clean.length > 0) {
           inTopScope = [...inTopScope, ...clean]
           components.push(node)
@@ -116,7 +116,7 @@ function processEstree(estree, options: Options) {
         const head = name.charAt(0)
 
         // A component.
-        if (head === head.toUpperCase() && name !== 'MDXLayout') {
+        if (head === head.toUpperCase() && name !== 'OrgaLayout') {
           node.openingElement.attributes.push(b.jsxAttribute('orgaType', name))
           if (!inTopScope.includes(name) && !magicShortcodes.includes(name)) {
             magicShortcodes.push(name)
@@ -141,7 +141,7 @@ function processEstree(estree, options: Options) {
   const exports = []
 
   if (!skipExport) {
-    let declaration: any = { type: 'Identifier', name: 'MDXContent' }
+    let declaration: any = { type: 'Identifier', name: 'OrgaContent' }
 
     if (wrapExport) {
       declaration = {

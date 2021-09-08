@@ -4,7 +4,7 @@ export default (children) => {
       type: 'FunctionDeclaration',
       id: {
         type: 'Identifier',
-        name: 'MDXContent',
+        name: 'OrgaContent',
       },
       expression: false,
       generator: false,
@@ -72,7 +72,7 @@ export default (children) => {
                 ],
                 name: {
                   type: 'JSXIdentifier',
-                  name: 'MDXLayout',
+                  name: 'OrgaLayout',
                 },
                 selfClosing: false,
               },
@@ -80,7 +80,7 @@ export default (children) => {
                 type: 'JSXClosingElement',
                 name: {
                   type: 'JSXIdentifier',
-                  name: 'MDXLayout',
+                  name: 'OrgaLayout',
                 },
               },
               children: children,
@@ -98,11 +98,11 @@ export default (children) => {
           type: 'MemberExpression',
           object: {
             type: 'Identifier',
-            name: 'MDXContent',
+            name: 'OrgaContent',
           },
           property: {
             type: 'Identifier',
-            name: 'isMDXComponent',
+            name: 'isOrgaComponent',
           },
           computed: false,
           optional: false,

@@ -2,7 +2,7 @@
  * This function generate code like the following
  *
  * const makeShortcode = name => props => {
- * console.warn("Component `%s` was not imported, exported, or provided by MDXProvider as global scope", name);
+ * console.warn("Component `%s` was not imported, exported, or provided by OrgaProvider as global scope", name);
  * return <div {...props} />;
  * };
  * const Box = makeShortcode("Box");
@@ -49,7 +49,7 @@ export default function createMakeShortcodeHelper(
                       {
                         type: 'Literal',
                         value:
-                          'Component `%s` was not imported, exported, or provided by MDXProvider as global scope',
+                          'Component `%s` was not imported, exported, or provided by OrgaProvider as global scope',
                       },
                       { type: 'Identifier', name: 'name' },
                     ],
