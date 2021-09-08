@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.6
+
+### Patch Changes
+
+- Updated dependencies [8c6f440b]
+  - @orgajs/loader@3.1.1
+  - @orgajs/react@3.0.1
+  - gatsby-plugin-orga@3.1.2
+
 ## 3.0.5
 
 ### Patch Changes

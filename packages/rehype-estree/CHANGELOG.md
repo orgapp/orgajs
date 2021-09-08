@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.3
+
+### Patch Changes
+
+- 8c6f440b: - better layout support
+  - rename MDXxxx to Orgaxxx
+- 4baa1f93: remove ast-types
+- e8d61a98: render error messages when failed to parse jsx code
+
 ## 3.0.2
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.0.1
+
+### Patch Changes
+
+- 8c6f440b: - better layout support
+  - rename MDXxxx to Orgaxxx
+
 ## 3.0.0
 
 ### Major Changes

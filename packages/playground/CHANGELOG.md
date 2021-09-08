@@ -1,5 +1,17 @@
 # Change Log
 
+## 3.1.2
+
+### Patch Changes
+
+- 8c6f440b: - better layout support
+  - rename MDXxxx to Orgaxxx
+- Updated dependencies [8c6f440b]
+- Updated dependencies [4baa1f93]
+- Updated dependencies [e8d61a98]
+  - @orgajs/react@3.0.1
+  - @orgajs/rehype-estree@3.0.3
+
 ## 3.1.1
 
 ### Patch Changes
