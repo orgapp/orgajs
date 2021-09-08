@@ -3,15 +3,20 @@ import jsx from 'acorn-jsx'
 import { Node as HastNode } from 'hast'
 import hast2estree from 'hast-util-to-estree'
 import { Handler, Options } from './options'
+import { renderError } from './trees'
 
 const deepGet = (p: string) => (o: any) =>
   p.split('.').reduce((a, v) => a[v], o)
 
 const parse = (code: string) => {
-  return Parser.extend(jsx()).parse(code, {
-    sourceType: 'module',
-    ecmaVersion: 2020,
-  })
+  try {
+    return Parser.extend(jsx()).parse(code, {
+      sourceType: 'module',
+      ecmaVersion: 2020,
+    })
+  } catch (err) {
+    return renderError(err)
+  }
 }
 
 const getJSXHandler = ({
