@@ -21,7 +21,6 @@
   "dependencies": {
     "acorn": "^8.4.1",
     "acorn-jsx": "^5.3.1",
-    "ast-types": "^0.14.2",
     "estree-walker": "2.0.2",
     "hast-util-to-estree": "1.4.0",
     "lodash": "^4.17.21",

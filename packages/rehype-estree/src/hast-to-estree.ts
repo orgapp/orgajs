@@ -4,6 +4,7 @@ import { Node as HastNode } from 'hast'
 import hast2estree from 'hast-util-to-estree'
 import { Handler, Options } from './options'
 import { renderError } from './trees'
+import { removeQuotes } from './utils'
 
 const deepGet = (p: string) => (o: any) =>
   p.split('.').reduce((a, v) => a[v], o)
@@ -62,23 +63,26 @@ function toEstree(node: HastNode, options: Options) {
   if (node.type === 'root' && !!node.data) {
     const data = node.data
 
-    exports = Object.entries(data).map(([key, value]) => ({
-      type: 'ExportNamedDeclaration',
-      declaration: {
-        type: 'VariableDeclaration',
-        declarations: [
-          {
-            type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: key },
-            init: { type: 'Literal', value: value, raw: `'${value}'` },
-          },
-        ],
-        kind: 'const',
-      },
-      specifiers: [],
-      source: null,
-      exportKind: 'value',
-    }))
+    exports = Object.entries(data).map(([k, v]) => {
+      const value = removeQuotes(`${v}`)
+      return {
+        type: 'ExportNamedDeclaration',
+        declaration: {
+          type: 'VariableDeclaration',
+          declarations: [
+            {
+              type: 'VariableDeclarator',
+              id: { type: 'Identifier', name: k },
+              init: { type: 'Literal', value: value, raw: `'${value}'` },
+            },
+          ],
+          kind: 'const',
+        },
+        specifiers: [],
+        source: null,
+        exportKind: 'value',
+      }
+    })
   }
 
   const estree = hast2estree(node, { space, handlers })
