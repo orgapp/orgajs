@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.2
+
+### Patch Changes
+
+- Updated dependencies [8c6f440b]
+  - @orgajs/playground@3.1.2
+  - gatsby-theme-orga-docs@3.1.2
+
 ## 3.1.1
 
 ### Patch Changes

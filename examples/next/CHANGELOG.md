@@ -1,5 +1,17 @@
 # Change Log
 
+## 3.0.4
+
+### Patch Changes
+
+- 8c6f440b: - better layout support
+  - rename MDXxxx to Orgaxxx
+- Updated dependencies [8c6f440b]
+- Updated dependencies [4baa1f93]
+  - @orgajs/loader@3.1.1
+  - @orgajs/react@3.0.1
+  - @orgajs/next@3.1.2
+
 ## 3.0.3
 
 ### Patch Changes

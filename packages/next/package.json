@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/next",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "orgajs next plugin",
   "files": [
     "dist"
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@orgajs/estree-jsx": "3.0.2",
-    "@orgajs/rehype-estree": "3.0.2",
+    "@orgajs/rehype-estree": "3.0.3",
     "@orgajs/reorg-rehype": "3.0.3",
     "estree-walker": "2.0.2",
     "unist-util-map": "2.0.1"
