@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.1
+
+### Patch Changes
+
+- 19156b8a: inject props into layout
+
 ## 3.1.0
 
 ### Minor Changes

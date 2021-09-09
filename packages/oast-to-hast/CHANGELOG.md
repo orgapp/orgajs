@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.2
+
+### Patch Changes
+
+- 19156b8a: inject props into layout
+- Updated dependencies [19156b8a]
+  - orga@3.1.1
+
 ## 3.1.1
 
 ### Patch Changes

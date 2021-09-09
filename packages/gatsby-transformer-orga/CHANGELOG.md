@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.1.2
+
+### Patch Changes
+
+- Updated dependencies [19156b8a]
+  - oast-to-hast@3.1.2
+  - orga@3.1.1
+  - orga-posts@3.1.2
+
 ## 3.1.1
 
 ### Patch Changes
