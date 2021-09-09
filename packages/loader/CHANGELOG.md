@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.2
+
+### Patch Changes
+
+- @orgajs/reorg@3.1.1
+
 ## 3.1.1
 
 ### Patch Changes

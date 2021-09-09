@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.0.4
+
+### Patch Changes
+
+- Updated dependencies [19156b8a]
+  - oast-to-hast@3.1.2
+
 ## 3.0.3
 
 ### Patch Changes

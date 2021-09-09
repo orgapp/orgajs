@@ -1,5 +1,16 @@
 # Change Log
 
+## 3.1.3
+
+### Patch Changes
+
+- 19156b8a: inject props into layout
+- Updated dependencies [19156b8a]
+  - @orgajs/rehype-estree@3.0.4
+  - @orgajs/reorg-rehype@3.0.4
+  - @orgajs/reorg@3.1.1
+  - @orgajs/loader@3.1.2
+
 ## 3.1.2
 
 ### Patch Changes

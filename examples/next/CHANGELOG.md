@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.5
+
+### Patch Changes
+
+- 19156b8a: inject props into layout
+- Updated dependencies [19156b8a]
+  - @orgajs/next@3.1.3
+  - @orgajs/loader@3.1.2
+
 ## 3.0.4
 
 ### Patch Changes
