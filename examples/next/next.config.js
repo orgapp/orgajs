@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const codeHighlight = require('@orgajs/reorg-shiki').default
 const path = require('path')
 const withOrga = require('@orgajs/next')({

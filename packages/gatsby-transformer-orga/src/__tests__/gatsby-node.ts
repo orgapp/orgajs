@@ -1,5 +1,5 @@
 // TODO: find a way to test this
-const { onCreateNode } = require('../gatsby-node')
+import { onCreateNode } from '../gatsby-node'
 
 describe.skip('gatsby transformer', () => {
   it('Works', async () => {
