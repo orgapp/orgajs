@@ -28,6 +28,10 @@ interface Metadata {
   date?: Date
 }
 
+const getLast = (value: string | string[]) => {
+  return Array.isArray(value) ? value[value.length - 1] : value
+}
+
 const pTimestamp = (obj: any) => {
   if (typeof obj === 'string' && obj.length > 0) {
     return parseTimestamp(obj)
@@ -76,7 +80,7 @@ const extractMetadata = (
 ): Metadata => {
   const getTitle = (metadata: any) => {
     const { title, export_title, ...rest } = metadata
-    let theTitle = export_title || title
+    let theTitle = getLast(export_title) || getLast(title)
     if (tree.type === 'section') {
       const headline = select('headline', tree) as Headline
       theTitle = extractContent(headline)
@@ -92,7 +96,9 @@ const extractMetadata = (
     const { date, export_date, publish_date, ...rest } = metadata
 
     let timestamp =
-      pTimestamp(date) || pTimestamp(export_date) || pTimestamp(publish_date)
+      pTimestamp(getLast(date)) ||
+      pTimestamp(getLast(export_date)) ||
+      pTimestamp(getLast(publish_date))
 
     if (!timestamp && tree.type === 'section') {
       timestamp = _.get('timestamp')(select(`planning[keyword=CLOSED]`, tree))
@@ -155,12 +161,20 @@ const extractMetadata = (
 
 export const build = async ({ text, filename, options }: BuildProps) => {
   const ast = parse(text, options)
-  const category = ast.properties['category'] || filename || ''
+  const category = getLast(ast.properties['category']) || filename || ''
 
-  const keywords = (ast.properties.orga_publish_keyword || '')
-    .split(' ')
-    .map((k) => k.trim())
-    .filter((k) => k.length > 0)
+  const opk = ast.properties.orga_publish_keyword || ''
+  const extractKeyword = (value: string | string[] | undefined) => {
+    if (!value) return []
+    if (Array.isArray(value)) {
+      return value.reduce((all, v) => all.concat(extractKeyword(v)), [])
+    }
+    return value
+      .split(' ')
+      .map((k) => k.trim())
+      .filter((k) => k.length > 0)
+  }
+  const keywords = extractKeyword(ast.properties.orga_publish_keyword)
 
   // section
   if (keywords.length > 0) {

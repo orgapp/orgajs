@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require(`fs`)
 const path = require(`path`)
 const mkdirp = require(`mkdirp`)
@@ -48,7 +47,7 @@ function validURL(str) {
   }
 }
 
-exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
+exports.createSchemaCustomization = ({ actions, schema }) => {
   const { createTypes } = actions
   createTypes(
     schema.buildObjectType({
@@ -80,7 +79,7 @@ exports.createSchemaCustomization = ({ actions, schema }, themeOptions) => {
         },
         image: {
           type: `File`,
-          resolve: async (source, args, context, info) => {
+          resolve: async (source, _, context) => {
             if (source.image___NODE) {
               return context.nodeModel.getNodeById({ id: source.image___NODE })
             } else if (source.image) {

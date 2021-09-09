@@ -6,12 +6,21 @@ import { removeQuotes } from './utils'
 
 export type { Options }
 
+const getLastValue = (key: string, data: any) => {
+  const value = data[key]
+  if (!value) return
+  if (Array.isArray(value)) {
+    return value[value.length - 1]
+  }
+  return value
+}
+
 function rehype2estree(options: Partial<Options> = {}): Transformer {
   return transformer
 
   function transformer(node, file) {
     const _options = { ...DEFAULT_OPTIONS, ...options }
-    const layout = node.data.layout
+    const layout = getLastValue('layout', node.data)
     if (typeof layout === 'string') {
       const _layout = removeQuotes(layout)
       if (['', 'nil', 'undefined', 'null'].includes(_layout)) {

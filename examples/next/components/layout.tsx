@@ -1,9 +1,9 @@
 /** @jsxImportSource theme-ui */
 
-const Layout = ({ children }) => {
+const Layout = ({ children, title }) => {
   return (
     <div sx={{ maxWidth: 700, mx: 'auto' }}>
-      <h1>Next + Orga</h1>
+      <h1>{title || 'Next + Orga'}</h1>
       <hr />
       {children}
     </div>

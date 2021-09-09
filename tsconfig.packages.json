@@ -17,6 +17,7 @@
     { "path": "packages/orga-posts" },
     { "path": "packages/orga-theme-ui-preset" },
     { "path": "packages/playground" },
-    { "path": "packages/reorg-shiki" }
+    { "path": "packages/reorg-shiki" },
+    { "path": "packages/metadata" }
   ]
 }

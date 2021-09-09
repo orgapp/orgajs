@@ -64,7 +64,18 @@ function toEstree(node: HastNode, options: Options) {
     const data = node.data
 
     exports = Object.entries(data).map(([k, v]) => {
-      const value = removeQuotes(`${v}`)
+      const createLiteral = (text: any) => {
+        const value = removeQuotes(`${text}`)
+        return { type: 'Literal', value, raw: `'${value}'` }
+      }
+
+      const init = Array.isArray(v)
+        ? {
+            type: 'ArrayExpression',
+            elements: v.map(createLiteral),
+          }
+        : createLiteral(v)
+
       return {
         type: 'ExportNamedDeclaration',
         declaration: {
@@ -73,7 +84,7 @@ function toEstree(node: HastNode, options: Options) {
             {
               type: 'VariableDeclarator',
               id: { type: 'Identifier', name: k },
-              init: { type: 'Literal', value: value, raw: `'${value}'` },
+              init,
             },
           ],
           kind: 'const',

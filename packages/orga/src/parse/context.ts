@@ -21,6 +21,7 @@ export interface Context {
   push: (node: Node) => void
   save: () => void
   restore: () => void
+  addProp: (key: string, value: string) => void
 
   // syntactic sugar
   // -
@@ -133,6 +134,18 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
     exitAll,
     exitTo,
     push,
+    addProp: function (key, value) {
+      const k = key.toLowerCase().trim()
+      const v = value.trim()
+      const existing = tree.properties[k]
+      if (existing) {
+        Array.isArray(existing)
+          ? existing.push(v)
+          : (tree.properties[k] = [existing, v])
+      } else {
+        tree.properties[k] = v
+      }
+    },
 
     consume: function () {
       push(lexer.eat())

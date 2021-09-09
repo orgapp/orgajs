@@ -1,20 +1,13 @@
 module.exports = {
+  root: true,
   env: {
     node: true,
     browser: true,
     jest: true,
   },
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'import'],
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
-    'plugin:import/typescript',
-  ],
+  extends: ['eslint:recommended'],
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
@@ -31,25 +24,31 @@ module.exports = {
   rules: {
     'import/no-extraneous-dependencies': ['warn'],
     semi: ['error', 'never'],
-    // TODO: remove this eventually
-    '@typescript-eslint/ban-ts-comment': 'off',
   },
-  // overrides: [
-  //   {
-  //     files: ['**/*.ts', '**/*.tsx'],
-  //     parser: '@typescript-eslint/parser',
-  //     parserOptions: {
-  //       ecmaVersion: 2018,
-  //       sourceType: 'module',
-  //       ecmaFeatures: {
-  //         jsx: true,
-  //       },
-  //     },
-  //     plugins: ['@typescript-eslint'],
-  //     rules: {
-  //       'no-dupe-class-members': 'off',
-  //       'no-undef': 'off',
-  //     }
-  //   },
-  // ],
+  overrides: [
+    {
+      files: ['**.ts', '**.tsx'],
+      parser: '@typescript-eslint/parser',
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:import/errors',
+        'plugin:import/warnings',
+        'plugin:import/typescript',
+      ],
+      parserOptions: {
+        ecmaVersion: 2018,
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      plugins: ['@typescript-eslint', 'import'],
+      rules: {
+        'no-dupe-class-members': 'off',
+        'no-undef': 'off',
+        // TODO: remove this eventually
+        '@typescript-eslint/ban-ts-comment': 'off',
+      },
+    },
+  ],
 }

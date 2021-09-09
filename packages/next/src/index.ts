@@ -27,7 +27,7 @@ const withDefault = (options: Partial<PluginOptions>): PluginOptions => {
       handlers: { link: handleLink, ...rehypeHandlers },
       ...rehypeOptions,
     },
-    estree: { plugins: [], ...options.estree },
+    estree: { plugins: [], injectPropsToLayout: true, ...options.estree },
     jsx: { renderer, ...options.jsx },
   }
 }

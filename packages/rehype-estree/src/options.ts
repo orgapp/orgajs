@@ -12,6 +12,7 @@ export interface Options {
   skipExport: boolean
   skipImport: boolean
   wrapExport?: string
+  injectPropsToLayout: boolean
 }
 
 export const DEFAULT_OPTIONS: Options = {
@@ -21,4 +22,5 @@ export const DEFAULT_OPTIONS: Options = {
   handlers: {},
   skipExport: false,
   skipImport: false,
+  injectPropsToLayout: false,
 }

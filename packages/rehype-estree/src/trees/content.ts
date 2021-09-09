@@ -1,5 +1,31 @@
+import { Identifier } from 'estree'
+
 export default (children) => {
-  return [
+  const props = [
+    {
+      type: 'JSXAttribute',
+      name: {
+        type: 'JSXIdentifier',
+        name: 'components',
+      },
+      value: {
+        type: 'JSXExpressionContainer',
+        expression: {
+          type: 'Identifier',
+          name: 'components',
+        },
+      },
+    },
+    {
+      type: 'JSXSpreadAttribute',
+      argument: {
+        type: 'Identifier',
+        name: 'props',
+      },
+    },
+  ]
+
+  const nodes = [
     {
       type: 'FunctionDeclaration',
       id: {
@@ -47,29 +73,7 @@ export default (children) => {
               type: 'JSXElement',
               openingElement: {
                 type: 'JSXOpeningElement',
-                attributes: [
-                  {
-                    type: 'JSXAttribute',
-                    name: {
-                      type: 'JSXIdentifier',
-                      name: 'components',
-                    },
-                    value: {
-                      type: 'JSXExpressionContainer',
-                      expression: {
-                        type: 'Identifier',
-                        name: 'components',
-                      },
-                    },
-                  },
-                  {
-                    type: 'JSXSpreadAttribute',
-                    argument: {
-                      type: 'Identifier',
-                      name: 'props',
-                    },
-                  },
-                ],
+                attributes: props,
                 name: {
                   type: 'JSXIdentifier',
                   name: 'OrgaLayout',
@@ -115,4 +119,27 @@ export default (children) => {
       },
     },
   ]
+
+  const injectProp = (
+    name: string,
+    exp: Identifier = { type: 'Identifier', name }
+  ) => {
+    props.push({
+      type: 'JSXAttribute',
+      name: {
+        type: 'JSXIdentifier',
+        name: name,
+      },
+      value: {
+        type: 'JSXExpressionContainer',
+        expression: exp,
+      },
+    })
+  }
+
+  const layout = {
+    injectProp,
+  }
+
+  return { nodes, layout }
 }

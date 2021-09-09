@@ -27,10 +27,13 @@
   },
   "devDependencies": {
     "@orgajs/react": "3.0.1",
+    "@types/jest": "^27.0.1",
     "babel-loader": "^8.2.2",
     "html-loader": "^2.1.2",
+    "jest": "^27.1.1",
     "memfs": "^3.2.2",
     "react": "^17.0.2",
-    "webpack": "^5.51.1"
+    "ts-jest": "^27.0.5",
+    "webpack": "^5.52.0"
   }
 }

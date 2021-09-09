@@ -5,7 +5,8 @@ import {
   ExportDefaultDeclaration,
   ExportNamedDeclaration,
   Expression,
-  ExpressionStatement,
+  Identifier,
+  VariableDeclaration,
 } from 'estree'
 import { JSXElement, JSXFragment } from 'estree-jsx'
 import _ from 'lodash'
@@ -16,6 +17,16 @@ export function isDeclaration(node: BaseNode): node is Declaration {
     node.type === 'FunctionDeclaration' ||
     node.type === 'ClassDeclaration'
   )
+}
+
+export function isVariableDeclaration(
+  node: BaseNode
+): node is VariableDeclaration {
+  return node.type === 'VariableDeclaration'
+}
+
+export function isIdentifier(node: BaseNode): node is Identifier {
+  return node.type === 'Identifier'
 }
 
 export function isExportNamedDeclaration(

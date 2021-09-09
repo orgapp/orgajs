@@ -40,8 +40,8 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.12",
-    "@types/lodash": "^4.14.171",
-    "@types/node": "^16.4.0",
+    "@types/lodash": "^4.14.172",
+    "@types/node": "^16.9.0",
     "@types/unist": "2.0.3",
     "gatsby": "^3.10.0"
   }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const toJsx = require('@orgajs/estree-jsx')
 const toEstree = require('@orgajs/rehype-estree')
 const toRehype = require('@orgajs/reorg-rehype')
