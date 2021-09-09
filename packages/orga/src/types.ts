@@ -20,10 +20,12 @@ export interface Timestamp {
   end?: Date
 }
 
+type PropertyValue = string
+
 // ---- Syntax Tree Nodes ----
 export interface Document extends Parent {
   type: 'document'
-  properties: { [key: string]: string }
+  properties: Record<string, PropertyValue | PropertyValue[]>
   children: TopLevelContent[]
 }
 

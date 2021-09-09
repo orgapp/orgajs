@@ -1,3 +1,4 @@
+import { ExportNamedDeclaration } from 'estree'
 import { walk } from 'estree-walker'
 import { analyze } from 'periscopic'
 import { Options } from './options'
@@ -10,7 +11,7 @@ import {
 } from './trees'
 
 function processEstree(estree, options: Options) {
-  const { skipExport, wrapExport, defaultLayout } = options
+  const { skipExport, wrapExport, defaultLayout, injectPropsToLayout } = options
 
   let children = []
   const lb = layoutBuilder()
@@ -42,13 +43,15 @@ function processEstree(estree, options: Options) {
     ...analyze(estree).scope.declarations.keys(),
   ]
 
-  estree.body = [...estree.body, ...createContent(children)]
+  const { layout, nodes } = createContent(children)
+
+  estree.body = [...estree.body, ...nodes]
 
   const components = []
   // Add `orgaType`, `parentName` props to JSX elements.
   const magicShortcodes = []
   const stack = []
-  const declarations = []
+  const declarations: ExportNamedDeclaration[] = []
 
   walk(estree, {
     enter: function (node) {
@@ -137,6 +140,17 @@ function processEstree(estree, options: Options) {
       }
     },
   })
+
+  if (injectPropsToLayout) {
+    for (const d of declarations) {
+      if (!check.isVariableDeclaration(d.declaration)) continue
+      for (const _d of d.declaration.declarations) {
+        if (check.isIdentifier(_d.id)) {
+          layout.injectProp(_d.id.name)
+        }
+      }
+    }
+  }
 
   const exports = []
 

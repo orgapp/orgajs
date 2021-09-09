@@ -85,21 +85,19 @@ export default (
     },
   }
 
-  const eTags = oast.properties['exclude_tags']
-  if (eTags) {
-    context.excludeTags = eTags
+  const extractTags = (value: string | string[] | undefined) => {
+    if (!value) return []
+    if (Array.isArray(value)) {
+      return value.reduce((all, v) => all.concat(extractTags(v)), [])
+    }
+    return value
       .split(/\s+/)
       .map((t) => t.trim())
       .filter(Boolean)
   }
 
-  const sTags = oast.properties['select_tags']
-  if (sTags) {
-    context.selectTags = sTags
-      .split(/\s+/)
-      .map((t) => t.trim())
-      .filter(Boolean)
-  }
+  context.excludeTags = extractTags(oast.properties['exclude_tags'])
+  context.selectTags = extractTags(oast.properties['select_tags'])
   const children = _all(context)(oast.children) as Root['children']
 
   return u('root', { data: oast.properties }, children)
