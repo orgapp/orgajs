@@ -2110,7 +2110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.1.1, @emotion/react@npm:^11.4.0":
+"@emotion/react@npm:^11.1.1":
   version: 11.4.0
   resolution: "@emotion/react@npm:11.4.0"
   dependencies:
@@ -2133,6 +2133,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/react@npm:^11.4.0":
+  version: 11.4.1
+  resolution: "@emotion/react@npm:11.4.1"
+  dependencies:
+    "@babel/runtime": ^7.13.10
+    "@emotion/cache": ^11.4.0
+    "@emotion/serialize": ^1.0.2
+    "@emotion/sheet": ^1.0.2
+    "@emotion/utils": ^1.0.0
+    "@emotion/weak-memoize": ^0.2.5
+    hoist-non-react-statics: ^3.3.1
+  peerDependencies:
+    "@babel/core": ^7.0.0
+    react: ">=16.8.0"
+  peerDependenciesMeta:
+    "@babel/core":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: 17bb4645c9a3e0164142e7b7729e30902e8357aed29f0c16fb73b4078651233315fbfcc22f21278c520c708087b0488a92d0bdc9ac9db414376c9bb227b916f0
+  languageName: node
+  linkType: hard
+
 "@emotion/serialize@npm:^1.0.2":
   version: 1.0.2
   resolution: "@emotion/serialize@npm:1.0.2"
@@ -2150,6 +2173,13 @@ __metadata:
   version: 1.0.1
   resolution: "@emotion/sheet@npm:1.0.1"
   checksum: 59a52b6d546d92db2f44a1e46659fa8b7e11545c20270cdf61bc9ddd24a774d148e873dc355f85025cd11912df4945794ca9a266799fdaf0c4c815ac83cda456
+  languageName: node
+  linkType: hard
+
+"@emotion/sheet@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@emotion/sheet@npm:1.0.2"
+  checksum: 188d43dbc1a21964635226df9efa3917dd288915d497bce35c4ee2d86028e7e591d03e1f7cb1c05a7baa762e4341c37ee030f0d0c7155039d5e1d5edfabf241c
   languageName: node
   linkType: hard
 
@@ -3408,6 +3438,7 @@ __metadata:
     "@orgajs/next": 3.1.2
     "@orgajs/react": 3.0.1
     "@orgajs/reorg-shiki": 1.0.1
+    "@orgajs/theme-ui": 1.0.0
     next: ^11.1.0
     react: 17.0.2
     react-dom: 17.0.2
@@ -3588,6 +3619,21 @@ __metadata:
   dependencies:
     "@orgajs/reorg-parse": 3.1.0
     unified: 9.2.2
+  languageName: unknown
+  linkType: soft
+
+"@orgajs/theme-ui@1.0.0, @orgajs/theme-ui@workspace:packages/theme-ui":
+  version: 0.0.0-use.local
+  resolution: "@orgajs/theme-ui@workspace:packages/theme-ui"
+  dependencies:
+    "@emotion/styled": ^11.3.0
+    "@orgajs/react": 3.0.1
+    "@theme-ui/color-modes": ^0.11.2
+    "@theme-ui/components": ^0.11.2
+    "@theme-ui/core": ^0.11.2
+    "@theme-ui/css": ^0.11.2
+  peerDependencies:
+    "@emotion/react": ">=11"
   languageName: unknown
   linkType: soft
 
@@ -4023,6 +4069,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@theme-ui/color-modes@npm:^0.11.2":
+  version: 0.11.2
+  resolution: "@theme-ui/color-modes@npm:0.11.2"
+  dependencies:
+    "@emotion/react": ^11.1.1
+    "@theme-ui/core": 0.11.2
+    "@theme-ui/css": 0.11.2
+    deepmerge: ^4.2.2
+  peerDependencies:
+    react: ^16 || ^17
+  checksum: c8f1aeff0bcc39c8fdb2751401e9e90202a393cd256438e571a082cb4f67809f04b065349437ea3ef69b004d073c2828cbe3349087a2f93a410cce3288be8102
+  languageName: node
+  linkType: hard
+
 "@theme-ui/color-modes@npm:^0.6.2":
   version: 0.6.2
   resolution: "@theme-ui/color-modes@npm:0.6.2"
@@ -4034,6 +4094,23 @@ __metadata:
   peerDependencies:
     react: ^16.14.0 || ^17.0.0
   checksum: d3f35b44215adaf1102425354a698027d0cfba3207c6b035a5321e611606a1eda1753d7bd5665cc1de3386eac33f788dde0a9e4c9da53f6267e9bbbf0059fdbb
+  languageName: node
+  linkType: hard
+
+"@theme-ui/components@npm:^0.11.2":
+  version: 0.11.2
+  resolution: "@theme-ui/components@npm:0.11.2"
+  dependencies:
+    "@emotion/react": ^11.1.1
+    "@emotion/styled": ^11.0.0
+    "@styled-system/color": ^5.1.2
+    "@styled-system/should-forward-prop": ^5.1.2
+    "@styled-system/space": ^5.1.2
+    "@theme-ui/css": 0.11.2
+    "@types/styled-system": ^5.1.10
+  peerDependencies:
+    react: ^16 || ^17
+  checksum: 87dac3e199590be206f860e3d9e5f34d1ddf904b68df936732c18bfe773cc651afaa4ab0b8702a25d67cf86ae2138947393b0e208d5e8c6b8fb01c5fa3d52996
   languageName: node
   linkType: hard
 
@@ -4054,6 +4131,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@theme-ui/core@npm:0.11.2, @theme-ui/core@npm:^0.11.2":
+  version: 0.11.2
+  resolution: "@theme-ui/core@npm:0.11.2"
+  dependencies:
+    "@emotion/react": ^11.1.1
+    "@theme-ui/css": 0.11.2
+    "@theme-ui/parse-props": 0.11.2
+    deepmerge: ^4.2.2
+  peerDependencies:
+    react: ^16 || ^17
+  checksum: dc8336d3c7a1b0b89a61ea7116f195493e1f9eea7f595f6a2cce190a50b22d74451fa35afc8e0bf5baba64eae84a9c85683b968d5999d0e9895fe707f8db2341
+  languageName: node
+  linkType: hard
+
 "@theme-ui/core@npm:^0.6.2":
   version: 0.6.2
   resolution: "@theme-ui/core@npm:0.6.2"
@@ -4065,6 +4156,16 @@ __metadata:
   peerDependencies:
     react: ^16.14.0 || ^17.0.0
   checksum: 519a8dc981531d963bca3835274623c6b3c4d52b4c1d63a5b07f9a5a75c0ba0bc18bb38cc75c9b54004bc019480fb9e113cc20c33595c40ae9dc8e44e5413118
+  languageName: node
+  linkType: hard
+
+"@theme-ui/css@npm:0.11.2, @theme-ui/css@npm:^0.11.2":
+  version: 0.11.2
+  resolution: "@theme-ui/css@npm:0.11.2"
+  dependencies:
+    "@emotion/react": ^11.1.1
+    csstype: ^3.0.5
+  checksum: dec4fe72518ff403e86b135b350793e8a8743c6d5910ee0ff73375637a7c3e7950f8936378ea40b75df43f0aee44001368d9bbeebd6891ac4e3d0f29ed893fa9
   languageName: node
   linkType: hard
 
@@ -4090,6 +4191,18 @@ __metadata:
   peerDependencies:
     react: ^16.14.0 || ^17.0.0
   checksum: 80567a8507eeed4b9781c22c44d0e72c9bf084bc882d81b9a67c15a3dea37a7f8b66bcadb4de2ad465793052847d4d5796bb2b48bce6032615da5e265ed197f3
+  languageName: node
+  linkType: hard
+
+"@theme-ui/parse-props@npm:0.11.2":
+  version: 0.11.2
+  resolution: "@theme-ui/parse-props@npm:0.11.2"
+  dependencies:
+    "@emotion/react": ^11.1.1
+    "@theme-ui/css": 0.11.2
+  peerDependencies:
+    react: ^16 || ^17
+  checksum: ee044c274147505554cc713126b6d2cbfc1770aae19272bb5f4cede21fe30dee55bc9d7b06655654d702b3953fe3b15dad7527d6283500a5396dfea1b2413eee
   languageName: node
   linkType: hard
 
