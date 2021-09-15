@@ -1,4 +1,10 @@
 import React from 'react'
+export {
+  __ThemeUIContext,
+  merge,
+  useThemeUI,
+  createElement,
+} from '@theme-ui/core'
 import {
   jsx as coreJsx,
   ThemeProvider as CoreProvider,
