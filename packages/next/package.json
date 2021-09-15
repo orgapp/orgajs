@@ -21,15 +21,13 @@
     "@orgajs/react": "*"
   },
   "dependencies": {
-    "@orgajs/estree-jsx": "3.0.2",
-    "@orgajs/rehype-estree": "3.0.4",
-    "@orgajs/reorg-rehype": "3.0.4",
+    "@orgajs/orgx": "1.0.0",
     "estree-walker": "2.0.2",
     "unist-util-map": "2.0.1"
   },
   "devDependencies": {
+    "@types/estree-jsx": "^0.0.1",
     "@types/hast": "^2.3.2",
-    "@types/node": "^16.9.0",
-    "estree-jsx": "^0.0.1"
+    "@types/node": "^16.9.0"
   }
 }

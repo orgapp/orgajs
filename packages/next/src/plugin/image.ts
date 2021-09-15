@@ -1,22 +1,11 @@
-import { Literal } from 'estree'
-import { JSXAttribute, JSXOpeningElement, JSXSimpleAttribute } from 'estree-jsx'
+import { JSXAttribute, Program } from 'estree-jsx'
 import { BaseNode, walk } from 'estree-walker'
 import { Plugin, Transformer } from 'unified'
-
-function isJSXOpeningElement(node: BaseNode): node is JSXOpeningElement {
-  return node.type === 'JSXOpeningElement'
-}
-
-function isJSXAttribute(node: BaseNode): node is JSXSimpleAttribute {
-  return node.type === 'JSXAttribute'
-}
-
-function isLiteral(node: BaseNode): node is Literal {
-  return node.type === 'Literal'
-}
+import { isJSXAttribute, isJSXOpeningElement, isLiteral } from './_estree-utils'
 
 export const processImage: Plugin = () => {
-  const transformer: Transformer = async (tree, file) => {
+  const transformer: Transformer = async (tree: BaseNode, file) => {
+    const program = tree as Program
     const imports = []
 
     const _import = (path: string) => {
@@ -41,7 +30,7 @@ export const processImage: Plugin = () => {
       return varName
     }
 
-    walk(tree, {
+    walk(program, {
       enter(node, parent) {
         if (
           isJSXAttribute(node) &&
@@ -64,8 +53,7 @@ export const processImage: Plugin = () => {
       },
     })
 
-    // @ts-ignore
-    tree.body = [...imports, ...tree.body]
+    program.body.unshift(...imports)
   }
 
   return transformer
