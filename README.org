@@ -1,6 +1,6 @@
 #+title: Orga
 #+subtitle: org-mode < JavaScript
-#+jsx: export {default} from './website/src/components/landing'
+#+layout: './website/src/components/landing'
 
 * What Is It
 

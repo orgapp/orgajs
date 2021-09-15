@@ -48,6 +48,7 @@ module.exports = {
         'no-undef': 'off',
         // TODO: remove this eventually
         '@typescript-eslint/ban-ts-comment': 'off',
+        '@typescript-eslint/no-empty-function': 'off',
       },
     },
   ],

@@ -1,0 +1,3 @@
+#+title: @orgajs/orgx
+
+A (almost) direct port of [[https://github.com/wooorm/xdm][xdm]].
