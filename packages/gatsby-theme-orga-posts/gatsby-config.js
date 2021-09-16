@@ -1,5 +1,5 @@
 module.exports = (options) => {
-  const { preset = 'orga-theme-ui-preset' } = options
+  const { preset = '@theme-ui/preset-system' } = options
 
   return {
     siteMetadata: {
@@ -22,7 +22,6 @@ module.exports = (options) => {
         },
       },
       `gatsby-plugin-react-helmet`,
-      `gatsby-plugin-emotion`,
       {
         resolve: `gatsby-source-filesystem`,
         options: {
@@ -32,9 +31,9 @@ module.exports = (options) => {
         },
       },
       {
-        resolve: 'gatsby-plugin-theme-ui',
+        resolve: 'gatsby-plugin-orga-theme-ui',
         options: {
-          preset: preset,
+          preset,
         },
       },
     ],
