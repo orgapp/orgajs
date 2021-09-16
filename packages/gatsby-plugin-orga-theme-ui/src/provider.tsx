@@ -1,4 +1,5 @@
-import { ThemeProvider, merge } from '@orgajs/theme-ui'
+import { ThemeProvider } from '@orgajs/theme-ui'
+import { merge } from 'theme-ui'
 import React from 'react'
 
 import localTheme from './index'

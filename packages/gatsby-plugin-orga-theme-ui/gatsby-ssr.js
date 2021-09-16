@@ -1,6 +1,6 @@
 /* eslint no-unused-vars : "off" */
 import * as React from 'react'
-import { jsx, InitializeColorMode } from '@orgajs/theme-ui'
+import { jsx, InitializeColorMode } from 'theme-ui'
 import { WrapRootElement } from './src/provider'
 
 export const onRenderBody = (

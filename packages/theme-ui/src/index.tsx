@@ -1,41 +1,15 @@
 import React from 'react'
-export {
-  __ThemeUIContext,
-  merge,
-  useThemeUI,
-  createElement,
-} from '@theme-ui/core'
+import { jsx } from 'theme-ui'
 import {
-  jsx as coreJsx,
   ThemeProvider as CoreProvider,
   ThemeProviderProps as CoreThemeProviderProps,
   useThemeUI,
   __themeUiDefaultContextValue,
 } from '@theme-ui/core'
-export type {
-  ThemeUIContextValue,
-  IntrinsicSxElements,
-  SxProp,
-  ColorMode,
-  ColorModesScale,
-  CSSObject,
-  CSSProperties,
-  CSSPseudoSelectorProps,
-  ResponsiveStyleValue,
-  ThemeUICSSProperties,
-  ThemeUIStyleObject,
-  ThemeUICSSObject,
-  Theme,
-  ThemeStyles,
-  TLengthStyledSystem,
-  StylePropertyValue,
-} from '@theme-ui/core'
 import { css, Theme } from '@theme-ui/css'
 import { OrgaProvider, OrgaProviderComponents } from './orga-provider'
 import { ColorModeProvider } from '@theme-ui/color-modes'
 import { Global } from '@emotion/react'
-export * from '@theme-ui/components'
-export { useColorMode, InitializeColorMode } from '@theme-ui/color-modes'
 
 interface ThemeProviderProps extends Pick<CoreThemeProviderProps, 'theme'> {
   children?: React.ReactNode
@@ -43,8 +17,6 @@ interface ThemeProviderProps extends Pick<CoreThemeProviderProps, 'theme'> {
 }
 
 export { Themed, components } from './orga-provider'
-
-export const jsx = coreJsx
 
 const RootStyles = () =>
   jsx(Global, {
@@ -72,6 +44,7 @@ const RootStyles = () =>
       })(theme)
     },
   })
+
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   theme,
   components,
