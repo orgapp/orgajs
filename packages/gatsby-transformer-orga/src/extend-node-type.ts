@@ -112,17 +112,17 @@ module.exports = async (
     const html = await toHtml(ast, {
       transform: (tree) => {
         const visitor = (node: Link) => {
-          if (node.protocol === 'file') {
+          if (node.path.protocol === 'file') {
             let linkPath = posix.join(
               getNode(getNode(orgContentNode.parent).parent).dir,
               normalize(node.path.value)
             )
 
             if (
-              typeof node.search === 'string' &&
-              node.search.startsWith('*')
+              typeof node.path.search === 'string' &&
+              node.path.search.startsWith('*')
             ) {
-              const headline = node.search.replace(/^\*+/, '')
+              const headline = node.path.search.replace(/^\*+/, '')
               linkPath = `${linkPath}::*${decodeURIComponent(headline)}`
             }
 
@@ -130,13 +130,13 @@ module.exports = async (
               (f) => f.absolutePath === linkPath
             )
             if (linkToOrg) {
-              node.value = getSlug(linkToOrg) || node.value
+              node.path.value = getSlug(linkToOrg) || node.path.value
             } else {
               const linkNode = files.find((f) => f.absolutePath === linkPath)
               if (linkNode && linkNode.absolutePath) {
                 const newFilePath = newPath(linkNode)
                 if (linkPath !== newFilePath) {
-                  node.value = newLinkURL({ linkNode, pathPrefix })
+                  node.path.value = newLinkURL({ linkNode, pathPrefix })
                   filesToCopy.set(linkPath, newFilePath)
                 }
               }
