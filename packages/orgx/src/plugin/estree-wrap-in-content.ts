@@ -94,6 +94,7 @@ export function estreeWrapInContent(options: Options) {
     // (import/exports) as they are.
     for (const child of program.body) {
       // export default props => <>{props.children}</>
+      // Treat it as an inline layout declaration.
       if (child.type === 'ExportDefaultDeclaration') {
         if (layout) {
           file.fail(

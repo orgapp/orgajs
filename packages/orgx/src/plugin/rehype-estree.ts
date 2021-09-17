@@ -66,9 +66,15 @@ export const rehypeEstree: Plugin = (options: Options) => {
               context.esm.push(child)
             }
             return false
-          }
-          if (child.type === 'ExpressionStatement') {
+          } else if (child.type === 'ExpressionStatement') {
             expressions.push(child.expression)
+          } else if (
+            child.type === 'ExportDefaultDeclaration' ||
+            child.type === 'ExportNamedDeclaration'
+          ) {
+            context.esm.push(child)
+          } else {
+            throw new Error(`unexpected node: ${child.type}`)
           }
         })
 
