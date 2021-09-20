@@ -31,6 +31,7 @@
   "dependencies": {
     "@orgajs/estree-jsx": "3.0.2",
     "@orgajs/loader": "^3.1.2",
+    "@orgajs/metadata": "1.0.0",
     "@orgajs/orgx": "1.0.0",
     "@orgajs/react": "^3.0.1",
     "astring": "^1.7.5",

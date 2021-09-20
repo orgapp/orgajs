@@ -10,6 +10,7 @@ const TO_DISCARD = [
   'begin',
   'end', // blocks
   'call', // call
+  'jsx', // orga's jsx support
 ]
 
 const shouldDiscard = (key: string) => {

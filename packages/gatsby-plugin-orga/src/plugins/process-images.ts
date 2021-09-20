@@ -1,7 +1,12 @@
 import { BaseNode, JSXAttribute, Program } from 'estree-jsx'
 import { walk } from 'estree-walker'
 import { Plugin, Transformer } from 'unified'
-import { isJSXAttribute, isJSXOpeningElement, isLiteral } from '../tools'
+import {
+  isJSXAttribute,
+  isJSXOpeningElement,
+  isLiteral,
+  isExternalLink,
+} from '../tools'
 
 const images: Plugin = (): Transformer => {
   const transformer: Transformer = async (tree: BaseNode) => {
@@ -35,7 +40,8 @@ const images: Plugin = (): Transformer => {
           isJSXAttribute(node) &&
           node.name.name === 'src' &&
           isJSXOpeningElement(parent) &&
-          isLiteral(node.value)
+          isLiteral(node.value) &&
+          !isExternalLink(`${node.value.value}`)
         ) {
           const varName = _import(`${node.value.value}`)
           this.replace({
