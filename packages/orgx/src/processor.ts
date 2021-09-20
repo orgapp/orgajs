@@ -77,8 +77,8 @@ export function createProcessor(processorOptions: Partial<Options> = {}) {
     .use(rehypeSetLayout, options)
     .use(options.rehypePlugins)
     .use(rehypeEstree, options)
-    .use(options.estreePlugins)
     .use(estreeWrapInContent, options)
+    .use(options.estreePlugins)
     .use(estreeJsxRewrite, options)
 
   if (!jsx) {
