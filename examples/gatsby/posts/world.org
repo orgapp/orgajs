@@ -1,5 +1,5 @@
 #+TITLE: Try Orga Post
-#+jsx: import Box from '../components/box'
+#+jsx: import Box from '../src/components/box'
 
 #+begin_export jsx
 export default ({ title, data, children }) =>
