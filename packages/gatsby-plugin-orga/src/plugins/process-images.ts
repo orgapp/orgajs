@@ -1,152 +1,61 @@
-import { NodePluginArgs } from 'gatsby'
-import { slash } from 'gatsby-core-utils'
-import { fluid, stats } from 'gatsby-plugin-sharp'
-import { selectAll } from 'unist-util-select'
-import _ from 'lodash'
-import path from 'path'
+import { BaseNode, JSXAttribute, Program } from 'estree-jsx'
+import { walk } from 'estree-walker'
 import { Plugin, Transformer } from 'unified'
-import u from 'unist-builder'
+import { isJSXAttribute, isJSXOpeningElement, isLiteral } from '../tools'
 
-interface Options {
-  gatsby: NodePluginArgs
-}
+const images: Plugin = (): Transformer => {
+  const transformer: Transformer = async (tree: BaseNode) => {
+    const imports = []
+    const _import = (path: string) => {
+      const varName = `image${imports.length}`
+      imports.push({
+        type: 'ImportDeclaration',
+        specifiers: [
+          {
+            type: 'ImportDefaultSpecifier',
+            local: {
+              type: 'Identifier',
+              name: varName,
+            },
+          },
+        ],
+        source: {
+          type: 'Literal',
+          value: path,
+          raw: `'${path}'`,
+        },
+      })
+      return varName
+    }
 
-const replace = (
-  original: Record<string, unknown>,
-  obj: Record<string, unknown>
-) => {
-  Object.keys(original).forEach((k) => delete original[k])
-  Object.assign(original, obj)
-  return original
-}
-
-const processImages: Plugin = ({ gatsby }: Partial<Options>) => {
-  const { cache, getNodesByType, reporter } = gatsby
-
-  const files = getNodesByType('File')
-
-  const transformer: Transformer = async (tree, file) => {
-    const dir = file.dirname
-    const images = selectAll('[tagName=img]', tree)
-
-    const promises = images.map(async (node) => {
-      const src = node.properties['src']
-
-      const imagePath = slash(path.join(dir, src))
-      const imageNode = _.find(files, (file) => {
-        if (file && file.absolutePath) {
-          return file.absolutePath === imagePath
+    const program = tree as Program
+    walk(program, {
+      enter(node, parent) {
+        if (
+          isJSXAttribute(node) &&
+          node.name.name === 'src' &&
+          isJSXOpeningElement(parent) &&
+          isLiteral(node.value)
+        ) {
+          const varName = _import(`${node.value.value}`)
+          this.replace({
+            ...node,
+            value: {
+              type: 'JSXExpressionContainer',
+              expression: {
+                type: 'Identifier',
+                name: varName,
+              },
+            },
+          } as JSXAttribute)
         }
-        return null
-      })
-      if (!imageNode || !imageNode.absolutePath) return
-
-      const maxWidth = node.properties['width']
-
-      const fluidResult = await fluid({
-        file: imageNode,
-        args: {
-          maxWidth,
-        },
-        reporter,
-        cache,
-      })
-
-      let image = _.cloneDeep(node)
-      _.assign(image.properties, {
-        src: fluidResult.src,
-        srcset: fluidResult.srcSet.replace(/\n/g, ''),
-        alt: 'a picture',
-        title: 'a title',
-        loading: 'lazy',
-        decoding: 'async',
-        style: {
-          width: '100%',
-          height: '100%',
-          margin: 0,
-          verticalAlign: 'middle',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-        },
-      })
-
-      const placeholderImageData = fluidResult.base64
-
-      const ratio = `${(1 / fluidResult.aspectRatio) * 100}%`
-
-      let removeBgImage = false
-
-      const imageStats = await stats({ file: imageNode, reporter })
-      if (imageStats && imageStats.isTransparent) removeBgImage = true
-
-      // add placeholder
-      image = u(
-        'element',
-        {
-          tagName: 'span',
-          properties: {
-            style: {
-              paddingBottom: ratio,
-              position: 'relative',
-              bottom: 0,
-              left: 0,
-              display: 'block',
-              backgroundImage: removeBgImage
-                ? undefined
-                : `url('${placeholderImageData}')`,
-              backgroundSize: removeBgImage ? undefined : 'cover',
-            },
-          },
-        },
-        [image]
-      )
-
-      // TODO: make this configurable
-      image = u(
-        'element',
-        {
-          tagName: 'a',
-          properties: {
-            href: fluidResult.src,
-            target: '_blank',
-            rel: 'noopener',
-            style: {
-              display: 'block',
-            },
-          },
-        },
-        [image]
-      )
-
-      const presentationWidth = fluidResult.presentationWidth
-
-      const wrapper = u(
-        'element',
-        {
-          tagName: 'span',
-          properties: {
-            style: {
-              position: 'relative',
-              display: 'block',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              maxWidth: `${presentationWidth}px`,
-            },
-          },
-        },
-        [image]
-      )
-
-      replace(node, wrapper)
+      },
     })
 
-    await Promise.all(promises)
-
-    return tree
+    program.body.unshift(...imports)
   }
 
   return transformer
 }
 
-export default processImages
+export default images

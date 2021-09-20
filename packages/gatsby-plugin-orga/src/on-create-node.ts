@@ -1,7 +1,7 @@
-export default async ({
+import { GatsbyNode, NodeInput } from 'gatsby'
+const onCreateNode: GatsbyNode['onCreateNode'] = async ({
   node,
   actions,
-  getNode,
   loadNodeContent,
   createNodeId,
   createContentDigest,
@@ -11,7 +11,7 @@ export default async ({
   // }
 
   const content = await loadNodeContent(node)
-  const orgaNode: any = {
+  const orgaNode: NodeInput & Record<string, unknown> = {
     id: createNodeId(`${node.id} >>> Orga`),
     children: [],
     parent: node.id,
@@ -28,3 +28,5 @@ export default async ({
 
   actions.createNode(orgaNode)
 }
+
+export default onCreateNode
