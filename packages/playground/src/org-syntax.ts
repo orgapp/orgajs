@@ -1,6 +1,7 @@
 export const tokenizer = {
   root: [
     [/^(\*+)\s+(.*)$/, 'keyword'],
-    [/\s*#\+\w+.*/, 'comment'],
+    [/\s*#\+\w+.*/, 'support'],
+    [/#\s+.*/, 'comment'],
   ],
 }
