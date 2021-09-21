@@ -24,7 +24,7 @@ import {
   rehypeSetLayout,
 } from './plugin/rehype-set-layout'
 
-export interface Options
+export interface ProcessorOptions
   extends RehypeEstreeOptions,
     EstreeWrapInContentOptions,
     JSXRewriteOptions,
@@ -36,8 +36,8 @@ export interface Options
   estreePlugins: PluggableList
 }
 
-const defaultOptions: Options = {
-  jsx: true,
+const defaultOptions: ProcessorOptions = {
+  jsx: false,
   reorgPlugins: [],
   rehypePlugins: [],
   estreePlugins: [],
@@ -60,14 +60,16 @@ const defaultOptions: Options = {
   passNamedExportsToLayout: true,
 
   // EstreeJsxRewrite
-  providerImportSource: '@orgajs/react',
+  // providerImportSource: '@orgajs/react',
 }
 
 function debug() {
   this.Compiler = (stuff) => inspect(stuff, false, null, true)
 }
 
-export function createProcessor(processorOptions: Partial<Options> = {}) {
+export function createProcessor(
+  processorOptions: Partial<ProcessorOptions> = {}
+) {
   const { jsx, ...options } = { ...defaultOptions, ...processorOptions }
 
   const pipeline = unified()

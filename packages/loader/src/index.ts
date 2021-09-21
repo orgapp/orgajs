@@ -1,11 +1,11 @@
-import { createProcessor, Options } from '@orgajs/orgx'
+import { createProcessor, ProcessorOptions } from '@orgajs/orgx'
 import { getOptions } from 'loader-utils'
 import Report from 'vfile-reporter'
 
-export type { Options }
+export type { ProcessorOptions }
 
 export default function (source) {
-  const options: Partial<Options> = getOptions(this)
+  const options: Partial<ProcessorOptions> = getOptions(this)
 
   const processor = createProcessor(options)
 

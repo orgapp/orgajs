@@ -1,4 +1,4 @@
-import { Options as LoaderOptions } from '@orgajs/loader'
+import { ProcessorOptions as LoaderOptions } from '@orgajs/loader'
 import { PluginOptions } from 'gatsby'
 
 export type Options = LoaderOptions

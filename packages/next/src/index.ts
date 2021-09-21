@@ -1,4 +1,4 @@
-import type { Options as LoaderOptions } from '@orgajs/loader'
+import type { ProcessorOptions as LoaderOptions } from '@orgajs/loader'
 import { processImage } from './plugin/image'
 import { rewriteLinks } from './plugin/link'
 
@@ -20,6 +20,8 @@ const plugin =
             {
               loader: require.resolve('@orgajs/loader'),
               options: {
+                jsx: true,
+                providerImportSource: require.resolve('@orgajs/react'),
                 estreePlugins: [
                   processImage,
                   rewriteLinks,

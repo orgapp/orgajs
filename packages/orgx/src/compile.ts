@@ -1,13 +1,21 @@
-import { createProcessor, Options } from './processor'
+import {
+  createProcessor,
+  ProcessorOptions as ProcessorOptions,
+} from './processor'
 import type { VFileCompatible } from 'vfile'
 
-export function compile(file: VFileCompatible, options: Partial<Options> = {}) {
+export type CompileOptions = ProcessorOptions
+
+export function compile(
+  file: VFileCompatible,
+  options: Partial<CompileOptions> = {}
+) {
   return createProcessor(options).process(file)
 }
 
 export function compileSync(
   file: VFileCompatible,
-  options: Partial<Options> = {}
+  options: Partial<CompileOptions> = {}
 ) {
   return createProcessor(options).processSync(file)
 }

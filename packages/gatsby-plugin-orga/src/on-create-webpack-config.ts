@@ -27,6 +27,8 @@ const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (
             {
               loader: '@orgajs/loader',
               options: {
+                jsx: true,
+                providerImportSource: require.resolve('@orgajs/react'),
                 estreePlugins: [
                   [processLinks, { gatsby: api }],
                   processImages,
