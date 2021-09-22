@@ -24,6 +24,9 @@
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "license": "MIT",
   "dependencies": {
-    "@theme-ui/preset-base": "^0.6.0"
+    "@theme-ui/preset-system": "^0.11.2"
+  },
+  "peerDependencies": {
+    "@theme-ui/css": "*"
   }
 }
