@@ -10,7 +10,6 @@ import {
   FC,
   HTMLAttributes,
   ReactNode,
-  useEffect,
 } from 'react'
 
 type OrgaProviderComponentsKnownKeys = {
