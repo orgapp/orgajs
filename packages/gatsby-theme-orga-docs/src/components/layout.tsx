@@ -2,7 +2,7 @@
 import { PageProps } from 'gatsby'
 import { get } from 'lodash'
 import { useState } from 'react'
-import { IconButton, jsx, MenuButton } from 'theme-ui'
+import { IconButton, jsx, MenuButton, Themed } from 'theme-ui'
 import Nav from './nav'
 import SEO from './seo'
 import Side from './side'
@@ -10,7 +10,7 @@ import Side from './side'
 const HEADER_HEIGHT = '48px'
 const SIDEBAR_WIDTH = '250px'
 
-export default ({ children, pageContext }: PageProps) => {
+const Layout = ({ children, pageContext }: PageProps) => {
   const title = get(pageContext, 'properties.title')
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -131,9 +131,11 @@ export default ({ children, pageContext }: PageProps) => {
           p: 4,
         }}
       >
-        {title && <h1 sx={{ fontSize: 6 }}>{title}</h1>}
+        {title && <Themed.h1 sx={{ fontSize: 6 }}>{title}</Themed.h1>}
         {children}
       </main>
     </div>
   )
 }
+
+export default Layout

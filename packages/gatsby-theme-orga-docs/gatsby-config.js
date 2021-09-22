@@ -38,7 +38,11 @@ module.exports = (themeOptions) => {
         options: { path },
       })),
       {
-        resolve: 'gatsby-plugin-theme-ui',
+        resolve: 'gatsby-plugin-orga-theme-ui',
+        options: {
+          preset: '@theme-ui/preset-system',
+          prismPreset: 'github',
+        },
       },
     ],
   }
