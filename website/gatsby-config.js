@@ -24,7 +24,6 @@ module.exports = {
         components: {
           Space: require.resolve('./src/components/space.tsx'),
           Notice: require.resolve('./src/components/notice.tsx'),
-          CodeBlock: require.resolve('./src/components/code-block/index.tsx'),
         },
       },
     },

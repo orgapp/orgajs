@@ -1,4 +1,4 @@
-import { jsx } from '@orgajs/theme-ui'
+import { jsx } from 'theme-ui'
 import Prism from '@theme-ui/prism'
 const components = {
   pre: (props) => props.children,

@@ -1,9 +1,11 @@
-/** @jsxImportSource theme-ui */
+/** @jsx jsx */
 import { graphql, Link, useStaticQuery } from 'gatsby'
-import _ from 'lodash'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import _ from 'lodash'
+import React from 'react'
+import { jsx } from 'theme-ui'
 
-export default ({ style, ...props }) => {
+const Side: React.FC = (props) => {
   const data = useStaticQuery(graphql`
     query {
       logo: file(relativePath: { eq: "logo.png" }) {
@@ -12,13 +14,13 @@ export default ({ style, ...props }) => {
         }
       }
       pages: allSitePage(
-        filter: { context: { properties: { published: { eq: "true" } } } }
+        filter: { context: { metadata: { published: { eq: "true" } } } }
         sort: { fields: path }
       ) {
         nodes {
           path
           context {
-            properties {
+            metadata {
               title
               position
             }
@@ -33,13 +35,12 @@ export default ({ style, ...props }) => {
   const items = data.pages.nodes.map((p) => {
     const parts = p.path.split('/').filter(Boolean)
     const parents = _.dropRight(parts)
-    let position =
-      (positions[parents.join('.')] || 0) +
-      Number(p.context.properties.position)
+    const position =
+      (positions[parents.join('.')] || 0) + Number(p.context.metadata.position)
     positions[parts.join('.')] = position
 
     return {
-      text: p.context.properties.title || _.last(parts),
+      text: p.context.metadata.title || _.last(parts),
       path: p.path,
       indent: parts.length - 1,
       position,
@@ -67,7 +68,7 @@ export default ({ style, ...props }) => {
   ))
 
   return (
-    <div sx={{}} {...props}>
+    <div {...props}>
       <div
         style={{
           display: 'flex',
@@ -96,3 +97,5 @@ export default ({ style, ...props }) => {
     </div>
   )
 }
+
+export default Side
