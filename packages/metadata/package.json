@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/metadata",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "extract metadata info from org file",
   "main": "dist/index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
