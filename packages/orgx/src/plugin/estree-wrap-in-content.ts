@@ -140,7 +140,7 @@ export function estreeWrapInContent(options: Options) {
           declarations: [
             {
               type: 'VariableDeclarator',
-              id: { type: 'Identifier', name: 'MDXLayout' },
+              id: { type: 'Identifier', name: 'OrgaLayout' },
               init: isDeclaration(child.declaration)
                 ? declarationToExpression(child.declaration)
                 : child.declaration,
@@ -167,7 +167,7 @@ export function estreeWrapInContent(options: Options) {
 
             layout = specifier
 
-            // Make it just an import: `import MDXLayout from '…'`.
+            // Make it just an import: `import OrgaLayout from '…'`.
             handleEsm(
               create(specifier, {
                 type: 'ImportDeclaration',
@@ -176,12 +176,12 @@ export function estreeWrapInContent(options: Options) {
                   specifier.local.name === 'default'
                     ? {
                         type: 'ImportDefaultSpecifier',
-                        local: { type: 'Identifier', name: 'MDXLayout' },
+                        local: { type: 'Identifier', name: 'OrgaLayout' },
                       }
                     : create(specifier.local, {
                         type: 'ImportSpecifier',
                         imported: specifier.local,
-                        local: { type: 'Identifier', name: 'MDXLayout' },
+                        local: { type: 'Identifier', name: 'OrgaLayout' },
                       }),
                 ],
                 source: create(source, {
@@ -220,7 +220,7 @@ export function estreeWrapInContent(options: Options) {
           child.expression.type === 'JSXElement')
       ) {
         content = true
-        replacement.push(createMdxContent(child.expression))
+        replacement.push(createOrgaContent(child.expression))
         // The following catch-all branch is because plugins might’ve added
         // other things.
         // Normally, we only have import/export/jsx, but just add whatever’s
@@ -231,10 +231,10 @@ export function estreeWrapInContent(options: Options) {
     }
 
     if (!content) {
-      replacement.push(createMdxContent())
+      replacement.push(createOrgaContent())
     }
 
-    exportedIdentifiers.push(['MDXContent', 'default'])
+    exportedIdentifiers.push(['OrgaContent', 'default'])
 
     if (outputFormat === 'function-body') {
       replacement.push({
@@ -276,7 +276,7 @@ export function estreeWrapInContent(options: Options) {
     } else {
       replacement.push({
         type: 'ExportDefaultDeclaration',
-        declaration: { type: 'Identifier', name: 'MDXContent' },
+        declaration: { type: 'Identifier', name: 'OrgaContent' },
       })
     }
 
@@ -434,7 +434,7 @@ export function estreeWrapInContent(options: Options) {
     }
   }
 
-  function createMdxContent(content = undefined): FunctionDeclaration {
+  function createOrgaContent(content = undefined): FunctionDeclaration {
     const props: JSXAttribute[] = []
     const inject = (name: string) => {
       props.push({
@@ -459,7 +459,7 @@ export function estreeWrapInContent(options: Options) {
       type: 'JSXElement',
       openingElement: {
         type: 'JSXOpeningElement',
-        name: { type: 'JSXIdentifier', name: 'MDXLayout' },
+        name: { type: 'JSXIdentifier', name: 'OrgaLayout' },
         attributes: [
           ...props,
           {
@@ -471,7 +471,7 @@ export function estreeWrapInContent(options: Options) {
       },
       closingElement: {
         type: 'JSXClosingElement',
-        name: { type: 'JSXIdentifier', name: 'MDXLayout' },
+        name: { type: 'JSXIdentifier', name: 'OrgaLayout' },
       },
       children: [
         {
@@ -485,7 +485,7 @@ export function estreeWrapInContent(options: Options) {
 
     return {
       type: 'FunctionDeclaration',
-      id: { type: 'Identifier', name: 'MDXContent' },
+      id: { type: 'Identifier', name: 'OrgaContent' },
       params: [
         {
           type: 'AssignmentPattern',
@@ -511,7 +511,7 @@ export function estreeWrapInContent(options: Options) {
             type: 'ReturnStatement',
             argument: {
               type: 'ConditionalExpression',
-              test: { type: 'Identifier', name: 'MDXLayout' },
+              test: { type: 'Identifier', name: 'OrgaLayout' },
               consequent,
               alternate: { type: 'Identifier', name: '_content' },
             },

@@ -99,7 +99,7 @@ export const rehypeEstree: Plugin = (options: Options) => {
             type: 'ImportDefaultSpecifier',
             local: {
               type: 'Identifier',
-              name: 'MDXLayout',
+              name: 'OrgaLayout',
             },
           },
         ],

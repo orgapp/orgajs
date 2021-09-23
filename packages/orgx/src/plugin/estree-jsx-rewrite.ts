@@ -22,7 +22,7 @@ function isFunctionDeclaration(
 
 /**
  * A plugin that rewrites JSX in functions to accept components as
- * `props.components` (when the function is called `MDXContent`), or from
+ * `props.components` (when the function is called `OrgaContent`), or from
  * a provider (if there is one).
  * It also makes sure that any undefined components are defined: either from
  * received components or as a function that throws an error.
@@ -166,11 +166,11 @@ export function estreeJsxRewrite(options: Options) {
               })
             }
 
-            // Accept `components` as a prop if this is the `MDXContent` function.
+            // Accept `components` as a prop if this is the `OrgaContent` function.
             if (
               isFunctionDeclaration(fn) &&
               fn.id &&
-              fn.id.name === 'MDXContent'
+              fn.id.name === 'OrgaContent'
             ) {
               parameters.push({
                 type: 'MemberExpression',
@@ -202,11 +202,11 @@ export function estreeJsxRewrite(options: Options) {
             })
 
             // Add components to scope.
-            // For `['MyComponent', 'MDXLayout']` this generates:
+            // For `['MyComponent', 'OrgaLayout']` this generates:
             // ```js
-            // const {MyComponent, wrapper: MDXLayout} = _components
+            // const {MyComponent, wrapper: OrgaLayout} = _components
             // ```
-            // Note that MDXLayout is special as it’s taken from
+            // Note that OrgaLayout is special as it’s taken from
             // `_components.wrapper`.
             if (actual.length > 0) {
               declarations.push({
@@ -218,11 +218,11 @@ export function estreeJsxRewrite(options: Options) {
                     kind: 'init',
                     key: {
                       type: 'Identifier',
-                      name: name === 'MDXLayout' ? 'wrapper' : name,
+                      name: name === 'OrgaLayout' ? 'wrapper' : name,
                     },
                     value: { type: 'Identifier', name },
                     method: false,
-                    shorthand: name !== 'MDXLayout',
+                    shorthand: name !== 'OrgaLayout',
                     computed: false,
                   })),
                 },
