@@ -1,5 +1,5 @@
-import Editor, { useMonaco } from '@monaco-editor/react'
 import React, { FC, useEffect } from 'react'
+import Editor, { useMonaco } from '@monaco-editor/react'
 import { ErrorBoundary } from 'react-error-boundary'
 import JSONTree from 'react-json-tree'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'

@@ -6,10 +6,9 @@
     "outDir": "./dist"
   },
   "references": [
-    { "path": "../reorg" },
-    { "path": "../estree-jsx" },
-    { "path": "../rehype-estree" },
-    { "path": "../reorg-rehype" }
+    { "path": "../orga" },
+    { "path": "../orgx" },
+    { "path": "../react" }
   ],
   "include": ["./src"]
 }
