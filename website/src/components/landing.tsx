@@ -1,14 +1,16 @@
-/** @jsxImportSource theme-ui */
-import { Link } from 'gatsby'
+/** @jsx jsx */
+import React from 'react'
+import { Link, PageProps } from 'gatsby'
 import SEO from 'gatsby-theme-orga-docs/src/components/seo'
-import { get } from 'lodash'
-import { Flex, Heading, NavLink, Paragraph, Text } from 'theme-ui'
+import { Flex, Heading, jsx, NavLink, Paragraph } from 'theme-ui'
 import Banner from './banner'
 
-export default ({ children, pageContext }) => {
-  const title = get(pageContext, 'properties.title')
-  const subtitle = get(pageContext, 'properties.subtitle')
+interface Props extends PageProps {
+  title: string
+  subtitle: string
+}
 
+const Landing: React.FC<Props> = ({ children, title, subtitle }) => {
   const Bar = (props) => (
     <div
       sx={{
@@ -94,3 +96,5 @@ export default ({ children, pageContext }) => {
     </>
   )
 }
+
+export default Landing

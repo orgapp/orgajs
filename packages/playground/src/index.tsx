@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react'
-import { LivePreview, LiveProvider, LiveError } from 'react-live'
-import { tokenize } from 'orga'
-import reorg from '@orgajs/reorg'
-import toRehype from '@orgajs/reorg-rehype'
-import toEstree from '@orgajs/rehype-estree'
-import toJsx from '@orgajs/estree-jsx'
-import { OrgaProvider, orga } from '@orgajs/react'
-import JSONTree from 'react-json-tree'
+import React, { FC, useEffect } from 'react'
 import Editor, { useMonaco } from '@monaco-editor/react'
-import { tokenizer } from './org-syntax'
-import { Tabs, Tab, TabPanel, TabList } from 'react-tabs'
+import { ErrorBoundary } from 'react-error-boundary'
+import JSONTree from 'react-json-tree'
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
+import vfileMessage from 'vfile-message'
+import { tokenizer } from './org-syntax'
+import codeTheme from './theme/light'
+import { useOrga } from './use-orga'
 
 const theme = {
   background: '#f5f8fa',
@@ -19,12 +16,11 @@ const theme = {
   primary: '#ff7a64',
   text: '#23292f',
   lightText: '#68737e',
-  code: 'vs-light',
+  code: 'github-light',
 }
 
 const treeTheme = {
   scheme: 'monokai',
-  author: 'wimer hazenberg (http://www.monokai.nl)',
   // base00: '#272822',
   base00: 'black',
   base01: '#383830',
@@ -44,7 +40,16 @@ const treeTheme = {
   base0F: '#cc6633',
 }
 
-const Playground = ({ code, onChange, style }) => {
+interface Props {
+  runtime?: unknown
+  children: string
+  onChange?: (text: string) => void
+  style?: React.CSSProperties
+}
+
+const Playground: FC<Props> = ({ runtime, onChange, style = {}, children }) => {
+  const text = `${children}`
+
   const monaco = useMonaco()
   useEffect(() => {
     if (monaco) {
@@ -55,125 +60,59 @@ const Playground = ({ code, onChange, style }) => {
     }
   }, [monaco])
 
-  function getOutputs(src: string) {
-    const result = {
-      tokens: tokenize(src).all(),
-      oast: undefined,
-      rehype: undefined,
-      estree: undefined,
-      jsx: '',
-    }
-
-    const saveTo = (path: string) => {
-      return () => (tree) => {
-        result[path] = tree
-        return tree
-      }
-    }
-
-    try {
-      const processor = reorg()
-        .use(saveTo('oast'))
-        .use(toRehype)
-        .use(saveTo('rehype'))
-        .use(toEstree, { skipExport: true, skipImport: true })
-        .use(saveTo('estree'))
-        .use(toJsx, { renderer: '' })
-
-      const code = processor.processSync(src)
-      result.jsx = String(code)
-    } catch (err) {
-      // TODO: handle the error
-      console.log({ err })
-      throw err
-    }
-
-    return result
+  const beforeEditorMount = (monaco) => {
+    monaco.editor.defineTheme('github-light', codeTheme)
   }
 
-  const { tokens, oast, rehype, estree, jsx } = getOutputs(code)
-
-  function compile(text: string) {
-    let jsx = ''
-    try {
-      const processor = reorg()
-        .use(toRehype)
-        .use(toEstree, { skipExport: true, skipImport: true })
-        .use(toJsx, { renderer: '' })
-
-      const code = processor.processSync(text)
-
-      jsx = `
-    ${code}
-
-    render(
-      <OrgaProvider components={components}>
-        <OrgaContent {...props} />
-      </OrgaProvider>
-    )
-  `
-    } catch (err) {
-      jsx = ''
-    }
-    return jsx
-  }
-
-  const components = {}
-  const props = {}
+  const { output } = useOrga(text, runtime)
 
   return (
-    <LiveProvider
-      code={code}
-      scope={{
-        OrgaProvider,
-        orga,
-        components,
-        props,
+    <div
+      style={{
+        display: 'flex',
+        color: theme.text,
+        minHeight: '540px',
+        backgroundColor: theme.background,
+        border: `1px solid ${theme.border}`,
+        width: '100vw',
+        height: '100%',
+        ...style,
       }}
-      noInline={true}
-      transformCode={(code) => compile(code)}
     >
       <div
         style={{
-          display: 'flex',
-          color: theme.text,
-          minHeight: '540px',
-          backgroundColor: theme.background,
-          border: `1px solid ${theme.border}`,
-          height: '100%',
-          ...style,
+          gridArea: 'input',
+          width: '50%',
+          borderRight: `1px solid ${theme.border}`,
         }}
       >
-        <div
-          style={{
-            gridArea: 'input',
-            width: '50%',
-            borderRight: `1px solid ${theme.border}`,
+        <Editor
+          value={text}
+          onChange={onChange}
+          theme={theme.code}
+          language="org-mode"
+          path="text.org"
+          beforeMount={beforeEditorMount}
+          options={{
+            minimap: {
+              enabled: false,
+            },
+            scrollBeyondLastLine: false,
+            wordWrap: 'on',
           }}
-        >
-          <Editor
-            value={code}
-            onChange={(value) => onChange(value)}
-            theme={theme.code}
-            language="org-mode"
-            path="text.org"
-            options={{
-              minimap: {
-                enabled: false,
-              },
-              scrollBeyondLastLine: false,
-            }}
-          />
-        </div>
-        <Tabs
-          style={{
-            gridArea: 'output',
-            backgroundColor: theme.surface,
-            height: '100%',
-            width: '50%',
-          }}
-          defaultIndex={5}
-        >
+        />
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gridArea: 'output',
+          backgroundColor: theme.surface,
+          height: '100%',
+          width: '50%',
+        }}
+      >
+        <Tabs style={{ flex: 1, width: '100%' }} defaultIndex={5}>
           <TabList>
             <Tab style={{ color: theme.lightText }}>tokens</Tab>
             <Tab style={{ color: theme.lightText }}>oast</Tab>
@@ -183,54 +122,91 @@ const Playground = ({ code, onChange, style }) => {
             <Tab style={{ color: theme.lightText }}>preview</Tab>
           </TabList>
           <TabPanel style={{ padding: '0.4em 0.8em' }}>
-            <JSONTree
-              data={tokens}
-              theme={treeTheme}
-              invertTheme={true}
-              getItemString={(type, data) => <span>{data.type}</span>}
-            />
+            {output ? (
+              <JSONTree
+                data={output.data['tokens'] || []}
+                theme={treeTheme}
+                invertTheme={true}
+                getItemString={(type, data) => <span>{data.type}</span>}
+              />
+            ) : null}
           </TabPanel>
           <TabPanel style={{ padding: '0.4em 0.8em' }}>
-            <JSONTree
-              data={oast}
-              theme={treeTheme}
-              invertTheme={true}
-              getItemString={(type, data, itemType, itemString, keyPath) =>
-                type === 'Object' ? (
-                  <span>{data.type}</span>
-                ) : (
-                  <span>
-                    {itemType} {itemString}
-                  </span>
-                )
-              }
-            />
+            {output ? (
+              <JSONTree
+                data={output.data['oast']}
+                theme={treeTheme}
+                invertTheme={true}
+                getItemString={(type, data, itemType, itemString) =>
+                  type === 'Object' ? (
+                    <span>{data.type}</span>
+                  ) : (
+                    <span>
+                      {itemType} {itemString}
+                    </span>
+                  )
+                }
+              />
+            ) : null}
           </TabPanel>
           <TabPanel style={{ padding: '0.4em 0.8em' }}>
-            <JSONTree data={rehype} theme={treeTheme} invertTheme={true} />
+            {output ? (
+              <JSONTree
+                data={output.data['rehype']}
+                theme={treeTheme}
+                invertTheme={true}
+              />
+            ) : null}
           </TabPanel>
           <TabPanel style={{ padding: '0.4em 0.8em' }}>
-            <JSONTree data={estree} theme={treeTheme} invertTheme={true} />
+            {output ? (
+              <JSONTree
+                data={output.data['estree']}
+                theme={treeTheme}
+                invertTheme={true}
+              />
+            ) : null}
           </TabPanel>
           <TabPanel style={{ height: '100%' }}>
-            <Editor
-              value={jsx}
-              theme={theme.code}
-              language="javascript"
-              path="text.jsx"
-              options={{
-                readOnly: true,
-                scrollBeyondLastLine: false,
-              }}
-            />
+            {output ? (
+              <Editor
+                value={output.data['jsx']}
+                theme={theme.code}
+                language="javascript"
+                path="text.jsx"
+                options={{
+                  minimap: {
+                    enabled: false,
+                  },
+                  readOnly: true,
+                  scrollBeyondLastLine: false,
+                  wordWrap: 'on',
+                }}
+              />
+            ) : null}
           </TabPanel>
           <TabPanel style={{ padding: '0.4em 0.8em' }}>
-            <LivePreview label="preview" />
+            <div style={{ overflow: 'scroll' }}>
+              {output && output.result ? (
+                <ErrorBoundary FallbackComponent={FallbackComponent}>
+                  <output.result />
+                </ErrorBoundary>
+              ) : null}
+            </div>
           </TabPanel>
         </Tabs>
-        <LiveError />
       </div>
-    </LiveProvider>
+    </div>
+  )
+}
+
+const FallbackComponent: FC<{ error: Error }> = ({ error }) => {
+  const message = vfileMessage(error)
+  message.fatal = true
+  return (
+    <pre>
+      <code>{String(message)}</code>
+    </pre>
   )
 }
 

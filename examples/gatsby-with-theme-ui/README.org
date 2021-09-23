@@ -1,0 +1,13 @@
+#+title: Orgajs + Gatsby + theme-ui
+
+This project demonstrates how to use orgajs in a Gatsby website, with [[https://theme-ui.com][theme-ui]].
+
+-----
+
+* Running locally
+
+See the [[file:../README.org][setup instructions]] before using this project.
+
+#+begin_src shell
+yarn develop
+#+end_src

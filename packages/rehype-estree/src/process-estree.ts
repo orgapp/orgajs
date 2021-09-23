@@ -106,7 +106,10 @@ function processEstree(estree, options: Options) {
         }
       }
 
-      if (check.isJSXElement(node)) {
+      if (
+        check.isJSXElement(node) &&
+        check.isJSXIdentifier(node.openingElement.name)
+      ) {
         const name = node.openingElement.name.name
 
         if (stack.length > 1) {

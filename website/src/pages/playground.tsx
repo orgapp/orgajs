@@ -1,78 +1,67 @@
-import React, { useState, useEffect } from 'react'
+/* @jsx jsx */
 import Playground from '@orgajs/playground'
-import { Link } from 'gatsby'
-import { Button, NavLink } from 'theme-ui'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { parse as parseQueryString } from 'query-string'
-import { FaLink as LinkIcon, FaCheck as CheckIcon } from 'react-icons/fa'
+import { Link, PageProps } from 'gatsby'
 import SEO from 'gatsby-theme-orga-docs/src/components/seo'
+import { parse as parseQueryString } from 'query-string'
+import { FC, useEffect, useState } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { FaCheck as CheckIcon, FaLink as LinkIcon } from 'react-icons/fa'
+import { Button, Flex, jsx, NavLink, Select } from 'theme-ui'
+import examples from '../examples'
 
-const decode = decodeURIComponent
+/* const decode = decodeURIComponent */
 const encode = encodeURIComponent
 
-export default ({ location }) => {
+const ThePlayground: FC<PageProps> = ({ location }) => {
   const q = parseQueryString(location.search)
 
-  const [code, setCode] = useState(
-    (q.text as string) ||
-      `* Hello World
-
-Enter org-mode content here.
-
-#+begin_src javascript
-console.log('this is orga')
-#+end_src
-`
-  )
+  const [code, setCode] = useState((q.text as string) || examples[0].code)
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     setCopied(false)
   }, [code])
 
-  const Box = ({ children, style }) => (
-    <div
-      style={{
-        display: 'flex',
-        flex: 1,
-        justifyContent: 'center',
-        ...style,
-      }}
-    >
-      {children}
-    </div>
-  )
+  const loadExample = (index) => {
+    const example = examples[index].code
+    setCode(example.trim())
+  }
 
   return (
     <div
-      style={{
+      sx={{
         display: 'grid',
         height: '100vh',
-        gridTemplateRows: '42px 1fr',
+        gridTemplateRows: '58px 1fr',
       }}
     >
       <SEO title="playground" />
       <div
-        style={{
+        sx={{
           display: 'flex',
           alignItems: 'center',
           padding: '0 1em',
         }}
       >
-        <Box
-          style={{
-            marginRight: 'auto',
-            justifyContent: 'flex-start',
-            gap: '0.2em',
-          }}
-        >
+        <Flex sx={{ gap: '1em', alignItems: 'center' }}>
+          <Select
+            sx={{ width: 300 }}
+            onChange={(e) => loadExample(e.target.value)}
+          >
+            {examples.map((e, i) => {
+              return (
+                <option key={`example-${i}`} value={i}>
+                  {e.name}
+                </option>
+              )
+            })}
+          </Select>
           <NavLink as={Link} to="/">
             Documentation
           </NavLink>
           <NavLink href="https://github.com/orgapp/orgajs">Source Code</NavLink>
-        </Box>
-        <Box style={{ color: '#68737e' }}>orgajs playground</Box>
-        <Box style={{ marginLeft: 'auto', justifyContent: 'flex-end' }}>
+        </Flex>
+        <Flex sx={{ marginLeft: 'auto', justifyContent: 'flex-end' }}>
           <CopyToClipboard
             text={`${location.origin}${location.pathname}?text=${encode(code)}`}
             onCopy={() => setCopied(true)}
@@ -89,13 +78,15 @@ console.log('this is orga')
               {copied ? 'Copied to Clipboard' : 'Generate Permalink'}
             </Button>
           </CopyToClipboard>
-        </Box>
+        </Flex>
       </div>
-      <Playground
-        style={{ height: 'calc(100% - 20px)' }}
-        code={code}
-        onChange={(code) => setCode(code)}
-      />
+      <div>
+        <Playground style={{ height: 'calc(100% - 20px)' }} onChange={setCode}>
+          {code}
+        </Playground>
+      </div>
     </div>
   )
 }
+
+export default ThePlayground

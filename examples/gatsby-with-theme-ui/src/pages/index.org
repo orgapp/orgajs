@@ -1,0 +1,16 @@
+#+TITLE: Orga + Gatsby = Awesome
+#+jsx: import Box from '../components/box'
+
+#+attr_html: :width 300
+[[file:../images/logo.png][orgajs]]
+
+* Hi
+You can /embed/ react components like [[https://mdxjs.com/][mdx]], but better, with =export jsx block=.
+
+#+begin_export jsx
+<Box>that tomato box</Box>
+#+end_export
+
+- [[file:page2.org][here is a link to another org file]]
+- [[file:page3.tsx][here is a link to a tsx file]]
+

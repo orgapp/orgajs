@@ -1,34 +1,16 @@
-import toJsx from '@orgajs/estree-jsx'
-import toEstree from '@orgajs/rehype-estree'
-import toRehype from '@orgajs/reorg-rehype'
 import { GatsbyNode } from 'gatsby'
-import { Handler, HNode } from 'oast-to-hast'
-import { Block } from 'orga'
 import * as path from 'path'
+import { withDefault } from './options'
+import processLinks from './plugins/process-links'
 import processImages from './plugins/process-images'
 
-const renderer = `import React from 'react'
-import {orga} from '@orgajs/react'
-import { graphql } from 'gatsby'
-`
 const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (
   api,
   pluginOptions
 ) => {
   const { stage, loaders, actions, plugins, cache } = api
-  const { defaultLayout, components } = pluginOptions
-
-  const handleBlock: Handler = (node: Block, context) => {
-    const { h, u, defaultHandler } = context
-    const name = node.name.toLowerCase()
-
-    if (name === 'src') {
-      const body: HNode = u('text', node.value)
-      const lang = node.params[0]
-      return h('CodeBlock', { className: [`language-${lang}`] })(body)
-    }
-    return defaultHandler(node.type)
-  }
+  const { components } = pluginOptions
+  const { estreePlugins = [], ...rest } = withDefault(pluginOptions)
 
   actions.setWebpackConfig({
     module: {
@@ -45,12 +27,14 @@ const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (
             {
               loader: '@orgajs/loader',
               options: {
-                plugins: [
-                  [toRehype, { handlers: { block: handleBlock } }],
-                  [processImages, { gatsby: api }],
-                  [toEstree, { defaultLayout }],
-                  [toJsx, { renderer }],
+                jsx: true,
+                providerImportSource: require.resolve('@orgajs/react'),
+                estreePlugins: [
+                  [processLinks, { gatsby: api }],
+                  processImages,
+                  ...estreePlugins,
                 ],
+                ...rest,
               },
             },
           ],
@@ -68,13 +52,6 @@ const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (
               ),
               options: {
                 components: {
-                  CodeBlock: require.resolve(
-                    path.join(
-                      'gatsby-plugin-orga',
-                      'components',
-                      'code-block.tsx'
-                    )
-                  ),
                   ...(components as Record<string, unknown>),
                 },
               },

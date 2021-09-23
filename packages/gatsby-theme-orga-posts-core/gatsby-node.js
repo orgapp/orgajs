@@ -28,11 +28,11 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
 const orgResolverPassthrough =
   (fieldName) => async (source, args, context, info) => {
     const type = info.schema.getType('OrgContent')
-    const mdxNode = context.nodeModel.getNodeById({
+    const orgaNode = context.nodeModel.getNodeById({
       id: source.parent,
     })
     const resolver = type.getFields()[fieldName].resolve
-    const result = await resolver(mdxNode, args, context, {
+    const result = await resolver(orgaNode, args, context, {
       fieldName,
     })
     return result
@@ -95,14 +95,14 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
 
 function processRelativeImage(source, context, type) {
   // Image is a relative path - find a corresponding file
-  const mdxFileNode = context.nodeModel.findRootNodeAncestor(
+  const orgaFileNode = context.nodeModel.findRootNodeAncestor(
     source,
     (node) => node.internal && node.internal.type === `File`
   )
-  if (!mdxFileNode) {
+  if (!orgaFileNode) {
     return
   }
-  const imagePath = slash(path.join(mdxFileNode.dir, source[type]))
+  const imagePath = slash(path.join(orgaFileNode.dir, source[type]))
 
   const fileNodes = context.nodeModel.getAllNodes({ type: `File` })
   for (const file of fileNodes) {

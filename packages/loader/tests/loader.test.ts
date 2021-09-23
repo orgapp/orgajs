@@ -1,54 +1,46 @@
-import toJsx from '@orgajs/estree-jsx'
-import toEstree from '@orgajs/rehype-estree'
-import toRehype from '@orgajs/reorg-rehype'
 import compiler from './compiler'
 
 test('basic org-mode parsing', async () => {
   const stats = await compiler('fixture.org', {
     name: 'Alice',
-    plugins: [toRehype, toEstree, toJsx],
   })
   // @ts-ignore
   const output = stats.toJson({ source: true }).modules[0].source
   expect(output).toMatchInlineSnapshot(`
-"import _extends from \\"@babel/runtime/helpers/extends\\";
+"/*@jsxRuntime automatic @jsxImportSource react*/
+import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from \\"react/jsx-runtime\\";
+export const title = 'hello world';
 
-/* @jsxRuntime classic */
+function OrgaContent(props = {}) {
+  const _components = Object.assign({
+    div: \\"div\\",
+    h1: \\"h1\\"
+  }, props.components),
+        {
+    wrapper: OrgaLayout
+  } = _components;
 
-/* @jsx orga */
+  const _content = _jsx(_Fragment, {
+    children: _jsxs(_components.div, {
+      className: \\"section\\",
+      children: [_jsxs(_components.h1, {
+        children: [\\"headline one\\", \\" \\"]
+      }), _jsx(_components.div, {
+        style: {
+          color: 'red'
+        },
+        children: \\"in a box\\"
+      })]
+    })
+  });
 
-/* @jsxFrag orga.Fragment */
-import React from 'react';
-import { orga } from '@orgajs/react';
-
-const makeShortcode = name => props => {
-  console.warn(\\"Component \`%s\` was not imported, exported, or provided by OrgaProvider as global scope\\", name);
-  return orga(\\"div\\", props);
-};
-
-const Box = makeShortcode(\\"Box\\");
-export const title = 'hello orga';
-const OrgaLayout = \\"wrapper\\";
-
-function OrgaContent({
-  components,
-  ...props
-}) {
-  return orga(OrgaLayout, _extends({
-    components: components
-  }, props), orga(\\"div\\", {
-    className: \\"section\\"
-  }, orga(\\"h1\\", {
-    parentName: \\"div\\"
-  }, \\"headline one\\", \\" \\"), orga(\\"p\\", {
-    parentName: \\"div\\"
-  }, \\"The box does not exist.\\", \\" \\"), orga(Box, {
-    parentName: \\"div\\",
-    orgaType: \\"Box\\"
-  }, \\"in a box\\")));
+  return OrgaLayout ? _jsx(OrgaLayout, Object.assign({
+    title: title
+  }, props, {
+    children: _content
+  })) : _content;
 }
 
-OrgaContent.isOrgaComponent = true;
 export default OrgaContent;"
 `)
 })

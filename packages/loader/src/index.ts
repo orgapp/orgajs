@@ -1,19 +1,13 @@
-import reorg from '@orgajs/reorg'
+import { createProcessor, ProcessorOptions } from '@orgajs/orgx'
 import { getOptions } from 'loader-utils'
 import Report from 'vfile-reporter'
 
-export default function (source) {
-  const { plugins = [] } = getOptions(this)
+export type { ProcessorOptions }
 
-  const processor = reorg()
-  for (const item of plugins) {
-    if (Array.isArray(item)) {
-      const [plugin, pluginOptions] = item
-      processor.use(plugin, pluginOptions)
-    } else {
-      processor.use(item)
-    }
-  }
+export default function (source) {
+  const options: Partial<ProcessorOptions> = getOptions(this)
+
+  const processor = createProcessor(options)
 
   const callback = this.async()
 
@@ -30,6 +24,7 @@ export default function (source) {
         }
 
         const code = `${file}`
+        // console.dir(code)
         callback(null, code)
       }
     )

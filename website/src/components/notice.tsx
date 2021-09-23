@@ -1,8 +1,8 @@
-/** @jsxImportSource theme-ui */
+/** @jsx jsx */
 import { jsx } from 'theme-ui'
 import React from 'react'
 
-const Notice = ({ children }) => {
+const Notice: React.FC = ({ children }) => {
   return (
     <div
       sx={{

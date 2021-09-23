@@ -1,21 +1,21 @@
+import { compile } from '@orgajs/orgx'
+import { GatsbyNode } from 'gatsby'
 import path from 'path'
-import { compile } from './orga'
 
-const preprocessSource = async (
-  { filename, contents, cache },
-  pluginOptions
-) => {
+// @ts-ignore
+const preprocessSource: GatsbyNode['preprocessSource'] = async ({
+  filename,
+  contents,
+}) => {
+  // TODO: put in cache?
   const ext = path.extname(filename)
 
   if (ext === '.org') {
-    const { code, imports, properties } = await compile({
-      content: contents,
-      cache,
-    })
-    return code
+    const code = await compile(contents)
+    return `
+import {graphql} from 'gatsby'
+${code}`.trim()
   }
-
-  return null
 }
 
 export default preprocessSource

@@ -1,0 +1,44 @@
+{
+  "name": "@orgajs/orgx",
+  "version": "1.0.0",
+  "description": "orga compiler with jsx support",
+  "main": "dist/index.js",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "license": "MIT",
+  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/orgx#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orgapp/orgajs.git",
+    "directory": "packages/orgx"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
+    "test": "jest",
+    "compile": "tsc -b"
+  },
+  "devDependencies": {
+    "@types/estree-jsx": "^0.0.1",
+    "@types/jest": "^27.0.1",
+    "jest": "^27.1.1",
+    "jest-cli": "^27.1.1",
+    "ts-jest": "^27.0.5"
+  },
+  "dependencies": {
+    "@orgajs/reorg-parse": "3.1.1",
+    "@orgajs/reorg-rehype": "3.0.4",
+    "acorn": "^8.5.0",
+    "acorn-jsx": "^5.3.2",
+    "astring": "^1.7.5",
+    "estree-util-build-jsx": "1.1.1",
+    "estree-util-is-identifier-name": "1.1.0",
+    "estree-walker": "2.0.2",
+    "hast-util-to-estree": "1.4.0",
+    "periscopic": "2.0.3",
+    "unified": "9.2.2",
+    "unist-util-stringify-position": "2.0.3"
+  }
+}

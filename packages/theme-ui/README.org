@@ -1,3 +1,23 @@
 #+title: @orgajs/theme-ui
 
 [[https://theme-ui.com][theme-ui]] integration for orga.
+
+* Compromises
+
+We have made some compromise here. Since =theme-ui= is tightly coupled with =mdx=, the package theme-ui has mdx support built-in. It is very hard to totally get rid of mdx and not losing any of the functionality. I have tried to do that, but the last draw for me was the package [[https://github.com/system-ui/theme-ui/tree/develop/packages/prism][@theme-ui/prism]]. I can totally copy the code into a new package, but I don't think it's wise to reinvent the wheel. So instead I did the bare minimal, and left the rest to theme-ui itself (which is added as a dependency). The drawback is slightly bigger bundle size with all the mdx stuff you probably will never use. But you will probably use theme-ui at compile time, so it won't affect bundle size or performance. So until theme-ui has a better isolation from mdx, I'd say this is not too bad. Please let me know if you have a better solution.
+
+* Usage
+
+Given the compromises mentioned above, the package is a wrapper around =theme-ui=, it has the exact identical interface of theme-ui, so you can find more detailed usage info from theme-ui website. In fact if you are already using theme-ui, you don't need to change most of your code except when you import =ThemeProvider=, you import it from =@orgajs/theme-ui= instead of =theme-ui=.
+
+Basic usage.
+
+#+begin_src js
+// exactly the same as theme-ui except 👇
+import { ThemeProvider } from '@orgajs/theme-ui'
+import theme from './theme'
+
+export default (props) => (
+  <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
+)
+#+end_src

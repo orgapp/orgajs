@@ -8,8 +8,9 @@
     { "path": "../estree-jsx" },
     { "path": "../rehype-estree" },
     { "path": "../reorg-rehype" },
-    { "path": "../loader" }
-    // { "path": "../react" }
+    { "path": "../loader" },
+    { "path": "../metadata" },
+    { "path": "../react" }
   ],
   "include": ["./src"]
 }

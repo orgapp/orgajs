@@ -1,13 +1,14 @@
-/** @jsxImportSource theme-ui */
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
 import { Howl } from 'howler'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
 import startupSound from '../sounds/startup.m4a'
 import Switch from './switch'
 
 const H_GUT = '60px'
 
-const Strips = ({ sx }) => (
+const Strips = ({ sx }: any) => (
   <div
     sx={{
       display: 'flex',
@@ -28,11 +29,9 @@ const Strips = ({ sx }) => (
   </div>
 )
 
-const Banner = ({
-  slogan = 'taking org-mode to the moon',
-  children,
-  ...props
-}) => {
+const Banner: FC<{
+  slogan: string
+}> = ({ slogan = 'taking org-mode to the moon', children, ...props }) => {
   const mute = '#bebebe'
 
   const [isOn, turnOn] = useState(true)

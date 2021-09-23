@@ -5,7 +5,7 @@ module.exports = {
     browser: true,
     jest: true,
   },
-  extends: ['eslint:recommended'],
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
@@ -16,7 +16,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.ts', '.tsx', '.d.ts'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
         paths: ['node_modules/', 'node_modules/@types/'],
       },
     },
@@ -24,6 +24,7 @@ module.exports = {
   rules: {
     'import/no-extraneous-dependencies': ['warn'],
     semi: ['error', 'never'],
+    'react/react-in-jsx-scope': 'off',
   },
   overrides: [
     {
@@ -48,6 +49,7 @@ module.exports = {
         'no-undef': 'off',
         // TODO: remove this eventually
         '@typescript-eslint/ban-ts-comment': 'off',
+        '@typescript-eslint/no-empty-function': 'off',
       },
     },
   ],

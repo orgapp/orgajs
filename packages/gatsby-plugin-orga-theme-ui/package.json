@@ -1,0 +1,28 @@
+{
+  "name": "gatsby-plugin-orga-theme-ui",
+  "version": "1.0.0",
+  "description": "gatsby theme-ui plugin for org-mode",
+  "main": "index.js",
+  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "license": "MIT",
+  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/gatsby-plugin-orga-theme-ui#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orgapp/orgajs.git",
+    "directory": "packages/gatsby-plugin-orga-theme-ui"
+  },
+  "files": [
+    "/src",
+    "*.js"
+  ],
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
+    "test": "jest",
+    "compile": "tsc -b"
+  },
+  "peerDependencies": {
+    "@orgajs/theme-ui": ">=1.0.0",
+    "gatsby": "^3.0.0"
+  }
+}

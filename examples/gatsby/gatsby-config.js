@@ -5,12 +5,14 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-plugin-orga',
       options: {
-        name: `posts`,
-        path: `${__dirname}/posts/`,
+        defaultLayout: require.resolve('./src/components/layout.tsx'),
+        components: {
+          // override `a` inorder to have better internal navigation
+          a: require.resolve('./src/components/link.tsx'),
+        },
       },
     },
-    { resolve: 'gatsby-plugin-orga' },
   ],
 }

@@ -1,7 +1,10 @@
 #+TITLE: Orga + Gatsby = Awesome
 #+jsx: import Box from '../components/box'
-#+jsx: import Layout from '../components/layout'
-#+jsx: export default Layout
+#+layout: ../components/home
+
+#+attr_html: :width 300
+#+caption: orga is beautiful
+[[file:../images/logo.png]]
 
 * Hi
 You can /embed/ react components like [[https://mdxjs.com/][mdx]], but better, with =export jsx block=.
@@ -10,15 +13,23 @@ You can /embed/ react components like [[https://mdxjs.com/][mdx]], but better, w
 <Box>that tomato box</Box>
 #+end_export
 
+- [[file:page2.org][here is a link to another org file]]
+- [[file:page3.tsx][here is a link to a tsx file]]
+
+
 #+begin_export jsx
 export const query = graphql`
-query HomePageQuery {
-    site {
-      siteMetadata {
-        title
-        description
+query MyPagesQuery {
+  pages: allSitePage {
+    nodes {
+      path
+      context {
+        metadata {
+          title
+        }
       }
     }
   }
+}
 `
 #+end_export

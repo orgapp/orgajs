@@ -1,9 +1,6 @@
-import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist'
+import { Literal as UnistLiteral, Node, Parent } from 'unist'
 
-// ---- Basic Types ----
-export interface Parent extends UnistParent {
-  parent?: Parent
-}
+export type { Parent }
 
 export type Primitive = string | number | boolean
 

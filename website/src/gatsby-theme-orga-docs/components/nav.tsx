@@ -1,13 +1,13 @@
-/** @jsxImportSource theme-ui */
-import React from 'react'
+/** @jsx jsx */
 import { Link } from 'gatsby'
-import { Button } from 'theme-ui'
+import React from 'react'
 import {
   FaGithub as GithubIcon,
   FaTwitter as TwitterIcon,
 } from 'react-icons/fa'
+import { Button, jsx, Themed } from 'theme-ui'
 
-export default () => {
+const Nav: React.FC = () => {
   return (
     <div
       style={{
@@ -19,7 +19,7 @@ export default () => {
         padding: '0 1em',
       }}
     >
-      <a
+      <Themed.a
         href="https://github.com/orgapp/orgajs"
         sx={{
           verticalAlign: 'middle',
@@ -36,8 +36,8 @@ export default () => {
             fontSize: '1.4em',
           }}
         />
-      </a>
-      <a
+      </Themed.a>
+      <Themed.a
         href="https://twitter.com/xiaoxinghu"
         sx={{
           verticalAlign: 'middle',
@@ -54,10 +54,12 @@ export default () => {
             fontSize: '1.4em',
           }}
         />
-      </a>
-      <Link to="/playground" style={{}}>
+      </Themed.a>
+      <Link to="/playground">
         <Button>Playground</Button>
       </Link>
     </div>
   )
 }
+
+export default Nav
