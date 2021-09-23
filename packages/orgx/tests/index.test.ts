@@ -1,49 +1,34 @@
 import { compileSync } from '../src/compile'
 
-const content = `
-#+title: Next Example
-
-[[file:../components/unicorn.png][the *large* unicorn]]
-
-* Hi
-
-Thanks for your interests in orga.
-
-You can render react components directly in your org file like so:
-
-#+begin_src org
-,#+begin_export jsx
-<div style={{
-  backgroundColor: 'tomato',
-  color: 'white',
-  padding: '1em'
-}}>tomato box</div>
-,#+end_export
-#+end_src
-
-You should see it looks like this:
-#+begin_export jsx
-<div style={{
-  backgroundColor: 'tomato',
-  color: 'white',
-  padding: '1em'
-}}>tomato box</div>
-#+end_export
-
-[[file:special.org][Here is another page with custom layout]].
-
-[[file:react-page.tsx][Here is a react page that imports org file as a component]].
-`
-
-const simple = `
-#+title: Hello
+const fixture = `
+#+title: Hello World
 * Hi
 `
 
 describe('compile', () => {
   it('works', () => {
-    const result = compileSync(simple, {})
+    const result = compileSync(fixture, {
+      jsxRuntime: 'classic',
+      jsx: true,
+      outputFormat: 'program',
+      pragma: { name: 'createElement', source: 'react' },
+      pragmaFrag: { name: 'Fragment', source: 'react' },
+    })
 
-    console.log(result.contents)
+    expect(`${result}`).toMatchInlineSnapshot(`
+"/*@jsxRuntime classic @jsx createElement @jsxFrag Fragment*/
+import {createElement, Fragment} from \\"react\\";
+export const title = 'Hello World';
+function OrgaContent(props = {}) {
+  const _components = Object.assign({
+    div: \\"div\\",
+    h1: \\"h1\\"
+  }, props.components), {wrapper: OrgaLayout} = _components;
+  const _content = <><_components.div className=\\"section\\"><_components.h1>{\\"Hi\\"}{\\" \\"}</_components.h1></_components.div></>;
+  return OrgaLayout ? <OrgaLayout title={title} {...props}>{_content}</OrgaLayout> : _content;
+}
+export default OrgaContent;
+"
+`)
   })
 })

@@ -1,7 +1,6 @@
-#+title: hello orga
+#+title: hello world
 * TODO headline one
-The box does not exist.
 
-#+BEGIN_EXPORT jsx
-<Box>in a box</Box>
-#+END_EXPORT
+#+begin_export jsx
+<div style={{ color: 'red' }}>in a box</div>
+#+end_export

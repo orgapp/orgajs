@@ -16,6 +16,7 @@
   ],
   "scripts": {
     "build": "yarn clean && yarn compile",
+    "test": "jest",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b"
   },
