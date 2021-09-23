@@ -1,6 +1,6 @@
 #+TITLE: Orga + Gatsby = Awesome
 #+jsx: import Box from '../components/box'
-#+layout: ../components/layout
+#+layout: ../components/home
 
 #+attr_html: :width 300
 [[file:../images/logo.png][orgajs]]
@@ -15,15 +15,20 @@ You can /embed/ react components like [[https://mdxjs.com/][mdx]], but better, w
 - [[file:page2.org][here is a link to another org file]]
 - [[file:page3.tsx][here is a link to a tsx file]]
 
+
 #+begin_export jsx
 export const query = graphql`
-query HomePageQuery {
-    site {
-      siteMetadata {
-        title
-        description
+query MyPagesQuery {
+  pages: allSitePage {
+    nodes {
+      path
+      context {
+        metadata {
+          title
+        }
       }
     }
   }
+}
 `
 #+end_export

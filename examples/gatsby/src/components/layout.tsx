@@ -1,12 +1,19 @@
 import React, { FC } from 'react'
-import { PageProps } from 'gatsby'
+import { PageProps, useStaticQuery, graphql } from 'gatsby'
 import { get } from 'lodash'
 
-const Layout: FC<PageProps & { title: string }> = ({
-  data,
-  children,
-  title,
-}) => {
+const Layout: FC<PageProps & { title: string }> = ({ children, title }) => {
+  const data = useStaticQuery(graphql`
+    query SiteQuery {
+      site {
+        siteMetadata {
+          title
+          description
+        }
+      }
+    }
+  `)
+
   const siteTitle = get(data, 'site.siteMetadata.title', 'untitled')
   const description = get(data, 'site.siteMetadata.description', '')
 
@@ -25,17 +32,9 @@ const Layout: FC<PageProps & { title: string }> = ({
       >
         <h1>{siteTitle}</h1>
         <p>{description}</p>
-        <small
-          style={{
-            color: 'gray',
-            padding: 5,
-          }}
-        >
-          ☝ these data is coming from the inline graphql query
-        </small>
       </div>
       <main style={{ maxWidth: 700, margin: '0 auto' }}>
-        <h1 style={{ color: 'gold' }}>{`${title}`}</h1>
+        <h1 style={{ color: 'purple' }}>{`${title}`}</h1>
         {children}
       </main>
     </div>
