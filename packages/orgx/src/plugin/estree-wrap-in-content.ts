@@ -4,6 +4,7 @@ import {
   ExportSpecifier,
   Expression,
   FunctionDeclaration,
+  ImportDeclaration,
   JSXAttribute,
   ModuleDeclaration,
   Program,
@@ -24,12 +25,32 @@ export interface Options {
   baseUrl?: string
   useDynamicImport: boolean
   outputFormat: 'program' | 'function-body'
-  pragma: string
-  pragmaFrag: string
-  pragmaImportSource: string
+  pragma: { name: string; source: string }
+  pragmaFrag: { name: string; source: string }
   jsxImportSource: string
   jsxRuntime: 'automatic' | 'classic'
   passNamedExportsToLayout: boolean
+}
+
+function mergeImports(imports: ImportDeclaration[]) {
+  const map: Record<string, ImportDeclaration> = imports.reduce(
+    (all, current) => {
+      if (typeof current.source.value !== 'string') {
+        throw new Error(
+          `expecting source value to be string, got ${current.source.value}`
+        )
+      }
+      if (!all[current.source.value]) {
+        all[current.source.value] = current
+      } else {
+        all[current.source.value].specifiers.push(...current.specifiers)
+      }
+      return all
+    },
+    {} as Record<string, ImportDeclaration>
+  )
+
+  return Object.values(map)
 }
 
 export function estreeWrapInContent(options: Options) {
@@ -40,7 +61,6 @@ export function estreeWrapInContent(options: Options) {
     jsxRuntime,
     pragma,
     pragmaFrag,
-    pragmaImportSource,
     jsxImportSource,
     passNamedExportsToLayout,
   } = options
@@ -66,11 +86,13 @@ export function estreeWrapInContent(options: Options) {
     }
 
     if (jsxRuntime === 'classic' && pragma) {
-      pragmas.push('@jsx ' + pragma)
+      pragmas.push('@jsx ' + pragma.name)
     }
 
     if (jsxRuntime === 'classic' && pragmaFrag) {
-      pragmas.push('@jsxFrag ' + pragmaFrag)
+      if (pragmaFrag) {
+        pragmas.push('@jsxFrag ' + pragmaFrag.name)
+      }
     }
 
     if (pragmas.length > 0) {
@@ -78,16 +100,21 @@ export function estreeWrapInContent(options: Options) {
     }
 
     if (jsxRuntime === 'classic') {
-      handleEsm({
-        type: 'ImportDeclaration',
-        specifiers: [
-          {
-            type: 'ImportDefaultSpecifier',
-            local: { type: 'Identifier', name: pragma.split('.')[0] },
-          },
-        ],
-        source: { type: 'Literal', value: pragmaImportSource },
-      })
+      const imports: ImportDeclaration[] = [pragma, pragmaFrag].map(
+        ({ name, source }) => ({
+          type: 'ImportDeclaration',
+          specifiers: [
+            {
+              type: 'ImportSpecifier',
+              imported: { type: 'Identifier', name },
+              local: { type: 'Identifier', name },
+            },
+          ],
+          source: { type: 'Literal', value: source },
+        })
+      )
+
+      mergeImports(imports).forEach(handleEsm)
     }
 
     // Find the `export default`, the JSX expression, and leave the rest

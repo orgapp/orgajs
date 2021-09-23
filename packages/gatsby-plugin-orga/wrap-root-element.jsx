@@ -1,6 +1,5 @@
 import { OrgaProvider } from '@orgajs/react'
-import React, { ReactNode } from 'react'
-import Link from './dist/components/link'
+import React from 'react'
 import * as components from './dist/orga-components'
 
 const WrapRootElement = ({ element }) => {
@@ -9,7 +8,6 @@ const WrapRootElement = ({ element }) => {
   return (
     <OrgaProvider
       components={{
-        a: Link,
         ...components,
       }}
     >
@@ -19,7 +17,7 @@ const WrapRootElement = ({ element }) => {
 }
 
 WrapRootElement.propTypes = {
-  element: ReactNode,
+  element: React.ReactNode,
 }
 
 export default WrapRootElement

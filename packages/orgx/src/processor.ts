@@ -1,7 +1,6 @@
 import reorgParse from '@orgajs/reorg-parse'
 import reorgRehype from '@orgajs/reorg-rehype'
 import unified, { PluggableList } from 'unified'
-import { inspect } from 'util'
 import {
   estreeJsxBuild,
   Options as EstreeJsxBuildOptions,
@@ -52,24 +51,16 @@ const defaultOptions: ProcessorOptions = {
   // EstreeWrapInContentOptions
   baseUrl: undefined,
   useDynamicImport: false,
-  pragma: 'React.createElement',
-  pragmaFrag: 'React.Fragment',
-  pragmaImportSource: 'react',
+  pragma: { name: 'createElement', source: 'react' },
+  pragmaFrag: { name: 'Fragment', source: 'react' },
   jsxImportSource: 'react',
   jsxRuntime: 'automatic' as 'automatic' | 'classic',
   passNamedExportsToLayout: true,
-
-  // EstreeJsxRewrite
-  // providerImportSource: '@orgajs/react',
-}
-
-function debug() {
-  this.Compiler = (stuff) => inspect(stuff, false, null, true)
 }
 
 export function createProcessor(
   processorOptions: Partial<ProcessorOptions> = {}
-) {
+): unified.Processor<unified.Settings> {
   const { jsx, ...options } = { ...defaultOptions, ...processorOptions }
 
   const pipeline = unified()
