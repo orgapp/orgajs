@@ -1,17 +1,16 @@
-/** @jsxImportSource theme-ui */
 import Banner, { words } from '../components/banner.org'
 
 const ReactPage = () => {
   return (
     <div>
       <Banner />
-      <main sx={{ p: '1em' }}>This is a react page.</main>
+      <h1>Hello World</h1>
+      <main style={{ padding: '1em' }}>This is a react page.</main>
       <div
-        sx={{
+        style={{
           color: 'white',
-          bg: '#3685b5',
-          px: '1em',
-          py: '0.2em',
+          background: '#3685b5',
+          padding: '0.2em 1em',
         }}
       >
         {words}

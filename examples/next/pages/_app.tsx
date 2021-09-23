@@ -1,14 +1,14 @@
 import { OrgaProvider } from '@orgajs/react'
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
+import { AppProps } from 'next/app'
 
 const components = {
-  Link,
-  Image,
-  img: Image,
+  a: Link, // enables client side transitions
+  img: Image, // enables nextjs image optimization
 }
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <OrgaProvider components={components}>
       <Component {...pageProps} />

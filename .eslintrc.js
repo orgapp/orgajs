@@ -24,6 +24,7 @@ module.exports = {
   rules: {
     'import/no-extraneous-dependencies': ['warn'],
     semi: ['error', 'never'],
+    'react/react-in-jsx-scope': 'off',
   },
   overrides: [
     {

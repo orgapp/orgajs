@@ -1,6 +1,6 @@
 #+title: Next Example
 
-[[file:../components/unicorn.png][the *large* unicorn]]
+[[file:../../../assets/logo.png][orga is beautiful]]
 
 * Hi
 

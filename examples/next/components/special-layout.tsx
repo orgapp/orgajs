@@ -1,10 +1,10 @@
-/** @jsxImportSource theme-ui */
+import { FC } from 'react'
 
-const Layout = ({ children }) => {
+const Layout: FC = ({ children }) => {
   return (
-    <div sx={{ bg: '#fdffff', color: '#233d5c' }}>
+    <div style={{ background: '#fdffff', color: '#233d5c' }}>
       <div
-        sx={{
+        style={{
           position: 'fixed',
           top: 0,
           left: 0,
@@ -13,13 +13,13 @@ const Layout = ({ children }) => {
           alignItems: 'center',
           width: '100%',
           height: 64,
-          bg: '#233d5c',
+          backgroundColor: '#233d5c',
           color: 'white',
         }}
       >
         <h1>This is a Special Layout</h1>
       </div>
-      <main sx={{ pt: 64 }}>{children}</main>
+      <main style={{ paddingTop: 64 }}>{children}</main>
     </div>
   )
 }

@@ -1,5 +1,7 @@
+#+layout: nil
 #+words: here are some words from metadata of imported org file
-#+jsx: export {default} from './no-layout.tsx'
 
 #+attr_html: :width 200 :height 200
-[[file:./unicorn.png][The /beauty/ of org *must* be shared.]]
+[[file:../../../assets/logo.png][The /beauty/ of org *must* be shared.]]
+
+-----
