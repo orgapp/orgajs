@@ -22,7 +22,6 @@ module.exports = {
       options: {
         location: ['../docs'],
         components: {
-          Space: require.resolve('./src/components/space.tsx'),
           Notice: require.resolve('./src/components/notice.tsx'),
         },
       },

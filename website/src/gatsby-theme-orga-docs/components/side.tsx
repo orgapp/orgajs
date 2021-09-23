@@ -3,7 +3,7 @@ import { graphql, Link, useStaticQuery } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import _ from 'lodash'
 import React from 'react'
-import { jsx } from 'theme-ui'
+import { jsx, Box, Heading } from 'theme-ui'
 
 const Side: React.FC = (props) => {
   const data = useStaticQuery(graphql`
@@ -61,6 +61,7 @@ const Side: React.FC = (props) => {
           backgroundColor: 'highlight',
           fontWeight: 'bold',
         },
+        textDecoration: 'none',
       }}
     >
       {item.text}
@@ -68,9 +69,9 @@ const Side: React.FC = (props) => {
   ))
 
   return (
-    <div {...props}>
-      <div
-        style={{
+    <Box {...props}>
+      <Box
+        sx={{
           display: 'flex',
           flexDirection: 'column',
           gap: '2px',
@@ -83,6 +84,7 @@ const Side: React.FC = (props) => {
             alignItems: 'center',
             gap: '1em',
             pb: '1em',
+            textDecoration: 'none',
           }}
         >
           <GatsbyImage
@@ -90,11 +92,11 @@ const Side: React.FC = (props) => {
             alt="logo"
             style={{ borderRadius: '0.4em' }}
           />
-          <h1>Orgajs</h1>
+          <Heading>Orgajs</Heading>
         </Link>
         {navItems}
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 
