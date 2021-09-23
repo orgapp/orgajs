@@ -1,0 +1,14 @@
+#+title: Nextjs + theme-ui + Orga
+
+Integrate with [[https://theme-ui.com][theme-ui]].
+
+-----
+
+* Running locally
+
+See the [[file:../README.org][setup instructions]] before using this project.
+
+#+begin_src shell
+yarn dev
+#+end_src
+
