@@ -3,7 +3,8 @@
 #+layout: ../components/home
 
 #+attr_html: :width 300
-[[file:../images/logo.png][orgajs]]
+#+caption: orga is beautiful
+[[file:../images/logo.png]]
 
 * Hi
 You can /embed/ react components like [[https://mdxjs.com/][mdx]], but better, with =export jsx block=.
