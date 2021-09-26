@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/next",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "description": "orgajs next plugin",
   "files": [
     "dist"
@@ -21,7 +21,7 @@
     "@orgajs/react": "*"
   },
   "dependencies": {
-    "@orgajs/orgx": "1.0.2",
+    "@orgajs/orgx": "1.0.3",
     "estree-walker": "2.0.2",
     "unist-util-map": "2.0.1"
   },

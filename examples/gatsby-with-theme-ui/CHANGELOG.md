@@ -1,5 +1,12 @@
 # @orgajs/example-gatsby-with-theme-ui
 
+## 3.0.10
+
+### Patch Changes
+
+- gatsby-plugin-orga@3.2.2
+- @orgajs/loader@3.1.5
+
 ## 3.0.9
 
 ### Patch Changes
