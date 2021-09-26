@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/playground",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.2.2",
-    "@orgajs/orgx": "1.0.1",
+    "@orgajs/orgx": "1.0.2",
     "@orgajs/react": "3.0.1",
     "estree-walker": "2.0.2",
     "orga": "3.1.2",

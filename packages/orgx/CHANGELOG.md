@@ -1,5 +1,11 @@
 # @orgajs/orgx
 
+## 1.0.2
+
+### Patch Changes
+
+- c8edd571: add evaluateSync function to orgx
+
 ## 1.0.1
 
 ### Patch Changes

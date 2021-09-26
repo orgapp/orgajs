@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies [c8edd571]
+  - @orgajs/orgx@1.0.2
+  - @orgajs/loader@3.1.4
+
 ## 3.2.0
 
 ### Minor Changes

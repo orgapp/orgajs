@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.0.9
+
+### Patch Changes
+
+- gatsby-plugin-orga@3.2.1
+- @orgajs/loader@3.1.4
+
 ## 3.0.8
 
 ### Patch Changes
