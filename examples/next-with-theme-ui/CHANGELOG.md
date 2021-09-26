@@ -1,5 +1,12 @@
 # @orgajs/example-next-with-theme-ui
 
+## 1.0.3
+
+### Patch Changes
+
+- @orgajs/loader@3.1.5
+- @orgajs/next@3.1.6
+
 ## 1.0.2
 
 ### Patch Changes

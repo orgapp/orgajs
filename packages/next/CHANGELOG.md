@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.6
+
+### Patch Changes
+
+- Updated dependencies [cd7cac3d]
+  - @orgajs/orgx@1.0.3
+  - @orgajs/loader@3.1.5
+
 ## 3.1.5
 
 ### Patch Changes
