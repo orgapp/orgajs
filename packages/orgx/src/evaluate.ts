@@ -1,5 +1,5 @@
 import type { VFileCompatible } from 'vfile'
-import { compile } from './compile'
+import { compile, compileSync } from './compile'
 import { ProcessorOptions } from './processor'
 
 type EvaluateProcessorOptions = Omit<
@@ -49,5 +49,14 @@ export const evaluate = async (
 ): Promise<ExportMap> => {
   const { compiletime, runtime } = resolveOptions(options)
   const code = await compile(file, compiletime)
+  return new Function(String(code))(runtime)
+}
+
+export const evaluateSync = (
+  file: VFileCompatible,
+  options: EvaluateOptions
+): ExportMap => {
+  const { compiletime, runtime } = resolveOptions(options)
+  const code = compileSync(file, compiletime)
   return new Function(String(code))(runtime)
 }
