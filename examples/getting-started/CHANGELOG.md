@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.1.4
+
+### Patch Changes
+
+- @orgajs/reorg-rehype@3.0.6
+- @orgajs/reorg@3.1.3
+
 ## 3.1.3
 
 ### Patch Changes

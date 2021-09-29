@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.7
+
+### Patch Changes
+
+- Updated dependencies [09a3b5c6]
+  - orga@3.1.3
+  - @orgajs/orgx@1.0.4
+
 ## 3.1.6
 
 ### Patch Changes

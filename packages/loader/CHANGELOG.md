@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.6
+
+### Patch Changes
+
+- @orgajs/orgx@1.0.4
+
 ## 3.1.5
 
 ### Patch Changes
