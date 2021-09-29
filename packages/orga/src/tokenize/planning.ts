@@ -19,11 +19,12 @@ export default ({
 
     const currentLine = getLine()
 
-    const { line, column } = now()
+    const { line, column, offset } = now()
 
-    const getLocation = (offset: number): Point => ({
+    const getLocation = (_offset: number): Point => ({
       line,
-      column: column + offset,
+      column: column + _offset,
+      offset: offset + _offset,
     })
 
     const all: Token[] = []
