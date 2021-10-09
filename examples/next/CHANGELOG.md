@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.0.10
+
+### Patch Changes
+
+- @orgajs/loader@3.1.7
+- @orgajs/next@3.1.8
+
 ## 3.0.9
 
 ### Patch Changes

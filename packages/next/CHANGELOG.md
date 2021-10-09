@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.8
+
+### Patch Changes
+
+- @orgajs/orgx@1.0.5
+- @orgajs/loader@3.1.7
+- @orgajs/react@3.0.1
+
 ## 3.1.7
 
 ### Patch Changes
