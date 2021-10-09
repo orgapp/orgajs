@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/example-gatsby-posts-core",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": true,
   "description": "My Gatsby Site",
   "author": "Xiaoxing Hu",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "gatsby": "^3.10.0",
-    "gatsby-theme-orga-posts-core": "3.1.4",
+    "gatsby-theme-orga-posts-core": "3.1.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }

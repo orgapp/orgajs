@@ -1,5 +1,15 @@
 # Change Log
 
+## 3.1.5
+
+### Patch Changes
+
+- ae83a3b0: - affiliated keyword support for list
+  - `HTML_CONTAINER_CLASS` support in properties drawer
+  - remove complex regex from inline parsing
+- Updated dependencies [ae83a3b0]
+  - orga@3.1.4
+
 ## 3.1.4
 
 ### Patch Changes
