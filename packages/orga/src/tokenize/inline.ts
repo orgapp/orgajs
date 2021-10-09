@@ -15,9 +15,12 @@ const MARKERS: { [key: string]: Style } = {
 
 const tokenizeLink: Tokenizer = (reader: Reader) => {
   const tokens: Token[] = []
-  const { match, eat, findClosing, jump, getChar, now } = reader
-  const linkOpening = eat(/^\[/)
-  if (!linkOpening) return
+  const { eat, findClosing, jump, getChar, now } = reader
+  if (getChar() !== '[') {
+    return
+  }
+  const linkOpening = eat('char')
+  // if (!linkOpening) return
 
   tokens.push({
     type: 'opening',
@@ -27,17 +30,28 @@ const tokenizeLink: Tokenizer = (reader: Reader) => {
 
   const linkClosing = findClosing(linkOpening.position.start)
   if (!linkClosing) return
-  const path = match(/^\[([^\]]*)\]/)
-  if (!path) return
-  const linkInfo = uri(path.result[1])
+
+  if (getChar() !== '[') {
+    return
+  }
+  const pathOpening = eat('char')
+  const pathClosing = findClosing(pathOpening.position.start)
+  if (!pathClosing) return
+
+  const linkInfo = uri(reader.substring(pathOpening.position.end, pathClosing))
   if (!linkInfo) return
+
+  jump(pathClosing)
+  eat('char') // eat the ]
 
   tokens.push({
     type: 'link.path',
     ...linkInfo,
-    position: { ...path.position },
+    position: {
+      start: pathOpening.position.start,
+      end: now(),
+    },
   })
-  jump(path.position.end)
   if (getChar() === '[') {
     const descClosing = findClosing()
     if (!descClosing) {

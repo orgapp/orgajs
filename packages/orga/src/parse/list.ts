@@ -54,8 +54,9 @@ const list: Action = (token: ListItemBullet, context) => {
     indent: token.indent,
     ordered: token.ordered,
     children: [],
-    attributes: {},
+    attributes: context.attributes,
   })
+  context.attributes = {}
 
   const indent = token.indent
 

@@ -1,4 +1,4 @@
-import { Headline, Section } from 'orga'
+import { Drawer, Headline, Section } from 'orga'
 import { Context } from '../'
 
 const match = (array1: string[], array2: string[]): boolean => {
@@ -20,5 +20,18 @@ export default (node: Section, context: Context) => {
     }
   }
 
-  return h('div', { className: ['section'] })(...all(node.children, context))
+  let className = 'section'
+
+  const properties = node.children.find((n) => n.type === 'drawer') as Drawer
+  if (properties && properties.name === 'PROPERTIES') {
+    const lines = properties.value.split('\n')
+    lines.forEach((line) => {
+      const m = line.match(/:(\w+):(.*)$/)
+      if (m && m[1].toUpperCase() === 'HTML_CONTAINER_CLASS') {
+        className = `${className} ${m[2].trim()}`
+      }
+    })
+  }
+
+  return h('div', { className })(...all(node.children, context))
 }
