@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "gatsby-core-utils": "^2.14.0",
-    "gatsby-plugin-image": "^1.14.0",
-    "gatsby-plugin-sharp": "^3.14.0",
+    "gatsby-plugin-image": "^1.14.1",
+    "gatsby-plugin-sharp": "^3.14.1",
     "gatsby-source-filesystem": "^3.14.0",
     "gatsby-transformer-orga": "3.1.5",
     "gatsby-transformer-sharp": "^3.14.0",

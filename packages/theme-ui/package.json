@@ -25,6 +25,7 @@
     "theme-ui": "^0.11.2"
   },
   "peerDependencies": {
-    "@emotion/react": ">=11"
+    "@emotion/react": "*",
+    "react": "*"
   }
 }

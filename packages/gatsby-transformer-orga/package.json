@@ -43,6 +43,6 @@
     "@types/lodash": "^4.14.172",
     "@types/node": "^16.9.0",
     "@types/unist": "2.0.3",
-    "gatsby": "^3.10.0"
+    "gatsby": "^3.14.3"
   }
 }

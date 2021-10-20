@@ -23,6 +23,7 @@
   },
   "peerDependencies": {
     "@orgajs/theme-ui": ">=1.0.1",
-    "gatsby": "^3.0.0"
+    "gatsby": "^3.0.0",
+    "theme-ui": "*"
   }
 }

@@ -11,11 +11,10 @@
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "serve": "gatsby serve"
   },
   "dependencies": {
-    "gatsby": "^3.10.0",
+    "gatsby": "^3.14.3",
     "gatsby-theme-orga-posts-core": "3.1.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"

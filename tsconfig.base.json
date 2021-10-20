@@ -18,7 +18,7 @@
     "declaration": true,
     "jsx": "react",
     "allowJs": true,
-    "lib": ["ES2020"]
+    "lib": ["ES2020", "dom"]
   },
   "exclude": [
     "node_modules",

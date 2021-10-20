@@ -26,8 +26,11 @@
     "unist-util-map": "2.0.1"
   },
   "devDependencies": {
+    "@orgajs/loader": "workspace:packages/loader",
+    "@types/estree": "^0.0.50",
     "@types/estree-jsx": "^0.0.1",
     "@types/hast": "^2.3.2",
-    "@types/node": "^16.9.0"
+    "@types/node": "^16.9.0",
+    "unified": "9.2.2"
   }
 }

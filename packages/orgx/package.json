@@ -21,10 +21,14 @@
     "compile": "tsc -b"
   },
   "devDependencies": {
+    "@types/estree": "^0.0.50",
     "@types/estree-jsx": "^0.0.1",
+    "@types/hast": "^2.3.4",
     "@types/jest": "^27.0.1",
+    "@types/node": "^16.11.1",
     "jest": "^27.1.1",
     "jest-cli": "^27.1.1",
+    "react": "^17.0.2",
     "ts-jest": "^27.0.5"
   },
   "dependencies": {
@@ -39,6 +43,7 @@
     "hast-util-to-estree": "1.4.0",
     "periscopic": "2.0.3",
     "unified": "9.2.2",
-    "unist-util-stringify-position": "2.0.3"
+    "unist-util-stringify-position": "2.0.3",
+    "vfile": "4.2.1"
   }
 }

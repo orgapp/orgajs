@@ -1,6 +1,6 @@
 import { Literal as UnistLiteral, Node, Parent } from 'unist'
 
-export type { Parent }
+export { Parent }
 
 export type Primitive = string | number | boolean
 

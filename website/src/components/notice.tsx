@@ -6,13 +6,14 @@ const Notice: React.FC = ({ children }) => {
   return (
     <div
       sx={{
-        backgroundColor: 'accent',
+        backgroundColor: 'secondary',
         padding: '1em',
         borderRadius: '0.4em',
         boxShadow: '3px 3px',
         border: '2px solid black',
         textAlign: 'center',
         fontWeight: 'bold',
+        color: 'background',
       }}
     >
       {children}

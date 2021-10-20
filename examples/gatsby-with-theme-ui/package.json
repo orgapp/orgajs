@@ -13,7 +13,6 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
     "info": "gatsby info"
   },
   "dependencies": {
@@ -21,7 +20,7 @@
     "@orgajs/react": "3.0.1",
     "@orgajs/theme-ui": "1.0.1",
     "@theme-ui/preset-system": "^0.11.2",
-    "gatsby": "^3.10.0",
+    "gatsby": "^3.14.3",
     "gatsby-plugin-orga": "3.2.4",
     "gatsby-plugin-orga-theme-ui": "1.0.1",
     "react": "^17.0.1",

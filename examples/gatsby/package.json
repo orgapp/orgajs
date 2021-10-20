@@ -8,18 +8,16 @@
     "gatsby"
   ],
   "scripts": {
-    "predevelop": "yarn clean",
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
     "info": "gatsby info"
   },
   "dependencies": {
     "@orgajs/loader": "3.1.7",
     "@orgajs/react": "3.0.1",
-    "gatsby": "^3.10.0",
+    "gatsby": "^3.14.3",
     "gatsby-plugin-orga": "3.2.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
