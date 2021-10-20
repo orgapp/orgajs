@@ -1,5 +1,13 @@
 # example-gatsby-posts-core
 
+## 1.0.9
+
+### Patch Changes
+
+- b2f4424e: tidy up dependencies
+- Updated dependencies [b2f4424e]
+  - gatsby-theme-orga-posts-core@3.1.6
+
 ## 1.0.8
 
 ### Patch Changes

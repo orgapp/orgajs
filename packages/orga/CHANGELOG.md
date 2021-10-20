@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.5
+
+### Patch Changes
+
+- b2f4424e: tidy up dependencies
+
 ## 3.1.4
 
 ### Patch Changes

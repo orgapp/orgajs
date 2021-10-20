@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-orga",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "description": "Orga integration for Gatsby",
   "main": "index.js",
   "license": "MIT",
@@ -30,9 +30,9 @@
   },
   "dependencies": {
     "@orgajs/estree-jsx": "3.0.2",
-    "@orgajs/loader": "^3.1.7",
+    "@orgajs/loader": "^3.1.8",
     "@orgajs/metadata": "1.0.1",
-    "@orgajs/orgx": "1.0.5",
+    "@orgajs/orgx": "1.0.6",
     "@orgajs/react": "^3.0.1",
     "astring": "^1.7.5",
     "dataloader": "^2.0.0",

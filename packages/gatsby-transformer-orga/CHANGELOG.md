@@ -1,5 +1,15 @@
 # Change Log
 
+## 3.1.6
+
+### Patch Changes
+
+- b2f4424e: tidy up dependencies
+- Updated dependencies [b2f4424e]
+  - orga@3.1.5
+  - orga-posts@3.1.6
+  - oast-to-hast@3.1.6
+
 ## 3.1.5
 
 ### Patch Changes

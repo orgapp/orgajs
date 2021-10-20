@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/theme-ui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "orgajs theme-ui support",
   "main": "dist/index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
