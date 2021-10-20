@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.6
+
+### Patch Changes
+
+- ff4b958e: tidy up dependencies
+- Updated dependencies [ff4b958e]
+  - gatsby-transformer-orga@3.1.6
+
 ## 3.1.5
 
 ### Patch Changes
