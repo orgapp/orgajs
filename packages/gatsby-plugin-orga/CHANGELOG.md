@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.2.5
+
+### Patch Changes
+
+- 4bde5155: tidy up dependencies
+- Updated dependencies [4bde5155]
+  - @orgajs/loader@3.1.8
+  - @orgajs/orgx@1.0.6
+
 ## 3.2.4
 
 ### Patch Changes

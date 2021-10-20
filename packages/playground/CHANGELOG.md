@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.1.9
+
+### Patch Changes
+
+- 4bde5155: tidy up dependencies
+- Updated dependencies [4bde5155]
+  - orga@3.1.5
+  - @orgajs/orgx@1.0.6
+
 ## 3.1.8
 
 ### Patch Changes

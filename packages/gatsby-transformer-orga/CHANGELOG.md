@@ -1,5 +1,15 @@
 # Change Log
 
+## 3.1.6
+
+### Patch Changes
+
+- 4bde5155: tidy up dependencies
+- Updated dependencies [4bde5155]
+  - orga@3.1.5
+  - orga-posts@3.1.6
+  - oast-to-hast@3.1.6
+
 ## 3.1.5
 
 ### Patch Changes
