@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/example-next-with-theme-ui",
-  "version": "1.0.6",
+  "version": "1.0.5",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,10 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
-    "@orgajs/loader": "3.1.8",
-    "@orgajs/next": "3.1.9",
+    "@orgajs/loader": "3.1.7",
+    "@orgajs/next": "3.1.8",
     "@orgajs/react": "3.0.1",
-    "@orgajs/theme-ui": "1.0.2",
+    "@orgajs/theme-ui": "1.0.1",
     "@theme-ui/preset-system": "^0.11.2",
     "next": "^11.1.2",
     "react": "17.0.2",

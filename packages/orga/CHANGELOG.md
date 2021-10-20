@@ -1,11 +1,5 @@
 # Change Log
 
-## 3.1.5
-
-### Patch Changes
-
-- ff4b958e: tidy up dependencies
-
 ## 3.1.4
 
 ### Patch Changes

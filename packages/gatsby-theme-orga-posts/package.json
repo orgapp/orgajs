@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-orga-posts",
-  "version": "3.1.6",
+  "version": "3.1.5",
   "description": "gatsby org-mode theme for blog-like websites",
   "main": "index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
@@ -20,13 +20,13 @@
     "gatsby": "^3.0.0"
   },
   "dependencies": {
-    "@orgajs/theme-ui": "1.0.2",
+    "@orgajs/theme-ui": "1.0.1",
     "gatsby-plugin-image": "^1.14.1",
     "gatsby-plugin-offline": "^4.14.0",
-    "gatsby-plugin-orga-theme-ui": "1.0.2",
+    "gatsby-plugin-orga-theme-ui": "1.0.1",
     "gatsby-plugin-react-helmet": "^4.14.0",
     "gatsby-plugin-sharp": "^3.14.1",
-    "gatsby-theme-orga-posts-core": "3.1.6",
+    "gatsby-theme-orga-posts-core": "3.1.5",
     "gatsby-transformer-toml": "^3.14.0",
     "polished": "^3.4.1",
     "react-icons": "^3.8.0"

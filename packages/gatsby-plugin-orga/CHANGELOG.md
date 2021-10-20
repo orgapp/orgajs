@@ -1,14 +1,5 @@
 # Change Log
 
-## 3.2.5
-
-### Patch Changes
-
-- ff4b958e: tidy up dependencies
-- Updated dependencies [ff4b958e]
-  - @orgajs/loader@3.1.8
-  - @orgajs/orgx@1.0.6
-
 ## 3.2.4
 
 ### Patch Changes

@@ -1,13 +1,5 @@
 # @orgajs/orgx
 
-## 1.0.6
-
-### Patch Changes
-
-- ff4b958e: tidy up dependencies
-  - @orgajs/reorg-parse@3.1.5
-  - @orgajs/reorg-rehype@3.0.8
-
 ## 1.0.5
 
 ### Patch Changes

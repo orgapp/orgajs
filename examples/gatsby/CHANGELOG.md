@@ -1,14 +1,5 @@
 # Change Log
 
-## 3.0.13
-
-### Patch Changes
-
-- ff4b958e: tidy up dependencies
-- Updated dependencies [ff4b958e]
-  - gatsby-plugin-orga@3.2.5
-  - @orgajs/loader@3.1.8
-
 ## 3.0.12
 
 ### Patch Changes

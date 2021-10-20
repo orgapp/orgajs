@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-orga-theme-ui",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "gatsby theme-ui plugin for org-mode",
   "main": "index.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
@@ -22,7 +22,7 @@
     "compile": "tsc -b"
   },
   "peerDependencies": {
-    "@orgajs/theme-ui": ">=1.0.2",
+    "@orgajs/theme-ui": ">=1.0.1",
     "gatsby": "^3.0.0",
     "theme-ui": "*"
   }
