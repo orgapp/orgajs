@@ -4021,7 +4021,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/next@workspace:packages/next"
   dependencies:
-    "@orgajs/loader": "workspace:packages/loader"
+    "@orgajs/loader": 3.1.7
     "@orgajs/orgx": 1.0.5
     "@types/estree": ^0.0.50
     "@types/estree-jsx": ^0.0.1
