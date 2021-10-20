@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.6
+
+### Patch Changes
+
+- 4bde5155: tidy up dependencies
+  - @orgajs/reorg-rehype@3.0.8
+  - @orgajs/reorg@3.1.5
+
 ## 3.1.5
 
 ### Patch Changes

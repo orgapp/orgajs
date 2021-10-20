@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.8
+
+### Patch Changes
+
+- 4bde5155: tidy up dependencies
+- Updated dependencies [4bde5155]
+  - @orgajs/orgx@1.0.6
+
 ## 3.1.7
 
 ### Patch Changes
