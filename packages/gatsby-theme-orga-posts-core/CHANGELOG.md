@@ -1,13 +1,5 @@
 # Change Log
 
-## 3.1.6
-
-### Patch Changes
-
-- b2f4424e: tidy up dependencies
-- Updated dependencies [b2f4424e]
-  - gatsby-transformer-orga@3.1.6
-
 ## 3.1.5
 
 ### Patch Changes

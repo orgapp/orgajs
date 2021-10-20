@@ -1,11 +1,5 @@
 # @orgajs/theme-ui
 
-## 1.0.2
-
-### Patch Changes
-
-- b2f4424e: tidy up dependencies
-
 ## 1.0.1
 
 ### Patch Changes

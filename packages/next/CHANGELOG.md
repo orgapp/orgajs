@@ -1,15 +1,5 @@
 # Change Log
 
-## 3.1.9
-
-### Patch Changes
-
-- b2f4424e: tidy up dependencies
-- Updated dependencies [b2f4424e]
-  - @orgajs/loader@3.1.8
-  - @orgajs/orgx@1.0.6
-  - @orgajs/react@3.0.1
-
 ## 3.1.8
 
 ### Patch Changes

@@ -1,11 +1,5 @@
 # Change Log
 
-## 3.1.5
-
-### Patch Changes
-
-- @orgajs/reorg-parse@3.1.5
-
 ## 3.1.4
 
 ### Patch Changes

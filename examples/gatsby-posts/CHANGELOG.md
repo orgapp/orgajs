@@ -1,13 +1,5 @@
 # Change Log
 
-## 3.0.9
-
-### Patch Changes
-
-- b2f4424e: tidy up dependencies
-- Updated dependencies [b2f4424e]
-  - gatsby-theme-orga-posts@3.1.6
-
 ## 3.0.8
 
 ### Patch Changes

@@ -1,15 +1,5 @@
 # @orgajs/example-next-with-theme-ui
 
-## 1.0.6
-
-### Patch Changes
-
-- b2f4424e: tidy up dependencies
-- Updated dependencies [b2f4424e]
-  - @orgajs/loader@3.1.8
-  - @orgajs/next@3.1.9
-  - @orgajs/theme-ui@1.0.2
-
 ## 1.0.5
 
 ### Patch Changes
