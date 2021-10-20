@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.6
+
+### Patch Changes
+
+- ff4b958e: tidy up dependencies
+  - @orgajs/reorg-rehype@3.0.8
+  - @orgajs/reorg@3.1.5
+
 ## 3.1.5
 
 ### Patch Changes

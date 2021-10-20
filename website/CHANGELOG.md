@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.1.9
+
+### Patch Changes
+
+- ff4b958e: tidy up dependencies
+- Updated dependencies [ff4b958e]
+  - gatsby-theme-orga-docs@3.1.9
+  - @orgajs/playground@3.1.9
+
 ## 3.1.8
 
 ### Patch Changes
