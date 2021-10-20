@@ -33,7 +33,7 @@
     "format": "prettier --write .",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "yarn build && yarn changeset publish",
+    "release": "YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn build && yarn changeset publish",
     "postinstall": "husky install"
   },
   "workspaces": {
