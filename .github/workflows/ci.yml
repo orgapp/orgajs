@@ -23,6 +23,6 @@ jobs:
           node-version: 14
       - name: run unit tests
         run: |
-          yarn install
+          yarn install --immutable
           yarn build
           yarn test

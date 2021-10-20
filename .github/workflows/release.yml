@@ -22,13 +22,14 @@ jobs:
           node-version: 14.x
 
       - name: Install Dependencies
-        run: yarn
+        run: yarn install --immutable
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@master
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          version: yarn version-packages
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
