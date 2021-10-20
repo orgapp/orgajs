@@ -1,5 +1,15 @@
 # Change Log
 
+## 3.1.9
+
+### Patch Changes
+
+- b2f4424e: tidy up dependencies
+- Updated dependencies [b2f4424e]
+  - gatsby-plugin-orga@3.2.5
+  - gatsby-plugin-orga-theme-ui@1.0.2
+  - @orgajs/theme-ui@1.0.2
+
 ## 3.1.8
 
 ### Patch Changes

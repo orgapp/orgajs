@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.13
+
+### Patch Changes
+
+- b2f4424e: tidy up dependencies
+- Updated dependencies [b2f4424e]
+  - gatsby-plugin-orga@3.2.5
+  - @orgajs/loader@3.1.8
+
 ## 3.0.12
 
 ### Patch Changes

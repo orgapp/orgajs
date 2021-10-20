@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.1
+
+### Patch Changes
+
+- b2f4424e: tidy up dependencies
+
 ## 3.0.0
 
 ### Major Changes

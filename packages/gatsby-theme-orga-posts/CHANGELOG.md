@@ -1,5 +1,15 @@
 # Change Log
 
+## 3.1.6
+
+### Patch Changes
+
+- b2f4424e: tidy up dependencies
+- Updated dependencies [b2f4424e]
+  - gatsby-plugin-orga-theme-ui@1.0.2
+  - gatsby-theme-orga-posts-core@3.1.6
+  - @orgajs/theme-ui@1.0.2
+
 ## 3.1.5
 
 ### Patch Changes
