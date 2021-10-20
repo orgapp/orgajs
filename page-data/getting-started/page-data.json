@@ -1,1 +1,5 @@
-{"componentChunkName":"component---docs-getting-started-index-org","path":"/getting-started/","result":{"pageContext":{"metadata":{"title":"Getting Started","published":"true","position":"100","include":"./more.org"},"file":"/Users/xiaoxing/Code/orgajs/docs/getting-started/index.org"}},"staticQueryHashes":["2744905544","340405273","4202924991"]}
+{
+    "componentChunkName": "component---docs-getting-started-index-org",
+    "path": "/getting-started/",
+    "result": {"pageContext":{"metadata":{"title":"Getting Started","published":"true","position":"100","include":"./more.org"},"file":"/Users/xiaoxing/Code/orgajs/docs/getting-started/index.org"}},
+    "staticQueryHashes": ["2744905544","340405273","4202924991"]}

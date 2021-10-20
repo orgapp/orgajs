@@ -1,1 +1,5 @@
-{"componentChunkName":"component---docs-syntax-org","path":"/syntax/","result":{"pageContext":{"metadata":{"title":"Orga with Gatsby","date":"2018-01-01","html":"<small>small text</small>"},"file":"/Users/xiaoxing/Code/orgajs/docs/syntax.org"}},"staticQueryHashes":["2744905544","340405273","4202924991"]}
+{
+    "componentChunkName": "component---docs-syntax-org",
+    "path": "/syntax/",
+    "result": {"pageContext":{"metadata":{"title":"Orga with Gatsby","date":"2018-01-01","html":"<small>small text</small>"},"file":"/Users/xiaoxing/Code/orgajs/docs/syntax.org"}},
+    "staticQueryHashes": ["2744905544","340405273","4202924991"]}

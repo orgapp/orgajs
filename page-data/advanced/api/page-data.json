@@ -1,1 +1,5 @@
-{"componentChunkName":"component---docs-advanced-api-org","path":"/advanced/api/","result":{"pageContext":{"metadata":{"title":"API","published":"true","position":"1"},"file":"/Users/xiaoxing/Code/orgajs/docs/advanced/api.org"}},"staticQueryHashes":["2744905544","340405273","4202924991"]}
+{
+    "componentChunkName": "component---docs-advanced-api-org",
+    "path": "/advanced/api/",
+    "result": {"pageContext":{"metadata":{"title":"API","published":"true","position":"1"},"file":"/Users/xiaoxing/Code/orgajs/docs/advanced/api.org"}},
+    "staticQueryHashes": ["2744905544","340405273","4202924991"]}

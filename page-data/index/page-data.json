@@ -1,1 +1,5 @@
-{"componentChunkName":"component---docs-index-org","path":"/","result":{"pageContext":{"metadata":{"title":"Orga","subtitle":"org-mode < JavaScript","layout":"./website/src/components/landing"},"file":"/Users/xiaoxing/Code/orgajs/docs/index.org"}},"staticQueryHashes":["2744905544","4202924991"]}
+{
+    "componentChunkName": "component---docs-index-org",
+    "path": "/",
+    "result": {"pageContext":{"metadata":{"title":"Orga","subtitle":"org-mode < JavaScript","layout":"./website/src/components/landing"},"file":"/Users/xiaoxing/Code/orgajs/docs/index.org"}},
+    "staticQueryHashes": ["2744905544","4202924991"]}
