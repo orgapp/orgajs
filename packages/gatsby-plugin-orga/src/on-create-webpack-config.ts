@@ -3,6 +3,7 @@ import * as path from 'path'
 import { withDefault } from './options'
 import processLinks from './plugins/process-links'
 import processImages from './plugins/process-images'
+import latex from '@orgajs/rehype-latex'
 
 const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (
   api,
@@ -10,7 +11,11 @@ const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (
 ) => {
   const { stage, loaders, actions, plugins, cache } = api
   const { components } = pluginOptions
-  const { estreePlugins = [], ...rest } = withDefault(pluginOptions)
+  const {
+    estreePlugins = [],
+    rehypePlugins = [],
+    ...rest
+  } = withDefault(pluginOptions)
 
   actions.setWebpackConfig({
     module: {
@@ -29,6 +34,7 @@ const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (
               options: {
                 jsx: true,
                 providerImportSource: require.resolve('@orgajs/react'),
+                rehypePlugins: [latex, ...rehypePlugins],
                 estreePlugins: [
                   [processLinks, { gatsby: api }],
                   processImages,

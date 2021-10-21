@@ -4,6 +4,7 @@ import vfile, { VFile } from 'vfile'
 import vfileMessage from 'vfile-message'
 import { tokenize } from 'orga'
 import { evaluate } from '@orgajs/orgx'
+import latex from '@orgajs/rehype-latex'
 
 interface Output extends VFile {
   result?: React.FC
@@ -25,11 +26,12 @@ export function useOrga(
     try {
       capture('tokens')()(tokenize(input).all())
 
-      file.result = ( // @ts-ignore
+      file.result = // @ts-ignore
+      (
         await evaluate(file, {
           ...runtime,
           reorgPlugins: [capture('oast')],
-          rehypePlugins: [capture('rehype')],
+          rehypePlugins: [latex, capture('rehype')],
           estreePlugins: [capture('estree')],
         })
       ).default

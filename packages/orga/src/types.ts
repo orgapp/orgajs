@@ -172,6 +172,7 @@ export type Style =
   | 'strikeThrough'
   | 'underline'
   | 'code'
+  | 'math'
 
 export interface Text extends Literal {
   type: 'text'

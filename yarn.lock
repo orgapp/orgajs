@@ -4072,6 +4072,7 @@ __metadata:
     "@monaco-editor/react": ^4.2.2
     "@orgajs/orgx": 1.0.5
     "@orgajs/react": 3.0.1
+    "@orgajs/rehype-latex": 1.0.0
     "@types/react": ^17.0.20
     "@types/react-dom": ^17.0.9
     estree-walker: 2.0.2
@@ -4119,6 +4120,22 @@ __metadata:
     lodash: ^4.17.21
     periscopic: 2.0.3
     ts-jest: ^27.0.5
+    unified: 9.2.2
+  languageName: unknown
+  linkType: soft
+
+"@orgajs/rehype-latex@1.0.0, @orgajs/rehype-latex@workspace:packages/rehype-latex":
+  version: 0.0.0-use.local
+  resolution: "@orgajs/rehype-latex@workspace:packages/rehype-latex"
+  dependencies:
+    "@types/hast": ^2.3.4
+    "@types/katex": ^0.11.1
+    hast-util-to-text: 2.0.1
+    katex: ^0.13.18
+    rehype-parse: 7.0.1
+    unified: ^9.2.2
+    unist-util-visit: 2.0.3
+  peerDependencies:
     unified: 9.2.2
   languageName: unknown
   linkType: soft
@@ -5108,6 +5125,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: e60b153664572116dfea673c5bda7778dbff150498f44f998e34b5886d8afc47f16799280e4b6e241c0472aef1bc36add771c569c68fc5125fc2ae519a3eb9ac
+  languageName: node
+  linkType: hard
+
+"@types/katex@npm:^0.11.1":
+  version: 0.11.1
+  resolution: "@types/katex@npm:0.11.1"
+  checksum: 1e51988b4b386a1b6fa8e22826ab4705bf3e6c9fb03461f2c91d28cb31095232bdeff491069ac9bc74bc4c26110be6a11a41e12ca77a2e4169f3afd8cd349355
   languageName: node
   linkType: hard
 
@@ -8304,6 +8328,13 @@ __metadata:
   version: 4.1.1
   resolution: "commander@npm:4.1.1"
   checksum: d7b9913ff92cae20cb577a4ac6fcc121bd6223319e54a40f51a14740a681ad5c574fd29a57da478a5f234a6fa6c52cbf0b7c641353e03c648b1ae85ba670b977
+  languageName: node
+  linkType: hard
+
+"commander@npm:^6.0.0":
+  version: 6.2.1
+  resolution: "commander@npm:6.2.1"
+  checksum: d7090410c0de6bc5c67d3ca41c41760d6d268f3c799e530aafb73b7437d1826bbf0d2a3edac33f8b57cc9887b4a986dce307fa5557e109be40eadb7c43b21742
   languageName: node
   linkType: hard
 
@@ -11785,6 +11816,7 @@ __metadata:
     "@orgajs/metadata": 1.0.1
     "@orgajs/orgx": 1.0.5
     "@orgajs/react": ^3.0.1
+    "@orgajs/rehype-latex": 1.0.0
     "@types/estree": ^0.0.50
     "@types/estree-jsx": ^0.0.1
     "@types/fs-extra": ^9.0.12
@@ -12989,7 +13021,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-from-parse5@npm:6.0.1":
+"hast-util-from-parse5@npm:6.0.1, hast-util-from-parse5@npm:^6.0.0":
   version: 6.0.1
   resolution: "hast-util-from-parse5@npm:6.0.1"
   dependencies:
@@ -13052,7 +13084,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-to-text@npm:^2.0.0":
+"hast-util-to-text@npm:2.0.1, hast-util-to-text@npm:^2.0.0":
   version: 2.0.1
   resolution: "hast-util-to-text@npm:2.0.1"
   dependencies:
@@ -15375,6 +15407,17 @@ __metadata:
     array-includes: ^3.1.2
     object.assign: ^4.1.2
   checksum: 9f695c480212868557c5e3cd01082857e101768dc75cb904335d1a805e972d6203baa58ae0b786e7afeab1e8fdb98242fccf22dbc1734595a65845172743877c
+  languageName: node
+  linkType: hard
+
+"katex@npm:^0.13.18":
+  version: 0.13.18
+  resolution: "katex@npm:0.13.18"
+  dependencies:
+    commander: ^6.0.0
+  bin:
+    katex: cli.js
+  checksum: 1060e0f6ff7ed37691d8126a061457d7efc16f143d040ab00cd7bd9a542000a6b0e4fc07155c722aa7774533500a00d5617fc1cae291bf16aeddcfd514057a5d
   languageName: node
   linkType: hard
 
@@ -17980,7 +18023,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse5@npm:6.0.1, parse5@npm:^6.0.1":
+"parse5@npm:6.0.1, parse5@npm:^6.0.0, parse5@npm:^6.0.1":
   version: 6.0.1
   resolution: "parse5@npm:6.0.1"
   checksum: 7d569a176c5460897f7c8f3377eff640d54132b9be51ae8a8fa4979af940830b2b0c296ce75e5bd8f4041520aadde13170dbdec44889975f906098ea0002f4bd
@@ -19810,6 +19853,16 @@ __metadata:
     lowlight: ^1.10.0
     unist-util-visit: ^2.0.0
   checksum: 7aacb22c52c3e8f44c2bb6b711497e5a7c1074e2800888178b38d186d599f7f094a33e2b3e34c380b06a232eeda3943fa649cadb177a17abc471c5773e96bb14
+  languageName: node
+  linkType: hard
+
+"rehype-parse@npm:7.0.1":
+  version: 7.0.1
+  resolution: "rehype-parse@npm:7.0.1"
+  dependencies:
+    hast-util-from-parse5: ^6.0.0
+    parse5: ^6.0.0
+  checksum: c3c914aa9281853290eff6b09e0bed6843934e788b957e25219e91f0bf244a183d2f5e042c7d21543276571f9b49a6bae90f4640b8f885f2773392ffa57baf4b
   languageName: node
   linkType: hard
 
@@ -22516,7 +22569,7 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"unified@npm:9.2.2":
+"unified@npm:9.2.2, unified@npm:^9.2.2":
   version: 9.2.2
   resolution: "unified@npm:9.2.2"
   dependencies:
