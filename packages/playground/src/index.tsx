@@ -8,6 +8,7 @@ import vfileMessage from 'vfile-message'
 import { tokenizer } from './org-syntax'
 import codeTheme from './theme/light'
 import { useOrga } from './use-orga'
+import { RuntimeOptions } from '@orgajs/orgx'
 
 const theme = {
   background: '#f5f8fa',
@@ -41,7 +42,7 @@ const treeTheme = {
 }
 
 interface Props {
-  runtime?: unknown
+  runtime?: RuntimeOptions
   children: string
   onChange?: (text: string) => void
   style?: React.CSSProperties

@@ -3,8 +3,9 @@ import { useState, useEffect, useCallback } from 'react'
 import vfile, { VFile } from 'vfile'
 import vfileMessage from 'vfile-message'
 import { tokenize } from 'orga'
-import { evaluate } from '@orgajs/orgx'
+import { evaluate, RuntimeOptions } from '@orgajs/orgx'
 import latex from '@orgajs/rehype-latex'
+// import { RuntimeOptions } from 'packages/orgx/src/evaluate'
 
 interface Output extends VFile {
   result?: React.FC
@@ -12,7 +13,7 @@ interface Output extends VFile {
 
 export function useOrga(
   input: string,
-  runtime = reactRuntime
+  runtime: RuntimeOptions = reactRuntime as RuntimeOptions
 ): { output: Output } {
   const [output, setOutput] = useState<Output>(null)
 
@@ -26,8 +27,7 @@ export function useOrga(
     try {
       capture('tokens')()(tokenize(input).all())
 
-      file.result = // @ts-ignore
-      (
+      file.result = (
         await evaluate(file, {
           ...runtime,
           reorgPlugins: [capture('oast')],
