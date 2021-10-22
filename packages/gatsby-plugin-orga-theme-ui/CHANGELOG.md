@@ -1,5 +1,13 @@
 # gatsby-plugin-orga-theme-ui
 
+## 1.0.2
+
+### Patch Changes
+
+- 4bde5155: tidy up dependencies
+- Updated dependencies [4bde5155]
+  - @orgajs/theme-ui@1.0.2
+
 ## 1.0.1
 
 ### Patch Changes

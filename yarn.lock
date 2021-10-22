@@ -3876,7 +3876,7 @@ __metadata:
   resolution: "@orgajs/example-gatsby-posts-core@workspace:examples/gatsby-posts-core"
   dependencies:
     gatsby: ^3.14.3
-    gatsby-theme-orga-posts-core: 3.1.5
+    gatsby-theme-orga-posts-core: 3.1.6
     react: ^17.0.1
     react-dom: ^17.0.1
   languageName: unknown
@@ -3887,7 +3887,7 @@ __metadata:
   resolution: "@orgajs/example-gatsby-posts@workspace:examples/gatsby-posts"
   dependencies:
     gatsby: ^3.14.3
-    gatsby-theme-orga-posts: 3.1.5
+    gatsby-theme-orga-posts: 3.1.6
     prop-types: ^15.7.2
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -3899,13 +3899,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/example-gatsby-with-theme-ui@workspace:examples/gatsby-with-theme-ui"
   dependencies:
-    "@orgajs/loader": 3.1.7
+    "@orgajs/loader": 3.1.8
     "@orgajs/react": 3.0.1
-    "@orgajs/theme-ui": 1.0.1
+    "@orgajs/theme-ui": 1.0.2
     "@theme-ui/preset-system": ^0.11.2
     gatsby: ^3.14.3
-    gatsby-plugin-orga: 3.2.4
-    gatsby-plugin-orga-theme-ui: 1.0.1
+    gatsby-plugin-orga: 3.2.5
+    gatsby-plugin-orga-theme-ui: 1.0.2
     react: ^17.0.1
     react-dom: ^17.0.1
   languageName: unknown
@@ -3915,10 +3915,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/example-gatsby@workspace:examples/gatsby"
   dependencies:
-    "@orgajs/loader": 3.1.7
+    "@orgajs/loader": 3.1.8
     "@orgajs/react": 3.0.1
     gatsby: ^3.14.3
-    gatsby-plugin-orga: 3.2.4
+    gatsby-plugin-orga: 3.2.5
     react: ^17.0.1
     react-dom: ^17.0.1
   languageName: unknown
@@ -3928,10 +3928,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/example-next-with-theme-ui@workspace:examples/next-with-theme-ui"
   dependencies:
-    "@orgajs/loader": 3.1.7
-    "@orgajs/next": 3.1.8
+    "@orgajs/loader": 3.1.8
+    "@orgajs/next": 3.1.9
     "@orgajs/react": 3.0.1
-    "@orgajs/theme-ui": 1.0.1
+    "@orgajs/theme-ui": 1.0.2
     "@theme-ui/preset-system": ^0.11.2
     next: ^11.1.2
     react: 17.0.2
@@ -3943,8 +3943,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/example-next@workspace:examples/next"
   dependencies:
-    "@orgajs/loader": 3.1.7
-    "@orgajs/next": 3.1.8
+    "@orgajs/loader": 3.1.8
+    "@orgajs/next": 3.1.9
     "@orgajs/react": 3.0.1
     "@orgajs/reorg-shiki": 1.0.1
     next: ^11.1.2
@@ -3961,9 +3961,9 @@ __metadata:
     "@babel/preset-env": ^7.13.15
     "@babel/preset-react": ^7.13.13
     "@orgajs/estree-jsx": 3.0.2
-    "@orgajs/loader": 3.1.7
+    "@orgajs/loader": 3.1.8
     "@orgajs/rehype-estree": 3.0.5
-    "@orgajs/reorg-rehype": 3.0.7
+    "@orgajs/reorg-rehype": 3.0.8
     babel-loader: ^8.2.2
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -3977,19 +3977,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/getting-started@workspace:examples/getting-started"
   dependencies:
-    "@orgajs/reorg": 3.1.4
-    "@orgajs/reorg-rehype": 3.0.7
+    "@orgajs/reorg": 3.1.5
+    "@orgajs/reorg-rehype": 3.0.8
     rehype-stringify: ^8.0.0
     unified: 9.2.2
     unified-stream: ^1.0.6
   languageName: unknown
   linkType: soft
 
-"@orgajs/loader@3.1.7, @orgajs/loader@^3.1.7, @orgajs/loader@workspace:packages/loader":
+"@orgajs/loader@3.1.8, @orgajs/loader@^3.1.8, @orgajs/loader@workspace:packages/loader":
   version: 0.0.0-use.local
   resolution: "@orgajs/loader@workspace:packages/loader"
   dependencies:
-    "@orgajs/orgx": 1.0.5
+    "@orgajs/orgx": 1.0.6
     "@orgajs/react": 3.0.1
     "@types/jest": ^27.0.1
     "@types/node": ^16.11.1
@@ -4017,12 +4017,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/next@3.1.8, @orgajs/next@workspace:packages/next":
+"@orgajs/next@3.1.9, @orgajs/next@workspace:packages/next":
   version: 0.0.0-use.local
   resolution: "@orgajs/next@workspace:packages/next"
   dependencies:
-    "@orgajs/loader": 3.1.7
-    "@orgajs/orgx": 1.0.5
+    "@orgajs/loader": 3.1.8
+    "@orgajs/orgx": 1.0.6
     "@types/estree": ^0.0.50
     "@types/estree-jsx": ^0.0.1
     "@types/hast": ^2.3.2
@@ -4036,12 +4036,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/orgx@1.0.5, @orgajs/orgx@workspace:packages/orgx":
+"@orgajs/orgx@1.0.6, @orgajs/orgx@workspace:packages/orgx":
   version: 0.0.0-use.local
   resolution: "@orgajs/orgx@workspace:packages/orgx"
   dependencies:
-    "@orgajs/reorg-parse": 3.1.4
-    "@orgajs/reorg-rehype": 3.0.7
+    "@orgajs/reorg-parse": 3.1.5
+    "@orgajs/reorg-rehype": 3.0.8
     "@types/estree": ^0.0.50
     "@types/estree-jsx": ^0.0.1
     "@types/hast": ^2.3.4
@@ -4065,18 +4065,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/playground@3.1.8, @orgajs/playground@workspace:packages/playground":
+"@orgajs/playground@3.1.9, @orgajs/playground@workspace:packages/playground":
   version: 0.0.0-use.local
   resolution: "@orgajs/playground@workspace:packages/playground"
   dependencies:
     "@monaco-editor/react": ^4.2.2
-    "@orgajs/orgx": 1.0.5
+    "@orgajs/orgx": 1.0.6
     "@orgajs/react": 3.0.1
     "@orgajs/rehype-latex": 1.0.0
     "@types/react": ^17.0.20
     "@types/react-dom": ^17.0.9
     estree-walker: 2.0.2
-    orga: 3.1.4
+    orga: 3.1.5
     react-error-boundary: ^3.1.3
     react-json-tree: ^0.15.0
     react-tabs: ^3.2.2
@@ -4094,7 +4094,7 @@ __metadata:
   resolution: "@orgajs/react@workspace:packages/react"
   dependencies:
     "@babel/plugin-transform-react-jsx": ^7.13.12
-    "@orgajs/reorg": 3.1.4
+    "@orgajs/reorg": 3.1.5
     babel-plugin-remove-export-keywords: ^1.6.22
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -4111,7 +4111,7 @@ __metadata:
     "@types/estree-jsx": ^0.0.1
     "@types/hast": ^2.3.2
     "@types/jest": ^27.0.1
-    "@types/unist": ^2.0.6
+    "@types/unist": 2.0.3
     acorn: ^8.4.1
     acorn-jsx: ^5.3.1
     estree-walker: 2.0.2
@@ -4139,22 +4139,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/reorg-parse@3.1.4, @orgajs/reorg-parse@workspace:packages/reorg-parse":
+"@orgajs/reorg-parse@3.1.5, @orgajs/reorg-parse@workspace:packages/reorg-parse":
   version: 0.0.0-use.local
   resolution: "@orgajs/reorg-parse@workspace:packages/reorg-parse"
   dependencies:
     del-cli: ^3.0.1
-    orga: 3.1.4
+    orga: 3.1.5
     typescript: ^4.3.2
     unified: 9.2.2
   languageName: unknown
   linkType: soft
 
-"@orgajs/reorg-rehype@3.0.7, @orgajs/reorg-rehype@workspace:packages/reorg-rehype":
+"@orgajs/reorg-rehype@3.0.8, @orgajs/reorg-rehype@workspace:packages/reorg-rehype":
   version: 0.0.0-use.local
   resolution: "@orgajs/reorg-rehype@workspace:packages/reorg-rehype"
   dependencies:
-    oast-to-hast: 3.1.5
+    "@types/unist": 2.0.3
+    oast-to-hast: 3.1.6
     unified: 9.2.2
   languageName: unknown
   linkType: soft
@@ -4164,21 +4165,21 @@ __metadata:
   resolution: "@orgajs/reorg-shiki@workspace:packages/reorg-shiki"
   dependencies:
     shiki: ^0.9.10
-    unified: ^10.1.0
+    unified: 9.2.2
     unist-util-map: 2.0.1
   languageName: unknown
   linkType: soft
 
-"@orgajs/reorg@3.1.4, @orgajs/reorg@workspace:packages/reorg":
+"@orgajs/reorg@3.1.5, @orgajs/reorg@workspace:packages/reorg":
   version: 0.0.0-use.local
   resolution: "@orgajs/reorg@workspace:packages/reorg"
   dependencies:
-    "@orgajs/reorg-parse": 3.1.4
+    "@orgajs/reorg-parse": 3.1.5
     unified: 9.2.2
   languageName: unknown
   linkType: soft
 
-"@orgajs/theme-ui@1.0.1, @orgajs/theme-ui@workspace:packages/theme-ui":
+"@orgajs/theme-ui@1.0.2, @orgajs/theme-ui@workspace:packages/theme-ui":
   version: 0.0.0-use.local
   resolution: "@orgajs/theme-ui@workspace:packages/theme-ui"
   dependencies:
@@ -4194,12 +4195,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/website@workspace:website"
   dependencies:
-    "@orgajs/playground": 3.1.8
+    "@orgajs/playground": 3.1.9
     "@theme-ui/preset-funk": ^0.11.2
     babel-preset-gatsby: ^1.10.0
     gatsby: ^3.14.3
     gatsby-source-filesystem: ^3.14.0
-    gatsby-theme-orga-docs: 3.1.8
+    gatsby-theme-orga-docs: 3.1.9
     gh-pages: ^3.2.3
     howler: ^2.2.3
     prettier: 2.2.1
@@ -5409,13 +5410,6 @@ __metadata:
   version: 2.0.3
   resolution: "@types/unist@npm:2.0.3"
   checksum: 4427306b094561da28164e7e5250c4e6b382cb8eac40bf7e6bb0ff1e6e00c13e47aaf32e4a08fc8ba54602d07f79a39fb9ba304cc9dc886b1e3caf824649edbd
-  languageName: node
-  linkType: hard
-
-"@types/unist@npm:^2.0.6":
-  version: 2.0.6
-  resolution: "@types/unist@npm:2.0.6"
-  checksum: 25cb860ff10dde48b54622d58b23e66214211a61c84c0f15f88d38b61aa1b53d4d46e42b557924a93178c501c166aa37e28d7f6d994aba13d24685326272d5db
   languageName: node
   linkType: hard
 
@@ -7071,13 +7065,6 @@ __metadata:
   version: 1.0.5
   resolution: "bail@npm:1.0.5"
   checksum: 6c334940d7eaa4e656a12fb12407b6555649b6deb6df04270fa806e0da82684ebe4a4e47815b271c794b40f8d6fa286e0c248b14ddbabb324a917fab09b7301a
-  languageName: node
-  linkType: hard
-
-"bail@npm:^2.0.0":
-  version: 2.0.1
-  resolution: "bail@npm:2.0.1"
-  checksum: 5e80e3d71c52f134bf51e9e89570c4e81e50e9ace0126954e4594699cafdf01136535bedf36780ef77802c88be3d3cfb0d0f83495d8d7ddf90e948e4fbaf99c3
   languageName: node
   linkType: hard
 
@@ -11796,24 +11783,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-orga-theme-ui@1.0.1, gatsby-plugin-orga-theme-ui@workspace:packages/gatsby-plugin-orga-theme-ui":
+"gatsby-plugin-orga-theme-ui@1.0.2, gatsby-plugin-orga-theme-ui@workspace:packages/gatsby-plugin-orga-theme-ui":
   version: 0.0.0-use.local
   resolution: "gatsby-plugin-orga-theme-ui@workspace:packages/gatsby-plugin-orga-theme-ui"
   peerDependencies:
-    "@orgajs/theme-ui": ">=1.0.1"
+    "@orgajs/theme-ui": ">=1.0.2"
     gatsby: ^3.0.0
     theme-ui: "*"
   languageName: unknown
   linkType: soft
 
-"gatsby-plugin-orga@3.2.4, gatsby-plugin-orga@workspace:packages/gatsby-plugin-orga":
+"gatsby-plugin-orga@3.2.5, gatsby-plugin-orga@workspace:packages/gatsby-plugin-orga":
   version: 0.0.0-use.local
   resolution: "gatsby-plugin-orga@workspace:packages/gatsby-plugin-orga"
   dependencies:
     "@orgajs/estree-jsx": 3.0.2
-    "@orgajs/loader": ^3.1.7
+    "@orgajs/loader": ^3.1.8
     "@orgajs/metadata": 1.0.1
-    "@orgajs/orgx": 1.0.5
+    "@orgajs/orgx": 1.0.6
     "@orgajs/react": ^3.0.1
     "@orgajs/rehype-latex": 1.0.0
     "@types/estree": ^0.0.50
@@ -12058,18 +12045,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gatsby-theme-orga-docs@3.1.8, gatsby-theme-orga-docs@workspace:packages/gatsby-theme-orga-docs":
+"gatsby-theme-orga-docs@3.1.9, gatsby-theme-orga-docs@workspace:packages/gatsby-theme-orga-docs":
   version: 0.0.0-use.local
   resolution: "gatsby-theme-orga-docs@workspace:packages/gatsby-theme-orga-docs"
   dependencies:
-    "@orgajs/theme-ui": 1.0.1
+    "@orgajs/theme-ui": 1.0.2
     "@reach/router": ^1.3.4
     "@theme-ui/preset-system": ^0.11.2
     "@theme-ui/prism": ^0.11.2
     del-cli: ^3.0.1
     gatsby-plugin-image: ^1.14.1
-    gatsby-plugin-orga: 3.2.4
-    gatsby-plugin-orga-theme-ui: 1.0.1
+    gatsby-plugin-orga: 3.2.5
+    gatsby-plugin-orga-theme-ui: 1.0.2
     gatsby-plugin-page-creator: ^3.14.0
     gatsby-plugin-react-helmet: ^4.14.0
     gatsby-plugin-sharp: ^3.14.1
@@ -12085,7 +12072,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"gatsby-theme-orga-posts-core@3.1.5, gatsby-theme-orga-posts-core@workspace:packages/gatsby-theme-orga-posts-core":
+"gatsby-theme-orga-posts-core@3.1.6, gatsby-theme-orga-posts-core@workspace:packages/gatsby-theme-orga-posts-core":
   version: 0.0.0-use.local
   resolution: "gatsby-theme-orga-posts-core@workspace:packages/gatsby-theme-orga-posts-core"
   dependencies:
@@ -12093,7 +12080,7 @@ __metadata:
     gatsby-plugin-image: ^1.14.1
     gatsby-plugin-sharp: ^3.14.1
     gatsby-source-filesystem: ^3.14.0
-    gatsby-transformer-orga: 3.1.5
+    gatsby-transformer-orga: 3.1.6
     gatsby-transformer-sharp: ^3.14.0
     lodash: ^4.17.21
   peerDependencies:
@@ -12103,17 +12090,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"gatsby-theme-orga-posts@3.1.5, gatsby-theme-orga-posts@workspace:packages/gatsby-theme-orga-posts":
+"gatsby-theme-orga-posts@3.1.6, gatsby-theme-orga-posts@workspace:packages/gatsby-theme-orga-posts":
   version: 0.0.0-use.local
   resolution: "gatsby-theme-orga-posts@workspace:packages/gatsby-theme-orga-posts"
   dependencies:
-    "@orgajs/theme-ui": 1.0.1
+    "@orgajs/theme-ui": 1.0.2
     gatsby-plugin-image: ^1.14.1
     gatsby-plugin-offline: ^4.14.0
-    gatsby-plugin-orga-theme-ui: 1.0.1
+    gatsby-plugin-orga-theme-ui: 1.0.2
     gatsby-plugin-react-helmet: ^4.14.0
     gatsby-plugin-sharp: ^3.14.1
-    gatsby-theme-orga-posts-core: 3.1.5
+    gatsby-theme-orga-posts-core: 3.1.6
     gatsby-transformer-toml: ^3.14.0
     polished: ^3.4.1
     react-icons: ^3.8.0
@@ -12122,7 +12109,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"gatsby-transformer-orga@3.1.5, gatsby-transformer-orga@workspace:packages/gatsby-transformer-orga":
+"gatsby-transformer-orga@3.1.6, gatsby-transformer-orga@workspace:packages/gatsby-transformer-orga":
   version: 0.0.0-use.local
   resolution: "gatsby-transformer-orga@workspace:packages/gatsby-transformer-orga"
   dependencies:
@@ -12137,9 +12124,9 @@ __metadata:
     is-relative-url: ^3.0.0
     mime: ^2.4.4
     moment: ^2.24.0
-    oast-to-hast: 3.1.5
-    orga: 3.1.4
-    orga-posts: 3.1.5
+    oast-to-hast: 3.1.6
+    orga: 3.1.5
+    orga-posts: 3.1.6
     rehype-stringify: ^8.0.0
     unified: 9.2.2
     unist-builder: ^2.0.3
@@ -14219,13 +14206,6 @@ __metadata:
   version: 3.0.0
   resolution: "is-plain-obj@npm:3.0.0"
   checksum: a6ebdf8e12ab73f33530641972a72a4b8aed6df04f762070d823808303e4f76d87d5ea5bd76f96a7bbe83d93f04ac7764429c29413bd9049853a69cb630fb21c
-  languageName: node
-  linkType: hard
-
-"is-plain-obj@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "is-plain-obj@npm:4.0.0"
-  checksum: a6bb55a90636345a64c6153b74d85a9b6440f9975f4dcc57eed596c280b7ba228c71c406355a3147ed0488330d2743d5756e052c9492b1aa4f7dcd281f08c4b6
   languageName: node
   linkType: hard
 
@@ -17287,7 +17267,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oast-to-hast@3.1.5, oast-to-hast@workspace:packages/oast-to-hast":
+"oast-to-hast@3.1.6, oast-to-hast@workspace:packages/oast-to-hast":
   version: 0.0.0-use.local
   resolution: "oast-to-hast@workspace:packages/oast-to-hast"
   dependencies:
@@ -17297,7 +17277,7 @@ __metadata:
     hast-util-from-parse5: 6.0.1
     jest: ^27.1.1
     mime: ^2.4.4
-    orga: 3.1.4
+    orga: 3.1.5
     parse5: ^6.0.1
     prismjs: ^1.17.1
     ts-jest: ^27.0.5
@@ -17577,17 +17557,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"orga-posts@3.1.5, orga-posts@workspace:packages/orga-posts":
+"orga-posts@3.1.6, orga-posts@workspace:packages/orga-posts":
   version: 0.0.0-use.local
   resolution: "orga-posts@workspace:packages/orga-posts"
   dependencies:
-    "@orgajs/reorg-rehype": 3.0.7
+    "@orgajs/reorg-rehype": 3.0.8
     "@types/hast": ^2.3.2
     "@types/jest": ^27.0.1
     "@types/unist": 2.0.3
     jest: ^27.1.1
     lodash: ^4.17.21
-    orga: 3.1.4
+    orga: 3.1.5
     rehype-highlight: ^4.0.0
     rehype-stringify: ^8.0.0
     ts-jest: ^27.0.5
@@ -17608,7 +17588,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"orga@3.1.4, orga@workspace:packages/orga":
+"orga@3.1.5, orga@workspace:packages/orga":
   version: 0.0.0-use.local
   resolution: "orga@workspace:packages/orga"
   dependencies:
@@ -21869,7 +21849,7 @@ resolve@^2.0.0-next.3:
   resolution: "text-kit@workspace:packages/text-kit"
   dependencies:
     "@types/jest": ^27.0.1
-    "@types/unist": ^2.0.0
+    "@types/unist": 2.0.3
     jest: ^27.1.1
     ts-jest: ^27.0.5
     typescript: ^4.3.5
@@ -22157,13 +22137,6 @@ resolve@^2.0.0-next.3:
   version: 1.0.5
   resolution: "trough@npm:1.0.5"
   checksum: d6c8564903ed00e5258bab92134b020724dbbe83148dc72e4bf6306c03ed8843efa1bcc773fa62410dd89161ecb067432dd5916501793508a9506cacbc408e25
-  languageName: node
-  linkType: hard
-
-"trough@npm:^2.0.0":
-  version: 2.0.2
-  resolution: "trough@npm:2.0.2"
-  checksum: e0c18f3fb4c26e84d7864528f49a3f43a8fef8245d6ffe1fced90a867ea88be9838948fd98cf838da448700f5e4ec909576a469719db5e9833f5b58fed26dfa0
   languageName: node
   linkType: hard
 
@@ -22582,21 +22555,6 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"unified@npm:^10.1.0":
-  version: 10.1.0
-  resolution: "unified@npm:10.1.0"
-  dependencies:
-    "@types/unist": ^2.0.0
-    bail: ^2.0.0
-    extend: ^3.0.0
-    is-buffer: ^2.0.0
-    is-plain-obj: ^4.0.0
-    trough: ^2.0.0
-    vfile: ^5.0.0
-  checksum: b7e1d8dcf61d139ff57df1d393b177098a7fa53bddd47dd8c44cdfe983557d653719fd0ba3668a0be89a4a6189907327d56c2d13b21361e3d07b74f51b0d98ef
-  languageName: node
-  linkType: hard
-
 "unified@npm:^8.4.2":
   version: 8.4.2
   resolution: "unified@npm:8.4.2"
@@ -22749,15 +22707,6 @@ typescript@^4.3.5:
   dependencies:
     "@types/unist": ^2.0.2
   checksum: f755cadc959f9074fe999578a1a242761296705a7fe87f333a37c00044de74ab4b184b3812989a57d4cd12211f0b14ad397b327c3a594c7af84361b1c25a7f09
-  languageName: node
-  linkType: hard
-
-"unist-util-stringify-position@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "unist-util-stringify-position@npm:3.0.0"
-  dependencies:
-    "@types/unist": ^2.0.0
-  checksum: 460d5e16065942da7acd2578e92f4b8421c5af1f3f15ebc858db90865be69a5454dd6638d73f855cc82b1fa9e6e941a258f97b3f5f3be4f2766b0e6f6c45a031
   languageName: node
   linkType: hard
 
@@ -23102,16 +23051,6 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"vfile-message@npm:^3.0.0":
-  version: 3.0.2
-  resolution: "vfile-message@npm:3.0.2"
-  dependencies:
-    "@types/unist": ^2.0.0
-    unist-util-stringify-position: ^3.0.0
-  checksum: 02d50c6652a38c96dbb8cbcc1e8d5b083799a3bf99ba1cf85332e2129e9b569582201fca03839a4205161fe578ebbb31d9bdc52b2cff352051546c99bdd97df3
-  languageName: node
-  linkType: hard
-
 "vfile-reporter@npm:^6.0.2":
   version: 6.0.2
   resolution: "vfile-reporter@npm:6.0.2"
@@ -23149,18 +23088,6 @@ typescript@^4.3.5:
     unist-util-stringify-position: ^2.0.0
     vfile-message: ^2.0.0
   checksum: ee5726e10d170472cde778fc22e0f7499caa096eb85babea5d0ce0941455b721037ee1c9e6ae506ca2803250acd313d0f464328ead0b55cfe7cb6315f1b462d6
-  languageName: node
-  linkType: hard
-
-"vfile@npm:^5.0.0":
-  version: 5.1.0
-  resolution: "vfile@npm:5.1.0"
-  dependencies:
-    "@types/unist": ^2.0.0
-    is-buffer: ^2.0.0
-    unist-util-stringify-position: ^3.0.0
-    vfile-message: ^3.0.0
-  checksum: f626578bfdff42bd38c4117ad1f43d2c4bebe2df9ca1a861ece542f4f42dfa415405cb96c4a01759fee1bdcf778281c936467497c71a0d097c73367e8c11f30a
   languageName: node
   linkType: hard
 

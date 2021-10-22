@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.1.5
+
+### Patch Changes
+
+- Updated dependencies [4bde5155]
+  - orga@3.1.5
+
 ## 3.1.4
 
 ### Patch Changes

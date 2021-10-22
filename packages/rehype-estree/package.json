@@ -31,7 +31,7 @@
     "@types/estree-jsx": "^0.0.1",
     "@types/hast": "^2.3.2",
     "@types/jest": "^27.0.1",
-    "@types/unist": "^2.0.6",
+    "@types/unist": "2.0.3",
     "jest": "^27.1.1",
     "ts-jest": "^27.0.5",
     "unified": "9.2.2"

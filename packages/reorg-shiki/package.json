@@ -20,6 +20,6 @@
     "unist-util-map": "2.0.1"
   },
   "devDependencies": {
-    "unified": "^10.1.0"
+    "unified": "9.2.2"
   }
 }
