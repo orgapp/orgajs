@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.10
+
+### Patch Changes
+
+- gatsby-theme-orga-posts@3.1.7
+
 ## 3.0.9
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # Change Log
 
+## 3.2.6
+
+### Patch Changes
+
+- 6c1ddb9f: add latex support
+- Updated dependencies [6c1ddb9f]
+  - @orgajs/orgx@1.0.7
+  - @orgajs/rehype-latex@1.0.1
+  - @orgajs/loader@3.1.9
+
 ## 3.2.5
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # Change Log
 
+## 3.2.0
+
+### Minor Changes
+
+- 6c1ddb9f: add latex support
+
+### Patch Changes
+
+- Updated dependencies [6c1ddb9f]
+  - orga@3.2.0
+
 ## 3.1.6
 
 ### Patch Changes

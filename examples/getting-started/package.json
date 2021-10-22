@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@orgajs/getting-started",
-  "version": "3.1.6",
+  "version": "3.1.7",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -12,8 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@orgajs/reorg": "3.1.5",
-    "@orgajs/reorg-rehype": "3.0.8",
+    "@orgajs/reorg": "3.1.6",
+    "@orgajs/reorg-rehype": "3.0.9",
     "rehype-stringify": "^8.0.0",
     "unified": "9.2.2",
     "unified-stream": "^1.0.6"

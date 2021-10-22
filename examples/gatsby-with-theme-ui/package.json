@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/example-gatsby-with-theme-ui",
-  "version": "3.0.13",
+  "version": "3.0.14",
   "private": true,
   "description": "gatsby",
   "author": "Xiaoxing Hu",
@@ -16,12 +16,12 @@
     "info": "gatsby info"
   },
   "dependencies": {
-    "@orgajs/loader": "3.1.8",
+    "@orgajs/loader": "3.1.9",
     "@orgajs/react": "3.0.1",
     "@orgajs/theme-ui": "1.0.2",
     "@theme-ui/preset-system": "^0.11.2",
     "gatsby": "^3.14.3",
-    "gatsby-plugin-orga": "3.2.5",
+    "gatsby-plugin-orga": "3.2.6",
     "gatsby-plugin-orga-theme-ui": "1.0.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
