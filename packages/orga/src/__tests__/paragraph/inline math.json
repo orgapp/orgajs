@@ -1,0 +1,230 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "If ",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 4,
+              "offset": 3
+            }
+          }
+        },
+        {
+          "type": "text",
+          "style": "math",
+          "value": "a^2=b",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 4,
+              "offset": 3
+            },
+            "end": {
+              "line": 1,
+              "column": 13,
+              "offset": 12
+            }
+          }
+        },
+        {
+          "type": "text",
+          "value": " and ",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 13,
+              "offset": 12
+            },
+            "end": {
+              "line": 1,
+              "column": 18,
+              "offset": 17
+            }
+          }
+        },
+        {
+          "type": "text",
+          "style": "math",
+          "value": " b=2 ",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 18,
+              "offset": 17
+            },
+            "end": {
+              "line": 1,
+              "column": 27,
+              "offset": 26
+            }
+          }
+        },
+        {
+          "type": "text",
+          "value": ", then the solution must be",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 27,
+              "offset": 26
+            },
+            "end": {
+              "line": 1,
+              "column": 54,
+              "offset": 53
+            }
+          }
+        },
+        {
+          "type": "newline",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 54,
+              "offset": 53
+            },
+            "end": {
+              "line": 2,
+              "column": 1,
+              "offset": 54
+            }
+          }
+        },
+        {
+          "type": "text",
+          "value": "either ",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1,
+              "offset": 54
+            },
+            "end": {
+              "line": 2,
+              "column": 8,
+              "offset": 61
+            }
+          }
+        },
+        {
+          "type": "text",
+          "style": "math",
+          "value": " a=+\\sqrt{2} ",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 8,
+              "offset": 61
+            },
+            "end": {
+              "line": 2,
+              "column": 25,
+              "offset": 78
+            }
+          }
+        },
+        {
+          "type": "text",
+          "value": " or ",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 25,
+              "offset": 78
+            },
+            "end": {
+              "line": 2,
+              "column": 29,
+              "offset": 82
+            }
+          }
+        },
+        {
+          "type": "text",
+          "style": "math",
+          "value": " a=-\\sqrt{2} ",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 29,
+              "offset": 82
+            },
+            "end": {
+              "line": 2,
+              "column": 46,
+              "offset": 99
+            }
+          }
+        },
+        {
+          "type": "text",
+          "value": ".",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 46,
+              "offset": 99
+            },
+            "end": {
+              "line": 2,
+              "column": 47,
+              "offset": 100
+            }
+          }
+        },
+        {
+          "type": "newline",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 47,
+              "offset": 100
+            },
+            "end": {
+              "line": 2,
+              "column": 48,
+              "offset": 101
+            }
+          }
+        }
+      ],
+      "attributes": {},
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 48,
+          "offset": 101
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 2,
+      "column": 48,
+      "offset": 101
+    }
+  }
+}

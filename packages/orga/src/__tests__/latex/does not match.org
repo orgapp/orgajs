@@ -1,0 +1,3 @@
+\begin{figure}
+x=\sqrt{b}
+\end{equation}
