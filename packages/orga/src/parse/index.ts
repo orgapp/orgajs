@@ -4,6 +4,7 @@ import { Node } from 'unist'
 import { Document, Parent, Token } from '../types'
 import { isPhrasingContent } from '../utils'
 import block from './block'
+import latex from './latex'
 import { Context, createContext } from './context'
 import keyword from './keyword'
 import list from './list'
@@ -71,6 +72,7 @@ const main: Handler = {
     { test: 'keyword', action: keyword },
     { test: 'list.item.bullet', action: list },
     { test: 'block.begin', action: block },
+    { test: 'latex.begin', action: latex },
     { test: /^table\./, action: table },
     {
       test: 'hr',

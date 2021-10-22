@@ -20,6 +20,7 @@
     { "path": "packages/reorg-shiki" },
     { "path": "packages/metadata" },
     { "path": "packages/theme-ui" },
-    { "path": "packages/orgx" }
+    { "path": "packages/orgx" },
+    { "path": "packages/rehype-latex" }
   ]
 }

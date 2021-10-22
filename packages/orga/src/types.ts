@@ -59,6 +59,12 @@ export interface Block extends Literal, Attributed {
   value: string
 }
 
+export interface Latex extends Literal {
+  type: 'latex'
+  name: string
+  value: string
+}
+
 export interface Drawer extends Literal {
   type: 'drawer'
   name: string
@@ -144,6 +150,8 @@ export type Token =
   | FootnoteLabel
   | BlockBegin
   | BlockEnd
+  | LatexBegin
+  | LatexEnd
   | DrawerBegin
   | DrawerEnd
   | Comment
@@ -172,6 +180,7 @@ export type Style =
   | 'strikeThrough'
   | 'underline'
   | 'code'
+  | 'math'
 
 export interface Text extends Literal {
   type: 'text'
@@ -273,6 +282,16 @@ export interface DrawerBegin extends Node {
 
 interface DrawerEnd extends Node {
   type: 'drawer.end'
+}
+
+export interface LatexBegin extends Node {
+  type: 'latex.begin'
+  name: string
+}
+
+export interface LatexEnd extends Node {
+  type: 'latex.end'
+  name: string
 }
 
 interface Comment extends Literal {

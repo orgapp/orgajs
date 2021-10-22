@@ -8,13 +8,16 @@ const wrapper: Record<Style, string> = {
   verbatim: 'code',
   underline: 'u',
   strikeThrough: 'del',
+  math: 'span',
 }
 
 export default (node: Text, context: Context) => {
   const { u, h } = context
   let e: HNode = u('text', node.value)
   if (node.style) {
-    e = h(wrapper[node.style])(e)
+    e = h(wrapper[node.style], {
+      className: node.style === 'math' ? ['math-inline'] : [],
+    })(e)
   }
   return e
 }

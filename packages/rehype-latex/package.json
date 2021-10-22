@@ -1,0 +1,31 @@
+{
+  "name": "@orgajs/rehype-latex",
+  "version": "1.0.0",
+  "description": "reorg plugin that adds latex support",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "repository": {
+    "url": "orgapp/orgajs",
+    "directory": "packages/reorg-latex"
+  },
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
+    "compile": "tsc -b"
+  },
+  "devDependencies": {
+    "@types/hast": "^2.3.4",
+    "@types/katex": "^0.11.1",
+    "unified": "^9.2.2"
+  },
+  "dependencies": {
+    "katex": "^0.13.18",
+    "rehype-parse": "7.0.1",
+    "unist-util-visit": "2.0.3"
+  },
+  "peerDependencies": {
+    "unified": "9.2.2"
+  }
+}

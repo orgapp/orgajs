@@ -34,6 +34,7 @@
     "@orgajs/metadata": "1.0.1",
     "@orgajs/orgx": "1.0.6",
     "@orgajs/react": "^3.0.1",
+    "@orgajs/rehype-latex": "1.0.0",
     "astring": "^1.7.5",
     "dataloader": "^2.0.0",
     "estree-walker": "2.0.2",

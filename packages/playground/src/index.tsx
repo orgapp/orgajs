@@ -4,10 +4,11 @@ import { ErrorBoundary } from 'react-error-boundary'
 import JSONTree from 'react-json-tree'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
-import vfileMessage from 'vfile-message'
+import vfileMessage, { VFileMessage } from 'vfile-message'
 import { tokenizer } from './org-syntax'
 import codeTheme from './theme/light'
 import { useOrga } from './use-orga'
+import { RuntimeOptions } from '@orgajs/orgx'
 
 const theme = {
   background: '#f5f8fa',
@@ -41,7 +42,7 @@ const treeTheme = {
 }
 
 interface Props {
-  runtime?: unknown
+  runtime?: RuntimeOptions
   children: string
   onChange?: (text: string) => void
   style?: React.CSSProperties
@@ -188,7 +189,7 @@ const Playground: FC<Props> = ({ runtime, onChange, style = {}, children }) => {
           <TabPanel style={{ padding: '0.4em 0.8em' }}>
             <div style={{ overflow: 'scroll' }}>
               {output && output.result ? (
-                <ErrorBoundary FallbackComponent={FallbackComponent}>
+                <ErrorBoundary FallbackComponent={ErrorComponent}>
                   <output.result />
                 </ErrorBoundary>
               ) : null}
@@ -200,11 +201,12 @@ const Playground: FC<Props> = ({ runtime, onChange, style = {}, children }) => {
   )
 }
 
-const FallbackComponent: FC<{ error: Error }> = ({ error }) => {
-  const message = vfileMessage(error)
+const ErrorComponent: FC<{ error: Error | VFileMessage }> = ({ error }) => {
+  const message = error instanceof Error ? new vfileMessage(error) : error
   message.fatal = true
   return (
     <pre>
+      <h2>ERROR</h2>
       <code>{String(message)}</code>
     </pre>
   )

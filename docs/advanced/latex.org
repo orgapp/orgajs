@@ -1,0 +1,39 @@
+#+title: Latex Support
+#+published: true
+#+position: 3
+
+** Inline Math
+Orgajs supports inline math with latex math delimiters.
+
+#+begin_src org
+If $$a^2=b$$ and \( b=2 \), then the solution must be either $$ a=+\sqrt{2} $$ or \[ a=-\sqrt{2} \].
+#+end_src
+
+With be rendered as follows.
+
+If $$a^2=b$$ and \( b=2 \), then the solution must be either $$ a=+\sqrt{2} $$ or \[ a=-\sqrt{2} \].
+
+** Latex Block
+
+It also supports =\begin= commands.
+
+#+begin_src org
+\begin{equation}
+x=\sqrt{b}
+\end{equation}
+#+end_src
+
+Will be rendered
+
+\begin{equation}
+x=\sqrt{b}
+\end{equation}
+
+** Styling
+
+=@orgajs/rehype-latex= is the plugin for handling latex. It uses [[https://katex.org][katex]] underneath, so you will have to add the css link yourself in your website. Add the following to the =head=.
+
+#+begin_src html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.css" integrity="sha384-ysFyB7Is//Q1JNgERb0bLJokXKM8eWJsjEutGvthoHtBilHWgbdmbYkQZdwCIGIq" crossorigin="anonymous">
+#+end_src
+

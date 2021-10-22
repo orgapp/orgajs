@@ -10,7 +10,8 @@
     { "path": "../reorg-rehype" },
     { "path": "../loader" },
     { "path": "../metadata" },
-    { "path": "../react" }
+    { "path": "../react" },
+    { "path": "../rehype-latex" }
   ],
   "include": ["./src"]
 }

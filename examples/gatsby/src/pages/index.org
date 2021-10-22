@@ -1,4 +1,5 @@
 #+TITLE: Orga + Gatsby = Awesome
+#+startup: latexpreview
 #+jsx: import Box from '../components/box'
 #+layout: ../components/home
 
@@ -17,6 +18,15 @@ You can /embed/ react components like [[https://mdxjs.com/][mdx]], but better, w
 - [[file:page3.tsx][here is a link to a tsx file]]
 
 
+* Latex Support
+
+\begin{equation}
+x=\sqrt{b}
+\end{equation}
+
+This is a paragraph with latex in it. If $$ a^2=b $$ and \( b=2 \), then the solution must be either $$ a=+\sqrt{2} $$ or \[ a=-\sqrt{2}\].
+
+
 #+begin_export jsx
 export const query = graphql`
 query MyPagesQuery {
@@ -33,3 +43,4 @@ query MyPagesQuery {
 }
 `
 #+end_export
+

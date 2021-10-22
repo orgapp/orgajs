@@ -1,0 +1,100 @@
+{
+  "type": "document",
+  "properties": {},
+  "children": [
+    {
+      "type": "latex",
+      "name": "equation",
+      "value": "\\begin{equation}\nx=\\sqrt{b}\n\\end{equation}",
+      "children": [
+        {
+          "type": "latex.begin",
+          "name": "equation",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 1,
+              "offset": 17
+            }
+          }
+        },
+        {
+          "type": "text",
+          "value": "x=\\sqrt{b}",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 1,
+              "offset": 17
+            },
+            "end": {
+              "line": 2,
+              "column": 11,
+              "offset": 27
+            }
+          }
+        },
+        {
+          "type": "newline",
+          "position": {
+            "start": {
+              "line": 2,
+              "column": 11,
+              "offset": 27
+            },
+            "end": {
+              "line": 3,
+              "column": 1,
+              "offset": 28
+            }
+          }
+        },
+        {
+          "type": "latex.end",
+          "name": "equation",
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 1,
+              "offset": 28
+            },
+            "end": {
+              "line": 3,
+              "column": 16,
+              "offset": 43
+            }
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 16,
+          "offset": 43
+        }
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 3,
+      "column": 16,
+      "offset": 43
+    }
+  }
+}

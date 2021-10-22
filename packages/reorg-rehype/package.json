@@ -23,6 +23,7 @@
     "oast-to-hast": "3.1.6"
   },
   "devDependencies": {
+    "@types/unist": "2.0.3",
     "unified": "9.2.2"
   }
 }
