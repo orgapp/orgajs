@@ -20,7 +20,12 @@ You can /embed/ react components like [[https://mdxjs.com/][mdx]], but better, w
 
 * Latex Support
 
+\begin{equation}
+x=\sqrt{b}
+\end{equation}
+
 This is a paragraph with latex in it. If $$ a^2=b $$ and \( b=2 \), then the solution must be either $$ a=+\sqrt{2} $$ or \[ a=-\sqrt{2}\].
+
 
 #+begin_export jsx
 export const query = graphql`

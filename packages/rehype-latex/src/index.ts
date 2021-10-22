@@ -14,12 +14,16 @@ const plugin: Plugin = () => {
         element.properties && Array.isArray(element.properties.className)
           ? element.properties.className
           : []
-      if (!classes.includes('math')) return
+      const inline = classes.includes('math-inline')
+      const displayMode = classes.includes('math-display')
+      if (!inline && !displayMode) {
+        return
+      }
 
       const text = toText(element)
 
       const result = katex.renderToString(text, {
-        displayMode: false,
+        displayMode,
         throwOnError: true,
       })
 

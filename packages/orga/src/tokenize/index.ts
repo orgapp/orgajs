@@ -4,6 +4,7 @@ import defaultOptions, { ParseOptions } from '../options'
 import todoKeywordSet, { TodoKeywordSet } from '../todo-keyword-set'
 import { Token } from '../types'
 import block from './block'
+import latex from './latex'
 import comment from './comment'
 import drawer from './drawer'
 import footnote from './footnote'
@@ -76,6 +77,7 @@ export const tokenize = (
       planning({ keywords: PLANNING_KEYWORDS, timezone }),
       keyword,
       block,
+      latex,
       listItem,
       comment,
       table,

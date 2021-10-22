@@ -16,7 +16,7 @@ export default (node: Text, context: Context) => {
   let e: HNode = u('text', node.value)
   if (node.style) {
     e = h(wrapper[node.style], {
-      className: node.style === 'math' ? ['math'] : [],
+      className: node.style === 'math' ? ['math-inline'] : [],
     })(e)
   }
   return e

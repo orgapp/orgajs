@@ -1,6 +1,7 @@
 import { Node } from 'unist'
 import { Context, HNode } from '../'
 import block from './block'
+import latex from './latex'
 import { footnote, footnoteReference } from './footnote'
 import headline from './headline'
 import html from './html'
@@ -29,6 +30,7 @@ export default {
   paragraph,
   link,
   block,
+  latex,
   list,
   'list.item': listItem,
   'list.item.tag': ignore,
