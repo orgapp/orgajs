@@ -4130,7 +4130,6 @@ __metadata:
   dependencies:
     "@types/hast": ^2.3.4
     "@types/katex": ^0.11.1
-    hast-util-to-text: 2.0.1
     katex: ^0.13.18
     rehype-parse: 7.0.1
     unified: ^9.2.2
@@ -13084,7 +13083,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-to-text@npm:2.0.1, hast-util-to-text@npm:^2.0.0":
+"hast-util-to-text@npm:^2.0.0":
   version: 2.0.1
   resolution: "hast-util-to-text@npm:2.0.1"
   dependencies:

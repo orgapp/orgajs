@@ -21,7 +21,6 @@
     "unified": "^9.2.2"
   },
   "dependencies": {
-    "hast-util-to-text": "2.0.1",
     "katex": "^0.13.18",
     "rehype-parse": "7.0.1",
     "unist-util-visit": "2.0.3"
