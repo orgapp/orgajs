@@ -1,5 +1,13 @@
 # @orgajs/orgx
 
+## 1.0.7
+
+### Patch Changes
+
+- 6c1ddb9f: add latex support
+  - @orgajs/reorg-rehype@3.0.9
+  - @orgajs/reorg-parse@3.1.6
+
 ## 1.0.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.7
+
+### Patch Changes
+
+- gatsby-transformer-orga@3.1.7
+
 ## 3.1.6
 
 ### Patch Changes

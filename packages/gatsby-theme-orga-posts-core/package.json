@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-orga-posts-core",
-  "version": "3.1.6",
+  "version": "3.1.7",
   "description": "gatsby theme for orga.js",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "homepage": "https://github.com/orgapp/orgajs#readme",
@@ -22,7 +22,7 @@
     "gatsby-plugin-image": "^1.14.1",
     "gatsby-plugin-sharp": "^3.14.1",
     "gatsby-source-filesystem": "^3.14.0",
-    "gatsby-transformer-orga": "3.1.6",
+    "gatsby-transformer-orga": "3.1.7",
     "gatsby-transformer-sharp": "^3.14.0",
     "lodash": "^4.17.21"
   },

@@ -1,6 +1,6 @@
 {
   "name": "orga-posts",
-  "version": "3.1.6",
+  "version": "3.1.7",
   "description": "",
   "files": [
     "dist"
@@ -24,9 +24,9 @@
     "blog"
   ],
   "dependencies": {
-    "@orgajs/reorg-rehype": "3.0.8",
+    "@orgajs/reorg-rehype": "3.0.9",
     "lodash": "^4.17.21",
-    "orga": "3.1.5",
+    "orga": "3.2.0",
     "rehype-highlight": "^4.0.0",
     "rehype-stringify": "^8.0.0",
     "unified": "9.2.2",

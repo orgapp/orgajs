@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.1.10
+
+### Patch Changes
+
+- Updated dependencies [6c1ddb9f]
+  - @orgajs/orgx@1.0.7
+  - @orgajs/loader@3.1.9
+  - @orgajs/react@3.0.1
+
 ## 3.1.9
 
 ### Patch Changes

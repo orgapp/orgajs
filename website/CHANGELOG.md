@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.1.10
+
+### Patch Changes
+
+- 6c1ddb9f: add latex support
+- Updated dependencies [6c1ddb9f]
+  - @orgajs/playground@3.1.10
+  - gatsby-theme-orga-docs@3.1.10
+
 ## 3.1.9
 
 ### Patch Changes
