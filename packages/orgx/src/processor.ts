@@ -1,5 +1,7 @@
 import reorgParse from '@orgajs/reorg-parse'
-import reorgRehype from '@orgajs/reorg-rehype'
+import reorgRehype, {
+  Options as ReorgRehpyeOptions,
+} from '@orgajs/reorg-rehype'
 import unified, { PluggableList } from 'unified'
 import {
   estreeJsxBuild,
@@ -24,7 +26,8 @@ import {
 } from './plugin/rehype-set-layout'
 
 export interface ProcessorOptions
-  extends RehypeEstreeOptions,
+  extends Partial<Omit<ReorgRehpyeOptions, 'handlers'>>,
+    RehypeEstreeOptions,
     EstreeWrapInContentOptions,
     JSXRewriteOptions,
     RehypeSetLayoutOptions,
@@ -61,15 +64,18 @@ const defaultOptions: ProcessorOptions = {
 export function createProcessor(
   processorOptions: Partial<ProcessorOptions> = {}
 ): unified.Processor<unified.Settings> {
-  const { jsx, ...options } = { ...defaultOptions, ...processorOptions }
+  const { jsx, handlers, ...options } = {
+    ...defaultOptions,
+    ...processorOptions,
+  }
 
   const pipeline = unified()
     .use(reorgParse)
     .use(options.reorgPlugins)
-    .use(reorgRehype)
+    .use(reorgRehype, options)
     .use(rehypeSetLayout, options)
     .use(options.rehypePlugins)
-    .use(rehypeEstree, options)
+    .use(rehypeEstree, { ...options, handlers })
     .use(estreeWrapInContent, options)
     .use(options.estreePlugins)
     .use(estreeJsxRewrite, options)
