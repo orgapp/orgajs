@@ -2,6 +2,7 @@ import { JSXAttribute, Program } from 'estree-jsx'
 import { BaseNode, walk } from 'estree-walker'
 import { Plugin, Transformer } from 'unified'
 import { isJSXAttribute, isJSXOpeningElement, isLiteral } from './_estree-utils'
+import { isRelativeUrl } from './_url-utils'
 
 export const processImage: Plugin = () => {
   const transformer: Transformer = async (tree: BaseNode, file) => {
@@ -9,6 +10,10 @@ export const processImage: Plugin = () => {
     const imports = []
 
     const _import = (path: string) => {
+      let p = path
+      if (isRelativeUrl(p) && !p.startsWith('.')) {
+        p = `./${p}`
+      }
       const varName = `image${imports.length}`
       imports.push({
         type: 'ImportDeclaration',
@@ -23,8 +28,8 @@ export const processImage: Plugin = () => {
         ],
         source: {
           type: 'Literal',
-          value: path,
-          raw: `'${path}'`,
+          value: p,
+          raw: `'${p}'`,
         },
       })
       return varName

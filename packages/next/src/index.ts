@@ -21,6 +21,7 @@ const plugin =
               loader: require.resolve('@orgajs/loader'),
               options: {
                 jsx: true,
+                headingOffset: 1,
                 providerImportSource: require.resolve('@orgajs/react'),
                 estreePlugins: [
                   processImage,

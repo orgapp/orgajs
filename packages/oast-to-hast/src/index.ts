@@ -27,6 +27,7 @@ const defaultOptions = {
   properties: {} as Properties,
   handlers: {} as Record<string, Handler>,
   defaultHandler: (element: string) => handlers[element],
+  headingOffset: 0,
 }
 
 export type Options = typeof defaultOptions

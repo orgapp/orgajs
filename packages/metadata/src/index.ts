@@ -32,7 +32,7 @@ const processValue = (text: string): Value => {
 // TODO: more types?
 type Value = string
 
-type Metadata = Record<string, Value | Value[]>
+export type Metadata = Record<string, Value | Value[]>
 
 const pushTo = (data: Metadata) => (_key: string, _value: string) => {
   const key = _key.toLowerCase()

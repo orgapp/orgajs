@@ -105,7 +105,8 @@
           "path": {
             "protocol": "https",
             "value": "https://orga.js.org/"
-          }
+          },
+          "attributes": {}
         },
         {
           "type": "text",
