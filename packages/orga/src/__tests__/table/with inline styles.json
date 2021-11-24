@@ -545,7 +545,8 @@
                   "path": {
                     "protocol": "https",
                     "value": "https://en.wikipedia.org/wiki/Batman"
-                  }
+                  },
+                  "attributes": {}
                 },
                 {
                   "type": "text",
@@ -922,7 +923,8 @@
                   "path": {
                     "protocol": "https",
                     "value": "https://en.wikipedia.org/wiki/Superman"
-                  }
+                  },
+                  "attributes": {}
                 },
                 {
                   "type": "text",
@@ -1299,7 +1301,8 @@
                   "path": {
                     "protocol": "https",
                     "value": "https://en.wikipedia.org/wiki/Wonder_Woman"
-                  }
+                  },
+                  "attributes": {}
                 },
                 {
                   "type": "text",
