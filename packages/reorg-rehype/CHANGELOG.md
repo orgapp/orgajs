@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.10
+
+### Patch Changes
+
+- eeccc870: - get image links out of paragraph
+  - some other minor fixes
+- Updated dependencies [eeccc870]
+  - oast-to-hast@3.2.1
+
 ## 3.0.9
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # Change Log
 
+## 3.2.7
+
+### Patch Changes
+
+- eeccc870: - get image links out of paragraph
+  - some other minor fixes
+- Updated dependencies [eeccc870]
+  - @orgajs/metadata@1.0.2
+  - @orgajs/orgx@1.0.8
+  - @orgajs/rehype-latex@1.0.2
+  - @orgajs/loader@3.1.10
+
 ## 3.2.6
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @orgajs/example-next-with-theme-ui
 
+## 1.0.8
+
+### Patch Changes
+
+- Updated dependencies [eeccc870]
+  - @orgajs/next@3.1.11
+  - @orgajs/loader@3.1.10
+
 ## 1.0.7
 
 ### Patch Changes

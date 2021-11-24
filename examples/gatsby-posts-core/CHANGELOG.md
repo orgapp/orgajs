@@ -1,5 +1,11 @@
 # example-gatsby-posts-core
 
+## 1.0.11
+
+### Patch Changes
+
+- gatsby-theme-orga-posts-core@3.1.8
+
 ## 1.0.10
 
 ### Patch Changes

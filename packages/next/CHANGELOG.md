@@ -1,5 +1,16 @@
 # Change Log
 
+## 3.1.11
+
+### Patch Changes
+
+- eeccc870: - get image links out of paragraph
+  - some other minor fixes
+- Updated dependencies [eeccc870]
+  - @orgajs/orgx@1.0.8
+  - @orgajs/loader@3.1.10
+  - @orgajs/react@3.0.1
+
 ## 3.1.10
 
 ### Patch Changes

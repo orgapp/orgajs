@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.0.6
+
+### Patch Changes
+
+- eeccc870: - get image links out of paragraph
+  - some other minor fixes
+
 ## 3.0.5
 
 ### Patch Changes

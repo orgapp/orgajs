@@ -1,5 +1,13 @@
 # @orgajs/example-gatsby-with-theme-ui
 
+## 3.0.15
+
+### Patch Changes
+
+- Updated dependencies [eeccc870]
+  - gatsby-plugin-orga@3.2.7
+  - @orgajs/loader@3.1.10
+
 ## 3.0.14
 
 ### Patch Changes
