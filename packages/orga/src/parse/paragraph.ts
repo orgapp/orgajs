@@ -3,11 +3,7 @@ import { Opening, Token } from '../types'
 import { clone, isPhrasingContent } from '../utils'
 import { Context } from './context'
 import phrasingContent from './phrasing'
-
-const isImage = (path: string) => {
-  const exts = ['.png', '.jpg', '.jpeg']
-  return exts.findIndex((e) => path.endsWith(e)) !== -1
-}
+import { isImage } from './_utils'
 
 const isWhitespaces = (node: Token) => {
   return (
