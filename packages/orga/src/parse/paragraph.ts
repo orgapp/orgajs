@@ -1,7 +1,13 @@
-import { Action, Handler } from '.'
-import { Token } from '../types'
+import { Action } from '.'
+import { Opening, Token } from '../types'
 import { clone, isPhrasingContent } from '../utils'
+import { Context } from './context'
 import phrasingContent from './phrasing'
+
+const isImage = (path: string) => {
+  const exts = ['.png', '.jpg', '.jpeg']
+  return exts.findIndex((e) => path.endsWith(e)) !== -1
+}
 
 const isWhitespaces = (node: Token) => {
   return (
@@ -11,27 +17,31 @@ const isWhitespaces = (node: Token) => {
   )
 }
 
-const paragraph: Action = (
-  _,
-  { save, enter, restore, exit, exitTo, attributes }
-): Handler => {
-  save()
-  const paragraph = enter({
-    type: 'paragraph',
-    children: [],
-    attributes: clone(attributes),
-  })
+const paragraph: Action = () => {
+  const makeSureParagraph = (context: Context) => {
+    const parent = context.getParent()
+    if (parent.type === 'paragraph') return
+    context.save()
+    context.enter({
+      type: 'paragraph',
+      children: [],
+      attributes: clone(context.attributes),
+    })
+    context.attributes = {}
+  }
 
-  const finish = () => {
+  const exitPragraph = (context: Context) => {
+    const paragraph = context.getParent()
+    if (paragraph.type !== 'paragraph') return
     if (
       paragraph.children.length === 0 ||
       paragraph.children.every(isWhitespaces)
     ) {
-      restore()
+      context.restore()
     } else {
       // TODO: should we do this?
       // exitTo('paragraph')
-      exit('paragraph')
+      context.exit('paragraph')
     }
   }
 
@@ -40,9 +50,9 @@ const paragraph: Action = (
     rules: [
       {
         test: 'emptyLine',
-        action: (_, { consume }) => {
-          consume()
-          finish()
+        action: (_, context) => {
+          context.consume()
+          exitPragraph(context)
           return 'break'
         },
       },
@@ -53,14 +63,31 @@ const paragraph: Action = (
         },
       },
       {
+        test: 'opening',
+        action: (token: Opening, context) => {
+          if (token.element === 'link') {
+            const next = context.lexer.peek(1)
+            if (next.type === 'link.path' && isImage(next.value)) {
+              exitPragraph(context)
+              return phrasingContent
+            }
+          }
+          makeSureParagraph(context)
+          return phrasingContent
+        },
+      },
+      {
         test: isPhrasingContent,
-        action: phrasingContent,
+        action: (_, context) => {
+          makeSureParagraph(context)
+          return phrasingContent
+        },
       },
       // catch all
       {
         test: /.*/,
-        action: () => {
-          finish()
+        action: (_, context) => {
+          exitPragraph(context)
           return 'break'
         },
       },

@@ -24,7 +24,8 @@ const phrasingContent: Handler = {
     },
     {
       test: 'link.path',
-      action: (token: LinkPath, { getParent, consume }) => {
+      action: (token: LinkPath, context) => {
+        const { getParent, consume, attributes } = context
         const parent = getParent()
         assert(parent.type === 'link', 'expect parent to be link')
         parent.path = {
@@ -32,6 +33,8 @@ const phrasingContent: Handler = {
           value: token.value,
           search: token.search,
         }
+        parent.attributes = attributes
+        context.attributes = {}
         consume()
       },
     },

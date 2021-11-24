@@ -15,6 +15,11 @@ import footnote from './footnote'
 
 export type Parse = (lexer: Lexer) => Parent | undefined
 
+/*
+ * break: pop handler stack, go to next handler
+ * next: go to next rule in the current handler
+ * finish | void: finish current handler, skip the upcoming rules
+ */
 type FlowControl = 'break' | 'next' | 'finish'
 
 export type Action = (

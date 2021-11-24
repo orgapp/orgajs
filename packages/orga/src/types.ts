@@ -187,7 +187,7 @@ export interface Text extends Literal {
   style?: Style
 }
 
-export interface Link extends Parent {
+export interface Link extends Parent, Attributed {
   type: 'link'
   path: LinkInfo
   children: PhrasingContent[]

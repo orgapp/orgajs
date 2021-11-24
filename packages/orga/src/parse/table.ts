@@ -1,9 +1,8 @@
 import { Action } from '.'
 import { isPhrasingContent } from '../utils'
-import { Context } from './context'
 import phrasingContent from './phrasing'
 
-const tableCell: Action = (_, { enter }: Context) => {
+const tableCell: Action = (_, { enter }) => {
   enter({
     type: 'table.cell',
     children: [],
@@ -34,7 +33,7 @@ const tableCell: Action = (_, { enter }: Context) => {
   }
 }
 
-const tableRow = (_, { enter, lexer }: Context) => {
+const tableRow = (_, { enter, lexer }) => {
   enter({
     type: 'table.row',
     children: [],
