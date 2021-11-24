@@ -1,5 +1,15 @@
 # @orgajs/orgx
 
+## 1.0.8
+
+### Patch Changes
+
+- eeccc870: - get image links out of paragraph
+  - some other minor fixes
+- Updated dependencies [eeccc870]
+  - @orgajs/reorg-rehype@3.0.10
+  - @orgajs/reorg-parse@3.1.7
+
 ## 1.0.7
 
 ### Patch Changes

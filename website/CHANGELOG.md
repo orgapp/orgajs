@@ -1,5 +1,15 @@
 # Change Log
 
+## 3.1.11
+
+### Patch Changes
+
+- eeccc870: - get image links out of paragraph
+  - some other minor fixes
+- Updated dependencies [eeccc870]
+  - @orgajs/playground@3.1.11
+  - gatsby-theme-orga-docs@3.1.11
+
 ## 3.1.10
 
 ### Patch Changes

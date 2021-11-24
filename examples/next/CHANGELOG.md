@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.13
+
+### Patch Changes
+
+- Updated dependencies [eeccc870]
+  - @orgajs/next@3.1.11
+  - @orgajs/reorg-shiki@1.0.2
+  - @orgajs/loader@3.1.10
+
 ## 3.0.12
 
 ### Patch Changes

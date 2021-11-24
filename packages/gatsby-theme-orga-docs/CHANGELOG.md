@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.1.11
+
+### Patch Changes
+
+- Updated dependencies [eeccc870]
+  - gatsby-plugin-orga@3.2.7
+
 ## 3.1.10
 
 ### Patch Changes
