@@ -9,6 +9,7 @@ export const isAbsoluteUrl = (url: string) => {
   if (WINDOWS_PATH_REGEX.test(url)) {
     return false
   }
+  if (url.startsWith('~/')) return true
 
   return ABSOLUTE_URL_REGEX.test(url)
 }
