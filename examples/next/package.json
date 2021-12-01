@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/example-next",
-  "version": "3.0.13",
+  "version": "3.0.14",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@orgajs/loader": "3.1.10",
-    "@orgajs/next": "3.1.11",
+    "@orgajs/next": "3.1.12",
     "@orgajs/react": "3.0.1",
     "@orgajs/reorg-shiki": "1.0.2",
     "next": "^11.1.2",
