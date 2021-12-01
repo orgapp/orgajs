@@ -3,6 +3,7 @@ import { BaseNode, walk } from 'estree-walker'
 import { Plugin, Transformer } from 'unified'
 import { isJSXAttribute, isJSXOpeningElement, isLiteral } from './_estree-utils'
 import { isRelativeUrl } from './_url-utils'
+import { join } from 'path'
 
 export const processImage: Plugin = () => {
   const transformer: Transformer = async (tree: BaseNode, file) => {
@@ -11,8 +12,14 @@ export const processImage: Plugin = () => {
 
     const _import = (path: string) => {
       let p = path
-      if (isRelativeUrl(p) && !p.startsWith('.')) {
-        p = `./${p}`
+      if (isRelativeUrl(p)) {
+        if (!p.startsWith('.')) {
+          p = `./${p}`
+        }
+      } else {
+        if (p.startsWith('~')) {
+          p = join(process.env.HOME, p.substring(1))
+        }
       }
       const varName = `image${imports.length}`
       imports.push({
