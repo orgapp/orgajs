@@ -3929,7 +3929,7 @@ __metadata:
   resolution: "@orgajs/example-next-with-theme-ui@workspace:examples/next-with-theme-ui"
   dependencies:
     "@orgajs/loader": 3.1.10
-    "@orgajs/next": 3.1.11
+    "@orgajs/next": 3.1.12
     "@orgajs/react": 3.0.1
     "@orgajs/theme-ui": 1.0.2
     "@theme-ui/preset-system": ^0.11.2
@@ -3944,7 +3944,7 @@ __metadata:
   resolution: "@orgajs/example-next@workspace:examples/next"
   dependencies:
     "@orgajs/loader": 3.1.10
-    "@orgajs/next": 3.1.11
+    "@orgajs/next": 3.1.12
     "@orgajs/react": 3.0.1
     "@orgajs/reorg-shiki": 1.0.2
     next: ^11.1.2
@@ -4017,7 +4017,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/next@3.1.11, @orgajs/next@workspace:packages/next":
+"@orgajs/next@3.1.12, @orgajs/next@workspace:packages/next":
   version: 0.0.0-use.local
   resolution: "@orgajs/next@workspace:packages/next"
   dependencies:

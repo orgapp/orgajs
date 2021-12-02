@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.12
+
+### Patch Changes
+
+- 70090c16: next: resolve ~ in image path
+
 ## 3.1.11
 
 ### Patch Changes

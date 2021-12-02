@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.0.14
+
+### Patch Changes
+
+- 70090c16: next: resolve ~ in image path
+- Updated dependencies [70090c16]
+  - @orgajs/next@3.1.12
+
 ## 3.0.13
 
 ### Patch Changes
