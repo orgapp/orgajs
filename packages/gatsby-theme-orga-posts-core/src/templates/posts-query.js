@@ -4,7 +4,7 @@ import PostsPage from '../components/posts'
 export default PostsPage
 
 export const query = graphql`
-  query PostsQuery($ids: [String!]!) {
+  query PostsQuery($ids: [String!]!, $width: Int!, $height: Int!) {
     site {
       siteMetadata {
         title
@@ -22,6 +22,11 @@ export const query = graphql`
         date(formatString: "MMMM DD, YYYY")
         tags
         slug
+        image {
+          childImageSharp {
+            gatsbyImageData(width: $width, height: $height)
+          }
+        }
       }
     }
   }
