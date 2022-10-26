@@ -2,16 +2,15 @@ import { Action } from '.'
 import { DrawerBegin, Section } from '../types'
 
 const drawer: Action = (begin: DrawerBegin, context) => {
-  const { save, enter, push, exit, lexer } = context
-  const { eat } = lexer
-  save()
-  const drawer = enter({
+  const lexer = context.lexer
+  context.save()
+  const drawer = context.enter({
     type: 'drawer',
     name: begin.name,
     value: '',
     children: [],
   })
-  push(eat())
+  context.push(lexer.eat())
 
   const contentStart = begin.position.end
 
@@ -20,11 +19,11 @@ const drawer: Action = (begin: DrawerBegin, context) => {
     rules: [
       {
         test: ['stars', 'EOF'],
-        action: (_, { restore, lexer }) => {
-          restore()
-          lexer.modify((t) => ({
+        action: (_, context) => {
+          context.restore()
+          context.lexer.modify((t) => ({
             type: 'text',
-            value: lexer.substring(t.position),
+            value: context.lexer.substring(t.position),
             position: t.position,
           }))
           return 'break'
@@ -32,18 +31,18 @@ const drawer: Action = (begin: DrawerBegin, context) => {
       },
       {
         test: 'drawer.end',
-        action: (token, { lexer, push, getParent }) => {
-          push(lexer.eat())
-          drawer.value = lexer.substring({
+        action: (token, context) => {
+          context.push(context.lexer.eat())
+          drawer.value = context.lexer.substring({
             start: contentStart,
             end: token.position.start,
           })
 
-          exit('drawer')
-          eat('newline')
+          context.exit('drawer')
+          lexer.eat('newline')
 
           if (drawer.name.toLowerCase() === 'properties') {
-            const section = getParent() as Section
+            const section = context.getParent() as Section
             section.properties = drawer.value
               .split('\n')
               .reduce((accu, current) => {
