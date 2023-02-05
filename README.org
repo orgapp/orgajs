@@ -3,15 +3,13 @@
 #+layout: './website/src/components/landing'
 
 * What Is It
-
-=Orga= is a flexible org-mode syntax parser. It parses org content into an AST ([[https://en.wikipedia.org/wiki/Abstract_syntax_tree][Abstract Syntax Tree 🌲]]). And it's written in JavaScript.
+=Orga= is a flexible org-mode syntax parser written in JavaScript. It parses org content into an AST ([[https://en.wikipedia.org/wiki/Abstract_syntax_tree][Abstract Syntax Tree]]).
 
 * Why
 org-mode is simply a superior format than other more popular ones, but it's mostly trapped inside of emacs. It's so good that it was the #1 reason to learn and use emacs for a lot of people (me included). But it's too good to not share with the rest of the world. If it can run in JavaScript, it can run on anything.
 
 * Compatible Ecosystems
-** [[https://unifiedjs.com][Unified]]
-
+** Unified
 The =orga= parser is compliant with the [[https://unifiedjs.com/][unified]] spec, any output can be piped into another function that supports a unified AST as an input.
 
 ** Webpack
@@ -36,16 +34,11 @@ Let's render *the box*.
 
 [[https://orga.js.org/playground/?text=*%20Hello%20World%0A%0ALet's%20render%20*the%20box*.%0A%0A%23%2Bbegin_export%20jsx%0A%3Cdiv%20style%3D%7B%7B%0A%20%20backgroundColor%3A%20'gold'%2C%20%0A%20%20padding%3A%20'1em'%2C%0A%20%20border%3A%20'1px%20solid%20black'%2C%0A%20%20boxShadow%3A%20'5px%205px'%0A%7D%7D%3EI%20am%20a%20box%20with%20shadow%3C%2Fdiv%3E%0A%23%2Bend_export%0A][Try it out yourself in the playground]].
 
-** [[https://www.gatsbyjs.com][Gatsby]]
-=gatsby-plugin-orga= is a powerful plugin that allows the use of org-mode from gatsby. This website is built with gatsby and the =gatsby-theme-orga-docs= theme.
-
-** [[https://nextjs.org][Next.js]]
-
-
+** Gatsby
+=gatsby-plugin-orga= is a powerful plugin that allows the use of org-mode from [[https://www.gatsbyjs.com][Gatsby]]. This website is built with gatsby and the =gatsby-theme-orga-docs= theme.
 
 * Examples
 Take a look at the [[https://github.com/orgapp/orgajs/tree/main/examples][collection of examples]] to quickly get started.
 
 * Contributing
-
 See the [[file:CONTRIBUTING.org]] for ways to get started.
