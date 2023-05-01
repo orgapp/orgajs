@@ -1,5 +1,5 @@
-import { Primitive } from '../types'
-import primitive from './_primitive'
+import { Primitive } from '../types.js'
+import primitive from './_primitive.js'
 
 export default (text: string): { [key: string]: Primitive } => {
   let t = text

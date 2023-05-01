@@ -1,10 +1,10 @@
 import { Reader } from 'text-kit'
-import { Tokenizer } from '..'
-import { Token } from '../../types'
-import tokenizeLink from './link'
-import tokenizeText from './text'
-import tokenizeMath from './math'
-import tokenizeFootnoteRef from './footnote'
+import { Tokenizer } from '../index.js'
+import { Token } from '../../types.js'
+import tokenizeLink from './link.js'
+import tokenizeText from './text.js'
+import tokenizeMath from './math.js'
+import tokenizeFootnoteRef from './footnote.js'
 
 const ALL: Tokenizer[] = [
   tokenizeFootnoteRef,

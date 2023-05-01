@@ -3,7 +3,8 @@
   "version": "1.0.8",
   "description": "orga compiler with jsx support",
   "main": "dist/index.js",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "type": "module",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/orgx#readme",
   "repository": {

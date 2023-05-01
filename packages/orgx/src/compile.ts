@@ -1,7 +1,7 @@
 import {
   createProcessor,
   ProcessorOptions as ProcessorOptions,
-} from './processor'
+} from './processor.js'
 import type { VFileCompatible } from 'vfile'
 
 export type CompileOptions = ProcessorOptions

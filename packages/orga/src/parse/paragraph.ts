@@ -1,9 +1,9 @@
-import { Action } from '.'
-import { Opening, Token } from '../types'
-import { clone, isPhrasingContent } from '../utils'
-import { Context } from './context'
-import phrasingContent from './phrasing'
-import { isImage } from './_utils'
+import { Action } from './index.js'
+import { Opening, Token } from '../types.js'
+import { clone, isPhrasingContent } from '../utils.js'
+import { Context } from './context.js'
+import phrasingContent from './phrasing.js'
+import { isImage } from './_utils.js'
 
 const isWhitespaces = (node: Token) => {
   return (

@@ -1,4 +1,4 @@
-export { createProcessor } from './processor'
-export { compile, compileSync } from './compile'
-export { evaluate, evaluateSync, RuntimeOptions } from './evaluate'
-export type { ProcessorOptions } from './processor'
+export { createProcessor } from './processor.js'
+export { compile, compileSync } from './compile.js'
+export { evaluate, evaluateSync, RuntimeOptions } from './evaluate.js'
+export type { ProcessorOptions } from './processor.js'

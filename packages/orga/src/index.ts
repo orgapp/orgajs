@@ -1,10 +1,10 @@
-import defaultOptions, { ParseOptions } from './options'
-import { parse as _parse } from './parse'
-import { parse as parseTimestamp } from './timestamp'
-import { Lexer, tokenize as _tokenize } from './tokenize'
-import { Document } from './types'
+import defaultOptions, { ParseOptions } from './options.js'
+import { parse as _parse } from './parse/index.js'
+import { parse as parseTimestamp } from './timestamp.js'
+import { Lexer, tokenize as _tokenize } from './tokenize/index.js'
+import { Document } from './types.js'
 
-export * from './types'
+export * from './types.js'
 export { parseTimestamp, ParseOptions }
 
 export const tokenize = (

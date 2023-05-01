@@ -1,6 +1,6 @@
 import buildJsx from 'estree-util-build-jsx'
 import type { Plugin, Settings } from 'unified'
-import specifiersToObjectPattern from '../estree/specifiers-to-object-pattern'
+import specifiersToObjectPattern from '../estree/specifiers-to-object-pattern.js'
 
 export interface Options extends Settings {
   outputFormat: 'program' | 'function-body'

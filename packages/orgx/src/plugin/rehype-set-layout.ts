@@ -1,5 +1,5 @@
 import type { Plugin, Settings } from 'unified'
-import removeQuotes from '../utils/remove-quotes'
+import removeQuotes from '../utils/remove-quotes.js'
 
 export interface Options extends Settings {
   defaultLayout?: string

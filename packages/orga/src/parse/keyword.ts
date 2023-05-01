@@ -1,7 +1,7 @@
-import { Action } from '.'
-import { Keyword, Primitive } from '../types'
-import parseSymbols from './_parseSymbols'
-import _primitive from './_primitive'
+import { Action } from './index.js'
+import { Keyword, Primitive } from '../types.js'
+import parseSymbols from './_parseSymbols.js'
+import _primitive from './_primitive.js'
 
 const AFFILIATED_KEYWORDS = ['caption', 'header', 'name', 'plot', 'results']
 

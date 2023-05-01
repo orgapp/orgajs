@@ -1,7 +1,7 @@
-import { Action } from '.'
-import { Headline, Priority, Stars, Tags, Todo } from '../types'
-import { isPhrasingContent } from '../utils'
-import phrasingContent from './phrasing'
+import { Action } from './index.js'
+import { Headline, Priority, Stars, Tags, Todo } from '../types.js'
+import { isPhrasingContent } from '../utils.js'
+import phrasingContent from './phrasing.js'
 
 const headline: Action = (token: Stars, context) => {
   const { enter } = context

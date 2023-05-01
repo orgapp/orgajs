@@ -1,4 +1,4 @@
-import create from './create'
+import create from './create.js'
 
 export default function specifiersToObjectPattern(specifiers) {
   return {

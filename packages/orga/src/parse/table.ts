@@ -1,6 +1,6 @@
-import { Action } from '.'
-import { isPhrasingContent } from '../utils'
-import phrasingContent from './phrasing'
+import { Action } from './index.js'
+import { isPhrasingContent } from '../utils.js'
+import phrasingContent from './phrasing.js'
 
 const tableCell: Action = (_, { enter }) => {
   enter({

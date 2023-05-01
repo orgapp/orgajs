@@ -6,24 +6,24 @@ import unified, { PluggableList } from 'unified'
 import {
   estreeJsxBuild,
   Options as EstreeJsxBuildOptions,
-} from './plugin/estree-jsx-build'
+} from './plugin/estree-jsx-build.js'
 import {
   estreeJsxRewrite,
   Options as JSXRewriteOptions,
-} from './plugin/estree-jsx-rewrite'
-import { estreeStringify } from './plugin/estree-stringify'
+} from './plugin/estree-jsx-rewrite.js'
+import { estreeStringify } from './plugin/estree-stringify.js'
 import {
   estreeWrapInContent,
   Options as EstreeWrapInContentOptions,
-} from './plugin/estree-wrap-in-content'
+} from './plugin/estree-wrap-in-content.js'
 import {
   Options as RehypeEstreeOptions,
   rehypeEstree,
-} from './plugin/rehype-estree'
+} from './plugin/rehype-estree.js'
 import {
   Options as RehypeSetLayoutOptions,
   rehypeSetLayout,
-} from './plugin/rehype-set-layout'
+} from './plugin/rehype-set-layout.js'
 
 export interface ProcessorOptions
   extends Partial<Omit<ReorgRehpyeOptions, 'handlers'>>,

@@ -1,9 +1,9 @@
 import { Reader } from 'text-kit'
-import { Tokenizer } from '..'
-import { Token } from '../../types'
-import uri from '../../uri'
-import tokenizeText from './text'
-import { tokenize } from '.'
+import { Tokenizer } from '../index.js'
+import { Token } from '../../types.js'
+import uri from '../../uri.js'
+import tokenizeText from './text.js'
+import { tokenize } from './index.js'
 
 const tokenizeLink: Tokenizer = (reader: Reader) => {
   const tokens: Token[] = []

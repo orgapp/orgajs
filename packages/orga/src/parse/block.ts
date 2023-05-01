@@ -1,5 +1,5 @@
-import { Action, Handler } from '.'
-import { BlockBegin, BlockEnd } from '../types'
+import { Action, Handler } from './index.js'
+import { BlockBegin, BlockEnd } from '../types.js'
 
 const block: Action = (
   begin: BlockBegin,

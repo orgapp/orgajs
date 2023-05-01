@@ -4,8 +4,8 @@ import { BaseExpression, Expression, Literal, Program } from 'estree-jsx'
 import { Node as HastNode, Root } from 'hast'
 import toEstree from 'hast-util-to-estree'
 import type { Plugin } from 'unified'
-import renderError from '../estree/error'
-import removeQuotes from '../utils/remove-quotes'
+import renderError from '../estree/error.js'
+import removeQuotes from '../utils/remove-quotes.js'
 
 const deepGet = (p: string) => (o: any) =>
   p.split('.').reduce((a, v) => a[v], o)

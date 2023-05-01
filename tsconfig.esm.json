@@ -11,5 +11,11 @@
     "allowJs": true,
     "lib": ["ES2020"]
   },
-  "exclude": ["node_modules", "**/*.spec.ts", "**/__tests__/**", "tests/**"]
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/__tests__/**",
+    "tests/**"
+  ]
 }

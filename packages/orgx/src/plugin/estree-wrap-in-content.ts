@@ -15,11 +15,11 @@ import {
 import { analyze } from 'periscopic'
 import stringifyPosition from 'unist-util-stringify-position'
 import { URL } from 'url'
-import create from '../estree/create'
-import declarationToExpression from '../estree/declaration-to-expression'
-import isDeclaration from '../estree/is-declaration'
-import positionFromEstree from '../estree/position-from-estree'
-import specifiersToObjectPattern from '../estree/specifiers-to-object-pattern'
+import create from '../estree/create.js'
+import declarationToExpression from '../estree/declaration-to-expression.js'
+import isDeclaration from '../estree/is-declaration.js'
+import positionFromEstree from '../estree/position-from-estree.js'
+import specifiersToObjectPattern from '../estree/specifiers-to-object-pattern.js'
 
 export interface Options {
   baseUrl?: string

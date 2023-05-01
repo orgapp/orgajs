@@ -3,7 +3,7 @@ import type * as jsxType from 'estree-jsx'
 import { name as isIdentifierName } from 'estree-util-is-identifier-name'
 import { walk } from 'estree-walker'
 import { analyze } from 'periscopic'
-import specifiersToObjectPattern from '../estree/specifiers-to-object-pattern'
+import specifiersToObjectPattern from '../estree/specifiers-to-object-pattern.js'
 
 export interface Options {
   providerImportSource?: string

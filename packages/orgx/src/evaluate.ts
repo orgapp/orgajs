@@ -1,6 +1,6 @@
 import type { VFileCompatible } from 'vfile'
-import { compile, compileSync } from './compile'
-import { ProcessorOptions } from './processor'
+import { compile, compileSync } from './compile.js'
+import { ProcessorOptions } from './processor.js'
 
 type EvaluateProcessorOptions = Omit<
   ProcessorOptions,

@@ -1,5 +1,5 @@
-import { Action } from '.'
-import { FootnoteLabel } from '../types'
+import { Action } from './index.js'
+import { FootnoteLabel } from '../types.js'
 
 const Footnote: Action = (token: FootnoteLabel, { enter, exitTo, consume }) => {
   exitTo('document')

@@ -1,8 +1,8 @@
-import { Action } from '.'
-import { Stars } from '../types'
-import drawer from './drawer'
-import headline from './headline'
-import planning from './planning'
+import { Action } from './index.js'
+import { Stars } from '../types.js'
+import drawer from './drawer.js'
+import headline from './headline.js'
+import planning from './planning.js'
 
 const section: Action = (token: Stars, context) => {
   const { enter, exit, exitTo } = context

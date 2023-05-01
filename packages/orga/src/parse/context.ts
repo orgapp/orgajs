@@ -1,8 +1,8 @@
 import assert from 'assert'
 import { Node, Point } from 'unist'
-import { not, Predicate, test } from '.'
-import { Lexer } from '../tokenize'
-import { Attributes, Document, Parent } from '../types'
+import { not, Predicate, test } from './index.js'
+import { Lexer } from '../tokenize/index.js'
+import { Attributes, Document, Parent } from '../types.js'
 
 interface Snapshot {
   stack: Parent[]

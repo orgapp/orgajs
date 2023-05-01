@@ -1,6 +1,6 @@
-import { Token } from '../types'
+import { Token } from '../types.js'
 import { Reader } from 'text-kit'
-import { tokenize as tokenizeInline } from './inline'
+import { tokenize as tokenizeInline } from './inline/index.js'
 
 export default (reader: Reader): Token[] => {
   const { now, match, eat, jump, substring, endOfLine } = reader
