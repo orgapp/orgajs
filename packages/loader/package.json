@@ -2,8 +2,15 @@
   "name": "@orgajs/loader",
   "version": "3.1.10",
   "description": "Load org-mode content through orga.",
-  "main": "dist/index.js",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./index.cjs"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/loader#readme",
   "repository": {
