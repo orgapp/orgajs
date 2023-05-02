@@ -1,4 +1,4 @@
-import * as dft from 'date-fns-tz'
+import { zonedTimeToUtc } from 'date-fns-tz'
 import { read } from 'text-kit'
 import { Timestamp } from './types'
 
@@ -45,8 +45,8 @@ export const parse = (
     ) {
       eat('char')
       return {
-        date: dft.zonedTimeToUtc(date, timezone),
-        end: end ? dft.zonedTimeToUtc(end, timezone) : undefined,
+        date: zonedTimeToUtc(date, timezone),
+        end: end ? zonedTimeToUtc(end, timezone) : undefined,
       }
     }
 

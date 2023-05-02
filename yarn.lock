@@ -5648,7 +5648,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.16.3":
+"@types/node@npm:18.16.3, @types/node@npm:^18.16.3":
   version: 18.16.3
   resolution: "@types/node@npm:18.16.3"
   checksum: 816b39d45b05ebdc6f362b630970df3f6d82f71d418a2555353522f4eeeb078fa201de5299f02c09a09faa975e43b2745fe19c263d44069f87ddf37d6c37b717
@@ -9928,12 +9928,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns-tz@npm:^1.1.4":
-  version: 1.1.4
-  resolution: "date-fns-tz@npm:1.1.4"
+"date-fns-tz@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "date-fns-tz@npm:2.0.0"
   peerDependencies:
-    date-fns: ">=2.0.0-alpha.13"
-  checksum: 400be5aac8de2b5beeca4f4a05c307b966384d8ea09dbff19342be0cf89793223cecfa58eb19e82e973f30517afbc9563599ddd7bca62a8dc5251fcd3504bffd
+    date-fns: ">=2.0.0"
+  checksum: a6553603a9d26dd9669326c99a58a2335ac550bc060c74b86a5ad9e1de73c9d4e3e5236f0f552f990e616e4e8dcc2b6a637913a04d2e04396e6a9f8ae83c73da
   languageName: node
   linkType: hard
 
@@ -19467,10 +19467,10 @@ __metadata:
   resolution: "orga@workspace:packages/orga"
   dependencies:
     "@types/jest": ^27.0.1
-    "@types/node": ^16.11.1
+    "@types/node": ^18.16.3
     "@types/unist": 2.0.3
     date-fns: ^2.22.1
-    date-fns-tz: ^1.1.4
+    date-fns-tz: ^2.0.0
     del-cli: ^3.0.1
     jest: ^27.1.1
     jest-diff: ^27.3.1

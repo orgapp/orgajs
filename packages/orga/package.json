@@ -20,12 +20,12 @@
   },
   "dependencies": {
     "date-fns": "^2.22.1",
-    "date-fns-tz": "^1.1.4",
+    "date-fns-tz": "^2.0.0",
     "text-kit": "3.0.2"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.11.1",
+    "@types/node": "^18.16.3",
     "@types/unist": "2.0.3",
     "del-cli": "^3.0.1",
     "jest": "^27.1.1",
