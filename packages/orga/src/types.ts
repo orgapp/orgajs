@@ -1,4 +1,4 @@
-import { Literal as UnistLiteral, Node, Parent } from 'unist'
+import type { Literal as UnistLiteral, Node, Parent } from 'unist'
 
 export { Parent }
 

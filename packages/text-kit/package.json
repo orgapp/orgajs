@@ -21,8 +21,7 @@
   "scripts": {
     "build": "yarn clean && yarn compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b",
-    "test": "jest"
+    "compile": "tsc -b"
   },
   "bugs": {
     "url": "https://github.com/orgapp/orgajs/issues"

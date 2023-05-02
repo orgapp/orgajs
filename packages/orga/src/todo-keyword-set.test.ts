@@ -1,3 +1,5 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import todoKeywordSet from './todo-keyword-set'
 
 const debug = (text: string) => {
@@ -7,81 +9,30 @@ const debug = (text: string) => {
 
 describe('TodoKeywordSet', () => {
   it('works', () => {
-    expect(todoKeywordSet('TODO | DONE')).toMatchInlineSnapshot(`
-Object {
-  "actionables": Array [
-    "TODO",
-  ],
-  "done": Array [
-    "DONE",
-  ],
-  "keywords": Array [
-    "TODO",
-    "DONE",
-  ],
-}
-`)
-    expect(todoKeywordSet('TODO DONE')).toMatchInlineSnapshot(`
-Object {
-  "actionables": Array [
-    "TODO",
-  ],
-  "done": Array [
-    "DONE",
-  ],
-  "keywords": Array [
-    "TODO",
-    "DONE",
-  ],
-}
-`)
-    expect(todoKeywordSet(' TODO NEXT  |  DONE ')).toMatchInlineSnapshot(`
-Object {
-  "actionables": Array [
-    "TODO",
-    "NEXT",
-  ],
-  "done": Array [
-    "DONE",
-  ],
-  "keywords": Array [
-    "TODO",
-    "NEXT",
-    "DONE",
-  ],
-}
-`)
-    expect(todoKeywordSet('TODO NEXT DONE')).toMatchInlineSnapshot(`
-Object {
-  "actionables": Array [
-    "TODO",
-    "NEXT",
-  ],
-  "done": Array [
-    "DONE",
-  ],
-  "keywords": Array [
-    "TODO",
-    "NEXT",
-    "DONE",
-  ],
-}
-`)
-    expect(todoKeywordSet('TODO | DONE CANCELLED')).toMatchInlineSnapshot(`
-Object {
-  "actionables": Array [
-    "TODO",
-  ],
-  "done": Array [
-    "DONE",
-    "CANCELLED",
-  ],
-  "keywords": Array [
-    "TODO",
-    "DONE",
-    "CANCELLED",
-  ],
-}
-`)
+    assert.deepEqual(todoKeywordSet('TODO | DONE'), {
+      actionables: ['TODO'],
+      done: ['DONE'],
+      keywords: ['TODO', 'DONE'],
+    })
+    assert.deepEqual(todoKeywordSet('TODO DONE'), {
+      actionables: ['TODO'],
+      done: ['DONE'],
+      keywords: ['TODO', 'DONE'],
+    })
+    assert.deepEqual(todoKeywordSet(' TODO NEXT  |  DONE '), {
+      actionables: ['TODO', 'NEXT'],
+      done: ['DONE'],
+      keywords: ['TODO', 'NEXT', 'DONE'],
+    })
+    assert.deepEqual(todoKeywordSet('TODO NEXT DONE'), {
+      actionables: ['TODO', 'NEXT'],
+      done: ['DONE'],
+      keywords: ['TODO', 'NEXT', 'DONE'],
+    })
+    assert.deepEqual(todoKeywordSet('TODO | DONE CANCELLED'), {
+      actionables: ['TODO'],
+      done: ['DONE', 'CANCELLED'],
+      keywords: ['TODO', 'DONE', 'CANCELLED'],
+    })
   })
 })

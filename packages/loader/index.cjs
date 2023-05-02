@@ -1,4 +1,3 @@
-'use strict'
 // stolen code from @jdx-js/loader
 
 /**
@@ -12,7 +11,7 @@
 module.exports = function (code) {
   const callback = this.async()
   // Note that `import()` caches, so this should be fast enough.
-  import('./dist/index.js').then((module) =>
+  import('./dist/loader.js').then((module) =>
     module.default.call(this, code, callback)
   )
 }

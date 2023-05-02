@@ -1,8 +1,9 @@
-import defaultOptions, { ParseOptions } from './options.js'
+import defaultOptions from './options.js'
+import type { ParseOptions } from './options.js'
 import { parse as _parse } from './parse/index.js'
 import { parse as parseTimestamp } from './timestamp.js'
 import { Lexer, tokenize as _tokenize } from './tokenize/index.js'
-import { Document } from './types.js'
+import type { Document } from './types.js'
 
 export * from './types.js'
 export { parseTimestamp, ParseOptions }

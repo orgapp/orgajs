@@ -1,67 +1,55 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import tokenize from './__tests__/tok'
 
 describe('tokenize blanks', () => {
   it('could handle blanks', () => {
-    expect(tokenize('')).toMatchInlineSnapshot(`Array []`)
-    expect(tokenize(' ')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": " ",
-    "type": "emptyLine",
-  },
-]
-`)
-    expect(tokenize('    ')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": "    ",
-    "type": "emptyLine",
-  },
-]
-`)
-    expect(tokenize('\t')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": "	",
-    "type": "emptyLine",
-  },
-]
-`)
-    expect(tokenize(' \t')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": " 	",
-    "type": "emptyLine",
-  },
-]
-`)
-    expect(tokenize('\t ')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": "	 ",
-    "type": "emptyLine",
-  },
-]
-`)
-    expect(tokenize(' \t  ')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": " 	  ",
-    "type": "emptyLine",
-  },
-]
-`)
+    assert.deepEqual(tokenize(''), [])
+    assert.deepEqual(tokenize(' '), [
+      {
+        _text: ' ',
+        type: 'emptyLine',
+      },
+    ])
+    assert.deepEqual(tokenize('    '), [
+      {
+        _text: '    ',
+        type: 'emptyLine',
+      },
+    ])
+    assert.deepEqual(tokenize('\t'), [
+      {
+        _text: '\t',
+        type: 'emptyLine',
+      },
+    ])
+    assert.deepEqual(tokenize(' \t'), [
+      {
+        _text: ' \t',
+        type: 'emptyLine',
+      },
+    ])
+    assert.deepEqual(tokenize('\t '), [
+      {
+        _text: '\t ',
+        type: 'emptyLine',
+      },
+    ])
+    assert.deepEqual(tokenize(' \t  '), [
+      {
+        _text: ' \t  ',
+        type: 'emptyLine',
+      },
+    ])
   })
 
   it('knows these are not blanks', () => {
-    expect(tokenize(' a ')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": "a ",
-    "type": "text",
-    "value": "a ",
-  },
-]
-`)
+    assert.deepEqual(tokenize(' a '), [
+      {
+        _text: 'a ',
+        type: 'text',
+        value: 'a ',
+      },
+    ])
   })
 })

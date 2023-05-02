@@ -1,58 +1,48 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import parse from './uri'
 
 describe('Parsing Link', () => {
   it('recon local file', () => {
-    expect(parse(`file:/hello.org`)).toMatchInlineSnapshot(`
-Object {
-  "protocol": "file",
-  "search": undefined,
-  "value": "/hello.org",
-}
-`)
-    expect(parse(`./hello.org`)).toMatchInlineSnapshot(`
-Object {
-  "protocol": "file",
-  "search": undefined,
-  "value": "./hello.org",
-}
-`)
-    expect(parse(`./hello.org::23`)).toMatchInlineSnapshot(`
-Object {
-  "protocol": "file",
-  "search": 23,
-  "value": "./hello.org",
-}
-`)
-    expect(parse(`./hello.org::*shopping list`)).toMatchInlineSnapshot(`
-Object {
-  "protocol": "file",
-  "search": "*shopping list",
-  "value": "./hello.org",
-}
-`)
-    expect(parse(`./hello.org::apple pie`)).toMatchInlineSnapshot(`
-Object {
-  "protocol": "file",
-  "search": "apple pie",
-  "value": "./hello.org",
-}
-`)
+    assert.deepEqual(parse(`file:/hello.org`), {
+      protocol: 'file',
+      search: undefined,
+      value: '/hello.org',
+    })
+
+    assert.deepEqual(parse(`./hello.org`), {
+      protocol: 'file',
+      search: undefined,
+      value: './hello.org',
+    })
+
+    assert.deepEqual(parse(`./hello.org::23`), {
+      protocol: 'file',
+      search: 23,
+      value: './hello.org',
+    })
+    assert.deepEqual(parse(`./hello.org::*shopping list`), {
+      protocol: 'file',
+      search: '*shopping list',
+      value: './hello.org',
+    })
+    assert.deepEqual(parse(`./hello.org::apple pie`), {
+      protocol: 'file',
+      search: 'apple pie',
+      value: './hello.org',
+    })
   })
 
   it('recon other protocol', () => {
-    expect(parse(`http://google.com`)).toMatchInlineSnapshot(`
-Object {
-  "protocol": "http",
-  "search": undefined,
-  "value": "http://google.com",
-}
-`)
-    expect(parse(`mailto:dawnstar.hu@gmail.com`)).toMatchInlineSnapshot(`
-Object {
-  "protocol": "mailto",
-  "search": undefined,
-  "value": "dawnstar.hu@gmail.com",
-}
-`)
+    assert.deepEqual(parse(`http://google.com`), {
+      protocol: 'http',
+      search: undefined,
+      value: 'http://google.com',
+    })
+    assert.deepEqual(parse(`mailto:dawnstar.hu@gmail.com`), {
+      protocol: 'mailto',
+      search: undefined,
+      value: 'dawnstar.hu@gmail.com',
+    })
   })
 })

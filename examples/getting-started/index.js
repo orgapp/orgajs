@@ -1,4 +1,4 @@
-import reorg from '@orgajs/reorg'
+import { reorg } from '@orgajs/reorg'
 import stream from 'unified-stream'
 import mutate from '@orgajs/reorg-rehype'
 import html from 'rehype-stringify'

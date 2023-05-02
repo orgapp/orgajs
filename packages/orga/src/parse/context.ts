@@ -1,8 +1,9 @@
 import assert from 'assert'
-import { Node, Point } from 'unist'
-import { not, Predicate, test } from './index.js'
-import { Lexer } from '../tokenize/index.js'
-import { Attributes, Document, Parent } from '../types.js'
+import type { Node, Point } from 'unist'
+import { not, test } from './index.js'
+import type { Predicate } from './index.js'
+import type { Lexer } from '../tokenize/index.js'
+import type { Attributes, Document, Parent } from '../types.js'
 
 interface Snapshot {
   stack: Parent[]
@@ -156,10 +157,12 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
     },
 
     save: function () {
+      const level = this.level
+      const attributes = this.attributes
       snapshot = {
         stack: [...stack],
-        level: this.level,
-        attributes: { ...this.attributes },
+        level,
+        attributes: { ...attributes },
         savePoint: lexer.save(),
       }
     },

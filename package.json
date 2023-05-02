@@ -29,7 +29,7 @@
   "scripts": {
     "clean": "yarn workspaces foreach run clean",
     "build": "tsc -b tsconfig.packages.json",
-    "test": "jest",
+    "test": "yarn workspaces foreach run test",
     "lint": "eslint packages --ext js,jsx,ts,tsx",
     "format": "prettier --write .",
     "changeset": "changeset",

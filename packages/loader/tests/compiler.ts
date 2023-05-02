@@ -1,14 +1,19 @@
-import { createFsFromVolume, Volume } from 'memfs'
-import path from 'path'
+// import { createFsFromVolume, Volume } from 'memfs'
+import { promisify } from 'util'
+import { promises as fs } from 'fs'
 import webpack from 'webpack'
+import { fileURLToPath } from 'url'
 
-export default (fixture, options = {}) => {
-  const compiler = webpack({
-    context: __dirname,
+export async function compile(fixture: string, options = {}) {
+  const base = new URL('.', import.meta.url)
+
+  const result = await promisify(webpack)({
+    // @ts-expect-error TODO: webpack types miss support for `context`.
+    context: fileURLToPath(base),
     entry: `./${fixture}`,
     mode: 'none',
     output: {
-      path: path.resolve(__dirname),
+      path: fileURLToPath(base),
       filename: 'bundle.js',
     },
     module: {
@@ -16,19 +21,20 @@ export default (fixture, options = {}) => {
         {
           test: /\.org$/,
           use: [
+            // {
+            //   loader: 'babel-loader',
+            //   options: {
+            //     configFile: false,
+            //     plugins: [
+            //       '@babel/plugin-transform-runtime',
+            //       '@babel/plugin-syntax-jsx',
+            //       '@babel/plugin-transform-react-jsx',
+            //     ],
+            //   },
+            // },
             {
-              loader: 'babel-loader',
-              options: {
-                configFile: false,
-                plugins: [
-                  '@babel/plugin-transform-runtime',
-                  '@babel/plugin-syntax-jsx',
-                  '@babel/plugin-transform-react-jsx',
-                ],
-              },
-            },
-            {
-              loader: path.resolve(__dirname, '../dist'),
+              // loader: path.resolve(__dirname, '../dist'),
+              loader: fileURLToPath(new URL('../index.cjs', import.meta.url)),
               options,
             },
           ],
@@ -37,16 +43,7 @@ export default (fixture, options = {}) => {
     },
   })
 
-  compiler.outputFileSystem = createFsFromVolume(new Volume())
-  compiler.outputFileSystem.join = path.join.bind(path)
-
-  return new Promise((resolve, reject) => {
-    compiler.run((err, stats) => {
-      if (err) reject(err)
-      if (stats.hasErrors()) reject(stats.toJson().errors)
-
-      resolve(stats)
-      // resolve(stats.toJson().modules.find(m => m.name === fixture));
-    })
-  })
+  // cleanup
+  await fs.unlink(new URL('bundle.js', base))
+  return result
 }

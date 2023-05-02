@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "build": "yarn clean && yarn compile",
-    "test": "jest",
+    "test": "node --test --no-warnings --loader tsx tests/**/*.test.ts",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b"
   },
@@ -35,14 +35,13 @@
   },
   "devDependencies": {
     "@orgajs/react": "3.0.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.11.1",
-    "babel-loader": "^8.2.2",
-    "html-loader": "^2.1.2",
-    "jest": "^27.1.1",
+    "@types/node": "^20.0.0",
+    "babel-loader": "^9.1.2",
+    "del-cli": "^5.0.0",
+    "html-loader": "^4.2.0",
     "memfs": "^3.2.2",
     "react": "^17.0.2",
-    "ts-jest": "^27.0.5",
-    "webpack": "^5.59.0"
+    "tsx": "^3.12.7",
+    "webpack": "^5.82.0"
   }
 }
