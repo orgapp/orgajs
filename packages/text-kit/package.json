@@ -12,8 +12,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "directories": {
-    "dist": "dist",
-    "test": "__tests__"
+    "dist": "dist"
   },
   "files": [
     "dist"

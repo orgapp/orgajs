@@ -11,9 +11,7 @@
     "org-mode",
     "orgajs"
   ],
-  "scripts": {
-    "test": "echo no test"
-  },
+  "scripts": {},
   "bugs": {
     "url": "https://github.com/orgapp/orgajs/issues"
   },

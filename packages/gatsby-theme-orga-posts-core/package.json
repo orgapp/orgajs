@@ -11,9 +11,7 @@
     "org-mode",
     "orga"
   ],
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
+  "scripts": {},
   "bugs": {
     "url": "https://github.com/orgapp/orgajs/issues"
   },
