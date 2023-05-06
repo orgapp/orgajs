@@ -33,7 +33,7 @@ const tableCell: Action = (_, { enter }) => {
   }
 }
 
-const tableRow = (_, { enter, lexer }) => {
+const tableRow: Action = (_, { enter, lexer }) => {
   enter({
     type: 'table.row',
     children: [],
@@ -59,8 +59,8 @@ const tableRow = (_, { enter, lexer }) => {
   }
 }
 
-const table: Action = (_, { enter }) => {
-  enter({
+const table: Action = (_, context) => {
+  context.enter({
     type: 'table',
     children: [],
     attributes: {},
@@ -70,12 +70,12 @@ const table: Action = (_, { enter }) => {
     name: 'table',
     rules: [
       { test: 'table.columnSeparator', action: tableRow },
-      { test: 'table.hr', action: (_, { consume }) => consume() },
+      { test: 'table.hr', action: (_, context) => context.consume() },
       {
         test: /.*/,
-        action: (_, { exitTo, exit }) => {
-          exitTo('table')
-          exit('table')
+        action: (_, context) => {
+          context.exitTo('table')
+          context.exit('table')
           return 'break'
         },
       },
