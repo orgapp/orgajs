@@ -12,7 +12,7 @@
     "gatsby-core-utils": "^2.14.0",
     "hast-util-to-html": "^7.1.1",
     "is-relative-url": "^3.0.0",
-    "mime": "^2.4.4",
+    "mime": "^3.0.0",
     "moment": "^2.24.0",
     "oast-to-hast": "3.2.1",
     "orga": "3.2.1",
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@types/fs-extra": "^9.0.12",
     "@types/lodash": "^4.14.172",
-    "@types/node": "^16.9.0",
+    "@types/node": "^20.1.0",
     "@types/unist": "2.0.3",
     "gatsby": "^3.14.3"
   }

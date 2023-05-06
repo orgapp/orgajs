@@ -25,7 +25,7 @@
     "text-kit": "3.0.2"
   },
   "devDependencies": {
-    "@types/node": "^18.16.3",
+    "@types/node": "^20.1.0",
     "@types/unist": "2.0.3",
     "del-cli": "^3.0.1",
     "tsx": "^3.12.7",

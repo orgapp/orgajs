@@ -30,7 +30,7 @@
     "@types/estree": "^0.0.50",
     "@types/estree-jsx": "^0.0.1",
     "@types/hast": "^2.3.2",
-    "@types/node": "^16.9.0",
+    "@types/node": "^20.1.0",
     "unified": "9.2.2"
   }
 }

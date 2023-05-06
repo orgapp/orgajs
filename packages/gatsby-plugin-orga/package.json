@@ -48,7 +48,7 @@
     "@types/estree": "^0.0.50",
     "@types/estree-jsx": "^0.0.1",
     "@types/fs-extra": "^9.0.12",
-    "@types/node": "^16.9.0",
+    "@types/node": "^20.1.0",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
     "@types/unist": "2.0.3",
