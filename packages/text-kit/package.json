@@ -2,7 +2,7 @@
   "name": "text-kit",
   "version": "3.0.2",
   "description": "bundle of useful tools for manipulating text",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/text-kit#readme",
   "repository": {
     "type": "git",
@@ -11,6 +11,7 @@
   },
   "license": "MIT",
   "main": "dist/index.js",
+  "type": "module",
   "directories": {
     "dist": "dist"
   },
@@ -20,6 +21,7 @@
   "scripts": {
     "build": "yarn clean && yarn compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
+    "test": "node --test --no-warnings --loader tsx src/**/*.test.ts",
     "compile": "tsc -b"
   },
   "bugs": {
@@ -27,6 +29,8 @@
   },
   "devDependencies": {
     "@types/unist": "2.0.3",
+    "del-cli": "^5.0.0",
+    "tsx": "^3.12.7",
     "typescript": "^4.3.5"
   }
 }
