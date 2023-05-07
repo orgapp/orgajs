@@ -1,6 +1,6 @@
 import { Point } from 'unist'
-import core from './core'
-import reader from './reader'
+import core from './core.js'
+import reader from './reader.js'
 
 export interface Range {
   start: Point | number

@@ -1,5 +1,5 @@
 import { Point } from 'unist'
-import { CoreAPI } from '../core'
+import { CoreAPI } from '../core.js'
 
 export default <T extends CoreAPI>(core: T) => {
   const substring = (start: Point | number, end?: Point | number) => {

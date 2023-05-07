@@ -1,7 +1,7 @@
 import { Point, Position } from 'unist'
-import { CoreAPI } from './core'
-import { Range } from './index'
-import enhance from './utils'
+import { CoreAPI } from './core.js'
+import { Range } from './index.js'
+import enhance from './utils/index.js'
 
 const PAIRS: Record<string, string> = [
   ['{', '}'],
