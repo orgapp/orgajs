@@ -12,6 +12,6 @@ module.exports = function (code) {
   const callback = this.async()
   // Note that `import()` caches, so this should be fast enough.
   import('./dist/loader.js').then((module) =>
-    module.default.call(this, code, callback)
+    module.loader.call(this, code, callback)
   )
 }

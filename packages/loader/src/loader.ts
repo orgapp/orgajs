@@ -1,26 +1,20 @@
 import { createProcessor, ProcessorOptions } from '@orgajs/orgx'
 import { getOptions } from 'loader-utils'
-import Report from 'vfile-reporter'
+import path from 'path'
 
 export async function loader(source: string, callback) {
-  console.log('---very beginning')
   const options: Partial<ProcessorOptions> = getOptions(this)
-
   const processor = createProcessor(options)
 
-  console.log('entering try')
-
   try {
-    console.log('before process')
     const file = await processor.process({
-      contents: source,
+      value: source,
       path: this.resourcePath,
     })
-    console.log('after process')
-    callback(null, `${file}`)
-    console.log('after callback')
+    callback(null, file.value, file.map)
   } catch (error) {
-    console.log('in catch')
-    return callback(Report(error))
+    const fpath = path.relative(this.context, this.resourcePath)
+    error.message = `${fpath}:${error.name}: ${error.message}`
+    callback(error)
   }
 }
