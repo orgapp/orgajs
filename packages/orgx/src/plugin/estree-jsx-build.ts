@@ -1,15 +1,17 @@
-import buildJsx from 'estree-util-build-jsx'
-import type { Plugin, Settings } from 'unified'
+import { buildJsx } from 'estree-util-build-jsx'
+import type { Program } from 'estree'
+import type { Plugin } from 'unified'
 import specifiersToObjectPattern from '../estree/specifiers-to-object-pattern.js'
 
-export interface Options extends Settings {
+export interface Options {
   outputFormat: 'program' | 'function-body'
 }
 
 export const estreeJsxBuild: Plugin = (options: Options) => {
   const { outputFormat } = options
 
-  return (tree) => {
+  return (tree: Program) => {
+    // @ts-ignore FIXME
     buildJsx(tree)
 
     // When compiling to a function body, replace the import that was just
@@ -28,6 +30,7 @@ export const estreeJsxBuild: Plugin = (options: Options) => {
         declarations: [
           {
             type: 'VariableDeclarator',
+            // @ts-ignore FIXME
             id: specifiersToObjectPattern(tree.body[0].specifiers),
             init: {
               type: 'MemberExpression',

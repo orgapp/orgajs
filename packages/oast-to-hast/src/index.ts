@@ -1,7 +1,7 @@
 import { Comment, Element, Properties, Root, Text, Literal } from 'hast'
 import { Node } from 'unist'
 import { Attributes, Document, Section } from 'orga'
-import u from 'unist-builder'
+import { u } from 'unist-builder'
 import handlers, { Handler } from './handlers/index.js'
 import { all as _all } from './transform.js'
 

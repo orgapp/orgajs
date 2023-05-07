@@ -37,7 +37,7 @@
     "@orgajs/rehype-latex": "1.0.2",
     "astring": "^1.7.5",
     "dataloader": "^2.0.0",
-    "estree-walker": "2.0.2",
+    "estree-walker": "3.0.3",
     "fs-extra": "^10.0.0",
     "gatsby-core-utils": "^2.14.0",
     "gatsby-plugin-page-creator": "^3.14.0",
@@ -45,16 +45,16 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@types/estree": "^0.0.50",
-    "@types/estree-jsx": "^0.0.1",
+    "@types/estree": "^1.0.1",
+    "@types/estree-jsx": "^1.0.0",
     "@types/fs-extra": "^9.0.12",
     "@types/node": "^20.1.0",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
-    "@types/unist": "2.0.3",
+    "@types/unist": "2.0.6",
     "del-cli": "^3.0.1",
     "gatsby": "^3.14.3",
-    "typescript": "^4.3.2",
-    "unified": "9.2.2"
+    "typescript": "^5.0.4",
+    "unified": "10.1.2"
   }
 }

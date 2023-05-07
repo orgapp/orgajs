@@ -1,5 +1,9 @@
 import type { Literal as UnistLiteral, Node, Parent } from 'unist'
 
+export interface Literal extends UnistLiteral {
+  value: string
+}
+
 export { Parent }
 
 export type Primitive = string | number | boolean
@@ -46,6 +50,7 @@ type Content =
   | HorizontalRule
   | Headline
   | HTML
+  | JSX
 
 export interface Footnote extends Parent {
   type: 'footnote'
@@ -56,19 +61,16 @@ export interface Block extends Literal, Attributed {
   type: 'block'
   name: string
   params: string[]
-  value: string
 }
 
 export interface Latex extends Literal {
   type: 'latex'
   name: string
-  value: string
 }
 
 export interface Drawer extends Literal {
   type: 'drawer'
   name: string
-  value: string
 }
 
 export interface Planning extends Node {
@@ -121,12 +123,12 @@ export interface Paragraph extends Parent, Attributed {
   children: PhrasingContent[]
 }
 
-interface Literal extends UnistLiteral {
-  value: string
-}
-
 export interface HTML extends Literal {
   type: 'html'
+}
+
+export interface JSX extends Literal {
+  type: 'jsx'
 }
 
 // ---- Tokens ----
@@ -189,18 +191,14 @@ export interface Text extends Literal {
 
 export interface Link extends Parent, Attributed {
   type: 'link'
-  path: LinkInfo
+  path: Omit<LinkPath, 'type'>
   children: PhrasingContent[]
 }
 
-interface LinkInfo {
-  protocol: string
-  value: string
-  search?: string | number
-}
-
-export interface LinkPath extends Literal, LinkInfo {
+export interface LinkPath extends Literal {
   type: 'link.path'
+  protocol: string
+  search?: string | number
 }
 
 export type Enclosed = Style | 'link' | 'footnote.reference'
@@ -254,7 +252,6 @@ export interface Todo extends Node {
 
 export interface Priority extends Literal {
   type: 'priority'
-  value: string
 }
 
 export interface Tags extends Node {
@@ -311,7 +308,6 @@ export interface FootnoteLabel extends Node {
 
 export interface PlanningKeyword extends Literal {
   type: 'planning.keyword'
-  value: string
 }
 
 export interface PlanningTimestamp extends UnistLiteral {
@@ -340,4 +336,20 @@ export interface TableRule extends Node {
 
 export interface TableColumnSeparator extends Node {
   type: 'table.columnSeparator'
+}
+
+export function isSection(node: Node): node is Section {
+  return node.type === 'section'
+}
+
+export function isLink(node: Node): node is Link {
+  return node.type === 'link'
+}
+
+export function isFootnoteReference(node: Node): node is FootnoteReference {
+  return node.type === 'footnote.reference'
+}
+
+export function isText(node: Node): node is Text {
+  return node.type === 'text'
 }

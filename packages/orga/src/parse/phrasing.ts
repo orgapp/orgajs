@@ -1,6 +1,13 @@
 import assert from 'assert'
 import { Handler } from '.'
-import { Closing, FootnoteLabel, LinkPath, Opening } from '../types'
+import {
+  Closing,
+  FootnoteLabel,
+  isFootnoteReference,
+  isLink,
+  LinkPath,
+  Opening,
+} from '../types'
 
 const phrasingContent: Handler = {
   name: 'inline',
@@ -27,7 +34,7 @@ const phrasingContent: Handler = {
       action: (token: LinkPath, context) => {
         const { getParent, consume, attributes } = context
         const parent = getParent()
-        assert(parent.type === 'link', 'expect parent to be link')
+        assert(isLink(parent), 'expect parent to be link')
         parent.path = {
           protocol: token.protocol,
           value: token.value,
@@ -42,10 +49,7 @@ const phrasingContent: Handler = {
       test: 'footnote.label',
       action: (token: FootnoteLabel, { getParent, consume }) => {
         const parent = getParent()
-        assert(
-          parent.type === 'footnote.reference',
-          'expect parent to be footnote.reference'
-        )
+        assert(isFootnoteReference(parent))
         parent.label = token.label
         consume()
       },

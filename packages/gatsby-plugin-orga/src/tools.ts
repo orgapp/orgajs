@@ -1,11 +1,10 @@
-import { Literal } from 'estree'
+import type { Literal, BaseNode } from 'estree'
 import type {
   JSXAttribute,
   JSXOpeningElement,
   JSXElement,
   JSXIdentifier,
 } from 'estree-jsx'
-import { BaseNode } from 'estree-walker'
 import { URL } from 'url'
 
 export function isExternalLink(path: string): boolean {

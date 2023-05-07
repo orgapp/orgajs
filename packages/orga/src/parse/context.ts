@@ -3,7 +3,7 @@ import type { Node, Point } from 'unist'
 import { not, test } from './index.js'
 import type { Predicate } from './index.js'
 import type { Lexer } from '../tokenize/index.js'
-import type { Attributes, Document, Parent } from '../types.js'
+import { Attributes, Document, isSection, Parent } from '../types.js'
 
 interface Snapshot {
   stack: Parent[]
@@ -112,7 +112,7 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
     let index = stack.length - 1
     while (index > 0) {
       const node = stack[index]
-      if (node.type === 'section' && typeof node.level === 'number') {
+      if (isSection(node)) {
         return node.level
       }
       index -= 1

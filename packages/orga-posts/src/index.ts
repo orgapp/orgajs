@@ -8,12 +8,13 @@ import {
   ParseOptions,
   parseTimestamp,
   Section,
+  isText,
 } from 'orga'
 import highlight from 'rehype-highlight'
 import html from 'rehype-stringify'
-import unified from 'unified'
+import { unified } from 'unified'
 import { select, selectAll } from 'unist-util-select'
-import visit from 'unist-util-visit'
+import { visit } from 'unist-util-visit'
 import appendFootnotes from './appendFootnotes'
 import leveling from './leveling'
 import processFootnotes from './processFootnotes'
@@ -67,7 +68,7 @@ const sanitise = (title: string) => {
 const extractContent = (headline: Headline) => {
   let content = ''
   visit(headline, (n) => {
-    if (n.type === 'text') {
+    if (isText(n)) {
       content += n.value
     }
   })
@@ -179,7 +180,7 @@ export const build = async ({ text, filename, options }: BuildProps) => {
   // section
   if (keywords.length > 0) {
     const sections = selectAll('section', ast)
-      .filter((s: Section) => {
+      .filter((s) => {
         const headline = select('headline', s) as Headline
         return keywords.includes(headline.keyword)
       })
@@ -205,7 +206,7 @@ export const toHtml = async (tree: Parent, options = defaultToHtmlOptions) => {
   const { transform } = { ...defaultToHtmlOptions, ...options }
   const processor = unified()
     .use(leveling, { base: _.get('level')(tree) || 0 })
-    .use(appendFootnotes)
+    .use([appendFootnotes])
     .use(() => transform)
     .use(reorg2rehype, { highlight: false })
     .use(processFootnotes)
@@ -220,6 +221,6 @@ export const statistics = async (tree: Parent) => {
   const processor = unified().use(_statistics, {
     report: (result) => (report = result),
   })
-  processor.run(tree)
+  await processor.run(tree)
   return report
 }

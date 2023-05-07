@@ -1,3 +1,4 @@
+import { JSX } from 'orga'
 import { Node } from 'unist'
 import { Context, HNode } from '../index.js'
 import block from './block.js'
@@ -43,7 +44,7 @@ export default {
   'footnote.reference': footnoteReference,
   hr: (_, { h }) => h('hr')(),
   html,
-  jsx: (n, { u }) => u('jsx', { value: n.value }),
+  jsx: (n: JSX, { u }) => u('jsx', { value: n.value }),
   'link.path': ignore,
   drawer: ignore,
   priority: ignore,

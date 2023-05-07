@@ -2,7 +2,7 @@ import { Block } from 'orga'
 import { BUNDLED_LANGUAGES, getHighlighter, Lang } from 'shiki'
 import { Plugin, Transformer } from 'unified'
 import { Node } from 'unist'
-import map from 'unist-util-map'
+import { map } from 'unist-util-map'
 
 interface Options {
   theme: string

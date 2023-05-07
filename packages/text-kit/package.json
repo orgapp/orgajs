@@ -28,9 +28,9 @@
     "url": "https://github.com/orgapp/orgajs/issues"
   },
   "devDependencies": {
-    "@types/unist": "2.0.3",
+    "@types/unist": "2.0.6",
     "del-cli": "^5.0.0",
     "tsx": "^3.12.7",
-    "typescript": "^4.3.5"
+    "typescript": "^5.0.4"
   }
 }

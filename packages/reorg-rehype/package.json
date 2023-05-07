@@ -24,7 +24,8 @@
     "oast-to-hast": "3.2.1"
   },
   "devDependencies": {
-    "@types/unist": "2.0.3",
-    "unified": "9.2.2"
+    "@types/unist": "^2.0.6",
+    "del-cli": "^5.0.0",
+    "unified": "^10.1.2"
   }
 }

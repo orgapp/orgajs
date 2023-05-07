@@ -1,8 +1,8 @@
 import { Element, Node, Text } from 'hast'
 import katex from 'katex'
 import rehypeParse from 'rehype-parse'
-import unified, { Plugin, Transformer } from 'unified'
-import visit from 'unist-util-visit'
+import { unified, type Plugin, type Transformer } from 'unified'
+import { visit } from 'unist-util-visit'
 
 const parseHtml = unified().use(rehypeParse, { fragment: true })
 

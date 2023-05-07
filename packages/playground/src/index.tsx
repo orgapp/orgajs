@@ -4,7 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import JSONTree from 'react-json-tree'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
-import vfileMessage, { VFileMessage } from 'vfile-message'
+import { VFileMessage } from 'vfile-message'
 import { tokenizer } from './org-syntax'
 import codeTheme from './theme/light'
 import { useOrga } from './use-orga'
@@ -171,7 +171,7 @@ const Playground: FC<Props> = ({ runtime, onChange, style = {}, children }) => {
           <TabPanel style={{ height: '100%' }}>
             {output ? (
               <Editor
-                value={output.data['jsx']}
+                value={`${output.data['jsx']}`}
                 theme={theme.code}
                 language="javascript"
                 path="text.jsx"
@@ -189,6 +189,7 @@ const Playground: FC<Props> = ({ runtime, onChange, style = {}, children }) => {
           <TabPanel style={{ padding: '0.4em 0.8em' }}>
             <div style={{ overflow: 'scroll' }}>
               {output && output.result ? (
+                // @ts-ignore FIXME
                 <ErrorBoundary FallbackComponent={ErrorComponent}>
                   <output.result />
                 </ErrorBoundary>
@@ -202,7 +203,7 @@ const Playground: FC<Props> = ({ runtime, onChange, style = {}, children }) => {
 }
 
 const ErrorComponent: FC<{ error: Error | VFileMessage }> = ({ error }) => {
-  const message = error instanceof Error ? new vfileMessage(error) : error
+  const message = error instanceof Error ? new VFileMessage(error) : error
   message.fatal = true
   return (
     <pre>

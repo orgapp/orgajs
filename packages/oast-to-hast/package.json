@@ -11,12 +11,12 @@
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/main/packages/oast-to-hast",
   "dependencies": {
-    "hast-util-from-parse5": "6.0.1",
+    "hast-util-from-parse5": "^7.1.2",
     "mime": "^3.0.0",
     "orga": "3.2.1",
-    "parse5": "^6.0.1",
+    "parse5": "^7.1.2",
     "prismjs": "^1.17.1",
-    "unist-builder": "^2.0.3"
+    "unist-builder": "^3.0.1"
   },
   "scripts": {
     "build": "yarn clean && yarn compile",
@@ -24,8 +24,8 @@
     "compile": "tsc -b"
   },
   "devDependencies": {
-    "@types/hast": "^2.3.2",
+    "@types/hast": "^2.3.4",
     "@types/mime": "^3.0.1",
-    "@types/unist": "2.0.3"
+    "@types/unist": "^2.0.6"
   }
 }

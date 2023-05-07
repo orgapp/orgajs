@@ -31,7 +31,7 @@
     "@orgajs/orgx": "1.0.8",
     "loader-utils": "^2.0.0",
     "schema-utils": "^3.0.0",
-    "vfile-reporter": "^6.0.2"
+    "vfile-reporter": "^7.0.5"
   },
   "devDependencies": {
     "@orgajs/react": "3.0.1",

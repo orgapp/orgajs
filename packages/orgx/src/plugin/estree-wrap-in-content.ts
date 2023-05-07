@@ -13,7 +13,7 @@ import {
   Statement,
 } from 'estree-jsx'
 import { analyze } from 'periscopic'
-import stringifyPosition from 'unist-util-stringify-position'
+import { stringifyPosition } from 'unist-util-stringify-position'
 import { URL } from 'url'
 import create from '../estree/create.js'
 import declarationToExpression from '../estree/declaration-to-expression.js'
@@ -141,6 +141,7 @@ export function estreeWrapInContent(options: Options) {
             {
               type: 'VariableDeclarator',
               id: { type: 'Identifier', name: 'OrgaLayout' },
+              // @ts-ignore FIXME
               init: isDeclaration(child.declaration)
                 ? declarationToExpression(child.declaration)
                 : child.declaration,
@@ -216,7 +217,6 @@ export function estreeWrapInContent(options: Options) {
         // @ts-expect-error types are wrong: `JSXElement`/`JSXFragment` are
         // `Expression`s.
         (child.expression.type === 'JSXFragment' ||
-          // @ts-expect-error "
           child.expression.type === 'JSXElement')
       ) {
         content = true

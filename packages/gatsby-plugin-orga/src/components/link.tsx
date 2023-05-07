@@ -11,6 +11,7 @@ const SmartLink: FC<Props> = ({ href, ...props }) => {
     return <a href={href} {...props} />
   }
 
+  // @ts-ignore FIXME
   return <Link to={href} {...props} />
 }
 

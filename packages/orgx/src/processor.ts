@@ -2,7 +2,7 @@ import reorgParse from '@orgajs/reorg-parse'
 import reorgRehype, {
   Options as ReorgRehpyeOptions,
 } from '@orgajs/reorg-rehype'
-import unified, { PluggableList } from 'unified'
+import { unified, PluggableList, Processor } from 'unified'
 import {
   estreeJsxBuild,
   Options as EstreeJsxBuildOptions,
@@ -63,7 +63,7 @@ const defaultOptions: ProcessorOptions = {
 
 export function createProcessor(
   processorOptions: Partial<ProcessorOptions> = {}
-): unified.Processor<unified.Settings> {
+): Processor {
   const { jsx, handlers, ...options } = {
     ...defaultOptions,
     ...processorOptions,

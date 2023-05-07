@@ -50,13 +50,14 @@ export function estreeJsxRewrite(options: Options) {
           stack.push({ objects: [], components: [], tags: [] })
         }
 
-        if (isJSXElement(node) && stack.length > 0) {
-          const element = /** @type {JSXElement} */ node
+        const bn: BaseNode = node
+        if (isJSXElement(bn) && stack.length > 0) {
+          const element: jsxType.JSXElement = /** @type {JSXElement} */ bn
           // Note: inject into the *top-level* function that contains JSX.
           // Yes: we collect info about the stack, but we assume top-level functions
           // are components.
           const scope = stack[0]
-          let name = node.openingElement.name
+          let name = element.openingElement.name
 
           // `<x.y>`, `<Foo.Bar>`, `<x.y.z>`.
           if (name.type === 'JSXMemberExpression') {

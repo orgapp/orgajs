@@ -1,5 +1,5 @@
 import * as _ from 'lodash/fp'
-import visit from 'unist-util-visit'
+import { visit } from 'unist-util-visit'
 
 // Unicode ranges for Han (Chinese) and Hiragana/Katakana (Japanese) characters
 const cjRanges = [

@@ -1,5 +1,5 @@
 import { Node, Parent } from 'unist'
-import u from 'unist-builder'
+import { u } from 'unist-builder'
 import { Context, Handler, HNode } from './'
 
 const unknown = (node: Node, context: Context) => {

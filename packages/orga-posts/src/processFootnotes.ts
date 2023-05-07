@@ -1,7 +1,7 @@
-import { Element } from 'hast'
+import type { Element } from 'hast'
 import * as _ from 'lodash/fp'
-import { Transformer } from 'unified'
-import visit, { Visitor } from 'unist-util-visit'
+import type { Transformer } from 'unified'
+import { visit, type Visitor, SKIP } from 'unist-util-visit'
 
 const withClass = (name: string) =>
   _.flow(_.get('properties.className'), _.includes(name))
@@ -18,20 +18,23 @@ export default () => {
       //   tagName: 'sup',
       //   children: [{ type: 'text', value: label }]
       // })
-      parent.children.splice(index, 1, {
+
+      const dd: Element = {
         type: 'element',
         tagName: 'dd',
         properties: { className: ['footnote-content'] },
         children: [node],
-      })
-      parent.children.splice(index, 0, {
+      }
+      const dt: Element = {
         type: 'element',
         tagName: 'dt',
         properties: { className: ['footnote-label'] },
         children: [{ type: 'text', value: `[${label}]` }],
-      })
+      }
+      parent.children.splice(index, 1, dd)
+      parent.children.splice(index, 0, dt)
 
-      return [visit.SKIP, index + 2]
+      return [SKIP, index + 2]
     }
     // @ts-ignore FIXME
     visit(tree, 'element', visitor)
