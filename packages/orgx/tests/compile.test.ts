@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
-import { compileSync } from '../src/compile'
+import { compile } from '../src/compile'
 
 const fixture = `
 #+title: Hello World
@@ -21,8 +21,8 @@ export default OrgaContent;
 `
 
 describe('compile', () => {
-  it('works', () => {
-    const result = compileSync(fixture, {
+  it('can compile org file', async () => {
+    const result = await compile(fixture, {
       jsxRuntime: 'classic',
       jsx: true,
       outputFormat: 'program',

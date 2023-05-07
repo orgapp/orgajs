@@ -10,7 +10,7 @@ type EvaluateProcessorOptions = Omit<
 interface OrgaContentProps extends Record<string, unknown> {
   components: Record<string, unknown>
 }
-type OrgaContent = (props: OrgaContentProps) => unknown
+type OrgaContent = (props: OrgaContentProps) => JSX.Element
 interface ExportMap extends Record<string, unknown> {
   default: OrgaContent
 }
