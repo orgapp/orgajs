@@ -2,11 +2,12 @@
   "name": "@orgajs/rehype-estree",
   "version": "3.0.6",
   "description": "hast to estree",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/main/packages/rehype-estree",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -19,18 +20,10 @@
     "compile": "tsc -b"
   },
   "dependencies": {
-    "acorn": "^8.4.1",
-    "acorn-jsx": "^5.3.1",
-    "estree-walker": "2.0.2",
-    "hast-util-to-estree": "1.4.0",
-    "lodash": "^4.17.21",
-    "periscopic": "2.0.3"
+    "hast-util-to-estree": "^2.3.2"
   },
   "devDependencies": {
-    "@types/estree": "^0.0.50",
-    "@types/estree-jsx": "^0.0.1",
-    "@types/hast": "^2.3.2",
-    "@types/unist": "2.0.3",
-    "unified": "9.2.2"
+    "del-cli": "^5.0.0",
+    "unified": "^10.1.2"
   }
 }
