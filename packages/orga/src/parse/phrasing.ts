@@ -7,7 +7,7 @@ import {
   isLink,
   LinkPath,
   Opening,
-} from '../types'
+} from '../types.js'
 
 const phrasingContent: Handler = {
   name: 'inline',

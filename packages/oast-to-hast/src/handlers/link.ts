@@ -1,4 +1,4 @@
-import * as mime from 'mime'
+import mime from 'mime'
 import { Link } from 'orga'
 import { Context, HNode } from '../'
 
