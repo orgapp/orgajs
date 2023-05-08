@@ -16,8 +16,9 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.21.5",
-    "@orgajs/reorg": "3.1.7",
+    "@orgajs/orgx": "workspace:^",
     "babel-plugin-remove-export-keywords": "^1.6.22",
+    "del-cli": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   }
