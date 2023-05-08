@@ -1,6 +1,4 @@
 import type { ProcessorOptions as LoaderOptions } from '@orgajs/loader'
-import { processImage } from './plugin/image'
-import { rewriteLinks } from './plugin/link'
 
 export interface Options extends LoaderOptions {
   extension: RegExp
@@ -9,7 +7,6 @@ export interface Options extends LoaderOptions {
 const plugin =
   (options: Partial<Options> = {}) =>
   (nextConfig: any = {}) => {
-    const { estreePlugins, ...rest } = options
     const extension = options.extension || /\.org$/
 
     const loader = {
@@ -17,9 +14,8 @@ const plugin =
       options: {
         jsx: true,
         headingOffset: 1,
-        providerimportsource: 'next-orga-import-source-file',
-        estreePlugins: [processImage, rewriteLinks, ...(estreePlugins || [])],
-        ...rest,
+        providerImportSource: 'next-orga-import-source-file',
+        ...options,
       },
     }
 
