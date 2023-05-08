@@ -1,5 +1,4 @@
 import { BaseNode, JSXAttribute, Program } from 'estree-jsx'
-import { walk } from 'estree-walker'
 import { Plugin, Transformer } from 'unified'
 import { isJSXAttribute, isJSXOpeningElement, isLiteral } from './_estree-utils'
 import { isRelativeUrl } from './_url-utils'
@@ -41,6 +40,10 @@ export const processImage: Plugin = () => {
       })
       return varName
     }
+
+    // have to use dynamic import
+    // https://github.com/Rich-Harris/estree-walker/issues/26
+    const { walk } = await import('estree-walker')
 
     walk(program, {
       enter(node, parent) {
