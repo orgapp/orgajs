@@ -1,19 +1,12 @@
 import type { VFileCompatible } from 'vfile'
 import { compile, compileSync } from './compile.js'
 import { ProcessorOptions } from './processor.js'
+import { ExportMap } from './types.js'
 
 type EvaluateProcessorOptions = Omit<
   ProcessorOptions,
   'jsx' | 'jsxImportSource'
 >
-
-interface OrgaContentProps extends Record<string, unknown> {
-  components: Record<string, unknown>
-}
-type OrgaContent = (props: OrgaContentProps) => JSX.Element
-interface ExportMap extends Record<string, unknown> {
-  default: OrgaContent
-}
 
 export interface EvaluateOptions
   extends RuntimeOptions,
