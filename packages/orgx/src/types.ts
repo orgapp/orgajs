@@ -32,7 +32,3 @@ export interface OrgaProps {
 }
 
 export type OrgaContent = (props: OrgaProps) => JSX.Element
-
-export interface ExportMap extends Record<string, unknown> {
-  default: OrgaContent
-}

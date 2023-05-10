@@ -1,7 +1,11 @@
 import type { VFileCompatible } from 'vfile'
 import { compile, compileSync } from './compile.js'
 import { ProcessorOptions } from './processor.js'
-import { ExportMap } from './types.js'
+import { OrgaContent } from './types.js'
+
+export interface ExportMap extends Record<string, unknown> {
+  default: OrgaContent
+}
 
 type EvaluateProcessorOptions = Omit<
   ProcessorOptions,

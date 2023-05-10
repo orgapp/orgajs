@@ -31,6 +31,7 @@
     "@types/estree-jsx": "^1.0.0",
     "@types/hast": "^2.3.4",
     "@types/node": "^20.1.0",
+    "del-cli": "^5.0.0",
     "unified": "10.1.2"
   }
 }
