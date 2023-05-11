@@ -2810,23 +2810,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/mdx@npm:^13.4.1":
-  version: 13.4.1
-  resolution: "@next/mdx@npm:13.4.1"
-  dependencies:
-    source-map: ^0.7.0
-  peerDependencies:
-    "@mdx-js/loader": ">=0.15.0"
-    "@mdx-js/react": ">=0.15.0"
-  peerDependenciesMeta:
-    "@mdx-js/loader":
-      optional: true
-    "@mdx-js/react":
-      optional: true
-  checksum: 83b3e22a10bbd8c2803ef876d4891474351dfa4a4efb35a3ece0c56ca7926451acfb861fd5623282be2a6beb8dd54d4b6e158e86d27260a27f6a2b633f9ca57e
-  languageName: node
-  linkType: hard
-
 "@next/polyfill-module@npm:11.1.4":
   version: 11.1.4
   resolution: "@next/polyfill-module@npm:11.1.4"
@@ -3187,15 +3170,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/example-next@workspace:examples/next"
   dependencies:
-    "@next/mdx": ^13.4.1
     "@orgajs/loader": 3.1.10
     "@orgajs/next": 3.1.12
     "@orgajs/react": 3.0.1
     "@orgajs/reorg-shiki": 1.0.2
-    eslint-config-next: latest
-    next: 13
-    react: latest
-    react-dom: latest
+    eslint-config-next: ^13.4.1
+    next: ^13.4.1
+    react: ^18.2.0
+    react-dom: ^18.2.0
   languageName: unknown
   linkType: soft
 
@@ -9306,7 +9288,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:latest":
+"eslint-config-next@npm:^13.4.1":
   version: 13.4.1
   resolution: "eslint-config-next@npm:13.4.1"
   dependencies:
@@ -15720,67 +15702,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:13":
-  version: 13.4.1
-  resolution: "next@npm:13.4.1"
-  dependencies:
-    "@next/env": 13.4.1
-    "@next/swc-darwin-arm64": 13.4.1
-    "@next/swc-darwin-x64": 13.4.1
-    "@next/swc-linux-arm64-gnu": 13.4.1
-    "@next/swc-linux-arm64-musl": 13.4.1
-    "@next/swc-linux-x64-gnu": 13.4.1
-    "@next/swc-linux-x64-musl": 13.4.1
-    "@next/swc-win32-arm64-msvc": 13.4.1
-    "@next/swc-win32-ia32-msvc": 13.4.1
-    "@next/swc-win32-x64-msvc": 13.4.1
-    "@swc/helpers": 0.5.1
-    busboy: 1.6.0
-    caniuse-lite: ^1.0.30001406
-    postcss: 8.4.14
-    styled-jsx: 5.1.1
-    zod: 3.21.4
-  peerDependencies:
-    "@opentelemetry/api": ^1.1.0
-    fibers: ">= 3.1.0"
-    node-sass: ^6.0.0 || ^7.0.0
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    sass: ^1.3.0
-  dependenciesMeta:
-    "@next/swc-darwin-arm64":
-      optional: true
-    "@next/swc-darwin-x64":
-      optional: true
-    "@next/swc-linux-arm64-gnu":
-      optional: true
-    "@next/swc-linux-arm64-musl":
-      optional: true
-    "@next/swc-linux-x64-gnu":
-      optional: true
-    "@next/swc-linux-x64-musl":
-      optional: true
-    "@next/swc-win32-arm64-msvc":
-      optional: true
-    "@next/swc-win32-ia32-msvc":
-      optional: true
-    "@next/swc-win32-x64-msvc":
-      optional: true
-  peerDependenciesMeta:
-    "@opentelemetry/api":
-      optional: true
-    fibers:
-      optional: true
-    node-sass:
-      optional: true
-    sass:
-      optional: true
-  bin:
-    next: dist/bin/next
-  checksum: 169e3fbbf713fad791a9b016c83d396bce628bb0ddf716c5fe50104a21cbc37af7df1586cbe05ae4ae6a090f4e1107211189cfbeeeab8345fe54e11cfefce87f
-  languageName: node
-  linkType: hard
-
 "next@npm:13.3.2":
   version: 13.3.2
   resolution: "next@npm:13.3.2"
@@ -15924,6 +15845,67 @@ __metadata:
   bin:
     next: dist/bin/next
   checksum: e6648b52a0781657864a823d3fc6758f6606a2134d9192fb111282012cb9ef8de5f57cac39115ab9c910194956c2ec3b78c2dae52f217af404f0173b4d1b2d8f
+  languageName: node
+  linkType: hard
+
+"next@npm:^13.4.1":
+  version: 13.4.1
+  resolution: "next@npm:13.4.1"
+  dependencies:
+    "@next/env": 13.4.1
+    "@next/swc-darwin-arm64": 13.4.1
+    "@next/swc-darwin-x64": 13.4.1
+    "@next/swc-linux-arm64-gnu": 13.4.1
+    "@next/swc-linux-arm64-musl": 13.4.1
+    "@next/swc-linux-x64-gnu": 13.4.1
+    "@next/swc-linux-x64-musl": 13.4.1
+    "@next/swc-win32-arm64-msvc": 13.4.1
+    "@next/swc-win32-ia32-msvc": 13.4.1
+    "@next/swc-win32-x64-msvc": 13.4.1
+    "@swc/helpers": 0.5.1
+    busboy: 1.6.0
+    caniuse-lite: ^1.0.30001406
+    postcss: 8.4.14
+    styled-jsx: 5.1.1
+    zod: 3.21.4
+  peerDependencies:
+    "@opentelemetry/api": ^1.1.0
+    fibers: ">= 3.1.0"
+    node-sass: ^6.0.0 || ^7.0.0
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    sass: ^1.3.0
+  dependenciesMeta:
+    "@next/swc-darwin-arm64":
+      optional: true
+    "@next/swc-darwin-x64":
+      optional: true
+    "@next/swc-linux-arm64-gnu":
+      optional: true
+    "@next/swc-linux-arm64-musl":
+      optional: true
+    "@next/swc-linux-x64-gnu":
+      optional: true
+    "@next/swc-linux-x64-musl":
+      optional: true
+    "@next/swc-win32-arm64-msvc":
+      optional: true
+    "@next/swc-win32-ia32-msvc":
+      optional: true
+    "@next/swc-win32-x64-msvc":
+      optional: true
+  peerDependenciesMeta:
+    "@opentelemetry/api":
+      optional: true
+    fibers:
+      optional: true
+    node-sass:
+      optional: true
+    sass:
+      optional: true
+  bin:
+    next: dist/bin/next
+  checksum: 169e3fbbf713fad791a9b016c83d396bce628bb0ddf716c5fe50104a21cbc37af7df1586cbe05ae4ae6a090f4e1107211189cfbeeeab8345fe54e11cfefce87f
   languageName: node
   linkType: hard
 
@@ -18117,7 +18099,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.2.0, react-dom@npm:latest":
+"react-dom@npm:18.2.0, react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
   dependencies:
@@ -18285,7 +18267,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.2.0, react@npm:latest":
+"react@npm:18.2.0, react@npm:^18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:
@@ -19737,7 +19719,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.7.0, source-map@npm:^0.7.3":
+"source-map@npm:^0.7.3":
   version: 0.7.4
   resolution: "source-map@npm:0.7.4"
   checksum: 01cc5a74b1f0e1d626a58d36ad6898ea820567e87f18dfc9d24a9843a351aaa2ec09b87422589906d6ff1deed29693e176194dc88bcae7c9a852dc74b311dbf5
