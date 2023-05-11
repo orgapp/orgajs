@@ -23,6 +23,6 @@ jobs:
           node-version: 20.x
       - name: run unit tests
         run: |
-          yarn install --immutable
+          yarn install
           yarn build
           yarn test
