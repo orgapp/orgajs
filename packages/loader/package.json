@@ -34,13 +34,14 @@
     "vfile-reporter": "^7.0.5"
   },
   "devDependencies": {
-    "@orgajs/react": "3.0.1",
+    "@orgajs/react": "workspace:^",
     "@types/node": "^20.1.0",
     "babel-loader": "^9.1.2",
     "del-cli": "^5.0.0",
     "html-loader": "^4.2.0",
     "memfs": "^3.2.2",
-    "react": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tsx": "^3.12.7",
     "webpack": "^5.82.0"
   }

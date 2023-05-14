@@ -3086,8 +3086,8 @@ __metadata:
   dependencies:
     gatsby: ^3.14.3
     gatsby-theme-orga-posts-core: 3.1.8
-    react: ^17.0.1
-    react-dom: ^17.0.1
+    react: ^18.2.0
+    react-dom: ^18.2.0
   languageName: unknown
   linkType: soft
 
@@ -3098,8 +3098,8 @@ __metadata:
     gatsby: ^3.14.3
     gatsby-theme-orga-posts: 3.1.8
     prop-types: ^15.7.2
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.2.0
+    react-dom: ^18.2.0
     react-helmet: ^6.1.0
   languageName: unknown
   linkType: soft
@@ -3115,8 +3115,8 @@ __metadata:
     gatsby: ^3.14.3
     gatsby-plugin-orga: 3.2.7
     gatsby-plugin-orga-theme-ui: 1.0.2
-    react: ^17.0.1
-    react-dom: ^17.0.1
+    react: ^18.2.0
+    react-dom: ^18.2.0
   languageName: unknown
   linkType: soft
 
@@ -3128,8 +3128,8 @@ __metadata:
     "@orgajs/react": 3.0.1
     gatsby: ^3.14.3
     gatsby-plugin-orga: 3.2.7
-    react: ^17.0.1
-    react-dom: ^17.0.1
+    react: ^18.2.0
+    react-dom: ^18.2.0
   languageName: unknown
   linkType: soft
 
@@ -3144,8 +3144,8 @@ __metadata:
     eslint: 8.39.0
     eslint-config-next: 13.3.4
     next: 13.3.2
-    react: 18.2.0
-    react-dom: 18.2.0
+    react: ^18.2.0
+    react-dom: ^18.2.0
     rehype-pretty-code: ^0.9.5
     typescript: 5.0.4
   languageName: unknown
@@ -3161,8 +3161,8 @@ __metadata:
     "@orgajs/theme-ui": 1.0.2
     "@theme-ui/preset-system": ^0.11.2
     next: ^11.1.2
-    react: 17.0.2
-    react-dom: 17.0.2
+    react: ^18.2.0
+    react-dom: ^18.2.0
   languageName: unknown
   linkType: soft
 
@@ -3170,10 +3170,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@orgajs/example-next@workspace:examples/next"
   dependencies:
-    "@orgajs/loader": 3.1.10
-    "@orgajs/next": 3.1.12
-    "@orgajs/react": 3.0.1
-    "@orgajs/reorg-shiki": 1.0.2
+    "@orgajs/loader": "workspace:^"
+    "@orgajs/next": "workspace:^"
+    "@orgajs/react": "workspace:^"
     eslint-config-next: ^13.4.1
     next: ^13.4.1
     react: ^18.2.0
@@ -3190,8 +3189,8 @@ __metadata:
     "@babel/preset-react": ^7.18.6
     "@orgajs/loader": 3.1.10
     babel-loader: ^9.1.2
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.2.0
+    react-dom: ^18.2.0
     webpack: ^5.82.0
     webpack-cli: ^5.0.2
     webpack-dev-server: ^4.13.3
@@ -3210,19 +3209,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/loader@3.1.10, @orgajs/loader@^3.1.10, @orgajs/loader@workspace:packages/loader":
+"@orgajs/loader@3.1.10, @orgajs/loader@^3.1.10, @orgajs/loader@workspace:^, @orgajs/loader@workspace:packages/loader":
   version: 0.0.0-use.local
   resolution: "@orgajs/loader@workspace:packages/loader"
   dependencies:
     "@orgajs/orgx": 1.0.8
-    "@orgajs/react": 3.0.1
+    "@orgajs/react": "workspace:^"
     "@types/node": ^20.1.0
     babel-loader: ^9.1.2
     del-cli: ^5.0.0
     html-loader: ^4.2.0
     loader-utils: ^2.0.0
     memfs: ^3.2.2
-    react: ^17.0.2
+    react: ^18.2.0
+    react-dom: ^18.2.0
     schema-utils: ^3.0.0
     tsx: ^3.12.7
     vfile-reporter: ^7.0.5
@@ -3240,12 +3240,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/next@3.1.12, @orgajs/next@^3.1.12, @orgajs/next@workspace:packages/next":
+"@orgajs/next@3.1.12, @orgajs/next@^3.1.12, @orgajs/next@workspace:^, @orgajs/next@workspace:packages/next":
   version: 0.0.0-use.local
   resolution: "@orgajs/next@workspace:packages/next"
   dependencies:
-    "@orgajs/loader": 3.1.10
-    "@orgajs/orgx": 1.0.8
+    "@orgajs/loader": "workspace:^"
     "@types/estree": ^1.0.1
     "@types/estree-jsx": ^1.0.0
     "@types/hast": ^2.3.4
@@ -3276,12 +3275,15 @@ __metadata:
     del-cli: ^5.0.0
     estree-util-build-jsx: 2.2.2
     estree-util-is-identifier-name: 2.1.0
+    estree-util-to-js: ^1.2.0
     estree-walker: 3.0.3
-    hast-util-to-estree: 2.3.2
+    hast-util-to-estree: ^2.3.2
     periscopic: 2.0.3
-    react: ^17.0.2
+    react: ^18.2.0
+    react-dom: ^18.2.0
     unified: ^10.1.2
-    unist-util-stringify-position: 3.0.3
+    unist-util-position-from-estree: ^1.1.2
+    unist-util-stringify-position: ^3.0.3
     vfile: ^5.3.7
   languageName: unknown
   linkType: soft
@@ -3310,16 +3312,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/react@3.0.1, @orgajs/react@^3.0.1, @orgajs/react@workspace:packages/react":
+"@orgajs/react@3.0.1, @orgajs/react@^3.0.1, @orgajs/react@workspace:^, @orgajs/react@workspace:packages/react":
   version: 0.0.0-use.local
   resolution: "@orgajs/react@workspace:packages/react"
   dependencies:
     "@babel/plugin-transform-react-jsx": ^7.21.5
     "@orgajs/orgx": "workspace:^"
+    "@types/react": ^18.0.0
+    "@types/react-dom": ^18.0.0
     babel-plugin-remove-export-keywords: ^1.6.22
     del-cli: ^5.0.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.2.0
+    react-dom: ^18.2.0
   peerDependencies:
     react: ">=16"
   languageName: unknown
@@ -3372,7 +3376,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@orgajs/reorg-shiki@1.0.2, @orgajs/reorg-shiki@workspace:packages/reorg-shiki":
+"@orgajs/reorg-shiki@workspace:packages/reorg-shiki":
   version: 0.0.0-use.local
   resolution: "@orgajs/reorg-shiki@workspace:packages/reorg-shiki"
   dependencies:
@@ -3420,9 +3424,9 @@ __metadata:
     prism-react-renderer: ^1.2.1
     prop-types: ^15.7.2
     query-string: ^7.0.1
-    react: ^17.0.1
+    react: ^18.2.0
     react-copy-to-clipboard: ^5.0.3
-    react-dom: ^17.0.1
+    react-dom: ^18.2.0
     react-helmet: ^6.1.0
     react-icons: ^4.2.0
     react-spring: ^9.2.4
@@ -4518,6 +4522,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:^18.0.0":
+  version: 18.2.4
+  resolution: "@types/react-dom@npm:18.2.4"
+  dependencies:
+    "@types/react": "*"
+  checksum: 8301f35cf1cbfec8c723e9477aecf87774e3c168bd457d353b23c45064737213d3e8008b067c6767b7b08e4f2b3823ee239242a6c225fc91e7f8725ef8734124
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:*":
   version: 18.2.5
   resolution: "@types/react@npm:18.2.5"
@@ -4548,6 +4561,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: 4eaf32b86c43f388c681e34a00921c508dd88a1d1022aebfadc5fe802b7c5bed863de1a17eed31e43ca2d65222952dfe79a022055a0e6e4e1ad89fc5a42ec05e
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^18.0.0":
+  version: 18.2.6
+  resolution: "@types/react@npm:18.2.6"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: dea9d232d8df7ac357367a69dcb557711ab3d5501807ffa77cebeee73d49ee94d095f298e36853c63ed47cce097eee4c7eae2aaa8c02fac3f0171ec1b523a819
   languageName: node
   linkType: hard
 
@@ -5707,7 +5731,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"astring@npm:^1.7.5":
+"astring@npm:^1.7.5, astring@npm:^1.8.0":
   version: 1.8.4
   resolution: "astring@npm:1.8.4"
   bin:
@@ -9835,6 +9859,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"estree-util-to-js@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "estree-util-to-js@npm:1.2.0"
+  dependencies:
+    "@types/estree-jsx": ^1.0.0
+    astring: ^1.8.0
+    source-map: ^0.7.0
+  checksum: 93a75e1051a6a4f5c631597ecd2ed95129fadbc80a58a10475d6d6b1b076a69393ba4a8d2bb71f698401f64ccca47e3f3828dd0042cac81439b988fae0f5f8e0
+  languageName: node
+  linkType: hard
+
 "estree-util-visit@npm:^1.0.0":
   version: 1.2.1
   resolution: "estree-util-visit@npm:1.2.1"
@@ -12121,7 +12156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-to-estree@npm:2.3.2, hast-util-to-estree@npm:^2.3.2":
+"hast-util-to-estree@npm:^2.3.2":
   version: 2.3.2
   resolution: "hast-util-to-estree@npm:2.3.2"
   dependencies:
@@ -18086,20 +18121,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:17.0.2, react-dom@npm:^17.0.1, react-dom@npm:^17.0.2":
-  version: 17.0.2
-  resolution: "react-dom@npm:17.0.2"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-    scheduler: ^0.20.2
-  peerDependencies:
-    react: 17.0.2
-  checksum: 1c1eaa3bca7c7228d24b70932e3d7c99e70d1d04e13bb0843bbf321582bc25d7961d6b8a6978a58a598af2af496d1cedcfb1bf65f6b0960a0a8161cb8dab743c
-  languageName: node
-  linkType: hard
-
-"react-dom@npm:18.2.0, react-dom@npm:^18.2.0":
+"react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
   dependencies:
@@ -18257,17 +18279,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:17.0.2, react@npm:^17.0.1, react@npm:^17.0.2":
-  version: 17.0.2
-  resolution: "react@npm:17.0.2"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: b254cc17ce3011788330f7bbf383ab653c6848902d7936a87b09d835d091e3f295f7e9dd1597c6daac5dc80f90e778c8230218ba8ad599f74adcc11e33b9d61b
-  languageName: node
-  linkType: hard
-
-"react@npm:18.2.0, react@npm:^18.2.0":
+"react@npm:^18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:
@@ -19050,16 +19062,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.20.2":
-  version: 0.20.2
-  resolution: "scheduler@npm:0.20.2"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: c4b35cf967c8f0d3e65753252d0f260271f81a81e427241295c5a7b783abf4ea9e905f22f815ab66676f5313be0a25f47be582254db8f9241b259213e999b8fc
-  languageName: node
-  linkType: hard
-
 "scheduler@npm:^0.23.0":
   version: 0.23.0
   resolution: "scheduler@npm:0.23.0"
@@ -19719,7 +19721,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.7.3":
+"source-map@npm:^0.7.0, source-map@npm:^0.7.3":
   version: 0.7.4
   resolution: "source-map@npm:0.7.4"
   checksum: 01cc5a74b1f0e1d626a58d36ad6898ea820567e87f18dfc9d24a9843a351aaa2ec09b87422589906d6ff1deed29693e176194dc88bcae7c9a852dc74b311dbf5
@@ -21407,7 +21409,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unist-util-position-from-estree@npm:^1.0.0, unist-util-position-from-estree@npm:^1.1.0":
+"unist-util-position-from-estree@npm:^1.0.0, unist-util-position-from-estree@npm:^1.1.0, unist-util-position-from-estree@npm:^1.1.2":
   version: 1.1.2
   resolution: "unist-util-position-from-estree@npm:1.1.2"
   dependencies:
@@ -21465,21 +21467,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unist-util-stringify-position@npm:3.0.3, unist-util-stringify-position@npm:^3.0.0":
-  version: 3.0.3
-  resolution: "unist-util-stringify-position@npm:3.0.3"
-  dependencies:
-    "@types/unist": ^2.0.0
-  checksum: dbd66c15183607ca942a2b1b7a9f6a5996f91c0d30cf8966fb88955a02349d9eefd3974e9010ee67e71175d784c5a9fea915b0aa0b0df99dcb921b95c4c9e124
-  languageName: node
-  linkType: hard
-
 "unist-util-stringify-position@npm:^2.0.0":
   version: 2.0.3
   resolution: "unist-util-stringify-position@npm:2.0.3"
   dependencies:
     "@types/unist": ^2.0.2
   checksum: f755cadc959f9074fe999578a1a242761296705a7fe87f333a37c00044de74ab4b184b3812989a57d4cd12211f0b14ad397b327c3a594c7af84361b1c25a7f09
+  languageName: node
+  linkType: hard
+
+"unist-util-stringify-position@npm:^3.0.0, unist-util-stringify-position@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "unist-util-stringify-position@npm:3.0.3"
+  dependencies:
+    "@types/unist": ^2.0.0
+  checksum: dbd66c15183607ca942a2b1b7a9f6a5996f91c0d30cf8966fb88955a02349d9eefd3974e9010ee67e71175d784c5a9fea915b0aa0b0df99dcb921b95c4c9e124
   languageName: node
   linkType: hard
 
