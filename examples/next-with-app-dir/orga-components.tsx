@@ -1,14 +1,13 @@
-import { OrgaComponents } from '@orgajs/orgx'
+import type { OrgaComponents } from '@orgajs/orgx'
 import Image from 'next/image'
 
+// This file is required to use Orga in `app` directory.
 export function useOrgaComponents(components: OrgaComponents) {
+  // Allows customizing built-in components, e.g. use next/image.
   return {
     ...components,
     img: (props: any) => (
-      <div>
-        <pre>{JSON.stringify(props, null, 2)}</pre>
-        <Image alt={''} sizes="100vw" width={100} height={100} {...props} />
-      </div>
+      <Image alt={''} sizes="100vw" width={100} height={100} {...props} />
     ),
   }
 }
