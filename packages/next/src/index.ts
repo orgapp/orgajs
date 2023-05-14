@@ -12,8 +12,6 @@ const plugin =
     const loader = {
       loader: require.resolve('@orgajs/loader'),
       options: {
-        jsx: true,
-        headingOffset: 1,
         providerImportSource: 'next-orga-import-source-file',
         ...options,
       },
