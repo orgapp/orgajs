@@ -9,7 +9,7 @@ const Layout: FC = ({ children }) => {
           top: 0,
           left: 0,
           display: 'flex',
-          justfiyContent: 'center',
+          justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
           height: 64,

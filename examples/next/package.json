@@ -2,17 +2,15 @@
   "name": "@orgajs/example-next",
   "version": "3.0.14",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "@orgajs/loader": "3.1.10",
-    "@orgajs/next": "3.1.12",
-    "@orgajs/react": "3.0.1",
-    "@orgajs/reorg-shiki": "1.0.2",
+    "@orgajs/loader": "workspace:^",
+    "@orgajs/next": "workspace:^",
+    "@orgajs/react": "workspace:^",
     "eslint-config-next": "^13.4.1",
     "next": "^13.4.1",
     "react": "^18.2.0",

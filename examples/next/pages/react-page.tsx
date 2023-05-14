@@ -1,3 +1,4 @@
+// @ts-ignore
 import Banner, { words } from '../components/banner.org'
 
 const ReactPage = () => {
