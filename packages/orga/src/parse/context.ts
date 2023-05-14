@@ -51,7 +51,6 @@ export function createContext(lexer: Lexer): Context {
   let snapshot: Snapshot | undefined = undefined
 
   const enter: Enter = (node) => {
-    // console.log(`[enter]: ${node.type}`)
     const start = lexer.peek()?.position?.start ||
       lexer.peek(-1)?.position?.end || { line: 1, column: 1, offset: 0 }
 

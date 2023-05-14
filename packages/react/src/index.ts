@@ -1,7 +1,7 @@
-import { createContext, createElement, useContext, useMemo } from 'react'
+import React from 'react'
 import type { OrgaComponents as Components } from '@orgajs/orgx'
 
-const OrgaContext = createContext<Components>({})
+const OrgaContext = React.createContext<Components>({})
 
 type MergeComponents = (components: Components) => Components
 
@@ -11,12 +11,12 @@ type Props = {
   disableParentContext?: boolean
 }
 
-export const useOrgaComponents = (
+export function useOrgaComponents(
   components: Components | MergeComponents | null | undefined
-) => {
-  const contextComponents = useContext(OrgaContext)
+) {
+  const contextComponents = React.useContext(OrgaContext)
 
-  return useMemo(() => {
+  return React.useMemo(() => {
     // Custom merge via a function prop
     if (typeof components === 'function') {
       return components(contextComponents)
@@ -28,11 +28,11 @@ export const useOrgaComponents = (
 
 const emptyObject: Components = {}
 
-export const OrgaProvider = ({
+export function OrgaProvider({
   components,
   children,
   disableParentContext = false,
-}: Props) => {
+}: Props) {
   let allComponents: Components
   if (disableParentContext) {
     allComponents =
@@ -43,7 +43,7 @@ export const OrgaProvider = ({
     allComponents = useOrgaComponents(components)
   }
 
-  return createElement(
+  return React.createElement(
     OrgaContext.Provider,
     {
       value: allComponents,

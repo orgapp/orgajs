@@ -86,7 +86,6 @@ export const tokenize = (
     ]
 
     for (const t of tokenizers) {
-      // console.log({ now: reader.now() })
       const result = t(reader)
       if (!result) continue
       const tokens = Array.isArray(result) ? result : [result]
@@ -94,8 +93,6 @@ export const tokenize = (
         return [...all, ...tokens]
       }
     }
-
-    // console.log('none of them matches', { line: reader.getLine(), now: reader.now() })
 
     // last resort
     const currentLine = reader.read({ end: reader.endOfLine() })
