@@ -58,8 +58,7 @@ export const estreeDocument: Plugin<
   const baseUrl = options_.baseUrl || undefined
   const useDynamicImport = options_.useDynamicImport || undefined
   const outputFormat = options_.outputFormat || 'program'
-  const pragma =
-    options_.pragma === undefined ? 'React.createElement' : options_.pragma
+  const pragma = options_.pragma || 'React.createElement'
   const pragmaFrag =
     options_.pragmaFrag === undefined ? 'React.Fragment' : options_.pragmaFrag
   const pragmaImportSource = options_.pragmaImportSource || 'react'

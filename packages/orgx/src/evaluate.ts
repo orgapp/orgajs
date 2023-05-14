@@ -2,6 +2,7 @@ import type { VFileCompatible } from 'vfile'
 import { compile, compileSync } from './compile.js'
 import { ProcessorOptions } from './processor.js'
 import { OrgaContent } from './types.js'
+import { run, runSync } from './run'
 
 export interface ExportMap extends Record<string, unknown> {
   default: OrgaContent
@@ -45,8 +46,7 @@ export const evaluate = async (
   options: EvaluateOptions
 ): Promise<ExportMap> => {
   const { compiletime, runtime } = resolveOptions(options)
-  const code = await compile(file, compiletime)
-  return new Function(String(code))(runtime)
+  return run(await compile(file, compiletime), runtime)
 }
 
 export const evaluateSync = (
@@ -54,6 +54,5 @@ export const evaluateSync = (
   options: EvaluateOptions
 ): ExportMap => {
   const { compiletime, runtime } = resolveOptions(options)
-  const code = compileSync(file, compiletime)
-  return new Function(String(code))(runtime)
+  return runSync(compileSync(file, compiletime), runtime)
 }

@@ -6,16 +6,20 @@ const fixture = `
 #+title: Hello World
 * Hi
 `
-const code = `/*@jsxRuntime classic @jsx createElement @jsxFrag Fragment*/
-import {createElement, Fragment} from "react";
+const code = `
+/*@jsxRuntime classic @jsx React.createElement @jsxFrag React.Fragment*/
+import React from "react";
 export const title = 'Hello World';
-function OrgaContent(props = {}) {
+function _createOrgaContent(props) {
   const _components = Object.assign({
     div: "div",
     h1: "h1"
-  }, props.components), {wrapper: OrgaLayout} = _components;
-  const _content = <><_components.div className="section"><_components.h1>{"Hi"}{" "}</_components.h1></_components.div></>;
-  return OrgaLayout ? <OrgaLayout title={title} {...props}>{_content}</OrgaLayout> : _content;
+  }, props.components);
+  return <_components.div className="section"><_components.h1>{"Hi"}{" "}</_components.h1></_components.div>;
+}
+function OrgaContent(props = {}) {
+  const {wrapper: OrgaLayout} = props.components || ({});
+  return OrgaLayout ? <OrgaLayout {...props}><_createOrgaContent {...props} /></OrgaLayout> : _createOrgaContent(props);
 }
 export default OrgaContent;
 `
@@ -26,10 +30,8 @@ describe('compile', () => {
       jsxRuntime: 'classic',
       jsx: true,
       outputFormat: 'program',
-      pragma: { name: 'createElement', source: 'react' },
-      pragmaFrag: { name: 'Fragment', source: 'react' },
     })
 
-    assert.strictEqual(`${result}`, code)
+    assert.strictEqual(`${result}`.trim(), code.trim())
   })
 })

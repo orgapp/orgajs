@@ -1,8 +1,8 @@
 import { buildJsx } from 'estree-util-build-jsx'
 import type { Program } from 'estree'
 import type { Plugin } from 'unified'
-import { specifiersToDeclarations } from '../estree/specifiers-to-declarations'
-import { toIdOrMemberExpression } from '../estree/to-id-or-member-expression'
+import { specifiersToDeclarations } from '../estree/specifiers-to-declarations.js'
+import { toIdOrMemberExpression } from '../estree/to-id-or-member-expression.js'
 
 export interface Options {
   outputFormat?: 'program' | 'function-body'

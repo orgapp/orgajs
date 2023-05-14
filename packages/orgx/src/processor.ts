@@ -87,7 +87,7 @@ export function createProcessor(
     .use(reorgRehype, options)
     .use(options.rehypePlugins)
     .use(rehypeEstree, { ...options, handlers })
-    .use(estreeDocument, options)
+    .use(estreeDocument, { ...options, outputFormat })
     .use(options.estreePlugins)
     .use(estreeJsxRewrite, options)
 
