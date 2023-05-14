@@ -1,18 +1,19 @@
 import { buildJsx } from 'estree-util-build-jsx'
 import type { Program } from 'estree'
 import type { Plugin } from 'unified'
-import specifiersToObjectPattern from '../estree/specifiers-to-object-pattern.js'
+import { specifiersToDeclarations } from '../estree/specifiers-to-declarations'
+import { toIdOrMemberExpression } from '../estree/to-id-or-member-expression'
 
 export interface Options {
-  outputFormat: 'program' | 'function-body'
+  outputFormat?: 'program' | 'function-body'
+  development?: boolean
 }
 
 export const estreeJsxBuild: Plugin = (options: Options) => {
-  const { outputFormat } = options
+  const { development, outputFormat } = options
 
-  return (tree: Program) => {
-    // @ts-ignore FIXME
-    buildJsx(tree)
+  return (tree: Program, file) => {
+    buildJsx(tree, { development, filePath: file.history[0] })
 
     // When compiling to a function body, replace the import that was just
     // generated, and get `jsx`, `jsxs`, and `Fragment` from `arguments[0]`
@@ -22,25 +23,15 @@ export const estreeJsxBuild: Plugin = (options: Options) => {
       tree.body[0] &&
       tree.body[0].type === 'ImportDeclaration' &&
       typeof tree.body[0].source.value === 'string' &&
-      /\/jsx-runtime$/.test(tree.body[0].source.value)
+      /\/jsx-(dev-)?runtime$/.test(tree.body[0].source.value)
     ) {
       tree.body[0] = {
         type: 'VariableDeclaration',
         kind: 'const',
-        declarations: [
-          {
-            type: 'VariableDeclarator',
-            // @ts-ignore FIXME
-            id: specifiersToObjectPattern(tree.body[0].specifiers),
-            init: {
-              type: 'MemberExpression',
-              object: { type: 'Identifier', name: 'arguments' },
-              property: { type: 'Literal', value: 0 },
-              computed: true,
-              optional: false,
-            },
-          },
-        ],
+        declarations: specifiersToDeclarations(
+          tree.body[0].specifiers,
+          toIdOrMemberExpression(['arguments', 0])
+        ),
       }
     }
   }

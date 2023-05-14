@@ -1,79 +1,79 @@
+import { analyze } from 'periscopic'
+import { stringifyPosition } from 'unist-util-stringify-position'
+import { positionFromEstree } from 'unist-util-position-from-estree'
+import { walk } from 'estree-walker'
+import { create } from '../estree/create.js'
+import { Plugin } from 'unified'
 import {
   Directive,
+  ExportAllDeclaration,
   ExportDefaultDeclaration,
+  ExportNamedDeclaration,
   ExportSpecifier,
-  Expression,
   FunctionDeclaration,
   ImportDeclaration,
-  JSXAttribute,
+  ImportDefaultSpecifier,
+  ImportExpression,
+  ImportSpecifier,
+  JSXElement,
+  Literal,
   ModuleDeclaration,
+  Node,
   Program,
   Property,
+  SimpleLiteral,
   SpreadElement,
   Statement,
 } from 'estree-jsx'
-import { analyze } from 'periscopic'
-import { stringifyPosition } from 'unist-util-stringify-position'
-import { URL } from 'url'
-import create from '../estree/create.js'
-import declarationToExpression from '../estree/declaration-to-expression.js'
 import isDeclaration from '../estree/is-declaration.js'
-import positionFromEstree from '../estree/position-from-estree.js'
-import specifiersToObjectPattern from '../estree/specifiers-to-object-pattern.js'
+import declarationToExpression from '../estree/declaration-to-expression.js'
+import { Expression } from 'estree'
+import { specifiersToDeclarations } from '../estree/specifiers-to-declarations.js'
 
 export interface Options {
+  outputFormat?: 'program' | 'function-body'
+  useDynamicImport?: boolean
   baseUrl?: string
-  useDynamicImport: boolean
-  outputFormat: 'program' | 'function-body'
-  pragma: { name: string; source: string }
-  pragmaFrag: { name: string; source: string }
-  jsxImportSource: string
-  jsxRuntime: 'automatic' | 'classic'
-  passNamedExportsToLayout: boolean
+  pragma?: string
+  pragmaFrag?: string
+  pragmaImportSource?: string
+  jsxImportSource?: string
+  jsxRuntime?: 'automatic' | 'classic'
 }
 
-function mergeImports(imports: ImportDeclaration[]) {
-  const map: Record<string, ImportDeclaration> = imports.reduce(
-    (all, current) => {
-      if (typeof current.source.value !== 'string') {
-        throw new Error(
-          `expecting source value to be string, got ${current.source.value}`
-        )
-      }
-      if (!all[current.source.value]) {
-        all[current.source.value] = current
-      } else {
-        all[current.source.value].specifiers.push(...current.specifiers)
-      }
-      return all
-    },
-    {} as Record<string, ImportDeclaration>
-  )
+export const LAYOUT_NAME = 'OrgaLayout'
+export const CONTENT_NAME = 'OrgaContent'
+export const FN_NAME = '_createOrgaContent'
 
-  return Object.values(map)
-}
-
-export function estreeWrapInContent(options: Options) {
-  const {
-    baseUrl,
-    outputFormat,
-    useDynamicImport,
-    jsxRuntime,
-    pragma,
-    pragmaFrag,
-    jsxImportSource,
-    passNamedExportsToLayout,
-  } = options
-
-  const pragmas: string[] = []
-  let content: boolean | undefined
-  let exportAllCount = 0
-  let layout: ExportDefaultDeclaration | ExportSpecifier | undefined
-  const exportedIdentifiers: (string | [string, string])[] = []
-  const replacement: (Directive | Statement | ModuleDeclaration)[] = []
+/**
+ * A plugin to wrap the estree in `OrgaContent`.
+ *
+ * @type {import('unified').Plugin<[RecmaDocumentOptions | null | undefined] | [], Program>}
+ */
+export const estreeDocument: Plugin<
+  [Options | null | undefined] | [],
+  Program
+> = (options) => {
+  const options_: Options = options || {}
+  const baseUrl = options_.baseUrl || undefined
+  const useDynamicImport = options_.useDynamicImport || undefined
+  const outputFormat = options_.outputFormat || 'program'
+  const pragma =
+    options_.pragma === undefined ? 'React.createElement' : options_.pragma
+  const pragmaFrag =
+    options_.pragmaFrag === undefined ? 'React.Fragment' : options_.pragmaFrag
+  const pragmaImportSource = options_.pragmaImportSource || 'react'
+  const jsxImportSource = options_.jsxImportSource || 'react'
+  const jsxRuntime = options_.jsxRuntime || 'automatic'
 
   return (tree, file) => {
-    const program = tree as Program
+    const exportedIdentifiers: ([string, string] | string)[] = []
+    const replacement: (Directive | ModuleDeclaration | Statement)[] = []
+    const pragmas: string[] = []
+    let exportAllCount = 0
+    let layout: ExportDefaultDeclaration | ExportSpecifier | undefined
+    let content: boolean | undefined
+    let child: Node
 
     if (!tree.comments) tree.comments = []
 
@@ -86,41 +86,43 @@ export function estreeWrapInContent(options: Options) {
     }
 
     if (jsxRuntime === 'classic' && pragma) {
-      pragmas.push('@jsx ' + pragma.name)
+      pragmas.push('@jsx ' + pragma)
     }
 
     if (jsxRuntime === 'classic' && pragmaFrag) {
-      if (pragmaFrag) {
-        pragmas.push('@jsxFrag ' + pragmaFrag.name)
-      }
+      pragmas.push('@jsxFrag ' + pragmaFrag)
     }
 
     if (pragmas.length > 0) {
       tree.comments.unshift({ type: 'Block', value: pragmas.join(' ') })
     }
 
-    if (jsxRuntime === 'classic') {
-      const imports: ImportDeclaration[] = [pragma, pragmaFrag].map(
-        ({ name, source }) => ({
-          type: 'ImportDeclaration',
-          specifiers: [
-            {
-              type: 'ImportSpecifier',
-              imported: { type: 'Identifier', name },
-              local: { type: 'Identifier', name },
-            },
-          ],
-          source: { type: 'Literal', value: source },
-        })
-      )
+    if (jsxRuntime === 'classic' && pragmaImportSource) {
+      if (!pragma) {
+        throw new Error(
+          'Missing `pragma` in classic runtime with `pragmaImportSource`'
+        )
+      }
 
-      mergeImports(imports).forEach(handleEsm)
+      handleEsm({
+        type: 'ImportDeclaration',
+        specifiers: [
+          {
+            type: 'ImportDefaultSpecifier',
+            local: { type: 'Identifier', name: pragma.split('.')[0] },
+          },
+        ],
+        source: { type: 'Literal', value: pragmaImportSource },
+      })
     }
 
     // Find the `export default`, the JSX expression, and leave the rest
     // (import/exports) as they are.
-    for (const child of program.body) {
+    for (child of tree.body) {
+      // ```js
       // export default props => <>{props.children}</>
+      // ```
+      //
       // Treat it as an inline layout declaration.
       if (child.type === 'ExportDefaultDeclaration') {
         if (layout) {
@@ -140,8 +142,7 @@ export function estreeWrapInContent(options: Options) {
           declarations: [
             {
               type: 'VariableDeclarator',
-              id: { type: 'Identifier', name: 'OrgaLayout' },
-              // @ts-ignore FIXME
+              id: { type: 'Identifier', name: LAYOUT_NAME },
               init: isDeclaration(child.declaration)
                 ? declarationToExpression(child.declaration)
                 : child.declaration,
@@ -149,9 +150,11 @@ export function estreeWrapInContent(options: Options) {
           ],
         })
       }
+      // ```js
       // export {a, b as c} from 'd'
+      // ```
       else if (child.type === 'ExportNamedDeclaration' && child.source) {
-        const source = child.source
+        const source = child.source as SimpleLiteral
 
         // Remove `default` or `as default`, but not `default as`, specifier.
         child.specifiers = child.specifiers.filter((specifier) => {
@@ -169,28 +172,34 @@ export function estreeWrapInContent(options: Options) {
             layout = specifier
 
             // Make it just an import: `import OrgaLayout from '…'`.
-            handleEsm(
-              create(specifier, {
-                type: 'ImportDeclaration',
-                specifiers: [
-                  // Default as default / something else as default.
-                  specifier.local.name === 'default'
-                    ? {
-                        type: 'ImportDefaultSpecifier',
-                        local: { type: 'Identifier', name: 'OrgaLayout' },
-                      }
-                    : create(specifier.local, {
-                        type: 'ImportSpecifier',
-                        imported: specifier.local,
-                        local: { type: 'Identifier', name: 'OrgaLayout' },
-                      }),
-                ],
-                source: create(source, {
-                  type: 'Literal',
-                  value: source.value,
-                }),
+            const specifiers: (ImportDefaultSpecifier | ImportSpecifier)[] = []
+
+            // Default as default / something else as default.
+            if (specifier.local.name === 'default') {
+              specifiers.push({
+                type: 'ImportDefaultSpecifier',
+                local: { type: 'Identifier', name: LAYOUT_NAME },
               })
-            )
+            } else {
+              const importSpecifier: ImportSpecifier = {
+                type: 'ImportSpecifier',
+                imported: specifier.local,
+                local: { type: 'Identifier', name: LAYOUT_NAME },
+              }
+              create(specifier.local, importSpecifier)
+              specifiers.push(importSpecifier)
+            }
+
+            const from: Literal = { type: 'Literal', value: source.value }
+            create(source, from)
+
+            const declaration: ImportDeclaration = {
+              type: 'ImportDeclaration',
+              specifiers,
+              source: from,
+            }
+            create(specifier, declaration)
+            handleEsm(declaration)
 
             return false
           }
@@ -203,8 +212,10 @@ export function estreeWrapInContent(options: Options) {
           handleExport(child)
         }
       }
+      // ```js
       // export {a, b as c}
       // export * from 'a'
+      // ```
       else if (
         child.type === 'ExportNamedDeclaration' ||
         child.type === 'ExportAllDeclaration'
@@ -214,27 +225,30 @@ export function estreeWrapInContent(options: Options) {
         handleEsm(child)
       } else if (
         child.type === 'ExpressionStatement' &&
-        // @ts-expect-error types are wrong: `JSXElement`/`JSXFragment` are
-        // `Expression`s.
+        // @ts-expect-error types are wrong: `JSXFragment` is an `Expression`.
         (child.expression.type === 'JSXFragment' ||
           child.expression.type === 'JSXElement')
       ) {
         content = true
-        replacement.push(createOrgaContent(child.expression))
+        replacement.push(
+          ...createOrgaContent(child.expression, Boolean(layout))
+        )
         // The following catch-all branch is because plugins might’ve added
         // other things.
         // Normally, we only have import/export/jsx, but just add whatever’s
         // there.
+        /* c8 ignore next 3 */
       } else {
         replacement.push(child)
       }
     }
 
+    // If there was no JSX content at all, add an empty function.
     if (!content) {
-      replacement.push(createOrgaContent())
+      replacement.push(...createOrgaContent(undefined, Boolean(layout)))
     }
 
-    exportedIdentifiers.push(['OrgaContent', 'default'])
+    exportedIdentifiers.push([CONTENT_NAME, 'default'])
 
     if (outputFormat === 'function-body') {
       replacement.push({
@@ -243,7 +257,7 @@ export function estreeWrapInContent(options: Options) {
           type: 'ObjectExpression',
           properties: [
             ...Array.from({ length: exportAllCount }).map(
-              (_: undefined, index: number): SpreadElement => ({
+              (_, index): SpreadElement => ({
                 type: 'SpreadElement',
                 argument: {
                   type: 'Identifier',
@@ -276,13 +290,35 @@ export function estreeWrapInContent(options: Options) {
     } else {
       replacement.push({
         type: 'ExportDefaultDeclaration',
-        declaration: { type: 'Identifier', name: 'OrgaContent' },
+        declaration: { type: 'Identifier', name: CONTENT_NAME },
       })
     }
 
-    program.body = replacement
+    tree.body = replacement
 
-    function handleExport(node) {
+    if (baseUrl) {
+      walk(tree, {
+        enter(node) {
+          if (
+            node.type === 'MemberExpression' &&
+            'object' in node &&
+            node.object.type === 'MetaProperty' &&
+            node.property.type === 'Identifier' &&
+            node.object.meta.name === 'import' &&
+            node.object.property.name === 'meta' &&
+            node.property.name === 'url'
+          ) {
+            const replacement: SimpleLiteral = {
+              type: 'Literal',
+              value: baseUrl,
+            }
+            this.replace(replacement)
+          }
+        },
+      })
+    }
+
+    function handleExport(node: ExportAllDeclaration | ExportNamedDeclaration) {
       if (node.type === 'ExportNamedDeclaration') {
         // ```js
         // export function a() {}
@@ -299,7 +335,7 @@ export function estreeWrapInContent(options: Options) {
         // export {a, b as c}
         // export {a, b as c} from 'd'
         // ```
-        for (const child of node.specifiers) {
+        for (child of node.specifiers) {
           exportedIdentifiers.push(child.exported.name)
         }
       }
@@ -307,6 +343,10 @@ export function estreeWrapInContent(options: Options) {
       handleEsm(node)
     }
 
+    /**
+     * @param {ExportAllDeclaration | ExportNamedDeclaration | ImportDeclaration} node
+     * @returns {void}
+     */
     function handleEsm(node) {
       // Rewrite the source of the `import` / `export … from`.
       // See: <https://html.spec.whatwg.org/multipage/webappapis.html#resolve-a-module-specifier>
@@ -328,10 +368,12 @@ export function estreeWrapInContent(options: Options) {
           // with import maps (<https://github.com/WICG/import-maps>).
         }
 
-        node.source = create(node.source, { type: 'Literal', value })
+        const literal: Literal = { type: 'Literal', value }
+        create(node.source, literal)
+        node.source = literal
       }
 
-      /** @type {Statement|ModuleDeclaration|undefined} */
+      /** @type {ModuleDeclaration | Statement | undefined} */
       let replace
       /** @type {Expression} */
       let init
@@ -368,13 +410,12 @@ export function estreeWrapInContent(options: Options) {
           // export * from 'a'
           // //=> const _exportAll0 = await import('a')
           // ```
-          init = {
-            type: 'AwaitExpression',
-            argument: create(node, {
-              type: 'ImportExpression',
-              source: node.source,
-            }),
+          const argument: ImportExpression = {
+            type: 'ImportExpression',
+            source: node.source,
           }
+          create(node, argument)
+          init = { type: 'AwaitExpression', argument }
 
           if (
             (node.type === 'ImportDeclaration' ||
@@ -386,26 +427,25 @@ export function estreeWrapInContent(options: Options) {
             replace = {
               type: 'VariableDeclaration',
               kind: 'const',
-              declarations: [
-                {
-                  type: 'VariableDeclarator',
-                  id:
-                    node.type === 'ImportDeclaration' ||
-                    node.type === 'ExportNamedDeclaration'
-                      ? specifiersToObjectPattern(node.specifiers)
-                      : {
+              declarations:
+                node.type === 'ExportAllDeclaration'
+                  ? [
+                      {
+                        type: 'VariableDeclarator',
+                        id: {
                           type: 'Identifier',
                           name: '_exportAll' + ++exportAllCount,
                         },
-                  init,
-                },
-              ],
+                        init,
+                      },
+                    ]
+                  : specifiersToDeclarations(node.specifiers, init),
             }
           }
         } else if (node.declaration) {
           replace = node.declaration
         } else {
-          /** @type {Array.<VariableDeclarator>} */
+          /** @type {Array<VariableDeclarator>} */
           const declarators = node.specifiers
             .filter(
               (specifier) => specifier.local.name !== specifier.exported.name
@@ -434,34 +474,16 @@ export function estreeWrapInContent(options: Options) {
     }
   }
 
-  function createOrgaContent(content = undefined): FunctionDeclaration {
-    const props: JSXAttribute[] = []
-    const inject = (name: string) => {
-      props.push({
-        type: 'JSXAttribute',
-        name: {
-          type: 'JSXIdentifier',
-          name,
-        },
-        value: {
-          type: 'JSXExpressionContainer',
-          expression: { type: 'Identifier', name },
-        },
-      })
-    }
-
-    if (passNamedExportsToLayout) {
-      exportedIdentifiers.forEach((id) => {
-        (typeof id === 'string' ? [id] : id).forEach(inject)
-      })
-    }
-    const element = {
+  function createOrgaContent(
+    content: Expression | undefined,
+    hasInternalLayout: boolean | undefined
+  ): FunctionDeclaration[] {
+    const element: JSXElement = {
       type: 'JSXElement',
       openingElement: {
         type: 'JSXOpeningElement',
-        name: { type: 'JSXIdentifier', name: 'OrgaLayout' },
+        name: { type: 'JSXIdentifier', name: LAYOUT_NAME },
         attributes: [
-          ...props,
           {
             type: 'JSXSpreadAttribute',
             argument: { type: 'Identifier', name: 'props' },
@@ -471,53 +493,85 @@ export function estreeWrapInContent(options: Options) {
       },
       closingElement: {
         type: 'JSXClosingElement',
-        name: { type: 'JSXIdentifier', name: 'OrgaLayout' },
+        name: { type: 'JSXIdentifier', name: LAYOUT_NAME },
       },
       children: [
         {
-          type: 'JSXExpressionContainer',
-          expression: { type: 'Identifier', name: '_content' },
-        },
-      ],
-    }
-    // @ts-expect-error types are wrong: `JSXElement` is an `Expression`.
-    const consequent: Expression = element
-
-    return {
-      type: 'FunctionDeclaration',
-      id: { type: 'Identifier', name: 'OrgaContent' },
-      params: [
-        {
-          type: 'AssignmentPattern',
-          left: { type: 'Identifier', name: 'props' },
-          right: { type: 'ObjectExpression', properties: [] },
-        },
-      ],
-      body: {
-        type: 'BlockStatement',
-        body: [
-          {
-            type: 'VariableDeclaration',
-            kind: 'const',
-            declarations: [
+          type: 'JSXElement',
+          openingElement: {
+            type: 'JSXOpeningElement',
+            name: { type: 'JSXIdentifier', name: FN_NAME },
+            attributes: [
               {
-                type: 'VariableDeclarator',
-                id: { type: 'Identifier', name: '_content' },
-                init: content || { type: 'Literal', value: null },
+                type: 'JSXSpreadAttribute',
+                argument: { type: 'Identifier', name: 'props' },
               },
             ],
+            selfClosing: true,
           },
+          closingElement: null,
+          children: [],
+        },
+      ],
+    }
+
+    let result: Expression = element
+
+    if (!hasInternalLayout) {
+      result = {
+        type: 'ConditionalExpression',
+        test: { type: 'Identifier', name: LAYOUT_NAME },
+        consequent: result,
+        alternate: {
+          type: 'CallExpression',
+          callee: { type: 'Identifier', name: FN_NAME },
+          arguments: [{ type: 'Identifier', name: 'props' }],
+          optional: false,
+        },
+      }
+    }
+
+    let argument = content || { type: 'Literal', value: null }
+
+    // Unwrap a fragment of a single element.
+    if (
+      argument &&
+      // @ts-expect-error: fine.
+      argument.type === 'JSXFragment' &&
+      // @ts-expect-error: fine.
+      argument.children.length === 1 &&
+      // @ts-expect-error: fine.
+      argument.children[0].type === 'JSXElement'
+    ) {
+      // @ts-expect-error: fine.
+      argument = argument.children[0]
+    }
+
+    return [
+      {
+        type: 'FunctionDeclaration',
+        id: { type: 'Identifier', name: FN_NAME },
+        params: [{ type: 'Identifier', name: 'props' }],
+        body: {
+          type: 'BlockStatement',
+          body: [{ type: 'ReturnStatement', argument }],
+        },
+      },
+      {
+        type: 'FunctionDeclaration',
+        id: { type: 'Identifier', name: CONTENT_NAME },
+        params: [
           {
-            type: 'ReturnStatement',
-            argument: {
-              type: 'ConditionalExpression',
-              test: { type: 'Identifier', name: 'OrgaLayout' },
-              consequent,
-              alternate: { type: 'Identifier', name: '_content' },
-            },
+            type: 'AssignmentPattern',
+            left: { type: 'Identifier', name: 'props' },
+            right: { type: 'ObjectExpression', properties: [] },
           },
         ],
+        body: {
+          type: 'BlockStatement',
+          body: [{ type: 'ReturnStatement', argument: result }],
+        },
       },
-    }
+    ]
   }
 }

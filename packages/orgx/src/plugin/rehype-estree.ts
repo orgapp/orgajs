@@ -40,7 +40,14 @@ export type Options = {
   handlers: Record<string, Handler>
 }
 
-export const rehypeEstree: Plugin = (options: Options) => {
+export const rehypeEstree: Plugin<
+  [Options | null | undefined] | [],
+  Root,
+  Program
+> = (options: Options) => {
+  // TODO hast-util-to-estree have native support to mdx, try to leverage it
+  // return (tree) => toEstree(tree, options)
+
   const { space, parseJSX, skipImport, handlers } = options
 
   for (const p of parseJSX) {

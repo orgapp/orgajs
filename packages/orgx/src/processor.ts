@@ -11,27 +11,28 @@ import {
   estreeJsxRewrite,
   Options as JSXRewriteOptions,
 } from './plugin/estree-jsx-rewrite.js'
-import { estreeStringify } from './plugin/estree-stringify.js'
 import {
-  estreeWrapInContent,
-  Options as EstreeWrapInContentOptions,
-} from './plugin/estree-wrap-in-content.js'
+  estreeStringify,
+  Options as EstreeStringifyOptions,
+} from './plugin/estree-stringify.js'
 import {
   Options as RehypeEstreeOptions,
   rehypeEstree,
 } from './plugin/rehype-estree.js'
 import {
-  Options as RehypeSetLayoutOptions,
-  rehypeSetLayout,
-} from './plugin/rehype-set-layout.js'
+  estreeDocument,
+  Options as EstreeDocumentOptions,
+} from './plugin/estree-document.js'
+
+import { development as defaultDevelopment } from './condition.js'
 
 export interface ProcessorOptions
   extends Partial<Omit<ReorgRehpyeOptions, 'handlers'>>,
     RehypeEstreeOptions,
-    EstreeWrapInContentOptions,
+    EstreeDocumentOptions,
     JSXRewriteOptions,
-    RehypeSetLayoutOptions,
-    EstreeJsxBuildOptions {
+    EstreeJsxBuildOptions,
+    EstreeStringifyOptions {
   jsx: boolean
   reorgPlugins: PluggableList
   rehypePlugins: PluggableList
@@ -51,39 +52,49 @@ const defaultOptions: ProcessorOptions = {
   skipImport: false,
   handlers: {},
 
-  // EstreeWrapInContentOptions
+  // EstreeDocumentOptions
   baseUrl: undefined,
   useDynamicImport: false,
-  pragma: { name: 'createElement', source: 'react' },
-  pragmaFrag: { name: 'Fragment', source: 'react' },
+  pragma: 'React.createElement',
+  pragmaFrag: 'React.Fragment',
+  pragmaImportSource: 'react',
   jsxImportSource: 'react',
-  jsxRuntime: 'automatic' as 'automatic' | 'classic',
-  passNamedExportsToLayout: true,
+  jsxRuntime: 'automatic',
 }
 
 export function createProcessor(
   processorOptions: Partial<ProcessorOptions> = {}
 ): Processor {
-  const { jsx, handlers, ...options } = {
+  const {
+    development,
+    jsx,
+    handlers,
+    outputFormat,
+    SourceMapGenerator,
+    ...options
+  } = {
     ...defaultOptions,
     ...processorOptions,
   }
+  const dev =
+    development === null || development === undefined
+      ? defaultDevelopment
+      : development
 
   const pipeline = unified()
     .use(reorgParse)
     .use(options.reorgPlugins)
     .use(reorgRehype, options)
-    .use(rehypeSetLayout, options)
     .use(options.rehypePlugins)
     .use(rehypeEstree, { ...options, handlers })
-    .use(estreeWrapInContent, options)
+    .use(estreeDocument, options)
     .use(options.estreePlugins)
     .use(estreeJsxRewrite, options)
 
   if (!jsx) {
-    pipeline.use(estreeJsxBuild, options)
+    pipeline.use(estreeJsxBuild, { development: dev, outputFormat })
   }
-  pipeline.use(estreeStringify)
+  pipeline.use(estreeStringify, { SourceMapGenerator })
 
   return pipeline
 }

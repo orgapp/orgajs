@@ -28,7 +28,8 @@
     "@types/hast": "^2.3.4",
     "@types/node": "^20.1.0",
     "del-cli": "^5.0.0",
-    "react": "^17.0.2"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "dependencies": {
     "@orgajs/reorg-parse": "3.1.7",
@@ -38,11 +39,13 @@
     "astring": "^1.7.5",
     "estree-util-build-jsx": "2.2.2",
     "estree-util-is-identifier-name": "2.1.0",
+    "estree-util-to-js": "^1.2.0",
     "estree-walker": "3.0.3",
-    "hast-util-to-estree": "2.3.2",
+    "hast-util-to-estree": "^2.3.2",
     "periscopic": "2.0.3",
     "unified": "^10.1.2",
-    "unist-util-stringify-position": "3.0.3",
+    "unist-util-position-from-estree": "^1.1.2",
+    "unist-util-stringify-position": "^3.0.3",
     "vfile": "^5.3.7"
   }
 }
