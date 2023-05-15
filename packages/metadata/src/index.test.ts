@@ -1,5 +1,5 @@
 import { describe, it } from 'node:test'
-import assert from 'node:assert'
+import * as assert from 'node:assert'
 import parse from '.'
 
 describe('metadata parser', () => {

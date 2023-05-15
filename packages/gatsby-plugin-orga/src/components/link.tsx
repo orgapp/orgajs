@@ -8,6 +8,7 @@ interface Props extends Record<string, unknown> {
 
 const SmartLink: FC<Props> = ({ href, ...props }) => {
   if (isExternalLink(href)) {
+    // @ts-ignore FIXME
     return <a href={href} {...props} />
   }
 

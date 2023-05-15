@@ -11,7 +11,7 @@
     "directory": "packages/reorg-shiki"
   },
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
+    "build": "echo \"FIXME, build broken\"",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b"
   },

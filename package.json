@@ -25,7 +25,7 @@
   "scripts": {
     "clean": "yarn workspaces foreach run clean",
     "build": "tsc -b tsconfig.packages.json",
-    "test": "yarn workspaces foreach run test",
+    "test": "turbo run test --filter='./packages/*'",
     "lint": "eslint packages --ext js,jsx,ts,tsx",
     "format": "prettier --write .",
     "changeset": "changeset",
