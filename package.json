@@ -33,13 +33,6 @@
     "release": "yarn build && yarn changeset publish",
     "postinstall": "husky install"
   },
-  "workspaces": {
-    "packages": [
-      "./packages/*",
-      "./examples/*",
-      "./website"
-    ]
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
     "*.{js,jsx,ts,tsx,md,html,css,json}": "prettier --write"

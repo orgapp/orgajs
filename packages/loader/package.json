@@ -22,7 +22,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "yarn clean && yarn compile",
+    "build": "pnpm clean && pnpm compile",
     "test": "node --test --no-warnings --loader tsx tests/**/*.test.ts",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b"

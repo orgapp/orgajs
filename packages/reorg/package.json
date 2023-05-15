@@ -16,7 +16,7 @@
     "directory": "packages/reorg"
   },
   "scripts": {
-    "build": "yarn clean && yarn compile",
+    "build": "pnpm clean && pnpm compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b"
   },
@@ -25,6 +25,7 @@
     "unified": "^10.1.2"
   },
   "devDependencies": {
+    "@types/unist": "^2.0.6",
     "del-cli": "^5.0.0"
   }
 }

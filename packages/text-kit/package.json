@@ -19,7 +19,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "yarn clean && yarn compile",
+    "build": "pnpm clean && pnpm compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "test": "node --test --no-warnings --loader tsx src/**/*.test.ts",
     "compile": "tsc -b"

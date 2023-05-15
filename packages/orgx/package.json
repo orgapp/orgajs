@@ -17,7 +17,7 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "build": "yarn clean && yarn compile",
+    "build": "pnpm clean && pnpm compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "test": "node --test --no-warnings --loader tsx tests/**/*.test.ts",
     "compile": "tsc -b"
@@ -27,6 +27,7 @@
     "@types/estree-jsx": "^1.0.0",
     "@types/hast": "^2.3.4",
     "@types/node": "^20.1.0",
+    "@types/react": "^18.2.6",
     "del-cli": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -43,6 +44,7 @@
     "estree-walker": "3.0.3",
     "hast-util-to-estree": "^2.3.2",
     "periscopic": "2.0.3",
+    "source-map": "^0.7.4",
     "unified": "^10.1.2",
     "unist-util-position-from-estree": "^1.1.2",
     "unist-util-stringify-position": "^3.0.3",

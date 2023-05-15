@@ -34,7 +34,7 @@
     "gatsby": "^3.0.0"
   },
   "scripts": {
-    "build": "yarn clean && yarn compile",
+    "build": "pnpm clean && pnpm compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b"
   },

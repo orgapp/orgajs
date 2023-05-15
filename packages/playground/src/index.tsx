@@ -56,6 +56,7 @@ const Playground: FC<Props> = ({ runtime, onChange, style = {}, children }) => {
     if (monaco) {
       monaco.languages.register({ id: 'org-mode' })
       monaco.languages.setMonarchTokensProvider('org-mode', {
+        //@ts-ignore FIXME
         tokenizer,
       })
     }
