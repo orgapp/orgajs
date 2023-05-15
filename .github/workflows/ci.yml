@@ -21,8 +21,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.0.0
       - name: run unit tests
         run: |
-          yarn install
-          yarn build
-          yarn test
+          pnpm install
+          pnpm test
