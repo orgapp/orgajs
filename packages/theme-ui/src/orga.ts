@@ -167,7 +167,7 @@ const createComponents = (comps: OrgaProviderComponents) => {
   const componentKeys = Object.keys(comps) as Array<keyof IntrinsicSxElements>
 
   componentKeys.forEach((key) => {
-    (next[key] as ThemedComponentsDict[typeof key]) = styled<any>(comps[key])(
+    next[key] = styled<any>(comps[key])(
       themed(key)
     ) as ThemedComponentsDict[typeof key]
   })
@@ -181,6 +181,7 @@ export const OrgaProvider: FC<OrgaProviderProps> = ({
   const outer = useOrgaComponents({}) as OrgaProviderComponents
   return jsx(_OrgaProvider, {
     components: createComponents({ ...outer, ...components }),
+    // @ts-ignore
     children,
   })
 }
