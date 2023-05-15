@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
-const Layout: FC<{ title: string }> = ({ children, title }) => {
+function Layout({ children, title }: { title: string; children: ReactNode }) {
   return (
     <div style={{ maxWidth: 700, margin: '0 auto' }}>
       <h1>{title || 'Next + Orga'}</h1>

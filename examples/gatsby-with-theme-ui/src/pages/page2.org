@@ -1,5 +1,0 @@
-#+TITLE: Page2
-
-This is another page generated from =org-mode= file.
-
-[[file:index.org][go back]]

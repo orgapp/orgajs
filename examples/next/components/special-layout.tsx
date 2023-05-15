@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
-const Layout: FC = ({ children }) => {
+function Layout({ children }: { children: ReactNode }) {
   return (
     <div style={{ background: '#fdffff', color: '#233d5c' }}>
       <div
