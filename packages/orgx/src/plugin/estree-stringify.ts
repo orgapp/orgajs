@@ -19,7 +19,6 @@ export function estreeStringify(options: Options) {
     const result = SourceMapGenerator
       ? toJs(tree, {
           filePath: file.path || 'unknown.org',
-          // @ts-expect-error: `SourceMapGenerator` is a class.
           SourceMapGenerator,
           handlers: jsx,
         })

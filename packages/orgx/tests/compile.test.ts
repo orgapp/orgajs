@@ -1,5 +1,5 @@
 import { describe, it } from 'node:test'
-import assert from 'node:assert'
+import * as assert from 'node:assert'
 import { compile } from '../src/compile'
 
 const fixture = `

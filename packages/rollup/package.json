@@ -1,0 +1,57 @@
+{
+  "name": "@orgajs/rollup",
+  "version": "1.0.0",
+  "description": "Rollup plugin for Orga",
+  "license": "MIT",
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts"
+  ],
+  "main": "dist/index.js",
+  "type": "module",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+  "homepage": "https://orga.js.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orgapp/orgajs.git",
+    "directory": "packages/rollup"
+  },
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "clean": "del ./dist tsconfig.tsbuildinfo",
+    "test": "ava",
+    "compile": "tsc -b"
+  },
+  "ava": {
+    "typescript": {
+      "extensions": [
+        "ts",
+        "tsx"
+      ],
+      "rewritePaths": {
+        "src/": "dist/"
+      },
+      "compile": "tsc"
+    }
+  },
+  "devDependencies": {
+    "@ava/typescript": "^4.0.0",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "ava": "^5.2.0",
+    "del-cli": "^3.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^3.21.7",
+    "typescript": "^5.0.4"
+  },
+  "peerDependencies": {
+    "rollup": ">=2"
+  },
+  "dependencies": {
+    "@orgajs/orgx": "workspace:^",
+    "@rollup/pluginutils": "^5.0.2",
+    "source-map": "^0.7.4",
+    "vfile": "^5.3.7"
+  }
+}

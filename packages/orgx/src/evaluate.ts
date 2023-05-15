@@ -2,7 +2,7 @@ import type { VFileCompatible } from 'vfile'
 import { compile, compileSync } from './compile.js'
 import { ProcessorOptions } from './processor.js'
 import { OrgaContent } from './types.js'
-import { run, runSync } from './run'
+import { run, runSync } from './run.js'
 
 export interface ExportMap extends Record<string, unknown> {
   default: OrgaContent

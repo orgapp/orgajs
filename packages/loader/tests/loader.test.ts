@@ -1,5 +1,5 @@
 import test from 'node:test'
-import assert from 'node:assert'
+import * as assert from 'node:assert'
 import { compile } from './compiler'
 
 test(
