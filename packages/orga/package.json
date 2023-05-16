@@ -21,12 +21,12 @@
     "compile": "tsc -b"
   },
   "dependencies": {
-    "date-fns": "^2.22.1",
+    "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "text-kit": "3.0.2"
   },
   "devDependencies": {
-    "@types/node": "^20.1.0",
+    "@types/node": "^20.1.5",
     "@types/unist": "^2.0.6",
     "del-cli": "^5.0.0",
     "tsx": "^3.12.7",

@@ -29,20 +29,20 @@
   },
   "dependencies": {
     "@orgajs/orgx": "1.0.8",
-    "loader-utils": "^2.0.0",
-    "schema-utils": "^3.0.0",
+    "loader-utils": "^3.2.1",
     "vfile-reporter": "^7.0.5"
   },
   "devDependencies": {
     "@orgajs/react": "workspace:^",
-    "@types/node": "^20.1.0",
+    "@types/loader-utils": "^2.0.3",
+    "@types/node": "^20.1.5",
     "babel-loader": "^9.1.2",
     "del-cli": "^5.0.0",
     "html-loader": "^4.2.0",
-    "memfs": "^3.2.2",
+    "memfs": "^3.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsx": "^3.12.7",
-    "webpack": "^5.82.0"
+    "webpack": "^5.82.1"
   }
 }

@@ -24,7 +24,7 @@
     "orga": "3.2.1"
   },
   "devDependencies": {
-    "del-cli": "^3.0.1",
+    "del-cli": "^5.0.0",
     "typescript": "^5.0.4",
     "unified": "^10.1.2"
   }
