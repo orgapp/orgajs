@@ -21,7 +21,7 @@
     "compile": "tsc -b"
   },
   "dependencies": {
-    "orga": "3.2.1"
+    "orga": "workspace:^"
   },
   "devDependencies": {
     "del-cli": "^5.0.0",

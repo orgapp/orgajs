@@ -23,7 +23,7 @@
   "dependencies": {
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
-    "text-kit": "3.0.2"
+    "text-kit": "workspace:^"
   },
   "devDependencies": {
     "@types/node": "^20.1.5",

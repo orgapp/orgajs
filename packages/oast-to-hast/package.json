@@ -13,7 +13,7 @@
   "dependencies": {
     "hast-util-from-parse5": "^7.1.2",
     "mime": "^3.0.0",
-    "orga": "3.2.1",
+    "orga": "workspace:^",
     "parse5": "^7.1.2",
     "prismjs": "^1.17.1",
     "unist-builder": "^3.0.1"

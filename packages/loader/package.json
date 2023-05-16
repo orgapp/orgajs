@@ -28,7 +28,7 @@
     "compile": "tsc -b"
   },
   "dependencies": {
-    "@orgajs/orgx": "1.0.8",
+    "@orgajs/orgx": "workspace:^",
     "loader-utils": "^3.2.1",
     "vfile-reporter": "^7.0.5"
   },

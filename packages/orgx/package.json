@@ -34,8 +34,8 @@
     "tsx": "^3.12.7"
   },
   "dependencies": {
-    "@orgajs/reorg-parse": "3.1.7",
-    "@orgajs/reorg-rehype": "3.0.10",
+    "@orgajs/reorg-parse": "workspace:^",
+    "@orgajs/reorg-rehype": "workspace:^",
     "acorn": "^8.5.0",
     "acorn-jsx": "^5.3.2",
     "astring": "^1.7.5",
