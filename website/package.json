@@ -1,48 +1,28 @@
 {
   "name": "@orgajs/website",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "3.1.11",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
   "dependencies": {
-    "@orgajs/playground": "3.1.11",
-    "@theme-ui/preset-funk": "^0.11.2",
-    "babel-preset-gatsby": "^1.10.0",
-    "gatsby": "^3.14.3",
-    "gatsby-source-filesystem": "^3.14.0",
-    "gatsby-theme-orga-docs": "3.1.11",
-    "gh-pages": "^3.2.3",
-    "howler": "^2.2.3",
-    "prism-react-renderer": "^1.2.1",
-    "prop-types": "^15.7.2",
-    "query-string": "^7.0.1",
     "react": "^18.2.0",
-    "react-copy-to-clipboard": "^5.0.3",
-    "react-dom": "^18.2.0",
-    "react-helmet": "^6.1.0",
-    "react-icons": "^4.2.0",
-    "react-spring": "^9.2.4"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "prettier": "2.2.1"
-  },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop -H 0.0.0.0",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve -H 0.0.0.0",
-    "deploy": "gatsby build && gh-pages -d public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@vitejs/plugin-react": "^4.0.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
   }
 }

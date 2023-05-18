@@ -1020,6 +1020,46 @@ importers:
         specifier: ^0.11.2
         version: 0.11.3(react@18.2.0)
 
+  website:
+    dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@types/react':
+        specifier: ^18.0.28
+        version: 18.2.6
+      '@types/react-dom':
+        specifier: ^18.0.11
+        version: 18.2.4
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^5.57.1
+        version: 5.59.6(@typescript-eslint/parser@5.59.6)(eslint@8.40.0)(typescript@5.0.4)
+      '@typescript-eslint/parser':
+        specifier: ^5.57.1
+        version: 5.59.6(eslint@8.40.0)(typescript@5.0.4)
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.0.0(vite@4.3.2)
+      eslint:
+        specifier: ^8.38.0
+        version: 8.40.0
+      eslint-plugin-react-hooks:
+        specifier: ^4.6.0
+        version: 4.6.0(eslint@8.40.0)
+      eslint-plugin-react-refresh:
+        specifier: ^0.3.4
+        version: 0.3.4(eslint@8.40.0)
+      typescript:
+        specifier: ^5.0.2
+        version: 5.0.4
+      vite:
+        specifier: ^4.3.2
+        version: 4.3.2
+
 packages:
 
   /@ampproject/remapping@2.2.1:
@@ -1986,6 +2026,26 @@ packages:
     dependencies:
       '@babel/core': 7.21.8
       '@babel/plugin-transform-react-jsx': 7.21.5(@babel/core@7.21.8)
+
+  /@babel/plugin-transform-react-jsx-self@7.21.0(@babel/core@7.21.8):
+    resolution: {integrity: sha512-f/Eq+79JEu+KUANFks9UZCcvydOOGMgF7jBrcwjHa5jTZD8JivnhCJYvmlhR/WTXBWonDExPoW0eO/CR4QJirA==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.21.8
+      '@babel/helper-plugin-utils': 7.21.5
+    dev: true
+
+  /@babel/plugin-transform-react-jsx-source@7.19.6(@babel/core@7.21.8):
+    resolution: {integrity: sha512-RpAi004QyMNisst/pvSanoRdJ4q+jMCWyk9zdw/CyLB9j8RXEahodR6l2GyttDRyEVWZtbN+TpLiHJ3t34LbsQ==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.21.8
+      '@babel/helper-plugin-utils': 7.21.5
+    dev: true
 
   /@babel/plugin-transform-react-jsx@7.21.5(@babel/core@7.21.8):
     resolution: {integrity: sha512-ELdlq61FpoEkHO6gFRpfj0kUgSwQTGoaEU8eMRoS8Dv3v6e7BjEAj5WMtIBRdHUeAioMhKP5HyxNzNnP+heKbA==}
@@ -4457,7 +4517,7 @@ packages:
   /@types/reach__router@1.3.11:
     resolution: {integrity: sha512-j23ChnIEiW8aAP4KT8OVyTXOFr+Ri65BDnwzmfHFO9WHypXYevHFjeil1Cj7YH3emfCE924BwAmgW4hOv7Wg3g==}
     dependencies:
-      '@types/react': 17.0.59
+      '@types/react': 18.2.6
 
   /@types/react-dom@17.0.20:
     resolution: {integrity: sha512-4pzIjSxDueZZ90F52mU3aPoogkHIoSIDG+oQ+wQK7Cy2B9S+MvOqY0uEA/qawKz381qrEDkvpwyt8Bm31I8sbA==}
@@ -4498,7 +4558,6 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
-    dev: true
 
   /@types/responselike@1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
@@ -4864,6 +4923,21 @@ packages:
     resolution: {integrity: sha512-vizrI18v8Lcb1PmNNUBz7yxPxxXoOeuaVEjTG9MjvDrphjiSxFZrRJ5tIghk+qdLFRCXI5HBCshgobftbmrC5g==}
     dependencies:
       resolve: 1.22.3
+
+  /@vitejs/plugin-react@4.0.0(vite@4.3.2):
+    resolution: {integrity: sha512-HX0XzMjL3hhOYm+0s95pb0Z7F8O81G7joUHgfDd/9J/ZZf5k4xX6QAMFkKsHFxaHlf6X7GD7+XuaZ66ULiJuhQ==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      vite: ^4.2.0
+    dependencies:
+      '@babel/core': 7.21.8
+      '@babel/plugin-transform-react-jsx-self': 7.21.0(@babel/core@7.21.8)
+      '@babel/plugin-transform-react-jsx-source': 7.19.6(@babel/core@7.21.8)
+      react-refresh: 0.14.0
+      vite: 4.3.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
 
   /@webassemblyjs/ast@1.11.6:
     resolution: {integrity: sha512-IN1xI7PwOvLPgjcf180gC1bqn3q/QaOCwYUahIOhbYUu8KA/3tw2RT/T0Gidi1l7Hhj5D/INhJxiICObqpMu4Q==}
@@ -5577,7 +5651,7 @@ packages:
       '@babel/core': 7.21.8
       '@babel/runtime': 7.21.5
       '@babel/types': 7.21.5
-      gatsby: 3.15.0(@types/node@20.1.0)(babel-eslint@10.1.0)(eslint-import-resolver-typescript@3.5.5)(react-dom@16.9.0)(react@16.9.0)(typescript@5.0.4)
+      gatsby: 3.15.0(@types/node@20.1.0)(babel-eslint@10.1.0)(eslint-import-resolver-typescript@3.5.5)(react-dom@17.0.2)(react@17.0.2)(typescript@5.0.4)
       gatsby-core-utils: 2.15.0
 
   /babel-plugin-syntax-object-rest-spread@6.13.0:
@@ -7979,6 +8053,14 @@ packages:
     dependencies:
       eslint: 8.40.0
 
+  /eslint-plugin-react-refresh@0.3.4(eslint@8.40.0):
+    resolution: {integrity: sha512-E0ViBglxSQAERBp6eTj5fPgtCRtDonnbCFiVQBhf4Dto2blJRxg1dFUMdMh7N6ljTI4UwPhHwYDQ3Dyo4m6bwA==}
+    peerDependencies:
+      eslint: '>=7'
+    dependencies:
+      eslint: 8.40.0
+    dev: true
+
   /eslint-plugin-react@7.32.2(eslint@8.39.0):
     resolution: {integrity: sha512-t2fBMa+XzonrrNkyVirzKlvn5RXzzPwRHtMvLAtVZrt8oxgnTQaYbU6SXTOO1mwQgp1y5+toMSKInnzGr0Knqg==}
     engines: {node: '>=4'}
@@ -9085,7 +9167,7 @@ packages:
       chokidar: 3.5.3
       fs-exists-cached: 1.0.0
       fs-extra: 10.1.0
-      gatsby: 3.15.0(@types/node@20.1.0)(babel-eslint@10.1.0)(eslint-import-resolver-typescript@3.5.5)(react-dom@16.9.0)(react@16.9.0)(typescript@5.0.4)
+      gatsby: 3.15.0(@types/node@20.1.0)(babel-eslint@10.1.0)(eslint-import-resolver-typescript@3.5.5)(react-dom@17.0.2)(react@17.0.2)(typescript@5.0.4)
       gatsby-core-utils: 2.15.0
       gatsby-page-utils: 1.15.0
       gatsby-plugin-utils: 1.15.0(gatsby@3.15.0)(graphql@15.8.0)
@@ -9151,7 +9233,7 @@ packages:
       '@babel/preset-typescript': 7.21.5(@babel/core@7.21.8)
       '@babel/runtime': 7.21.5
       babel-plugin-remove-graphql-queries: 3.15.0(@babel/core@7.21.8)(gatsby@3.15.0)
-      gatsby: 3.15.0(@types/node@20.1.0)(babel-eslint@10.1.0)(eslint-import-resolver-typescript@3.5.5)(react-dom@16.9.0)(react@16.9.0)(typescript@5.0.4)
+      gatsby: 3.15.0(@types/node@20.1.0)(babel-eslint@10.1.0)(eslint-import-resolver-typescript@3.5.5)(react-dom@17.0.2)(react@17.0.2)(typescript@5.0.4)
     transitivePeerDependencies:
       - supports-color
 
@@ -9164,7 +9246,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.21.5
       fastq: 1.15.0
-      gatsby: 3.15.0(@types/node@20.1.0)(babel-eslint@10.1.0)(eslint-import-resolver-typescript@3.5.5)(react-dom@16.9.0)(react@16.9.0)(typescript@5.0.4)
+      gatsby: 3.15.0(@types/node@20.1.0)(babel-eslint@10.1.0)(eslint-import-resolver-typescript@3.5.5)(react-dom@17.0.2)(react@17.0.2)(typescript@5.0.4)
       graphql: 15.8.0
       joi: 17.9.2
 
@@ -13807,6 +13889,11 @@ packages:
   /react-lifecycles-compat@3.0.4:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
 
+  /react-refresh@0.14.0:
+    resolution: {integrity: sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
   /react-refresh@0.9.0:
     resolution: {integrity: sha512-Gvzk7OZpiqKSkxsQvO/mbTN1poglhmAV7gR/DdIrRrSMXraRQQlfikRJOr3Nb9GTMPC5kof948Zy6jJZIFtDvQ==}
     engines: {node: '>=0.10.0'}
@@ -16179,6 +16266,38 @@ packages:
       is-buffer: 2.0.5
       unist-util-stringify-position: 3.0.3
       vfile-message: 3.1.4
+
+  /vite@4.3.2:
+    resolution: {integrity: sha512-9R53Mf+TBoXCYejcL+qFbZde+eZveQLDYd9XgULILLC1a5ZwPaqgmdVpL8/uvw2BM/1TzetWjglwm+3RO+xTyw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.17.19
+      postcss: 8.4.23
+      rollup: 3.21.7
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
 
   /vscode-oniguruma@1.7.0:
     resolution: {integrity: sha512-L9WMGRfrjOhgHSdOYgCt/yRMsXzLDJSL7BPrOZt73gU0iWO4mpqzqQzOz5srxqTvMBaR0XZTSrVWo4j55Rc6cA==}
