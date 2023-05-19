@@ -1,0 +1,30 @@
+{
+  "name": "@orgajs/astro",
+  "description": "Add support for org-mode pages in your Astro site",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "astro-integration"
+  ],
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:orgapp/orgajs.git",
+    "directory": "packages/astro"
+  },
+  "dependencies": {
+    "@orgajs/metadata": "workspace:1.0.2",
+    "@orgajs/rollup": "workspace:^"
+  },
+  "devDependencies": {
+    "astro": "^2.4.1"
+  }
+}
