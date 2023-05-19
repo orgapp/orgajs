@@ -4,7 +4,7 @@ import { promises as fs } from 'fs'
 import webpack from 'webpack'
 import { fileURLToPath } from 'url'
 
-export async function compile(fixture: string, options = {}) {
+export async function compile(fixture, options = {}) {
   const base = new URL('.', import.meta.url)
 
   const result = await promisify(webpack)({

@@ -3,13 +3,13 @@
   "version": "3.1.10",
   "description": "Load org-mode content through orga.",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./index.cjs"
-    }
-  },
-  "types": "./dist/index.d.ts",
+  "main": "./index.cjs",
+  "types": "index.d.ts",
+  "files": [
+    "lib/",
+    "index.cjs",
+    "index.d.ts"
+  ],
   "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/loader#readme",
@@ -18,31 +18,22 @@
     "url": "https://github.com/orgapp/orgajs.git",
     "directory": "packages/loader"
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "test": "node --test --no-warnings --loader tsx tests/*.test.ts",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b"
+    "test": "node --test tests/*.test.js"
   },
   "dependencies": {
     "@orgajs/orgx": "workspace:^",
-    "loader-utils": "^3.2.1",
     "vfile-reporter": "^7.0.5"
   },
   "devDependencies": {
     "@orgajs/react": "workspace:^",
-    "@types/loader-utils": "^2.0.3",
-    "@types/node": "^20.1.5",
+    "@types/node": "^20.2.1",
     "babel-loader": "^9.1.2",
     "del-cli": "^5.0.0",
     "html-loader": "^4.2.0",
     "memfs": "^3.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tsx": "^3.12.7",
-    "webpack": "^5.82.1"
+    "webpack": "^5.83.1"
   }
 }

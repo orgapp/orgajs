@@ -1,4 +1,4 @@
-// stolen code from @jdx-js/loader
+// stolen code from @mdx-js/loader
 
 /**
  * Webpack loader
@@ -11,7 +11,7 @@
 module.exports = function (code) {
   const callback = this.async()
   // Note that `import()` caches, so this should be fast enough.
-  import('./dist/loader.js').then((module) =>
+  import('./lib/index.js').then((module) =>
     module.loader.call(this, code, callback)
   )
 }
