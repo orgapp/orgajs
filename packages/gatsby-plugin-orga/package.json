@@ -17,29 +17,25 @@
     "*.js",
     "*.jsx"
   ],
-  "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b"
-  },
+  "scripts": {},
   "peerDependencies": {
-    "gatsby": "^3.0.0",
-    "gatsby-plugin-sharp": "*",
-    "react": "^16.9.0 || ^17.0.0",
-    "react-dom": "^16.9.0 || ^17.0.0"
+    "gatsby": "^5.0.0-next",
+    "gatsby-source-filesystem": "^5.0.0-next",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "dependencies": {
     "@orgajs/estree-jsx": "3.0.2",
-    "@orgajs/loader": "^3.1.10",
-    "@orgajs/metadata": "1.0.2",
-    "@orgajs/orgx": "1.0.8",
+    "@orgajs/loader": "workspace:^",
+    "@orgajs/metadata": "workspace:*",
+    "@orgajs/orgx": "workspace:*",
     "@orgajs/react": "^3.0.1",
     "@orgajs/rehype-latex": "1.0.2",
     "astring": "^1.7.5",
     "dataloader": "^2.0.0",
     "estree-walker": "3.0.3",
     "fs-extra": "^10.0.0",
-    "gatsby-core-utils": "^2.14.0",
+    "gatsby-core-utils": "^2.15.0",
     "gatsby-plugin-page-creator": "^3.14.0",
     "loader-utils": "^2.0.0",
     "lodash": "^4.17.21"
