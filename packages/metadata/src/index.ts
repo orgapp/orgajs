@@ -49,12 +49,10 @@ const pushTo = (data: Metadata) => (_key: string, _value: string) => {
   return data
 }
 
-const parse = (text: string) => {
+export const parse = (text: string) => {
   const matches = text.matchAll(/^\s*#\+(\S+):(.*)$/gm)
   return [...matches].reduce((data, [, key, value]) => {
     if (shouldDiscard(key)) return data
     return pushTo(data)(key, value)
   }, {} as Metadata)
 }
-
-export default parse

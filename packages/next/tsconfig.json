@@ -7,8 +7,7 @@
   "references": [
     { "path": "../rehype-estree" },
     { "path": "../reorg-rehype" },
-    { "path": "../estree-jsx" },
-    { "path": "../loader" }
+    { "path": "../estree-jsx" }
   ],
   "include": ["./src"]
 }

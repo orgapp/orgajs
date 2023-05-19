@@ -9,7 +9,6 @@
     { "path": "packages/reorg-rehype" },
     { "path": "packages/rehype-estree" },
     { "path": "packages/estree-jsx" },
-    { "path": "packages/loader" },
     { "path": "packages/next" },
     { "path": "packages/react" },
     { "path": "packages/gatsby-plugin-orga" },

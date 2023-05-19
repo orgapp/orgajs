@@ -19,9 +19,8 @@ export default function (
 ): Plugin {
   const { include, exclude, ...rest } = options || {}
   const processor = createProcessor({
-    // SourceMapGenerator,
-    ...rest,
     SourceMapGenerator,
+    ...rest,
   })
   const filter = createFilter(include, exclude)
 
@@ -30,7 +29,7 @@ export default function (
     async transform(value, path) {
       const file = new VFile({ value, path })
 
-      if (file.extname && filter(file.path)) {
+      if (file.extname === '.org' && filter(file.path)) {
         const compiled = await processor.process(file)
         const code = String(compiled.value)
         const result: SourceDescription = { code, map: compiled.map }

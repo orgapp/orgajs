@@ -5,7 +5,7 @@
  * }} SetupHookParams
  */
 import orga from '@orgajs/rollup'
-import parseMetadata from '@orgajs/metadata'
+import { parse as parseMetadata } from '@orgajs/metadata'
 
 /**
  * @returns {import('astro').AstroIntegration}

@@ -1,4 +1,4 @@
-import type { ProcessorOptions as LoaderOptions } from '@orgajs/loader'
+import type { Options as LoaderOptions } from '@orgajs/loader'
 
 export interface Options extends LoaderOptions {
   extension: RegExp
