@@ -15,11 +15,8 @@
     { "path": "packages/gatsby-plugin-orga" },
     { "path": "packages/gatsby-transformer-orga" },
     { "path": "packages/orga-posts" },
-    { "path": "packages/orga-theme-ui-preset" },
     { "path": "packages/playground" },
-    { "path": "packages/reorg-shiki" },
     { "path": "packages/metadata" },
-    { "path": "packages/theme-ui" },
     { "path": "packages/orgx" },
     { "path": "packages/rehype-latex" },
     { "path": "packages/rollup" }
