@@ -23,6 +23,6 @@
     "@orgajs/rollup": "workspace:^"
   },
   "devDependencies": {
-    "astro": "^2.4.1"
+    "astro": "^2.5.0"
   }
 }

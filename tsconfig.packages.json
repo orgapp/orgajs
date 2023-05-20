@@ -11,7 +11,6 @@
     { "path": "packages/estree-jsx" },
     { "path": "packages/next" },
     { "path": "packages/react" },
-    { "path": "packages/gatsby-plugin-orga" },
     { "path": "packages/gatsby-transformer-orga" },
     { "path": "packages/orga-posts" },
     { "path": "packages/playground" },

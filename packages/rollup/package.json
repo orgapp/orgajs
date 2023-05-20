@@ -36,14 +36,14 @@
   },
   "devDependencies": {
     "@ava/typescript": "^4.0.0",
-    "@types/node": "^20.1.4",
+    "@types/node": "^20.2.1",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "ava": "^5.2.0",
     "del-cli": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollup": "^3.21.7",
+    "rollup": "^3.22.0",
     "typescript": "^5.0.4"
   },
   "peerDependencies": {

@@ -22,7 +22,7 @@
     "compile": "tsc -b"
   },
   "devDependencies": {
-    "@types/node": "^20.1.5",
+    "@types/node": "^20.2.1",
     "del-cli": "^5.0.0",
     "tsx": "^3.12.7",
     "typescript": "^5.0.4"

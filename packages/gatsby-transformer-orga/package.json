@@ -41,7 +41,7 @@
   "devDependencies": {
     "@types/fs-extra": "^9.0.12",
     "@types/lodash": "^4.14.172",
-    "@types/node": "^20.1.0",
+    "@types/node": "^20.2.1",
     "@types/unist": "2.0.6",
     "gatsby": "^3.14.3"
   }

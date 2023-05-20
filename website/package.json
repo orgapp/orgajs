@@ -1,28 +1,32 @@
 {
-  "name": "@orgajs/website",
-  "private": true,
-  "version": "0.0.0",
+  "name": "website",
   "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "eslint 'src/**/*.{js,ts,astro}'",
+    "astro": "astro"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@astrojs/react": "^2.2.0",
+    "@orgajs/astro": "workspace:^",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "astro": "^2.5.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.57.1",
-    "@vitejs/plugin-react": "^4.0.0",
-    "eslint": "^8.38.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.3.4",
-    "typescript": "^5.0.2",
-    "vite": "^4.3.2"
+    "@orgajs/orgx": "workspace:^",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "eslint": "^8.41.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-astro": "^0.27.0",
+    "eslint-plugin-disable": "^2.0.3",
+    "eslint-plugin-react-refresh": "^0.4.1"
   }
 }
