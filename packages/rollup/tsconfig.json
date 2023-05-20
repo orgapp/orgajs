@@ -1,9 +1,6 @@
 {
-  "extends": "../../tsconfig.esm.json",
-  "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist"
-  },
-  "references": [{ "path": "../orgx" }],
-  "include": ["./src"]
+  "extends": "../../tsconfig.types.json",
+  "include": ["index.js"],
+  "exclude": ["coverage/", "node_modules/"],
+  "references": [{ "path": "../orgx" }]
 }

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "checkJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es2021"],
+    "module": "node16",
+    "newLine": "lf",
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2021"
+  }
+}

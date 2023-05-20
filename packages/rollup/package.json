@@ -4,10 +4,11 @@
   "description": "Rollup plugin for Orga",
   "license": "MIT",
   "files": [
-    "dist/index.js",
-    "dist/index.d.ts"
+    "index.js",
+    "index.d.ts"
   ],
-  "main": "dist/index.js",
+  "main": "index.js",
+  "types": "index.d.ts",
   "type": "module",
   "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "homepage": "https://orga.js.org",
@@ -17,10 +18,8 @@
     "directory": "packages/rollup"
   },
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "test": "ava",
-    "compile": "tsc -b"
+    "build": "tsc -b",
+    "test": "node --test test.js"
   },
   "ava": {
     "typescript": {
@@ -35,12 +34,9 @@
     }
   },
   "devDependencies": {
-    "@ava/typescript": "^4.0.0",
     "@types/node": "^20.2.1",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
-    "ava": "^5.2.0",
-    "del-cli": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^3.22.0",

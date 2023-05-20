@@ -89,20 +89,15 @@ typings/
 # next.js build output
 .next
 
-dist
 .npmrc
-*.tsbuildinfo
 
 # private
 .archive
 
-# yarn 2
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-.pnp.*
 /.idea
 .vscode
+
+# build artifacts
+dist
+*.tsbuildinfo
+packages/rollup/**/*.d.ts

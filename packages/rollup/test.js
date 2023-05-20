@@ -1,4 +1,5 @@
-import test from 'ava'
+import test from 'node:test'
+import assert from 'node:assert'
 import { promises as fs } from 'fs'
 import { rollup } from 'rollup'
 import { fileURLToPath } from 'url'
@@ -6,7 +7,7 @@ import rollupOrg from './index.js'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { createElement } from 'react'
 
-test('@orgajs/rollup', async (t) => {
+test('@orgajs/rollup', async () => {
   await fs.writeFile(new URL('rollup.org', import.meta.url), '* Hi')
 
   const bundle = await rollup({
@@ -25,7 +26,7 @@ test('@orgajs/rollup', async (t) => {
 
   // t.is(output[0].map ? output[0].map.mappings : undefined, undefined)
 
-  t.is(
+  assert.equal(
     renderToStaticMarkup(createElement(Content)),
     '<div class="section"><h1>Hi</h1></div>'
   )
