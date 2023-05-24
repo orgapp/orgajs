@@ -1,9 +1,16 @@
+/**
+ * @typedef {import('estree-jsx').Identifier} Identifier
+ * @typedef {import('estree-jsx').JSXIdentifier} JSXIdentifier
+ * @typedef {import('estree-jsx').JSXMemberExpression} JSXMemberExpression
+ * @typedef {import('estree-jsx').Literal} Literal
+ * @typedef {import('estree-jsx').MemberExpression} MemberExpression
+ */
+
 import {
   start as esStart,
   cont as esCont,
-  name as isIdentifierName,
+  name as isIdentifierName
 } from 'estree-util-is-identifier-name'
-import type { Literal, Identifier } from 'estree-jsx'
 
 export const toIdOrMemberExpression = toIdOrMemberExpressionFactory(
   'Identifier',
@@ -11,23 +18,29 @@ export const toIdOrMemberExpression = toIdOrMemberExpressionFactory(
   isIdentifierName
 )
 
-export const toJsxIdOrMemberExpression = toIdOrMemberExpressionFactory(
-  'JSXIdentifier',
-  'JSXMemberExpression',
-  isJsxIdentifierName
-)
+export const toJsxIdOrMemberExpression =
+  // @ts-expect-error: fine
+  /** @type {(ids: Array<string | number>) => JSXIdentifier | JSXMemberExpression)} */
+  (
+    toIdOrMemberExpressionFactory(
+      'JSXIdentifier',
+      'JSXMemberExpression',
+      isJsxIdentifierName
+    )
+  )
 
-function toIdOrMemberExpressionFactory(
-  idType: string,
-  memberType: string,
-  isIdentifier: (value: string) => boolean
-) {
+/**
+ * @param {string} idType
+ * @param {string} memberType
+ * @param {(value: string) => boolean} isIdentifier
+ */
+function toIdOrMemberExpressionFactory(idType, memberType, isIdentifier) {
   return toIdOrMemberExpression
   /**
    * @param {Array<string | number>} ids
    * @returns {Identifier | MemberExpression}
    */
-  function toIdOrMemberExpression(ids: (string | number)[]) {
+  function toIdOrMemberExpression(ids) {
     let index = -1
     /** @type {Identifier | Literal | MemberExpression | undefined} */
     let object
@@ -43,21 +56,23 @@ function toIdOrMemberExpressionFactory(
         throw new Error('Cannot turn `' + name + '` into a JSX identifier')
       }
 
+      /** @type {Identifier | Literal} */
       // @ts-expect-error: JSX is fine.
-      const id: Identifier | Literal = valid
-        ? { type: idType, name }
-        : { type: 'Literal', value: name }
+      const id = valid ? {type: idType, name} : {type: 'Literal', value: name}
+      // @ts-expect-error: JSX is fine.
       object = object
         ? {
             type: memberType,
             object,
             property: id,
             computed: id.type === 'Literal',
-            optional: false,
+            optional: false
           }
         : id
     }
 
+    // Just for types.
+    /* c8 ignore next 3 */
     if (!object) throw new Error('Expected non-empty `ids` to be passed')
     if (object.type === 'Literal')
       throw new Error('Expected identifier as left-most value')
@@ -70,7 +85,7 @@ function toIdOrMemberExpressionFactory(
  * Checks if the given string is a valid JSX identifier name.
  * @param {string} name
  */
-function isJsxIdentifierName(name: string) {
+function isJsxIdentifierName(name) {
   let index = -1
 
   while (++index < name.length) {

@@ -2,7 +2,7 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { createElement } from 'react'
-import { evaluate } from '../src/evaluate'
+import { evaluate } from '../lib/evaluate.js'
 import * as runtime from 'react/jsx-runtime'
 
 describe('evaluate', () => {

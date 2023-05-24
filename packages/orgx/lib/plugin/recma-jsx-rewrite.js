@@ -1,69 +1,88 @@
+/**
+ * @typedef {import('estree-jsx').Expression} Expression
+ * @typedef {import('estree-jsx').Function} EstreeFunction
+ * @typedef {import('estree-jsx').Identifier} Identifier
+ * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
+ * @typedef {import('estree-jsx').JSXElement} JSXElement
+ * @typedef {import('estree-jsx').ModuleDeclaration} ModuleDeclaration
+ * @typedef {import('estree-jsx').Node} Node
+ * @typedef {import('estree-jsx').ObjectPattern} ObjectPattern
+ * @typedef {import('estree-jsx').Program} Program
+ * @typedef {import('estree-jsx').Property} Property
+ * @typedef {import('estree-jsx').Statement} Statement
+ * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
+ *
+ * @typedef {import('periscopic').Scope & {node: Node}} Scope
+ */
+
+/**
+ * @typedef RecmaJsxRewriteOptions
+ *   Configuration for internal plugin `recma-jsx-rewrite`.
+ * @property {'function-body' | 'program' | null | undefined} [outputFormat='program']
+ *   Whether to use an import statement or `arguments[0]` to get the provider.
+ * @property {string | null | undefined} [providerImportSource]
+ *   Place to import a provider from.
+ * @property {boolean | null | undefined} [development=false]
+ *   Whether to add extra info to error messages in generated code.
+ *
+ *   This also results in the development automatic JSX runtime
+ *   (`/jsx-dev-runtime`, `jsxDEV`) being used, which passes positional info to
+ *   nodes.
+ *   The default can be set to `true` in Node.js through environment variables:
+ *   set `NODE_ENV=development`.
+ *
+ * @typedef StackEntry
+ * @property {Array<string>} objects
+ * @property {Array<string>} components
+ * @property {Array<string>} tags
+ * @property {Record<string, {node: JSXElement, component: boolean}>} references
+ * @property {Map<string|number, string>} idToInvalidComponentName
+ * @property {EstreeFunction} node
+ */
+
+import { stringifyPosition } from 'unist-util-stringify-position'
+import { positionFromEstree } from 'unist-util-position-from-estree'
 import { name as isIdentifierName } from 'estree-util-is-identifier-name'
 import { walk } from 'estree-walker'
-import { stringifyPosition } from 'unist-util-stringify-position'
-import { analyze, Scope as _Scope } from 'periscopic'
-import type { Plugin } from 'unified'
-import type {
-  Program,
-  Node,
-  Expression,
-  Function as EstreeFunction,
-  Identifier,
-  Statement,
-  ModuleDeclaration,
-  ImportSpecifier,
-} from 'estree-jsx'
+import { analyze } from 'periscopic'
+import { specifiersToDeclarations } from '../util/estree-util-specifiers-to-declarations.js'
 import {
   toIdOrMemberExpression,
   toJsxIdOrMemberExpression,
-} from '../estree/to-id-or-member-expression.js'
-import { positionFromEstree } from 'unist-util-position-from-estree'
-import { toBinaryAddition } from '../estree/to-binary-addition.js'
-import { specifiersToDeclarations } from '../estree/specifiers-to-declarations.js'
-import { CONTENT_NAME, FN_NAME, LAYOUT_NAME } from './estree-document.js'
-
-type Scope = _Scope & {
-  node: Node
-}
-
-type StackEntry = {
-  objects: string[]
-  components: string[]
-  tags: string[]
-  references: Record<string, { node: Node; component: boolean }>
-  idToInvalidComponentName: Map<string, string>
-  node: EstreeFunction
-}
-
-export interface Options {
-  development?: boolean
-  providerImportSource?: string
-  outputFormat?: 'program' | 'function-body'
-}
+} from '../util/estree-util-to-id-or-member-expression.js'
+import { toBinaryAddition } from '../util/estree-util-to-binary-addition.js'
 
 const own = {}.hasOwnProperty
 
 /**
  * A plugin that rewrites JSX in functions to accept components as
- * `props.components` (when the function is called `OrgaContent`), or from
+ * `props.components` (when the function is called `_createOrgContent`), or from
  * a provider (if there is one).
  * It also makes sure that any undefined components are defined: either from
  * received components or as a function that throws an error.
+ *
+ * @type {import('unified').Plugin<[RecmaJsxRewriteOptions | null | undefined] | [], Program>}
  */
-export const estreeJsxRewrite: Plugin<[Options], Program> = (options) => {
+export function recmaJsxRewrite(options) {
+  // Always given inside `@mdx-js/mdx`
+  /* c8 ignore next */
   const { development, providerImportSource, outputFormat } = options || {}
 
   return (tree, file) => {
     // Find everything that’s defined in the top-level scope.
     const scopeInfo = analyze(tree)
-    const fnStack: StackEntry[] = []
+    /** @type {Array<StackEntry>} */
+    const fnStack = []
     let importProvider = false
     let createErrorHelper = false
-    let currentScope: Scope | undefined
+    /** @type {Scope | undefined} */
+    let currentScope
 
     walk(tree, {
       enter(node) {
-        const newScope = scopeInfo.map.get(node) as Scope
+        const newScope = /** @type {Scope | undefined} */ (
+          scopeInfo.map.get(node)
+        )
 
         if (
           node.type === 'FunctionDeclaration' ||
@@ -79,20 +98,21 @@ export const estreeJsxRewrite: Plugin<[Options], Program> = (options) => {
             node,
           })
 
-          // MDXContent only ever contains MDXLayout
+          // OrgContent only ever contains OrgLayout
           if (
-            isNamedFunction(node, CONTENT_NAME) &&
+            isNamedFunction(node, 'OrgContent') &&
             newScope &&
-            !inScope(newScope, LAYOUT_NAME)
+            !inScope(newScope, 'OrgLayout')
           ) {
-            fnStack[0].components.push(LAYOUT_NAME)
+            fnStack[0].components.push('OrgLayout')
           }
         }
 
         const fnScope = fnStack[0]
         if (
           !fnScope ||
-          (!isNamedFunction(fnScope.node, FN_NAME) && !providerImportSource)
+          (!isNamedFunction(fnScope.node, '_createOrgContent') &&
+            !providerImportSource)
         ) {
           return
         }
@@ -123,14 +143,16 @@ export const estreeJsxRewrite: Plugin<[Options], Program> = (options) => {
             const isInScope = inScope(currentScope, id)
 
             if (!own.call(fnScope.references, fullId)) {
-              const parentScope = currentScope.parent as Scope
+              const parentScope = /** @type {Scope | undefined} */ (
+                currentScope.parent
+              )
               if (
                 !isInScope ||
-                // If the parent scope is `_createMdxContent`, then this
+                // If the parent scope is `_createOrgContent`, then this
                 // references a component we can add a check statement for.
                 (parentScope &&
                   parentScope.node.type === 'FunctionDeclaration' &&
-                  isNamedFunction(parentScope.node, FN_NAME))
+                  isNamedFunction(parentScope.node, '_createOrgContent'))
               ) {
                 fnScope.references[fullId] = { node, component: true }
               }
@@ -154,7 +176,7 @@ export const estreeJsxRewrite: Plugin<[Options], Program> = (options) => {
             if (!inScope(currentScope, id)) {
               // No need to add an error for an undefined layout — we use an
               // `if` later.
-              if (id !== LAYOUT_NAME && !own.call(fnScope.references, id)) {
+              if (id !== 'OrgLayout' && !own.call(fnScope.references, id)) {
                 fnScope.references[id] = { node, component: true }
               }
 
@@ -266,11 +288,11 @@ export const estreeJsxRewrite: Plugin<[Options], Program> = (options) => {
               })
             }
 
-            // Accept `components` as a prop if this is the `MDXContent` or
-            // `_createMdxContent` function.
+            // Accept `components` as a prop if this is the `OrgContent` or
+            // `_createOrgContent` function.
             if (
-              isNamedFunction(scope.node, CONTENT_NAME) ||
-              isNamedFunction(scope.node, FN_NAME)
+              isNamedFunction(scope.node, 'OrgContent') ||
+              isNamedFunction(scope.node, '_createOrgContent')
             ) {
               parameters.push(toIdOrMemberExpression(['props', 'components']))
             }
@@ -307,11 +329,11 @@ export const estreeJsxRewrite: Plugin<[Options], Program> = (options) => {
             let componentsPattern
 
             // Add components to scope.
-            // For `['MyComponent', 'MDXLayout']` this generates:
+            // For `['MyComponent', 'OrgLayout']` this generates:
             // ```js
-            // const {MyComponent, wrapper: MDXLayout} = _components
+            // const {MyComponent, wrapper: OrgLayout} = _components
             // ```
-            // Note that MDXLayout is special as it’s taken from
+            // Note that OrgLayout is special as it’s taken from
             // `_components.wrapper`.
             if (actual.length > 0) {
               componentsPattern = {
@@ -321,11 +343,11 @@ export const estreeJsxRewrite: Plugin<[Options], Program> = (options) => {
                   kind: 'init',
                   key: {
                     type: 'Identifier',
-                    name: name === LAYOUT_NAME ? 'wrapper' : name,
+                    name: name === 'OrgLayout' ? 'wrapper' : name,
                   },
                   value: { type: 'Identifier', name },
                   method: false,
-                  shorthand: name !== LAYOUT_NAME,
+                  shorthand: name !== 'OrgLayout',
                   computed: false,
                 })),
               }
@@ -340,7 +362,7 @@ export const estreeJsxRewrite: Plugin<[Options], Program> = (options) => {
               componentsInit = { type: 'Identifier', name: '_components' }
             }
 
-            if (isNamedFunction(scope.node, FN_NAME)) {
+            if (isNamedFunction(scope.node, '_createOrgContent')) {
               for (const [
                 id,
                 componentName,
@@ -466,7 +488,8 @@ export const estreeJsxRewrite: Plugin<[Options], Program> = (options) => {
 
     // If potentially missing components are used.
     if (createErrorHelper) {
-      const message: Expression[] = [
+      /** @type {Array<Expression>} */
+      const message = [
         { type: 'Literal', value: 'Expected ' },
         {
           type: 'ConditionalExpression',
@@ -483,7 +506,8 @@ export const estreeJsxRewrite: Plugin<[Options], Program> = (options) => {
         },
       ]
 
-      const parameters: Identifier[] = [
+      /** @type {Array<Identifier>} */
+      const parameters = [
         { type: 'Identifier', name: 'id' },
         { type: 'Identifier', name: 'component' },
       ]
@@ -530,14 +554,17 @@ export const estreeJsxRewrite: Plugin<[Options], Program> = (options) => {
   }
 }
 
-function createImportProvider(
-  providerImportSource: string,
-  outputFormat: Options['outputFormat']
-): Statement | ModuleDeclaration {
-  const specifiers: ImportSpecifier[] = [
+/**
+ * @param {string} providerImportSource
+ * @param {RecmaJsxRewriteOptions['outputFormat']} outputFormat
+ * @returns {Statement | ModuleDeclaration}
+ */
+function createImportProvider(providerImportSource, outputFormat) {
+  /** @type {Array<ImportSpecifier>} */
+  const specifiers = [
     {
       type: 'ImportSpecifier',
-      imported: { type: 'Identifier', name: 'useOrgaComponents' },
+      imported: { type: 'Identifier', name: 'useMDXComponents' },
       local: { type: 'Identifier', name: '_provideComponents' },
     },
   ]
@@ -558,11 +585,22 @@ function createImportProvider(
       }
 }
 
-function isNamedFunction(node: EstreeFunction, name: string) {
+/**
+ * @param {EstreeFunction} node
+ * @param {string} name
+ * @returns {boolean}
+ */
+function isNamedFunction(node, name) {
   return Boolean(node && 'id' in node && node.id && node.id.name === name)
 }
 
-function inScope(scope: Scope, id: string) {
+/**
+ * @param {Scope} scope
+ * @param {string} id
+ * @returns {boolean}
+ */
+function inScope(scope, id) {
+  /** @type {Scope | undefined} */
   let currentScope = scope
 
   while (currentScope) {
@@ -570,7 +608,8 @@ function inScope(scope: Scope, id: string) {
       return true
     }
 
-    currentScope = currentScope.parent as Scope
+    // @ts-expect-error: `node`s have been added when entering.
+    currentScope = currentScope.parent
   }
 
   return false

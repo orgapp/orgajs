@@ -1,4 +1,10 @@
-export default (error: SyntaxError, bg = '#F44336', color = 'white') => {
+/**
+ * @param {SyntaxError} error
+ * @param {string} bg
+ * @param {string} color
+ * @returns {import('estree-jsx').Program}
+ */
+export default (error, bg = '#F44336', color = 'white') => {
   return {
     type: 'Program',
     body: [

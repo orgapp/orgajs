@@ -2,7 +2,6 @@
   "name": "@orgajs/orgx",
   "version": "1.0.8",
   "description": "orga compiler with jsx support",
-  "type": "module",
   "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/orgx#readme",
@@ -11,16 +10,20 @@
     "url": "https://github.com/orgapp/orgajs.git",
     "directory": "packages/orgx"
   },
-  "files": [
-    "dist",
-    "types.d.ts"
-  ],
+  "type": "module",
   "main": "dist/index.js",
+  "types": "index.d.ts",
+  "browser": {
+    "./lib/condition.js": "./lib/condition.browser.js"
+  },
+  "files": [
+    "lib",
+    "index.d.ts",
+    "index.js"
+  ],
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "test": "node --test --no-warnings --loader tsx tests/*.test.ts",
-    "compile": "tsc -b"
+    "build": "tsc --build --clean && tsc --build",
+    "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
     "@types/estree": "^1.0.1",
@@ -43,7 +46,7 @@
     "estree-util-is-identifier-name": "2.1.0",
     "estree-util-to-js": "^1.2.0",
     "estree-walker": "3.0.3",
-    "hast-util-to-estree": "^2.3.2",
+    "hast-util-to-estree": "^2.3.3",
     "periscopic": "3.1.0",
     "source-map": "^0.7.4",
     "unified": "^10.1.2",

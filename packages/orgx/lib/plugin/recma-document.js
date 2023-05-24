@@ -1,64 +1,75 @@
+/**
+ * @typedef {import('estree-jsx').Directive} Directive
+ * @typedef {import('estree-jsx').ExportAllDeclaration} ExportAllDeclaration
+ * @typedef {import('estree-jsx').ExportDefaultDeclaration} ExportDefaultDeclaration
+ * @typedef {import('estree-jsx').ExportNamedDeclaration} ExportNamedDeclaration
+ * @typedef {import('estree-jsx').ExportSpecifier} ExportSpecifier
+ * @typedef {import('estree-jsx').Expression} Expression
+ * @typedef {import('estree-jsx').FunctionDeclaration} FunctionDeclaration
+ * @typedef {import('estree-jsx').ImportDeclaration} ImportDeclaration
+ * @typedef {import('estree-jsx').ImportDefaultSpecifier} ImportDefaultSpecifier
+ * @typedef {import('estree-jsx').ImportExpression} ImportExpression
+ * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
+ * @typedef {import('estree-jsx').Literal} Literal
+ * @typedef {import('estree-jsx').JSXElement} JSXElement
+ * @typedef {import('estree-jsx').ModuleDeclaration} ModuleDeclaration
+ * @typedef {import('estree-jsx').Node} Node
+ * @typedef {import('estree-jsx').Program} Program
+ * @typedef {import('estree-jsx').Property} Property
+ * @typedef {import('estree-jsx').SimpleLiteral} SimpleLiteral
+ * @typedef {import('estree-jsx').SpreadElement} SpreadElement
+ * @typedef {import('estree-jsx').Statement} Statement
+ * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
+ */
+
+/**
+ * @typedef RecmaDocumentOptions
+ *   Configuration for internal plugin `recma-document`.
+ * @property {'function-body' | 'program' | null | undefined} [outputFormat='program']
+ *   Whether to use either `import` and `export` statements to get the runtime
+ *   (and optionally provider) and export the content, or get values from
+ *   `arguments` and return things.
+ * @property {boolean | null | undefined} [useDynamicImport=false]
+ *   Whether to keep `import` (and `export … from`) statements or compile them
+ *   to dynamic `import()` instead.
+ * @property {string | null | undefined} [baseUrl]
+ *   Resolve `import`s (and `export … from`, and `import.meta.url`) relative to
+ *   this URL.
+ * @property {string | null | undefined} [pragma='React.createElement']
+ *   Pragma for JSX (used in classic runtime).
+ * @property {string | null | undefined} [pragmaFrag='React.Fragment']
+ *   Pragma for JSX fragments (used in classic runtime).
+ * @property {string | null | undefined} [pragmaImportSource='react']
+ *   Where to import the identifier of `pragma` from (used in classic runtime).
+ * @property {string | null | undefined} [jsxImportSource='react']
+ *   Place to import automatic JSX runtimes from (used in automatic runtime).
+ * @property {'automatic' | 'classic' | null | undefined} [jsxRuntime='automatic']
+ *   JSX runtime to use.
+ */
+
 import { analyze } from 'periscopic'
 import { stringifyPosition } from 'unist-util-stringify-position'
 import { positionFromEstree } from 'unist-util-position-from-estree'
 import { walk } from 'estree-walker'
-import { create } from '../estree/create.js'
-import { Plugin } from 'unified'
-import {
-  Directive,
-  ExportAllDeclaration,
-  ExportDefaultDeclaration,
-  ExportNamedDeclaration,
-  ExportSpecifier,
-  FunctionDeclaration,
-  ImportDeclaration,
-  ImportDefaultSpecifier,
-  ImportExpression,
-  ImportSpecifier,
-  JSXElement,
-  Literal,
-  ModuleDeclaration,
-  Node,
-  Program,
-  Property,
-  SimpleLiteral,
-  SpreadElement,
-  Statement,
-} from 'estree-jsx'
-import isDeclaration from '../estree/is-declaration.js'
-import declarationToExpression from '../estree/declaration-to-expression.js'
-import { Expression } from 'estree'
-import { specifiersToDeclarations } from '../estree/specifiers-to-declarations.js'
-
-export interface Options {
-  outputFormat?: 'program' | 'function-body'
-  useDynamicImport?: boolean
-  baseUrl?: string
-  pragma?: string
-  pragmaFrag?: string
-  pragmaImportSource?: string
-  jsxImportSource?: string
-  jsxRuntime?: 'automatic' | 'classic'
-}
-
-export const LAYOUT_NAME = 'OrgaLayout'
-export const CONTENT_NAME = 'OrgaContent'
-export const FN_NAME = '_createOrgaContent'
+import { create } from '../util/estree-util-create.js'
+import { specifiersToDeclarations } from '../util/estree-util-specifiers-to-declarations.js'
+import { declarationToExpression } from '../util/estree-util-declaration-to-expression.js'
+import { isDeclaration } from '../util/estree-util-is-declaration.js'
 
 /**
- * A plugin to wrap the estree in `OrgaContent`.
+ * A plugin to wrap the estree in `OrgContent`.
  *
  * @type {import('unified').Plugin<[RecmaDocumentOptions | null | undefined] | [], Program>}
  */
-export const estreeDocument: Plugin<
-  [Options | null | undefined] | [],
-  Program
-> = (options) => {
-  const options_: Options = options || {}
+export function recmaDocument(options) {
+  // Always given inside `@mdx-js/mdx`
+  /* c8 ignore next */
+  const options_ = options || {}
   const baseUrl = options_.baseUrl || undefined
   const useDynamicImport = options_.useDynamicImport || undefined
   const outputFormat = options_.outputFormat || 'program'
-  const pragma = options_.pragma || 'React.createElement'
+  const pragma =
+    options_.pragma === undefined ? 'React.createElement' : options_.pragma
   const pragmaFrag =
     options_.pragmaFrag === undefined ? 'React.Fragment' : options_.pragmaFrag
   const pragmaImportSource = options_.pragmaImportSource || 'react'
@@ -66,14 +77,22 @@ export const estreeDocument: Plugin<
   const jsxRuntime = options_.jsxRuntime || 'automatic'
 
   return (tree, file) => {
-    const exportedIdentifiers: ([string, string] | string)[] = []
-    const replacement: (Directive | ModuleDeclaration | Statement)[] = []
-    const pragmas: string[] = []
+    /** @type {Array<[string, string] | string>} */
+    const exportedIdentifiers = []
+    /** @type {Array<Directive | ModuleDeclaration | Statement>} */
+    const replacement = []
+    /** @type {Array<string>} */
+    const pragmas = []
     let exportAllCount = 0
-    let layout: ExportDefaultDeclaration | ExportSpecifier | undefined
-    let content: boolean | undefined
-    let child: Node
+    /** @type {ExportDefaultDeclaration | ExportSpecifier | undefined} */
+    let layout
+    /** @type {boolean | undefined} */
+    let content
+    /** @type {Node} */
+    let child
 
+    // Patch missing comments, which types say could occur.
+    /* c8 ignore next */
     if (!tree.comments) tree.comments = []
 
     if (jsxRuntime) {
@@ -141,7 +160,7 @@ export const estreeDocument: Plugin<
           declarations: [
             {
               type: 'VariableDeclarator',
-              id: { type: 'Identifier', name: LAYOUT_NAME },
+              id: { type: 'Identifier', name: 'OrgLayout' },
               init: isDeclaration(child.declaration)
                 ? declarationToExpression(child.declaration)
                 : child.declaration,
@@ -153,7 +172,7 @@ export const estreeDocument: Plugin<
       // export {a, b as c} from 'd'
       // ```
       else if (child.type === 'ExportNamedDeclaration' && child.source) {
-        const source = child.source as SimpleLiteral
+        const source = /** @type {SimpleLiteral} */ (child.source)
 
         // Remove `default` or `as default`, but not `default as`, specifier.
         child.specifiers = child.specifiers.filter((specifier) => {
@@ -170,29 +189,33 @@ export const estreeDocument: Plugin<
 
             layout = specifier
 
-            // Make it just an import: `import OrgaLayout from '…'`.
-            const specifiers: (ImportDefaultSpecifier | ImportSpecifier)[] = []
+            // Make it just an import: `import OrgLayout from '…'`.
+            /** @type {Array<ImportDefaultSpecifier | ImportSpecifier>} */
+            const specifiers = []
 
             // Default as default / something else as default.
             if (specifier.local.name === 'default') {
               specifiers.push({
                 type: 'ImportDefaultSpecifier',
-                local: { type: 'Identifier', name: LAYOUT_NAME },
+                local: { type: 'Identifier', name: 'OrgLayout' },
               })
             } else {
-              const importSpecifier: ImportSpecifier = {
+              /** @type {ImportSpecifier} */
+              const importSpecifier = {
                 type: 'ImportSpecifier',
                 imported: specifier.local,
-                local: { type: 'Identifier', name: LAYOUT_NAME },
+                local: { type: 'Identifier', name: 'OrgLayout' },
               }
               create(specifier.local, importSpecifier)
               specifiers.push(importSpecifier)
             }
 
-            const from: Literal = { type: 'Literal', value: source.value }
+            /** @type {Literal} */
+            const from = { type: 'Literal', value: source.value }
             create(source, from)
 
-            const declaration: ImportDeclaration = {
+            /** @type {ImportDeclaration} */
+            const declaration = {
               type: 'ImportDeclaration',
               specifiers,
               source: from,
@@ -229,9 +252,7 @@ export const estreeDocument: Plugin<
           child.expression.type === 'JSXElement')
       ) {
         content = true
-        replacement.push(
-          ...createOrgaContent(child.expression, Boolean(layout))
-        )
+        replacement.push(...createMdxContent(child.expression, Boolean(layout)))
         // The following catch-all branch is because plugins might’ve added
         // other things.
         // Normally, we only have import/export/jsx, but just add whatever’s
@@ -244,10 +265,10 @@ export const estreeDocument: Plugin<
 
     // If there was no JSX content at all, add an empty function.
     if (!content) {
-      replacement.push(...createOrgaContent(undefined, Boolean(layout)))
+      replacement.push(...createMdxContent(undefined, Boolean(layout)))
     }
 
-    exportedIdentifiers.push([CONTENT_NAME, 'default'])
+    exportedIdentifiers.push(['OrgContent', 'default'])
 
     if (outputFormat === 'function-body') {
       replacement.push({
@@ -256,7 +277,12 @@ export const estreeDocument: Plugin<
           type: 'ObjectExpression',
           properties: [
             ...Array.from({ length: exportAllCount }).map(
-              (_, index): SpreadElement => ({
+              /**
+               * @param {undefined} _
+               * @param {number} index
+               * @returns {SpreadElement}
+               */
+              (_, index) => ({
                 type: 'SpreadElement',
                 argument: {
                   type: 'Identifier',
@@ -265,7 +291,8 @@ export const estreeDocument: Plugin<
               })
             ),
             ...exportedIdentifiers.map((d) => {
-              const prop: Property = {
+              /** @type {Property} */
+              const prop = {
                 type: 'Property',
                 kind: 'init',
                 method: false,
@@ -289,7 +316,7 @@ export const estreeDocument: Plugin<
     } else {
       replacement.push({
         type: 'ExportDefaultDeclaration',
-        declaration: { type: 'Identifier', name: CONTENT_NAME },
+        declaration: { type: 'Identifier', name: 'OrgContent' },
       })
     }
 
@@ -307,17 +334,19 @@ export const estreeDocument: Plugin<
             node.object.property.name === 'meta' &&
             node.property.name === 'url'
           ) {
-            const replacement: SimpleLiteral = {
-              type: 'Literal',
-              value: baseUrl,
-            }
+            /** @type {SimpleLiteral} */
+            const replacement = { type: 'Literal', value: baseUrl }
             this.replace(replacement)
           }
         },
       })
     }
 
-    function handleExport(node: ExportAllDeclaration | ExportNamedDeclaration) {
+    /**
+     * @param {ExportAllDeclaration | ExportNamedDeclaration} node
+     * @returns {void}
+     */
+    function handleExport(node) {
       if (node.type === 'ExportNamedDeclaration') {
         // ```js
         // export function a() {}
@@ -367,7 +396,8 @@ export const estreeDocument: Plugin<
           // with import maps (<https://github.com/WICG/import-maps>).
         }
 
-        const literal: Literal = { type: 'Literal', value }
+        /** @type {Literal} */
+        const literal = { type: 'Literal', value }
         create(node.source, literal)
         node.source = literal
       }
@@ -409,10 +439,8 @@ export const estreeDocument: Plugin<
           // export * from 'a'
           // //=> const _exportAll0 = await import('a')
           // ```
-          const argument: ImportExpression = {
-            type: 'ImportExpression',
-            source: node.source,
-          }
+          /** @type {ImportExpression} */
+          const argument = { type: 'ImportExpression', source: node.source }
           create(node, argument)
           init = { type: 'AwaitExpression', argument }
 
@@ -473,15 +501,18 @@ export const estreeDocument: Plugin<
     }
   }
 
-  function createOrgaContent(
-    content: Expression | undefined,
-    hasInternalLayout: boolean | undefined
-  ): FunctionDeclaration[] {
-    const element: JSXElement = {
+  /**
+   * @param {Expression | undefined} [content]
+   * @param {boolean | undefined} [hasInternalLayout]
+   * @returns {Array<FunctionDeclaration>}
+   */
+  function createMdxContent(content, hasInternalLayout) {
+    /** @type {JSXElement} */
+    const element = {
       type: 'JSXElement',
       openingElement: {
         type: 'JSXOpeningElement',
-        name: { type: 'JSXIdentifier', name: LAYOUT_NAME },
+        name: { type: 'JSXIdentifier', name: 'OrgLayout' },
         attributes: [
           {
             type: 'JSXSpreadAttribute',
@@ -492,14 +523,14 @@ export const estreeDocument: Plugin<
       },
       closingElement: {
         type: 'JSXClosingElement',
-        name: { type: 'JSXIdentifier', name: LAYOUT_NAME },
+        name: { type: 'JSXIdentifier', name: 'OrgLayout' },
       },
       children: [
         {
           type: 'JSXElement',
           openingElement: {
             type: 'JSXOpeningElement',
-            name: { type: 'JSXIdentifier', name: FN_NAME },
+            name: { type: 'JSXIdentifier', name: '_createOrgContent' },
             attributes: [
               {
                 type: 'JSXSpreadAttribute',
@@ -514,16 +545,16 @@ export const estreeDocument: Plugin<
       ],
     }
 
-    let result: Expression = element
+    let result = /** @type {Expression} */ (element)
 
     if (!hasInternalLayout) {
       result = {
         type: 'ConditionalExpression',
-        test: { type: 'Identifier', name: LAYOUT_NAME },
+        test: { type: 'Identifier', name: 'OrgLayout' },
         consequent: result,
         alternate: {
           type: 'CallExpression',
-          callee: { type: 'Identifier', name: FN_NAME },
+          callee: { type: 'Identifier', name: '_createOrgContent' },
           arguments: [{ type: 'Identifier', name: 'props' }],
           optional: false,
         },
@@ -549,7 +580,7 @@ export const estreeDocument: Plugin<
     return [
       {
         type: 'FunctionDeclaration',
-        id: { type: 'Identifier', name: FN_NAME },
+        id: { type: 'Identifier', name: '_createOrgContent' },
         params: [{ type: 'Identifier', name: 'props' }],
         body: {
           type: 'BlockStatement',
@@ -558,7 +589,7 @@ export const estreeDocument: Plugin<
       },
       {
         type: 'FunctionDeclaration',
-        id: { type: 'Identifier', name: CONTENT_NAME },
+        id: { type: 'Identifier', name: 'OrgContent' },
         params: [
           {
             type: 'AssignmentPattern',
