@@ -37,6 +37,7 @@ module.exports = {
     'import/no-extraneous-dependencies': ['warn'],
     semi: ['error', 'never'],
     'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
   },
   overrides: [
     {

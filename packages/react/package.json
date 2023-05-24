@@ -2,16 +2,16 @@
   "name": "@orgajs/react",
   "version": "3.0.1",
   "license": "MIT",
-  "files": [
-    "dist"
-  ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
   "type": "module",
+  "types": "index.d.ts",
+  "files": [
+    "lib/",
+    "index.d.ts",
+    "index.js"
+  ],
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b"
+    "build": "tsc --build --clean && tsc --build"
   },
   "peerDependencies": {
     "react": ">=16"
