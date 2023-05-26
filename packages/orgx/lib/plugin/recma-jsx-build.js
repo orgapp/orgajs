@@ -13,9 +13,9 @@
  * @typedef {BuildJsxOptions & ExtraOptions} RecmaJsxBuildOptions
  */
 
-import {buildJsx} from 'estree-util-build-jsx'
-import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
-import {toIdOrMemberExpression} from '../util/estree-util-to-id-or-member-expression.js'
+import { buildJsx } from 'estree-util-build-jsx'
+import { specifiersToDeclarations } from '../util/estree-util-specifiers-to-declarations.js'
+import { toIdOrMemberExpression } from '../util/estree-util-to-id-or-member-expression.js'
 
 /**
  * A plugin to build JSX into function calls.
@@ -24,12 +24,11 @@ import {toIdOrMemberExpression} from '../util/estree-util-to-id-or-member-expres
  * @type {import('unified').Plugin<[RecmaJsxBuildOptions | null | undefined] | [], Program>}
  */
 export function recmaJsxBuild(options) {
-  // Always given inside `@mdx-js/mdx`
-  /* c8 ignore next */
-  const {development, outputFormat} = options || {}
+  // Always given inside `@orgajs/orgx`
+  const { development, outputFormat } = options || {}
 
   return (tree, file) => {
-    buildJsx(tree, {development, filePath: file.history[0]})
+    buildJsx(tree, { development, filePath: file.history[0] })
 
     // When compiling to a function body, replace the import that was just
     // generated, and get `jsx`, `jsxs`, and `Fragment` from `arguments[0]`
@@ -47,7 +46,7 @@ export function recmaJsxBuild(options) {
         declarations: specifiersToDeclarations(
           tree.body[0].specifiers,
           toIdOrMemberExpression(['arguments', 0])
-        )
+        ),
       }
     }
   }

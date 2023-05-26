@@ -1,5 +1,5 @@
 /**
- * Get current components from the MDX Context.
+ * Get current components from the org context.
  *
  * @param {Components | MergeComponents | null | undefined} [components]
  *   Additional components to use or a function that takes the current
@@ -9,7 +9,7 @@
  */
 export function useOrgComponents(components?: Components | MergeComponents | null | undefined): Components;
 /**
- * Provider for MDX context
+ * Provider for org context
  *
  * @param {Props} props
  * @returns {JSX.Element}

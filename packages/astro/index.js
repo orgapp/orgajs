@@ -6,26 +6,30 @@
  */
 import orga from '@orgajs/rollup'
 import { parse as parseMetadata } from '@orgajs/metadata'
+import { addAstroFragment } from './lib/plugin/recma-add-astro-fragment.js'
 
 /**
  * @returns {import('astro').AstroIntegration}
  */
-export default function withOrga() {
+export default function org() {
   return {
     name: '@orgajs/astro',
     hooks: {
-      'astro:config:setup': async (params) => {
-        const { addPageExtension, addContentEntryType, updateConfig } =
-          /** @type {SetupHookParams} */ params
+      // @ts-ignore - addPageExtension, addContentEntryType are internal APIs
+      'astro:config:setup': async (/** @type {SetupHookParams} */ params) => {
+        const { addPageExtension, addContentEntryType, updateConfig } = params
         addPageExtension('.org')
 
         addContentEntryType({
           extensions: ['.org'],
           async getEntryInfo({ contents }) {
             const data = parseMetadata(contents)
+
             return {
               data,
-              contents,
+              body: contents,
+              rawData: JSON.stringify(data),
+              slug: Array.isArray(data.slug) ? data.slug[0] : data.slug,
             }
           },
         })
@@ -35,7 +39,24 @@ export default function withOrga() {
             plugins: [
               {
                 enforce: 'pre',
-                ...orga(),
+                ...orga({
+                  jsxImportSource: 'astro',
+                  recmaPlugins: [addAstroFragment],
+                  elementAttributeNameCase: 'html',
+                  development: false,
+                }),
+              },
+              {
+                name: '@orgajs/org-postprocess',
+                /**
+                 * @param {string} code
+                 * @param {string} id
+                 */
+                transform(code, id) {
+                  if (!id.endsWith('.org')) return
+                  // console.log(code)
+                  return { code, map: null }
+                },
               },
             ],
           },

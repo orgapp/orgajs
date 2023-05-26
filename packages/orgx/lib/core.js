@@ -17,7 +17,7 @@
  *   Whether to compile to a whole program or a function body..
  * @property {PluggableList | null | undefined} [recmaPlugins]
  *   List of recma (esast, JavaScript) plugins.
- * @property {PluggableList | null | undefined} [remarkPlugins]
+ * @property {PluggableList | null | undefined} [reorgPlugins]
  *   List of remark (mdast, markdown) plugins.
  * @property {PluggableList | null | undefined} [rehypePlugins]
  *   List of rehype (hast, HTML) plugins.
@@ -62,7 +62,7 @@ export function createProcessor(options) {
     providerImportSource,
     recmaPlugins,
     rehypePlugins,
-    remarkPlugins,
+    reorgPlugins,
     reorgRehypeOptions,
     elementAttributeNameCase,
     stylePropertyNameCase,
@@ -76,8 +76,7 @@ export function createProcessor(options) {
 
   const pipeline = unified()
     .use(reorgParse)
-    // .use(remarkMarkAndUnravel)
-    .use(remarkPlugins || [])
+    .use(reorgPlugins || [])
     .use(reorgRehype, {
       ...reorgRehypeOptions,
       allowDangerousHtml: true,

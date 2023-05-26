@@ -7,7 +7,10 @@
   "exports": {
     ".": "./index.js"
   },
-  "scripts": {},
+  "scripts": {
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
+  },
   "keywords": [
     "astro-integration"
   ],
@@ -20,9 +23,14 @@
   },
   "dependencies": {
     "@orgajs/metadata": "workspace:1.0.2",
-    "@orgajs/rollup": "workspace:^"
+    "@orgajs/rollup": "workspace:^",
+    "estree-util-visit": "^1.2.1",
+    "source-map": "^0.7.4"
   },
   "devDependencies": {
-    "astro": "^2.5.0"
+    "@types/estree": "^1.0.1",
+    "@types/estree-jsx": "^1.0.0",
+    "astro": "^2.5.0",
+    "unified": "^10.1.2"
   }
 }
