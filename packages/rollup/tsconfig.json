@@ -1,6 +1,5 @@
 {
   "extends": "../../tsconfig.types.json",
   "include": ["index.js"],
-  "exclude": ["coverage/", "node_modules/"],
-  "references": [{ "path": "../orgx" }]
+  "exclude": ["node_modules/"]
 }

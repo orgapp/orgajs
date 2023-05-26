@@ -18,7 +18,7 @@ test('basic org-mode parsing', async () => {
 /*@jsxRuntime automatic @jsxImportSource react*/
 import {jsx as _jsx, jsxs as _jsxs} from "react/jsx-runtime";
 export const title = 'hello world';
-function _createOrgaContent(props) {
+function _createOrgContent(props) {
   const _components = Object.assign({
     div: "div",
     h1: "h1"
@@ -35,13 +35,13 @@ function _createOrgaContent(props) {
     })]
   });
 }
-function OrgaContent(props = {}) {
-  const {wrapper: OrgaLayout} = props.components || ({});
-  return OrgaLayout ? _jsx(OrgaLayout, Object.assign({}, props, {
-    children: _jsx(_createOrgaContent, props)
-  })) : _createOrgaContent(props);
+function OrgContent(props = {}) {
+  const {wrapper: OrgLayout} = props.components || ({});
+  return OrgLayout ? _jsx(OrgLayout, Object.assign({}, props, {
+    children: _jsx(_createOrgContent, props)
+  })) : _createOrgContent(props);
 }
-export default OrgaContent;
+export default OrgContent;
 `.trim()
   )
 })

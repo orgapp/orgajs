@@ -16,15 +16,13 @@
     "directory": "packages/reorg-parse"
   },
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b"
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
   },
   "dependencies": {
     "orga": "workspace:^"
   },
   "devDependencies": {
-    "del-cli": "^5.0.0",
     "typescript": "^5.0.4",
     "unified": "^10.1.2"
   }

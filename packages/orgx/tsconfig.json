@@ -1,6 +1,5 @@
 {
   "extends": "../../tsconfig.types.json",
   "include": ["lib/**/*.js", "index.js"],
-  "exclude": ["node_modules/", "src"],
-  "references": [{ "path": "../reorg-parse" }, { "path": "../reorg-rehype" }]
+  "exclude": ["node_modules/", "src"]
 }

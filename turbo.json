@@ -9,7 +9,7 @@
       "dependsOn": ["^build"],
       // note: output globs are relative to each package's `package.json`
       // (and not the monorepo root)
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "index.d.ts"]
     },
     "test": {
       // A package's `test` script depends on that package's
@@ -17,7 +17,14 @@
       "dependsOn": ["build"],
       // A package's `test` script should only be rerun when
       // either a `.tsx` or `.ts` file has changed in `src` or `test` folders.
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", "test/**/*.tsx"]
+      "inputs": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "test/**/*.ts",
+        "test/**/*.tsx",
+        "lib/**/*.js",
+        "lib/**/*.jsx"
+      ]
     },
     // A package's `lint` script has no dependencies and
     // can be run whenever. It also has no filesystem outputs.

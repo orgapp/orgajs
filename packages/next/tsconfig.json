@@ -4,10 +4,5 @@
     "rootDir": "./src",
     "outDir": "./dist"
   },
-  "references": [
-    { "path": "../rehype-estree" },
-    { "path": "../reorg-rehype" },
-    { "path": "../estree-jsx" }
-  ],
   "include": ["./src"]
 }

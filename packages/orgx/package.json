@@ -11,7 +11,7 @@
     "directory": "packages/orgx"
   },
   "type": "module",
-  "main": "dist/index.js",
+  "main": "index.js",
   "types": "index.d.ts",
   "browser": {
     "./lib/condition.js": "./lib/condition.browser.js"
@@ -22,7 +22,8 @@
     "index.js"
   ],
   "scripts": {
-    "build": "tsc --build --clean && tsc --build",
+    "clean": "tsc --build --clean",
+    "build": "tsc --build",
     "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
@@ -31,10 +32,8 @@
     "@types/hast": "^2.3.4",
     "@types/node": "^20.2.1",
     "@types/react": "^18.2.6",
-    "del-cli": "^5.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tsx": "^3.12.7"
+    "react-dom": "^18.2.0"
   },
   "dependencies": {
     "@orgajs/reorg-parse": "workspace:^",

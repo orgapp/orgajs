@@ -11,7 +11,8 @@
     "index.js"
   ],
   "scripts": {
-    "build": "tsc --build --clean && tsc --build"
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
   },
   "peerDependencies": {
     "react": ">=16"
@@ -22,7 +23,6 @@
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "babel-plugin-remove-export-keywords": "^1.6.22",
-    "del-cli": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }

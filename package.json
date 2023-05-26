@@ -24,8 +24,8 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "clean": "yarn workspaces foreach run clean",
-    "build": "tsc -b tsconfig.packages.json",
+    "clean": "turbo run clean --filter='./packages/*'",
+    "build": "turbo run build --filter='./packages/*'",
     "test": "turbo run test --filter='./packages/*'",
     "lint": "eslint packages --ext js,jsx,ts,tsx",
     "format": "prettier --write .",

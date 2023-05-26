@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "composite": true,
+    "composite": false,
     "checkJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,

@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { VFile } from 'vfile'
 import { VFileMessage } from 'vfile-message'
 import { tokenize } from 'orga'
-import { evaluate, RuntimeOptions } from '@orgajs/orgx'
+import { evaluate, EvaluateOptions } from '@orgajs/orgx'
 import latex from '@orgajs/rehype-latex'
 
 interface Output extends VFile {
@@ -12,7 +12,7 @@ interface Output extends VFile {
 
 export function useOrga(
   input: string,
-  runtime: RuntimeOptions = reactRuntime as RuntimeOptions
+  runtime: EvaluateOptions = reactRuntime as EvaluateOptions
 ): { output: Output } {
   const [output, setOutput] = useState<Output>(null)
 
@@ -29,9 +29,9 @@ export function useOrga(
       file.result = (
         await evaluate(file, {
           ...runtime,
-          reorgPlugins: [capture('oast')],
+          // reorgPlugins: [capture('oast')],
           rehypePlugins: [latex, capture('rehype')],
-          estreePlugins: [capture('estree')],
+          recmaPlugins: [capture('estree')],
         })
       ).default
       capture('jsx')()(String(file))

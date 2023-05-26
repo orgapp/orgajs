@@ -21,26 +21,13 @@
     "build": "tsc -b",
     "test": "node --test test.js"
   },
-  "ava": {
-    "typescript": {
-      "extensions": [
-        "ts",
-        "tsx"
-      ],
-      "rewritePaths": {
-        "src/": "dist/"
-      },
-      "compile": "tsc"
-    }
-  },
   "devDependencies": {
     "@types/node": "^20.2.1",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollup": "^3.22.0",
-    "typescript": "^5.0.4"
+    "rollup": "^3.22.0"
   },
   "peerDependencies": {
     "rollup": ">=2"
