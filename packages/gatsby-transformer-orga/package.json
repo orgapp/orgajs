@@ -2,7 +2,7 @@
   "name": "gatsby-transformer-orga",
   "description": "Gatsby transformer plugin for org-mode with orga",
   "version": "3.1.8",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "files": [
     "dist/*",
     "*.js"
@@ -42,6 +42,6 @@
     "@types/lodash": "^4.14.172",
     "@types/node": "^20.2.1",
     "@types/unist": "2.0.6",
-    "gatsby": "^3.14.3"
+    "gatsby": "^5.10.0"
   }
 }

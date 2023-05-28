@@ -1,4 +1,3 @@
-/** @type {import('gatsby').GatsbyNode['resolvableExtensions']} */
 const {
   getPathToContentComponent,
 } = require('gatsby-core-utils/dist/parse-component-path')
@@ -7,6 +6,7 @@ const path = require('path')
 const { cachedImport } = require('./cache-helpers')
 const { compile } = require('@orgajs/orgx')
 
+/** @type {import('gatsby').GatsbyNode['resolvableExtensions']} */
 exports.resolvableExtensions = () => ['.org']
 
 /** @type {import('gatsby').GatsbyNode['onCreateWebpackConfig']} */
