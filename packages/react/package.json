@@ -4,10 +4,10 @@
   "license": "MIT",
   "main": "index.js",
   "type": "module",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "lib/",
-    "index.d.ts",
+    "dist/",
     "index.js"
   ],
   "scripts": {

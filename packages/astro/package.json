@@ -2,8 +2,14 @@
   "name": "@orgajs/astro",
   "description": "Add support for org-mode pages in your Astro site",
   "version": "1.0.0",
-  "main": "index.js",
   "type": "module",
+  "main": "index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "lib/",
+    "dist/",
+    "index.js"
+  ],
   "exports": {
     ".": "./index.js"
   },

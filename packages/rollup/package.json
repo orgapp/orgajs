@@ -4,11 +4,11 @@
   "description": "Rollup plugin for Orga",
   "license": "MIT",
   "files": [
-    "index.js",
-    "index.d.ts"
+    "dist",
+    "index.js"
   ],
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "type": "module",
   "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "homepage": "https://orga.js.org",

@@ -20,7 +20,7 @@
     "compile": "tsc -b"
   },
   "dependencies": {
-    "hast-util-to-estree": "^2.3.2"
+    "hast-util-to-estree": "^2.3.3"
   },
   "devDependencies": {
     "del-cli": "^5.0.0",

@@ -12,13 +12,13 @@
   },
   "type": "module",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "browser": {
     "./lib/condition.js": "./lib/condition.browser.js"
   },
   "files": [
     "lib",
-    "index.d.ts",
+    "dist",
     "index.js"
   ],
   "scripts": {
