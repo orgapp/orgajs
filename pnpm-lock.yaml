@@ -65,10 +65,10 @@ importers:
   examples/getting-started:
     dependencies:
       '@orgajs/reorg':
-        specifier: 3.1.7
+        specifier: 4.0.0
         version: link:../../packages/reorg
       '@orgajs/reorg-rehype':
-        specifier: 3.0.10
+        specifier: 4.0.0
         version: link:../../packages/reorg-rehype
       rehype-stringify:
         specifier: ^9.0.3
@@ -183,7 +183,7 @@ importers:
   packages/astro:
     dependencies:
       '@orgajs/metadata':
-        specifier: workspace:1.0.2
+        specifier: workspace:2.0.0
         version: link:../metadata
       '@orgajs/rollup':
         specifier: workspace:^
@@ -217,7 +217,7 @@ importers:
   packages/gatsby-plugin-orga:
     dependencies:
       '@orgajs/estree-jsx':
-        specifier: 3.0.2
+        specifier: 4.0.0
         version: link:../estree-jsx
       '@orgajs/loader':
         specifier: workspace:^
@@ -229,7 +229,7 @@ importers:
         specifier: workspace:*
         version: link:../orgx
       '@orgajs/react':
-        specifier: ^3.0.1
+        specifier: ^4.0.0
         version: link:../react
       '@orgajs/rehype-latex':
         specifier: 1.0.2
@@ -305,13 +305,13 @@ importers:
         specifier: ^2.24.0
         version: 2.29.4
       oast-to-hast:
-        specifier: 3.2.1
+        specifier: 4.0.0
         version: link:../oast-to-hast
       orga:
-        specifier: 3.2.1
+        specifier: 4.0.0
         version: link:../orga
       orga-posts:
-        specifier: 3.1.8
+        specifier: 3.1.9
         version: link:../orga-posts
       rehype-stringify:
         specifier: ^9.0.3
@@ -490,7 +490,7 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       orga:
-        specifier: 3.2.1
+        specifier: 4.0.0
         version: link:../orga
       rehype-highlight:
         specifier: ^6.0.0
@@ -597,10 +597,10 @@ importers:
         specifier: ^4.2.2
         version: 4.5.1(monaco-editor@0.38.0)(react-dom@18.2.0)(react@17.0.2)
       '@orgajs/orgx':
-        specifier: 1.0.8
+        specifier: 2.0.0
         version: link:../orgx
       '@orgajs/react':
-        specifier: 3.0.1
+        specifier: 4.0.0
         version: link:../react
       '@orgajs/rehype-latex':
         specifier: 1.0.2
@@ -609,7 +609,7 @@ importers:
         specifier: 3.0.3
         version: 3.0.3
       orga:
-        specifier: 3.2.1
+        specifier: 4.0.0
         version: link:../orga
       react:
         specifier: ^17.0.2
