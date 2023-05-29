@@ -10,7 +10,6 @@
     "@typescript-eslint/parser": "^5.59.6",
     "chalk": "^4.1.0",
     "cross-env": "^7.0.3",
-    "del-cli": "^3.0.1",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",

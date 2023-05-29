@@ -16,14 +16,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "test": "node --test --no-warnings --loader tsx src/*.test.ts",
-    "compile": "tsc -b"
+    "clean": "tsc --build --clean",
+    "build": "tsc --build",
+    "test": "node --test --no-warnings --loader tsx src/*.test.ts"
   },
   "devDependencies": {
     "@types/node": "^20.2.1",
-    "del-cli": "^5.0.0",
     "tsx": "^3.12.7",
     "typescript": "^5.0.4"
   }

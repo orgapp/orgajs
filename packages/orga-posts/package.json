@@ -15,9 +15,8 @@
     "directory": "packages/orga-posts"
   },
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b"
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
   },
   "keywords": [
     "org-mode",
@@ -25,7 +24,7 @@
     "blog"
   ],
   "dependencies": {
-    "@orgajs/reorg-rehype": "3.0.10",
+    "@orgajs/reorg-rehype": "workspace:*",
     "lodash": "^4.17.21",
     "orga": "3.2.1",
     "rehype-highlight": "^6.0.0",
@@ -37,7 +36,6 @@
   },
   "devDependencies": {
     "@types/hast": "^2.3.4",
-    "@types/unist": "^2.0.6",
-    "del-cli": "^5.0.0"
+    "@types/unist": "^2.0.6"
   }
 }
