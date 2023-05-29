@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/reorg-rehype",
-  "version": "4.0.0",
+  "version": "3.0.10",
   "description": "rehype support for orga",
   "files": [
     "dist"
