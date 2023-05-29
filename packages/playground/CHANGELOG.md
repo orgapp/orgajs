@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.1.12
+
+### Patch Changes
+
+- Updated dependencies [9376c970]
+  - @orgajs/react@4.0.0
+  - orga@4.0.0
+  - @orgajs/orgx@2.0.0
+
 ## 3.1.11
 
 ### Patch Changes
