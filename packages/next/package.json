@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/next",
-  "version": "3.1.12",
+  "version": "4.0.0",
   "description": "orgajs next plugin",
   "files": [
     "dist"
