@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.15
+
+### Patch Changes
+
+- Updated dependencies [9376c970]
+  - @orgajs/loader@4.0.0
+  - @orgajs/react@4.0.0
+  - @orgajs/next@4.0.0
+
 ## 3.0.14
 
 ### Patch Changes
