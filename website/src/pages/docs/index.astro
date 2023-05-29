@@ -1,0 +1,21 @@
+---
+import {getCollection} from "astro:content"
+import Layout from "../../layouts/base.astro"
+
+const docs = await getCollection('docs')
+const content = docs.length === 0 ? 'empty' : docs.map(d => JSON.stringify(d.data, null, 2)).join('\n')
+const count = docs.length
+---
+
+<Layout title='Docs'>
+  <h1>Docs</h1>
+  <p>There are {count} docs</p>
+  <ul>
+    {docs.map(d =>
+    <li>
+      <a href={`/docs/${d.slug}`}>
+        {d.data.title}
+      </a>
+    </li>)}
+  </ul>
+</Layout>

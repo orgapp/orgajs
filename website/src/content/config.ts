@@ -5,6 +5,7 @@ const docs = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    position: z.coerce.number(),
   }),
 })
 export const collections = {

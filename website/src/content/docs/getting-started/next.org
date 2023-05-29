@@ -1,6 +1,6 @@
 #+title: Next.js
 #+published: true
-#+position: 2
+#+position: 101
 
 Use the next plugin for orga.
 
@@ -16,18 +16,16 @@ npm install --save @orgajs/loader @orgajs/react @orgajs/next
 Add the following to =next.config.js=
 
 #+begin_src javascript
-const withOrga = require('@orgajs/next')({
-  // extention: /\.org$/
-})
+const withOrga = require('@orgajs/next')({})
 
 module.exports = withOrga({
-  pageExtensions: ['js', 'jsx', 'org']
+	pageExtensions: ['js', 'jsx', 'org'],
 })
 #+end_src
 
-* Customisation (optional)
+* Customization (optional)
 
-You can add "shortcodes" for use within org files without importing them every time.
+You can add =shortcodes= for use within org files without importing them every time.
 Edit =pages/_app.js= file.
 
 #+begin_src javascript

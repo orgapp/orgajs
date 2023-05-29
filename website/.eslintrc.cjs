@@ -11,6 +11,7 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': 'warn',
+    '@typescript-eslint/triple-slash-reference': 'warn',
   },
   overrides: [
     {

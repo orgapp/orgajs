@@ -1,6 +1,6 @@
 #+title: Latex Support
 #+published: true
-#+position: 3
+#+position: 203
 
 ** Inline Math
 Orgajs supports inline math with latex math delimiters.
@@ -36,4 +36,3 @@ x=\sqrt{b}
 #+begin_src html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.css" integrity="sha384-ysFyB7Is//Q1JNgERb0bLJokXKM8eWJsjEutGvthoHtBilHWgbdmbYkQZdwCIGIq" crossorigin="anonymous">
 #+end_src
-
