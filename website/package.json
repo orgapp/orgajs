@@ -1,6 +1,7 @@
 {
   "name": "website",
   "type": "module",
+  "private": true,
   "version": "0.0.2",
   "scripts": {
     "dev": "astro dev",
