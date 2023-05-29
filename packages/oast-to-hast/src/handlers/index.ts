@@ -1,17 +1,18 @@
+import { JSX } from 'orga'
 import { Node } from 'unist'
-import { Context, HNode } from '../'
-import block from './block'
-import latex from './latex'
-import { footnote, footnoteReference } from './footnote'
-import headline from './headline'
-import html from './html'
-import keyword from './keyword'
-import link from './link'
-import list, { checkbox as listItemCheckbox, item as listItem } from './list'
-import paragraph from './paragraph'
-import section from './section'
-import { table, tableCell, tableRow } from './table'
-import text from './text'
+import { Context, HNode } from '../index.js'
+import block from './block.js'
+import latex from './latex.js'
+import { footnote, footnoteReference } from './footnote.js'
+import headline from './headline.js'
+import html from './html.js'
+import keyword from './keyword.js'
+import link from './link.js'
+import list, { checkbox as listItemCheckbox, item as listItem } from './list.js'
+import paragraph from './paragraph.js'
+import section from './section.js'
+import { table, tableCell, tableRow } from './table.js'
+import text from './text.js'
 
 // export type Handler = (context: Context) => (node: Node) => HNode
 export type Handler = (
@@ -43,7 +44,7 @@ export default {
   'footnote.reference': footnoteReference,
   hr: (_, { h }) => h('hr')(),
   html,
-  jsx: (n, { u }) => u('jsx', { value: n.value }),
+  jsx: (n: JSX, { u }) => u('jsx', { value: n.value }),
   'link.path': ignore,
   drawer: ignore,
   priority: ignore,

@@ -13,7 +13,6 @@
     "sourceMap": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "noImplicitUseStrict": true,
     "esModuleInterop": true,
     "declaration": true,
     "jsx": "react",

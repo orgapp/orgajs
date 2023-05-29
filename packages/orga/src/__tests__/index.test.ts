@@ -1,13 +1,13 @@
-import { existsSync, lstatSync, promises as fs, readdirSync } from 'fs'
-import { diff } from 'jest-diff'
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
+import { lstatSync, promises as fs, readdirSync } from 'fs'
 import * as path from 'path'
-import { parse } from '../index'
+import { parse } from '../index.js'
 
-const specs = []
+const specs: { name: string; input: string; output: string }[] = []
 // set to true for updating snapshots
-// TODO: find a way to use jest cli option -u, if it's possible
-// also remove redundant snapshots
 const update = false
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 const readSpec = (dir: string = __dirname) => {
   const files = readdirSync(dir)
@@ -35,56 +35,47 @@ const readSpec = (dir: string = __dirname) => {
 
 readSpec()
 
-// add this to keep TypeScript happy
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace jest {
-    interface Matchers<R> {
-      toMatchTree(): Promise<R>
+function removeUndefined(obj: any) {
+  for (const key in obj) {
+    if (obj[key] === undefined) {
+      delete obj[key]
+    } else if (Array.isArray(obj[key])) {
+      for (let i = 0; i < obj[key].length; i++) {
+        removeUndefined(obj[key][i])
+      }
+    } else if (typeof obj[key] === 'object') {
+      removeUndefined(obj[key])
     }
   }
+  return obj
 }
 
-expect.extend({
-  async toMatchTree({ text, file, tree }) {
-    let message = 'should not match tree'
-    let pass = false
-    const json = JSON.stringify(tree, null, 2)
-    const treeFile = file.replace(/\.org$/, '.json')
-    let baseline = ''
-    let shouldUpdate = update
-    if (existsSync(treeFile)) {
-      baseline = await fs.readFile(treeFile, { encoding: 'utf8' })
-      if (baseline.startsWith('update')) {
-        shouldUpdate = true
-      }
-    } else {
-      shouldUpdate = true
+const dateReviver = (key: string, value: any) => {
+  if (typeof value === 'string') {
+    const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/
+    if (isoDateRegex.test(value)) {
+      return new Date(value)
     }
-    if (shouldUpdate) {
-      pass = true
-      console.log(` - write tree to ${treeFile}`)
-      await fs.writeFile(treeFile, json, 'utf8')
-    } else {
-      pass = this.equals(baseline.trim(), json.trim())
-      if (!pass) {
-        message = diff(baseline, json, {
-          contextLines: 5,
-          expand: false,
-        })
-      }
-    }
-    return {
-      message: () => message,
-      pass,
-    }
-  },
-})
+  }
+  return value
+}
 
 describe('parser', () => {
-  test.each(specs)('$name', async ({ input }) => {
-    const text = await fs.readFile(input, { encoding: 'utf8' })
-    const tree = parse(text, { timezone: 'Pacific/Auckland' })
-    await expect({ text, tree, file: input }).toMatchTree()
+  specs.forEach(({ name, input, output }) => {
+    it(`${name}`, async () => {
+      const text = await fs.readFile(input, { encoding: 'utf8' })
+      const tree = parse(text, { timezone: 'Pacific/Auckland' })
+      if (update) {
+        await fs.writeFile(output, JSON.stringify(tree, null, 2), 'utf8')
+      } else {
+        assert.deepStrictEqual(
+          removeUndefined(tree),
+          JSON.parse(
+            await fs.readFile(output, { encoding: 'utf8' }),
+            dateReviver
+          )
+        )
+      }
+    })
   })
 })

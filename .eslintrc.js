@@ -3,9 +3,14 @@ module.exports = {
   env: {
     node: true,
     browser: true,
-    jest: true,
+    es6: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+  ],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
@@ -19,12 +24,20 @@ module.exports = {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
         paths: ['node_modules/', 'node_modules/@types/'],
       },
+      typescript: {
+        alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+        project: 'packages/*/tsconfig.json',
+      },
+    },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
   },
   rules: {
     'import/no-extraneous-dependencies': ['warn'],
     semi: ['error', 'never'],
     'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
   },
   overrides: [
     {

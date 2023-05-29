@@ -1,12 +1,12 @@
-import { Action } from '.'
-import { Keyword, Primitive } from '../types'
-import parseSymbols from './_parseSymbols'
-import _primitive from './_primitive'
+import { Action } from './index.js'
+import type { HTML, Keyword, Primitive, JSX } from '../types.js'
+import parseSymbols from './_parseSymbols.js'
+import _primitive from './_primitive.js'
 
 const AFFILIATED_KEYWORDS = ['caption', 'header', 'name', 'plot', 'results']
 
 const keyword: Action = (token: Keyword, context) => {
-  const { push, lexer, getParent, addProp } = context
+  const { push, lexer, addProp } = context
   const key = token.key.toLowerCase()
   const { value } = token
 
@@ -19,8 +19,10 @@ const keyword: Action = (token: Keyword, context) => {
     }
   } else if (key === 'todo') {
     lexer.addInBufferTodoKeywords(value)
-  } else if (key === 'html' || key === 'jsx') {
-    push({ type: key, value })
+  } else if (key === 'html') {
+    push({ type: 'html', value } as HTML)
+  } else if (key === 'jsx') {
+    push({ type: 'jsx', value } as JSX)
   } else {
     addProp(key, value)
   }

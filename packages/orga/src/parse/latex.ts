@@ -1,21 +1,18 @@
 import { Action, Handler } from '.'
 import { LatexBegin, LatexEnd } from '../types'
 
-const latex: Action = (
-  begin: LatexBegin,
-  { save, push, enter, lexer }
-): Handler => {
-  save()
+const latex: Action = (begin: LatexBegin, context): Handler => {
+  context.save()
   const contentStart = begin.position.start
   const envName = begin.name.toLowerCase()
 
-  const latexBlock = enter({
+  const latexBlock = context.enter({
     type: 'latex',
     name: begin.name,
     value: '',
     children: [],
   })
-  push(lexer.eat())
+  context.push(context.lexer.eat())
 
   /*
    * find the indentation of the block and apply it to
@@ -49,34 +46,33 @@ const latex: Action = (
     rules: [
       {
         test: 'latex.end',
-        action: (token: LatexEnd, { exit, push, lexer }) => {
-          const { eat } = lexer
+        action: (token: LatexEnd, context) => {
           if (token.name.toLowerCase() !== envName) return 'next'
           latexBlock.value = align(
-            lexer.substring({
+            context.lexer.substring({
               start: contentStart,
               end: token.position.end,
             })
           )
-          push(eat())
-          eat('newline')
-          exit('latex')
+          context.push(context.lexer.eat())
+          context.lexer.eat('newline')
+          context.exit('latex')
           return 'break'
         },
       },
       {
         test: ['stars', 'EOF'],
-        action: (_, { restore, lexer }) => {
-          restore()
-          lexer.modify((t) => ({
+        action: (_, context) => {
+          context.restore()
+          context.lexer.modify((t) => ({
             type: 'text',
-            value: lexer.substring(t.position),
+            value: context.lexer.substring(t.position),
             position: t.position,
           }))
           return 'break'
         },
       },
-      { test: /./, action: (_, { push, lexer }) => push(lexer.eat()) },
+      { test: /./, action: (_, context) => context.push(context.lexer.eat()) },
     ],
   }
 }

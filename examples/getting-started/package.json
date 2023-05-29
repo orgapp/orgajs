@@ -6,16 +6,15 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "node index.js < README.org > readme.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node index.js < README.org > readme.html"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@orgajs/reorg": "3.1.7",
     "@orgajs/reorg-rehype": "3.0.10",
-    "rehype-stringify": "^8.0.0",
-    "unified": "9.2.2",
-    "unified-stream": "^1.0.6"
+    "rehype-stringify": "^9.0.3",
+    "unified": "10.1.2",
+    "unified-stream": "^2.0.0"
   }
 }

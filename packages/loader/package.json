@@ -2,8 +2,15 @@
   "name": "@orgajs/loader",
   "version": "3.1.10",
   "description": "Load org-mode content through orga.",
-  "main": "dist/index.js",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "type": "module",
+  "main": "./index.cjs",
+  "types": "index.d.ts",
+  "files": [
+    "lib/",
+    "index.cjs",
+    "index.d.ts"
+  ],
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/loader#readme",
   "repository": {
@@ -11,31 +18,22 @@
     "url": "https://github.com/orgapp/orgajs.git",
     "directory": "packages/loader"
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "yarn clean && yarn compile",
-    "test": "jest",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b"
+    "test": "node --test tests/*.test.js"
   },
   "dependencies": {
-    "@orgajs/orgx": "1.0.8",
-    "loader-utils": "^2.0.0",
-    "schema-utils": "^3.0.0",
-    "vfile-reporter": "^6.0.2"
+    "@orgajs/orgx": "workspace:^",
+    "vfile-reporter": "^7.0.5"
   },
   "devDependencies": {
-    "@orgajs/react": "3.0.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.11.1",
-    "babel-loader": "^8.2.2",
-    "html-loader": "^2.1.2",
-    "jest": "^27.1.1",
-    "memfs": "^3.2.2",
-    "react": "^17.0.2",
-    "ts-jest": "^27.0.5",
-    "webpack": "^5.59.0"
+    "@orgajs/react": "workspace:^",
+    "@types/node": "^20.2.1",
+    "babel-loader": "^9.1.2",
+    "del-cli": "^5.0.0",
+    "html-loader": "^4.2.0",
+    "memfs": "^3.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "webpack": "^5.83.1"
   }
 }

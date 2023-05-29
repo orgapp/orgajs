@@ -2,50 +2,40 @@
   "name": "orgajs",
   "private": true,
   "devDependencies": {
-    "@babel/core": "^7.14.3",
-    "@babel/plugin-syntax-jsx": "^7.12.13",
-    "@babel/preset-react": "^7.13.13",
-    "@changesets/cli": "^2.16.0",
-    "@types/jest": "^27.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.26.1",
-    "@typescript-eslint/parser": "^4.26.1",
+    "@babel/core": "^7.21.8",
+    "@babel/plugin-syntax-jsx": "^7.21.4",
+    "@babel/preset-react": "^7.18.6",
+    "@changesets/cli": "^2.26.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
     "chalk": "^4.1.0",
     "cross-env": "^7.0.3",
     "del-cli": "^3.0.1",
-    "eslint": "^7.28.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react": "^7.25.3",
+    "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
     "husky": "^7.0.2",
-    "jest": "27.1.1",
-    "jest-cli": "27.1.1",
-    "lint-staged": "^11.1.2",
+    "lint-staged": "^13.2.2",
     "prettier": "^2.3.2",
-    "ts-jest": "^27.0.5",
-    "typescript": "^4.3.5"
+    "turbo": "^1.9.6",
+    "typescript": "^5.0.4"
   },
   "scripts": {
-    "clean": "yarn workspaces foreach run clean",
-    "build": "tsc -b tsconfig.packages.json",
-    "test": "jest",
+    "clean": "turbo run clean --filter='./packages/*'",
+    "build": "turbo run build --filter='./packages/*'",
+    "test": "turbo run test --filter='./packages/*'",
     "lint": "eslint packages --ext js,jsx,ts,tsx",
     "format": "prettier --write .",
     "changeset": "changeset",
-    "version-packages": "changeset version && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install",
-    "release": "yarn build && yarn changeset publish",
+    "ci:version": "changeset version",
+    "ci:publish": "pnpm build && changeset publish",
     "postinstall": "husky install"
-  },
-  "workspaces": {
-    "packages": [
-      "./packages/*",
-      "./examples/*",
-      "./website"
-    ]
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
     "*.{js,jsx,ts,tsx,md,html,css,json}": "prettier --write"
-  },
-  "packageManager": "yarn@3.0.2"
+  }
 }

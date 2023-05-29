@@ -1,23 +1,20 @@
-import { Action, Handler } from '.'
-import { BlockBegin, BlockEnd } from '../types'
+import { Action, Handler } from './index.js'
+import { BlockBegin, BlockEnd } from '../types.js'
 
-const block: Action = (
-  begin: BlockBegin,
-  { save, push, enter, lexer, attributes }
-): Handler => {
-  save()
+const block: Action = (begin: BlockBegin, ctx): Handler => {
+  ctx.save()
   const contentStart = begin.position.end
   const blockName = begin.name.toLowerCase()
 
-  const block = enter({
+  const block = ctx.enter({
     type: 'block',
     name: begin.name,
     params: begin.params,
     value: '',
-    attributes: { ...attributes },
+    attributes: { ...ctx.attributes },
     children: [],
   })
-  push(lexer.eat())
+  ctx.push(ctx.lexer.eat())
 
   /*
    * find the indentation of the block and apply it to
@@ -56,8 +53,8 @@ const block: Action = (
     rules: [
       {
         test: 'block.end',
-        action: (token: BlockEnd, { exit, push, lexer }) => {
-          const { eat } = lexer
+        action: (token: BlockEnd, context) => {
+          const lexer = context.lexer
           if (token.name.toLowerCase() !== blockName) return 'next'
           block.value = align(
             lexer.substring({
@@ -65,25 +62,25 @@ const block: Action = (
               end: token.position.start,
             })
           )
-          push(eat())
-          eat('newline')
-          exit('block')
+          context.push(lexer.eat())
+          lexer.eat('newline')
+          context.exit('block')
           return 'break'
         },
       },
       {
         test: ['stars', 'EOF'],
-        action: (_, { restore, lexer }) => {
-          restore()
-          lexer.modify((t) => ({
+        action: (_, context) => {
+          context.restore()
+          context.lexer.modify((t) => ({
             type: 'text',
-            value: lexer.substring(t.position),
+            value: context.lexer.substring(t.position),
             position: t.position,
           }))
           return 'break'
         },
       },
-      { test: /./, action: (_, { push, lexer }) => push(lexer.eat()) },
+      { test: /./, action: (_, context) => context.push(context.lexer.eat()) },
     ],
   }
 }

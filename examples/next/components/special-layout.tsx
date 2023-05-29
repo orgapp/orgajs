@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
-const Layout: FC = ({ children }) => {
+function Layout({ children }: { children: ReactNode }) {
   return (
     <div style={{ background: '#fdffff', color: '#233d5c' }}>
       <div
@@ -9,7 +9,7 @@ const Layout: FC = ({ children }) => {
           top: 0,
           left: 0,
           display: 'flex',
-          justfiyContent: 'center',
+          justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
           height: 64,

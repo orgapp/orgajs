@@ -6,24 +6,26 @@
     "dist"
   ],
   "main": "dist/index.js",
+  "type": "module",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "repository": {
     "url": "orgapp/orgajs",
     "directory": "packages/reorg-latex"
   },
   "scripts": {
-    "build": "yarn clean && yarn compile",
+    "build": "pnpm clean && pnpm compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b"
   },
   "devDependencies": {
     "@types/hast": "^2.3.4",
-    "@types/katex": "^0.11.1",
-    "unified": "^9.2.2"
+    "@types/katex": "^0.16.0",
+    "unified": "^10.1.2"
   },
   "dependencies": {
-    "katex": "^0.13.18",
-    "rehype-parse": "7.0.1",
-    "unist-util-visit": "2.0.3"
+    "katex": "^0.16.7",
+    "rehype-parse": "8.0.4",
+    "unist-util-visit": "4.1.2"
   },
   "peerDependencies": {
     "unified": "9.2.2"

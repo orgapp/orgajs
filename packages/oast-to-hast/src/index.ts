@@ -1,9 +1,9 @@
 import { Comment, Element, Properties, Root, Text, Literal } from 'hast'
 import { Node } from 'unist'
 import { Attributes, Document, Section } from 'orga'
-import u from 'unist-builder'
-import handlers, { Handler } from './handlers'
-import { all as _all } from './transform'
+import { u } from 'unist-builder'
+import handlers, { Handler } from './handlers/index.js'
+import { all as _all } from './transform.js'
 
 // the raw type is used to pass literal html directly
 // it's useful for things like code block with syntax highlight

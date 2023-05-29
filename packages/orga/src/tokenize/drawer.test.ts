@@ -1,137 +1,111 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import tokenize from './__tests__/tok'
 
 describe('tokenize drawer', () => {
   it('knows drawer begins', () => {
-    expect(tokenize(':PROPERTIES:')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":PROPERTIES:",
-          "name": "PROPERTIES",
-          "type": "drawer.begin",
-        },
-      ]
-    `)
-    expect(tokenize('  :properties:')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":properties:",
-          "name": "properties",
-          "type": "drawer.begin",
-        },
-      ]
-    `)
-    expect(tokenize('  :properties:  ')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":properties:",
-          "name": "properties",
-          "type": "drawer.begin",
-        },
-      ]
-    `)
-    expect(tokenize('  :prop_erties:  ')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":prop_erties:",
-          "name": "prop_erties",
-          "type": "drawer.begin",
-        },
-      ]
-    `)
+    assert.deepEqual(tokenize(':PROPERTIES:'), [
+      {
+        _text: ':PROPERTIES:',
+        name: 'PROPERTIES',
+        type: 'drawer.begin',
+      },
+    ])
+    assert.deepEqual(tokenize('  :properties:'), [
+      {
+        _text: ':properties:',
+        name: 'properties',
+        type: 'drawer.begin',
+      },
+    ])
+    assert.deepEqual(tokenize('  :properties:  '), [
+      {
+        _text: ':properties:',
+        name: 'properties',
+        type: 'drawer.begin',
+      },
+    ])
+    assert.deepEqual(tokenize('  :prop_erties:  '), [
+      {
+        _text: ':prop_erties:',
+        name: 'prop_erties',
+        type: 'drawer.begin',
+      },
+    ])
   })
 
   it('knows these are not drawer begins', () => {
-    expect(tokenize('PROPERTIES:')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": "PROPERTIES:",
-    "type": "text",
-    "value": "PROPERTIES:",
-  },
-]
-`)
-    expect(tokenize(':PROPERTIES')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": ":PROPERTIES",
-    "type": "text",
-    "value": ":PROPERTIES",
-  },
-]
-`)
-    expect(tokenize(':PR OPERTIES:')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": ":PR OPERTIES:",
-    "type": "text",
-    "value": ":PR OPERTIES:",
-  },
-]
-`)
+    assert.deepEqual(tokenize('PROPERTIES:'), [
+      {
+        _text: 'PROPERTIES:',
+        type: 'text',
+        value: 'PROPERTIES:',
+      },
+    ])
+    assert.deepEqual(tokenize(':PROPERTIES'), [
+      {
+        _text: ':PROPERTIES',
+        type: 'text',
+        value: ':PROPERTIES',
+      },
+    ])
+    assert.deepEqual(tokenize(':PR OPERTIES:'), [
+      {
+        _text: ':PR OPERTIES:',
+        type: 'text',
+        value: ':PR OPERTIES:',
+      },
+    ])
   })
 
   it('knows drawer ends', () => {
-    expect(tokenize(':END:')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":END:",
-          "type": "drawer.end",
-        },
-      ]
-    `)
-    expect(tokenize('  :end:')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":end:",
-          "type": "drawer.end",
-        },
-      ]
-    `)
-    expect(tokenize('  :end:  ')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":end:",
-          "type": "drawer.end",
-        },
-      ]
-    `)
-    expect(tokenize('  :end:  ')).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "_text": ":end:",
-          "type": "drawer.end",
-        },
-      ]
-    `)
+    assert.deepEqual(tokenize(':END:'), [
+      {
+        _text: ':END:',
+        type: 'drawer.end',
+      },
+    ])
+    assert.deepEqual(tokenize('  :end:'), [
+      {
+        _text: ':end:',
+        type: 'drawer.end',
+      },
+    ])
+    assert.deepEqual(tokenize('  :end:  '), [
+      {
+        _text: ':end:',
+        type: 'drawer.end',
+      },
+    ])
+    assert.deepEqual(tokenize('  :end:  '), [
+      {
+        _text: ':end:',
+        type: 'drawer.end',
+      },
+    ])
   })
 
   it('knows these are not drawer ends', () => {
-    expect(tokenize('END:')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": "END:",
-    "type": "text",
-    "value": "END:",
-  },
-]
-`)
-    expect(tokenize(':END')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": ":END",
-    "type": "text",
-    "value": ":END",
-  },
-]
-`)
-    expect(tokenize(':ENDed')).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "_text": ":ENDed",
-    "type": "text",
-    "value": ":ENDed",
-  },
-]
-`)
+    assert.deepEqual(tokenize('END:'), [
+      {
+        _text: 'END:',
+        type: 'text',
+        value: 'END:',
+      },
+    ])
+    assert.deepEqual(tokenize(':END'), [
+      {
+        _text: ':END',
+        type: 'text',
+        value: ':END',
+      },
+    ])
+    assert.deepEqual(tokenize(':ENDed'), [
+      {
+        _text: ':ENDed',
+        type: 'text',
+        value: ':ENDed',
+      },
+    ])
   })
 })

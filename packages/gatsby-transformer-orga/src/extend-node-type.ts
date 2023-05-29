@@ -3,7 +3,7 @@ import { GraphQLString } from 'gatsby/graphql'
 import { Link } from 'orga'
 import { statistics, toHtml } from 'orga-posts'
 import { dirname, normalize, posix } from 'path'
-import visit from 'unist-util-visit'
+import { visit } from 'unist-util-visit'
 import { getAST } from './orga-util'
 
 const DEPLOY_DIR = `public`
@@ -143,29 +143,29 @@ module.exports = async (
             }
           }
 
-          if (node.protocol === 'id') {
+          if (node.path.protocol === 'id') {
             const linkToOrg = orgContent.find(
-              (f) => f.metadata.id === node.value
+              (f) => f.metadata.id === node.path.value
             )
-            node.value = getSlug(linkToOrg) || node.value
+            node.path.value = getSlug(linkToOrg) || node.path.value
           }
 
           // TODO: transform internal link of file based content to anchor? i.e. can't find the linkToOrg
-          if (node.protocol === `internal`) {
+          if (node.path.protocol === `internal`) {
             if (node.path.value.startsWith('#')) {
               // internal link by CUSTOM_ID
               const linkToOrg = orgContent.find(
                 (f) => f.metadata.custom_id === node.path.value.substring(1)
               )
-              node.value = getSlug(linkToOrg) || node.value
+              node.path.value = getSlug(linkToOrg) || node.path.value
             } else {
               const linkPath = `${
                 getNode(orgContentNode.parent).fileAbsolutePath
-              }::*${node.value}`
+              }::*${node.path.value}`
               const linkToOrg = orgContent.find(
                 (f) => f.absolutePath === linkPath
               )
-              node.value = getSlug(linkToOrg) || node.value
+              node.path.value = getSlug(linkToOrg) || node.path.value
             }
           }
         }

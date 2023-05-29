@@ -1,8 +1,9 @@
 import assert from 'assert'
-import { Node, Point } from 'unist'
-import { not, Predicate, test } from '.'
-import { Lexer } from '../tokenize'
-import { Attributes, Document, Parent } from '../types'
+import type { Node, Point } from 'unist'
+import { not, test } from './index.js'
+import type { Predicate } from './index.js'
+import type { Lexer } from '../tokenize/index.js'
+import { Attributes, Document, isSection, Parent } from '../types.js'
 
 interface Snapshot {
   stack: Parent[]
@@ -50,7 +51,6 @@ export function createContext(lexer: Lexer): Context {
   let snapshot: Snapshot | undefined = undefined
 
   const enter: Enter = (node) => {
-    // console.log(`[enter]: ${node.type}`)
     const start = lexer.peek()?.position?.start ||
       lexer.peek(-1)?.position?.end || { line: 1, column: 1, offset: 0 }
 
@@ -111,7 +111,7 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
     let index = stack.length - 1
     while (index > 0) {
       const node = stack[index]
-      if (node.type === 'section' && typeof node.level === 'number') {
+      if (isSection(node)) {
         return node.level
       }
       index -= 1
@@ -156,10 +156,12 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
     },
 
     save: function () {
+      const level = this.level
+      const attributes = this.attributes
       snapshot = {
         stack: [...stack],
-        level: this.level,
-        attributes: { ...this.attributes },
+        level,
+        attributes: { ...attributes },
         savePoint: lexer.save(),
       }
     },

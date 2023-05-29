@@ -1,0 +1,5 @@
+#+title: org-mode example
+
+* Hello World
+
+This is a page written in org-mode.

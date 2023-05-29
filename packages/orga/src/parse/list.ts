@@ -1,7 +1,7 @@
-import { Action, Handler } from '.'
-import { ListItem, ListItemBullet, ListItemTag } from '../types'
-import { isPhrasingContent } from '../utils'
-import phrasingContent from './phrasing'
+import { Action, Handler } from './index.js'
+import { ListItem, ListItemBullet, ListItemTag } from '../types.js'
+import { isPhrasingContent } from '../utils.js'
+import phrasingContent from './phrasing.js'
 
 const listItem: Action = (token: ListItemBullet, { enter, consume }) => {
   const item: ListItem = enter({

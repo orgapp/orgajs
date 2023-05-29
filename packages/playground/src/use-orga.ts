@@ -1,23 +1,23 @@
 import * as reactRuntime from 'react/jsx-runtime.js'
 import { useState, useEffect, useCallback } from 'react'
-import vfile, { VFile } from 'vfile'
-import VMessage from 'vfile-message'
+import { VFile } from 'vfile'
+import { VFileMessage } from 'vfile-message'
 import { tokenize } from 'orga'
-import { evaluate, RuntimeOptions } from '@orgajs/orgx'
+import { evaluate, EvaluateOptions } from '@orgajs/orgx'
 import latex from '@orgajs/rehype-latex'
 
 interface Output extends VFile {
-  result?: React.FC
+  result: React.FC
 }
 
 export function useOrga(
   input: string,
-  runtime: RuntimeOptions = reactRuntime as RuntimeOptions
+  runtime: EvaluateOptions = reactRuntime as EvaluateOptions
 ): { output: Output } {
   const [output, setOutput] = useState<Output>(null)
 
   const setInput = useCallback(async (input: string) => {
-    const file = vfile(input)
+    const file = new VFile(input)
 
     const capture = (name: string) => () => (tree) => {
       file.data[name] = tree
@@ -29,14 +29,14 @@ export function useOrga(
       file.result = (
         await evaluate(file, {
           ...runtime,
-          reorgPlugins: [capture('oast')],
+          // reorgPlugins: [capture('oast')],
           rehypePlugins: [latex, capture('rehype')],
-          estreePlugins: [capture('estree')],
+          recmaPlugins: [capture('estree')],
         })
       ).default
       capture('jsx')()(String(file))
     } catch (error) {
-      const message = new VMessage(error)
+      const message = new VFileMessage(error)
 
       if (!file.messages.includes(message)) {
         file.messages.push(message)
@@ -45,7 +45,7 @@ export function useOrga(
       message.fatal = true
     }
 
-    setOutput(file)
+    setOutput(file as Output)
   }, [])
 
   useEffect(() => {

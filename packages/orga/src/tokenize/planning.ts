@@ -1,7 +1,7 @@
 import { Point } from 'unist'
 import { Reader } from 'text-kit'
-import { parse as parseTimestamp } from '../timestamp'
-import { Token } from '../types'
+import { parse as parseTimestamp } from '../timestamp.js'
+import { Token } from '../types.js'
 
 export default ({
     keywords,

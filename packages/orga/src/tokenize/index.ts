@@ -1,21 +1,21 @@
 import { read, Reader } from 'text-kit'
 import { Position } from 'unist'
-import defaultOptions, { ParseOptions } from '../options'
-import todoKeywordSet, { TodoKeywordSet } from '../todo-keyword-set'
-import { Token } from '../types'
-import block from './block'
-import latex from './latex'
-import comment from './comment'
-import drawer from './drawer'
-import footnote from './footnote'
-import headline from './headline'
-import hr from './hr'
-import { tokenize as inlineTok } from './inline'
-import keyword from './keyword'
-import listItem from './list'
-import planning from './planning'
-import table from './table'
-import emptyLines from './empty'
+import defaultOptions, { ParseOptions } from '../options.js'
+import todoKeywordSet, { TodoKeywordSet } from '../todo-keyword-set.js'
+import { Token } from '../types.js'
+import block from './block.js'
+import latex from './latex.js'
+import comment from './comment.js'
+import drawer from './drawer.js'
+import footnote from './footnote.js'
+import headline from './headline.js'
+import hr from './hr.js'
+import { tokenize as inlineTok } from './inline/index.js'
+import keyword from './keyword.js'
+import listItem from './list.js'
+import planning from './planning.js'
+import table from './table.js'
+import emptyLines from './empty.js'
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
@@ -86,7 +86,6 @@ export const tokenize = (
     ]
 
     for (const t of tokenizers) {
-      // console.log({ now: reader.now() })
       const result = t(reader)
       if (!result) continue
       const tokens = Array.isArray(result) ? result : [result]
@@ -94,8 +93,6 @@ export const tokenize = (
         return [...all, ...tokens]
       }
     }
-
-    // console.log('none of them matches', { line: reader.getLine(), now: reader.now() })
 
     // last resort
     const currentLine = reader.read({ end: reader.endOfLine() })

@@ -1,6 +1,6 @@
 import { Block } from 'orga'
 import { Context, HNode } from '../'
-import parseHTML from './_parseHTML'
+import parseHTML from './_parseHTML.js'
 
 export default (node: Block, context: Context) => {
   const { h, u } = context

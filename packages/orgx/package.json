@@ -2,8 +2,7 @@
   "name": "@orgajs/orgx",
   "version": "1.0.8",
   "description": "orga compiler with jsx support",
-  "main": "dist/index.js",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/orgx#readme",
   "repository": {
@@ -11,39 +10,47 @@
     "url": "https://github.com/orgapp/orgajs.git",
     "directory": "packages/orgx"
   },
+  "type": "module",
+  "main": "index.js",
+  "types": "dist/index.d.ts",
+  "browser": {
+    "./lib/condition.js": "./lib/condition.browser.js"
+  },
   "files": [
-    "dist"
+    "lib",
+    "dist",
+    "index.js"
   ],
   "scripts": {
-    "build": "yarn clean && yarn compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "test": "jest",
-    "compile": "tsc -b"
+    "clean": "tsc --build --clean",
+    "build": "tsc --build",
+    "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
-    "@types/estree": "^0.0.50",
-    "@types/estree-jsx": "^0.0.1",
+    "@types/estree": "^1.0.1",
+    "@types/estree-jsx": "^1.0.0",
     "@types/hast": "^2.3.4",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.11.1",
-    "jest": "^27.1.1",
-    "jest-cli": "^27.1.1",
-    "react": "^17.0.2",
-    "ts-jest": "^27.0.5"
+    "@types/node": "^20.2.1",
+    "@types/react": "^18.2.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@orgajs/reorg-parse": "3.1.7",
-    "@orgajs/reorg-rehype": "3.0.10",
+    "@orgajs/reorg-parse": "workspace:^",
+    "@orgajs/reorg-rehype": "workspace:^",
     "acorn": "^8.5.0",
     "acorn-jsx": "^5.3.2",
     "astring": "^1.7.5",
-    "estree-util-build-jsx": "1.1.1",
-    "estree-util-is-identifier-name": "1.1.0",
-    "estree-walker": "2.0.2",
-    "hast-util-to-estree": "1.4.0",
-    "periscopic": "2.0.3",
-    "unified": "9.2.2",
-    "unist-util-stringify-position": "2.0.3",
-    "vfile": "4.2.1"
+    "estree-util-build-jsx": "2.2.2",
+    "estree-util-is-identifier-name": "2.1.0",
+    "estree-util-to-js": "^1.2.0",
+    "estree-walker": "3.0.3",
+    "hast-util-to-estree": "^2.3.3",
+    "periscopic": "3.1.0",
+    "source-map": "^0.7.4",
+    "unified": "^10.1.2",
+    "unist-util-position-from-estree": "^1.1.2",
+    "unist-util-stringify-position": "^3.0.3",
+    "vfile": "^5.3.7"
   }
 }

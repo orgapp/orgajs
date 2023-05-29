@@ -1,6 +1,6 @@
 import { Reader } from 'text-kit'
-import { Token } from '../../types'
-import { tokenize } from '.'
+import { Token } from '../../types.js'
+import { tokenize } from './index.js'
 
 const tokFootnoteRefernece = (reader: Reader) => {
   const tokens: Token[] = []

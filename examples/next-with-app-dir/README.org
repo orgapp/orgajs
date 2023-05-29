@@ -1,0 +1,60 @@
+#+caption: orga is beautiful
+[[file:/logo.png]]
+
+* Getting Started
+
+First, run the development server:
+
+#+begin_src bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+#+end_src
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+* Features
+
+** Import org-mode files as react components
+
+#+begin_src javascript
+import Content from './content.org'
+export default function Home() {
+  return (
+    <main className="">
+      <Content />
+    </main>
+  )
+}
+#+end_src
+
+** create pages with org-mode files directly
+Create files in path like =app/hello/page.org=.
+** code block syntax highlight via [[https://github.com/atomiks/rehype-pretty-code][rehype-pretty-code]]
+Take a look at =next.config.js= file for details.
+** TypeScript support
+You need the reference in =orgx.d.ts= file to get TypeScript typing for org files.
+** render react components
+
+You can render react components directly in your org file like so:
+
+#+begin_src org
+,#+begin_export jsx
+<div style={{
+  backgroundColor: 'tomato',
+  color: 'white',
+  padding: '1em'
+}}>tomato box</div>
+,#+end_export
+#+end_src
+
+You should see it looks like this:
+#+begin_export jsx
+<div style={{
+  backgroundColor: 'tomato',
+  color: 'white',
+  padding: '1em'
+}}>tomato box</div>
+#+end_export

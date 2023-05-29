@@ -9,18 +9,14 @@
     { "path": "packages/reorg-rehype" },
     { "path": "packages/rehype-estree" },
     { "path": "packages/estree-jsx" },
-    { "path": "packages/loader" },
     { "path": "packages/next" },
     { "path": "packages/react" },
-    { "path": "packages/gatsby-plugin-orga" },
     { "path": "packages/gatsby-transformer-orga" },
     { "path": "packages/orga-posts" },
-    { "path": "packages/orga-theme-ui-preset" },
     { "path": "packages/playground" },
-    { "path": "packages/reorg-shiki" },
     { "path": "packages/metadata" },
-    { "path": "packages/theme-ui" },
     { "path": "packages/orgx" },
-    { "path": "packages/rehype-latex" }
+    { "path": "packages/rehype-latex" },
+    { "path": "packages/rollup" }
   ]
 }

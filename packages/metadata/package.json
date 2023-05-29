@@ -3,7 +3,8 @@
   "version": "1.0.2",
   "description": "extract metadata info from org file",
   "main": "dist/index.js",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "type": "module",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/metadata#readme",
   "repository": {
@@ -15,15 +16,15 @@
     "dist"
   ],
   "scripts": {
-    "build": "yarn clean && yarn compile",
+    "build": "pnpm clean && pnpm compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
-    "test": "jest",
+    "test": "node --test --no-warnings --loader tsx src/*.test.ts",
     "compile": "tsc -b"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.1",
-    "jest": "^27.1.1",
-    "jest-cli": "^27.1.1",
-    "ts-jest": "^27.0.5"
+    "@types/node": "^20.2.1",
+    "del-cli": "^5.0.0",
+    "tsx": "^3.12.7",
+    "typescript": "^5.0.4"
   }
 }

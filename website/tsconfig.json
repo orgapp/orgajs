@@ -1,15 +1,7 @@
 {
-  "extends": "../tsconfig.base.json",
-  "include": ["./src/**/*"],
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "target": "ESNext",
-    /* "module": "ESNext", */
-    "lib": ["DOM", "ES2017"],
-    "jsx": "react",
-    "strict": true,
-    "esModuleInterop": true,
-    "noEmit": true,
-    "skipLibCheck": true,
-    "emitDecoratorMetadata": true
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   }
 }

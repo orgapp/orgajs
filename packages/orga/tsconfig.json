@@ -1,9 +1,8 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.esm.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist"
   },
-  "references": [{ "path": "../text-kit" }],
   "include": ["./src"]
 }

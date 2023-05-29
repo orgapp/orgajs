@@ -1,9 +1,11 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import core from '../core'
 import lines from './lines'
 
 // TODO: add more tests
 describe('linePosition', () => {
-  it.each([
+  const testCases = [
     {
       desc: 'begin of line',
       text: 'abcd',
@@ -43,8 +45,12 @@ describe('linePosition', () => {
       point: { line: 10, column: 1, offset: 100 },
       expected: undefined,
     },
-  ])('$desc', ({ text, point, expected }) => {
-    const c = lines(core(text))
-    expect(c.linePosition(point)).toEqual(expected)
+  ]
+
+  testCases.forEach(({ desc, text, point, expected }) => {
+    it(desc, () => {
+      const c = lines(core(text))
+      assert.deepStrictEqual(c.linePosition(point), expected)
+    })
   })
 })

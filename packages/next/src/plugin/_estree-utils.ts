@@ -1,6 +1,5 @@
-import { Literal } from 'estree'
-import { JSXAttribute, JSXOpeningElement } from 'estree-jsx'
-import { BaseNode } from 'estree-walker'
+import type { Literal, BaseNode } from 'estree'
+import type { JSXAttribute, JSXOpeningElement } from 'estree-jsx'
 
 export function isJSXOpeningElement(node: BaseNode): node is JSXOpeningElement {
   return node.type === 'JSXOpeningElement'

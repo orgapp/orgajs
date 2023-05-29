@@ -6,7 +6,8 @@
     "dist"
   ],
   "main": "dist/index.js",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "type": "module",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
   "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/reorg#readme",
   "repository": {
@@ -15,12 +16,16 @@
     "directory": "packages/reorg"
   },
   "scripts": {
-    "build": "yarn clean && yarn compile",
+    "build": "pnpm clean && pnpm compile",
     "clean": "del ./dist tsconfig.tsbuildinfo",
     "compile": "tsc -b"
   },
   "dependencies": {
-    "@orgajs/reorg-parse": "3.1.7",
-    "unified": "9.2.2"
+    "@orgajs/reorg-parse": "workspace:^",
+    "unified": "^10.1.2"
+  },
+  "devDependencies": {
+    "@types/unist": "^2.0.6",
+    "del-cli": "^5.0.0"
   }
 }
