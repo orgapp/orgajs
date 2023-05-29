@@ -30,8 +30,8 @@
     "lint": "eslint packages --ext js,jsx,ts,tsx",
     "format": "prettier --write .",
     "changeset": "changeset",
-    "version-packages": "changeset version && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install",
-    "release": "yarn build && yarn changeset publish",
+    "ci:version": "changeset version",
+    "ci:publish": "pnpm build && changeset publish",
     "postinstall": "husky install"
   },
   "lint-staged": {
