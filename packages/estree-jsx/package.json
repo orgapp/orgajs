@@ -15,14 +15,10 @@
     "directory": "packages/estree-jsx"
   },
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b"
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
   },
   "dependencies": {
     "astring": "^1.7.5"
-  },
-  "devDependencies": {
-    "del-cli": "^5.0.0"
   }
 }

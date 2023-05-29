@@ -15,15 +15,13 @@
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b"
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
   },
   "dependencies": {
     "hast-util-to-estree": "^2.3.3"
   },
   "devDependencies": {
-    "del-cli": "^5.0.0",
     "unified": "^10.1.2"
   }
 }

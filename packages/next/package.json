@@ -12,9 +12,8 @@
     "directory": "packages/next"
   },
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b"
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
   },
   "peerDependencies": {
     "@orgajs/loader": "*",
@@ -30,7 +29,6 @@
     "@types/estree-jsx": "^1.0.0",
     "@types/hast": "^2.3.4",
     "@types/node": "^20.2.1",
-    "del-cli": "^5.0.0",
     "unified": "10.1.2"
   }
 }

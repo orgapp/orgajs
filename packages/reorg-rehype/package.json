@@ -16,16 +16,14 @@
     "directory": "packages/reorg-rehype"
   },
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b"
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
   },
   "dependencies": {
-    "oast-to-hast": "3.2.1"
+    "oast-to-hast": "workspace:*"
   },
   "devDependencies": {
     "@types/unist": "^2.0.6",
-    "del-cli": "^5.0.0",
     "unified": "^10.1.2"
   }
 }

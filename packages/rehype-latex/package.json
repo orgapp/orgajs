@@ -13,9 +13,8 @@
     "directory": "packages/reorg-latex"
   },
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
-    "clean": "del ./dist tsconfig.tsbuildinfo",
-    "compile": "tsc -b"
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
   },
   "devDependencies": {
     "@types/hast": "^2.3.4",
