@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.9
+
+### Patch Changes
+
+- Updated dependencies [9b332abf]
+  - @orgajs/reorg-rehype@4.0.0
+  - orga@4.0.0
+
 ## 3.1.8
 
 ### Patch Changes
