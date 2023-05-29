@@ -15,6 +15,9 @@
 '@orgajs/next': major
 'orga': major
 '@orgajs/orgx': major
+'@orgajs/getting-started': major
+'@orgajs/example-next': major
+'@orgajs/example-next-app-dir': major
 ---
 
 # Migrate most of the ecosystem to ESM
