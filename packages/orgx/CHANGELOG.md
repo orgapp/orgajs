@@ -1,13 +1,5 @@
 # @orgajs/orgx
 
-## 2.0.1
-
-### Patch Changes
-
-- 6be4c172: fix layout issue
-
-  `OrgaLayout` was renamed to `OrgLayout`.
-
 ## 2.0.0
 
 ### Major Changes
