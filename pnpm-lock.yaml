@@ -597,7 +597,7 @@ importers:
         specifier: ^4.2.2
         version: 4.5.1(monaco-editor@0.38.0)(react-dom@18.2.0)(react@17.0.2)
       '@orgajs/orgx':
-        specifier: 2.0.0
+        specifier: 2.0.1
         version: link:../orgx
       '@orgajs/react':
         specifier: 4.0.0
