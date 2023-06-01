@@ -81,7 +81,7 @@ export function rehypeRecma(options = {}) {
             type: 'ImportDefaultSpecifier',
             local: {
               type: 'Identifier',
-              name: 'OrgaLayout',
+              name: 'OrgLayout',
             },
           },
         ],
