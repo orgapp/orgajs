@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.0.1
+
+### Patch Changes
+
+- Updated dependencies [1dbf674d]
+  - @orgajs/orgx@2.0.1
+  - @orgajs/loader@4.0.1
+
 ## 4.0.0
 
 ### Major Changes
