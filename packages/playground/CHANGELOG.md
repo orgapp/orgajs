@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.1.13
+
+### Patch Changes
+
+- Updated dependencies [1dbf674d]
+  - @orgajs/orgx@2.0.1
+
 ## 3.1.12
 
 ### Patch Changes
