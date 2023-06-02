@@ -1,5 +1,12 @@
 # website
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [a20ef1fd]
+  - @orgajs/astro@1.0.2
+
 ## 0.0.3
 
 ### Patch Changes
