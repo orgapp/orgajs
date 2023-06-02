@@ -28,7 +28,11 @@ export function addAstroFragment() {
       type: 'ImportDeclaration',
       specifiers: [
         {
-          type: 'ImportDefaultSpecifier',
+          type: 'ImportSpecifier',
+          imported: {
+            type: 'Identifier',
+            name: 'Fragment',
+          },
           local: {
             type: 'Identifier',
             name: 'Fragment',
