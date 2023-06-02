@@ -1,5 +1,11 @@
 # @orgajs/astro
 
+## 1.0.2
+
+### Patch Changes
+
+- a20ef1fd: fix an import issue when generating code in astro
+
 ## 1.0.1
 
 ### Patch Changes
