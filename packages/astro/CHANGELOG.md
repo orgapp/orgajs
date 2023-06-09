@@ -1,5 +1,11 @@
 # @orgajs/astro
 
+## 1.0.3
+
+### Patch Changes
+
+- 49b4f258: add options to astro plugin
+
 ## 1.0.2
 
 ### Patch Changes
