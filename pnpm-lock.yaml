@@ -195,6 +195,9 @@ importers:
         specifier: ^0.7.4
         version: 0.7.4
     devDependencies:
+      '@orgajs/orgx':
+        specifier: workspace:^
+        version: link:../orgx
       '@types/estree':
         specifier: ^1.0.1
         version: 1.0.1

@@ -3,15 +3,17 @@
  *   addPageExtension: (ext: string) => void;
  *   addContentEntryType: (contentEntryType: import('astro').ContentEntryType) => void;
  * }} SetupHookParams
+ * @typedef {import('@orgajs/orgx').CompileOptions} Options
  */
 import orga from '@orgajs/rollup'
 import { parse as parseMetadata } from '@orgajs/metadata'
 import { addAstroFragment } from './lib/plugin/recma-add-astro-fragment.js'
 
 /**
+ * @param {Options} options
  * @returns {import('astro').AstroIntegration}
  */
-export default function org() {
+export default function org({ recmaPlugins, ...options }) {
   return {
     name: '@orgajs/astro',
     hooks: {
@@ -40,8 +42,9 @@ export default function org() {
               {
                 enforce: 'pre',
                 ...orga({
+                  ...options,
                   jsxImportSource: 'astro',
-                  recmaPlugins: [addAstroFragment],
+                  recmaPlugins: [...(recmaPlugins ?? []), addAstroFragment],
                   elementAttributeNameCase: 'html',
                   development: false,
                 }),
