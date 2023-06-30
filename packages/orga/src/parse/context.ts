@@ -1,9 +1,8 @@
-import assert from 'assert'
-import type { Node, Point } from 'unist'
+import type { Node, Point, Parent } from 'unist'
 import { not, test } from './index.js'
 import type { Predicate } from './index.js'
 import type { Lexer } from '../tokenize/index.js'
-import { Attributes, Document, isSection, Parent } from '../types.js'
+import { Attributes, Document, isSection } from '../types.js'
 
 interface Snapshot {
   stack: Parent[]
@@ -73,7 +72,9 @@ export function createContext(lexer: Lexer): Context {
       lexer.peek(-1)?.position?.end || { line: 1, column: 1, offset: 0 }
     node.position.end = point(end)
 
-    assert(node, 'unexpected empty stack')
+    if (!node) {
+      throw new Error('unexpected empty stack')
+    }
     // attach to tree
     if (stack.length > 0) {
       push(node)
@@ -87,14 +88,15 @@ export function createContext(lexer: Lexer): Context {
     if (test(last, predicate)) {
       return pop()
     }
-    assert(
-      !strict,
-      `
+    if (strict) {
+      throw new Error(
+        `
 can not strictly exit ${predicate},
 actual: ${last.type}
 location: line: ${last.position.start.line}, column: ${last.position.start.column}
 `.trim()
-    )
+      )
+    }
   }
 
   const exitTo = (predicate: Predicate) => {
@@ -121,7 +123,9 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
 
   const push = (node: Node) => {
     if (!node) return
-    assert(stack.length > 0, 'unexpected empty stack')
+    if (stack.length === 0) {
+      throw new Error('unexpected empty stack')
+    }
     const parent = stack[stack.length - 1]
     parent.children.push(node)
     // node.parent = parent
