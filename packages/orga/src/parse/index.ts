@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { Lexer } from '../tokenize'
 import { Node } from 'unist'
 import { Document, Parent, Token } from '../types.js'
@@ -114,7 +113,9 @@ export const parse = (lexer: Lexer): Document => {
 
   outter: while (handler()) {
     // prevent infinit loop
-    assert(maxStaleIterations > 0, `it's stuck. \n${context.state}`)
+    if (maxStaleIterations === 0) {
+      throw new Error(`it's stuck. \n${context.state}`)
+    }
 
     let nothingMatches = true
 
@@ -159,7 +160,9 @@ export const parse = (lexer: Lexer): Document => {
       maxStaleIterations = 10
     }
   }
-  assert(!lexer.peek(), `not all tokens processed`)
+  if (lexer.peek()) {
+    throw new Error(`not all tokens processed`)
+  }
 
   context.exitTo('document')
   context.exit('document')
