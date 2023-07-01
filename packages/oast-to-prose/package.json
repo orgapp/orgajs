@@ -1,0 +1,32 @@
+{
+  "name": "oast-to-prose",
+  "version": "1.0.0",
+  "description": "Transform OAST to ProseMirror Document",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/oast-to-prose#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orgapp/orgajs.git",
+    "directory": "packages/oast-to-prose"
+  },
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "scripts": {
+    "clean": "tsc --build --clean",
+    "build": "tsc --build",
+    "test": "node --test tests/*.js"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "orga": "workspace:^"
+  },
+  "dependencies": {
+    "prosemirror-model": "^1.19.2"
+  }
+}
