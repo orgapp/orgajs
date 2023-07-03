@@ -30,12 +30,13 @@ export const schema = defaultSchema
 
 /**
  * @param {OastRoot} tree
+ * @param {import('vfile').VFile} file
  * @param {Options | undefined | null} [options]
  * @returns {ProseNode}
  */
-export function toProse(tree, options) {
+export function toProse(tree, file, options) {
   const schema = (options || {}).schema || defaultSchema
-  const state = createParseState({ schema })
+  const state = createParseState(file, { schema })
   const node = state.one(tree, null)
   return schema.node('doc', null, node || undefined)
 }
