@@ -27,14 +27,10 @@ export const handlers = {
   'block.end': () => nodes.marker,
   tags: () => nodes.marker,
   keyword: () => nodes.marker,
-  text: (state, node) => {
+  text: (_, node) => {
     if (node.type !== 'text') {
       return false
     }
-    console.log({ node })
-    // if (node.style === 'verbatim') {
-    //   return nodes.code
-    // }
     if (node.style === 'bold') {
       return nodes.bold
     }

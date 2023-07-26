@@ -53,8 +53,7 @@ export function toLezer(tree, file) {
 }
 
 /** @type {import('./types.js').Handler} */
-const defaultUnknownHandler = (_, node) => {
-  console.log('unknown:', node.type)
+const defaultUnknownHandler = () => {
   return true
 }
 
