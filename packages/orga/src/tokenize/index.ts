@@ -39,9 +39,9 @@ export const tokenize = (
   text: string,
   options: Partial<ParseOptions> = {}
 ): Lexer => {
-  const { timezone, todos } = { ...defaultOptions, ...options }
+  const { timezone, todos, range } = { ...defaultOptions, ...options }
 
-  const reader = read(text)
+  const reader = read(text, range)
 
   const { eat, getChar } = reader
 

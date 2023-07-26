@@ -98,7 +98,7 @@ const main: Handler = {
   ],
 }
 
-export const parse = (lexer: Lexer): Document => {
+export function parse(lexer: Lexer): Document {
   const context = createContext(lexer)
 
   const handlerStack: Handler[] = [main]
