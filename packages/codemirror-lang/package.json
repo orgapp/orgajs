@@ -1,0 +1,15 @@
+{
+  "name": "@orgajs/cm-lang",
+  "version": "1.0.0",
+  "description": "codemirror language: org",
+  "main": "index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
