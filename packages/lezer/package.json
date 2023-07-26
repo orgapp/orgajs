@@ -1,0 +1,29 @@
+{
+  "name": "@orgajs/lezer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "repository": {
+    "url": "orgapp/orgajs",
+    "directory": "packages/lezer"
+  },
+  "dependencies": {
+    "@lezer/common": "^1.0.3",
+    "@lezer/highlight": "^1.1.6",
+    "orga": "workspace:^",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/unist": "^3.0.0",
+    "text-kit": "workspace:^",
+    "vfile": "^6.0.1"
+  }
+}
