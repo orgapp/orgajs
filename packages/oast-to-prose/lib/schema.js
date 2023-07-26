@@ -14,8 +14,10 @@ export const defaultSchema = new Schema({
     },
     headline: {
       attrs: { level: { default: 1 } },
-      content: '(text|link)*',
+      content: 'inline*',
+      defining: true,
       group: 'block',
+      // atom: true,
       parseDOM: [
         { tag: 'h1', attrs: { level: 1 } },
         { tag: 'h2', attrs: { level: 2 } },
@@ -26,6 +28,43 @@ export const defaultSchema = new Schema({
       ],
       toDOM(node) {
         return ['h' + node.attrs.level, 0]
+      },
+    },
+    todo: {
+      group: 'inline',
+      inline: true,
+      attrs: {
+        keyword: {},
+        actionable: {},
+      },
+      toDOM(node) {
+        return [
+          'span',
+          { class: 'org-todo', 'data-actionable': node.attrs.actionable },
+          node.attrs.keyword,
+        ]
+      },
+    },
+    stars: {
+      group: 'inline',
+      inline: true,
+      attrs: {
+        level: {},
+      },
+      toDOM(node) {
+        return [
+          'span',
+          { class: 'org-stars', 'data-level': node.attrs.level },
+          '*'.repeat(node.attrs.level),
+        ]
+      },
+    },
+    tag: {
+      content: 'text*',
+      group: 'inline',
+      inline: true,
+      toDOM() {
+        return ['span', { class: 'org-tag' }, 0]
       },
     },
     paragraph: {
@@ -52,6 +91,7 @@ export const defaultSchema = new Schema({
         {
           tag: 'a[href]',
           getAttrs(dom) {
+            if (typeof dom === 'string') return {}
             return {
               href: dom.getAttribute('href'),
               title: dom.getAttribute('title'),

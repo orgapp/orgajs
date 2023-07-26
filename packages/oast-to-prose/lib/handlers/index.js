@@ -5,6 +5,9 @@ import { link } from './link.js'
 import { section } from './section.js'
 import { block } from './block.js'
 import { newline } from './newline.js'
+import { todo } from './todo.js'
+import { stars } from './stars.js'
+import { tags } from './tags.js'
 
 /* @type {import('../index.js').Handlers} */
 export const handlers = {
@@ -15,6 +18,9 @@ export const handlers = {
   link,
   block,
   newline,
+  todo,
+  stars,
+  tags,
 }
 
-export const ignore = ['link.path', 'stars', 'emptyLine']
+export const ignore = ['link.path', 'emptyLine']
