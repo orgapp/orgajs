@@ -34,7 +34,7 @@
     "dataloader": "^2.0.0",
     "estree-walker": "3.0.3",
     "gatsby-core-utils": "^2.15.0",
-    "loader-utils": "^2.0.0"
+    "loader-utils": "^2.0.4"
   },
   "devDependencies": {
     "@types/estree": "^1.0.1",
