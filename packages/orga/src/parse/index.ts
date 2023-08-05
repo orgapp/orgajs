@@ -98,20 +98,33 @@ const main: Handler = {
   ],
 }
 
-export function parse(lexer: Lexer): Document {
+export interface Parser {
+  advance: () => Document | number
+  parse: () => Document
+  readonly now: number
+}
+
+export function parser(lexer: Lexer): Parser {
   const context = createContext(lexer)
 
   const handlerStack: Handler[] = [main]
 
-  const handler = () =>
-    handlerStack.length > 0 ? handlerStack[handlerStack.length - 1] : undefined
-
-  const { peek } = lexer
+  function handler() {
+    return handlerStack.length > 0
+      ? handlerStack[handlerStack.length - 1]
+      : undefined
+  }
 
   let lexerLocation = lexer.save()
   let maxStaleIterations = 10
 
-  outter: while (handler()) {
+  function advance() {
+    if (!handler() && !lexer.peek()) {
+      context.exitTo('document')
+      context.exit('document')
+      return context.tree
+    }
+
     // prevent infinit loop
     if (maxStaleIterations === 0) {
       throw new Error(`it's stuck. \n${context.state}`)
@@ -120,27 +133,27 @@ export function parse(lexer: Lexer): Document {
     let nothingMatches = true
 
     for (const { test: _test, action } of handler().rules) {
-      const token = peek()
+      const token = lexer.peek()
       const predicates = Array.isArray(_test) ? _test : [_test]
       if (!predicates.some((p) => test(token, p))) continue
       nothingMatches = false
 
       if (typeof action !== 'function') {
         handlerStack.push(action)
-        continue outter
+        return advance()
       }
 
       const control = action(token, context)
 
       if (typeof control === 'object') {
         handlerStack.push(control)
-        continue outter
+        return advance()
       }
 
       if (control === 'break') {
         handlerStack.pop()
         // assert(stack.length > 1, `can not pop the root handler, ${printStack()}, ${stack.length}`)
-        continue outter
+        return advance()
       }
       if (control === 'next') {
         continue
@@ -150,7 +163,7 @@ export function parse(lexer: Lexer): Document {
 
     if (nothingMatches) {
       handlerStack.pop()
-      continue
+      return advance()
     }
 
     if (lexer.save() === lexerLocation) {
@@ -159,13 +172,24 @@ export function parse(lexer: Lexer): Document {
       lexerLocation = lexer.save()
       maxStaleIterations = 10
     }
-  }
-  if (lexer.peek()) {
-    throw new Error(`not all tokens processed`)
+
+    if (lexer.peek()) {
+      return lexer.peek().position.start.offset
+    }
+    return advance()
   }
 
-  context.exitTo('document')
-  context.exit('document')
-
-  return context.tree
+  return {
+    advance,
+    parse() {
+      for (;;) {
+        const tree = advance()
+        if (typeof tree === 'number') continue
+        return tree
+      }
+    },
+    get now() {
+      return lexer.now
+    },
+  }
 }
