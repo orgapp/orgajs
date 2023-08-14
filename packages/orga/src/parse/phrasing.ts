@@ -31,8 +31,7 @@ const phrasingContent: Handler = {
     {
       test: 'link.path',
       action: (token: LinkPath, context) => {
-        const { getParent, consume, attributes } = context
-        const parent = getParent()
+        const { parent, consume, attributes } = context
         if (!isLink(parent)) {
           throw new Error('expect parent to be link')
         }
@@ -48,8 +47,7 @@ const phrasingContent: Handler = {
     },
     {
       test: 'footnote.label',
-      action: (token: FootnoteLabel, { getParent, consume }) => {
-        const parent = getParent()
+      action: (token: FootnoteLabel, { parent, consume }) => {
         if (!isFootnoteReference(parent)) {
           throw new Error('expect parent to be footnote reference')
         }

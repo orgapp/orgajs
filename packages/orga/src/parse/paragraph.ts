@@ -15,7 +15,7 @@ const isWhitespaces = (node: PhrasingContent) => {
 
 const paragraph: Action = () => {
   const makeSureParagraph = (context: Context) => {
-    const parent = context.getParent()
+    const parent = context.parent
     if (parent.type === 'paragraph') return
     context.save()
     context.enter({
@@ -27,7 +27,7 @@ const paragraph: Action = () => {
   }
 
   const exitPragraph = (context: Context) => {
-    const paragraph = context.getParent()
+    const paragraph = context.parent
     if (!isParagraph(paragraph)) return
     if (
       paragraph.children.length === 0 ||

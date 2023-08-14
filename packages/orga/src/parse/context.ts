@@ -31,8 +31,8 @@ export interface Context {
   within: (predicate: Predicate) => boolean
 
   // state
-  getParent: () => Parent
   attributes: Attributes
+  readonly parent: Parent
   readonly level: number
   readonly tree: Document
   readonly lexer: Lexer
@@ -177,7 +177,7 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
       lexer.restore(snapshot.savePoint)
     },
 
-    getParent() {
+    get parent() {
       return stack[stack.length - 1]
     },
 
