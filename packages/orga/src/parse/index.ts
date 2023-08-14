@@ -152,7 +152,14 @@ export function parser(lexer: Lexer, options: ParserOptions): Parser {
 
       if (control === 'break') {
         handlerStack.pop()
-        // assert(stack.length > 1, `can not pop the root handler, ${printStack()}, ${stack.length}`)
+        // if (handlerStack.length === 0) {
+        //   throw new Error('can not pop the root handler')
+        // }
+
+        // return the offset if the block is finished
+        if (lexer.peek() && context.parent.type === 'document') {
+          return lexer.peek().position.start.offset
+        }
         return advance()
       }
       if (control === 'next') {
@@ -173,9 +180,6 @@ export function parser(lexer: Lexer, options: ParserOptions): Parser {
       maxStaleIterations = 10
     }
 
-    if (lexer.peek()) {
-      return lexer.peek().position.start.offset
-    }
     return advance()
   }
 
