@@ -1,6 +1,6 @@
 import { read, Reader } from 'text-kit'
 import { Position } from 'unist'
-import defaultOptions, { ParseOptions } from '../options.js'
+import type { LexerOptions } from '../options.js'
 import todoKeywordSet, { TodoKeywordSet } from '../todo-keyword-set.js'
 import { Token } from '../types.js'
 import block from './block.js'
@@ -35,13 +35,10 @@ export interface Lexer {
 
 export type Tokenizer = (reader: Reader) => Token[] | Token | void
 
-export const tokenize = (
-  text: string,
-  options: Partial<ParseOptions> = {}
-): Lexer => {
-  const { timezone, todos, range } = { ...defaultOptions, ...options }
+export const tokenize = (text: string, options: LexerOptions): Lexer => {
+  const { timezone, todos } = options
 
-  const reader = read(text, range)
+  const reader = read(text)
 
   const { eat, getChar } = reader
 

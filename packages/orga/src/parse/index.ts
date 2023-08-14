@@ -11,6 +11,7 @@ import paragraph from './paragraph.js'
 import section from './section.js'
 import table from './table.js'
 import footnote from './footnote.js'
+import { ParserOptions } from '../options'
 
 export type Parse = (lexer: Lexer) => Parent | undefined
 
@@ -101,11 +102,10 @@ const main: Handler = {
 export interface Parser {
   advance: () => Document | number
   parse: () => Document
-  readonly now: number
 }
 
-export function parser(lexer: Lexer): Parser {
-  const context = createContext(lexer)
+export function parser(lexer: Lexer, options: ParserOptions): Parser {
+  const context = createContext(lexer, options)
 
   const handlerStack: Handler[] = [main]
 
@@ -187,9 +187,6 @@ export function parser(lexer: Lexer): Parser {
         if (typeof tree === 'number') continue
         return tree
       }
-    },
-    get now() {
-      return lexer.now
     },
   }
 }

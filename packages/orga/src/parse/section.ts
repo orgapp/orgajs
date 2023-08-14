@@ -5,25 +5,32 @@ import headline from './headline.js'
 import planning from './planning.js'
 
 const section: Action = (token: Stars, context) => {
-  const { enter, exit, exitTo } = context
+  const {
+    enter,
+    exit,
+    exitTo,
+    options: { flat },
+  } = context
 
   // stars break footnote
   exit('footnote', false)
 
-  const level = token.level
+  if (!flat) {
+    const level = token.level
 
-  if (level <= context.level) {
-    exitTo('section')
-    exit('section')
-    return
+    if (level <= context.level) {
+      exitTo('section')
+      exit('section')
+      return
+    }
+
+    enter({
+      type: 'section',
+      level: level,
+      properties: {},
+      children: [],
+    })
   }
-
-  enter({
-    type: 'section',
-    level: level,
-    properties: {},
-    children: [],
-  })
 
   let headlineProcessed = false
 

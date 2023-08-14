@@ -1,12 +1,26 @@
 import { Range } from 'text-kit'
 
-export interface ParseOptions {
+export interface LexerOptions {
   todos: string[]
   timezone: string
+}
+
+export interface ParserOptions {
+  flat: boolean
   range?: Partial<Range>
 }
 
-export default {
+export interface Options extends LexerOptions, ParserOptions {}
+
+export function withDefault(options: Partial<Options>): Options {
+  return {
+    ...defaultOptions,
+    ...options,
+  }
+}
+
+const defaultOptions: Options = {
   todos: ['TODO | DONE'],
   timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  flat: false,
 }
