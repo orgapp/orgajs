@@ -102,6 +102,7 @@ const main: Handler = {
 export interface Parser {
   advance: () => Document | number
   parse: () => Document
+  finish: () => Document
 }
 
 export function parser(lexer: Lexer, options: ParserOptions): Parser {
@@ -120,9 +121,7 @@ export function parser(lexer: Lexer, options: ParserOptions): Parser {
 
   function advance() {
     if (!handler() && !lexer.peek()) {
-      context.exitTo('document')
-      context.exit('document')
-      return context.tree
+      return finish()
     }
 
     // prevent infinit loop
@@ -183,6 +182,12 @@ export function parser(lexer: Lexer, options: ParserOptions): Parser {
     return advance()
   }
 
+  function finish() {
+    context.exitTo('document')
+    context.exit('document')
+    return context.tree
+  }
+
   return {
     advance,
     parse() {
@@ -192,5 +197,6 @@ export function parser(lexer: Lexer, options: ParserOptions): Parser {
         return tree
       }
     },
+    finish,
   }
 }
