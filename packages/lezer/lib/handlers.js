@@ -23,10 +23,12 @@ export const handlers = {
   'link.path': () => nodes.link,
   opening: () => nodes.marker,
   closing: () => nodes.marker,
+  block: () => nodes.block,
   'block.begin': () => nodes.marker,
   'block.end': () => nodes.marker,
   tags: () => nodes.marker,
   keyword: () => nodes.marker,
+  paragraph: () => nodes.paragraph,
   text: (_, node) => {
     if (node.type !== 'text') {
       return false

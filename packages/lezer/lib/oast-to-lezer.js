@@ -19,13 +19,14 @@ import { handlers } from './handlers.js'
 import { nodeSet } from './nodes.js'
 
 /**
- * @param {import('vfile').VFile} file
+ * @param {import('vfile').VFile | null} file
  * @returns {ParseState}
  */
-function createParseState() {
+function createParseState(file) {
   /** @type {ParseState} */
   const state = {
-    ignore: ['paragraph', 'newline', 'emptyLine', 'section'],
+    file,
+    ignore: ['newline', 'emptyLine', 'section'],
     handlers,
     one(node, parent, base = 0) {
       return one(this, node, parent, base)
@@ -39,10 +40,11 @@ function createParseState() {
 
 /**
  * @param {OrgTree} tree
- * @param {import('vfile').VFile} file
+ * @param {import('vfile').VFile | null} [file=null]
  * @returns {import('@lezer/common').Tree}
  */
-export function toLezer(tree, file) {
+export function toLezer(tree, file = null) {
+  // TODO: inject gaps
   const state = createParseState(file)
   const result = state.one(tree)
   if (!result) {
@@ -94,9 +96,8 @@ function one(state, node, parent, base = 0) {
 
   const [loc, len] = getRange(node)
   const pos = loc - base
-  base = loc
   const { nodes, positions } = !skip
-    ? state.all(node, base)
+    ? state.all(node, loc)
     : {
         nodes: [],
         positions: [],

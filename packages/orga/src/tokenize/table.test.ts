@@ -193,9 +193,9 @@ describe('tokenize table', () => {
   it('knows these are not table rows', () => {
     assert.deepEqual(tokenize(" hello | world | y'all |"), [
       {
-        _text: "hello | world | y'all |",
+        _text: " hello | world | y'all |",
         type: 'text',
-        value: "hello | world | y'all |",
+        value: " hello | world | y'all |",
       },
     ])
     assert.deepEqual(tokenize('|+'), [

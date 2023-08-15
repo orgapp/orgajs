@@ -21,7 +21,7 @@
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "tsc --build",
-    "test": "node --test --no-warnings --loader tsx src/**/*.test.ts"
+    "test": "node --test --no-warnings --loader tsx src/*.test.ts"
   },
   "bugs": {
     "url": "https://github.com/orgapp/orgajs/issues"

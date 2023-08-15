@@ -1,5 +1,5 @@
 import { read, Reader } from 'text-kit'
-import { Position } from 'unist'
+import { Point, Position } from 'unist'
 import type { LexerOptions } from '../options.js'
 import todoKeywordSet, { TodoKeywordSet } from '../todo-keyword-set.js'
 import { Token } from '../types.js'
@@ -31,19 +31,17 @@ export interface Lexer {
   substring: (position: Position) => string
   /** Modify the next token (or the token at the given offset). */
   modify(f: (t: Token) => Token, offset?: number): void
+  readonly now: number
+  toOffset: (point: Point | number) => number
 }
 
 export type Tokenizer = (reader: Reader) => Token[] | Token | void
 
 export const tokenize = (text: string, options: LexerOptions): Lexer => {
-  const { timezone, todos } = options
-
-  const reader = read(text)
-
-  const { eat, getChar } = reader
-
+  const { timezone, todos, range } = options
+  const reader = read(text, range)
+  const { getChar } = reader
   const globalTodoKeywordSets = todos.map(todoKeywordSet)
-
   const inBufferTodoKeywordSets: TodoKeywordSet[] = []
 
   const todoKeywordSets = () => {
@@ -59,7 +57,7 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
   const tok = (): Token[] => {
     const all = emptyLines(reader)
 
-    eat('whitespaces')
+    // eat('whitespaces')
 
     if (!getChar()) return all
 
@@ -164,5 +162,10 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
     },
     substring: (pos) => reader.substring(pos.start, pos.end),
     modify,
+    get now() {
+      const token = peek()
+      return reader.toIndex(token?.position.start ?? Infinity)
+    },
+    toOffset: (point) => reader.toIndex(point),
   }
 }

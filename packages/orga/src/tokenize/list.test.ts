@@ -89,9 +89,9 @@ describe('tokenize list item', () => {
       { _text: 'item2', type: 'text', value: 'item2' },
       { _text: '\n', type: 'newline' },
       {
-        _text: ':: description here',
+        _text: ' :: description here',
         type: 'text',
-        value: ':: description here',
+        value: ' :: description here',
       },
     ])
     assert.deepEqual(tokenize('- [x] item3 :: description here'), [

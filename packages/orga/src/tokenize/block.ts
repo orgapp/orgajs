@@ -2,7 +2,8 @@ import { Reader } from 'text-kit'
 import { Token } from '../types'
 
 export default (reader: Reader): Token[] | void => {
-  const { match, eat, endOfLine } = reader
+  const { match, eat, endOfLine, jump } = reader
+  const ws = eat('whitespaces')
 
   const b = match(/#\+begin_([^\s\n]+)\s*(.*)$/imy, { end: endOfLine() })
   if (b) {
@@ -32,4 +33,6 @@ export default (reader: Reader): Token[] | void => {
       },
     ]
   }
+
+  ws && jump(ws.position.start)
 }

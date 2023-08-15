@@ -24,7 +24,11 @@ export const parse = (
 }
 
 export function makeParser(text: string, options: Partial<Options> = {}) {
-  const _options = withDefault(options)
-  const lexer = tokenize(text, _options)
-  return _parser(lexer, _options)
+  const { range, ..._options } = withDefault(options)
+  const start = range?.start
+  const lexer = tokenize(text, {
+    ..._options,
+    range: start ? { start, end: Infinity } : undefined,
+  })
+  return _parser(lexer, { ..._options, range })
 }

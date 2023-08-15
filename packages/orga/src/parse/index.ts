@@ -65,7 +65,7 @@ const main: Handler = {
   rules: [
     {
       test: 'emptyLine',
-      action: (_, context) => {
+      action: function (_, context) {
         const { consume, exit } = context
         context.attributes = {}
         exit('footnote', false)
@@ -107,6 +107,7 @@ export interface Parser {
 
 export function parser(lexer: Lexer, options: ParserOptions): Parser {
   const context = createContext(lexer, options)
+  const end = lexer.toOffset(options.range?.end || Infinity)
 
   const handlerStack: Handler[] = [main]
 
@@ -120,7 +121,7 @@ export function parser(lexer: Lexer, options: ParserOptions): Parser {
   let maxStaleIterations = 10
 
   function advance() {
-    if (!handler() && !lexer.peek()) {
+    if (!handler() && lexer.now >= end) {
       return finish()
     }
 

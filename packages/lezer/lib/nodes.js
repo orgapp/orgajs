@@ -1,38 +1,30 @@
-import { NodeSet, NodeType } from '@lezer/common'
+import { NodeProp, NodeSet, NodeType } from '@lezer/common'
 import { styleTags, tags as t } from '@lezer/highlight'
 
-let _id = 0
+let i = 0
+export const nodes = Object.freeze({
+  none: i++,
+  document: i++,
+  headline: i++,
+  paragraph: i++,
+  keyword: i++,
+  block: i++,
+  // inline
+  stars: i++,
+  link: i++,
+  marker: i++,
+  bold: i++,
+})
 
 /** @type {NodeType[]} */
-export const nodeTypes = []
-
-/**
- * @param {string} [name]
- */
-function n(name) {
-  const id = _id++
-  const nodeType = name
-    ? NodeType.define({
-        id,
-        name,
-        props: [],
-        top: name === 'document',
-      })
-    : NodeType.none
-  nodeTypes.push(nodeType)
-  return id
-}
-
-export const nodes = Object.freeze({
-  none: n(),
-  document: n('document'),
-  headline: n('headline'),
-  stars: n('stars'),
-  keyword: n('keyword'),
-  link: n('link'),
-  marker: n('marker'),
-  bold: n('bold'),
-})
+export const nodeTypes = Object.entries(nodes).map(([name, id]) =>
+  NodeType.define({
+    id,
+    name,
+    props: id >= nodes.stars ? [] : [[NodeProp.group, ['Block']]],
+    top: name === 'document',
+  })
+)
 
 const orgHighlighting = styleTags({
   headline: t.heading,

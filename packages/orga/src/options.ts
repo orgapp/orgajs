@@ -3,6 +3,7 @@ import { Range } from 'text-kit'
 export interface LexerOptions {
   todos: string[]
   timezone: string
+  range?: Partial<Range>
 }
 
 export interface ParserOptions {

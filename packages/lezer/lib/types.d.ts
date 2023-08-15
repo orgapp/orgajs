@@ -1,6 +1,7 @@
 import { Document, Content, Parent as OastParent } from 'orga'
 import { Tree as LezerTree } from '@lezer/common'
 import { Position } from 'unist'
+import { type VFile } from 'vfile'
 
 export type OastNode = Document | Content
 
@@ -24,10 +25,11 @@ interface LezerChild {
 export type Handler = (
   state: State,
   node: OastNode,
-  parent: OastNode | undefined
+  parent: OastParent | undefined
 ) => Seed
 
 export interface State {
+  file: VFile | null
   ignore: string[]
   handlers: Record<string, Handler>
   one: (
