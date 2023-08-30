@@ -20,7 +20,7 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
   const core = enhance(_core)
 
   let cursor = core.toIndex(range.start || 0)
-  const end = range.end ? core.toIndex(range.end) : core.text.length
+  const end = core.toIndex(range.end || Infinity)
 
   const getChar = (offset = 0) => {
     const index = cursor + offset
