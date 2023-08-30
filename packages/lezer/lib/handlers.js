@@ -29,12 +29,25 @@ export const handlers = {
   tags: () => nodes.marker,
   keyword: () => nodes.marker,
   paragraph: () => nodes.paragraph,
+  list: () => nodes.list,
+  'list.item.bullet': () => nodes.marker,
   text: (_, node) => {
     if (node.type !== 'text') {
       return false
     }
-    if (node.style === 'bold') {
-      return nodes.bold
+    switch (node.style) {
+      case 'bold':
+        return nodes.bold
+      case 'italic':
+        return nodes.italic
+      case 'strikeThrough':
+        return nodes.strikeThrough
+      case 'code':
+        return nodes.code
+      case 'verbatim':
+        return nodes.code
+      case 'underline':
+        return nodes.underline
     }
     return false
   },
