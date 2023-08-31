@@ -19,13 +19,14 @@
   "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
   "dependencies": {
-    "@codemirror/language": "^6.8.0",
-    "@codemirror/view": "^6.15.3",
+    "@codemirror/language": "^6.9.0",
+    "@codemirror/view": "^6.16.0",
     "@lezer/highlight": "^1.1.6",
     "@orgajs/cm-lang": "workspace:^"
   },
   "devDependencies": {
+    "@codemirror/state": "^6.2.1",
     "orga": "workspace:^",
-    "vfile": "^6.0.0"
+    "vfile": "^6.0.1"
   }
 }

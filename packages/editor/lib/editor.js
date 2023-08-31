@@ -1,22 +1,39 @@
-import { EditorView, lineNumbers, highlightActiveLine } from '@codemirror/view'
-import { org } from '@orgajs/cm-lang'
-import theme from './theme.js'
+import { EditorView } from '@codemirror/view'
+import { setup } from './setup.js'
+import { Compartment, EditorState } from '@codemirror/state'
 
 /**
- * @param {HTMLElement} target
- * @param {string} content
+ * @typedef Config
+ * @property {Element} target
+ * @property {string} [content='']
+ * @property {import('@codemirror/state').Extension} [extensions=[]]
+ * @property {boolean} [dark=false]
  */
-export function makeEditor(target, content) {
-  let editor = new EditorView({
+
+/**
+ * @param {Config} config
+ */
+export function makeEditor(config) {
+  const themeConfig = new Compartment()
+  const { target, content = '', extensions = [], dark = false } = config
+  const state = EditorState.create({
     doc: content,
     extensions: [
-      lineNumbers(),
-      highlightActiveLine(),
-      org(),
-      ...theme,
-      EditorView.lineWrapping,
+      themeConfig.of(EditorView.theme({}, { dark })),
+      extensions,
+      setup,
     ],
+  })
+  const editor = new EditorView({
+    state,
     parent: target,
   })
-  return editor
+
+  /** @param {boolean} dark */
+  function setDarkMode(dark) {
+    editor.dispatch({
+      effects: themeConfig.reconfigure(EditorView.theme({}, { dark })),
+    })
+  }
+  return { editor, setTheme: setDarkMode }
 }
