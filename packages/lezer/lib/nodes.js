@@ -1,5 +1,5 @@
 import { NodeProp, NodeSet, NodeType } from '@lezer/common'
-import { styleTags, tags as t } from '@lezer/highlight'
+import { styleTags, tags as t, Tag } from '@lezer/highlight'
 
 let i = 0
 export const nodes = Object.freeze({
@@ -32,6 +32,9 @@ export const nodeTypes = Object.entries(nodes).map(([name, id]) =>
   })
 )
 
+// extra tags
+const underline = Tag.define(t.content)
+
 const orgHighlighting = styleTags({
   'headline/...': t.heading,
   keyword: t.keyword,
@@ -43,7 +46,12 @@ const orgHighlighting = styleTags({
   strikeThrough: t.strikethrough,
   paragraph: t.content,
   list: t.list,
-  // underline: t.processingInstruction,
+  underline: underline,
 })
+
+export const tags = {
+  ...t,
+  underline,
+}
 
 export const nodeSet = new NodeSet(nodeTypes).extend(orgHighlighting)

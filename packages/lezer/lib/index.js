@@ -6,6 +6,7 @@
 
 import { Parser } from '@lezer/common'
 import { parseContext } from './context.js'
+export { tags } from './nodes.js'
 
 export class OrgParser extends Parser {
   constructor(verbose = false) {
