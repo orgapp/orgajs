@@ -1,7 +1,8 @@
 import { makeEditor } from '@orgajs/editor'
-import content from '../../../README.org?raw'
+import content from '../content.org?raw'
+import './style.css'
 
-const place = document.querySelector('#editor')
-if (place !== null) {
-  makeEditor(place, content)
+const target = document.querySelector('#editor')
+if (target !== null) {
+  makeEditor({ target, content })
 }
