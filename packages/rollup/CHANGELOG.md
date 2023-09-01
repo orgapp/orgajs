@@ -1,5 +1,16 @@
 # @orgajs/rollup
 
+## 1.1.0
+
+### Minor Changes
+
+- 4d8efbb7: Add increamental parsing ability for the editor.
+
+### Patch Changes
+
+- Updated dependencies [4d8efbb7]
+  - @orgajs/orgx@2.1.0
+
 ## 1.0.1
 
 ### Patch Changes

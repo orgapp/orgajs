@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/rollup",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Rollup plugin for Orga",
   "license": "MIT",
   "files": [
