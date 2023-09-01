@@ -18,7 +18,8 @@
     "directory": "packages/rollup"
   },
   "scripts": {
-    "build": "tsc -b",
+    "clean": "tsc --build --clean",
+    "build": "tsc --build",
     "test": "node --test test.js"
   },
   "devDependencies": {

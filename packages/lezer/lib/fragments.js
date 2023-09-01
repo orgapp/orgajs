@@ -57,7 +57,7 @@ export function fragmentCursor(fragments, input, log) {
       fragmentEnd = end ? end - 1 : 0
     }
 
-    let c = cursor || fragment.tree.cursor(0)
+    let c = cursor || fragment.tree.cursor()
     if (!cursor) {
       cursor = c
       c.firstChild()

@@ -28,7 +28,6 @@
   "dependencies": {
     "@codemirror/language": "^6.9.0",
     "@codemirror/view": "^6.17.1",
-    "@lezer/highlight": "^1.1.6",
     "@orgajs/cm-lang": "workspace:^"
   },
   "devDependencies": {
