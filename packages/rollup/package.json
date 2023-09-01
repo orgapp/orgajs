@@ -18,23 +18,24 @@
     "directory": "packages/rollup"
   },
   "scripts": {
-    "build": "tsc -b",
+    "clean": "tsc --build --clean",
+    "build": "tsc --build",
     "test": "node --test test.js"
   },
   "devDependencies": {
-    "@types/node": "^20.2.1",
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4",
+    "@types/node": "^20.5.7",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollup": "^3.22.0"
+    "rollup": "^3.28.1"
   },
   "peerDependencies": {
     "rollup": ">=2"
   },
   "dependencies": {
     "@orgajs/orgx": "workspace:^",
-    "@rollup/pluginutils": "^5.0.2",
+    "@rollup/pluginutils": "^5.0.4",
     "source-map": "^0.7.4",
     "vfile": "^5.3.7"
   }

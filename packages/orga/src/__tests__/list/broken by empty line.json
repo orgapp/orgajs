@@ -61,12 +61,12 @@
             },
             {
               "type": "text",
-              "value": "Cupertino, California that designs, develops, and sells consumer electronics,",
+              "value": "  Cupertino, California that designs, develops, and sells consumer electronics,",
               "position": {
                 "start": {
                   "line": 2,
-                  "column": 3,
-                  "offset": 75
+                  "column": 1,
+                  "offset": 73
                 },
                 "end": {
                   "line": 2,
@@ -114,8 +114,8 @@
             },
             "end": {
               "line": 4,
-              "column": 3,
-              "offset": 156
+              "column": 1,
+              "offset": 154
             }
           }
         }
@@ -129,8 +129,8 @@
         },
         "end": {
           "line": 4,
-          "column": 3,
-          "offset": 156
+          "column": 1,
+          "offset": 154
         }
       }
     },
@@ -139,12 +139,12 @@
       "children": [
         {
           "type": "text",
-          "value": "computer software, and online services.",
+          "value": "  computer software, and online services.",
           "position": {
             "start": {
               "line": 4,
-              "column": 3,
-              "offset": 156
+              "column": 1,
+              "offset": 154
             },
             "end": {
               "line": 4,
@@ -173,8 +173,8 @@
       "position": {
         "start": {
           "line": 4,
-          "column": 3,
-          "offset": 156
+          "column": 1,
+          "offset": 154
         },
         "end": {
           "line": 5,

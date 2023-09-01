@@ -21,8 +21,8 @@
     "test": "node --test --no-warnings --loader tsx src/*.test.ts"
   },
   "devDependencies": {
-    "@types/node": "^20.2.1",
+    "@types/node": "^20.5.7",
     "tsx": "^3.12.7",
-    "typescript": "^5.0.4"
+    "typescript": "^5.2.2"
   }
 }

@@ -3,6 +3,7 @@ import { not, test } from './index.js'
 import type { Predicate } from './index.js'
 import type { Lexer } from '../tokenize/index.js'
 import { Attributes, Document, isSection } from '../types.js'
+import { ParserOptions } from '../options.js'
 
 interface Snapshot {
   stack: Parent[]
@@ -11,12 +12,10 @@ interface Snapshot {
   attributes: Attributes
 }
 
-type Enter = <N extends Parent>(node: N) => N
-
 export interface Context {
   // control
   // -
-  enter: Enter
+  enter: <N extends Parent>(node: N) => N
   exit: (predicate: Predicate, strict?: boolean) => Parent | void
   push: (node: Node) => void
   save: () => void
@@ -32,24 +31,24 @@ export interface Context {
   within: (predicate: Predicate) => boolean
 
   // state
-  getParent: () => Parent
   attributes: Attributes
+  readonly parent: Parent
   readonly level: number
   readonly tree: Document
   readonly lexer: Lexer
-
-  state: string
+  readonly state: string
+  readonly options: ParserOptions
 }
 
 function point(d: Point): Point {
   return { ...d }
 }
 
-export function createContext(lexer: Lexer): Context {
+export function createContext(lexer: Lexer, options: ParserOptions): Context {
   let stack: Parent[] = []
   let snapshot: Snapshot | undefined = undefined
 
-  const enter: Enter = (node) => {
+  function enter<N extends Parent>(node: N): N {
     const start = lexer.peek()?.position?.start ||
       lexer.peek(-1)?.position?.end || { line: 1, column: 1, offset: 0 }
 
@@ -82,7 +81,7 @@ export function createContext(lexer: Lexer): Context {
     return node
   }
 
-  const exit = (predicate: Predicate, strict = true) => {
+  function exit(predicate: Predicate, strict = true) {
     if (stack.length === 0) return // never exit the root
     const last = stack[stack.length - 1]
     if (test(last, predicate)) {
@@ -99,17 +98,17 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
     }
   }
 
-  const exitTo = (predicate: Predicate) => {
+  function exitTo(predicate: Predicate) {
     exitAll(not(predicate))
   }
 
-  const exitAll = (predicate: Predicate) => {
+  function exitAll(predicate: Predicate) {
     if (exit(predicate, false)) {
       exitAll(predicate)
     }
   }
 
-  const getLevel = (): number => {
+  function getLevel(): number {
     let index = stack.length - 1
     while (index > 0) {
       const node = stack[index]
@@ -132,6 +131,7 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
   }
 
   return {
+    options,
     attributes: {},
     enter,
     exit,
@@ -177,7 +177,7 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
       lexer.restore(snapshot.savePoint)
     },
 
-    getParent() {
+    get parent() {
       return stack[stack.length - 1]
     },
 

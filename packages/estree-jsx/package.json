@@ -19,6 +19,6 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "astring": "^1.7.5"
+    "astring": "^1.8.6"
   }
 }

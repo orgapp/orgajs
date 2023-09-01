@@ -1,0 +1,24 @@
+#+title:  Example Org File
+#+author: TEC
+#+date:   2020-10-27
+
+Org uses single characters to markup *bold* /italic/ _underline_ +strike through+ ~code~ and =verbatim=. Links also use minimal
+markup in [[https://orgmode.org][Org]].
+
+* Blocks
+
+#+begin_src js
+console.log('hello')
+#+end_src
+
+* Lists
+
+- one
+- two
+- three
+
+
+* Tasks
+
+** DONE buy milk
+** TODO drink it

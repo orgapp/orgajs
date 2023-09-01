@@ -1,0 +1,35 @@
+{
+  "name": "@orgajs/reorg-prose",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/reorg-prose#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orgapp/orgajs.git",
+    "directory": "packages/reorg-prose"
+  },
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "scripts": {
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
+  },
+  "keywords": [],
+  "dependencies": {
+    "oast-to-prose": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/unist": "^2.0.8",
+    "orga": "workspace:^",
+    "prosemirror-model": "^1.19.3",
+    "unified": "^10.1.2",
+    "vfile": "^6.0.1"
+  }
+}

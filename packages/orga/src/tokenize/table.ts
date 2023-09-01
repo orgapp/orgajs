@@ -5,9 +5,13 @@ import { tokenize as tokenizeInline } from './inline/index.js'
 
 export default (reader: Reader): Token[] => {
   const { match, eat, getChar, jump, endOfLine } = reader
+  const ws = eat('whitespaces')
   const char = getChar()
 
-  if (char !== '|') return []
+  if (char !== '|') {
+    ws && jump(ws.position.start)
+    return []
+  }
 
   if (getChar(1) === '-') {
     const hr = eat('line')

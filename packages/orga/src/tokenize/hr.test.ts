@@ -24,7 +24,7 @@ describe('tokenize hr', () => {
     ])
     assert.deepEqual(tokenize('  -----'), [
       {
-        _text: '-----',
+        _text: '  -----',
         type: 'hr',
       },
     ])
@@ -36,13 +36,13 @@ describe('tokenize hr', () => {
     ])
     assert.deepEqual(tokenize('  -----   '), [
       {
-        _text: '-----   ',
+        _text: '  -----   ',
         type: 'hr',
       },
     ])
     assert.deepEqual(tokenize('  -----  \t '), [
       {
-        _text: '-----  	 ',
+        _text: '  -----  	 ',
         type: 'hr',
       },
     ])

@@ -23,7 +23,7 @@
     "oast-to-hast": "workspace:*"
   },
   "devDependencies": {
-    "@types/unist": "^2.0.6",
+    "@types/unist": "^2.0.8",
     "unified": "^10.1.2"
   }
 }

@@ -24,6 +24,6 @@
     "unified": "^10.1.2"
   },
   "devDependencies": {
-    "@types/unist": "^2.0.6"
+    "@types/unist": "^2.0.8"
   }
 }

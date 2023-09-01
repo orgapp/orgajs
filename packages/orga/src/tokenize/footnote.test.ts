@@ -78,7 +78,12 @@ describe('tokenize footnote', () => {
         value: ': not a footnote',
       },
     ])
-    assert.deepEqual(tokenize(' [fn:1] not a footnote'), [
+    assert.deepEqual(tokenize(' [fn:1] not a footnote with space prefix'), [
+      {
+        _text: ' ',
+        type: 'text',
+        value: ' ',
+      },
       {
         _text: '[fn:',
         element: 'footnote.reference',
@@ -95,13 +100,13 @@ describe('tokenize footnote', () => {
         type: 'closing',
       },
       {
-        _text: ' not a footnote',
+        _text: ' not a footnote with space prefix',
         type: 'text',
-        value: ' not a footnote',
+        value: ' not a footnote with space prefix',
       },
     ])
 
-    assert.deepEqual(tokenize('[[fn:1] not a footnote'), [
+    assert.deepEqual(tokenize('[[fn:1] not a footnote with extra ['), [
       {
         _text: '[',
         type: 'text',
@@ -123,12 +128,17 @@ describe('tokenize footnote', () => {
         type: 'closing',
       },
       {
-        _text: ' not a footnote',
+        _text: ' not a footnote with extra [',
         type: 'text',
-        value: ' not a footnote',
+        value: ' not a footnote with extra [',
       },
     ])
-    assert.deepEqual(tokenize('\t[fn:1] not a footnote'), [
+    assert.deepEqual(tokenize('\t[fn:1] not a footnote with a tab prefix'), [
+      {
+        _text: '\t',
+        type: 'text',
+        value: '\t',
+      },
       {
         _text: '[fn:',
         element: 'footnote.reference',
@@ -145,9 +155,9 @@ describe('tokenize footnote', () => {
         type: 'closing',
       },
       {
-        _text: ' not a footnote',
+        _text: ' not a footnote with a tab prefix',
         type: 'text',
-        value: ' not a footnote',
+        value: ' not a footnote with a tab prefix',
       },
     ])
   })
