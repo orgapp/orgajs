@@ -224,7 +224,14 @@ importers:
         specifier: ^10.1.2
         version: 10.1.2
 
-  packages/codemirror-lang: {}
+  packages/codemirror-lang:
+    dependencies:
+      '@codemirror/language':
+        specifier: ^6.9.0
+        version: 6.9.0
+      '@orgajs/lezer':
+        specifier: workspace:^
+        version: link:../lezer
 
   packages/editor:
     dependencies:
@@ -677,9 +684,6 @@ importers:
       '@monaco-editor/react':
         specifier: ^4.2.2
         version: 4.5.1(monaco-editor@0.41.0)(react-dom@18.2.0)(react@17.0.2)
-      '@orgajs/editor':
-        specifier: workspace:^
-        version: link:../editor
       '@orgajs/orgx':
         specifier: 2.0.1
         version: link:../orgx

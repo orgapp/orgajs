@@ -5,11 +5,30 @@
   "main": "index.js",
   "type": "module",
   "types": "dist/index.d.ts",
+  "files": [
+    "index.js",
+    "dist/"
+  ],
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "tsc --build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "org",
+    "org-mode",
+    "orgajs",
+    "orga",
+    "codemirror"
+  ],
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:orgapp/orgajs.git",
+    "directory": "packages/cm-lang"
+  },
+  "dependencies": {
+    "@codemirror/language": "^6.9.0",
+    "@orgajs/lezer": "workspace:^"
+  }
 }
