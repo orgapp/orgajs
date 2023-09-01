@@ -26,10 +26,10 @@
     "oast-to-prose": "workspace:^"
   },
   "devDependencies": {
-    "@types/unist": "^2.0.6",
+    "@types/unist": "^2.0.8",
     "orga": "workspace:^",
-    "prosemirror-model": "^1.19.2",
+    "prosemirror-model": "^1.19.3",
     "unified": "^10.1.2",
-    "vfile": "^6.0.0"
+    "vfile": "^6.0.1"
   }
 }

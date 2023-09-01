@@ -28,7 +28,7 @@
     "directory": "packages/astro"
   },
   "dependencies": {
-    "@orgajs/metadata": "workspace:2.0.0",
+    "@orgajs/metadata": "workspace:*",
     "@orgajs/rollup": "workspace:^",
     "estree-util-visit": "^1.2.1",
     "source-map": "^0.7.4"
@@ -37,7 +37,7 @@
     "@orgajs/orgx": "workspace:^",
     "@types/estree": "^1.0.1",
     "@types/estree-jsx": "^1.0.0",
-    "astro": "^2.5.0",
+    "astro": "^2.10.15",
     "unified": "^10.1.2"
   }
 }

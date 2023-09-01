@@ -25,9 +25,9 @@
   "keywords": [],
   "devDependencies": {
     "orga": "workspace:^",
-    "vfile": "^6.0.0"
+    "vfile": "^6.0.1"
   },
   "dependencies": {
-    "prosemirror-model": "^1.19.2"
+    "prosemirror-model": "^1.19.3"
   }
 }

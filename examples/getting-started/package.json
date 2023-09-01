@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@orgajs/reorg": "4.0.0",
-    "@orgajs/reorg-rehype": "4.0.0",
-    "rehype-stringify": "^9.0.3",
+    "@orgajs/reorg": "workspace:*",
+    "@orgajs/reorg-rehype": "workspace:*",
+    "rehype-stringify": "^9.0.4",
     "unified": "10.1.2",
     "unified-stream": "^2.0.0"
   }

@@ -29,6 +29,6 @@
   "devDependencies": {
     "@types/unist": "2.0.6",
     "tsx": "^3.12.7",
-    "typescript": "^5.0.4"
+    "typescript": "^5.2.2"
   }
 }

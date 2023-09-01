@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.types.json",
   "compilerOptions": {
     "outDir": "dist",
-    "allowJs": true,
     "lib": ["dom", "esnext"]
   },
   "include": ["lib/**/*.js"],

@@ -15,7 +15,7 @@
     "mime": "^3.0.0",
     "orga": "workspace:^",
     "parse5": "^7.1.2",
-    "prismjs": "^1.17.1",
+    "prismjs": "^1.29.0",
     "unist-builder": "^3.0.1"
   },
   "scripts": {
@@ -23,8 +23,8 @@
     "build": "tsc --build"
   },
   "devDependencies": {
-    "@types/hast": "^2.3.4",
+    "@types/hast": "^2.3.5",
     "@types/mime": "^3.0.1",
-    "@types/unist": "^2.0.6"
+    "@types/unist": "^2.0.8"
   }
 }
