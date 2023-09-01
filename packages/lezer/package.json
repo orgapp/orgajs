@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/lezer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "lezer parser for org-mode",
   "main": "lib/index.js",
   "type": "module",

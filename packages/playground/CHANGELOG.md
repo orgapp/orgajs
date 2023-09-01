@@ -1,5 +1,19 @@
 # Change Log
 
+## 3.2.0
+
+### Minor Changes
+
+- 4d8efbb7: Add increamental parsing ability for the editor.
+
+### Patch Changes
+
+- Updated dependencies [4d8efbb7]
+  - @orgajs/rehype-latex@1.1.0
+  - @orgajs/react@4.1.0
+  - orga@4.1.0
+  - @orgajs/orgx@2.1.0
+
 ## 3.1.13
 
 ### Patch Changes
