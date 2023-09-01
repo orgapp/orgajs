@@ -10,22 +10,42 @@ const keyword: Action = (token: Keyword, context) => {
   const key = token.key.toLowerCase()
   const { value } = token
 
-  if (AFFILIATED_KEYWORDS.includes(key)) {
-    context.attributes[key] = _primitive(value)
-  } else if (key.startsWith('attr_')) {
-    context.attributes[key] = {
-      ...(context.attributes[key] as { [key: string]: Primitive }),
-      ...parseSymbols(value),
-    }
-  } else if (key === 'todo') {
-    lexer.addInBufferTodoKeywords(value)
-  } else if (key === 'html') {
-    push({ type: 'html', value } as HTML)
+  if (key === 'html') {
+    push({ type: 'html', value, position: token.position } as HTML)
   } else if (key === 'jsx') {
-    push({ type: 'jsx', value } as JSX)
+    push({ type: 'jsx', value, position: token.position } as JSX)
   } else {
-    addProp(key, value)
+    if (AFFILIATED_KEYWORDS.includes(key)) {
+      context.attributes[key] = _primitive(value)
+    } else if (key.startsWith('attr_')) {
+      context.attributes[key] = {
+        ...(context.attributes[key] as { [key: string]: Primitive }),
+        ...parseSymbols(value),
+      }
+    } else if (key === 'todo') {
+      lexer.addInBufferTodoKeywords(value)
+    } else {
+      addProp(key, value)
+    }
+    push(token)
   }
+
+  // if (AFFILIATED_KEYWORDS.includes(key)) {
+  //   context.attributes[key] = _primitive(value)
+  // } else if (key.startsWith('attr_')) {
+  //   context.attributes[key] = {
+  //     ...(context.attributes[key] as { [key: string]: Primitive }),
+  //     ...parseSymbols(value),
+  //   }
+  // } else if (key === 'todo') {
+  //   lexer.addInBufferTodoKeywords(value)
+  // } else if (key === 'html') {
+  //   push({ type: 'html', value } as HTML)
+  // } else if (key === 'jsx') {
+  //   push({ type: 'jsx', value } as JSX)
+  // } else {
+  //   addProp(key, value)
+  // }
 
   lexer.eat()
 }

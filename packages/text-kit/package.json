@@ -1,6 +1,6 @@
 {
   "name": "text-kit",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "bundle of useful tools for manipulating text",
   "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/text-kit#readme",
@@ -21,7 +21,7 @@
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "tsc --build",
-    "test": "node --test --no-warnings --loader tsx src/**/*.test.ts"
+    "test": "node --test --no-warnings --loader tsx src/*.test.ts"
   },
   "bugs": {
     "url": "https://github.com/orgapp/orgajs/issues"
@@ -29,6 +29,6 @@
   "devDependencies": {
     "@types/unist": "2.0.6",
     "tsx": "^3.12.7",
-    "typescript": "^5.0.4"
+    "typescript": "^5.2.2"
   }
 }

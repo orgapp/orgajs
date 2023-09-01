@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.types.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "jsx": "react",
+    "lib": ["dom", "esnext"]
+  },
+  "include": ["./lib", "types.d.ts"]
+}

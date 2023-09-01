@@ -41,7 +41,7 @@ const drawer: Action = (begin: DrawerBegin, context) => {
           context.lexer.eat('newline')
 
           if (drawer.name.toLowerCase() === 'properties') {
-            const section = context.getParent() as Section
+            const section = context.parent as Section
             section.properties = drawer.value
               .split('\n')
               .reduce((accu, current) => {

@@ -1,11 +1,11 @@
 import { Action } from './index.js'
-import { Opening, Token } from '../types.js'
+import { Opening, isParagraph, PhrasingContent } from '../types.js'
 import { clone, isPhrasingContent } from '../utils.js'
 import { Context } from './context.js'
 import phrasingContent from './phrasing.js'
 import { isImage } from './_utils.js'
 
-const isWhitespaces = (node: Token) => {
+const isWhitespaces = (node: PhrasingContent) => {
   return (
     (node.type === 'text' && node.value.trim().length === 0) ||
     node.type === 'newline' ||
@@ -15,7 +15,7 @@ const isWhitespaces = (node: Token) => {
 
 const paragraph: Action = () => {
   const makeSureParagraph = (context: Context) => {
-    const parent = context.getParent()
+    const parent = context.parent
     if (parent.type === 'paragraph') return
     context.save()
     context.enter({
@@ -27,8 +27,8 @@ const paragraph: Action = () => {
   }
 
   const exitPragraph = (context: Context) => {
-    const paragraph = context.getParent()
-    if (paragraph.type !== 'paragraph') return
+    const paragraph = context.parent
+    if (!isParagraph(paragraph)) return
     if (
       paragraph.children.length === 0 ||
       paragraph.children.every(isWhitespaces)

@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/react",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "license": "MIT",
   "main": "index.js",
   "type": "module",
@@ -18,10 +18,10 @@
     "react": ">=16"
   },
   "devDependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.21.5",
+    "@babel/plugin-transform-react-jsx": "^7.22.5",
     "@orgajs/orgx": "workspace:^",
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
     "babel-plugin-remove-export-keywords": "^1.6.22",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

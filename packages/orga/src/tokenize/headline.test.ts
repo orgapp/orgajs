@@ -88,7 +88,7 @@ describe('tokenize headline', () => {
     ])
 
     assert.deepEqual(tokenize(' * not a headline'), [
-      { _text: '* not a headline', type: 'text', value: '* not a headline' },
+      { _text: ' * not a headline', type: 'text', value: ' * not a headline' },
     ])
     assert.deepEqual(tokenize('*_* not a headline'), [
       { _text: '*_*', style: 'bold', type: 'text', value: '_' },

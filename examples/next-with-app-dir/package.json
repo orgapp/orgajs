@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/example-next-app-dir",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -18,7 +18,7 @@
     "next": "13.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rehype-pretty-code": "^0.9.5",
+    "rehype-pretty-code": "^0.9.11",
     "typescript": "5.0.4"
   }
 }

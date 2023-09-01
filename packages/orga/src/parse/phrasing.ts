@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { Handler } from '.'
 import {
   Closing,
@@ -32,9 +31,10 @@ const phrasingContent: Handler = {
     {
       test: 'link.path',
       action: (token: LinkPath, context) => {
-        const { getParent, consume, attributes } = context
-        const parent = getParent()
-        assert(isLink(parent), 'expect parent to be link')
+        const { parent, consume, attributes } = context
+        if (!isLink(parent)) {
+          throw new Error('expect parent to be link')
+        }
         parent.path = {
           protocol: token.protocol,
           value: token.value,
@@ -47,9 +47,10 @@ const phrasingContent: Handler = {
     },
     {
       test: 'footnote.label',
-      action: (token: FootnoteLabel, { getParent, consume }) => {
-        const parent = getParent()
-        assert(isFootnoteReference(parent))
+      action: (token: FootnoteLabel, { parent, consume }) => {
+        if (!isFootnoteReference(parent)) {
+          throw new Error('expect parent to be footnote reference')
+        }
         parent.label = token.label
         consume()
       },

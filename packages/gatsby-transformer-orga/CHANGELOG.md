@@ -1,5 +1,18 @@
 # Change Log
 
+## 3.2.0
+
+### Minor Changes
+
+- 4d8efbb7: Add increamental parsing ability for the editor.
+
+### Patch Changes
+
+- Updated dependencies [4d8efbb7]
+  - oast-to-hast@4.1.0
+  - orga-posts@3.2.0
+  - orga@4.1.0
+
 ## 3.1.9
 
 ### Patch Changes

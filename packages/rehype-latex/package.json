@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/rehype-latex",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "reorg plugin that adds latex support",
   "files": [
     "dist"
@@ -17,12 +17,12 @@
     "build": "tsc --build"
   },
   "devDependencies": {
-    "@types/hast": "^2.3.4",
-    "@types/katex": "^0.16.0",
+    "@types/hast": "^2.3.5",
+    "@types/katex": "^0.16.2",
     "unified": "^10.1.2"
   },
   "dependencies": {
-    "katex": "^0.16.7",
+    "katex": "^0.16.8",
     "rehype-parse": "8.0.4",
     "unist-util-visit": "4.1.2"
   },

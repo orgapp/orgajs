@@ -49,7 +49,6 @@ export default function (options) {
         const compiled = await processor.process(file)
         const code = String(compiled.value)
         /** @type {SourceDescription} */
-        // @ts-expect-error: a) `undefined` is fine, b) `sourceRoot: undefined` is fine too.
         const result = { code, map: compiled.map }
         return result
       }

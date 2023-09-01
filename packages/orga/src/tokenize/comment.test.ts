@@ -65,9 +65,9 @@ describe('tokenize comment', () => {
     ])
     assert.deepEqual(tokenize('  #not a comment'), [
       {
-        _text: '#not a comment',
+        _text: '  #not a comment',
         type: 'text',
-        value: '#not a comment',
+        value: '  #not a comment',
       },
     ])
   })

@@ -46,9 +46,9 @@ describe('tokenize blanks', () => {
   it('knows these are not blanks', () => {
     assert.deepEqual(tokenize(' a '), [
       {
-        _text: 'a ',
+        _text: ' a ',
         type: 'text',
-        value: 'a ',
+        value: ' a ',
       },
     ])
   })

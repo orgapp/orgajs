@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/example-next",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,13 +11,13 @@
     "@orgajs/loader": "workspace:^",
     "@orgajs/next": "workspace:^",
     "@orgajs/react": "workspace:^",
-    "eslint-config-next": "^13.4.3",
-    "next": "^13.4.3",
+    "eslint-config-next": "^13.4.19",
+    "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4"
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7"
   }
 }

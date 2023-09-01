@@ -1,0 +1,8 @@
+#+title: Lezer Parser for org-mode
+
+* Tasks
+
+** TODO properly support incremental parsing
+** TODO finish nodes design
+** TODO finish handlers
+** TODO cleanup dependencies

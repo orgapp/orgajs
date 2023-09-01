@@ -1,0 +1,40 @@
+{
+  "name": "@orgajs/lezer",
+  "version": "1.1.0",
+  "description": "lezer parser for org-mode",
+  "main": "lib/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "files": [
+    "lib/",
+    "dist/"
+  ],
+  "scripts": {
+    "clean": "tsc --build --clean",
+    "test": "node --test test/*.test.js",
+    "build": "tsc --build"
+  },
+  "keywords": [
+    "org-mode",
+    "org",
+    "parser",
+    "lezer"
+  ],
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+  "license": "MIT",
+  "repository": {
+    "url": "orgapp/orgajs",
+    "directory": "packages/lezer"
+  },
+  "dependencies": {
+    "@lezer/common": "^1.0.4",
+    "@lezer/highlight": "^1.1.6",
+    "orga": "workspace:^",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/unist": "^3.0.0",
+    "text-kit": "workspace:^",
+    "vfile": "^6.0.1"
+  }
+}

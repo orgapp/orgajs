@@ -1,0 +1,38 @@
+{
+  "name": "@orgajs/editor",
+  "version": "1.1.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "description": "react org-mode editor based on prose-mirror",
+  "scripts": {
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orgapp/orgajs.git",
+    "directory": "packages/editor"
+  },
+  "keywords": [
+    "org-mode",
+    "CodeMirror",
+    "editor"
+  ],
+  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+  "license": "MIT",
+  "dependencies": {
+    "@codemirror/language": "^6.9.0",
+    "@codemirror/view": "^6.17.1",
+    "@orgajs/cm-lang": "workspace:^"
+  },
+  "devDependencies": {
+    "@codemirror/state": "^6.2.1",
+    "orga": "workspace:^",
+    "vfile": "^6.0.1"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/orgx",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "orga compiler with jsx support",
   "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
@@ -29,18 +29,18 @@
   "devDependencies": {
     "@types/estree": "^1.0.1",
     "@types/estree-jsx": "^1.0.0",
-    "@types/hast": "^2.3.4",
-    "@types/node": "^20.2.1",
-    "@types/react": "^18.2.6",
+    "@types/hast": "^2.3.5",
+    "@types/node": "^20.5.7",
+    "@types/react": "^18.2.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "dependencies": {
     "@orgajs/reorg-parse": "workspace:^",
     "@orgajs/reorg-rehype": "workspace:^",
-    "acorn": "^8.5.0",
+    "acorn": "^8.10.0",
     "acorn-jsx": "^5.3.2",
-    "astring": "^1.7.5",
+    "astring": "^1.8.6",
     "estree-util-build-jsx": "2.2.2",
     "estree-util-is-identifier-name": "2.1.0",
     "estree-util-to-js": "^1.2.0",

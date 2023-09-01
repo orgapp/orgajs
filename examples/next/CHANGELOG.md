@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.1.0
+
+### Minor Changes
+
+- 4d8efbb7: Add increamental parsing ability for the editor.
+
+### Patch Changes
+
+- Updated dependencies [4d8efbb7]
+  - @orgajs/loader@4.1.0
+  - @orgajs/react@4.1.0
+  - @orgajs/next@5.0.0
+
 ## 4.0.1
 
 ### Patch Changes

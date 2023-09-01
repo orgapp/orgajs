@@ -26,7 +26,7 @@ const latex: Action = (begin: LatexBegin, context): Handler => {
   const align = (content: string) => {
     let indent = -1
     return content
-      .trimRight()
+      .trimEnd()
       .split('\n')
       .map((line) => {
         const _indent = line.search(/\S/)

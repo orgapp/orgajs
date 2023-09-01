@@ -1,10 +1,16 @@
-import type { Literal as UnistLiteral, Node, Parent } from 'unist'
+import type {
+  Literal as UnistLiteral,
+  Node,
+  Parent as UnistParent,
+} from 'unist'
 
 export interface Literal extends UnistLiteral {
   value: string
 }
 
-export { Parent }
+export interface Parent extends UnistParent {
+  children: Content[]
+}
 
 export type Primitive = string | number | boolean
 
@@ -37,9 +43,8 @@ export interface Section extends Parent {
   children: Content[]
 }
 
-type TopLevelContent = Content | Keyword | Footnote
-
-type Content =
+// --- content types ----
+export type BlockContent =
   | Section
   | Paragraph
   | Block
@@ -51,6 +56,16 @@ type Content =
   | Headline
   | HTML
   | JSX
+
+type TopLevelContent = BlockContent | Keyword | Footnote
+
+export type Content =
+  | TopLevelContent
+  | TableContent
+  | TableRow
+  | TableCell
+  | ListContent
+  | PhrasingContent
 
 export interface Footnote extends Parent {
   type: 'footnote'
@@ -79,11 +94,13 @@ export interface Planning extends Node {
   timestamp: Timestamp
 }
 
+type ListContent = ListItem | List
+
 export interface List extends Parent, Attributed {
   type: 'list'
   indent: number
   ordered: boolean
-  children: (List | ListItem)[]
+  children: ListContent[]
 }
 
 type TableContent = TableRow | TableRule
@@ -107,6 +124,7 @@ export interface ListItem extends Parent {
   type: 'list.item'
   indent: number
   tag?: string
+  children: PhrasingContent[]
 }
 
 export interface Headline extends Parent {
@@ -116,6 +134,7 @@ export interface Headline extends Parent {
   actionable: boolean
   priority?: string
   tags?: string[]
+  children: PhrasingContent[]
 }
 
 export interface Paragraph extends Parent, Attributed {
@@ -161,7 +180,14 @@ export type Token =
   | Closing
   | LinkPath
 
-export type PhrasingContent = Text | Link | FootnoteReference | Newline
+export type PhrasingContent =
+  | Text
+  | Link
+  | FootnoteReference
+  | Newline
+  | EmptyLine
+  | HTML
+  | JSX
 
 export interface HorizontalRule extends Node {
   type: 'hr'
@@ -340,6 +366,10 @@ export interface TableColumnSeparator extends Node {
 
 export function isSection(node: Node): node is Section {
   return node.type === 'section'
+}
+
+export function isParagraph(node: Node): node is Paragraph {
+  return node.type === 'paragraph'
 }
 
 export function isLink(node: Node): node is Link {

@@ -11,11 +11,15 @@ export default ({
     timezone: string
   }) =>
   (reader: Reader): Token[] | void => {
-    const { now, match, eat, substring, getLine } = reader
+    const { now, match, eat, substring, getLine, jump } = reader
+    const ws = eat('whitespaces')
 
     const pattern = `(${keywords.join('|')}):`
 
-    if (!match(RegExp(pattern, 'y'))) return
+    if (!match(RegExp(pattern, 'y'))) {
+      ws && jump(ws.position.start)
+      return
+    }
 
     const currentLine = getLine()
 

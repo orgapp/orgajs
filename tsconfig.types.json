@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "checkJs": true,
+    "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["es2021"],
     "module": "node16",

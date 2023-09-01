@@ -4,13 +4,17 @@ import { tokenize as tokenizeInline } from './inline/index.js'
 
 export default (reader: Reader): Token[] => {
   const { now, match, eat, jump, substring, endOfLine } = reader
+  const ws = eat('whitespaces')
 
   let tokens: Token[] = []
 
   const indent = now().column - 1
 
   const bullet = match(/^([-+]|\d+[.)])(?=\s)/y)
-  if (!bullet) return []
+  if (!bullet) {
+    ws && jump(ws.position.start)
+    return []
+  }
   tokens.push({
     type: 'list.item.bullet',
     indent,

@@ -500,7 +500,7 @@ describe('Inline Tokenization', () => {
 
   it('can handle something more complicated', () => {
     const content = `
-    Special characters =~= and =!=. Also =~/.this/path= and ~that~ thing.
+Special characters =~= and =!=. Also =~/.this/path= and ~that~ thing.
 `
 
     assert.deepEqual(tokenize(content), [
