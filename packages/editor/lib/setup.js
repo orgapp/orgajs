@@ -1,10 +1,9 @@
-import { EditorView, highlightActiveLine, lineNumbers } from '@codemirror/view'
-import theme from './theme.js'
+import { EditorView, highlightActiveLine } from '@codemirror/view'
 import { org } from '@orgajs/cm-lang'
+import theme from './theme.js'
 
 /** type {import('@codemirror/state').Extension} */
 export const setup = (() => [
-  lineNumbers(),
   highlightActiveLine(),
   org(),
   theme,

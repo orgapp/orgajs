@@ -4,6 +4,6 @@
     "outDir": "dist",
     "lib": ["dom", "esnext"]
   },
-  "include": ["lib/**/*.js"],
+  "include": ["lib/**/*"],
   "exclude": ["node_modules/"]
 }

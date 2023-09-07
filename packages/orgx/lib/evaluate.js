@@ -9,7 +9,7 @@ import { run, runSync } from './run.js'
 import { resolveEvaluateOptions } from './util/resolve-evaluate-options.js'
 
 /**
- * Evaluate MDX.
+ * Evaluate Org Content.
  *
  * @param {VFileCompatible} vfileCompatible
  *   MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be

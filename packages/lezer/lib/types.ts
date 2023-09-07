@@ -34,8 +34,8 @@ export interface State {
   handlers: Record<string, Handler>
   one: (
     node: OastNode,
-    parent?: OastParent | undefined = undefined,
-    base?: number = 0
+    parent?: OastParent | undefined,
+    base?: number
   ) => { nodes: LezerTree[]; positions: number[] } | null | undefined
   all: (
     node: OastNode,
