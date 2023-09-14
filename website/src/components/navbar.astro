@@ -3,15 +3,21 @@ const links = [
   { href: '/docs/getting-started', text: 'docs' },
   { href: '/playground', text: 'playground' },
   { href: 'https://github.com/orgapp/orgajs', text: 'github' },
-];
+]
 ---
-<div class:list={["flex gap-2 items-stretch justify-center w-full"]}>
-  {links.map(({href, text}) =>
-  <a href={href} class:list={["no-underline hover:bg-blue-100 px-2 py-1 uppercase font-bold text-slate-600"]}>
-    {text}
-  </a>
-  )
+
+<div class:list={['flex gap-2 items-stretch justify-center w-full']}>
+  {
+    links.map(({ href, text }) => (
+      <a
+        href={href}
+        class:list={[
+          'no-underline hover:bg-blue-100 px-2 py-1 uppercase font-bold text-slate-600',
+        ]}
+      >
+        {text}
+      </a>
+    ))
   }
 </div>
-<div class="py-1 px-2">
-</div>
+<div class="py-1 px-2"></div>

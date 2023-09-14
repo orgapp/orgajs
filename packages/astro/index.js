@@ -7,6 +7,7 @@
  */
 import orga from '@orgajs/rollup'
 import { parse as parseMetadata } from '@orgajs/metadata'
+import astroJSXRenderer from 'astro/jsx/renderer.js'
 import { addAstroFragment } from './lib/plugin/recma-add-astro-fragment.js'
 
 /**
@@ -19,8 +20,14 @@ export default function org({ recmaPlugins, ...options }) {
     hooks: {
       // @ts-ignore - addPageExtension, addContentEntryType are internal APIs
       'astro:config:setup': async (/** @type {SetupHookParams} */ params) => {
-        const { addPageExtension, addContentEntryType, updateConfig } = params
+        const {
+          addPageExtension,
+          addContentEntryType,
+          updateConfig,
+          addRenderer,
+        } = params
         addPageExtension('.org')
+        addRenderer(astroJSXRenderer)
 
         addContentEntryType({
           extensions: ['.org'],

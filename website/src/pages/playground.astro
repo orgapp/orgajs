@@ -1,9 +1,15 @@
 ---
-import Layout from '../layouts/base.astro'
-import Playground from '@orgajs/playground'
+import Playground from '../components/playground.tsx'
+import content from '../text.org?raw'
 ---
 
-<Layout title="Playground">
-  <h1>playground</h1>
-  <Playground client:load/>
-</Layout>
+<div class:list={['w-screen', 'h-screen']}>
+  <Playground client:only="react" content={content} />
+</div>
+
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css"
+  />
+</head>

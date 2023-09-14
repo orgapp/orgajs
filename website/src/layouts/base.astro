@@ -1,36 +1,45 @@
 ---
 export interface Props {
-  title: string;
+  title: string
 }
-const {title} = Astro.props;
+const { title } = Astro.props
 ---
 
 <!DOCTYPE html>
-<html lang="en" class:list={[""]}>
+<html lang="en" class:list={['']}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
   <body class="flex m-0 h-screen relative">
     <aside class="h-screen">
-      <slot name="left"/>
+      <slot name="left" />
     </aside>
     <main class="flex flex-col h-screen overflow-scroll w-full">
-      <nav class:list={[
-        "sticky top-0 font-mono print:hidden",
-        "flex justify-between items-stretch gap-2",
-        "drop-shadow backdrop-blur-md",
-        "border-b border-border",
-        "bg-surface",
-        ]}>
-        <slot name="top"/>
+      <nav
+        class:list={[
+          'sticky top-0 font-mono print:hidden',
+          'flex justify-between items-stretch gap-2',
+          'drop-shadow backdrop-blur-md',
+          'border-b border-border',
+          'bg-surface',
+        ]}
+      >
+        <slot name="top" />
       </nav>
       <slot />
     </main>
-    <slot name="bottom"/>
+    <slot name="bottom" />
   </body>
 </html>
