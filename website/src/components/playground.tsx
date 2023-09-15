@@ -36,7 +36,7 @@ export default function Playground({ content }: { content: string }) {
   )
 
   return (
-    <div className="h-screen w-screen">
+    <div className="h-full w-full">
       <Tabs className="h-full w-full grid grid-cols-2 grid-rows-[auto_1fr]">
         <div className="col-span-2 flex justify-between items-center px-2 py-1 border-b border-slate-300 auto-cols-min">
           <a className="px-2 border text-blue-600" href="/">
