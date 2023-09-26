@@ -44,7 +44,7 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
   const globalTodoKeywordSets = todos.map(todoKeywordSet)
   const inBufferTodoKeywordSets: TodoKeywordSet[] = []
 
-  const todoKeywordSets = () => {
+  function todoKeywordSets() {
     return inBufferTodoKeywordSets.length === 0
       ? globalTodoKeywordSets
       : inBufferTodoKeywordSets
@@ -54,31 +54,31 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
 
   let cursor = 0
 
-  const tok = (): Token[] => {
+  const tokenizers: Tokenizer[] = [
+    ({ getChar, eat }) =>
+      getChar() === '\n' && {
+        type: 'newline',
+        position: eat('char').position,
+      },
+    headline(todoKeywordSets),
+    drawer,
+    planning({ keywords: PLANNING_KEYWORDS, timezone }),
+    keyword,
+    block,
+    latex,
+    listItem,
+    comment,
+    table,
+    hr,
+    footnote,
+  ]
+
+  function tok(): Token[] {
     const all = emptyLines(reader)
 
     // eat('whitespaces')
 
     if (!getChar()) return all
-
-    const tokenizers: Tokenizer[] = [
-      ({ getChar, eat }) =>
-        getChar() === '\n' && {
-          type: 'newline',
-          position: eat('char').position,
-        },
-      headline(todoKeywordSets()),
-      drawer,
-      planning({ keywords: PLANNING_KEYWORDS, timezone }),
-      keyword,
-      block,
-      latex,
-      listItem,
-      comment,
-      table,
-      hr,
-      footnote,
-    ]
 
     for (const t of tokenizers) {
       const result = t(reader)
@@ -125,14 +125,14 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
   return {
     peek,
     eat: _eat,
-    eatAll: (type: string): number => {
+    eatAll(type: string): number {
       let count = 0
       while (_eat(type)) {
         count += 1
       }
       return count
     },
-    match: (cond, offset = 0) => {
+    match(cond, offset = 0) {
       const token = peek()
       if (!token) return false
       if (typeof cond === 'string') {
@@ -141,7 +141,7 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
       return cond.test(token.type)
     },
 
-    all: (max: number | undefined = undefined): Token[] => {
+    all(max: number | undefined = undefined): Token[] {
       let _all: Token[] = []
       let tokens = tok()
       while (tokens.length > 0) {
@@ -153,11 +153,11 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
 
     save: () => cursor,
 
-    restore: (point) => {
+    restore(point) {
       cursor = point
     },
 
-    addInBufferTodoKeywords: (text) => {
+    addInBufferTodoKeywords(text) {
       inBufferTodoKeywordSets.push(todoKeywordSet(text))
     },
     substring: (pos) => reader.substring(pos.start, pos.end),

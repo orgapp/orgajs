@@ -63,7 +63,6 @@ const block: Action = (begin: BlockBegin, ctx): Handler => {
             })
           )
           context.push(lexer.eat())
-          lexer.eat('newline')
           context.exit('block')
           return 'break'
         },

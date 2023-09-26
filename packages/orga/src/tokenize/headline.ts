@@ -3,10 +3,14 @@ import { TodoKeywordSet } from '../todo-keyword-set.js'
 import { Token } from '../types.js'
 import { tokenize } from './inline/index.js'
 
-export default (todoKeywordSets: TodoKeywordSet[]) =>
+type GetTodoKeywordSets = () => TodoKeywordSet[]
+
+export default (getTodoKeywordSets: GetTodoKeywordSets) =>
   (reader: Reader): Token[] | void => {
     const { isStartOfLine, match, now, eol, eat, jump, substring, endOfLine } =
       reader
+
+    const todoKeywordSets = getTodoKeywordSets()
 
     if (!isStartOfLine() || !match(/^\*+\s+/my)) return
 

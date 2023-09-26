@@ -505,8 +505,12 @@ Special characters =~= and =!=. Also =~/.this/path= and ~that~ thing.
 
     assert.deepEqual(tokenize(content), [
       {
-        _text: '\n',
+        _text: '',
         type: 'emptyLine',
+      },
+      {
+        _text: '\n',
+        type: 'newline',
       },
       {
         _text: 'Special characters ',

@@ -15,7 +15,10 @@ export default (reader: Reader): Token[] => {
 
   if (getChar(1) === '-') {
     const hr = eat('line')
-    return [{ type: 'table.hr', position: hr.position }]
+    const tokens: Token[] = [{ type: 'table.hr', position: hr.position }]
+    const nl = eat('newline')
+    if (nl) tokens.push({ type: 'newline', position: nl.position })
+    return tokens
   }
 
   const startColumnSeparator: Token = {
