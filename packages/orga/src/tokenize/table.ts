@@ -1,10 +1,9 @@
-import assert from 'assert'
 import { Reader } from 'text-kit'
 import { Token } from '../types.js'
 import { tokenize as tokenizeInline } from './inline/index.js'
 
 export default (reader: Reader): Token[] => {
-  const { match, eat, getChar, jump, endOfLine } = reader
+  const { eat, getChar, jump, endOfLine, indexOf } = reader
   const ws = eat('whitespaces')
   const char = getChar()
 
@@ -29,30 +28,32 @@ export default (reader: Reader): Token[] => {
   const tokens: Token[] = []
 
   const tokCells = (): void => {
-    const m = match(/(\||\n|$)/m, { end: endOfLine() })
-    assert(m, 'what is happening')
+    const pipe = indexOf('|')
+    const end = pipe || endOfLine()
+    if (!end) throw new Error(`what is happening: ${end}`)
 
-    const end = m && m.position.start
     const inline = tokenizeInline(reader.read({ end }))
     tokens.push(...inline)
-    jump(m.position.start)
-    const c = getChar()
-    jump(m.position.end)
-    if (!c) return
+    jump(end)
 
-    tokens.push({
-      type: c === '|' ? 'table.columnSeparator' : 'newline',
-      position: m.position,
-    })
+    if (pipe) {
+      const c = eat('char')
+      tokens.push({
+        type: 'table.columnSeparator',
+        position: c.position,
+      })
+      tokCells()
+    }
 
-    if (c === '|') tokCells()
+    const nl = eat('newline')
+    if (nl) {
+      tokens.push({
+        type: 'newline',
+        position: nl.position,
+      })
+    }
   }
 
   tokCells()
-
-  if (tokens.length === 0) {
-    console.log(` >>> empty tokens <<< `)
-  }
-
   return [startColumnSeparator, ...tokens]
 }

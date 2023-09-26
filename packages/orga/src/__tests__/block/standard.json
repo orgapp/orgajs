@@ -47,21 +47,6 @@
           }
         },
         {
-          "type": "newline",
-          "position": {
-            "start": {
-              "line": 2,
-              "column": 21,
-              "offset": 43
-            },
-            "end": {
-              "line": 3,
-              "column": 1,
-              "offset": 44
-            }
-          }
-        },
-        {
           "type": "text",
           "value": "console.log('world')",
           "position": {
@@ -74,21 +59,6 @@
               "line": 3,
               "column": 21,
               "offset": 64
-            }
-          }
-        },
-        {
-          "type": "newline",
-          "position": {
-            "start": {
-              "line": 3,
-              "column": 21,
-              "offset": 64
-            },
-            "end": {
-              "line": 4,
-              "column": 1,
-              "offset": 65
             }
           }
         },

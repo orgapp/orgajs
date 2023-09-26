@@ -18,8 +18,8 @@ const headline: Action = (token: Stars, context) => {
     rules: [
       {
         test: ['newline', 'EOF'],
-        action: (_, { exit, consume }) => {
-          consume()
+        action: (_, { exit, discard }) => {
+          discard()
           exit(headline.type)
           return 'break'
         },

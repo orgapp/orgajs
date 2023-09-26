@@ -28,6 +28,8 @@ export interface Context {
   exitAll: (predicate: Predicate) => Parent | void
   /** shorthand for lexer.eat and push it **/
   consume: () => void
+  /** shorthand for lexer.eat **/
+  discard: () => void
   within: (predicate: Predicate) => boolean
 
   // state
@@ -154,7 +156,9 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
     consume: function () {
       push(lexer.eat())
     },
-
+    discard: function () {
+      lexer.eat()
+    },
     within: function (predicate: Predicate) {
       return test(this.parent, predicate)
     },

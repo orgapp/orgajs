@@ -91,7 +91,7 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
     }
   }
 
-  const match = (pattern: RegExp, range: Partial<Position> = {}) => {
+  function match(pattern: RegExp, range: Partial<Position> = {}) {
     const s = range.start?.offset || cursor
     const e = range.end?.offset || end
     const str = core.text.substring(s, e)
@@ -139,6 +139,20 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
     return cursor === 0 || getChar(-1) === '\n'
   }
 
+  /**
+   * Find the first index of a string
+   * @param str
+   * @param range
+   */
+  function indexOf(str: string, range: Partial<Position> = {}) {
+    const s = range.start?.offset || cursor
+    const e = range.end?.offset || core.endOfLine(cursor)?.offset || end
+    const substr = core.text.substring(s, e)
+    const i = substr.indexOf(str)
+    if (i === -1) return null
+    return core.toPoint(cursor + i)
+  }
+
   return {
     ...core,
     getChar,
@@ -146,6 +160,7 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
     eat,
     jump,
     match,
+    indexOf,
     findClosing,
     isStartOfLine,
     now: () => {

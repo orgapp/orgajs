@@ -223,9 +223,9 @@
               "offset": 54
             },
             "end": {
-              "line": 3,
-              "column": 1,
-              "offset": 108
+              "line": 2,
+              "column": 54,
+              "offset": 107
             }
           }
         },

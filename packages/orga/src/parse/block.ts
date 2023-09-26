@@ -79,7 +79,8 @@ const block: Action = (begin: BlockBegin, ctx): Handler => {
           return 'break'
         },
       },
-      { test: /./, action: (_, context) => context.push(context.lexer.eat()) },
+      { test: 'newline', action: (_, { discard }) => discard() },
+      { test: /./, action: (_, { consume }) => consume() },
     ],
   }
 }

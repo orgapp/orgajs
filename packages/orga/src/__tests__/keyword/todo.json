@@ -28,9 +28,9 @@
           "offset": 25
         },
         "end": {
-          "line": 3,
+          "line": 2,
           "column": 1,
-          "offset": 26
+          "offset": 25
         }
       }
     },
@@ -89,21 +89,6 @@
                   "line": 3,
                   "column": 21,
                   "offset": 46
-                }
-              }
-            },
-            {
-              "type": "newline",
-              "position": {
-                "start": {
-                  "line": 3,
-                  "column": 21,
-                  "offset": 46
-                },
-                "end": {
-                  "line": 3,
-                  "column": 22,
-                  "offset": 47
                 }
               }
             }

@@ -99,9 +99,9 @@
                   "offset": 153
                 },
                 "end": {
-                  "line": 4,
+                  "line": 3,
                   "column": 1,
-                  "offset": 154
+                  "offset": 153
                 }
               }
             }
@@ -111,6 +111,21 @@
               "line": 1,
               "column": 1,
               "offset": 0
+            },
+            "end": {
+              "line": 3,
+              "column": 1,
+              "offset": 153
+            }
+          }
+        },
+        {
+          "type": "newline",
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 1,
+              "offset": 153
             },
             "end": {
               "line": 4,
