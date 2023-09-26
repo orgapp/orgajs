@@ -2,18 +2,18 @@ import { Point, Position } from 'unist'
 import { CoreAPI } from '../core.js'
 
 export default <T extends CoreAPI>(core: T) => {
-  const linePosition = (
+  function linePosition(
     start: number | Point,
     end?: number | Point
-  ): Position | undefined => {
-    let result: Position | undefined
+  ): Position | null {
+    let result: Position | null
 
     if (typeof start === 'number') {
       result = linePosition(core.toPoint(start))
     } else {
       const s = core.bol(start.line)
       const e = core.eol(start.line)
-      if (!s || !e) return undefined
+      if (!s || !e) return null
       result = {
         start: s,
         end: e,
@@ -22,7 +22,7 @@ export default <T extends CoreAPI>(core: T) => {
 
     if (end && result) {
       const endLR = linePosition(end)
-      if (!endLR) return undefined
+      if (!endLR) return null
       result.end = endLR.end
     }
 
