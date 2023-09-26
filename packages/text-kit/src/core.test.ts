@@ -185,18 +185,18 @@ describe('shift', () => {
 
 describe('bol', () => {
   const testCases = [
-    { desc: 'empty document', text: '', ln: 1, expected: undefined },
+    { desc: 'empty document', text: '', ln: 1, expected: null },
     {
       desc: 'line before start of document',
       text: 'text',
       ln: -1,
-      expected: undefined,
+      expected: null,
     },
     {
       desc: 'line after end of document',
       text: 'text',
       ln: 2,
-      expected: undefined,
+      expected: null,
     },
     {
       desc: 'some text, no newline',
@@ -240,18 +240,18 @@ describe('bol', () => {
 
 describe('eol', () => {
   const testCases = [
-    { desc: 'empty document', text: '', ln: 1, expected: undefined },
+    { desc: 'empty document', text: '', ln: 1, expected: null },
     {
       desc: 'line before start of document',
       text: 'text',
       ln: -1,
-      expected: undefined,
+      expected: null,
     },
     {
       desc: 'line after end of document',
       text: 'text',
       ln: 2,
-      expected: undefined,
+      expected: null,
     },
     {
       desc: 'some text, no newline',
