@@ -41,20 +41,44 @@ export default function org({ recmaPlugins, ...options }) {
               slug: Array.isArray(data.slug) ? data.slug[0] : data.slug,
             }
           },
+          handlePropagation: true,
         })
+
+        // TODO: add org-components support
+        // const components = new URL('org-components', config.srcDir)
 
         updateConfig({
           vite: {
+            /** @type {import('vite').Plugin[]} */
             plugins: [
               {
                 enforce: 'pre',
                 ...orga({
                   ...options,
                   jsxImportSource: 'astro',
+                  // providerImportSource: components.pathname,
                   recmaPlugins: [...(recmaPlugins ?? []), addAstroFragment],
                   elementAttributeNameCase: 'html',
                   development: false,
                 }),
+                configResolved(resolved) {
+                  // HACK: move ourselves before Astro's JSX plugin to transform things in the right order
+                  const jsxPluginIndex = resolved.plugins.findIndex(
+                    (p) => p.name === 'astro:jsx'
+                  )
+                  if (jsxPluginIndex !== -1) {
+                    const myPluginIndex = resolved.plugins.findIndex(
+                      (p) => p.name === '@orgajs/rollup'
+                    )
+                    if (myPluginIndex !== -1) {
+                      const myPlugin = resolved.plugins[myPluginIndex]
+                      // @ts-ignore-error ignore readonly annotation
+                      resolved.plugins.splice(myPluginIndex, 1)
+                      // @ts-ignore-error ignore readonly annotation
+                      resolved.plugins.splice(jsxPluginIndex, 0, myPlugin)
+                    }
+                  }
+                },
               },
               {
                 name: '@orgajs/org-postprocess',
@@ -64,7 +88,6 @@ export default function org({ recmaPlugins, ...options }) {
                  */
                 transform(code, id) {
                   if (!id.endsWith('.org')) return
-                  // console.log(code)
                   return { code, map: null }
                 },
               },

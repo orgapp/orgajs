@@ -39,7 +39,6 @@ export function makeEditor(config) {
   const editor = new EditorView({
     state,
     parent: target,
-    contentHeight: '100%',
     dispatch: (tr) => {
       editor.update([tr])
       tr.docChanged && onChange && onChange(editor.state)
