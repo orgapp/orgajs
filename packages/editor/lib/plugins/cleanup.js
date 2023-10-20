@@ -109,9 +109,9 @@ function createDecorations(view, decorations = Decoration.none) {
     enter(node) {
       if (node.name.startsWith('headline'))
         headlineRange = { from: node.from, to: node.to }
-      if (node.name === 'link') linkRange = { from: node.from, to: node.to }
 
       if (node.name === 'link') {
+        linkRange = { from: node.from, to: node.to }
         decorations = decorations.update({
           add: [
             // TODO: get the real url
@@ -125,6 +125,20 @@ function createDecorations(view, decorations = Decoration.none) {
             //   widget: new LinkWidget('https://google.com'),
             //   side: 1,
             // }).range(node.to),
+          ],
+        })
+      }
+
+      if (node.name === 'url') {
+        if (linkRange === null) return
+        // get text of node
+        const text = view.state.doc.sliceString(node.from, node.to)
+        decorations = decorations.update({
+          add: [
+            Decoration.mark({
+              tagName: 'a',
+              attributes: { class: 'cm-link', href: text.slice(1, -1) },
+            }).range(linkRange.from, linkRange.to),
           ],
         })
       }
