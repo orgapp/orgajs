@@ -19,7 +19,7 @@ import { treeBuilder } from './tree.js'
  * @returns {PartialParse}
  */
 export function parseContext(config, input, _fragments, ranges) {
-  const log = config.log
+  const { log, nodeSet } = config
   let cursor = ranges[0].from
   let end = ranges[ranges.length - 1].to
   let rangeI = 0
@@ -30,10 +30,10 @@ export function parseContext(config, input, _fragments, ranges) {
   let parser = null
 
   // const parser = makeParser(full, { range: { start, end } })
-  const builder = treeBuilder(nodes.document, 0, cursor, 0, 0)
+  const builder = treeBuilder(nodeSet, nodes.document, 0, cursor, 0, 0)
 
   const fragments = _fragments.length
-    ? fragmentCursor(_fragments, input, log)
+    ? fragmentCursor(config, _fragments, input)
     : null
 
   /**
@@ -88,7 +88,7 @@ export function parseContext(config, input, _fragments, ranges) {
     log(
       `wrap up parser: ${document.children.length}, ${document.position?.start.offset}, ${document.position?.end.offset}`
     )
-    const tree = toLezer(document)
+    const tree = toLezer(document, nodeSet)
     builder.takeChildren(tree, document.position?.start.offset)
     if (document.position?.end.offset) cursor = document.position.end.offset
     parser = null

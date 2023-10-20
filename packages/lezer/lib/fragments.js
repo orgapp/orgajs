@@ -16,15 +16,15 @@
  */
 
 import { NodeProp, Tree } from '@lezer/common'
-import { nodeSet, nodes } from './nodes.js'
+import { nodes } from './nodes.js'
 
 /**
+ * @param {import('./index.js').OrgParser} config
  * @param {TreeFragment[]} fragments
  * @param {Input} input
- * @param {(...args: any[]) => void} log
  * @returns {FragmentCursor}
  */
-export function fragmentCursor(fragments, input, log) {
+export function fragmentCursor({ log, nodeSet }, fragments, input) {
   let i = 0
   /** @type {TreeCursor | null} */
   let cursor = null

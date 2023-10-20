@@ -1,5 +1,5 @@
 import { NodeProp, NodeSet, NodeType } from '@lezer/common'
-import { styleTags, tags as t, Tag } from '@lezer/highlight'
+import { styleTags, Tag, tags as t } from '@lezer/highlight'
 
 let i = 0
 export const nodes = Object.freeze({
@@ -30,6 +30,8 @@ export const nodes = Object.freeze({
   strikeThrough: i++,
   underline: i++,
   url: i++,
+  blockBegin: i++,
+  blockEnd: i++,
   // smaller
   mark: i++,
 })
@@ -56,15 +58,14 @@ const orgHighlighting = styleTags({
   'headline6/...': t.heading6,
   keyword: t.attributeName,
   link: t.link,
-  'stars mark': t.processingInstruction,
+  'stars mark blockBegin blockEnd': t.processingInstruction,
   italic: t.emphasis,
   bold: t.strong,
-  code: t.monospace,
   strikeThrough: t.strikethrough,
   paragraph: t.content,
   list: t.list,
   underline: underline,
-  'html jsx': t.monospace,
+  'html jsx code block': t.monospace,
 })
 
 export const tags = {

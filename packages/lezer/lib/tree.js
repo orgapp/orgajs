@@ -1,5 +1,4 @@
 import { NodeProp, NodeType, Tree } from '@lezer/common'
-import { nodeSet } from './nodes.js'
 
 /**
  * @param {number} type
@@ -11,13 +10,14 @@ function hash(type, value, parentHash = 0) {
 }
 
 /**
+ * @param {import('@lezer/common').NodeSet} nodeSet
  * @param {number} type
  * @param {number} value
  * @param {number} from
  * @param {number} parentHash
  * @param {number} end
  */
-export function treeBuilder(type, value, from, parentHash, end) {
+export function treeBuilder(nodeSet, type, value, from, parentHash, end) {
   /** @type {Tree[]} */
   const children = []
   /** @type {number[]} */
