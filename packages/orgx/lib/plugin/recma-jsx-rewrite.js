@@ -564,7 +564,7 @@ function createImportProvider(providerImportSource, outputFormat) {
   const specifiers = [
     {
       type: 'ImportSpecifier',
-      imported: { type: 'Identifier', name: 'useMDXComponents' },
+      imported: { type: 'Identifier', name: 'useOrgComponents' },
       local: { type: 'Identifier', name: '_provideComponents' },
     },
   ]
