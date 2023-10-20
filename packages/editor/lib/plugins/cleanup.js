@@ -14,6 +14,7 @@ function overlap(a, b) {
   return a.from <= b.to && a.to >= b.from
 }
 
+// TODO: this plugin is getting big, in terms of responsibility, break it down
 export const cleanupPlugin = ViewPlugin.define(
   (view) => {
     let _data = createDecorations(view)
@@ -39,7 +40,6 @@ export const cleanupPlugin = ViewPlugin.define(
       const { decorations, selection } = v
       return decorations.update({
         filter: (_from, _to, deco) => {
-          // console.log({ reveal: deco.spec.revealRange })
           const revealRange = deco.spec.revealRange
           if (revealRange) {
             return !overlap(revealRange, selection)
@@ -49,27 +49,21 @@ export const cleanupPlugin = ViewPlugin.define(
       })
     },
     eventHandlers: {
+      // cmd+click to open links
       mousedown(e, view) {
         const pos = view.posAtCoords(e)
         if (!pos) return
+        if (!e.metaKey) return
         this.decorations.between(pos, pos, (_from, _to, deco) => {
-          if ('tagName' in deco && deco.tagName === 'a' && 'attrs' in deco) {
+          const { tagName, attributes } = deco.spec
+          if (tagName === 'a' && attributes) {
             e.preventDefault()
-            window.open(deco.attrs?.href, '_blank')
+            // TODO: is it possible to make it a real link?
+            // I guess that'd be difficult because it's a fucking editor
+            window.open(deco.spec.attributes.href, '_blank')
             return false
           }
-          // console.log({ from, to, deco })
-          // if (deco.spec.revealRange) {
-          //   view.dispatch({
-          //     selection: {
-          //       anchor: deco.spec.revealRange.from,
-          //       head: deco.spec.revealRange.to,
-          //     },
-          //   })
-          // }
         })
-        // this.posAtCoords({ x: e.clientX, y: e.clientY })
-        // this.decorations.
       },
     },
   }
@@ -112,21 +106,6 @@ function createDecorations(view, decorations = Decoration.none) {
 
       if (node.name === 'link') {
         linkRange = { from: node.from, to: node.to }
-        decorations = decorations.update({
-          add: [
-            // TODO: get the real url
-            Decoration.mark({
-              tagName: 'a',
-              attributes: { class: 'cm-link', href: 'https://google.com' },
-            }).range(node.from, node.to),
-            // mark is not working
-            // https://discuss.codemirror.net/t/decorated-a-tags-nor-treated-as-links-by-browser/3664
-            // Decoration.widget({
-            //   widget: new LinkWidget('https://google.com'),
-            //   side: 1,
-            // }).range(node.to),
-          ],
-        })
       }
 
       if (node.name === 'url') {

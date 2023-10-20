@@ -11,7 +11,6 @@
 
 import { Parser, NodeSet } from '@lezer/common'
 import { parseContext } from './context.js'
-export * as props from './props.js'
 import { nodeSet } from './nodes.js'
 export { tags } from './nodes.js'
 
