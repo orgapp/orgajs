@@ -2,7 +2,7 @@
   "name": "@orgajs/react",
   "version": "4.1.0",
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
   "files": [
