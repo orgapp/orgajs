@@ -1,5 +1,13 @@
 # @orgajs/cm-lang
 
+## 1.1.1
+
+### Patch Changes
+
+- ac322714: implement editor
+- Updated dependencies [ac322714]
+  - @orgajs/lezer@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.2.0
+
+### Minor Changes
+
+- ac322714: implement editor
+
 ## 4.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/orgx",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "orga compiler with jsx support",
   "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",

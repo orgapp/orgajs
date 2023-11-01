@@ -1,5 +1,16 @@
 # @orgajs/orgx
 
+## 2.2.0
+
+### Minor Changes
+
+- ac322714: implement editor
+
+### Patch Changes
+
+- @orgajs/reorg-parse@4.1.1
+- @orgajs/reorg-rehype@4.1.1
+
 ## 2.1.0
 
 ### Minor Changes

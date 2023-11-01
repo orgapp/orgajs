@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies [ac322714]
+  - orga@4.2.0
+  - @orgajs/orgx@2.2.0
+  - @orgajs/react@4.1.0
+
 ## 3.2.0
 
 ### Minor Changes
