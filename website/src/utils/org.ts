@@ -1,6 +1,7 @@
 import { evaluate, type OrgContent } from '@orgajs/orgx'
 import { unified } from 'unified'
 import reorgParse from '@orgajs/reorg-parse'
+import { tokenize } from 'orga'
 import reorgRehype from '@orgajs/reorg-rehype'
 import rehypeStringify from 'rehype-stringify'
 import { useEffect, useState } from 'react'
@@ -28,6 +29,14 @@ export function useOrg({ value }: { value: string }) {
     const capture = (name: string) => () => (tree) => {
       file.data[name] = structuredClone(tree)
     }
+    const tokens = tokenize(file.toString())
+      .all()
+      .map((t) => {
+        delete t.position
+        return t
+      })
+    capture('tokens')()(tokens)
+
     const Content = (
       await evaluate(file, {
         ...runtime,

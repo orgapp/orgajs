@@ -4,7 +4,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -35,6 +35,7 @@
     "vfile-message": "3.1.4"
   },
   "devDependencies": {
+    "@astrojs/ts-plugin": "^1.2.0",
     "@codemirror/state": "^6.2.1",
     "@codemirror/view": "^6.17.1",
     "@orgajs/orgx": "workspace:^",
@@ -43,10 +44,13 @@
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
+    "@vue/language-server": "^1.8.20",
     "eslint": "^8.48.0",
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-astro": "^0.27.2",
     "eslint-plugin-disable": "^2.0.3",
-    "eslint-plugin-react-refresh": "^0.4.3"
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "orga": "workspace:^",
+    "typescript": "^5.2.2"
   }
 }

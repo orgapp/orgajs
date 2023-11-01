@@ -2,6 +2,7 @@ import { EditorView } from '@codemirror/view'
 import { makeEditor, type EditorConfig } from '@orgajs/editor'
 import { forwardRef, useEffect, useRef, useState } from 'react'
 import { useMergeRefs } from '../utils/merge-refs'
+import { setEditor } from './global'
 
 const OrgEditor = forwardRef<HTMLDivElement, Partial<EditorConfig>>(
   ({ content, onChange, ...props }, ref) => {
@@ -17,6 +18,7 @@ const OrgEditor = forwardRef<HTMLDivElement, Partial<EditorConfig>>(
           onChange,
         })
         setEditorView(editor)
+        setEditor(editor)
       }
     }, [innerRef])
 

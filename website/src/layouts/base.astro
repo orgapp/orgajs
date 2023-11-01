@@ -26,19 +26,21 @@ const { title } = Astro.props
     <aside class="h-screen">
       <slot name="left" />
     </aside>
-    <main class="flex flex-col h-screen overflow-scroll w-full">
+    <main class="flex flex-col h-screen w-screen">
       <nav
         class:list={[
           'sticky top-0 font-mono print:hidden',
           'flex justify-between items-stretch gap-2',
-          'drop-shadow backdrop-blur-md',
+          'drop-shadow backdrop-blur-lg',
           'border-b border-border',
           'bg-surface',
         ]}
       >
         <slot name="top" />
       </nav>
+      <div class="h-full overflow-auto">
       <slot />
+      </div>
     </main>
     <slot name="bottom" />
   </body>
