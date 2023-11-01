@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies [ac322714]
+  - orga@4.2.0
+  - oast-to-hast@4.1.1
+  - orga-posts@3.2.1
+
 ## 3.2.0
 
 ### Minor Changes

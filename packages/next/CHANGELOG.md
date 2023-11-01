@@ -1,5 +1,14 @@
 # Change Log
 
+## 6.0.0
+
+### Patch Changes
+
+- ac322714: implement editor
+- Updated dependencies [ac322714]
+  - @orgajs/loader@4.2.0
+  - @orgajs/react@4.1.0
+
 ## 5.0.0
 
 ### Minor Changes

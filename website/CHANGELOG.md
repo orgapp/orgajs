@@ -1,5 +1,16 @@
 # website
 
+## 0.1.1
+
+### Patch Changes
+
+- ac322714: implement editor
+- Updated dependencies [ac322714]
+  - @orgajs/editor@1.1.1
+  - @orgajs/astro@1.1.1
+  - @orgajs/reorg-parse@4.1.1
+  - @orgajs/reorg-rehype@4.1.1
+
 ## 0.1.0
 
 ### Minor Changes

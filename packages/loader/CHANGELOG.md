@@ -1,5 +1,16 @@
 # Change Log
 
+## 4.2.0
+
+### Minor Changes
+
+- ac322714: implement editor
+
+### Patch Changes
+
+- Updated dependencies [ac322714]
+  - @orgajs/orgx@2.2.0
+
 ## 4.1.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @orgajs/example-editor
 
+## 0.1.1
+
+### Patch Changes
+
+- ac322714: implement editor
+- Updated dependencies [ac322714]
+  - @orgajs/editor@1.1.1
+
 ## 0.1.0
 
 ### Minor Changes

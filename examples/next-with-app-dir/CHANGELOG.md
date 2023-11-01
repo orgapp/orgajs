@@ -1,5 +1,12 @@
 # @orgajs/example-next-app-dir
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies [ac322714]
+  - @orgajs/next@6.0.0
+
 ## 1.1.0
 
 ### Minor Changes
