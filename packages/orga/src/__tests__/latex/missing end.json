@@ -7,12 +7,27 @@
       "children": [
         {
           "type": "text",
-          "value": "\\begin{equation}\n",
+          "value": "\\begin{equation}",
           "position": {
             "start": {
               "line": 1,
               "column": 1,
               "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 17,
+              "offset": 16
+            }
+          }
+        },
+        {
+          "type": "newline",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 17,
+              "offset": 16
             },
             "end": {
               "line": 2,

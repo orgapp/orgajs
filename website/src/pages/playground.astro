@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/base.astro'
+import Playground from '../components/playground.tsx'
+import Navbar from '../components/navbar.astro'
+import content from '../content.org?raw'
+---
+
+<Layout>
+  <Navbar slot="top" />
+  <Playground client:only="react" content={content} />
+</Layout>
+
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css"
+  />
+</head>
+
+<script>
+  import {withEditor} from '../components/global.ts'
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const text = params.text
+  if (text) {
+    withEditor(editor => {
+      const state = editor.state
+      /* const tr = editor.state */
+      const tr = state.update({changes: {from: 0, to: state.doc.length, insert: text}})
+      editor.dispatch(tr)
+    })
+  }
+</script>

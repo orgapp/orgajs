@@ -72,7 +72,7 @@ const main: Handler = {
         consume()
       },
     },
-    { test: 'newline', action: (_, { consume }) => consume() },
+    { test: 'newline', action: (_, { discard }) => discard() },
     { test: 'stars', action: section },
     { test: 'keyword', action: keyword },
     { test: 'list.item.bullet', action: list },

@@ -28,9 +28,13 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
     return core.text.charAt(index)
   }
 
-  const getLine = () => {
+  /**
+   * Get the current line
+   * returns null if cursor is at the end of the document
+   */
+  function getLine(): string | null {
     const pos = core.linePosition(cursor)
-    if (!pos) return undefined
+    if (!pos) return null
     return core.substring(cursor, pos.end)
   }
 
@@ -40,7 +44,7 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
 
   const now = () => core.toPoint(cursor)
 
-  const eat = (
+  function eat(
     param:
       | 'char'
       | 'line'
@@ -48,7 +52,7 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
       | 'newline'
       | RegExp
       | number = 'char'
-  ): { position: Position; value: string } | undefined => {
+  ): { position: Position; value: string } | undefined {
     let value: string | undefined
 
     const position = {
@@ -62,7 +66,7 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
       cursor += 1
     } else if (param === 'line') {
       const lineEnd = core.linePosition(cursor)
-      const e = !lineEnd ? end : Math.min(end, lineEnd.end.offset!)
+      const e = lineEnd === null ? end : Math.min(end, lineEnd.end.offset!)
       value = core.substring(cursor, e)
       cursor = e
     } else if (param === 'whitespaces') {
@@ -87,7 +91,7 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
     }
   }
 
-  const match = (pattern: RegExp, range: Partial<Position> = {}) => {
+  function match(pattern: RegExp, range: Partial<Position> = {}) {
     const s = range.start?.offset || cursor
     const e = range.end?.offset || end
     const str = core.text.substring(s, e)
@@ -135,6 +139,20 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
     return cursor === 0 || getChar(-1) === '\n'
   }
 
+  /**
+   * Find the first index of a string
+   * @param str
+   * @param range
+   */
+  function indexOf(str: string, range: Partial<Position> = {}) {
+    const s = range.start?.offset || cursor
+    const e = range.end?.offset || core.endOfLine(cursor)?.offset || end
+    const substr = core.text.substring(s, e)
+    const i = substr.indexOf(str)
+    if (i === -1) return null
+    return core.toPoint(cursor + i)
+  }
+
   return {
     ...core,
     getChar,
@@ -142,6 +160,7 @@ const reader = (_core: CoreAPI, range: Partial<Range> = {}) => {
     eat,
     jump,
     match,
+    indexOf,
     findClosing,
     isStartOfLine,
     now: () => {

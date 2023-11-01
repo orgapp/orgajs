@@ -47,8 +47,8 @@ const tableRow: Action = (_, { enter, lexer }) => {
     rules: [
       {
         test: 'newline',
-        action: (_, { exit, lexer }) => {
-          lexer.eat()
+        action: (_, { exit, discard }) => {
+          discard()
           exit('table.row')
           return 'break'
         },
@@ -71,6 +71,7 @@ const table: Action = (_, context) => {
     rules: [
       { test: 'table.columnSeparator', action: tableRow },
       { test: 'table.hr', action: (_, context) => context.consume() },
+      { test: 'newline', action: (_, context) => context.discard() },
       {
         test: /.*/,
         action: (_, context) => {

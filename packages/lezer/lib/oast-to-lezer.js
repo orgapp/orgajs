@@ -1,6 +1,7 @@
 /**
  * @typedef {import('orga').Document} OrgTree
  * @typedef {import('@lezer/common').Tree} LezerTree
+ * @typedef {import('@lezer/common').NodeSet} NodeSet
  * @typedef {import('orga').Document} OastRoot
  * @typedef {import('orga').Content} OastContent
  * @typedef {import('orga').Parent} OastParent
@@ -16,17 +17,18 @@
  */
 import { Tree } from '@lezer/common'
 import { handlers } from './handlers.js'
-import { nodeSet } from './nodes.js'
 
 /**
  * @param {import('vfile').VFile | null} file
+ * @param {NodeSet} nodeSet
  * @returns {ParseState}
  */
-function createParseState(file) {
+function createParseState(file, nodeSet) {
   /** @type {ParseState} */
   const state = {
     file,
     ignore: ['newline', 'emptyLine', 'section'],
+    nodeSet: nodeSet,
     handlers,
     one(node, parent, base = 0) {
       return one(this, node, parent, base)
@@ -40,12 +42,13 @@ function createParseState(file) {
 
 /**
  * @param {OrgTree} tree
+ * @param {NodeSet} nodeSet
  * @param {import('vfile').VFile | null} [file=null]
  * @returns {import('@lezer/common').Tree}
  */
-export function toLezer(tree, file = null) {
+export function toLezer(tree, nodeSet, file = null) {
   // TODO: inject gaps
-  const state = createParseState(file)
+  const state = createParseState(file, nodeSet)
   const result = state.one(tree)
   if (!result) {
     throw new Error('no result')
@@ -55,7 +58,8 @@ export function toLezer(tree, file = null) {
 }
 
 /** @type {import('./types.js').Handler} */
-const defaultUnknownHandler = () => {
+const defaultUnknownHandler = (state, n) => {
+  console.log('unknown node', n.type, n)
   return true
 }
 
@@ -103,7 +107,7 @@ function one(state, node, parent, base = 0) {
         positions: [],
       }
 
-  const tree = new Tree(nodeSet.types[id], nodes, positions, len)
+  const tree = new Tree(state.nodeSet.types[id], nodes, positions, len)
   const result = { nodes: [tree], positions: [pos] }
   return result
 }

@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content'
+import Notice from '../../components/notice.astro'
+import Navbar from '../../components/navbar.astro'
+import Layout from '../../layouts/base.astro'
+import Article from '../../layouts/article.astro'
+import { getDocLinks } from '../../utils/docs'
+
+const links = await getDocLinks()
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('docs')
+  const all = blogEntries.map((entry) => {
+    return {
+      params: { path: entry.slug },
+      props: { entry },
+    }
+  })
+  const slugs = all.map(({ params }) => params.path)
+  return all
+}
+const { entry } = Astro.props
+const { Content } = await entry.render()
+const slug = entry.slug
+
+const linkStyle = [['font-bold', 'text-lg'], ['pl-4'], [], []]
+---
+
+<Layout title={entry.data.title}>
+  <div
+    slot="left"
+    class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 text-white hidden sm:block w-64"
+  >
+    <ul class="space-y-2 font-medium">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={`/docs/${link.slug}`}
+              class:list={[
+                'flex items-center',
+                'p-2 text-gray-900 rounded-lg dark:text-white',
+                'hover:bg-gray-100 dark:hover:bg-gray-700',
+                slug === link.slug ? 'bg-black' : '',
+              ]}
+            >
+              <div class:list={[...linkStyle[link.indent]]}>{link.title}</div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <Navbar slot="top" />
+  <Article title={entry.data.title}>
+    <Content components={{ Notice }} />
+  </Article>
+</Layout>

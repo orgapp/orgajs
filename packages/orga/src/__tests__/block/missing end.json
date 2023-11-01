@@ -22,6 +22,21 @@
           }
         },
         {
+          "type": "newline",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 23,
+              "offset": 22
+            },
+            "end": {
+              "line": 2,
+              "column": 1,
+              "offset": 23
+            }
+          }
+        },
+        {
           "type": "text",
           "value": "console.log('hello')",
           "position": {

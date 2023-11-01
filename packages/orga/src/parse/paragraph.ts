@@ -54,9 +54,7 @@ const paragraph: Action = () => {
       },
       {
         test: 'newline',
-        action: (_, { consume }) => {
-          consume()
-        },
+        action: (_, { consume }) => consume(),
       },
       {
         test: 'opening',

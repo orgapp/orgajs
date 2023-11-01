@@ -11,7 +11,7 @@ test('basic org-mode parsing', async () => {
   await new Promise((resolve) => setTimeout(resolve, 3000))
   console.log('after the wait')
 
-  const output = stats.toJson({ source: true }).modules[0].source
+  const output = `${stats.toJson({ source: true }).modules[0].source}`
   assert.equal(
     output.trim(),
     `
@@ -25,8 +25,8 @@ function _createOrgContent(props) {
   }, props.components);
   return _jsxs(_components.div, {
     className: "section",
-    children: [_jsxs(_components.h1, {
-      children: ["headline one", " "]
+    children: [_jsx(_components.h1, {
+      children: "headline one"
     }), _jsx(_components.div, {
       style: {
         color: 'red'

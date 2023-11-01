@@ -15,7 +15,7 @@ function _createOrgContent(props) {
     div: "div",
     h1: "h1"
   }, props.components);
-  return <_components.div className="section"><_components.h1>{"Hi"}{" "}</_components.h1></_components.div>;
+  return <_components.div className="section"><_components.h1>{"Hi"}</_components.h1></_components.div>;
 }
 function OrgContent(props = {}) {
   const {wrapper: OrgLayout} = props.components || ({});

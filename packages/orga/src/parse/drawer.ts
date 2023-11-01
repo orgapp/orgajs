@@ -9,7 +9,7 @@ const drawer: Action = (begin: DrawerBegin, context) => {
     value: '',
     children: [],
   })
-  context.push(context.lexer.eat())
+  context.consume()
 
   const contentStart = begin.position.end
 
@@ -31,7 +31,7 @@ const drawer: Action = (begin: DrawerBegin, context) => {
       {
         test: 'drawer.end',
         action: (token, context) => {
-          context.push(context.lexer.eat())
+          context.consume()
           drawer.value = context.lexer.substring({
             start: contentStart,
             end: token.position.start,

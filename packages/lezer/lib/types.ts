@@ -1,9 +1,9 @@
-import { Document, Content, Parent as OastParent } from 'orga'
-import { Tree as LezerTree } from '@lezer/common'
+import { Document, Content, Parent as OastParent, Token } from 'orga'
+import { Tree as LezerTree, NodeSet } from '@lezer/common'
 import { Position } from 'unist'
 import { type VFile } from 'vfile'
 
-export type OastNode = Document | Content
+export type OastNode = Document | Content | Token
 
 type Action = boolean
 
@@ -31,11 +31,12 @@ export type Handler = (
 export interface State {
   file: VFile | null
   ignore: string[]
+  readonly nodeSet: NodeSet
   handlers: Record<string, Handler>
   one: (
     node: OastNode,
-    parent?: OastParent | undefined = undefined,
-    base?: number = 0
+    parent?: OastParent | undefined,
+    base?: number
   ) => { nodes: LezerTree[]; positions: number[] } | null | undefined
   all: (
     node: OastNode,

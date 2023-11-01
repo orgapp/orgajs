@@ -19,7 +19,8 @@
   "files": [
     "lib",
     "dist",
-    "index.js"
+    "index.js",
+    "types.d.ts"
   ],
   "scripts": {
     "clean": "tsc --build --clean",

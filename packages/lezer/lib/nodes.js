@@ -1,18 +1,27 @@
 import { NodeProp, NodeSet, NodeType } from '@lezer/common'
-import { styleTags, tags as t, Tag } from '@lezer/highlight'
+import { styleTags, Tag, tags as t } from '@lezer/highlight'
 
 let i = 0
 export const nodes = Object.freeze({
   none: i++,
   // block
   document: i++,
-  headline: i++,
+  headline1: i++,
+  headline2: i++,
+  headline3: i++,
+  headline4: i++,
+  headline5: i++,
+  headline6: i++,
   paragraph: i++,
   keyword: i++,
   block: i++,
   list: i++,
+  html: i++,
+  jsx: i++,
   // inline
   stars: i++,
+  todo: i++,
+  done: i++,
   link: i++,
   marker: i++,
   bold: i++,
@@ -20,6 +29,11 @@ export const nodes = Object.freeze({
   code: i++,
   strikeThrough: i++,
   underline: i++,
+  url: i++,
+  blockBegin: i++,
+  blockEnd: i++,
+  // smaller
+  mark: i++,
 })
 
 /** @type {NodeType[]} */
@@ -36,17 +50,22 @@ export const nodeTypes = Object.entries(nodes).map(([name, id]) =>
 const underline = Tag.define(t.content)
 
 const orgHighlighting = styleTags({
-  'headline/...': t.heading,
-  keyword: t.keyword,
+  'headline1/...': t.heading1,
+  'headline2/...': t.heading2,
+  'headline3/...': t.heading3,
+  'headline4/...': t.heading4,
+  'headline5/...': t.heading5,
+  'headline6/...': t.heading6,
+  keyword: t.attributeName,
   link: t.link,
-  'marker stars': t.processingInstruction,
+  'stars mark blockBegin blockEnd': t.processingInstruction,
   italic: t.emphasis,
   bold: t.strong,
-  code: t.monospace,
   strikeThrough: t.strikethrough,
   paragraph: t.content,
   list: t.list,
   underline: underline,
+  'html jsx code block': t.monospace,
 })
 
 export const tags = {

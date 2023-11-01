@@ -111,9 +111,9 @@
               "offset": 26
             },
             "end": {
-              "line": 3,
+              "line": 2,
               "column": 1,
-              "offset": 27
+              "offset": 26
             }
           }
         }
@@ -126,9 +126,9 @@
           "offset": 0
         },
         "end": {
-          "line": 3,
+          "line": 2,
           "column": 1,
-          "offset": 27
+          "offset": 26
         }
       }
     },

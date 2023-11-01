@@ -9,8 +9,8 @@ export interface CoreAPI {
   readonly numberOfLines: number
   toPoint: (index: number) => Point
   toIndex: (point: Point | number) => number
-  bol: (ln: number) => Point | undefined
-  eol: (ln: number) => Point | undefined
+  bol: (ln: number) => Point | null
+  eol: (ln: number) => Point | null
 
   /** Offset the given `point` by the provided `offset`. */
   shift: (point: Point, offset: number) => Point
@@ -34,22 +34,16 @@ function core(text: string): CoreAPI {
           offset: text.length,
         }
 
-  const bol = (ln: number): Point | undefined => {
+  function bol(ln: number): Point | null {
     const lineIndex = ln - 1
-    if (lineIndex >= lines.length || lineIndex < 0) return undefined
+    if (lineIndex >= lines.length || lineIndex < 0) return null
     return { line: ln, column: 1, offset: lines[ln - 1] }
   }
 
-  const eol = (ln: number): Point | undefined => {
-    if (ln > lines.length || ln < 1) return undefined
+  function eol(ln: number): Point | null {
+    if (ln > lines.length || ln < 1) return null
     const lastLine = ln === lines.length
-    return lastLine
-      ? eof()
-      : {
-          line: ln + 1,
-          column: 1,
-          offset: lines[ln],
-        }
+    return lastLine ? eof() : toPoint(lines[ln] - 1)
   }
 
   const shift = (point: Point, offset: number): Point => {

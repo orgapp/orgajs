@@ -4,18 +4,25 @@
  * @typedef {import('@lezer/common').TreeFragment} TreeFragment
  */
 
-import { Parser } from '@lezer/common'
+/**
+ * @typedef OrgParserConfig
+ * @property {import('@lezer/common').NodePropSource[] | undefined | null} props
+ */
+
+import { Parser, NodeSet } from '@lezer/common'
 import { parseContext } from './context.js'
+import { nodeSet } from './nodes.js'
 export { tags } from './nodes.js'
 
 export class OrgParser extends Parser {
-  constructor(verbose = false) {
+  /**
+   * @param {NodeSet} nodeSet
+   * @param {(...data: any[]) => void} [log]
+   */
+  constructor(nodeSet, log = () => {}) {
     super()
-    this.log = function (/** @type {any[]} */ ...args) {
-      if (verbose) {
-        console.log(...args)
-      }
-    }
+    this.nodeSet = nodeSet
+    this.log = log
   }
 
   /**
@@ -35,6 +42,23 @@ export class OrgParser extends Parser {
     const parse = parseContext(this, input, fragments, ranges)
     return parse
   }
+
+  /**
+   * @param {OrgParserConfig} config
+   */
+  configure(config) {
+    let { nodeSet } = this
+    let nodeTypes = nodeSet.types.slice()
+
+    nodeSet = new NodeSet(nodeTypes)
+    if (config.props && config.props.length > 0) {
+      nodeSet = nodeSet.extend(...config.props)
+    }
+    return new OrgParser(nodeSet, this.log)
+  }
 }
 
-export const parser = new OrgParser()
+export const parser = new OrgParser(
+  nodeSet
+  // console.log.bind(console, 'orga-parser')
+)

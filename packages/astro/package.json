@@ -38,6 +38,7 @@
     "@types/estree": "^1.0.1",
     "@types/estree-jsx": "^1.0.0",
     "astro": "^2.10.15",
-    "unified": "^10.1.2"
+    "unified": "^10.1.2",
+    "vite": "^4.4.9"
   }
 }
