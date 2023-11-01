@@ -1,10 +1,12 @@
-import { useState, type ReactNode } from 'react'
+import { useState, type ReactNode, useEffect } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 
 interface TabView {
   tab: string
   view: ReactNode
 }
+
+const bp = 1024
 
 const getTabClasses = (selected: boolean, ...extra: string[]) => {
   const classes = [
@@ -32,6 +34,17 @@ export default function Magic({
   children: ReactNode
 }) {
   const [tabIndex, setTabIndex] = useState(0)
+
+  useEffect(() => {
+    const vw = Math.max(
+      document.documentElement.clientWidth || 0,
+      window.innerWidth || 0
+    )
+    if (vw >= bp) {
+      setTabIndex(1)
+    }
+  }, [])
+
   return (
     <Tabs
       className="grid grid-cols-1 lg:grid-cols-2 grid-rows-[auto_1fr] h-full w-full"
