@@ -9,6 +9,7 @@
 '@orgajs/astro': patch
 '@orgajs/lezer': patch
 'website': patch
+'@orgajs/next': patch
 ---
 
 implement editor
