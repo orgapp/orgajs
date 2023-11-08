@@ -44,10 +44,16 @@ export function parseContext(config, input, _fragments, ranges) {
    */
   function advance() {
     log('advance called', cursor, end)
+    // TODO: should we set an end to the tree?
+    // will take a look when this actually happens
     if (stoppedAt != null && cursor > stoppedAt) return builder.build()
 
     if (cursor >= end) {
-      return builder.build()
+      // end of the tree has to match the end of the input
+      // sometimes the the chidren does not fill the whole tree
+      // which causes the end of the tree to be smaller than the end of the input
+      // set it to the end of the input will prevent unnecessary parsing
+      return builder.build(end)
     }
 
     if (fragments !== null && couldReuse(fragments)) {
@@ -86,8 +92,9 @@ export function parseContext(config, input, _fragments, ranges) {
     if (!parser) return
     const document = parser.finish()
     log(
-      `wrap up parser: ${document.children.length}, ${document.position?.start.offset}, ${document.position?.end.offset}`
+      `wrap up parser: ${document.children.length}, ${document.position?.start.offset}, ${document.position?.end.offset}`,
     )
+    log(document)
     const tree = toLezer(document, nodeSet)
     builder.takeChildren(tree, document.position?.start.offset)
     if (document.position?.end.offset) cursor = document.position.end.offset

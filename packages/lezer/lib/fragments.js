@@ -97,16 +97,21 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
       taken: 0,
     }
 
+    log('takeNodes', start, ranges, rangeI)
+
     if (!cursor || !fragment) return result
     let cur = cursor
     let off = fragment.offset
     let end = start
+    // let prevEnd = end
+    let blockI = 0
+    // let prevI = 0
     const fragEnd = fragmentEnd - (fragment.openEnd ? 1 : 0)
     for (;;) {
       if (cur.to - off > fragEnd) {
         if (cur.type.isAnonymous && cur.firstChild()) continue
         log(
-          `stop takeNodes from ${cur.name}: fe: ${fragEnd} | ${fragmentEnd}, cur: ${cur.name}, cur.from: ${cur.from}, cur.to: ${cur.to}, off: ${off}`
+          `stop takeNodes from ${cur.name}: fe: ${fragEnd} | ${fragmentEnd}, cur: ${cur.name}, cur.from: ${cur.from}, cur.to: ${cur.to}, off: ${off}`,
         )
         break
       }
@@ -115,7 +120,7 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
       if (cur.to - off <= ranges[rangeI].to) {
         // Fits in current range
         log(
-          `Fits in current range, name: ${cur.name}, pos: ${pos}, cur.from: ${cur.from}, cur.to: ${cur.to}`
+          `Fits in current range, name: ${cur.name}, pos: ${pos}, cur.from: ${cur.from}, cur.to: ${cur.to}`,
         )
         const tree = cur.tree
 
@@ -129,7 +134,7 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
           nodeSet.types[nodes.paragraph],
           [],
           [],
-          0
+          0,
           // cx.block.hashProp
         )
         result.nodes.push(dummy)
@@ -137,8 +142,19 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
         // reuse dummy?
       }
 
-      end = cur.to - off
+      if (cur.type.is('Block')) {
+        log('got block:', cur.type.name)
+        end = cur.to - off
+        blockI = result.nodes.length
+      }
       if (!cur.nextSibling()) break
+    }
+    log(`>> popping: ${blockI} / ${result.nodes.length}`)
+    log('node:', result.nodes.map((n) => n.type.name).join(','))
+    while (result.nodes.length > blockI) {
+      const n = result.nodes.pop()
+      log('.. pop non blocks', n?.type.name)
+      result.positions.pop()
     }
 
     result.taken = end - start

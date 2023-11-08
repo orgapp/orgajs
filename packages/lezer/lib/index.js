@@ -35,9 +35,11 @@ export class OrgParser extends Parser {
     const r = ranges.map((r) => `${r.from}-${r.to}`).join(', ')
     const frags = fragments
       .map(
-        (f) => `(${f.from}-${f.to}, offset: ${f.offset}, openEnd: ${f.openEnd})`
+        (f) =>
+          `(${f.from}-${f.to}, offset: ${f.offset}, openEnd: ${f.openEnd})`,
       )
       .join(' ')
+    // TODO: add info more about fragments, how do I use ranges vs fragments?
     this.log('createParse', `ranges: (${r}), frags: [${frags}]`)
     const parse = parseContext(this, input, fragments, ranges)
     return parse
@@ -59,6 +61,6 @@ export class OrgParser extends Parser {
 }
 
 export const parser = new OrgParser(
-  nodeSet
-  // console.log.bind(console, 'orga-parser')
+  nodeSet,
+  // console.log.bind(console, 'orga-parser'),
 )

@@ -1,4 +1,5 @@
 import { NodeProp, NodeType, Tree } from '@lezer/common'
+// import { nodes } from './nodes.js'
 
 /**
  * @param {number} type
@@ -15,9 +16,16 @@ function hash(type, value, parentHash = 0) {
  * @param {number} value
  * @param {number} from
  * @param {number} parentHash
- * @param {number} end
+ * @param {number} originalEnd
  */
-export function treeBuilder(nodeSet, type, value, from, parentHash, end) {
+export function treeBuilder(
+  nodeSet,
+  type,
+  value,
+  from,
+  parentHash,
+  originalEnd,
+) {
   /** @type {Tree[]} */
   const children = []
   /** @type {number[]} */
@@ -39,7 +47,7 @@ export function treeBuilder(nodeSet, type, value, from, parentHash, end) {
         child.children,
         child.positions,
         child.length,
-        props
+        props,
       )
     children.push(child)
     positions.push(pos)
@@ -71,9 +79,10 @@ export function treeBuilder(nodeSet, type, value, from, parentHash, end) {
   }
 
   /**
+   * @param {number} [end = originalEnd] - end of the tree
    * @returns {Tree}
    */
-  function build() {
+  function build(end = originalEnd) {
     let last = children.length - 1
     if (last >= 0)
       end = Math.max(end, positions[last] + children[last].length + from)
@@ -82,7 +91,7 @@ export function treeBuilder(nodeSet, type, value, from, parentHash, end) {
       nodeSet.types[type],
       children,
       positions,
-      end - from
+      end - from,
     ).balance({
       makeTree: (children, positions, length) =>
         new Tree(NodeType.none, children, positions, length, props),

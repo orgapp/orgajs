@@ -43,7 +43,7 @@ export const nodeTypes = Object.entries(nodes).map(([name, id]) =>
     name,
     props: id >= nodes.stars ? [] : [[NodeProp.group, ['Block']]],
     top: name === 'document',
-  })
+  }),
 )
 
 // extra tags
