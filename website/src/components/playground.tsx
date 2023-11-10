@@ -35,6 +35,13 @@ export default function Playground({ content }: { content: string }) {
     [setValue]
   )
 
+  function copyToClipboard() {
+    const content = encodeURIComponent(state.original)
+    const host = window.location.host
+    const link = `${host}/playground?text=${content}`
+    navigator.clipboard.writeText(link)
+  }
+
   const tabs = [
     {
       tab: 'render',
@@ -77,13 +84,21 @@ export default function Playground({ content }: { content: string }) {
   ]
 
   return (
-    <Magic tabs={tabs}>
-      <OrgEditor
-        className="h-full w-full not-prose"
-        onChange={onChange}
-        content={content}
-      />
-    </Magic>
+    <div className="h-full w-full">
+      <Magic tabs={tabs}>
+        <OrgEditor
+          className="h-full w-full not-prose"
+          onChange={onChange}
+          content={content}
+        />
+      </Magic>
+      <button
+        className="fixed right-2 bottom-2 text-white bg-blue-600 p-2 px-4 rounded hover:bg-blue-500 border border-blue-600"
+        onClick={copyToClipboard}
+      >
+        generate link
+      </button>
+    </div>
   )
 }
 
