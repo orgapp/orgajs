@@ -1,5 +1,12 @@
 # @orgajs/cm-lang
 
+## 1.1.2
+
+### Patch Changes
+
+- Updated dependencies [ea032b35]
+  - @orgajs/lezer@1.1.2
+
 ## 1.1.1
 
 ### Patch Changes

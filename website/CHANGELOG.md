@@ -1,5 +1,13 @@
 # website
 
+## 0.1.2
+
+### Patch Changes
+
+- ea032b35: bug fix, link generating button
+- Updated dependencies [ea032b35]
+  - @orgajs/editor@1.1.2
+
 ## 0.1.1
 
 ### Patch Changes
