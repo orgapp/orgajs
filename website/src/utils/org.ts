@@ -11,12 +11,17 @@ import { debounce } from './debounce'
 import { removePosition } from 'unist-util-remove-position'
 
 interface OrgState {
+  original: string
   file: VFile | null
   Content: OrgContent | null
 }
 
 export function useOrg({ value }: { value: string }) {
-  const [state, setState] = useState<OrgState>({ file: null })
+  const [state, setState] = useState<OrgState>({
+    original: value,
+    file: null,
+    Content: null,
+  })
   const filename = 'example.org'
 
   useEffect(() => {
@@ -46,7 +51,7 @@ export function useOrg({ value }: { value: string }) {
     ).default
     removePosition(file.data.oast, { force: true })
     removePosition(file.data.hast, { force: true })
-    setState({ file, Content })
+    setState({ original: content, file, Content })
   }
   return { state, setValue: debounce(setValue, 300) }
 }

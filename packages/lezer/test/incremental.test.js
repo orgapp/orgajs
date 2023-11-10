@@ -17,6 +17,7 @@ console.log('hello')
 
 here is a link: [[https://example.com][link text]]
 `
+const docLength = doc.length
 
 class State {
   constructor(doc, tree, fragments) {
@@ -128,4 +129,7 @@ describe('incremential parsing', () => {
   // it('can handle adding to a quoted block', () => {})
   // it('can handle a change in a post-linkref paragraph', () => {})
   // it('can handle a change in a paragraph-adjacent linkrefs', () => {})
+
+  it('can handle insertion at the eof', () =>
+    testChange([{ from: docLength, to: docLength, insert: '* h' }]))
 })
