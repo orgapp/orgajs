@@ -1,5 +1,11 @@
 # @orgajs/lezer
 
+## 1.1.2
+
+### Patch Changes
+
+- ea032b35: bug fix, link generating button
+
 ## 1.1.1
 
 ### Patch Changes

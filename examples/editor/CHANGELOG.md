@@ -1,5 +1,12 @@
 # @orgajs/example-editor
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [ea032b35]
+  - @orgajs/editor@1.1.2
+
 ## 0.1.1
 
 ### Patch Changes
