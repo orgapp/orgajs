@@ -66,7 +66,7 @@ export const cleanupPlugin = ViewPlugin.define(
         })
       },
     },
-  }
+  },
 )
 
 /**
@@ -134,7 +134,7 @@ function createDecorations(view, decorations = Decoration.none) {
           add: [
             Decoration.replace({
               revealRange,
-            }).range(node.from, node.to + 1), // hide the space too
+            }).range(node.from, node.to),
           ],
         })
       }
