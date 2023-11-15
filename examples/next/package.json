@@ -1,6 +1,6 @@
 {
   "name": "@orgajs/example-next",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.3.0
+
+### Minor Changes
+
+- 7cfff79a: headline elements (stars, todo keywords and priority) end after the whitespaces
+
 ## 4.2.0
 
 ### Minor Changes

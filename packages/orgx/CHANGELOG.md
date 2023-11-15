@@ -1,5 +1,12 @@
 # @orgajs/orgx
 
+## 2.2.1
+
+### Patch Changes
+
+- @orgajs/reorg-parse@4.1.2
+- @orgajs/reorg-rehype@4.1.2
+
 ## 2.2.0
 
 ### Minor Changes
