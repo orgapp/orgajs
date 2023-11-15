@@ -1,5 +1,12 @@
 # @orgajs/lezer
 
+## 1.1.3
+
+### Patch Changes
+
+- Updated dependencies [7cfff79a]
+  - orga@4.3.0
+
 ## 1.1.2
 
 ### Patch Changes

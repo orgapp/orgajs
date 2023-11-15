@@ -1,5 +1,12 @@
 # @orgajs/editor
 
+## 1.1.3
+
+### Patch Changes
+
+- 7cfff79a: headline elements (stars, todo keywords and priority) end after the whitespaces
+  - @orgajs/cm-lang@1.1.3
+
 ## 1.1.2
 
 ### Patch Changes

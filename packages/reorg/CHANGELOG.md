@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.1.2
+
+### Patch Changes
+
+- @orgajs/reorg-parse@4.1.2
+
 ## 4.1.1
 
 ### Patch Changes

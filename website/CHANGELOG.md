@@ -1,5 +1,15 @@
 # website
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [7cfff79a]
+  - @orgajs/editor@1.1.3
+  - @orgajs/reorg-parse@4.1.2
+  - @orgajs/reorg-rehype@4.1.2
+  - @orgajs/astro@1.1.2
+
 ## 0.1.2
 
 ### Patch Changes
