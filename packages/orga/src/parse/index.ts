@@ -186,6 +186,8 @@ export function parser(lexer: Lexer, options: ParserOptions): Parser {
   function finish() {
     context.exitTo('document')
     context.exit('document')
+    // algin the end position
+    context.tree.position.end = lexer.toPoint(lexer.now)
     return context.tree
   }
 
