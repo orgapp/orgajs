@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.2.3
+
+### Patch Changes
+
+- Updated dependencies [df80497a]
+  - @orgajs/react@4.1.1
+
 ## 3.2.2
 
 ### Patch Changes
