@@ -1,7 +1,3 @@
-import { EditorView } from '@codemirror/view'
-import { setup } from './setup.js'
-import { Compartment, EditorState } from '@codemirror/state'
-
 /**
  * @callback OnChange
  * @param {EditorState} state
@@ -15,6 +11,9 @@ import { Compartment, EditorState } from '@codemirror/state'
  * @property {boolean} [dark=false]
  * @property {OnChange} [onChange=() => {}]
  */
+import { EditorView } from '@codemirror/view'
+import { setup } from './setup.js'
+import { Compartment, EditorState } from '@codemirror/state'
 
 /**
  * @param {Config} config
