@@ -1,11 +1,23 @@
-#+title: Org Editor
+#+title:  Example Org File
+#+date:   2023-11-24
 
-* org-mode
+Org uses single characters to markup *bold* /italic/ _underline_ +strike through+ ~code~ and =verbatim=. Links also use minimal
+markup in [[https://orgmode.org][Org]].
 
-#+begin_quote
-A GNU Emacs major mode for keeping notes, authoring documents, computational notebooks, literate programming, maintaining to-do lists, planning projects, and more — in a fast and effective plain text system.
-#+end_quote
+* Blocks
 
-Org is a highly flexible structured plain text file format, composed of a few simple, yet versatile, structures — constructed to be both [[https://karl-voit.at/2017/09/23/orgmode-as-markup-only/][simple enough for the novice]] and [[https://howardism.org/Technical/Emacs/literate-devops.html][powerful enough for the expert]].
+#+begin_src js
+console.log('hello')
+#+end_src
 
-Get a glimpse of the expressive power Org offers in the example below. Click the headings and links to discover how Org intelligently folds structural content.
+* Lists
+
+- one
+- two
+- three
+
+
+* Tasks
+
+** DONE buy milk
+** TODO drink it
