@@ -1,10 +1,10 @@
 body {
-  background-color: #c6cbcf;
+  background-color: #e7e6e5;
 }
 
 #editor {
   max-width: 720px;
-  max-height: 500px;
+  max-height: 800px;
   overflow: auto;
   margin: 0 auto;
 }

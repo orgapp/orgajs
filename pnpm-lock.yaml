@@ -72,6 +72,9 @@ importers:
         specifier: workspace:^
         version: link:../../packages/editor
     devDependencies:
+      '@codemirror/view':
+        specifier: ^6.17.1
+        version: 6.17.1
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -481,7 +484,7 @@ importers:
     dependencies:
       '@orgajs/react':
         specifier: '*'
-        version: link:../react
+        version: 4.1.1(react@18.2.0)
       estree-walker:
         specifier: 3.0.3
         version: 3.0.3
@@ -4307,6 +4310,14 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
+
+  /@orgajs/react@4.1.1(react@18.2.0):
+    resolution: {integrity: sha512-cpUapGGBdqpnoxWZ/qRsV6tG5hlHw7BthuTdMviP5PvXfng5YbVlZ2BIjCFzhsrQ1pSZ7UVNX6/EGIcB/DcPNQ==}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@parcel/bundler-default@2.8.3(@parcel/core@2.8.3):
     resolution: {integrity: sha512-yJvRsNWWu5fVydsWk3O2L4yIy3UZiKWO2cPDukGOIWMgp/Vbpp+2Ct5IygVRtE22bnseW/E/oe0PV3d2IkEJGg==}
