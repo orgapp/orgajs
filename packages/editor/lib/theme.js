@@ -26,6 +26,9 @@ const theme = EditorView.baseTheme({
   '.cm-done': {
     color: 'green',
   },
+  '.cm-gutters': {
+    minWidth: '1rem',
+  },
   '&light': {
     color: '#383a42',
     backgroundColor: '#fafafa',
@@ -64,7 +67,7 @@ const lightColors = HighlightStyle.define(
     { tag: t.processingInstruction, color: '#9ca0a4' },
     { tag: t.attributeName, color: '#9ca0a4' },
   ],
-  { themeType: 'light' }
+  { themeType: 'light' },
 )
 
 const darkColors = HighlightStyle.define(
@@ -75,7 +78,7 @@ const darkColors = HighlightStyle.define(
     { tag: t.processingInstruction, color: 'gray' },
     { tag: t.attributeName, color: 'gray' },
   ],
-  { themeType: 'dark' }
+  { themeType: 'dark' },
 )
 
 export default [
