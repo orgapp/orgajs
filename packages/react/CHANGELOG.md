@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.1.1
+
+### Patch Changes
+
+- df80497a: Fix package
+
 ## 4.1.0
 
 ### Minor Changes

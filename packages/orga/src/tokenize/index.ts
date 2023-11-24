@@ -33,6 +33,7 @@ export interface Lexer {
   modify(f: (t: Token) => Token, offset?: number): void
   readonly now: number
   toOffset: (point: Point | number) => number
+  toPoint: (point: number) => Point
 }
 
 export type Tokenizer = (reader: Reader) => Token[] | Token | void
@@ -167,5 +168,6 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
       return reader.toIndex(token?.position.start ?? Infinity)
     },
     toOffset: (point) => reader.toIndex(point),
+    toPoint: (offset) => reader.toPoint(offset),
   }
 }

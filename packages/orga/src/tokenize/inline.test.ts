@@ -368,7 +368,7 @@ describe('Inline Tokenization', () => {
   it('recon invalid inline markups', () => {
     assert.deepEqual(tokenize(`* word*`), [
       {
-        _text: '*',
+        _text: '* ',
         level: 1,
         type: 'stars',
       },

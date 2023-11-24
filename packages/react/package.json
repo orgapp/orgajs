@@ -1,8 +1,8 @@
 {
   "name": "@orgajs/react",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
   "files": [

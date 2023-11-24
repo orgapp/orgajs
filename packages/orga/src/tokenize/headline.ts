@@ -28,29 +28,34 @@ export default (getTodoKeywordSets: GetTodoKeywordSets) =>
     buffer.push({
       type: 'stars',
       level: stars.value.length,
-      position: stars.position,
+      position: {
+        start: stars.position.start,
+        end: eat('whitespaces').position.end,
+      },
     })
-
-    eat('whitespaces')
     const keyword = eat(RegExp(`${todos.map(escape).join('|')}(?=\\s)`, 'y'))
     if (keyword) {
       buffer.push({
         type: 'todo',
         keyword: keyword.value,
         actionable: isActionable(keyword.value),
-        position: keyword.position,
+        position: {
+          start: keyword.position.start,
+          end: eat('whitespaces').position.end,
+        },
       })
     }
-    eat('whitespaces')
     const priority = eat(/^\[#(A|B|C)\](?=\s)/y)
     if (priority) {
       buffer.push({
         type: 'priority',
         ...priority,
+        position: {
+          start: priority.position.start,
+          end: eat('whitespaces').position.end,
+        },
       })
     }
-
-    eat('whitespaces')
 
     const tags = match(/[ \t]+(:(?:[\w@_#%-]+:)+)[ \t]*$/m, {
       end: endOfLine(),

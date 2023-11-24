@@ -1,5 +1,11 @@
 # @orgajs/astro
 
+## 1.1.2
+
+### Patch Changes
+
+- @orgajs/rollup@1.1.2
+
 ## 1.1.1
 
 ### Patch Changes
