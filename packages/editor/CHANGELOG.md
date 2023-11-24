@@ -1,5 +1,11 @@
 # @orgajs/editor
 
+## 1.1.4
+
+### Patch Changes
+
+- dc3a9db2: cleanup editor
+
 ## 1.1.3
 
 ### Patch Changes
