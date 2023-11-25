@@ -5,5 +5,5 @@ import './style.css'
 
 const target = document.querySelector('#editor')
 if (target !== null) {
-  makeEditor({ target, content, ...config })
+  makeEditor({ target, content, extensions: [...config] })
 }

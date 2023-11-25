@@ -6,36 +6,17 @@ const theme = EditorView.baseTheme({
   '&': {
     height: '100%',
   },
-  '&:focus': {
-    outline: 'none',
-  },
-  '&.cm-editor.cm-focused': {
-    outline: 'none',
-  },
-  '.cm-scroller': { fontFamily: 'inherit' },
-  '.hide': { display: 'none' },
   '.cm-link': {
     cursor: 'pointer',
   },
-  '.cm-link:hover': {
-    backgroundColor: 'yellow',
-  },
-  '.cm-todo': {
+  '.cm-org-todo': {
     color: 'red',
   },
-  '.cm-done': {
+  '.cm-org-done': {
     color: 'green',
   },
   '.cm-gutters': {
     minWidth: '1rem',
-  },
-  '&light': {
-    color: '#383a42',
-    backgroundColor: '#fafafa',
-  },
-  '&dark': {
-    color: 'white',
-    backgroundColor: 'black',
   },
 })
 
@@ -63,7 +44,6 @@ const lightColors = HighlightStyle.define(
   [
     { tag: t.keyword, color: '#e45649' },
     { tag: t.comment, color: '#9ca0a4' },
-    { tag: t.link, color: 'blue' },
     { tag: t.processingInstruction, color: '#9ca0a4' },
     { tag: t.attributeName, color: '#9ca0a4' },
   ],
@@ -74,7 +54,6 @@ const darkColors = HighlightStyle.define(
   [
     { tag: t.keyword, color: 'green' },
     { tag: t.comment, color: 'red' },
-    { tag: t.link, color: '#5cc9f5' },
     { tag: t.processingInstruction, color: 'gray' },
     { tag: t.attributeName, color: 'gray' },
   ],
