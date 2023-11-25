@@ -12,6 +12,8 @@ export default defineConfig({
     orga({
       rehypePlugins: [rehypeKatex],
     }),
-    tailwind(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
   ],
 })
