@@ -1,5 +1,12 @@
 # website
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [0ffa3415]
+  - @orgajs/editor@1.1.5
+
 ## 0.1.4
 
 ### Patch Changes

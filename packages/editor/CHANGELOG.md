@@ -1,5 +1,11 @@
 # @orgajs/editor
 
+## 1.1.5
+
+### Patch Changes
+
+- 0ffa3415: cleanup theme
+
 ## 1.1.4
 
 ### Patch Changes
