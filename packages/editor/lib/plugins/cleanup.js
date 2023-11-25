@@ -83,7 +83,7 @@ function hide(reveal) {
  */
 function todo(actionable) {
   return Decoration.mark({
-    attributes: { class: actionable ? 'cm-todo' : 'cm-done' },
+    attributes: { class: actionable ? 'cm-org-todo' : 'cm-org-done' },
   })
 }
 
