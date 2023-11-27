@@ -38,8 +38,9 @@
   "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
   "dependencies": {
-    "@codemirror/language": "^6.9.0",
-    "@codemirror/view": "^6.17.1",
+    "@codemirror/commands": "^6.3.0",
+    "@codemirror/language": "^6.9.2",
+    "@codemirror/view": "^6.22.0",
     "@orgajs/cm-lang": "workspace:^"
   },
   "devDependencies": {
