@@ -1,5 +1,13 @@
 # @orgajs/editor
 
+## 1.1.7
+
+### Patch Changes
+
+- 0f825de5: update editor dependencies
+- Updated dependencies [0f825de5]
+  - @orgajs/cm-lang@1.1.4
+
 ## 1.1.6
 
 ### Patch Changes
