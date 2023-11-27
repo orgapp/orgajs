@@ -27,8 +27,8 @@
     "directory": "packages/lezer"
   },
   "dependencies": {
-    "@lezer/common": "^1.0.4",
-    "@lezer/highlight": "^1.1.6",
+    "@lezer/common": "^1.1.1",
+    "@lezer/highlight": "^1.2.0",
     "orga": "workspace:^",
     "unist-util-visit": "^5.0.0"
   },

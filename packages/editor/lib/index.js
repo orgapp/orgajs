@@ -3,5 +3,4 @@
  */
 
 export { makeEditor } from './editor.js'
-export { battery } from './battery.js'
 export { tags } from '@orgajs/cm-lang'
