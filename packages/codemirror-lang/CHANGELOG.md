@@ -1,5 +1,13 @@
 # @orgajs/cm-lang
 
+## 1.1.4
+
+### Patch Changes
+
+- 0f825de5: update editor dependencies
+- Updated dependencies [0f825de5]
+  - @orgajs/lezer@1.1.4
+
 ## 1.1.3
 
 ### Patch Changes

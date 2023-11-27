@@ -1,5 +1,11 @@
 # @orgajs/lezer
 
+## 1.1.4
+
+### Patch Changes
+
+- 0f825de5: update editor dependencies
+
 ## 1.1.3
 
 ### Patch Changes
