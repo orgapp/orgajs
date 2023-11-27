@@ -14,6 +14,7 @@
     "vite": "^4.4.9"
   },
   "dependencies": {
-    "@orgajs/editor": "workspace:^"
+    "@orgajs/editor": "workspace:^",
+    "cm6-theme-nord": "^0.2.0"
   }
 }
