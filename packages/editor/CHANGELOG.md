@@ -1,5 +1,11 @@
 # @orgajs/editor
 
+## 1.1.6
+
+### Patch Changes
+
+- e9564ff5: remove opinionated extensions from default editor
+
 ## 1.1.5
 
 ### Patch Changes
