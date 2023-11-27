@@ -71,6 +71,9 @@ importers:
       '@orgajs/editor':
         specifier: workspace:^
         version: link:../../packages/editor
+      cm6-theme-nord:
+        specifier: ^0.2.0
+        version: 0.2.0(@codemirror/language@6.9.0)(@codemirror/state@6.2.1)(@codemirror/view@6.17.1)(@lezer/highlight@1.1.6)
     devDependencies:
       '@codemirror/view':
         specifier: ^6.17.1
@@ -484,7 +487,7 @@ importers:
     dependencies:
       '@orgajs/react':
         specifier: '*'
-        version: 4.1.1(react@18.2.0)
+        version: link:../react
       estree-walker:
         specifier: 3.0.3
         version: 3.0.3
@@ -4311,14 +4314,6 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
-  /@orgajs/react@4.1.1(react@18.2.0):
-    resolution: {integrity: sha512-cpUapGGBdqpnoxWZ/qRsV6tG5hlHw7BthuTdMviP5PvXfng5YbVlZ2BIjCFzhsrQ1pSZ7UVNX6/EGIcB/DcPNQ==}
-    peerDependencies:
-      react: '>=16'
-    dependencies:
-      react: 18.2.0
-    dev: false
-
   /@parcel/bundler-default@2.8.3(@parcel/core@2.8.3):
     resolution: {integrity: sha512-yJvRsNWWu5fVydsWk3O2L4yIy3UZiKWO2cPDukGOIWMgp/Vbpp+2Ct5IygVRtE22bnseW/E/oe0PV3d2IkEJGg==}
     engines: {node: '>= 12.0.0', parcel: ^2.8.3}
@@ -7166,6 +7161,20 @@ packages:
   /clsx@2.0.0:
     resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
     engines: {node: '>=6'}
+    dev: false
+
+  /cm6-theme-nord@0.2.0(@codemirror/language@6.9.0)(@codemirror/state@6.2.1)(@codemirror/view@6.17.1)(@lezer/highlight@1.1.6):
+    resolution: {integrity: sha512-jTh+5nvl+N/5CtTK7UVcrxDCj2AOStvbNM8uP6tx6amq4QaaLDlapjMw+MNzEkvxcPnHY+YM91tbklS2KNlR2w==}
+    peerDependencies:
+      '@codemirror/language': ^6.0.0
+      '@codemirror/state': ^6.0.0
+      '@codemirror/view': ^6.0.0
+      '@lezer/highlight': ^1.0.0
+    dependencies:
+      '@codemirror/language': 6.9.0
+      '@codemirror/state': 6.2.1
+      '@codemirror/view': 6.17.1
+      '@lezer/highlight': 1.1.6
     dev: false
 
   /color-convert@1.9.3:

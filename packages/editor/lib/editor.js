@@ -12,8 +12,9 @@
  * @property {OnChange} [onChange=() => {}]
  */
 import { EditorView } from '@codemirror/view'
-import { setup } from './setup.js'
 import { Compartment, EditorState } from '@codemirror/state'
+import { org } from '@orgajs/cm-lang'
+import theme from './theme.js'
 
 /**
  * @param {Config} config
@@ -30,9 +31,10 @@ export function makeEditor(config) {
   const state = EditorState.create({
     doc: content,
     extensions: [
+      org(),
       themeConfig.of(EditorView.theme({}, { dark })),
+      theme,
       extensions,
-      setup,
     ],
   })
   const editor = new EditorView({

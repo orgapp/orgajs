@@ -1,11 +1,6 @@
-import { EditorView } from '@codemirror/view'
+import { nord } from 'cm6-theme-nord'
+import { cleanup } from '@orgajs/editor/extensions'
 
-export const theme = EditorView.theme({
-  '&': {
-    // background: 'gray',
-  },
-})
-
-const config = [theme]
+const config = [nord, cleanup]
 
 export default config
