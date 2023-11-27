@@ -1,8 +1,6 @@
 import { foldGutter, toggleFold } from '@codemirror/language'
 import { EditorView, highlightActiveLine, keymap } from '@codemirror/view'
-import { org } from '@orgajs/cm-lang'
-import { cleanupPlugin } from './plugins/cleanup.js'
-import theme from './theme.js'
+import { cleanup } from './extensions/index.js'
 
 const keys = [
   {
@@ -11,15 +9,13 @@ const keys = [
   },
 ]
 
-export const setup = (() => [
+export const battery = (() => [
   highlightActiveLine(),
   foldGutter({
     openText: '▾',
     closedText: '▸',
   }),
-  org(),
-  theme,
   EditorView.lineWrapping,
-  cleanupPlugin,
+  cleanup,
   keymap.of(keys),
 ])()

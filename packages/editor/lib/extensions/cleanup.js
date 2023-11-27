@@ -15,7 +15,7 @@ function overlap(a, b) {
 }
 
 // TODO: this plugin is getting big, in terms of responsibility, break it down
-export const cleanupPlugin = ViewPlugin.define(
+const cleanup = ViewPlugin.define(
   (view) => {
     let _data = createDecorations(view)
     let _selection = view.state.selection.main
@@ -66,7 +66,7 @@ export const cleanupPlugin = ViewPlugin.define(
         })
       },
     },
-  },
+  }
 )
 
 /**
@@ -158,3 +158,5 @@ function createDecorations(view, decorations = Decoration.none) {
   })
   return { decorations, links }
 }
+
+export default cleanup
