@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@codemirror/view": "^6.17.1",
+    "@codemirror/view": "^6.22.0",
     "typescript": "^5.2.2",
     "vite": "^4.4.9"
   },

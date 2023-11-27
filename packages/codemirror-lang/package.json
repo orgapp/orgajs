@@ -28,10 +28,10 @@
     "directory": "packages/cm-lang"
   },
   "dependencies": {
-    "@codemirror/language": "^6.9.0",
+    "@codemirror/language": "^6.9.2",
     "@orgajs/lezer": "workspace:^"
   },
   "devDependencies": {
-    "@lezer/common": "^1.1.0"
+    "@lezer/common": "^1.1.1"
   }
 }
