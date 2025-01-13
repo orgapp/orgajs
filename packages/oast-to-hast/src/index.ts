@@ -28,6 +28,7 @@ const defaultOptions = {
   handlers: {} as Record<string, Handler>,
   defaultHandler: (element: string) => handlers[element],
   headingOffset: 0,
+  linkTarget: '_self',
 }
 
 export type Options = typeof defaultOptions
