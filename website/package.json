@@ -2,7 +2,7 @@
   "name": "website",
   "type": "module",
   "private": true,
-  "version": "0.1.7",
+  "version": "0.1.8",
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev",

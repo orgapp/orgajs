@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.1.4
+
+### Patch Changes
+
+- @orgajs/orgx@2.2.2
+- @orgajs/loader@4.2.2
+- @orgajs/react@4.1.1
+
 ## 4.1.3
 
 ### Patch Changes
