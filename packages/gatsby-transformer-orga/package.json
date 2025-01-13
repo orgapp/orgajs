@@ -1,7 +1,7 @@
 {
   "name": "gatsby-transformer-orga",
   "description": "Gatsby transformer plugin for org-mode with orga",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "files": [
     "dist/*",

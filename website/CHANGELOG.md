@@ -1,5 +1,12 @@
 # website
 
+## 0.1.8
+
+### Patch Changes
+
+- @orgajs/reorg-rehype@4.1.3
+- @orgajs/astro@1.1.3
+
 ## 0.1.7
 
 ### Patch Changes

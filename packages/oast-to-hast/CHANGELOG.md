@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.1.3
+
+### Patch Changes
+
+- ab38e4b0: add ability to customize <a>'s target attribute
+
 ## 4.1.2
 
 ### Patch Changes
