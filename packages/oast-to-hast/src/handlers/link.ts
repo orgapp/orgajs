@@ -31,5 +31,7 @@ export default (node: Link, context: Context) => {
     return image
   }
 
-  return h('a', { href: path.value })(...description)
+  return h('a', { href: path.value, target: context.linkTarget })(
+    ...description
+  )
 }
