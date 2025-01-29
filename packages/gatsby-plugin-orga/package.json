@@ -42,9 +42,9 @@
     "@types/node": "^20.5.7",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "@types/unist": "2.0.6",
+    "@types/unist": "3.0.3",
     "gatsby": "^5.12.3",
-    "typescript": "^5.2.2",
-    "unified": "10.1.2"
+    "typescript": "^5.7.3",
+    "unified": "11.0.5"
   }
 }

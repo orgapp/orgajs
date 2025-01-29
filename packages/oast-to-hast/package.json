@@ -11,20 +11,20 @@
   "license": "MIT",
   "repository": "https://github.com/orgapp/orgajs/tree/main/packages/oast-to-hast",
   "dependencies": {
-    "hast-util-from-parse5": "^7.1.2",
+    "hast-util-from-parse5": "^8.0.2",
     "mime": "^3.0.0",
     "orga": "workspace:^",
     "parse5": "^7.1.2",
     "prismjs": "^1.29.0",
-    "unist-builder": "^3.0.1"
+    "unist-builder": "^4.0.0"
   },
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "tsc --build"
   },
   "devDependencies": {
-    "@types/hast": "^2.3.5",
+    "@types/hast": "^3.0.4",
     "@types/mime": "^3.0.1",
-    "@types/unist": "^2.0.8"
+    "@types/unist": "^3.0.3"
   }
 }

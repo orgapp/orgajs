@@ -21,9 +21,9 @@
   },
   "dependencies": {
     "@orgajs/reorg-parse": "workspace:^",
-    "unified": "^10.1.2"
+    "unified": "^11.0.5"
   },
   "devDependencies": {
-    "@types/unist": "^2.0.8"
+    "@types/unist": "^3.0.3"
   }
 }

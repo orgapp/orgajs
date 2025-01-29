@@ -19,6 +19,7 @@ import appendFootnotes from './appendFootnotes'
 import leveling from './leveling'
 import processFootnotes from './processFootnotes'
 import _statistics from './statistics'
+import { Root } from 'hast'
 
 interface Metadata {
   title: string
@@ -210,10 +211,10 @@ export const toHtml = async (tree: Parent, options = defaultToHtmlOptions) => {
     .use(() => transform)
     .use(reorg2rehype, { highlight: false })
     .use(processFootnotes)
-    .use(highlight, { ignoreMissing: true })
+    .use(highlight)
     .use(html, { allowDangerousHtml: true })
   const hast = await processor.run(tree)
-  return processor.stringify(hast)
+  return processor.stringify(hast as Root)
 }
 
 export const statistics = async (tree: Parent) => {

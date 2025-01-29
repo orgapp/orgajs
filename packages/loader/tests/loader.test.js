@@ -37,11 +37,14 @@ function _createOrgContent(props) {
 }
 function OrgContent(props = {}) {
   const {wrapper: OrgLayout} = props.components || ({});
-  return OrgLayout ? _jsx(OrgLayout, Object.assign({}, props, {
-    children: _jsx(_createOrgContent, props)
-  })) : _createOrgContent(props);
+  return OrgLayout ? _jsx(OrgLayout, {
+    ...props,
+    children: _jsx(_createOrgContent, {
+      ...props
+    })
+  }) : _createOrgContent(props);
 }
 export default OrgContent;
-`.trim()
+  `.trim()
   )
 })

@@ -153,7 +153,7 @@ export function addAstroFragment() {
     }
 
     visit(tree, (node, _key, index, ancestors) => {
-      if (ancestors.length === 0 || index === null) return
+      if (ancestors.length === 0 || index === undefined) return
       const parent = ancestors[ancestors.length - 1]
       if (!isProgram(parent)) return SKIP
       if (

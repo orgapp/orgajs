@@ -11,7 +11,7 @@ function estree2jsx(options: Partial<Options> = {}) {
     return [settings.pragma, settings.renderer, code].join('\n')
   }
 
-  this.Compiler = compiler
+  this.compiler = compiler
 }
 
 export default estree2jsx

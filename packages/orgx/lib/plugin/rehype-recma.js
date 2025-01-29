@@ -1,43 +1,7 @@
 /**
- * @typedef {import('estree-jsx').Program} Program
- * @typedef {import('estree-jsx').Expression} Expression
- * @typedef {import('estree-jsx').ModuleDeclaration} ModuleDeclaration
- * @typedef {import('hast').Root} Root
- * @typedef {import('hast-util-to-estree').Handle} Handle
- * @typedef {import('hast-util-to-estree').Options} HastToEstreeOptions
- */
-
-/**
- * @typedef {'html' | 'react'} ElementAttributeNameCase
- *   Specify casing to use for attribute names.
- *
- *   HTML casing is for example `class`, `stroke-linecap`, `xml:lang`.
- *   React casing is for example `className`, `strokeLinecap`, `xmlLang`.
- *
- * @typedef {'css' | 'dom'} StylePropertyNameCase
- *   Casing to use for property names in `style` objects.
- *
- *   CSS casing is for example `background-color` and `-webkit-line-clamp`.
- *   DOM casing is for example `backgroundColor` and `WebkitLineClamp`.
- */
-
-/**
- * @typedef MoreOptions
- *   Configuration for internal plugin `rehype-recma`.
- * @property {ElementAttributeNameCase | undefined | null} [elementAttributeNameCase='react']
- *   Specify casing to use for attribute names.
- *
- *   This casing is used for hast elements, not for embedded Org JSX nodes
- *   (components that someone authored manually).
- * @property {StylePropertyNameCase | undefined | null} [stylePropertyNameCase='dom']
- *   Specify casing to use for property names in `style` objects.
- *
- *   This casing is used for hast elements, not for embedded Org JSX nodes
- *   (components that someone authored manually).
- * @property {boolean} [skipImport=false] - Whether to skip imports
- * @property {string[]} [parseJSX=['jsx.value']] - Specify which hast properties to parse as JSX.
- *
- * @typedef {HastToEstreeOptions & MoreOptions} Options
+ * @import {Root} from 'hast'
+ * @import {Program, Expression, ModuleDeclaration} from 'estree'
+ * @typedef {import('rehype-recma').Options} Options
  */
 
 import { toEstree } from 'hast-util-to-estree'
@@ -46,76 +10,68 @@ import jsx from 'acorn-jsx'
 import renderError from '../util/render-error.js'
 
 /**
- * A plugin to transform an HTML (hast) tree to a JS (estree).
- * `hast-util-to-estree` does all the work for us!
+ * Plugin to transform HTML (hast) to JS (estree).
  *
- * @type {import('unified').Plugin<[Options | undefined] | [], Root, Program>}
+ * @param {Options | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
-export function rehypeRecma(options = {}) {
-  const {
-    skipImport = false,
-    parseJSX = ['jsx.value'],
-    ...otherOptions
-  } = options
-  const handlers = options.handlers || {}
-
-  for (const p of parseJSX) {
-    const [key, ...rest] = p.split('.')
-    if (!key) {
-      throw new Error('somethings wrong')
-    }
-    const path = rest.length > 0 ? rest.join('.') : 'value'
-    handlers[key] = jsxHandle(path, skipImport)
-  }
-
-  return (tree) => {
+export default function rehypeRecma(options) {
+  /**
+   * @param {Root} tree
+   *   Tree (hast).
+   * @returns {Program}
+   *   Program (esast).
+   */
+  return function (tree) {
     const data = tree.data || {}
-    const { layout, ...otherData } = data
     /** @type {ModuleDeclaration[]} */
     const prepand = []
-    if (typeof layout === 'string') {
-      prepand.push({
-        type: 'ImportDeclaration',
-        specifiers: [
-          {
-            type: 'ImportDefaultSpecifier',
-            local: {
-              type: 'Identifier',
-              name: 'OrgLayout',
+    Object.entries(data).forEach(([k, v]) => {
+      if (k === 'layout') {
+        prepand.push({
+          type: 'ImportDeclaration',
+          specifiers: [
+            {
+              type: 'ImportDefaultSpecifier',
+              local: {
+                type: 'Identifier',
+                name: 'OrgLayout',
+              },
             },
+          ],
+          source: {
+            type: 'Literal',
+            value: `${v}`,
+            raw: `'${v}'`,
           },
-        ],
-        source: {
-          type: 'Literal',
-          value: `${layout}`,
-          raw: `'${layout}'`,
-        },
-      })
-    }
-    Object.entries(otherData).forEach(([k, v]) => {
-      prepand.push(createExport(k, v))
+        })
+      } else {
+        prepand.push(createExport(k, v))
+      }
     })
-    const estree = toEstree(tree, { ...otherOptions, handlers })
+
+    const estree = toEstree(tree, { ...options, handlers: { jsx: handleJsx } })
     estree.body.unshift(...prepand)
     return estree
   }
 }
 
-/**
- * @param {string} p
- * @param {any} o
- * @returns {any}
- */
-function deepGet(p, o) {
-  return p.split('.').reduce((a, v) => a[v], o)
-}
-
 const jsxParser = Parser.extend(jsx())
+
+/**
+ * @param {import('acorn').Node | Program} node
+ * @returns {node is Program}
+ */
+function isProgram(node) {
+  return node.type === 'Program'
+}
 
 /**
  * @param {string} code
  */
-const parse = (code) => {
+function parse(code) {
   try {
     return jsxParser.parse(code, {
       sourceType: 'module',
@@ -127,50 +83,37 @@ const parse = (code) => {
   }
 }
 
-/**
- * @param {import('acorn').Node | Program} node
- * @returns {node is Program}
- */
-function isProgram(node) {
-  return node.type === 'Program'
-}
+/** @type {import("hast-util-to-estree").Handle} */
+export const handleJsx = (node, state) => {
+  let skipImport = false
+  const estree = parse(node.value)
 
-/**
- *
- * @param {string} path
- * @param {boolean} skipImport
- * @returns {Handle}
- */
-function jsxHandle(path, skipImport) {
-  /** @type {Handle} */
-  const handle = (node, state) => {
-    const estree = parse(deepGet(path, node))
-    /** @type {Expression[]} */
-    const expressions = []
-    if (isProgram(estree)) {
-      estree.body.forEach((child) => {
-        if (child.type === 'ImportDeclaration') {
-          if (!skipImport) {
-            state.esm.push(child)
-          }
-          return false
-        } else if (child.type === 'ExpressionStatement') {
-          expressions.push(child.expression)
-        } else if (
-          child.type === 'ExportDefaultDeclaration' ||
-          child.type === 'ExportNamedDeclaration'
-        ) {
+  /** @type {Expression[]} */
+  const expressions = []
+
+  if (isProgram(estree)) {
+    estree.body.forEach((child) => {
+      if (child.type === 'ImportDeclaration') {
+        if (!skipImport) {
           state.esm.push(child)
-        } else {
-          throw new Error(`unexpected node: ${child.type}`)
         }
-      })
-    }
-
-    // @ts-ignore it works
-    return expressions
+        return false
+      } else if (child.type === 'ExpressionStatement') {
+        expressions.push(child.expression)
+      } else if (
+        child.type === 'ExportDefaultDeclaration' ||
+        child.type === 'ExportNamedDeclaration'
+      ) {
+        state.esm.push(child)
+      } else {
+        throw new Error(`unexpected node: ${child.type}`)
+      }
+    })
   }
-  return handle
+
+  // @ts-expect-error: array works
+  // https://github.com/syntax-tree/hast-util-to-estree/blob/c0c4bd33583abade25c4f4e248a06cb1ec8c3aff/lib/state.js#L215
+  return expressions
 }
 
 /**

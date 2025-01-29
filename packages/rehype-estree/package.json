@@ -19,9 +19,9 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "hast-util-to-estree": "^2.3.3"
+    "hast-util-to-estree": "^3.1.1"
   },
   "devDependencies": {
-    "unified": "^10.1.2"
+    "unified": "^11.0.5"
   }
 }

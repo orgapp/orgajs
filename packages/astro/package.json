@@ -30,7 +30,7 @@
   "dependencies": {
     "@orgajs/metadata": "workspace:*",
     "@orgajs/rollup": "workspace:^",
-    "estree-util-visit": "^1.2.1",
+    "estree-util-visit": "^2.0.0",
     "source-map": "^0.7.4"
   },
   "devDependencies": {
@@ -38,7 +38,7 @@
     "@types/estree": "^1.0.1",
     "@types/estree-jsx": "^1.0.0",
     "astro": "^2.10.15",
-    "unified": "^10.1.2",
+    "unified": "^11.0.5",
     "vite": "^4.4.9"
   }
 }
