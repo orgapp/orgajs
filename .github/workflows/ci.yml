@@ -28,5 +28,5 @@ jobs:
           version: 8.x.x
       - name: run unit tests
         run: |
-          pnpm install
+          pnpm install --frozen-lockfile
           pnpm test

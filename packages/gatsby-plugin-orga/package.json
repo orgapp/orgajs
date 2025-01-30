@@ -36,8 +36,8 @@
     "loader-utils": "^2.0.4"
   },
   "devDependencies": {
-    "@types/estree": "^1.0.1",
-    "@types/estree-jsx": "^1.0.0",
+    "@types/estree": "^1.0.6",
+    "@types/estree-jsx": "^1.0.5",
     "@types/node": "^20.5.7",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",

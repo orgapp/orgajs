@@ -222,11 +222,11 @@ importers:
         specifier: workspace:^
         version: link:../orgx
       '@types/estree':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.6
+        version: 1.0.6
       '@types/estree-jsx':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.5
+        version: 1.0.5
       astro:
         specifier: ^2.10.15
         version: 2.10.15(@types/node@20.5.7)(sharp@0.32.6)(terser@5.19.3)
@@ -315,11 +315,11 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@types/estree':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.6
+        version: 1.0.6
       '@types/estree-jsx':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.5
+        version: 1.0.5
       '@types/node':
         specifier: ^20.5.7
         version: 20.5.7
@@ -493,11 +493,11 @@ importers:
         specifier: workspace:^
         version: link:../loader
       '@types/estree':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.6
+        version: 1.0.6
       '@types/estree-jsx':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.5
+        version: 1.0.5
       '@types/hast':
         specifier: ^3.0.4
         version: 3.0.4
@@ -675,11 +675,11 @@ importers:
         version: 6.0.3
     devDependencies:
       '@types/estree':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.6
+        version: 1.0.6
       '@types/estree-jsx':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.5
+        version: 1.0.5
       '@types/hast':
         specifier: ^3.0.4
         version: 3.0.4
@@ -3555,8 +3555,8 @@ packages:
   '@types/eslint@8.44.2':
     resolution: {integrity: sha512-sdPRb9K6iL5XZOmBubg8yiFp5yS/JdUDQsq5e6h95km91MCYMuvp7mh1fjPEYUhvHepKpZOjnEaMBR4PxjWDzg==}
 
-  '@types/estree-jsx@1.0.0':
-    resolution: {integrity: sha512-3qvGd0z8F2ENTGr/GG1yViqfiKmRfrXVx5sJyHGFu3z7m5g5utCQtGp/g29JnjflhtQJBv1WDQukHiT58xPcYQ==}
+  '@types/estree-jsx@1.0.5':
+    resolution: {integrity: sha512-52CcUVNFyfb1A2ALocQw/Dd1BQFNmSdkuC3BkZ6iqhdMfQz7JWOFRuJFloOzjk+6WijU56m9oKXFAXc7o3Towg==}
 
   '@types/estree@1.0.1':
     resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==}
@@ -13079,7 +13079,7 @@ snapshots:
 
   '@rollup/pluginutils@5.0.4(rollup@3.28.1)':
     dependencies:
-      '@types/estree': 1.0.1
+      '@types/estree': 1.0.6
       estree-walker: 2.0.2
       picomatch: 2.3.1
     optionalDependencies:
@@ -13279,7 +13279,7 @@ snapshots:
   '@types/eslint-scope@3.7.4':
     dependencies:
       '@types/eslint': 8.44.2
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.1
 
   '@types/eslint@7.29.0':
     dependencies:
@@ -13288,12 +13288,12 @@ snapshots:
 
   '@types/eslint@8.44.2':
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.1
       '@types/json-schema': 7.0.12
 
-  '@types/estree-jsx@1.0.0':
+  '@types/estree-jsx@1.0.5':
     dependencies:
-      '@types/estree': 1.0.1
+      '@types/estree': 1.0.6
 
   '@types/estree@1.0.1': {}
 
@@ -15785,14 +15785,14 @@ snapshots:
 
   esast-util-from-estree@2.0.0:
     dependencies:
-      '@types/estree-jsx': 1.0.0
+      '@types/estree-jsx': 1.0.5
       devlop: 1.1.0
       estree-util-visit: 2.0.0
       unist-util-position-from-estree: 2.0.0
 
   esast-util-from-js@2.0.1:
     dependencies:
-      '@types/estree-jsx': 1.0.0
+      '@types/estree-jsx': 1.0.5
       acorn: 8.14.0
       esast-util-from-estree: 2.0.0
       vfile-message: 4.0.2
@@ -16739,11 +16739,11 @@ snapshots:
 
   estree-util-attach-comments@3.0.0:
     dependencies:
-      '@types/estree': 1.0.1
+      '@types/estree': 1.0.6
 
   estree-util-build-jsx@3.0.1:
     dependencies:
-      '@types/estree-jsx': 1.0.0
+      '@types/estree-jsx': 1.0.5
       devlop: 1.1.0
       estree-util-is-identifier-name: 3.0.0
       estree-walker: 3.0.3
@@ -16752,13 +16752,13 @@ snapshots:
 
   estree-util-to-js@2.0.0:
     dependencies:
-      '@types/estree-jsx': 1.0.0
+      '@types/estree-jsx': 1.0.5
       astring: 1.8.6
       source-map: 0.7.4
 
   estree-util-visit@2.0.0:
     dependencies:
-      '@types/estree-jsx': 1.0.0
+      '@types/estree-jsx': 1.0.5
       '@types/unist': 3.0.3
 
   estree-walker@2.0.2: {}
@@ -16767,7 +16767,7 @@ snapshots:
 
   estree-walker@3.0.3:
     dependencies:
-      '@types/estree': 1.0.1
+      '@types/estree': 1.0.6
 
   esutils@2.0.3: {}
 
@@ -18174,8 +18174,8 @@ snapshots:
 
   hast-util-to-estree@3.1.1:
     dependencies:
-      '@types/estree': 1.0.1
-      '@types/estree-jsx': 1.0.0
+      '@types/estree': 1.0.6
+      '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.4
       comma-separated-tokens: 2.0.3
       devlop: 1.1.0
@@ -18699,7 +18699,7 @@ snapshots:
 
   is-reference@3.0.1:
     dependencies:
-      '@types/estree': 1.0.1
+      '@types/estree': 1.0.6
 
   is-regex@1.1.4:
     dependencies:
@@ -19276,7 +19276,7 @@ snapshots:
 
   mdast-util-mdx-expression@2.0.1:
     dependencies:
-      '@types/estree-jsx': 1.0.0
+      '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
       devlop: 1.1.0
@@ -19287,7 +19287,7 @@ snapshots:
 
   mdast-util-mdx-jsx@3.2.0:
     dependencies:
-      '@types/estree-jsx': 1.0.0
+      '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
       '@types/unist': 3.0.3
@@ -19304,7 +19304,7 @@ snapshots:
 
   mdast-util-mdxjs-esm@2.0.1:
     dependencies:
-      '@types/estree-jsx': 1.0.0
+      '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
       devlop: 1.1.0
@@ -20360,7 +20360,7 @@ snapshots:
 
   periscopic@3.1.0:
     dependencies:
-      '@types/estree': 1.0.1
+      '@types/estree': 1.0.6
       estree-walker: 3.0.3
       is-reference: 3.0.1
 

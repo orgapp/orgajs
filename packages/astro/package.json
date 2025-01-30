@@ -35,8 +35,8 @@
   },
   "devDependencies": {
     "@orgajs/orgx": "workspace:^",
-    "@types/estree": "^1.0.1",
-    "@types/estree-jsx": "^1.0.0",
+    "@types/estree": "^1.0.6",
+    "@types/estree-jsx": "^1.0.5",
     "astro": "^2.10.15",
     "unified": "^11.0.5",
     "vite": "^6.0.11"

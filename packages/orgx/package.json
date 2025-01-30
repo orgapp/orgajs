@@ -11,13 +11,15 @@
     "directory": "packages/orgx"
   },
   "type": "module",
-  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
   "types": "dist/index.d.ts",
   "browser": {
     "./lib/condition.js": "./lib/condition.browser.js"
   },
   "files": [
-    "lib",
+    "lib/",
     "dist",
     "index.js",
     "types.d.ts"
@@ -28,8 +30,8 @@
     "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
-    "@types/estree": "^1.0.1",
-    "@types/estree-jsx": "^1.0.0",
+    "@types/estree": "^1.0.6",
+    "@types/estree-jsx": "^1.0.5",
     "@types/hast": "^3.0.4",
     "@types/node": "^20.5.7",
     "@types/react": "^18.2.21",
