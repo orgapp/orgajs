@@ -1,5 +1,16 @@
 # @orgajs/example-next-app-dir
 
+## 1.2.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
+### Patch Changes
+
+- Updated dependencies [d8861c2]
+  - @orgajs/next@6.0.0
+
 ## 1.1.1
 
 ### Patch Changes

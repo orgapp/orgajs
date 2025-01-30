@@ -1,5 +1,16 @@
 # Change Log
 
+## 4.4.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
+### Patch Changes
+
+- Updated dependencies [d8861c2]
+  - text-kit@4.3.0
+
 ## 4.3.0
 
 ### Minor Changes

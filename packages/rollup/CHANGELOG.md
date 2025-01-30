@@ -1,5 +1,16 @@
 # @orgajs/rollup
 
+## 1.2.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
+### Patch Changes
+
+- Updated dependencies [d8861c2]
+  - @orgajs/orgx@2.3.0
+
 ## 1.1.3
 
 ### Patch Changes

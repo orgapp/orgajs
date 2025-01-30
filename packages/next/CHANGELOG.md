@@ -2,6 +2,18 @@
 
 ## 6.0.0
 
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
+### Patch Changes
+
+- Updated dependencies [d8861c2]
+  - @orgajs/loader@4.3.0
+  - @orgajs/react@4.1.1
+
+## 6.0.0
+
 ### Patch Changes
 
 - ac322714: implement editor

@@ -1,5 +1,16 @@
 # @orgajs/lezer
 
+## 1.2.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
+### Patch Changes
+
+- Updated dependencies [d8861c2]
+  - orga@4.4.0
+
 ## 1.1.4
 
 ### Patch Changes

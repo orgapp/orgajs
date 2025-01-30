@@ -1,5 +1,17 @@
 # @orgajs/astro
 
+## 1.2.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
+### Patch Changes
+
+- Updated dependencies [d8861c2]
+  - @orgajs/metadata@2.2.0
+  - @orgajs/rollup@1.2.0
+
 ## 1.1.3
 
 ### Patch Changes
