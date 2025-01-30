@@ -632,11 +632,11 @@ importers:
         specifier: workspace:^
         version: link:../reorg-rehype
       acorn:
-        specifier: ^8.10.0
-        version: 8.10.0
+        specifier: ^8.14.0
+        version: 8.14.0
       acorn-jsx:
         specifier: ^5.3.2
-        version: 5.3.2(acorn@8.10.0)
+        version: 5.3.2(acorn@8.14.0)
       astring:
         specifier: ^1.8.6
         version: 1.8.6
@@ -663,7 +663,7 @@ importers:
         version: 1.0.0
       recma-jsx:
         specifier: ^1.0.0
-        version: 1.0.0(acorn@8.10.0)
+        version: 1.0.0(acorn@8.14.0)
       recma-stringify:
         specifier: ^1.0.0
         version: 1.0.0
@@ -3648,6 +3648,11 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
+  acorn@8.14.0:
+    resolution: {integrity: sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+
   address@1.2.2:
     resolution: {integrity: sha512-4B/qKCfeE/ODUaAUpSwfzazo5x29WD4r3vXiWsB7I2mSDAihwEqKO+g8GELZUQSSAo5e1XTYh3ZVfLyxBc12nA==}
     engines: {node: '>= 10.0.0'}
@@ -4188,8 +4193,8 @@ packages:
   caniuse-lite@1.0.30001525:
     resolution: {integrity: sha512-/3z+wB4icFt3r0USMwxujAqRvaD/B7rvGTsKhbhSQErVrJvkZCLhgNLJxU8MevahQVH6hCU9FsHdNUFbiwmE7Q==}
 
-  caniuse-lite@1.0.30001695:
-    resolution: {integrity: sha512-vHyLade6wTgI2u1ec3WQBxv+2BrTERV28UXQu9LO6lZ9pYeMk34vjXFLOxo1A4UBA8XTL4njRQZdno/yYaSmWw==}
+  caniuse-lite@1.0.30001696:
+    resolution: {integrity: sha512-pDCPkvzfa39ehJtJ+OwGT/2yvT2SbjfHhiIW2LWOAcMQ7BzwxT/XuyUp4OTOd0XFWA6BKw0JalnBHgSi5DGJBQ==}
 
   capital-case@1.0.4:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
@@ -4886,8 +4891,8 @@ packages:
   electron-to-chromium@1.4.507:
     resolution: {integrity: sha512-brvPFnO1lu3UYBpBht2qWw9qqhdG4htTjT90/9oOJmxQ77VvTxL9+ghErFqQzgj7n8268ONAmlebqjBR/S+qgA==}
 
-  electron-to-chromium@1.5.88:
-    resolution: {integrity: sha512-K3C2qf1o+bGzbilTDCTBhTQcMS9KW60yTAaTeeXsfvQuTDDwlokLam/AdqlqcSy9u4UainDgsHV23ksXAOgamw==}
+  electron-to-chromium@1.5.90:
+    resolution: {integrity: sha512-C3PN4aydfW91Natdyd449Kw+BzhLmof6tzy5W1pFC5SpQxVXT+oyiyOG9AgYYSN9OdA/ik3YkCrpwqI8ug5Tug==}
 
   emmet@2.4.6:
     resolution: {integrity: sha512-dJfbdY/hfeTyf/Ef7Y7ubLYzkBvPQ912wPaeVYpAxvFxkEBf/+hJu4H6vhAvFN6HlxqedlfVn2x1S44FfQ97pg==}
@@ -13301,13 +13306,13 @@ snapshots:
     dependencies:
       acorn: 7.4.1
 
-  acorn-jsx@5.3.2(acorn@8.10.0):
+  acorn-jsx@5.3.2(acorn@8.14.0):
     dependencies:
-      acorn: 8.10.0
+      acorn: 8.14.0
 
   acorn-loose@8.3.0:
     dependencies:
-      acorn: 8.10.0
+      acorn: 8.14.0
 
   acorn-walk@8.2.0: {}
 
@@ -13316,6 +13321,8 @@ snapshots:
   acorn@7.4.1: {}
 
   acorn@8.10.0: {}
+
+  acorn@8.14.0: {}
 
   address@1.2.2: {}
 
@@ -13626,7 +13633,7 @@ snapshots:
       '@babel/traverse': 7.22.11
       '@babel/types': 7.22.11
       '@types/babel__core': 7.20.1
-      acorn: 8.10.0
+      acorn: 8.14.0
       boxen: 7.1.1
       chokidar: 3.5.3
       ci-info: 3.8.0
@@ -14029,8 +14036,8 @@ snapshots:
 
   browserslist@4.24.4:
     dependencies:
-      caniuse-lite: 1.0.30001695
-      electron-to-chromium: 1.5.88
+      caniuse-lite: 1.0.30001696
+      electron-to-chromium: 1.5.90
       node-releases: 2.0.19
       update-browserslist-db: 1.1.2(browserslist@4.24.4)
 
@@ -14144,7 +14151,7 @@ snapshots:
 
   caniuse-lite@1.0.30001525: {}
 
-  caniuse-lite@1.0.30001695: {}
+  caniuse-lite@1.0.30001696: {}
 
   capital-case@1.0.4:
     dependencies:
@@ -14889,7 +14896,7 @@ snapshots:
 
   electron-to-chromium@1.4.507: {}
 
-  electron-to-chromium@1.5.88: {}
+  electron-to-chromium@1.5.90: {}
 
   emmet@2.4.6:
     dependencies:
@@ -15159,7 +15166,7 @@ snapshots:
   esast-util-from-js@2.0.1:
     dependencies:
       '@types/estree-jsx': 1.0.0
-      acorn: 8.10.0
+      acorn: 8.14.0
       esast-util-from-estree: 2.0.0
       vfile-message: 4.0.2
 
@@ -16026,8 +16033,8 @@ snapshots:
 
   espree@9.6.1:
     dependencies:
-      acorn: 8.10.0
-      acorn-jsx: 5.3.2(acorn@8.10.0)
+      acorn: 8.14.0
+      acorn-jsx: 5.3.2(acorn@8.14.0)
       eslint-visitor-keys: 3.4.3
 
   esprima@4.0.1: {}
@@ -20221,9 +20228,9 @@ snapshots:
       estree-util-build-jsx: 3.0.1
       vfile: 6.0.3
 
-  recma-jsx@1.0.0(acorn@8.10.0):
+  recma-jsx@1.0.0(acorn@8.14.0):
     dependencies:
-      acorn-jsx: 5.3.2(acorn@8.10.0)
+      acorn-jsx: 5.3.2(acorn@8.14.0)
       estree-util-to-js: 2.0.0
       recma-parse: 1.0.0
       recma-stringify: 1.0.0
