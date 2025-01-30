@@ -18,7 +18,7 @@ export default function org({ recmaPlugins, ...options }) {
   return {
     name: '@orgajs/astro',
     hooks: {
-      // @ts-ignore - addPageExtension, addContentEntryType are internal APIs
+      // @ts-ignore
       'astro:config:setup': async (/** @type {SetupHookParams} */ params) => {
         const {
           addPageExtension,
@@ -49,7 +49,6 @@ export default function org({ recmaPlugins, ...options }) {
 
         updateConfig({
           vite: {
-            /** @type {import('vite').Plugin[]} */
             plugins: [
               {
                 enforce: 'pre',
@@ -61,13 +60,16 @@ export default function org({ recmaPlugins, ...options }) {
                   elementAttributeNameCase: 'html',
                   development: false,
                 }),
+                // @ts-ignore
                 configResolved(resolved) {
                   // HACK: move ourselves before Astro's JSX plugin to transform things in the right order
                   const jsxPluginIndex = resolved.plugins.findIndex(
+                    // @ts-ignore
                     (p) => p.name === 'astro:jsx'
                   )
                   if (jsxPluginIndex !== -1) {
                     const myPluginIndex = resolved.plugins.findIndex(
+                      // @ts-ignore
                       (p) => p.name === '@orgajs/rollup'
                     )
                     if (myPluginIndex !== -1) {

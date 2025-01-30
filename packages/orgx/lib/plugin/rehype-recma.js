@@ -1,7 +1,7 @@
 /**
  * @import {Root} from 'hast'
  * @import {Program, Expression, ModuleDeclaration} from 'estree'
- * @typedef {import('rehype-recma').Options} Options
+ * @typedef {import('hast-util-to-estree').Options} Options
  */
 
 import { toEstree } from 'hast-util-to-estree'
