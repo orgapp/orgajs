@@ -1,9 +1,9 @@
 /**
- * @typedef {import('unified').PluggableList} PluggableList
- * @typedef {import('unified').Processor} Processor
+ * @import {Program} from 'estree-jsx'
+ * @import {PluggableList, Processor} from 'unified'
  * @typedef {import('./plugin/rehype-recma.js').Options} RehypeRecmaOptions
  * @typedef {import('./plugin/recma-document.js').RecmaDocumentOptions} RecmaDocumentOptions
- * @typedef {import('./plugin/recma-stringify.js').RecmaStringifyOptions} RecmaStringifyOptions
+ * @typedef {import('recma-stringify').Options} RecmaStringifyOptions
  * @typedef {import('./plugin/recma-jsx-rewrite.js').RecmaJsxRewriteOptions} RecmaJsxRewriteOptions
  */
 
@@ -33,14 +33,14 @@
 
 import { unified } from 'unified'
 import reorgParse from '@orgajs/reorg-parse'
+import recmaBuildJsx from 'recma-build-jsx'
+import recmaJsx from 'recma-jsx'
+import recmaStringify from 'recma-stringify'
 import reorgRehype from '@orgajs/reorg-rehype'
-import { recmaJsxBuild } from './plugin/recma-jsx-build.js'
 import { recmaDocument } from './plugin/recma-document.js'
 import { recmaJsxRewrite } from './plugin/recma-jsx-rewrite.js'
-import { recmaStringify } from './plugin/recma-stringify.js'
-import { rehypeRecma } from './plugin/rehype-recma.js'
-// import { remarkMarkAndUnravel } from './plugin/remark-mark-and-unravel.js'
-import { development as defaultDevelopment } from './condition.js'
+import rehypeRecma from './plugin/rehype-recma.js'
+import { recmaBuildJsxTransform } from './plugin/recma-build-jsx-transform.js'
 
 /**
  * Pipeline to:
@@ -49,10 +49,11 @@ import { development as defaultDevelopment } from './condition.js'
  * 2. Transform through reorg (oast), rehype (hast), and recma (esast)
  * 3. Serialize as JavaScript
  *
- * @param {ProcessorOptions | null | undefined} [options]
+ * @param {Readonly<ProcessorOptions> | null | undefined} [options]
  *   Configuration.
- * @return {Processor}
+ * @return {Processor<Document, Program, Program, Program, string>}
  *   Processor.
+
  */
 export function createProcessor(options) {
   const {
@@ -69,10 +70,7 @@ export function createProcessor(options) {
     SourceMapGenerator,
     ...rest
   } = options || {}
-  const dev =
-    development === null || development === undefined
-      ? defaultDevelopment
-      : development
+  const dev = development ?? false
 
   const pipeline = unified()
     .use(reorgParse)
@@ -91,10 +89,16 @@ export function createProcessor(options) {
     })
 
   if (!jsx) {
-    pipeline.use(recmaJsxBuild, { development: dev, outputFormat })
+    pipeline
+      .use(recmaBuildJsx, { development: dev, outputFormat })
+      .use(recmaBuildJsxTransform, { outputFormat })
   }
 
-  pipeline.use(recmaStringify, { SourceMapGenerator }).use(recmaPlugins || [])
+  pipeline
+    .use(recmaJsx)
+    .use(recmaStringify, { SourceMapGenerator })
+    .use(recmaPlugins || [])
 
+  // @ts-expect-error: TS doesn’t get the plugins we added with if-statements.
   return pipeline
 }

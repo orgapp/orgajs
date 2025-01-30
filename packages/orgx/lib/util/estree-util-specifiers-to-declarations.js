@@ -53,6 +53,7 @@ export function specifiersToDeclarations(specifiers, init) {
       type: 'ObjectPattern',
       properties: otherSpecifiers.map((specifier) => {
         /** @type {Identifier} */
+        // @ts-expect-error: fine.
         let key =
           specifier.type === 'ImportSpecifier'
             ? specifier.imported
@@ -64,6 +65,7 @@ export function specifiersToDeclarations(specifiers, init) {
         // Switch them around if we’re exporting.
         if (specifier.type === 'ExportSpecifier') {
           value = key
+          // @ts-expect-error: fine.
           key = specifier.local
         }
 
@@ -71,10 +73,12 @@ export function specifiersToDeclarations(specifiers, init) {
         const property = {
           type: 'Property',
           kind: 'init',
+          // @ts-expect-error: fine.
           shorthand: key.name === value.name,
           method: false,
           computed: false,
           key,
+          // @ts-expect-error: fine.
           value
         }
         create(specifier, property)

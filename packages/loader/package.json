@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@orgajs/orgx": "workspace:^",
-    "vfile-reporter": "^7.0.5"
+    "vfile-reporter": "^8.1.1"
   },
   "devDependencies": {
     "@orgajs/react": "workspace:^",

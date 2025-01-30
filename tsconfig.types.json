@@ -5,11 +5,11 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2021"],
+    "lib": ["es2022", "dom"],
     "module": "node16",
     "newLine": "lf",
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2021"
+    "target": "es2022"
   }
 }

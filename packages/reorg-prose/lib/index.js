@@ -1,25 +1,30 @@
 /**
- * @typedef {import('orga').Document} Input
- * @typedef {import('prosemirror-model').Node} Output
- * @typedef {import('oast-to-prose').Options} Options
+ * @import {Document as OastRoot} from 'orga'
+ * @import {Node as ProseNode} from 'prosemirror-model'
+ * @import {Options} from 'oast-to-prose'
+ * @import {VFile} from 'vfile'
  */
 
 import { toProse } from 'oast-to-prose'
 export { schema } from 'oast-to-prose'
 
 /**
- * @this {import('unified').Processor}
- * @type {import('unified').Plugin<[Options?], Output>}
+ *
+ * @param {Options | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
-export default function reorg2prose(options) {
-  Object.assign(this, { Compiler: compiler })
-
+export default function reorgProse(options) {
   /**
-   * @param {Input} tree
-   * @param {import('vfile').VFile} file
-   * @returns {Output}
+   * @param {OastRoot} tree
+   *   Tree (hast).
+   * @param {VFile} file
+   *   File.
+   * @returns {ProseNode}
+   *   Prose Node.
    */
-  function compiler(tree, file) {
-    return toProse(tree, file, options)
+  return function (tree, file) {
+    return /** @type {ProseNode} */ (toProse(tree, file, options))
   }
 }

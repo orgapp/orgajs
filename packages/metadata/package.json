@@ -18,11 +18,11 @@
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "tsc --build",
-    "test": "node --test --no-warnings --loader tsx src/*.test.ts"
+    "test": "node --test --no-warnings --import tsx src/*.test.ts"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
-    "tsx": "^3.12.7",
-    "typescript": "^5.2.2"
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
   }
 }

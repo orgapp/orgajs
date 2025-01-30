@@ -17,14 +17,14 @@
     "build": "tsc --build"
   },
   "devDependencies": {
-    "@types/hast": "^2.3.5",
-    "@types/katex": "^0.16.2",
-    "unified": "^10.1.2"
+    "@types/hast": "^3.0.4",
+    "@types/katex": "^0.16.7",
+    "unified": "^11.0.5"
   },
   "dependencies": {
     "katex": "^0.16.8",
-    "rehype-parse": "8.0.4",
-    "unist-util-visit": "4.1.2"
+    "rehype-parse": "9.0.1",
+    "unist-util-visit": "5.0.0"
   },
   "peerDependencies": {
     "unified": "9.2.2"

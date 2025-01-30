@@ -3,9 +3,11 @@
   "version": "4.1.2",
   "description": "orga processor for unifiedjs",
   "files": [
-    "dist"
+    "index.js",
+    "index.d.ts"
   ],
-  "main": "dist/index.js",
+  "main": "index.js",
+  "exports": "./index.js",
   "type": "module",
   "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
   "license": "MIT",
@@ -15,15 +17,12 @@
     "url": "https://github.com/orgapp/orgajs.git",
     "directory": "packages/reorg"
   },
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build"
-  },
+  "scripts": {},
   "dependencies": {
     "@orgajs/reorg-parse": "workspace:^",
-    "unified": "^10.1.2"
+    "unified": "^11.0.5"
   },
   "devDependencies": {
-    "@types/unist": "^2.0.8"
+    "@types/unist": "^3.0.3"
   }
 }

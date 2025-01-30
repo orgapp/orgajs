@@ -21,14 +21,14 @@
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "tsc --build",
-    "test": "node --test --no-warnings --loader tsx src/*.test.ts"
+    "test": "node --test --no-warnings --import tsx src/*.test.ts"
   },
   "bugs": {
     "url": "https://github.com/orgapp/orgajs/issues"
   },
   "devDependencies": {
-    "@types/unist": "2.0.6",
-    "tsx": "^3.12.7",
-    "typescript": "^5.2.2"
+    "@types/unist": "3.0.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
   }
 }
