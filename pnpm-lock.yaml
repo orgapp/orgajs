@@ -275,17 +275,8 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
 
-  packages/estree-jsx:
-    dependencies:
-      astring:
-        specifier: ^1.8.6
-        version: 1.8.6
-
   packages/gatsby-plugin-orga:
     dependencies:
-      '@orgajs/estree-jsx':
-        specifier: workspace:*
-        version: link:../estree-jsx
       '@orgajs/loader':
         specifier: workspace:^
         version: link:../loader
@@ -728,16 +719,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-
-  packages/rehype-estree:
-    dependencies:
-      hast-util-to-estree:
-        specifier: ^3.1.1
-        version: 3.1.1
-    devDependencies:
-      unified:
-        specifier: ^11.0.5
-        version: 11.0.5
 
   packages/rehype-latex:
     dependencies:

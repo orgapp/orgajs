@@ -4,13 +4,11 @@
 '@orgajs/example-next-app-dir': minor
 '@orgajs/getting-started': minor
 'oast-to-prose': minor
-'@orgajs/rehype-estree': minor
 'oast-to-hast': minor
 '@orgajs/rehype-latex': minor
 '@orgajs/reorg-rehype': minor
 '@orgajs/reorg-parse': minor
 '@orgajs/reorg-prose': minor
-'@orgajs/estree-jsx': minor
 'orga-posts': minor
 '@orgajs/metadata': minor
 'text-kit': minor
