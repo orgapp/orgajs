@@ -161,6 +161,7 @@ export function recmaDocument(options) {
             {
               type: 'VariableDeclarator',
               id: { type: 'Identifier', name: 'OrgLayout' },
+              // @ts-expect-error
               init: isDeclaration(child.declaration)
                 ? declarationToExpression(child.declaration)
                 : child.declaration,
@@ -176,6 +177,7 @@ export function recmaDocument(options) {
 
         // Remove `default` or `as default`, but not `default as`, specifier.
         child.specifiers = child.specifiers.filter((specifier) => {
+          // @ts-expect-error
           if (specifier.exported.name === 'default') {
             if (layout) {
               file.fail(
@@ -194,6 +196,7 @@ export function recmaDocument(options) {
             const specifiers = []
 
             // Default as default / something else as default.
+            // @ts-expect-error
             if (specifier.local.name === 'default') {
               specifiers.push({
                 type: 'ImportDefaultSpecifier',
@@ -247,7 +250,6 @@ export function recmaDocument(options) {
         handleEsm(child)
       } else if (
         child.type === 'ExpressionStatement' &&
-        // @ts-expect-error types are wrong: `JSXFragment` is an `Expression`.
         (child.expression.type === 'JSXFragment' ||
           child.expression.type === 'JSXElement')
       ) {
@@ -364,6 +366,7 @@ export function recmaDocument(options) {
         // export {a, b as c} from 'd'
         // ```
         for (child of node.specifiers) {
+          // @ts-expect-error
           exportedIdentifiers.push(child.exported.name)
         }
       }
@@ -473,8 +476,10 @@ export function recmaDocument(options) {
           replace = node.declaration
         } else {
           /** @type {Array<VariableDeclarator>} */
+          // @ts-expect-error
           const declarators = node.specifiers
             .filter(
+              // @ts-expect-error
               (specifier) => specifier.local.name !== specifier.exported.name
             )
             .map((specifier) => ({
@@ -566,14 +571,10 @@ export function recmaDocument(options) {
     // Unwrap a fragment of a single element.
     if (
       argument &&
-      // @ts-expect-error: fine.
       argument.type === 'JSXFragment' &&
-      // @ts-expect-error: fine.
       argument.children.length === 1 &&
-      // @ts-expect-error: fine.
       argument.children[0].type === 'JSXElement'
     ) {
-      // @ts-expect-error: fine.
       argument = argument.children[0]
     }
 
