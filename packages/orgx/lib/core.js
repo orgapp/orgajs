@@ -40,7 +40,6 @@ import reorgRehype from '@orgajs/reorg-rehype'
 import { recmaDocument } from './plugin/recma-document.js'
 import { recmaJsxRewrite } from './plugin/recma-jsx-rewrite.js'
 import rehypeRecma from './plugin/rehype-recma.js'
-import { development as defaultDevelopment } from './condition.js'
 import { recmaBuildJsxTransform } from './plugin/recma-build-jsx-transform.js'
 
 /**
@@ -71,10 +70,7 @@ export function createProcessor(options) {
     SourceMapGenerator,
     ...rest
   } = options || {}
-  const dev =
-    development === null || development === undefined
-      ? defaultDevelopment
-      : development
+  const dev = development ?? false
 
   const pipeline = unified()
     .use(reorgParse)
