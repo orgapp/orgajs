@@ -17,7 +17,7 @@
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "tsc --build",
-    "test": "node --test --no-warnings --loader tsx src/**/*.test.ts"
+    "test": "node --test --no-warnings --import tsx src/**/*.test.ts"
   },
   "dependencies": {
     "date-fns": "^2.30.0",
