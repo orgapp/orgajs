@@ -1,5 +1,11 @@
 # @orgajs/metadata
 
+## 2.2.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
 ## 2.1.0
 
 ### Minor Changes

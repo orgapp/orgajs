@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.1.5
+
+### Patch Changes
+
+- Updated dependencies [d8861c2]
+  - @orgajs/loader@4.3.0
+  - @orgajs/next@6.0.0
+  - @orgajs/react@4.1.1
+
 ## 4.1.4
 
 ### Patch Changes

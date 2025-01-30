@@ -1,5 +1,11 @@
 # @orgajs/rehype-latex
 
+## 1.2.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
 ## 1.1.0
 
 ### Minor Changes

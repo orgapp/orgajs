@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.3.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
 ## 4.2.0
 
 ### Minor Changes

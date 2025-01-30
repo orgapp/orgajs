@@ -1,5 +1,16 @@
 # Change Log
 
+## 4.2.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
+### Patch Changes
+
+- Updated dependencies [d8861c2]
+  - oast-to-hast@4.2.0
+
 ## 4.1.3
 
 ### Patch Changes

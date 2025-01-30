@@ -1,5 +1,19 @@
 # website
 
+## 0.2.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
+### Patch Changes
+
+- Updated dependencies [d8861c2]
+  - @orgajs/reorg-rehype@4.2.0
+  - @orgajs/reorg-parse@4.2.0
+  - @orgajs/editor@1.2.0
+  - @orgajs/astro@1.2.0
+
 ## 0.1.8
 
 ### Patch Changes

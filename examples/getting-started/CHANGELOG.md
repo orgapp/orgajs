@@ -1,5 +1,17 @@
 # Change Log
 
+## 4.2.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
+### Patch Changes
+
+- Updated dependencies [d8861c2]
+  - @orgajs/reorg-rehype@4.2.0
+  - @orgajs/reorg@4.2.0
+
 ## 4.1.3
 
 ### Patch Changes

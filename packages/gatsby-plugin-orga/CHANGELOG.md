@@ -1,5 +1,20 @@
 # Change Log
 
+## 4.2.0
+
+### Minor Changes
+
+- d8861c2: update unified ecosystem
+
+### Patch Changes
+
+- Updated dependencies [d8861c2]
+  - @orgajs/rehype-latex@1.2.0
+  - @orgajs/metadata@2.2.0
+  - @orgajs/loader@4.3.0
+  - @orgajs/orgx@2.3.0
+  - @orgajs/react@4.1.1
+
 ## 4.1.4
 
 ### Patch Changes
