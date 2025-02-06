@@ -1,0 +1,26 @@
+{
+	"name": "@orgajs/esbuild",
+	"version": "1.0.0",
+	"description": "esbuild plugin for orgajs",
+	"type": "module",
+	"exports": "./index.js",
+	"files": [
+		"lib/",
+		"index.d.ts.map",
+		"index.d.ts",
+		"index.js"
+	],
+	"scripts": {},
+	"license": "MIT",
+	"keywords": [
+		"esbuild",
+		"jsx",
+		"org-mode",
+		"react"
+	],
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"dependencies": {
+		"@orgajs/orgx": "workspace:^",
+		"vfile": "^6.0.3"
+	}
+}
