@@ -1,3 +1,4 @@
+import { exec } from 'child_process'
 import { globby } from 'globby'
 import fs from 'node:fs/promises'
 import { register } from 'node:module'
@@ -9,11 +10,22 @@ import { URL } from 'url'
 register('./jsx-loader.js', import.meta.url)
 register('@orgajs/node-loader', import.meta.url)
 
+const defaultConfig = {
+	outDir: 'out',
+	/** @type {string[]} */
+	preBuild: [],
+	/** @type {string[]} */
+	postBuild: [],
+}
+
 /**
- * @param {object} options
- * @param {string} options.outDir
+ * @param {typeof defaultConfig} options
  */
-export async function build({ outDir = 'out' }) {
+export async function build({ outDir, preBuild, postBuild }) {
+	for (const cmd of preBuild) {
+		console.log(`Running pre-build command: ${cmd}`)
+		await $(cmd)
+	}
 	const cwd = process.cwd()
 	const outFullPath = path.join(cwd, outDir)
 	console.log(`Building to ${outFullPath}`)
@@ -32,6 +44,11 @@ export async function build({ outDir = 'out' }) {
 
 	for (const url of files) {
 		await buildFile(url)
+	}
+
+	for (const cmd of postBuild) {
+		console.log(`Running post-build command: ${cmd}`)
+		await $(cmd)
 	}
 
 	/**
@@ -79,8 +96,9 @@ export async function importComponents(cwd) {
 /**
  * @param {string[]} files
  */
-export async function _import(...files) {
+async function _import(...files) {
 	const found = await globby(files, {
+		cwd: process.cwd(),
 		onlyFiles: true,
 	})
 	if (found.length === 0) {
@@ -88,8 +106,9 @@ export async function _import(...files) {
 	}
 
 	const file = found[0]
-	const { mtime } = await fs.stat(file)
-	return await import(`${file}?version=${mtime.getTime()}`)
+	const fullPath = path.isAbsolute(file) ? file : path.join(process.cwd(), file)
+	const { mtime } = await fs.stat(fullPath)
+	return await import(`${fullPath}?version=${mtime.getTime()}`)
 }
 
 /**
@@ -97,4 +116,30 @@ export async function _import(...files) {
  */
 export async function clean(dir) {
 	await fs.rm(dir, { recursive: true })
+}
+
+/**
+ * @returns {Promise<typeof defaultConfig>}
+ */
+export async function loadConfig() {
+	const config = await _import('orga.config.(j|t)s')
+	return { ...defaultConfig, ...config }
+}
+
+/**
+ * @param {string} cmd
+ */
+async function $(cmd) {
+	return new Promise((resolve, reject) => {
+		exec(cmd, (err, stdout, stderr) => {
+			if (err) {
+				reject(err)
+			}
+			if (stderr) {
+				console.error(stderr)
+			}
+			console.log(stdout)
+			resolve(stdout)
+		})
+	})
 }
