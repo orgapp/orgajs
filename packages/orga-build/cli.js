@@ -15,7 +15,6 @@ const { values, positionals } = parseArgs({
 })
 
 const config = await loadConfig()
-console.log('config', config)
 
 await build(config)
 
