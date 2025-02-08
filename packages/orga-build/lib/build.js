@@ -77,20 +77,16 @@ export async function build({ outDir, preBuild, postBuild }) {
  */
 export function importLayout(cwd) {
 	// TODO: implement default layout
-	const files = ['.layout.jsx', '.layout.tsx'].map((file) =>
-		path.join(cwd, file)
+	return (
+		_import(path.join(cwd, '(.|_)layout.(j|t)sx')) ?? { defaut: () => null }
 	)
-	return _import(...files) ?? { defaut: () => null }
 }
 
 /**
  * @param {string} cwd
  */
 export async function importComponents(cwd) {
-	const files = ['.components.jsx', '.components.tsx'].map((file) =>
-		path.join(cwd, file)
-	)
-	return _import(...files) ?? {}
+	return _import(path.join(cwd, '(.|_)components.(j|t)sx')) ?? {}
 }
 
 /**
