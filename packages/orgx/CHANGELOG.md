@@ -1,5 +1,15 @@
 # @orgajs/orgx
 
+## 2.4.0
+
+### Minor Changes
+
+- 351f690: introduce @orgajs/node-loader, @orgajs/esbuild, @orgajs/build
+
+  - @orgajs/node-loader : the nodejs loader for org-mode files
+  - @orgajs/esbuild : esbuild plugin
+  - @orgajs/build : static site generator, a.k.a orga-build
+
 ## 2.3.0
 
 ### Minor Changes

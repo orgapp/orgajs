@@ -1,44 +1,44 @@
 {
-  "name": "@orgajs/astro",
-  "description": "Add support for org-mode pages in your Astro site",
-  "version": "1.2.0",
-  "type": "module",
-  "main": "index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "lib/",
-    "dist/",
-    "index.js"
-  ],
-  "exports": {
-    ".": "./index.js"
-  },
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build"
-  },
-  "keywords": [
-    "astro-integration"
-  ],
-  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com:orgapp/orgajs.git",
-    "directory": "packages/astro"
-  },
-  "dependencies": {
-    "@orgajs/metadata": "workspace:*",
-    "@orgajs/rollup": "workspace:^",
-    "estree-util-visit": "^2.0.0",
-    "source-map": "^0.7.4"
-  },
-  "devDependencies": {
-    "@orgajs/orgx": "workspace:^",
-    "@types/estree": "^1.0.6",
-    "@types/estree-jsx": "^1.0.5",
-    "astro": "^2.10.15",
-    "unified": "^11.0.5",
-    "vite": "^6.0.11"
-  }
+	"name": "@orgajs/astro",
+	"description": "Add support for org-mode pages in your Astro site",
+	"version": "1.2.1",
+	"type": "module",
+	"main": "index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"lib/",
+		"dist/",
+		"index.js"
+	],
+	"exports": {
+		".": "./index.js"
+	},
+	"scripts": {
+		"clean": "tsc --build --clean",
+		"build": "tsc --build"
+	},
+	"keywords": [
+		"astro-integration"
+	],
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com:orgapp/orgajs.git",
+		"directory": "packages/astro"
+	},
+	"dependencies": {
+		"@orgajs/metadata": "workspace:*",
+		"@orgajs/rollup": "workspace:^",
+		"estree-util-visit": "^2.0.0",
+		"source-map": "^0.7.4"
+	},
+	"devDependencies": {
+		"@orgajs/orgx": "workspace:^",
+		"@types/estree": "^1.0.6",
+		"@types/estree-jsx": "^1.0.5",
+		"astro": "^2.10.15",
+		"unified": "^11.0.5",
+		"vite": "^6.0.11"
+	}
 }

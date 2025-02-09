@@ -1,49 +1,49 @@
 {
-  "name": "gatsby-plugin-orga",
-  "version": "4.2.0",
-  "description": "Orga integration for Gatsby",
-  "main": "index.js",
-  "license": "MIT",
-  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/gatsby-plugin-orga#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com:orgapp/orgajs.git",
-    "directory": "packages/gatsby-plugin-orga"
-  },
-  "files": [
-    "/dist",
-    "/components",
-    "/loaders",
-    "*.js",
-    "*.jsx"
-  ],
-  "scripts": {},
-  "peerDependencies": {
-    "gatsby": "^5.0.0-next",
-    "gatsby-source-filesystem": "^5.0.0-next",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
-  },
-  "dependencies": {
-    "@orgajs/loader": "workspace:^",
-    "@orgajs/metadata": "workspace:*",
-    "@orgajs/orgx": "workspace:*",
-    "@orgajs/react": "workspace:^",
-    "@orgajs/rehype-latex": "workspace:*",
-    "dataloader": "^2.2.2",
-    "estree-walker": "3.0.3",
-    "gatsby-core-utils": "^2.15.0",
-    "loader-utils": "^2.0.4"
-  },
-  "devDependencies": {
-    "@types/estree": "^1.0.6",
-    "@types/estree-jsx": "^1.0.5",
-    "@types/node": "^20.5.7",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
-    "@types/unist": "3.0.3",
-    "gatsby": "^5.12.3",
-    "typescript": "^5.7.3",
-    "unified": "11.0.5"
-  }
+	"name": "gatsby-plugin-orga",
+	"version": "4.2.1",
+	"description": "Orga integration for Gatsby",
+	"main": "index.js",
+	"license": "MIT",
+	"homepage": "https://github.com/orgapp/orgajs/tree/main/packages/gatsby-plugin-orga#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com:orgapp/orgajs.git",
+		"directory": "packages/gatsby-plugin-orga"
+	},
+	"files": [
+		"/dist",
+		"/components",
+		"/loaders",
+		"*.js",
+		"*.jsx"
+	],
+	"scripts": {},
+	"peerDependencies": {
+		"gatsby": "^5.0.0-next",
+		"gatsby-source-filesystem": "^5.0.0-next",
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0"
+	},
+	"dependencies": {
+		"@orgajs/loader": "workspace:^",
+		"@orgajs/metadata": "workspace:*",
+		"@orgajs/orgx": "workspace:*",
+		"@orgajs/react": "workspace:^",
+		"@orgajs/rehype-latex": "workspace:*",
+		"dataloader": "^2.2.2",
+		"estree-walker": "3.0.3",
+		"gatsby-core-utils": "^2.15.0",
+		"loader-utils": "^2.0.4"
+	},
+	"devDependencies": {
+		"@types/estree": "^1.0.6",
+		"@types/estree-jsx": "^1.0.5",
+		"@types/node": "^20.5.7",
+		"@types/react": "^18.2.21",
+		"@types/react-dom": "^18.2.7",
+		"@types/unist": "3.0.3",
+		"gatsby": "^5.12.3",
+		"typescript": "^5.7.3",
+		"unified": "11.0.5"
+	}
 }
