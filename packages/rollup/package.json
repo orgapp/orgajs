@@ -1,42 +1,42 @@
 {
-  "name": "@orgajs/rollup",
-  "version": "1.2.0",
-  "description": "Rollup plugin for Orga",
-  "license": "MIT",
-  "files": [
-    "dist",
-    "index.js"
-  ],
-  "main": "index.js",
-  "types": "dist/index.d.ts",
-  "type": "module",
-  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
-  "homepage": "https://orga.js.org",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/orgapp/orgajs.git",
-    "directory": "packages/rollup"
-  },
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build",
-    "test": "node --test test.js"
-  },
-  "devDependencies": {
-    "@types/node": "^20.5.7",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "rollup": "^3.28.1"
-  },
-  "peerDependencies": {
-    "rollup": ">=2"
-  },
-  "dependencies": {
-    "@orgajs/orgx": "workspace:^",
-    "@rollup/pluginutils": "^5.0.4",
-    "source-map": "^0.7.4",
-    "vfile": "^6.0.3"
-  }
+	"name": "@orgajs/rollup",
+	"version": "1.2.1",
+	"description": "Rollup plugin for Orga",
+	"license": "MIT",
+	"files": [
+		"dist",
+		"index.js"
+	],
+	"main": "index.js",
+	"types": "dist/index.d.ts",
+	"type": "module",
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"homepage": "https://orga.js.org",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/orgapp/orgajs.git",
+		"directory": "packages/rollup"
+	},
+	"scripts": {
+		"clean": "tsc --build --clean",
+		"build": "tsc --build",
+		"test": "node --test test.js"
+	},
+	"devDependencies": {
+		"@types/node": "^20.5.7",
+		"@types/react": "^18.2.21",
+		"@types/react-dom": "^18.2.7",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"rollup": "^3.28.1"
+	},
+	"peerDependencies": {
+		"rollup": ">=2"
+	},
+	"dependencies": {
+		"@orgajs/orgx": "workspace:^",
+		"@rollup/pluginutils": "^5.0.4",
+		"source-map": "^0.7.4",
+		"vfile": "^6.0.3"
+	}
 }

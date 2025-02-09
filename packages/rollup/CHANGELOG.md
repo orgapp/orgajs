@@ -1,5 +1,12 @@
 # @orgajs/rollup
 
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies [351f690]
+  - @orgajs/orgx@2.4.0
+
 ## 1.2.0
 
 ### Minor Changes

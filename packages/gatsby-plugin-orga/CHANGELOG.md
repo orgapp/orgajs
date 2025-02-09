@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.2.1
+
+### Patch Changes
+
+- Updated dependencies [351f690]
+  - @orgajs/orgx@2.4.0
+  - @orgajs/loader@4.3.1
+  - @orgajs/react@4.1.1
+
 ## 4.2.0
 
 ### Minor Changes
