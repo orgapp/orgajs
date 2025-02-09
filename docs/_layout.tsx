@@ -34,6 +34,7 @@ export default function Layout({ title, pages, children }: LayoutProps) {
 				<footer className="p-4 bg-gray-200">
 					<p>© 2021 Orga</p>
 				</footer>
+				<script src="/main.js" />
 			</body>
 		</html>
 	)

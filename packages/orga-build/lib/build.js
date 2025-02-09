@@ -153,7 +153,7 @@ export async function build({ outDir, preBuild, postBuild }) {
 		},
 	})
 	const end = performance.now()
-	console.log(`Built in ${end - start}ms`)
+	console.log(`Built in ${(end - start).toFixed(2)}ms`)
 
 	for (const cmd of postBuild) {
 		console.log(`Running post-build command: ${cmd}`)

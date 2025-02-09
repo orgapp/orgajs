@@ -11,9 +11,11 @@
 Introducing org editor. This the source code of *this page*.
 
 #+begin_export jsx
-<div className="p-2 bg-gray-200 text-gray-600">Playground</div>
+<orga-editor>
+{`** Editor
+Introducing org editor. This the source code of *this page*.`}
+</orga-editor>
 #+end_export
-
 
 ** Publication
 
