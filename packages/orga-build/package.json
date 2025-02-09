@@ -8,9 +8,14 @@
 		"orga-build": "cli.js"
 	},
 	"scripts": {},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"keywords": [
+		"orgajs",
+		"build",
+		"website",
+		"react"
+	],
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"license": "MIT",
 	"dependencies": {
 		"@orgajs/node-loader": "workspace:^",
 		"esbuild": "^0.24.2",

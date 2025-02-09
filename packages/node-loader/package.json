@@ -9,7 +9,7 @@
 	],
 	"scripts": {},
 	"keywords": [],
-	"author": "",
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"license": "MIT",
 	"dependencies": {
 		"@orgajs/orgx": "workspace:^",
