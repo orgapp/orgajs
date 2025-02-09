@@ -44,7 +44,7 @@ jobs:
           pnpm run build
 
       - name: Upload Page Artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: 'website/dist/'
 
