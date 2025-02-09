@@ -1,0 +1,19 @@
+{
+	"name": "@orgajs/node-loader",
+	"version": "1.0.0",
+	"description": "",
+	"type": "module",
+	"exports": "./index.js",
+	"files": [
+		"index.js"
+	],
+	"scripts": {},
+	"keywords": [],
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"license": "MIT",
+	"dependencies": {
+		"@orgajs/orgx": "workspace:^",
+		"vfile": "^6.0.3",
+		"vfile-reporter": "^8.1.1"
+	}
+}

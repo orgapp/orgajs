@@ -1,21 +1,21 @@
 {
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "ES2020",
-    "declaration": true,
-    "moduleResolution": "node",
-    "jsx": "react",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowJs": true,
-    "lib": ["ES2020"],
-    "checkJs": true
-  },
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts",
-    "**/*.test.ts",
-    "**/__tests__/**",
-    "tests/**"
-  ]
+	"compilerOptions": {
+		"target": "ESNEXT",
+		"module": "ESNEXT",
+		"declaration": true,
+		"moduleResolution": "node",
+		"jsx": "react-jsx",
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowJs": true,
+		"lib": ["ESNEXT", "DOM"],
+		"checkJs": true
+	},
+	"exclude": [
+		"node_modules",
+		"**/*.spec.ts",
+		"**/*.test.ts",
+		"**/__tests__/**",
+		"tests/**"
+	]
 }

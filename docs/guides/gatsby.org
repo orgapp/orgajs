@@ -1,0 +1,36 @@
+#+title: Gatsby
+#+published: true
+#+position: 102
+
+#+jsx: <Notice title="DEPRECATED">I'm no longer actively maintaining this Gatsby integration due to the rapid pace of frontend development. However, the source code remains available for those who wish to adapt and maintain it independently. You can refer to the orgajs project for examples of advanced usage.</Notice>
+
+* Create Gatsby Project
+
+Create a new gatsby website following the [[https://www.gatsbyjs.com/get-started/][documentation]]. Or simply
+
+#+begin_src sh
+npx gatsby new gatsby-site
+#+end_src
+
+* Installation
+
+Install packages.
+
+#+begin_src sh
+cd gatsby-site
+yarn add gatsby-plugin-orga @orgajs/react @orgajs/loader
+#+end_src
+
+* Configuration
+
+Add =gatsby-plugin-orga= to =gatsby-config.js=.
+
+#+begin_src javascript
+module.exports = {
+  plugins: ['gatsby-plugin-orga']
+}
+#+end_src
+
+Add a org file in folder =src/pages= directory. It should work out of the box.
+
+For more advanced usage, please checkout code of [[https://github.com/orgapp/orgajs][orgajs project]], which generate this website via =gatsby-theme-orga-docs=.

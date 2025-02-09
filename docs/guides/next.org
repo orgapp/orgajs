@@ -1,0 +1,48 @@
+#+title: Next.js
+#+published: true
+#+position: 4
+
+Use the next plugin for orga.
+
+* Installation
+
+#+begin_src sh
+npm install --save @orgajs/loader @orgajs/react @orgajs/next
+#+end_src
+
+
+* Configuration
+
+Add the following to =next.config.js=
+
+#+begin_src javascript
+const withOrga = require('@orgajs/next')({})
+
+module.exports = withOrga({
+	pageExtensions: ['js', 'jsx', 'org'],
+})
+#+end_src
+
+* Customization (optional)
+
+You can add =shortcodes= for use within org files without importing them every time.
+Edit =pages/_app.js= file.
+
+#+begin_src javascript
+import { OrgaProvider } from '@orgajs/react'
+import Box from '../components/box'
+
+function MyApp({ Component, pageProps }) {
+  // add "shortcodes" by passing in react components via components prop
+  return (
+    <OrgaProvider components={{ Box }}>
+      <Component {...pageProps} />
+    </OrgaProvider>
+  )
+}
+
+export default MyApp
+#+end_src
+
+
+After that, you can use =<Box/>= component in org file without importing it.

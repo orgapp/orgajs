@@ -5,29 +5,10 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
+indent_style = tab
 
 [vcbuild.bat]
 end_of_line = crlf
-
-[*.{js,cjs,mjs,jsx,ts,tsx,css,json,astro,html}]
-indent_style = space
-indent_size = 2
-
-[{*.json,*.yml}]
-indent_style = space
-indent_size = 2
-
-[src/**.{h,cc}]
-indent_style = space
-indent_size = 2
-
-[test/*.py]
-indent_style = space
-indent_size = 2
-
-[configure]
-indent_style = space
-indent_size = 2
 
 [Makefile]
 indent_style = tab
