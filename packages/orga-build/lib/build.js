@@ -5,6 +5,8 @@ import { register } from 'node:module'
 import path from 'path'
 import { createElement } from 'react'
 import { renderToString } from 'react-dom/server'
+import assert from 'node:assert'
+import { match } from './util.js'
 
 register('./jsx-loader.js', import.meta.url)
 register('@orgajs/node-loader', import.meta.url)
@@ -26,10 +28,14 @@ const defaultConfig = {
  */
 
 /**
+ * @typedef {string | RegExp} Pattern
+ */
+
+/**
  * @typedef {Object} BuildContext
  * @property {import('@orgajs/orgx').OrgComponents} [components] - The components from the org file
  * @property {import('react').ComponentType<any>} [Layout] - The layout component
- * @property {RegExp} [ignore] - A regular expression to ignore files/directories
+ * @property {Pattern | Pattern[]} [ignore] - The ignore pattern
  * @property {(page: Page & { Layout?: import('react').ComponentType, components: Record<string, any> }) => Promise<void>} build - The build function
  * @property {(filePath: string, metadata: Record<string, any>) => string} buildHref - The build function
  */
@@ -52,7 +58,9 @@ async function iter(dirPath, context) {
 	const files = await fs.readdir(dirPath)
 
 	for (const file of files) {
-		if (ignore.test(file)) continue
+		if (match(file, ignore)) {
+			continue
+		}
 		const filePath = path.join(dirPath, file)
 		const stat = await fs.stat(filePath)
 
@@ -61,8 +69,9 @@ async function iter(dirPath, context) {
 			continue
 		}
 
-		if (file.match(/(.|_)layout.(j|t)sx/)) {
+		if (match(file, /(.|_)layout.(j|t)sx/)) {
 			const InnerLayout = (await _import(filePath)).default
+			if (!InnerLayout) continue
 			if (context.Layout) {
 				Layout = function Layout(/** @type {any} */ props) {
 					return createElement(
@@ -74,19 +83,26 @@ async function iter(dirPath, context) {
 			} else {
 				Layout = InnerLayout
 			}
+			continue
 		}
-		if (file.match(/(.|_)components.(j|t)sx/)) {
+		if (match(file, /(.|_)components.(j|t)sx$/)) {
 			const localComponents = await _import(filePath)
-			components = { ...components, ...localComponents }
+			if (localComponents) {
+				components = { ...components, ...localComponents }
+			}
+			continue
 		}
 
 		if (file.startsWith('.')) continue
 
-		if (/\.org$/.test(file)) {
+		// write regex to match .org and .tsx, .jsx files, javascript code only
+
+		if (match(file, [/\.(org)$/, /\.(j|t)sx$/])) {
+			const module = await _import(filePath)
 			const {
 				default: /** @type import('@orgajs/orgx').OrgContent */ Content,
 				...metadata
-			} = await _import(filePath)
+			} = module
 			pages.push({
 				Content,
 				metadata,
@@ -135,16 +151,19 @@ export async function build({ outDir, preBuild, postBuild }) {
 
 	await iter(cwd, {
 		buildHref: (filePath) => {
-			return `/${path.relative(cwd, filePath).replace(/\.org$/, '.html')}`
+			return `/${path.relative(cwd, filePath).replace(/\.\w+$/, '.html')}`
 		},
+		ignore: [/node_modules/, 'out'],
 		build: async ({ Layout, Content, metadata, src, components }) => {
+			assert(Layout, `${src}: Layout component is required`)
+			assert(Content, 'Content component is required')
 			const e = createElement(
 				Layout,
 				metadata,
 				createElement(Content, { components })
 			)
 			const code = renderToString(e)
-			const filePath = path.relative(cwd, src).replace(/\.org$/, '.html')
+			const filePath = path.relative(cwd, src).replace(/\.\w+$/, '.html')
 			const outPath = path.resolve(outFullPath, filePath)
 			await fs.mkdir(path.dirname(outPath), { recursive: true })
 			const filesize = new Intl.NumberFormat().format(code.length)
