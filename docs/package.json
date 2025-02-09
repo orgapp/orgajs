@@ -1,0 +1,27 @@
+{
+	"name": "@orgajs/website",
+	"private": true,
+	"version": "1.0.0",
+	"description": "",
+	"type": "module",
+	"scripts": {
+		"dev": "orga-build dev",
+		"build": "orga-build",
+		"build:css": "tailwindcss -i ./style.css -o ./out/style.css"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@orgajs/build": "workspace:^",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@tailwindcss/cli": "^4.0.3",
+		"@tailwindcss/typography": "^0.5.9",
+		"daisyui": "5.0.0-beta.6",
+		"tailwindcss": "^4.0.3",
+		"typescript": "^5.7.3"
+	}
+}

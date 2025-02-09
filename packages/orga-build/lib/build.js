@@ -22,7 +22,7 @@ const defaultConfig = {
  * @property {import('@orgajs/orgx').OrgContent} Content
  * @property {Record<string, any>} metadata - The metadata from the org file export, will be passed to the Layout component
  * @property {string} src - The absolute path to the org file
- * @property {string} href - The href for the page
+ * @property {string} slug - The slug for the page
  */
 
 /**
@@ -31,6 +31,7 @@ const defaultConfig = {
  * @property {import('react').ComponentType<any>} [Layout] - The layout component
  * @property {RegExp} [ignore] - A regular expression to ignore files/directories
  * @property {(page: Page & { Layout?: import('react').ComponentType, components: Record<string, any> }) => Promise<void>} build - The build function
+ * @property {(filePath: string, metadata: Record<string, any>) => string} buildHref - The build function
  */
 
 /**
@@ -57,39 +58,41 @@ async function iter(dirPath, context) {
 
 		if (stat.isDirectory()) {
 			subdirs.push(filePath)
-		} else {
-			if (/\.org$/.test(file)) {
-				const {
-					default: /** @type import('@orgajs/orgx').OrgContent */ Content,
-					...metadata
-				} = await _import(filePath)
-				pages.push({
-					Content,
-					metadata,
-					href: `/${path
-						.relative(dirPath, filePath)
-						.replace(/\.org$/, '.html')}`,
-					src: filePath,
-				})
-			}
-			if (file.match(/(.|_)layout.(j|t)sx/)) {
-				const InnerLayout = (await _import(filePath)).default
-				if (context.Layout) {
-					Layout = function Layout(/** @type {any} */ props) {
-						return createElement(
-							context.Layout,
-							props,
-							createElement(InnerLayout, props)
-						)
-					}
-				} else {
-					Layout = InnerLayout
+			continue
+		}
+
+		if (file.match(/(.|_)layout.(j|t)sx/)) {
+			const InnerLayout = (await _import(filePath)).default
+			if (context.Layout) {
+				Layout = function Layout(/** @type {any} */ props) {
+					return createElement(
+						context.Layout,
+						props,
+						createElement(InnerLayout, props)
+					)
 				}
+			} else {
+				Layout = InnerLayout
 			}
-			if (file.match(/(.|_)components.(j|t)sx/)) {
-				const localComponents = await _import(filePath)
-				components = { ...components, ...localComponents }
-			}
+		}
+		if (file.match(/(.|_)components.(j|t)sx/)) {
+			const localComponents = await _import(filePath)
+			components = { ...components, ...localComponents }
+		}
+
+		if (file.startsWith('.')) continue
+
+		if (/\.org$/.test(file)) {
+			const {
+				default: /** @type import('@orgajs/orgx').OrgContent */ Content,
+				...metadata
+			} = await _import(filePath)
+			pages.push({
+				Content,
+				metadata,
+				slug: context.buildHref(filePath, metadata),
+				src: filePath,
+			})
 		}
 	}
 
@@ -97,6 +100,10 @@ async function iter(dirPath, context) {
 		pages.map((page) =>
 			context.build({
 				...page,
+				metadata: {
+					...page.metadata,
+					pages: pages.map((p) => ({ ...p.metadata, slug: p.slug })),
+				},
 				Layout,
 				components,
 			})
@@ -127,6 +134,9 @@ export async function build({ outDir, preBuild, postBuild }) {
 	console.log(`Building to ${outFullPath}`)
 
 	await iter(cwd, {
+		buildHref: (filePath) => {
+			return `/${path.relative(cwd, filePath).replace(/\.org$/, '.html')}`
+		},
 		build: async ({ Layout, Content, metadata, src, components }) => {
 			const e = createElement(
 				Layout,

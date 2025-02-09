@@ -1,0 +1,65 @@
+#+title: Webpack
+#+published: true
+#+position: 3
+
+=@orgajs/loader= is a webpack loader taht can be used natrually with webpack setup.
+
+* Installation
+
+#+begin_src sh
+npm install --save-dev @orgajs/loader @orgajs/estree-jsx @orgajs/rehype-estree @orgajs/reorg-rehype
+#+end_src
+
+* Configuration
+
+An example =webpack.config.js= file.
+
+#+begin_src javascript
+import toEstree from '@orgajs/rehype-estree'
+import toRehype from '@orgajs/reorg-rehype'
+import toJsx from '@orgajs/estree-jsx'
+
+const config = {
+  mode: 'development',
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.org$/,
+        use: [
+          'babel-loader',
+          {
+            loader: '@orgajs/loader',
+            options: {
+              plugins: [
+                toRehype,
+                toEstree,
+                toJsx,
+              ]
+            }
+          }],
+      },
+    ]
+  },
+}
+
+export default config
+#+end_src
+
+As you can see that the output of =@orgajs/loader= is normal JSX code, so you will need [[https://webpack.js.org/loaders/babel-loader/][babel-loader]] to finish it at the end.
+
+* Babel Configuration
+
+YOu will need to configure babel to support react syntax. An example of =.babelrc= file.
+
+#+begin_src json
+{
+  "presets": ["@babel/env", "@babel/react"]
+}
+#+end_src
+
+Take a look at webpack documentation for creating a basic react project for more details.

@@ -1,0 +1,61 @@
+#+title: Build a blog with orga-build
+#+position: 2
+
+
+=orga-build= is a powerful static site generator that allows you to build entire websites using only Org-mode files. Tired of learning ever changing frontend frameworks, just want to build a good old static website? This is for you.
+
+
+Get a bunch of org files in a folder. Run
+
+#+begin_src sh
+npx orga-build
+#+end_src
+
+This command will generate a static website in the =out= folder, with each Org-mode file translated into an HTML file. The end.
+
+** Layouts
+
+Layout is powerful tool that allows you to define the overall structure and appearance of your website pages. If you are not allergic to write a little bit of =jsx=, you can create layout files and nest them within folders to apply specific layouts to different sections of your website.
+
+To add a layout, create a file named =_layout.tsx= in the desired folder. The root-level layout file (=<project_root>/_layout.tsx=) will be applied to all pages, while nested layout files (e.g., =<project_root>/blog/_layout.tsx=) will be applied to all pages within that specific folder, nested inside the root-level layout.
+
+*** Layout Props
+
+Layout components have access to the in-buffer settings of the corresponding Org-mode file. For example, if you have the following lines in your Org-mode file:
+
+#+begin_src org
+,#+title: My Page
+,#+author: John
+#+end_src
+
+These values will be available as props in your layout file, allowing you to use them dynamically.
+
+Additionally, the layout component receives a =pages= prop, which is an array of page objects representing the pages within the current folder. This feature makes it easy to build navigation components that reflect the structure of your website.
+
+** Build Commands
+
+=orga-build= supports two lifecycle hooks: =preBuild= and =postBuild=. These hooks allow you to run custom commands before and after the main build process, respectively. You can set up these hooks in the =orga.config.js= file by exporting named variables:
+
+#+begin_src javascript
+export const preBuild = ['npm run build:css']
+#+end_src
+
+The =preBuild= and =postBuild= variables should be arrays of strings, where each string represents a shell command to be executed by the build process.
+
+** Custom Components
+
+=orga-build= allows you to create and use custom React components within your Org-mode files. To do this, create a file named =_components.tsx= in your project root and export your custom components:
+
+#+begin_src jsx
+export function FancyBox({ children }) {
+  return <div className="fancy">{children}</div>;
+}
+#+end_src
+
+You can then use these components directly in your Org-mode files using the =#+jsx:= syntax:
+
+#+begin_src org
+#+jsx: <FancyBox>hey, box</FancyBox>
+#+end_src
+
+This powerful feature enables you to extend the functionality of your website and create rich, interactive experiences.
