@@ -8,17 +8,28 @@
 		"dev": "orga-build dev",
 		"build": "orga-build",
 		"build:css": "tailwindcss -i ./style.css -o ./out/style.css",
-		"build:js": "esbuild main.ts --bundle --minify --outfile=out/main.js"
+		"build:js": "esbuild main.ts --bundle --minify --outfile=out/main.js",
+		"analyze": "esbuild main.ts --bundle --minify --metafile=meta.json --outfile=out/main.js"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@orgajs/build": "workspace:^"
+		"@codemirror/lang-javascript": "^6.2.2",
+		"@codemirror/language": "^6.10.8",
+		"@codemirror/state": "^6.5.2",
+		"@codemirror/view": "^6.36.2",
+		"@orgajs/build": "workspace:^",
+		"@orgajs/editor": "workspace:^",
+		"@orgajs/orgx": "workspace:^",
+		"codemirror": "^6.0.1",
+		"preact": "^10.25.4",
+		"vfile": "^6.0.3"
 	},
 	"devDependencies": {
 		"@tailwindcss/cli": "^4.0.3",
 		"@tailwindcss/typography": "^0.5.9",
+		"esbuild": "^0.24.2",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"tailwindcss": "^4.0.3",
