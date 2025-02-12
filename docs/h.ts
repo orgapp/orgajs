@@ -1,5 +1,5 @@
 type Child = string | Node
-type Attributes = {
+type Attributes = Record<string, string> & {
 	onclick?: (e: MouseEvent) => void
 }
 
@@ -7,7 +7,6 @@ function isChild(x: any): x is Child {
 	return typeof x === 'string' || x instanceof Node
 }
 
-export function h(selector: string, attr?: Attributes): HTMLElement
 export function h(
 	selector: string,
 	attr: Attributes,
@@ -40,8 +39,10 @@ export function h(
 		if (isChild(attributes)) {
 			children.unshift(attributes)
 		} else {
-			if (attributes.onclick) {
-				e.onclick = attributes.onclick
+			const { onclick, ...rest } = attributes
+			e.onclick = onclick
+			for (const [key, value] of Object.entries(rest)) {
+				e.setAttribute(key, value)
 			}
 		}
 	}
