@@ -40,13 +40,13 @@ jobs:
 
       - name: Build
         run: |
-          cd website
+          cd docs
           pnpm run build
 
       - name: Upload Page Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'website/dist/'
+          path: 'docs/out/'
 
   deploy:
     needs: build
