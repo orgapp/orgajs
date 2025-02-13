@@ -1,9 +1,0 @@
-#+title: Contribute
-#+published: true
-#+position: 300
-
-#+jsx: <Notice>This page is a WIP</Notice>
-
-* Need Some Inspiration?
-
-You can find tons of plugins for remark, since they work in similar ways, we can steal some ideas [[https://github.com/remarkjs/remark/blob/main/doc/plugins.md#creating-plugins][here]] and [[https://github.com/remarkjs/awesome-remark][there]], maybe even use them directly.
