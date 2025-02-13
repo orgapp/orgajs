@@ -1,15 +1,15 @@
 {
-  "compilerOptions": {
-    "checkJs": true,
-    "allowJs": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["es2022", "dom"],
-    "module": "node16",
-    "newLine": "lf",
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "es2022"
-  }
+	"compilerOptions": {
+		"checkJs": true,
+		"allowJs": true,
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"forceConsistentCasingInFileNames": true,
+		"lib": ["es2022", "dom"],
+		"module": "node16",
+		"newLine": "lf",
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "es2022"
+	}
 }
