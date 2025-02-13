@@ -8,7 +8,7 @@
 		"dev": "orga-build dev",
 		"build": "orga-build",
 		"build:css": "tailwindcss -i ./style.css -o ./out/style.css",
-		"build:js": "esbuild main.ts --bundle --minify --outfile=out/main.js",
+		"build:js": "node ./build.js",
 		"analyze": "esbuild main.ts --bundle --minify --metafile=meta.json --outfile=out/main.js"
 	},
 	"keywords": [],

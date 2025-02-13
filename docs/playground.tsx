@@ -10,6 +10,7 @@ export default function Playground() {
 	return (
 		<div>
 			<orga-playground content={content} />
+			<script src="/playground.js" />
 		</div>
 	)
 }

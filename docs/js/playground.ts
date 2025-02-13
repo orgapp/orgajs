@@ -15,27 +15,6 @@ import { createRoot } from 'react-dom/client'
 import { javascript } from '@codemirror/lang-javascript'
 import { map } from 'unist-util-map'
 
-class OrgaEditor extends HTMLElement {
-	constructor() {
-		super()
-	}
-
-	connectedCallback() {
-		const content = this.textContent
-		this.innerHTML = `
-<div class="h-64 not-prose">
-  <div id="editor"></div>
-</div>`
-		const dom = this.querySelector('#editor')
-		makeEditor({
-			target: dom,
-			content,
-		})
-	}
-}
-
-customElements.define('orga-editor', OrgaEditor)
-
 enum TabId {
 	rendered,
 	oast,
@@ -47,6 +26,11 @@ type Tab = {
 	id: TabId
 	name: string
 	content: string
+}
+
+type Button = {
+	name: string
+	onclick: () => void
 }
 
 const PREVIEW_PANEL_COLOR = 'bg-stone-100'
@@ -68,17 +52,22 @@ class OrgaPlayground extends HTMLElement {
 			tabs.find((t) => t.id === tab).content = content
 		}
 
-		const content = this.getAttribute('content')
+		function getTabContent(tab: TabId) {
+			return tabs.find((t) => t.id === tab).content
+		}
+
+		let content = this.getAttribute('content')
+		const url = new URL(window.location.href)
+		const text = url.searchParams.get('text')
+		let currentTab = TabId.rendered
+
+		if (text) {
+			content = decodeURIComponent(text)
+		}
 
 		// -- UI --
-		const editorMount = h('div')
-		const left = h(
-			'div.h-full.w-1/2.border-r.border-slate-400',
-			this.buildToolbar([
-				{ name: 'Generate Link', onclick: () => console.log('generate link') },
-			]),
-			editorMount
-		)
+		const editorMount = h('div.h-full')
+		const left = h('div.h-full.w-1/2.border-r', editorMount)
 		const rendered = h('div.hidden.p-4.prose')
 		const code = h('div.hidden')
 
@@ -97,24 +86,54 @@ class OrgaPlayground extends HTMLElement {
 
 		const renderRoot = createRoot(rendered)
 
+		const toolbar = h(
+			'div',
+			this.buildToolbar([
+				{
+					name: 'Generate Link',
+					onclick: () => {
+						const text = content
+						const url = new URL(window.location.href)
+						const encoded = encodeURIComponent(text)
+						url.searchParams.set('text', encoded)
+						navigator.clipboard.writeText(url.toString())
+						window.echo('Link copied to clipboard')
+					},
+				},
+			])
+		)
+
 		const right = h(
 			`div.flex.flex-col.h-full.w-1/2.${PREVIEW_PANEL_COLOR}`,
 			// tabs
 			h(
 				'div.flex.bg-slate-300',
 				this.buildTabs(tabs, select),
-				h('div.flex-grow.border-b.border-slate-400')
+				h('div.flex-grow.border-b')
 			),
 			// content
+			h('div.bg-base-100.relative.h-full.overflow-auto', rendered, code),
 			h(
-				'div.relative.h-full.overflow-auto',
-				rendered,
-				code,
-				h('button.btn.absolute.right-2.top-2', 'Generate Link')
+				'div.flex.items-center.bg-base-300.border-t.py-1.px-2',
+				h(
+					'button.btn',
+					{
+						onclick: () => {
+							const text = content
+							const url = new URL(window.location.href)
+							const encoded = encodeURIComponent(text)
+							url.searchParams.set('text', encoded)
+							navigator.clipboard.writeText(url.toString())
+							window.echo('Link copied to clipboard')
+						},
+					},
+					'generate link'
+				)
 			)
 		)
 
 		function select(tab: Tab) {
+			currentTab = tab.id
 			if (tab.id === TabId.rendered) {
 				rendered.classList.remove('hidden')
 				code.classList.add('hidden')
@@ -153,7 +172,7 @@ class OrgaPlayground extends HTMLElement {
 
 			renderRoot.render(createElement(Content))
 			updateTabContent(TabId.jsx, String(file))
-			const code = String(file)
+			const code = getTabContent(currentTab)
 			codeView.dispatch({
 				changes: {
 					from: 0,
@@ -167,8 +186,8 @@ class OrgaPlayground extends HTMLElement {
 			target: editorMount,
 			content,
 			onChange: async (state) => {
-				const newConent = state.doc.toString()
-				render(newConent)
+				content = state.doc.toString()
+				render(content)
 			},
 		})
 
@@ -177,20 +196,20 @@ class OrgaPlayground extends HTMLElement {
 		render(content)
 	}
 
-	buildToolbar(buttons) {
+	buildToolbar(buttons: Button[]) {
 		return h(
-			'div.flex.p-1.bg-slate-200.border-2.border-b-slate-400.border-r-slate-400.border-l-white.border-t-white',
-			...buttons.map(({ name, onclick }) => h('button.btn', name))
+			'div.toolbar',
+			...buttons.map(({ name, onclick }) => h('button', { onclick }, name))
 		)
 	}
 
 	buildTabs(tabs: Tab[], onSelect: (tab: Tab) => void) {
 		const container = h(
-			'div',
+			'menu.mt-1.z-20',
 			...tabs.map((tab) =>
 				// TODO: fix this 👇
 				h(
-					`button.#${tab.id}.px-2.cursor-pointer.border.border-slate-400.border-l-transparent`,
+					`button.tab.#${tab.id}`,
 					{
 						onclick: () => select(tab),
 					},
@@ -202,11 +221,9 @@ class OrgaPlayground extends HTMLElement {
 		function select(tab: Tab) {
 			container.querySelectorAll('button').forEach((b) => {
 				if (b.id === `${tab.id}`) {
-					b.classList.add(PREVIEW_PANEL_COLOR)
-					b.classList.add('border-b-transparent')
+					b.setAttribute('aria-selected', 'true')
 				} else {
-					b.classList.remove(PREVIEW_PANEL_COLOR)
-					b.classList.remove('border-b-transparent')
+					b.setAttribute('aria-selected', 'false')
 				}
 			})
 			onSelect(tab)
@@ -230,3 +247,22 @@ function toJSON(tree: any) {
 }
 
 customElements.define('orga-playground', OrgaPlayground)
+
+function debounce(func, duration) {
+	let timeout
+
+	return function (...args) {
+		const effect = () => {
+			timeout = null
+			return func.apply(this, args)
+		}
+
+		clearTimeout(timeout)
+		timeout = setTimeout(effect, duration)
+	}
+}
+
+// function message(msg: string) {
+// 	const minibuffer = document.getElementById('minibuffer')
+// 	minibuffer.textContent = msg
+// }

@@ -13,7 +13,7 @@ export default function Layout({ title, children }: LayoutProps) {
 				<link href="/style.css" rel="stylesheet" />
 			</head>
 			<body className="flex flex-col h-screen">
-				<nav className="p-2 bg-gray-100 border-b">
+				<nav className="p-2 bg-base-100 border-b">
 					<ol className="flex gap-4">
 						<li>
 							<a href="/">Orga</a>
@@ -32,10 +32,11 @@ export default function Layout({ title, children }: LayoutProps) {
 				<main className="flex-grow flex-row overflow-hidden">
 					{isOrgContent(children) ? <Content>{children}</Content> : children}
 				</main>
-				<footer className="p-2 bg-gray-100 border-t">
+				<footer className="flex justify-between p-2 bg-base-100 border-t">
+					<div id="minibuffer" className=""></div>
 					<p>© 2025 Orga</p>
 				</footer>
-				<script src="/main.js" />
+				<script src="/layout.js" />
 			</body>
 		</html>
 	)

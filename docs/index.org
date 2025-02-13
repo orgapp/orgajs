@@ -20,3 +20,5 @@ Introducing org editor. This the source code of *this page*.`}
 ** Publication
 
 Build a website with org-mode files and [[/guides/orga-build][orga-build]].
+
+#+jsx: <script src="/editor.js"/>
