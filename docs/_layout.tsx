@@ -36,7 +36,7 @@ export default function Layout({ title, children }: LayoutProps) {
 					<div id="minibuffer" className=""></div>
 					<p>© 2025 Orga</p>
 				</footer>
-				<script src="/layout.js" />
+				<script type="module" src="/layout.js" />
 			</body>
 		</html>
 	)
