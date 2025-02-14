@@ -2,8 +2,6 @@
 	"name": "@orgajs/editor",
 	"version": "1.2.1",
 	"type": "module",
-	"main": "lib/index.js",
-	"types": "dist/index.d.ts",
 	"files": [
 		"lib/",
 		"index.d.ts",
