@@ -1,5 +1,12 @@
 # @orgajs/astro
 
+## 1.2.2
+
+### Patch Changes
+
+- Updated dependencies [e3ef3a5]
+  - @orgajs/rollup@1.2.2
+
 ## 1.2.1
 
 ### Patch Changes

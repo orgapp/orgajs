@@ -1,5 +1,13 @@
 # @orgajs/editor
 
+## 1.2.1
+
+### Patch Changes
+
+- e3ef3a5: build website with orga-build
+- Updated dependencies [e3ef3a5]
+  - @orgajs/cm-lang@1.1.6
+
 ## 1.2.0
 
 ### Minor Changes

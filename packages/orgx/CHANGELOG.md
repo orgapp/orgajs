@@ -1,5 +1,11 @@
 # @orgajs/orgx
 
+## 2.4.1
+
+### Patch Changes
+
+- e3ef3a5: build website with orga-build
+
 ## 2.4.0
 
 ### Minor Changes
