@@ -13,4 +13,4 @@ const { metafile } = await esbuild.build({
 })
 
 // write metafile to meta.json
-await fs.writeFile('meta.json', JSON.stringify(metafile))
+await fs.writeFile('.meta.json', JSON.stringify(metafile))

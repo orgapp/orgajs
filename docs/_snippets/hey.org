@@ -1,0 +1,4 @@
+* Hey, there
+
+The /beauty/ of org *must* be shared.
+[[https://upload.wikimedia.org/wikipedia/commons/a/a6/Org-mode-unicorn.svg][org-mode logo]]
