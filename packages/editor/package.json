@@ -1,51 +1,51 @@
 {
-  "name": "@orgajs/editor",
-  "version": "1.2.0",
-  "type": "module",
-  "main": "lib/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "lib",
-    "dist"
-  ],
-  "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "require": "./lib/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./extensions": {
-      "import": "./lib/extensions/index.js",
-      "require": "./lib/extensions/index.js",
-      "types": "./dist/extensions/index.d.ts"
-    }
-  },
-  "description": "react org-mode editor based on prose-mirror",
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/orgapp/orgajs.git",
-    "directory": "packages/editor"
-  },
-  "keywords": [
-    "org-mode",
-    "CodeMirror",
-    "editor"
-  ],
-  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
-  "license": "MIT",
-  "dependencies": {
-    "@codemirror/commands": "^6.3.0",
-    "@codemirror/language": "^6.9.2",
-    "@codemirror/view": "^6.22.0",
-    "@orgajs/cm-lang": "workspace:^"
-  },
-  "devDependencies": {
-    "@codemirror/state": "^6.2.1",
-    "orga": "workspace:^",
-    "vfile": "^6.0.3"
-  }
+	"name": "@orgajs/editor",
+	"version": "1.2.0",
+	"type": "module",
+	"main": "lib/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"lib",
+		"dist"
+	],
+	"exports": {
+		".": {
+			"import": "./lib/index.js",
+			"require": "./lib/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./extensions": {
+			"import": "./lib/extensions/index.js",
+			"require": "./lib/extensions/index.js",
+			"types": "./dist/extensions/index.d.ts"
+		}
+	},
+	"description": "react org-mode editor based on prose-mirror",
+	"scripts": {
+		"clean": "tsc --build --clean",
+		"build": "tsc --build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/orgapp/orgajs.git",
+		"directory": "packages/editor"
+	},
+	"keywords": [
+		"org-mode",
+		"CodeMirror",
+		"editor"
+	],
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"license": "MIT",
+	"dependencies": {
+		"@codemirror/commands": "^6.8.0",
+		"@codemirror/language": "^6.10.8",
+		"@codemirror/view": "^6.36.2",
+		"@codemirror/state": "^6.5.2",
+		"@orgajs/cm-lang": "workspace:^"
+	},
+	"devDependencies": {
+		"orga": "workspace:^",
+		"vfile": "^6.0.3"
+	}
 }

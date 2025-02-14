@@ -1,4 +1,5 @@
 #+title: Orgajs
+#+jsx: import code from './index.org?raw'
 
 * What Is It
 
@@ -11,10 +12,14 @@
 Introducing org editor. This the source code of *this page*.
 
 #+begin_export jsx
-<div className="p-2 bg-gray-200 text-gray-600">Playground</div>
+<orga-editor>
+  {code}
+</orga-editor>
 #+end_export
-
 
 ** Publication
 
 Build a website with org-mode files and [[/guides/orga-build][orga-build]].
+
+# the "orga-editor" is a web-component, the following line defines it
+#+jsx: <script type="module" src="/editor.js"/>

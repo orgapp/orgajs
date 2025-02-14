@@ -1,20 +1,20 @@
 {
-  "name": "@orgajs/example-editor",
-  "private": true,
-  "version": "0.2.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite --port 3000 --force",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "@codemirror/view": "^6.22.0",
-    "typescript": "^5.7.3",
-    "vite": "^6.0.11"
-  },
-  "dependencies": {
-    "@orgajs/editor": "workspace:^",
-    "cm6-theme-nord": "^0.2.0"
-  }
+	"name": "@orgajs/example-editor",
+	"private": true,
+	"version": "0.2.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite --port 3000 --force",
+		"build": "tsc && vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"@codemirror/view": "^6.36.2",
+		"typescript": "^5.7.3",
+		"vite": "^6.0.11"
+	},
+	"dependencies": {
+		"@orgajs/editor": "workspace:^",
+		"cm6-theme-nord": "^0.2.0"
+	}
 }

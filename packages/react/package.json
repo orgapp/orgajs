@@ -1,29 +1,29 @@
 {
-  "name": "@orgajs/react",
-  "version": "4.1.1",
-  "license": "MIT",
-  "main": "lib/index.js",
-  "type": "module",
-  "types": "dist/index.d.ts",
-  "files": [
-    "lib/",
-    "dist/",
-    "index.js"
-  ],
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build"
-  },
-  "peerDependencies": {
-    "react": ">=16"
-  },
-  "devDependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.22.5",
-    "@orgajs/orgx": "workspace:^",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
-    "babel-plugin-remove-export-keywords": "^1.6.22",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  }
+	"name": "@orgajs/react",
+	"version": "4.1.1",
+	"license": "MIT",
+	"main": "lib/index.js",
+	"type": "module",
+	"types": "dist/index.d.ts",
+	"files": [
+		"lib/",
+		"dist/",
+		"index.js"
+	],
+	"scripts": {
+		"clean": "tsc --build --clean",
+		"build": "tsc --build"
+	},
+	"peerDependencies": {
+		"react": ">=16"
+	},
+	"devDependencies": {
+		"@babel/plugin-transform-react-jsx": "^7.22.5",
+		"@orgajs/orgx": "workspace:^",
+		"@types/react": "^19.0.8",
+		"@types/react-dom": "^19.0.3",
+		"babel-plugin-remove-export-keywords": "^1.6.22",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	}
 }

@@ -1,23 +1,23 @@
 {
-  "name": "@orgajs/example-webpack",
-  "private": true,
-  "version": "3.1.0",
-  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
-  "scripts": {
-    "build": "webpack",
-    "webpack": "webpack",
-    "start": "webpack serve"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.22.11",
-    "@babel/preset-env": "^7.22.14",
-    "@babel/preset-react": "^7.22.5",
-    "@orgajs/loader": "workspace:^",
-    "babel-loader": "^9.1.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
-  }
+	"name": "@orgajs/example-webpack",
+	"private": true,
+	"version": "3.1.0",
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"scripts": {
+		"build": "webpack",
+		"webpack": "webpack",
+		"start": "webpack serve"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.22.11",
+		"@babel/preset-env": "^7.22.14",
+		"@babel/preset-react": "^7.22.5",
+		"@orgajs/loader": "workspace:^",
+		"babel-loader": "^9.1.3",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"webpack": "^5.88.2",
+		"webpack-cli": "^5.1.4",
+		"webpack-dev-server": "^4.15.1"
+	}
 }

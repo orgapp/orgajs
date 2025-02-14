@@ -1,3 +1,37 @@
 @import 'tailwindcss';
 
 @plugin "@tailwindcss/typography";
+
+@theme {
+	--color-base-100: oklch(0.968 0.007 247.896);
+	--color-base-200: oklch(0.929 0.013 255.508);
+	--color-base-300: oklch(0.869 0.022 252.894);
+}
+
+.cm-editor {
+	outline: none;
+}
+
+.cm-editor.cm-focused {
+	outline: none;
+}
+
+.btn {
+	@apply cursor-pointer px-2 bg-white hover:bg-base-100;
+	border-style: solid;
+	border-width: 1px;
+	border-color: white black black white;
+}
+
+.btn:active {
+	@apply bg-base-300 translate-y-[1px] translate-x-[1px] shadow-inner shadow-slate-500/50;
+	border-color: black white white black;
+}
+
+.tab {
+	@apply bg-transparent px-2 hover:bg-slate-200 cursor-pointer border  border-l-0;
+}
+
+.tab[aria-selected='true'] {
+	@apply bg-base-100 border-b-base-100 z-10;
+}

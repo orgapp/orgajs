@@ -1,18 +1,19 @@
 import { isOrgContent } from '@orgajs/orgx'
+
 interface LayoutProps {
 	title: string
 	children: React.ReactNode
 }
 
-export default function Layout({ title, pages, children }: LayoutProps) {
+export default function Layout({ title, children }: LayoutProps) {
 	return (
 		<html>
 			<head>
 				<title>{title}</title>
 				<link href="/style.css" rel="stylesheet" />
 			</head>
-			<body className="min-h-screen flex flex-col">
-				<nav className="p-2 bg-gray-100 border-b">
+			<body className="flex flex-col h-screen">
+				<nav className="p-2 bg-base-100 border-b">
 					<ol className="flex gap-4">
 						<li>
 							<a href="/">Orga</a>
@@ -28,12 +29,14 @@ export default function Layout({ title, pages, children }: LayoutProps) {
 						</li>
 					</ol>
 				</nav>
-				<main className="flex-1">
+				<main className="flex-grow flex-row overflow-hidden">
 					{isOrgContent(children) ? <Content>{children}</Content> : children}
 				</main>
-				<footer className="p-4 bg-gray-200">
-					<p>© 2021 Orga</p>
+				<footer className="flex justify-between p-2 bg-base-100 border-t">
+					<div id="minibuffer" className=""></div>
+					<p>© 2025 Orga</p>
 				</footer>
+				<script type="module" src="/layout.js" />
 			</body>
 		</html>
 	)
@@ -41,8 +44,8 @@ export default function Layout({ title, pages, children }: LayoutProps) {
 
 export function DocumentLayout({ title, pages, children }) {
 	return (
-		<div className="flex h-full">
-			<aside className="w-64 bg-gray-50 p-4 border-r">
+		<div className="flex h-full w-full">
+			<aside className="w-64 bg-gray-50 p-4 border-r h-full overflow-y-auto">
 				<ul>
 					{pages
 						.sort((a, b) => a.position - b.position)
@@ -67,5 +70,9 @@ export function DocumentLayout({ title, pages, children }) {
 }
 
 function Content({ children }) {
-	return <article className="prose p-4">{children}</article>
+	return (
+		<div className="overflow-auto h-full w-full">
+			<article className="prose p-4">{children}</article>
+		</div>
+	)
 }

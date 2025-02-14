@@ -1,41 +1,41 @@
 {
-  "name": "orga-posts",
-  "version": "3.3.0",
-  "description": "",
-  "files": [
-    "dist"
-  ],
-  "main": "dist/index.js",
-  "type": "module",
-  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/orgapp/orgajs.git",
-    "directory": "packages/orga-posts"
-  },
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build"
-  },
-  "keywords": [
-    "org-mode",
-    "post",
-    "blog"
-  ],
-  "dependencies": {
-    "@orgajs/reorg-rehype": "workspace:*",
-    "lodash": "^4.17.21",
-    "orga": "workspace:*",
-    "rehype-highlight": "^7.0.1",
-    "rehype-stringify": "^10.0.1",
-    "unified": "^11.0.5",
-    "unist-util-select": "^5.1.0",
-    "unist-util-visit": "^5.0.0",
-    "unist-util-visit-parents": "^6.0.1"
-  },
-  "devDependencies": {
-    "@types/hast": "^3.0.4",
-    "@types/unist": "^3.0.3"
-  }
+	"name": "orga-posts",
+	"version": "3.3.0",
+	"description": "",
+	"files": [
+		"dist"
+	],
+	"main": "dist/index.js",
+	"type": "module",
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/orgapp/orgajs.git",
+		"directory": "packages/orga-posts"
+	},
+	"scripts": {
+		"clean": "tsc --build --clean",
+		"build": "tsc --build"
+	},
+	"keywords": [
+		"org-mode",
+		"post",
+		"blog"
+	],
+	"dependencies": {
+		"@orgajs/reorg-rehype": "workspace:*",
+		"lodash": "^4.17.21",
+		"orga": "workspace:*",
+		"rehype-highlight": "^7.0.2",
+		"rehype-stringify": "^10.0.1",
+		"unified": "^11.0.5",
+		"unist-util-select": "^5.1.0",
+		"unist-util-visit": "^5.0.0",
+		"unist-util-visit-parents": "^6.0.1"
+	},
+	"devDependencies": {
+		"@types/hast": "^3.0.4",
+		"@types/unist": "^3.0.3"
+	}
 }

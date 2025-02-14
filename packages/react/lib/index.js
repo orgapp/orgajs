@@ -34,17 +34,17 @@ const OrgContext = React.createContext({})
  *   Current components.
  */
 export function useOrgComponents(components) {
-  const contextComponents = React.useContext(OrgContext)
+	const contextComponents = React.useContext(OrgContext)
 
-  // Memoize to avoid unnecessary top-level context changes
-  return React.useMemo(() => {
-    // Custom merge via a function prop
-    if (typeof components === 'function') {
-      return components(contextComponents)
-    }
+	// Memoize to avoid unnecessary top-level context changes
+	return React.useMemo(() => {
+		// Custom merge via a function prop
+		if (typeof components === 'function') {
+			return components(contextComponents)
+		}
 
-    return { ...contextComponents, ...components }
-  }, [contextComponents, components])
+		return { ...contextComponents, ...components }
+	}, [contextComponents, components])
 }
 
 /** @type {Components} */
@@ -54,24 +54,24 @@ const emptyObject = {}
  * Provider for org context
  *
  * @param {Props} props
- * @returns {JSX.Element}
+ * @returns {React.JSX.Element}
  */
 export function OrgProvider({ components, children, disableParentContext }) {
-  /** @type {Components} */
-  let allComponents
+	/** @type {Components} */
+	let allComponents
 
-  if (disableParentContext) {
-    allComponents =
-      typeof components === 'function'
-        ? components({})
-        : components || emptyObject
-  } else {
-    allComponents = useOrgComponents(components)
-  }
+	if (disableParentContext) {
+		allComponents =
+			typeof components === 'function'
+				? components({})
+				: components || emptyObject
+	} else {
+		allComponents = useOrgComponents(components)
+	}
 
-  return React.createElement(
-    OrgContext.Provider,
-    { value: allComponents },
-    children
-  )
+	return React.createElement(
+		OrgContext.Provider,
+		{ value: allComponents },
+		children
+	)
 }

@@ -1,9 +1,0 @@
----
-  import Playground from './playground.tsx'
-  import Editor from './editor.tsx'
-  const {content} = Astro.props.metadata || Astro.props;
----
-
-<div class='h-[350px] not-prose'>
-  <Editor className='h-full w-full' client:load content={content} />
-</div>
