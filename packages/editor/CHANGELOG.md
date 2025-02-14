@@ -1,5 +1,11 @@
 # @orgajs/editor
 
+## 1.2.2
+
+### Patch Changes
+
+- 2f7b62d: fix package.json file
+
 ## 1.2.1
 
 ### Patch Changes
