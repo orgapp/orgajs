@@ -1,5 +1,12 @@
 # @orgajs/docs
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [2f7b62d]
+  - @orgajs/editor@1.2.2
+
 ## 1.0.1
 
 ### Patch Changes
