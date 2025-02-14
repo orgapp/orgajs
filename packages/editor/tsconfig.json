@@ -1,9 +1,9 @@
 {
-  "extends": "../../tsconfig.types.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "jsx": "react",
-    "lib": ["dom", "esnext"]
-  },
-  "include": ["./lib", "types.d.ts"]
+	"extends": "../../tsconfig.types.json",
+	"compilerOptions": {
+		"outFile": "./index.d.ts",
+		"jsx": "react-jsx",
+		"lib": ["dom", "esnext"]
+	},
+	"include": ["index.js"]
 }
