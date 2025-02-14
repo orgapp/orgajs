@@ -59,7 +59,7 @@ Build blazing fast, modern apps and websites with React
 The React Framework
 #+end_quote
 
-Because orga is native to webpack, it's fairly simply to intergrate with nextjs. [[https://github.com/orgapp/orgajs/tree/develop/examples/next][Example project]].
+Because orga is native to webpack, it's fairly simply to intergrate with nextjs. [[https://github.com/orgapp/orgajs/tree/main/examples/next][Example project]].
 
 
 * Examples
