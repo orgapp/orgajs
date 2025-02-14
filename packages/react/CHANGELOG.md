@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.1.2
+
+### Patch Changes
+
+- e3ef3a5: build website with orga-build
+
 ## 4.1.1
 
 ### Patch Changes

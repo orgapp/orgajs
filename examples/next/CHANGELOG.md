@@ -1,5 +1,15 @@
 # Change Log
 
+## 4.1.7
+
+### Patch Changes
+
+- e3ef3a5: build website with orga-build
+- Updated dependencies [e3ef3a5]
+  - @orgajs/loader@4.3.2
+  - @orgajs/react@4.1.2
+  - @orgajs/next@6.0.0
+
 ## 4.1.6
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @orgajs/rollup
 
+## 1.2.2
+
+### Patch Changes
+
+- e3ef3a5: build website with orga-build
+- Updated dependencies [e3ef3a5]
+  - @orgajs/orgx@2.4.1
+
 ## 1.2.1
 
 ### Patch Changes

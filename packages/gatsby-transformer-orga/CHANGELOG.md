@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.3.1
+
+### Patch Changes
+
+- Updated dependencies [e3ef3a5]
+  - orga-posts@3.3.1
+
 ## 3.3.0
 
 ### Minor Changes

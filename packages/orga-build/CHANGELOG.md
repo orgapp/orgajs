@@ -1,5 +1,12 @@
 # @orgajs/build
 
+## 1.0.1
+
+### Patch Changes
+
+- e3ef3a5: build website with orga-build
+  - @orgajs/node-loader@1.0.1
+
 ## 1.0.0
 
 ### Major Changes

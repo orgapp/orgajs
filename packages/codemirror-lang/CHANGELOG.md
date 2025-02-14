@@ -1,5 +1,13 @@
 # @orgajs/cm-lang
 
+## 1.1.6
+
+### Patch Changes
+
+- e3ef3a5: build website with orga-build
+- Updated dependencies [e3ef3a5]
+  - @orgajs/lezer@1.2.1
+
 ## 1.1.5
 
 ### Patch Changes

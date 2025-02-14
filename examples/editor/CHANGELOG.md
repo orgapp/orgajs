@@ -1,5 +1,13 @@
 # @orgajs/example-editor
 
+## 0.2.1
+
+### Patch Changes
+
+- e3ef3a5: build website with orga-build
+- Updated dependencies [e3ef3a5]
+  - @orgajs/editor@1.2.1
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.3.1
+
+### Patch Changes
+
+- e3ef3a5: build website with orga-build
+
 ## 3.3.0
 
 ### Minor Changes

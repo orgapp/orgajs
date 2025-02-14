@@ -1,47 +1,47 @@
 {
-  "name": "gatsby-transformer-orga",
-  "description": "Gatsby transformer plugin for org-mode with orga",
-  "version": "3.3.0",
-  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
-  "files": [
-    "dist/*",
-    "*.js"
-  ],
-  "dependencies": {
-    "bluebird": "^3.7.2",
-    "gatsby-core-utils": "^2.15.0",
-    "hast-util-to-html": "^9.0.4",
-    "is-relative-url": "^3.0.0",
-    "mime": "^3.0.0",
-    "moment": "^2.29.4",
-    "oast-to-hast": "workspace:*",
-    "orga": "workspace:*",
-    "orga-posts": "workspace:*",
-    "rehype-stringify": "^10.0.1",
-    "unified": "11.0.5",
-    "unist-builder": "^4.0.0",
-    "unist-util-map": "^4.0.0",
-    "unist-util-select": "^5.1.0",
-    "unist-util-visit": "^5.0.0"
-  },
-  "keywords": [
-    "gatsby",
-    "gatsby-plugin",
-    "org-mode"
-  ],
-  "license": "MIT",
-  "peerDependencies": {
-    "gatsby": "^3.0.0"
-  },
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build"
-  },
-  "devDependencies": {
-    "@types/fs-extra": "^9.0.13",
-    "@types/lodash": "^4.14.197",
-    "@types/node": "^20.5.7",
-    "@types/unist": "3.0.3",
-    "gatsby": "^5.12.3"
-  }
+	"name": "gatsby-transformer-orga",
+	"description": "Gatsby transformer plugin for org-mode with orga",
+	"version": "3.3.1",
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"files": [
+		"dist/*",
+		"*.js"
+	],
+	"dependencies": {
+		"bluebird": "^3.7.2",
+		"gatsby-core-utils": "^2.15.0",
+		"hast-util-to-html": "^9.0.4",
+		"is-relative-url": "^3.0.0",
+		"mime": "^3.0.0",
+		"moment": "^2.29.4",
+		"oast-to-hast": "workspace:*",
+		"orga": "workspace:*",
+		"orga-posts": "workspace:*",
+		"rehype-stringify": "^10.0.1",
+		"unified": "11.0.5",
+		"unist-builder": "^4.0.0",
+		"unist-util-map": "^4.0.0",
+		"unist-util-select": "^5.1.0",
+		"unist-util-visit": "^5.0.0"
+	},
+	"keywords": [
+		"gatsby",
+		"gatsby-plugin",
+		"org-mode"
+	],
+	"license": "MIT",
+	"peerDependencies": {
+		"gatsby": "^3.0.0"
+	},
+	"scripts": {
+		"clean": "tsc --build --clean",
+		"build": "tsc --build"
+	},
+	"devDependencies": {
+		"@types/fs-extra": "^9.0.13",
+		"@types/lodash": "^4.14.197",
+		"@types/node": "^20.5.7",
+		"@types/unist": "3.0.3",
+		"gatsby": "^5.12.3"
+	}
 }
