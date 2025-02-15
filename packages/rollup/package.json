@@ -4,11 +4,10 @@
 	"description": "Rollup plugin for Orga",
 	"license": "MIT",
 	"files": [
-		"dist",
-		"index.js"
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
 	],
-	"main": "index.js",
-	"types": "dist/index.d.ts",
 	"type": "module",
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"homepage": "https://orga.js.org",
@@ -18,8 +17,6 @@
 		"directory": "packages/rollup"
 	},
 	"scripts": {
-		"clean": "tsc --build --clean",
-		"build": "tsc --build",
 		"test": "node --test test.js"
 	},
 	"devDependencies": {

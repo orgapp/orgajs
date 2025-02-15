@@ -29,22 +29,26 @@ const defaultConfig = {
  */
 
 /**
+ * @typedef {import('react').ComponentType<any>} Layout
+ */
+
+/**
  * @typedef {string | RegExp} Pattern
  */
 
 /**
  * @typedef {Object} BuildContext
  * @property {import('@orgajs/orgx').OrgComponents} [components] - The components from the org file
- * @property {import('react').ComponentType<any>} [Layout] - The layout component
+ * @property {Layout | undefined} [Layout] - The layout component
  * @property {Pattern | Pattern[]} [ignore] - The ignore pattern
- * @property {(page: Page & { Layout?: import('react').ComponentType, components: Record<string, any> }) => Promise<void>} build - The build function
+ * @property {(page: Page & { Layout?: Layout, components: Record<string, any> }) => Promise<void>} build - The build function
  * @property {(filePath: string, metadata: Record<string, any>) => string} buildHref - The build function
  */
 
 /**
  * Recursively processes a directory to build pages from .org files
  * @param {string} dirPath - The directory path to process
- * @param {BuildContext} [context={}] - Build context containing components, layout, and build function
+ * @param {BuildContext} context - Build context containing components, layout, and build function
  * @returns {Promise<void>}
  */
 async function iter(dirPath, context) {
@@ -73,10 +77,11 @@ async function iter(dirPath, context) {
 		if (match(file, /(.|_)layout.(j|t)sx/)) {
 			const InnerLayout = (await _import(filePath)).default
 			if (!InnerLayout) continue
-			if (context.Layout) {
+			if (Layout !== undefined) {
+				const OuterLayout = Layout
 				Layout = function Layout(/** @type {any} */ props) {
 					return createElement(
-						context.Layout,
+						OuterLayout,
 						props,
 						createElement(InnerLayout, props)
 					)
@@ -121,7 +126,7 @@ async function iter(dirPath, context) {
 					...page.metadata,
 					pages: pages.map((p) => ({ ...p.metadata, slug: p.slug })),
 				},
-				Layout,
+				Layout: Layout || DefaultLayout,
 				components,
 			})
 		)
@@ -230,4 +235,14 @@ async function $(cmd) {
 			resolve(stdout)
 		})
 	})
+}
+
+/**
+ * Default layout
+ * @param {Object} props
+ * @param {import('react').ReactNode} props.children
+ * @returns {React.JSX.Element}
+ */
+function DefaultLayout({ children }) {
+	return createElement('html', {}, createElement('body', {}, children))
 }

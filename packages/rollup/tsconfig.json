@@ -1,6 +1,3 @@
 {
-  "extends": "../../tsconfig.types.json",
-  "compilerOptions": { "outDir": "dist" },
-  "include": ["index.js"],
-  "exclude": ["node_modules/"]
+	"extends": "../../tsconfig.json"
 }

@@ -33,25 +33,30 @@ import { SourceMapGenerator } from 'source-map'
  *   Rollup plugin.
  */
 export default function (options) {
-  const { include, exclude, ...rest } = options || {}
-  const processor = createProcessor({
-    SourceMapGenerator,
-    ...rest,
-  })
-  const filter = createFilter(include, exclude)
+	const { include, exclude, ...rest } = options || {}
+	const processor = createProcessor({
+		SourceMapGenerator,
+		...rest,
+	})
+	const filter = createFilter(include, exclude)
 
-  return {
-    name: '@orgajs/rollup',
-    async transform(value, path) {
-      const file = new VFile({ value, path })
+	return {
+		name: '@orgajs/rollup',
+		async transform(value, path) {
+			const file = new VFile({ value, path })
 
-      if (file.extname === '.org' && filter(file.path)) {
-        const compiled = await processor.process(file)
-        const code = String(compiled.value)
-        /** @type {SourceDescription} */
-        const result = { code, map: compiled.map }
-        return result
-      }
-    },
-  }
+			if (file.extname === '.org' && filter(file.path)) {
+				const compiled = await processor.process(file)
+				const code = String(compiled.value)
+				/** @type {SourceDescription} */
+				const result = {
+					code,
+					// @ts-expect-error: `rollup` is not compiled with `exactOptionalPropertyTypes`,
+					// so it does not allow `sourceRoot` in `file.map` to be `undefined` here.
+					map: compiled.map,
+				}
+				return result
+			}
+		},
+	}
 }

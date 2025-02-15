@@ -5,7 +5,7 @@ import http from 'http'
  * @param {string} dir
  */
 export function serve(dir, port = 3000) {
-	/* @type {import('http').Server | null} */
+	/** @type {import('http').Server | null} */
 	let server = null
 
 	function start() {
@@ -20,8 +20,8 @@ export function serve(dir, port = 3000) {
 	}
 
 	function stop() {
-		server.close()
-		server.on('close', () => {
+		server?.close()
+		server?.on('close', () => {
 			server = null
 			return Promise.resolve()
 		})

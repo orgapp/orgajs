@@ -6,7 +6,6 @@
  */
 
 import { toProse } from 'oast-to-prose'
-export { schema } from 'oast-to-prose'
 
 /**
  *
@@ -16,15 +15,15 @@ export { schema } from 'oast-to-prose'
  *   Transform.
  */
 export default function reorgProse(options) {
-  /**
-   * @param {OastRoot} tree
-   *   Tree (hast).
-   * @param {VFile} file
-   *   File.
-   * @returns {ProseNode}
-   *   Prose Node.
-   */
-  return function (tree, file) {
-    return /** @type {ProseNode} */ (toProse(tree, file, options))
-  }
+	/**
+	 * @param {OastRoot} tree
+	 *   Tree (hast).
+	 * @param {VFile} file
+	 *   File.
+	 * @returns {ProseNode}
+	 *   Prose Node.
+	 */
+	return function (tree, file) {
+		return /** @type {ProseNode} */ toProse(tree, file, options)
+	}
 }

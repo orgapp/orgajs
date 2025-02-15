@@ -2,7 +2,8 @@ export function buildNav() {}
 
 /**
  * @param {string} file
- * @param {import("./build").Pattern | import("./build").Pattern[]} pattern
+ * @param {import("./build.js").Pattern | import("./build.js").Pattern[]} pattern
+ * @returns {boolean}
  */
 export function match(file, pattern) {
 	if (Array.isArray(pattern)) {

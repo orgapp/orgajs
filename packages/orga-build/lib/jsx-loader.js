@@ -2,17 +2,20 @@ import fs from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { transform } from 'esbuild'
 
-const loaderMap = {
-	jsx: 'jsx',
-	tsx: 'tsx',
-	ts: 'ts',
-}
-
+/**
+ * @param {string} href
+ *   URL.
+ * @param {unknown} context
+ *   Context.
+ * @param {Function} defaultLoad
+ *   Default `load`.
+ * @returns
+ *   Result.
+ */
 export async function load(href, context, defaultLoad) {
 	const url = new URL(href)
 
-	const ext = url.pathname.split('.').pop()
-	const loader = loaderMap[ext]
+	const loader = getLoader(url.pathname)
 	if (!loader) {
 		return defaultLoad(href, context, defaultLoad)
 	}
@@ -34,4 +37,22 @@ export async function load(href, context, defaultLoad) {
 	}
 
 	return { format: 'module', shortCircuit: true, source: code }
+}
+
+/**
+ * @param {string} filename
+ * @returns {import('esbuild').Loader | null}
+ */
+function getLoader(filename) {
+	const ext = filename.split('.').pop()
+	switch (ext) {
+		case 'jsx':
+			return 'jsx'
+		case 'tsx':
+			return 'tsx'
+		case 'ts':
+			return 'ts'
+		default:
+			return null
+	}
 }

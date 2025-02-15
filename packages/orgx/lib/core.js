@@ -56,49 +56,49 @@ import { recmaBuildJsxTransform } from './plugin/recma-build-jsx-transform.js'
 
  */
 export function createProcessor(options) {
-  const {
-    development,
-    jsx,
-    outputFormat,
-    providerImportSource,
-    recmaPlugins,
-    rehypePlugins,
-    reorgPlugins,
-    reorgRehypeOptions,
-    elementAttributeNameCase,
-    stylePropertyNameCase,
-    SourceMapGenerator,
-    ...rest
-  } = options || {}
-  const dev = development ?? false
+	const {
+		development,
+		jsx,
+		outputFormat,
+		providerImportSource,
+		recmaPlugins,
+		rehypePlugins,
+		reorgPlugins,
+		reorgRehypeOptions,
+		elementAttributeNameCase,
+		stylePropertyNameCase,
+		SourceMapGenerator,
+		...rest
+	} = options || {}
+	const dev = development ?? false
 
-  const pipeline = unified()
-    .use(reorgParse)
-    .use(reorgPlugins || [])
-    .use(reorgRehype, {
-      ...reorgRehypeOptions,
-      allowDangerousHtml: true,
-    })
-    .use(rehypePlugins || [])
-    .use(rehypeRecma, { elementAttributeNameCase, stylePropertyNameCase })
-    .use(recmaDocument, { ...rest, outputFormat })
-    .use(recmaJsxRewrite, {
-      development: dev,
-      providerImportSource,
-      outputFormat,
-    })
+	const pipeline = unified()
+		.use(reorgParse)
+		.use(reorgPlugins || [])
+		.use(reorgRehype, {
+			...reorgRehypeOptions,
+			allowDangerousHtml: true,
+		})
+		.use(rehypePlugins || [])
+		.use(rehypeRecma, { elementAttributeNameCase, stylePropertyNameCase })
+		.use(recmaDocument, { ...rest, outputFormat })
+		.use(recmaJsxRewrite, {
+			development: dev,
+			providerImportSource,
+			outputFormat,
+		})
 
-  if (!jsx) {
-    pipeline
-      .use(recmaBuildJsx, { development: dev, outputFormat })
-      .use(recmaBuildJsxTransform, { outputFormat })
-  }
+	if (!jsx) {
+		pipeline
+			.use(recmaBuildJsx, { development: dev, outputFormat })
+			.use(recmaBuildJsxTransform, { outputFormat })
+	}
 
-  pipeline
-    .use(recmaJsx)
-    .use(recmaStringify, { SourceMapGenerator })
-    .use(recmaPlugins || [])
+	pipeline
+		.use(recmaJsx)
+		.use(recmaStringify, { SourceMapGenerator })
+		.use(recmaPlugins || [])
 
-  // @ts-expect-error: TS doesn’t get the plugins we added with if-statements.
-  return pipeline
+	// @ts-expect-error: TS doesn’t get the plugins we added with if-statements.
+	return pipeline
 }

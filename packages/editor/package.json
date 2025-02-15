@@ -4,14 +4,12 @@
 	"type": "module",
 	"files": [
 		"lib/",
+		"index.js",
 		"index.d.ts",
-		"index.js"
+		"index.d.ts.map"
 	],
 	"description": "react org-mode editor based on prose-mirror",
-	"scripts": {
-		"clean": "tsc --build --clean",
-		"build": "tsc --build"
-	},
+	"scripts": {},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/orgapp/orgajs.git",

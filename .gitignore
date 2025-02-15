@@ -100,4 +100,8 @@ typings/
 # build artifacts
 dist
 *.tsbuildinfo
-packages/rollup/**/*.d.ts
+
+*.d.ts
+*.d.ts.map
+!packages/reorg-parse/index.d.ts
+!packages/loader/index.d.ts

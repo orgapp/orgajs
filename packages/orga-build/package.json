@@ -8,6 +8,13 @@
 		"orga-build": "cli.js"
 	},
 	"scripts": {},
+	"files": [
+		"lib/",
+		"cli.js",
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
+	],
 	"keywords": [
 		"orgajs",
 		"build",
@@ -25,6 +32,10 @@
 		"serve-handler": "^6.1.6"
 	},
 	"devDependencies": {
-		"@types/node": "^22.13.1"
+		"@orgajs/orgx": "workspace:^",
+		"@types/node": "^22.13.1",
+		"@types/react": "^19.0.8",
+		"@types/react-dom": "^19.0.3",
+		"@types/serve-handler": "^6.1.4"
 	}
 }

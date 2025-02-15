@@ -1,3 +1,30 @@
 {
-  "extends": "./tsconfig.esm.json"
+	"compilerOptions": {
+		"checkJs": true,
+		"declaration": true,
+		"declarationMap": true,
+		"emitDeclarationOnly": true,
+		"exactOptionalPropertyTypes": true,
+		"jsx": "preserve",
+		"lib": ["esnext", "dom"],
+		"module": "node16",
+		"moduleResolution": "node16",
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "esnext"
+	},
+	"exclude": ["**/coverage/", "**/node_modules/", "**/tests/"],
+	"include": [
+		"packages/reorg-rehype/**/*.js",
+		"packages/orgx/**/*.js",
+		"packages/oast-to-prose/**/*.js",
+		"packages/reorg-prose/**/*.js",
+		"packages/lezer/**/*.js",
+		"packages/codemirror-lang/**/*.js",
+		"packages/editor/**/*.js",
+		"packages/react/**/*.js",
+		"packages/rollup/**/*.js",
+		"packages/orga-build/**/*.js",
+		"packages/astro/**/*.js"
+	]
 }
