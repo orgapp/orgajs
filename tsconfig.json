@@ -15,6 +15,7 @@
 	},
 	"exclude": ["**/coverage/", "**/node_modules/", "**/tests/"],
 	"include": [
+		"packages/metadata/**/*.js",
 		"packages/reorg-rehype/**/*.js",
 		"packages/orgx/**/*.js",
 		"packages/oast-to-prose/**/*.js",
