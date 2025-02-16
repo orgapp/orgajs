@@ -27,6 +27,7 @@
 		"packages/react/**/*.js",
 		"packages/node-loader/**/*.js",
 		"packages/rollup/**/*.js",
+		"packages/next/**/*.js",
 		"packages/orga-build/**/*.js",
 		"packages/astro/**/*.js"
 	]
