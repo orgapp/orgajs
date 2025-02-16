@@ -1,5 +1,7 @@
-const withOrga = require('@orgajs/next').default({})
+import orga from '@orgajs/next'
 
-module.exports = withOrga({
-  pageExtensions: ['js', 'jsx', 'tsx', 'org'],
+const withOrga = orga({})
+
+export default withOrga({
+	pageExtensions: ['js', 'jsx', 'tsx', 'org'],
 })

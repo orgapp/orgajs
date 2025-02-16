@@ -17,6 +17,7 @@
 		"index.d.ts",
 		"index.d.ts.map"
 	],
+	"exports": "./index.js",
 	"scripts": {
 		"test": "node --test --no-warnings tests/*.js"
 	},

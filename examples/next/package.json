@@ -2,6 +2,7 @@
 	"name": "@orgajs/example-next",
 	"version": "4.1.7",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",

@@ -2,7 +2,6 @@
 	"name": "@orgajs/metadata",
 	"version": "2.2.0",
 	"description": "extract metadata info from org file",
-	"main": "dist/index.js",
 	"type": "module",
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"license": "MIT",
@@ -18,6 +17,7 @@
 		"index.d.ts",
 		"index.d.ts.map"
 	],
+	"exports": "./index.js",
 	"scripts": {
 		"test": "node --test --no-warnings tests/test.js"
 	},

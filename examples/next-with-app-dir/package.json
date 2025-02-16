@@ -2,6 +2,7 @@
 	"name": "@orgajs/example-next-app-dir",
 	"version": "1.2.1",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
@@ -19,6 +20,8 @@
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"rehype-pretty-code": "^0.14.0",
-		"typescript": "5.7.3"
+		"shiki": "^2.4.1",
+		"typescript": "5.7.3",
+		"unist-util-visit": "^5.0.0"
 	}
 }

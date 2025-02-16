@@ -19,7 +19,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ** Import org-mode files as react components
 
-#+begin_src javascript
+#+begin_src js
 import Content from './content.org'
 export default function Home() {
   return (
@@ -40,7 +40,7 @@ You need the reference in =orgx.d.ts= file to get TypeScript typing for org file
 
 You can render react components directly in your org file like so:
 
-#+begin_src org
+#+begin_src js
 ,#+begin_export jsx
 <div style={{
   backgroundColor: 'tomato',
