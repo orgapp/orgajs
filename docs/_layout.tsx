@@ -10,6 +10,12 @@ export default function Layout({ title, children }: LayoutProps) {
 		<html>
 			<head>
 				<title>{title}</title>
+				<link
+					rel="stylesheet"
+					href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+					integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib"
+					crossOrigin="anonymous"
+				/>
 				<link href="/style.css" rel="stylesheet" />
 			</head>
 			<body className="flex flex-col h-screen">

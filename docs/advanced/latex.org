@@ -2,6 +2,7 @@
 #+published: true
 #+position: 203
 
+
 ** Inline Math
 Orgajs supports inline math with latex math delimiters.
 
@@ -32,7 +33,3 @@ x=\sqrt{b}
 ** Styling
 
 =@orgajs/rehype-latex= is the plugin for handling latex. It uses [[https://katex.org][katex]] underneath, so you will have to add the css link yourself in your website. Add the following to the =head=.
-
-#+begin_src html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.css" integrity="sha384-ysFyB7Is//Q1JNgERb0bLJokXKM8eWJsjEutGvthoHtBilHWgbdmbYkQZdwCIGIq" crossorigin="anonymous">
-#+end_src

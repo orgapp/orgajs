@@ -9,7 +9,7 @@ import assert from 'node:assert'
 import { match } from './util.js'
 
 register('./jsx-loader.js', import.meta.url)
-register('@orgajs/node-loader', import.meta.url)
+register('./orga-loader.js', import.meta.url)
 register('./raw-loader.js', import.meta.url)
 
 const defaultConfig = {
