@@ -25,6 +25,7 @@
 		"packages/codemirror-lang/**/*.js",
 		"packages/editor/**/*.js",
 		"packages/react/**/*.js",
+		"packages/node-loader/**/*.js",
 		"packages/rollup/**/*.js",
 		"packages/orga-build/**/*.js",
 		"packages/astro/**/*.js"

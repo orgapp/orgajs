@@ -3,9 +3,11 @@
 	"version": "1.0.1",
 	"description": "",
 	"type": "module",
-	"exports": "./index.js",
 	"files": [
-		"index.js"
+		"lib",
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
 	],
 	"scripts": {},
 	"keywords": [],

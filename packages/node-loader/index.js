@@ -1,14 +1,38 @@
+/**
+ * @import {LoadFnOutput, LoadHook, LoadHookContext} from 'node:module'
+ * @import {ProcessorOptions} from '@orgajs/orgx'
+ */
+
+/**
+ * @typedef {Parameters<LoadHook>[2]} NextLoad
+ *   Next.
+ *
+ * @typedef {ProcessorOptions} Options
+ *   Configuration.
+ *
+ */
+
 import fs from 'node:fs/promises'
 import { reporter } from 'vfile-reporter'
 import { VFile } from 'vfile'
 import { createProcessor } from '@orgajs/orgx'
 
+/**
+ * Create Node.js hooks to handle org files.
+ *
+ * @param {Readonly<Options> | null | undefined} [loaderOptions]
+ *   Configuration (optional).
+ * @returns
+ *   Node.js hooks.
+ */
 export function createLoader(loaderOptions) {
-	/** @type {Settings} */
 	let settings = configure(loaderOptions || {})
 
 	return { initialize, load }
 
+	/**
+	 * @param {Readonly<Options> | null | undefined} options
+	 */
 	async function initialize(options) {
 		settings = configure({ ...loaderOptions, ...options })
 	}
@@ -53,12 +77,19 @@ export function createLoader(loaderOptions) {
 	}
 }
 
+/**
+ * @param {Options} options
+ */
 function configure(options) {
 	const processor = createProcessor({
 		development: true,
 		...options,
 		// SourceMapGenerator,
 	})
+
+	/**
+	 * @param {import('vfile').Compatible} file
+	 */
 	function compile(file) {
 		return processor.process(file)
 	}
