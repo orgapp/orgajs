@@ -1,5 +1,5 @@
 /**
- * @import {Document as OastRoot} from 'orga'
+ * @import {Document} from 'orga'
  * @import {Root as HastRoot} from 'hast'
  * @import {VFile} from 'vfile'
  *
@@ -9,7 +9,7 @@
  *  Mutate-mode.
  *
  *  Further transformers run on the hast tree.
- * @param {OastRoot} tree
+ * @param {Document} tree
  *   Tree.
  * @param {VFile} file
  *   File.
@@ -30,7 +30,7 @@ function reorg2rehype(options = {}) {
 	 * @type {TransformMutate}
 	 */
 	function transformer(tree) {
-		return toHAST(tree, options)
+		return /** @type {HastRoot} */ (toHAST(tree, options))
 	}
 }
 
