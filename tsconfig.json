@@ -13,22 +13,15 @@
 		"strict": true,
 		"target": "esnext"
 	},
-	"exclude": ["**/coverage/", "**/node_modules/", "**/tests/"],
-	"include": [
-		"packages/metadata/**/*.js",
-		"packages/text-kit/**/*.js",
-		"packages/reorg-rehype/**/*.js",
-		"packages/orgx/**/*.js",
-		"packages/oast-to-prose/**/*.js",
-		"packages/reorg-prose/**/*.js",
-		"packages/lezer/**/*.js",
-		"packages/codemirror-lang/**/*.js",
-		"packages/editor/**/*.js",
-		"packages/react/**/*.js",
-		"packages/node-loader/**/*.js",
-		"packages/rollup/**/*.js",
-		"packages/next/**/*.js",
-		"packages/orga-build/**/*.js",
-		"packages/astro/**/*.js"
-	]
+	"exclude": [
+		"**/coverage/",
+		"**/node_modules/",
+		"**/tests/",
+		"**/dist/",
+		"./packages/reorg-parse/",
+		"./packages/reorg/",
+		"./packages/loader/",
+		"lab"
+	],
+	"include": ["packages/**/*.js"]
 }

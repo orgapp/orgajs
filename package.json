@@ -21,13 +21,13 @@
 		"prettier": "^2.8.8",
 		"turbo": "^1.10.13",
 		"type-coverage": "^2.29.7",
-		"typescript": "^5.7.3"
+		"typescript": "^5.7.3",
+		"xo": "^0.60.0"
 	},
 	"scripts": {
-		"clean": "turbo run clean --filter='./packages/*'",
-		"build": "turbo run build --filter='./packages/*' --filter=docs",
+		"build": "turbo run build --filter='./packages/*' && tsc --build --clean && tsc --build && type-coverage",
 		"test": "turbo run test --filter='./packages/*'",
-		"lint": "eslint packages --ext js,jsx,ts,tsx",
+		"lint": "xo packages/**/*.js",
 		"format": "prettier --write .",
 		"changeset": "changeset",
 		"ci:version": "changeset version",
