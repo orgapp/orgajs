@@ -24,20 +24,20 @@ import { handlers } from './handlers.js'
  * @returns {ParseState}
  */
 function createParseState(file, nodeSet) {
-  /** @type {ParseState} */
-  const state = {
-    file,
-    ignore: ['section', 'newline', 'emptyLine'],
-    nodeSet: nodeSet,
-    handlers,
-    one(node, parent, base = 0) {
-      return one(this, node, parent, base)
-    },
-    all(parent, base) {
-      return all(this, parent, base)
-    },
-  }
-  return state
+	/** @type {ParseState} */
+	const state = {
+		file,
+		ignore: ['section', 'newline', 'emptyLine'],
+		nodeSet: nodeSet,
+		handlers,
+		one(node, parent, base = 0) {
+			return one(this, node, parent, base)
+		},
+		all(parent, base) {
+			return all(this, parent, base)
+		},
+	}
+	return state
 }
 
 /**
@@ -47,20 +47,20 @@ function createParseState(file, nodeSet) {
  * @returns {import('@lezer/common').Tree}
  */
 export function toLezer(tree, nodeSet, file = null) {
-  // TODO: inject gaps
-  const state = createParseState(file, nodeSet)
-  const result = state.one(tree)
-  if (!result) {
-    throw new Error('no result')
-  }
-  const t = result.nodes[0]
-  return t
+	// TODO: inject gaps
+	const state = createParseState(file, nodeSet)
+	const result = state.one(tree)
+	if (!result) {
+		throw new Error('no result')
+	}
+	const t = result.nodes[0]
+	return t
 }
 
 /** @type {import('./types.js').Handler} */
-const defaultUnknownHandler = (state, n) => {
-  console.log('unknown node', n.type, n)
-  return true
+function defaultUnknownHandler() {
+	// console.log('unknown node', n.type, n)
+	return true
 }
 
 /**
@@ -68,9 +68,9 @@ const defaultUnknownHandler = (state, n) => {
  * @returns {[number, number]}
  */
 function getRange(node) {
-  const start = node.position?.start.offset || 0
-  const end = node.position?.end.offset || 0
-  return [start, end - start]
+	const start = node.position?.start.offset || 0
+	const end = node.position?.end.offset || 0
+	return [start, end - start]
 }
 
 /**
@@ -81,35 +81,39 @@ function getRange(node) {
  * @returns {{nodes: LezerTree[], positions: number[]} | null | undefined}}
  */
 function one(state, node, parent, base = 0) {
-  if (state.ignore.includes(node.type)) {
-    return state.all(node, base)
-  }
+	if (state.ignore.includes(node.type)) {
+		return state.all(node, base)
+	}
 
-  const handler = state.handlers[node.type] || defaultUnknownHandler
-  const seed = handler(state, node, parent)
+	const handler = state.handlers[node.type] || defaultUnknownHandler
+	const seed = handler(state, node, parent)
 
-  if (typeof seed === 'boolean') {
-    if (seed) {
-      return state.all(node, base)
-    }
-    return null
-  }
+	if (typeof seed === 'boolean') {
+		if (seed) {
+			return state.all(node, base)
+		}
+		return null
+	}
 
-  const [id, skip] =
-    typeof seed === 'number' ? [seed, false] : [seed.id, seed.skip]
+	const [id, skip] =
+		typeof seed === 'number' ? [seed, false] : [seed.id, seed.skip]
 
-  const [loc, len] = getRange(node)
-  const pos = loc - base
-  const { nodes, positions } = !skip
-    ? state.all(node, loc)
-    : {
-        nodes: [],
-        positions: [],
-      }
+	const [loc, len] = getRange(node)
+	const pos = loc - base
 
-  const tree = new Tree(state.nodeSet.types[id], nodes, positions, len)
-  const result = { nodes: [tree], positions: [pos] }
-  return result
+	/** @type {Tree[]} */
+	let nodes = []
+	/** @type {number[]} */
+	let positions = []
+	if (!skip) {
+		const result = state.all(node, loc)
+		nodes = result.nodes
+		positions = result.positions
+	}
+
+	const tree = new Tree(state.nodeSet.types[id], nodes, positions, len)
+	const result = { nodes: [tree], positions: [pos] }
+	return result
 }
 
 /**
@@ -119,25 +123,25 @@ function one(state, node, parent, base = 0) {
  * @returns {{nodes: LezerTree[], positions: number[]}}}
  */
 function all(state, parent, base) {
-  /** @type {Array<LezerTree>} */
-  const _nodes = []
-  /** @type {Array<number>} */
-  const _positions = []
+	/** @type {Array<LezerTree>} */
+	const _nodes = []
+	/** @type {Array<number>} */
+	const _positions = []
 
-  if ('children' in parent) {
-    let index = -1
-    while (++index < parent.children.length) {
-      const node = parent.children[index]
-      const { nodes, positions } = state.one(node, parent, base) || {
-        nodes: [],
-        positions: [],
-      }
-      _nodes.push(...nodes)
-      _positions.push(...positions)
-    }
-  }
-  return {
-    nodes: _nodes,
-    positions: _positions,
-  }
+	if ('children' in parent) {
+		let index = -1
+		while (++index < parent.children.length) {
+			const node = parent.children[index]
+			const { nodes, positions } = state.one(node, parent, base) || {
+				nodes: [],
+				positions: [],
+			}
+			_nodes.push(...nodes)
+			_positions.push(...positions)
+		}
+	}
+	return {
+		nodes: _nodes,
+		positions: _positions,
+	}
 }

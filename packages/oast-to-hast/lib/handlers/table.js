@@ -1,5 +1,5 @@
 /**
- * @import {Element} from 'hast'
+ * @import {Element,ElementContent} from 'hast'
  * @import {Table,TableCell,TableRow} from 'orga'
  * @import {State} from '../state.js'
  */
@@ -11,40 +11,52 @@
  */
 export function table(state, node) {
 	const rows = state.all(node)
-	const firstRow = rows.shift()
-	/** @type {Element[]} */
+	const hrIndex = rows.findIndex(
+		(row) => row.type === 'element' && row.tagName === 'hr'
+	)
+
+	/** @type {ElementContent[]} */
+	let headRows = []
+	/** @type {ElementContent[]} */
+	const bodyRows = []
+	rows.forEach((row, i) => {
+		if (i < hrIndex) {
+			headRows.push(row)
+		} else if (i > hrIndex) {
+			bodyRows.push(row)
+		}
+	})
+
+	/** @type {ElementContent[]} */
 	const tableContent = []
-	if (firstRow) {
-		/** @type {Element} */
-		const head = {
+
+	if (headRows.length > 0) {
+		tableContent.push({
 			type: 'element',
 			tagName: 'thead',
 			properties: {},
-			children: [firstRow],
-		}
-
-		tableContent.push(head)
+			children: headRows,
+		})
 	}
 
-	if (rows.length > 0) {
-		/** @type {Element} */
-		const body = {
+	if (bodyRows.length > 0) {
+		tableContent.push({
 			type: 'element',
 			tagName: 'tbody',
 			properties: {},
-			children: rows,
-		}
-
-		tableContent.push(body)
+			children: bodyRows,
+		})
 	}
 
-	const caption = `${node.attributes.caption}`
-	tableContent.push({
-		type: 'element',
-		tagName: 'caption',
-		properties: {},
-		children: [{ type: 'text', value: caption }],
-	})
+	const caption = node.attributes.caption
+	if (caption) {
+		tableContent.push({
+			type: 'element',
+			tagName: 'caption',
+			properties: {},
+			children: [{ type: 'text', value: `${caption}` }],
+		})
+	}
 
 	return {
 		type: 'element',
@@ -59,7 +71,7 @@ export function table(state, node) {
  * @param {TableRow} node
  * @returns {Element}
  */
-export function tableRow(state, node) {
+export function row(state, node) {
 	return {
 		type: 'element',
 		tagName: 'tr',
@@ -73,11 +85,23 @@ export function tableRow(state, node) {
  * @param {TableCell} node
  * @returns {Element}
  */
-export function tableCell(state, node) {
+export function cell(state, node) {
 	return {
 		type: 'element',
 		tagName: 'td',
 		properties: {},
 		children: state.all(node),
+	}
+}
+
+/**
+ * @returns {Element}
+ */
+export function hr() {
+	return {
+		type: 'element',
+		tagName: 'hr',
+		properties: {},
+		children: [],
 	}
 }

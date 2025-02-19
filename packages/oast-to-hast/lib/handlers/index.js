@@ -10,7 +10,12 @@ import { section } from './section.js'
 import { hr } from './hr.js'
 import { checkbox, list, item as listItem } from './list.js'
 import { footnote, footnoteRef } from './footnote.js'
-import { table, tableCell, tableRow } from './table.js'
+import {
+	table,
+	cell as tableCell,
+	row as tableRow,
+	hr as tableHr,
+} from './table.js'
 import { document } from './document.js'
 
 /**
@@ -37,7 +42,7 @@ export const handlers = {
 	table,
 	'table.row': tableRow,
 	'table.cell': tableCell,
-	'table.hr': ignore,
+	'table.hr': tableHr,
 	html,
 	jsx: passThrough,
 	drawer: ignore,
