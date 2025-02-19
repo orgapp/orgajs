@@ -60,16 +60,17 @@ export function createLoader(loaderOptions) {
 			if (file.messages.length > 0) {
 				console.error(reporter(file))
 			}
+
 			let source = String(file)
-			// source +=
-			//   '\n//# sourceMappingURL=data:application/json;base64,' +
-			//   Buffer.from(JSON.stringify(file.map)).toString('base64') +
-			//   '\n'
+			source +=
+				'\n//# sourceMappingURL=data:application/json;base64,' +
+				Buffer.from(JSON.stringify(file.map)).toString('base64') +
+				'\n'
 
 			return {
 				format: 'module',
 				shortCircuit: true,
-				source,
+				source
 			}
 		}
 
@@ -83,7 +84,7 @@ export function createLoader(loaderOptions) {
 function configure(options) {
 	const processor = createProcessor({
 		development: true,
-		...options,
+		...options
 		// SourceMapGenerator,
 	})
 

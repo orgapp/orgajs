@@ -3,8 +3,5 @@
  */
 
 export { handlers as defaultHandlers } from './lib/handlers/index.js'
-import { toHast } from './lib/index.js'
 
-export { toHast }
-
-export default toHast
+export { toHast, toHast as default } from './lib/index.js'

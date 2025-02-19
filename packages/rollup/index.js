@@ -32,11 +32,11 @@ import { SourceMapGenerator } from 'source-map'
  * @return {Plugin}
  *   Rollup plugin.
  */
-export default function (options) {
+export default function rollup(options) {
 	const { include, exclude, ...rest } = options || {}
 	const processor = createProcessor({
 		SourceMapGenerator,
-		...rest,
+		...rest
 	})
 	const filter = createFilter(include, exclude)
 
@@ -53,10 +53,10 @@ export default function (options) {
 					code,
 					// @ts-expect-error: `rollup` is not compiled with `exactOptionalPropertyTypes`,
 					// so it does not allow `sourceRoot` in `file.map` to be `undefined` here.
-					map: compiled.map,
+					map: compiled.map
 				}
 				return result
 			}
-		},
+		}
 	}
 }

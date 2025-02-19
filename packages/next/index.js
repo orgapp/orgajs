@@ -17,8 +17,8 @@ const plugin =
 			loader: '@orgajs/loader',
 			options: {
 				providerImportSource: 'next-orga-import-source-file',
-				...options,
-			},
+				...options
+			}
 		}
 
 		return Object.assign({}, nextConfig, {
@@ -26,11 +26,11 @@ const plugin =
 				config.resolve.alias['next-orga-import-source-file'] = [
 					'private-next-root-dir/src/org-components',
 					'private-next-root-dir/org-components',
-					'@orgajs/react',
+					'@orgajs/react'
 				]
 				config.module.rules.push({
 					test: extension,
-					use: [options.defaultLoaders.babel, loader],
+					use: [options.defaultLoaders.babel, loader]
 				})
 
 				if (typeof nextConfig.webpack === 'function') {
@@ -38,7 +38,7 @@ const plugin =
 				}
 
 				return config
-			},
+			}
 		})
 	}
 

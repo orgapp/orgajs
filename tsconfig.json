@@ -20,8 +20,7 @@
 		"**/dist/",
 		"./packages/reorg-parse/",
 		"./packages/reorg/",
-		"./packages/loader/",
-		"lab"
+		"./packages/loader/"
 	],
 	"include": ["packages/**/*.js"]
 }

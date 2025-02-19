@@ -20,7 +20,7 @@ import { parse } from 'orga'
  *   Nothing.
  */
 export default function reorgParse(options) {
-	this.parser = function (doc) {
-		return parse(doc, options)
+	this.parser = function (document) {
+		return parse(document, options)
 	}
 }
