@@ -15,6 +15,7 @@
 import fs from 'node:fs/promises'
 import { reporter } from 'vfile-reporter'
 import { VFile } from 'vfile'
+import { SourceMapGenerator } from 'source-map'
 import { createProcessor } from '@orgajs/orgx'
 
 /**
@@ -84,8 +85,8 @@ export function createLoader(loaderOptions) {
 function configure(options) {
 	const processor = createProcessor({
 		development: true,
-		...options
-		// SourceMapGenerator,
+		...options,
+		SourceMapGenerator
 	})
 
 	/**

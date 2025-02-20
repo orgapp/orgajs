@@ -429,6 +429,9 @@ importers:
       '@orgajs/orgx':
         specifier: workspace:^
         version: link:../orgx
+      source-map:
+        specifier: ^0.7.4
+        version: 0.7.4
       vfile:
         specifier: ^6.0.3
         version: 6.0.3
@@ -450,12 +453,6 @@ importers:
       parse5:
         specifier: ^7.1.2
         version: 7.2.1
-      prismjs:
-        specifier: ^1.29.0
-        version: 1.29.0
-      unist-builder:
-        specifier: ^4.0.0
-        version: 4.0.0
       unist-util-position:
         specifier: ^5.0.0
         version: 5.0.0
@@ -6682,9 +6679,6 @@ packages:
 
   unified@11.0.5:
     resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
-
-  unist-builder@4.0.0:
-    resolution: {integrity: sha512-wmRFnH+BLpZnTKpc5L7O67Kac89s9HMrtELpnNaE6TAobq5DTZZs5YaTQfAZBA9bFPECx2uVAPO31c+GVug8mg==}
 
   unist-util-find-after@5.0.0:
     resolution: {integrity: sha512-amQa0Ep2m6hE2g72AugUItjbuM8X8cGQnFoHk0pGfrFeT9GZhzN5SW8nRsiGKK7Aif4CrACPENkA6P/Lw6fHGQ==}
@@ -14006,10 +14000,6 @@ snapshots:
       is-plain-obj: 4.1.0
       trough: 2.2.0
       vfile: 6.0.3
-
-  unist-builder@4.0.0:
-    dependencies:
-      '@types/unist': 3.0.3
 
   unist-util-find-after@5.0.0:
     dependencies:

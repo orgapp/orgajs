@@ -4,7 +4,7 @@ import { EditorView } from '@codemirror/view'
 import {
 	defaultHighlightStyle,
 	syntaxHighlighting,
-	foldGutter,
+	foldGutter
 } from '@codemirror/language'
 import * as runtime from 'react/jsx-runtime'
 import { VFile } from 'vfile'
@@ -19,7 +19,7 @@ enum TabId {
 	rendered,
 	oast,
 	hast,
-	jsx,
+	jsx
 }
 
 type Tab = {
@@ -45,7 +45,7 @@ class OrgaPlayground extends HTMLElement {
 			{ id: TabId.rendered, name: 'rendered', content: '' },
 			{ id: TabId.oast, name: 'oast (org-mode)', content: '' },
 			{ id: TabId.hast, name: 'hast (html)', content: '' },
-			{ id: TabId.jsx, name: 'jsx code', content: '' },
+			{ id: TabId.jsx, name: 'jsx code', content: '' }
 		]
 
 		function updateTabContent(tab: TabId, content: string) {
@@ -79,9 +79,9 @@ class OrgaPlayground extends HTMLElement {
 					foldGutter(),
 					syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
 					javascript(),
-					EditorView.editable.of(false),
-				],
-			}),
+					EditorView.editable.of(false)
+				]
+			})
 		})
 
 		const renderRoot = createRoot(rendered)
@@ -98,8 +98,8 @@ class OrgaPlayground extends HTMLElement {
 						url.searchParams.set('text', encoded)
 						navigator.clipboard.writeText(url.toString())
 						window.echo('Link copied to clipboard')
-					},
-				},
+					}
+				}
 			])
 		)
 
@@ -125,7 +125,7 @@ class OrgaPlayground extends HTMLElement {
 							url.searchParams.set('text', encoded)
 							navigator.clipboard.writeText(url.toString())
 							window.echo('Link copied to clipboard')
-						},
+						}
 					},
 					'generate link'
 				)
@@ -146,8 +146,8 @@ class OrgaPlayground extends HTMLElement {
 				changes: {
 					from: 0,
 					to: codeView.state.doc.length,
-					insert: tab.content,
-				},
+					insert: tab.content
+				}
 			})
 		}
 
@@ -165,9 +165,9 @@ class OrgaPlayground extends HTMLElement {
 			const { default: Content } = await evaluate(file, {
 				...runtime,
 				rehypePlugins: [
-					capture((v) => updateTabContent(TabId.hast, toJSON(v))),
+					capture((v) => updateTabContent(TabId.hast, toJSON(v)))
 				],
-				reorgPlugins: [capture((v) => updateTabContent(TabId.oast, toJSON(v)))],
+				reorgPlugins: [capture((v) => updateTabContent(TabId.oast, toJSON(v)))]
 			})
 
 			renderRoot.render(createElement(Content))
@@ -177,8 +177,8 @@ class OrgaPlayground extends HTMLElement {
 				changes: {
 					from: 0,
 					to: codeView.state.doc.length,
-					insert: code,
-				},
+					insert: code
+				}
 			})
 		}
 
@@ -188,7 +188,7 @@ class OrgaPlayground extends HTMLElement {
 			onChange: async (state) => {
 				content = state.doc.toString()
 				render(content)
-			},
+			}
 		})
 
 		this.appendChild(h('div.flex.h-full', left, right))
@@ -211,7 +211,7 @@ class OrgaPlayground extends HTMLElement {
 				h(
 					`button.tab.#${tab.id}`,
 					{
-						onclick: () => select(tab),
+						onclick: () => select(tab)
 					},
 					`${tab.name}`
 				)
@@ -239,7 +239,7 @@ function toJSON(tree: any) {
 	return JSON.stringify(
 		map(tree, (node) => {
 			const { position, ...rest } = node
-			return rest
+			return node
 		}),
 		null,
 		4
