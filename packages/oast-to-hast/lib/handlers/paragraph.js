@@ -6,10 +6,10 @@
 export function paragraph(state, node) {
 	const properties = state.getAttrHtml(node)
 
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: 'p',
 		properties: properties ?? {},
-		children: state.all(node),
-	}
+		children: state.all(node)
+	})
 }

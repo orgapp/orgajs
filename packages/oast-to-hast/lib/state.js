@@ -27,6 +27,7 @@
  *   Handle nodes.
  */
 
+import { position } from 'unist-util-position'
 import { handlers as defaultHandlers } from './handlers/index.js'
 
 /**
@@ -42,12 +43,13 @@ export function createState(tree, options = {}) {
 		all,
 		handlers,
 		getAttrHtml,
+		patch,
 		options: {
 			linkTarget: '_self',
 			selectTags: [],
 			excludeTags: ['noexport'],
-			...options,
-		},
+			...options
+		}
 	}
 
 	return state
@@ -97,6 +99,19 @@ export function createState(tree, options = {}) {
 			return a
 		}
 	}
+
+	/**
+	 * @template {HastNodes} T
+	 * @param {OastNodes} from
+	 * @param {T} to
+	 * @returns {T}
+	 */
+	function patch(from, to) {
+		if (from.position) {
+			to.position = position(from)
+		}
+		return to
+	}
 }
 
 /** @type {Handler} */
@@ -106,7 +121,7 @@ function unkownHandler(state, node) {
 			type: 'element',
 			tagName: 'div',
 			properties: {},
-			children: state.all(node),
+			children: state.all(node)
 		}
 	} else if ('value' in node) {
 		return { type: 'text', value: `${node.value}` }

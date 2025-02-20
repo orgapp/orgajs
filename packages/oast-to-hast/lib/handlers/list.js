@@ -11,12 +11,12 @@ export function list(state, node) {
 
 	const properties = state.getAttrHtml(node)
 
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: tagName,
 		properties: properties ?? {},
-		children: state.all(node),
-	}
+		children: state.all(node)
+	})
 }
 
 /**
@@ -26,7 +26,7 @@ export function list(state, node) {
  */
 export function item(state, node) {
 	if (node.tag) {
-		return {
+		return state.patch(node, {
 			type: 'element',
 			tagName: 'div',
 			properties: {},
@@ -38,41 +38,41 @@ export function item(state, node) {
 					children: [
 						{
 							type: 'text',
-							value: node.tag,
-						},
-					],
+							value: node.tag
+						}
+					]
 				},
 				{
 					type: 'element',
 					tagName: 'dd',
 					properties: {},
-					children: state.all(node),
-				},
-			],
-		}
+					children: state.all(node)
+				}
+			]
+		})
 	}
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: 'li',
 		properties: {},
-		children: state.all(node),
-	}
+		children: state.all(node)
+	})
 }
 
 /**
- * @param {import('../state.js').State} _
+ * @param {import('../state.js').State} state
  * @param {import('orga').ListItemCheckbox} node
  * @returns {import('hast').Element}
  */
-export function checkbox(_, node) {
-	return {
+export function checkbox(state, node) {
+	return state.patch(node, {
 		type: 'element',
 		tagName: 'input',
 		properties: {
 			type: 'checkbox',
 			checked: node.checked,
-			disabled: true,
+			disabled: true
 		},
-		children: [],
-	}
+		children: []
+	})
 }

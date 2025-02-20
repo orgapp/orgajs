@@ -1,12 +1,12 @@
 import { fromHtml } from 'hast-util-from-html'
 
 /**
- * @param {import('../state.js').State} _
+ * @param {import('../state.js').State} state
  * @param {import('orga').HTML} node
  * @returns {import('hast').Element}
  */
-export function html(_, node) {
-	return parseHtml(node.value)
+export function html(state, node) {
+	return state.patch(node, parseHtml(node.value))
 }
 
 /**
@@ -15,15 +15,13 @@ export function html(_, node) {
  */
 export function parseHtml(html) {
 	const hast = fromHtml(html, { fragment: true })
-	console.log({ html })
-	console.log(hast)
 
 	/** @type {import('hast').Element} */
 	const result = {
 		type: 'element',
 		tagName: 'div',
 		properties: {},
-		children: [],
+		children: []
 	}
 
 	hast.children.forEach((child) => {
@@ -35,8 +33,6 @@ export function parseHtml(html) {
 			result.children.push(child)
 		}
 	})
-
-	console.log(result)
 
 	return result
 }

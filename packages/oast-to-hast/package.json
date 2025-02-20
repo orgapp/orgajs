@@ -2,12 +2,7 @@
 	"name": "oast-to-hast",
 	"version": "4.2.0",
 	"description": "Transform OAST to HAST",
-	"files": [
-		"lib",
-		"index.js",
-		"index.d.ts",
-		"index.d.ts.map"
-	],
+	"files": ["lib", "index.js", "index.d.ts", "index.d.ts.map"],
 	"exports": "./index.js",
 	"type": "module",
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
@@ -18,8 +13,7 @@
 		"mime": "^3.0.0",
 		"orga": "workspace:^",
 		"parse5": "^7.1.2",
-		"prismjs": "^1.29.0",
-		"unist-builder": "^4.0.0"
+		"unist-util-position": "^5.0.0"
 	},
 	"scripts": {
 		"test": "node --test tests/*.js"

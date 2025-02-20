@@ -4,10 +4,10 @@
  * @returns {import('hast').Element}
  */
 export function headline(state, node) {
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: `h${node.level}`,
 		properties: {},
-		children: state.all(node),
-	}
+		children: state.all(node)
+	})
 }

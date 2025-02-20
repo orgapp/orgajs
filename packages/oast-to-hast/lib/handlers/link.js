@@ -19,9 +19,9 @@ export function link(state, node) {
 			tagName: 'img',
 			properties: {
 				src: node.path.value,
-				target: state.options.linkTarget,
+				target: state.options.linkTarget
 			},
-			children: [],
+			children: []
 		}
 		/** @type {Element|null} */
 		let cap = null
@@ -34,36 +34,36 @@ export function link(state, node) {
 				children: [
 					{
 						type: 'text',
-						value: `${c}`,
-					},
-				],
+						value: `${c}`
+					}
+				]
 			}
 		} else if (node.children.length > 0) {
 			cap = {
 				type: 'element',
 				tagName: 'figcaption',
 				properties: {},
-				children: state.all(node),
+				children: state.all(node)
 			}
 		}
 		if (cap) {
-			return {
+			return state.patch(node, {
 				type: 'element',
 				tagName: 'figure',
 				properties: {},
-				children: [image, cap],
-			}
+				children: [image, cap]
+			})
 		}
 
-		return image
+		return state.patch(node, image)
 	}
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: 'a',
 		properties: {
 			href: node.path.value,
-			target: state.options.linkTarget,
+			target: state.options.linkTarget
 		},
-		children: state.all(node),
-	}
+		children: state.all(node)
+	})
 }

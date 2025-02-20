@@ -4,7 +4,7 @@
  * @returns {import('hast').Element}
  */
 export function footnoteRef(state, node) {
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: 'sup',
 		properties: { id: `fnref-${node.label}` },
@@ -13,10 +13,10 @@ export function footnoteRef(state, node) {
 				type: 'element',
 				tagName: 'a',
 				properties: { href: `#fn-${node.label}` },
-				children: [{ type: 'text', value: node.label }],
-			},
-		],
-	}
+				children: [{ type: 'text', value: node.label }]
+			}
+		]
+	})
 }
 
 /**
@@ -25,14 +25,14 @@ export function footnoteRef(state, node) {
  * @returns {import('hast').Element}
  */
 export function footnote(state, node) {
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: 'div',
 		properties: {
 			id: `fn-${node.label}`,
 			className: ['footnote'],
-			dataLabel: node.label,
+			dataLabel: node.label
 		},
-		children: state.all(node),
-	}
+		children: state.all(node)
+	})
 }

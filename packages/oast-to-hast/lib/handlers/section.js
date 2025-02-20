@@ -24,12 +24,12 @@ export function section(state, node) {
 		})
 	}
 
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: 'div',
 		properties: { className },
-		children: state.all(node),
-	}
+		children: state.all(node)
+	})
 }
 
 /**

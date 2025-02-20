@@ -10,7 +10,7 @@ const wrapper = {
 	verbatim: 'code',
 	underline: 'u',
 	strikeThrough: 'del',
-	math: 'span',
+	math: 'span'
 }
 
 /**
@@ -22,18 +22,18 @@ export function text(state, node) {
 	/** @type {Element|Text} */
 	let e = {
 		type: 'text',
-		value: node.value,
+		value: node.value
 	}
 	if (node.style) {
 		e = {
 			type: 'element',
 			tagName: wrapper[node.style],
 			properties: {},
-			children: [e],
+			children: [e]
 		}
 		if (node.style === 'math') {
 			e.properties.className = ['math-inline']
 		}
 	}
-	return e
+	return state.patch(node, e)
 }

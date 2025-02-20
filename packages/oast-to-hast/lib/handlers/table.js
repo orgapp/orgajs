@@ -35,7 +35,7 @@ export function table(state, node) {
 			type: 'element',
 			tagName: 'thead',
 			properties: {},
-			children: headRows,
+			children: headRows
 		})
 	}
 
@@ -44,7 +44,7 @@ export function table(state, node) {
 			type: 'element',
 			tagName: 'tbody',
 			properties: {},
-			children: bodyRows,
+			children: bodyRows
 		})
 	}
 
@@ -54,16 +54,16 @@ export function table(state, node) {
 			type: 'element',
 			tagName: 'caption',
 			properties: {},
-			children: [{ type: 'text', value: `${caption}` }],
+			children: [{ type: 'text', value: `${caption}` }]
 		})
 	}
 
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: 'table',
 		properties: {},
-		children: tableContent,
-	}
+		children: tableContent
+	})
 }
 
 /**
@@ -72,12 +72,12 @@ export function table(state, node) {
  * @returns {Element}
  */
 export function row(state, node) {
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: 'tr',
 		properties: {},
-		children: state.all(node),
-	}
+		children: state.all(node)
+	})
 }
 
 /**
@@ -86,12 +86,12 @@ export function row(state, node) {
  * @returns {Element}
  */
 export function cell(state, node) {
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: 'td',
 		properties: {},
-		children: state.all(node),
-	}
+		children: state.all(node)
+	})
 }
 
 /**
@@ -102,6 +102,6 @@ export function hr() {
 		type: 'element',
 		tagName: 'hr',
 		properties: {},
-		children: [],
+		children: []
 	}
 }

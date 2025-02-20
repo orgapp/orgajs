@@ -8,7 +8,7 @@ import { parseHtml } from './html.js'
 export function block(state, node) {
 	const name = node.name.toLowerCase()
 	if (name === 'src') {
-		return {
+		return state.patch(node, {
 			type: 'element',
 			tagName: 'pre',
 			properties: {},
@@ -20,51 +20,51 @@ export function block(state, node) {
 					children: [
 						{
 							type: 'text',
-							value: node.value,
-						},
-					],
-				},
-			],
-		}
+							value: node.value
+						}
+					]
+				}
+			]
+		})
 	}
 
 	if (name === 'quote') {
-		return {
+		return state.patch(node, {
 			type: 'element',
 			tagName: 'blockquote',
 			properties: {},
 			children: [
 				{
 					type: 'text',
-					value: node.value,
-				},
-			],
-		}
+					value: node.value
+				}
+			]
+		})
 	}
 
 	if (name === 'center') {
-		return {
+		return state.patch(node, {
 			type: 'element',
 			tagName: 'center',
 			properties: {},
 			children: [
 				{
 					type: 'text',
-					value: node.value,
-				},
-			],
-		}
+					value: node.value
+				}
+			]
+		})
 	}
 
 	if (name === 'export') {
 		if (node.params[0].toLowerCase() === 'html') {
-			return parseHtml(node.value)
+			return state.patch(node, parseHtml(node.value))
 		}
 
 		return {
 			// @ts-expect-error: this is a special passthrough
 			type: (node.params[0] || 'raw').toLowerCase(),
-			value: node.value,
+			value: node.value
 		}
 	}
 
@@ -72,15 +72,15 @@ export function block(state, node) {
 		return undefined
 	}
 
-	return {
+	return state.patch(node, {
 		type: 'element',
 		tagName: 'pre',
 		properties: { className: [name] },
 		children: [
 			{
 				type: 'text',
-				value: node.value,
-			},
-		],
-	}
+				value: node.value
+			}
+		]
+	})
 }
