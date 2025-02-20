@@ -3,9 +3,11 @@
 	"version": "1.0.1",
 	"description": "",
 	"type": "module",
-	"exports": "./index.js",
 	"files": [
-		"index.js"
+		"lib",
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
 	],
 	"scripts": {},
 	"keywords": [],
@@ -13,6 +15,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"@orgajs/orgx": "workspace:^",
+		"source-map": "^0.7.4",
 		"vfile": "^6.0.3",
 		"vfile-reporter": "^8.1.1"
 	}

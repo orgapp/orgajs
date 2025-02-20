@@ -9,7 +9,7 @@ import assert from 'node:assert'
 import { match } from './util.js'
 
 register('./jsx-loader.js', import.meta.url)
-register('@orgajs/node-loader', import.meta.url)
+register('./orga-loader.js', import.meta.url)
 register('./raw-loader.js', import.meta.url)
 
 const defaultConfig = {
@@ -17,7 +17,7 @@ const defaultConfig = {
 	/** @type {string[]} */
 	preBuild: [],
 	/** @type {string[]} */
-	postBuild: [],
+	postBuild: []
 }
 
 /**
@@ -29,22 +29,26 @@ const defaultConfig = {
  */
 
 /**
+ * @typedef {import('react').ComponentType<any>} Layout
+ */
+
+/**
  * @typedef {string | RegExp} Pattern
  */
 
 /**
  * @typedef {Object} BuildContext
  * @property {import('@orgajs/orgx').OrgComponents} [components] - The components from the org file
- * @property {import('react').ComponentType<any>} [Layout] - The layout component
+ * @property {Layout | undefined} [Layout] - The layout component
  * @property {Pattern | Pattern[]} [ignore] - The ignore pattern
- * @property {(page: Page & { Layout?: import('react').ComponentType, components: Record<string, any> }) => Promise<void>} build - The build function
+ * @property {(page: Page & { Layout?: Layout | undefined, components: Record<string, any> }) => Promise<void>} build - The build function
  * @property {(filePath: string, metadata: Record<string, any>) => string} buildHref - The build function
  */
 
 /**
  * Recursively processes a directory to build pages from .org files
  * @param {string} dirPath - The directory path to process
- * @param {BuildContext} [context={}] - Build context containing components, layout, and build function
+ * @param {BuildContext} context - Build context containing components, layout, and build function
  * @returns {Promise<void>}
  */
 async function iter(dirPath, context) {
@@ -73,10 +77,11 @@ async function iter(dirPath, context) {
 		if (match(file, /(.|_)layout.(j|t)sx/)) {
 			const InnerLayout = (await _import(filePath)).default
 			if (!InnerLayout) continue
-			if (context.Layout) {
+			if (Layout !== undefined) {
+				const OuterLayout = Layout
 				Layout = function Layout(/** @type {any} */ props) {
 					return createElement(
-						context.Layout,
+						OuterLayout,
 						props,
 						createElement(InnerLayout, props)
 					)
@@ -108,7 +113,7 @@ async function iter(dirPath, context) {
 				Content,
 				metadata,
 				slug: context.buildHref(filePath, metadata),
-				src: filePath,
+				src: filePath
 			})
 		}
 	}
@@ -119,10 +124,10 @@ async function iter(dirPath, context) {
 				...page,
 				metadata: {
 					...page.metadata,
-					pages: pages.map((p) => ({ ...p.metadata, slug: p.slug })),
+					pages: pages.map((p) => ({ ...p.metadata, slug: p.slug }))
 				},
-				Layout,
-				components,
+				Layout: Layout,
+				components
 			})
 		)
 	)
@@ -132,7 +137,7 @@ async function iter(dirPath, context) {
 		await iter(subdir, {
 			...context,
 			Layout,
-			components,
+			components
 		})
 	}
 }
@@ -156,10 +161,9 @@ export async function build({ outDir, preBuild, postBuild }) {
 		},
 		ignore: [/node_modules/, 'out'],
 		build: async ({ Layout, Content, metadata, src, components }) => {
-			assert(Layout, `${src}: Layout component is required`)
 			assert(Content, 'Content component is required')
 			const e = createElement(
-				Layout,
+				Layout ?? DefaultLayout,
 				metadata,
 				createElement(Content, { components })
 			)
@@ -170,7 +174,7 @@ export async function build({ outDir, preBuild, postBuild }) {
 			const filesize = new Intl.NumberFormat().format(code.length)
 			console.log(`${filePath} (${filesize} bytes)`)
 			await fs.writeFile(outPath, code, { encoding: 'utf-8', flush: true })
-		},
+		}
 	})
 	const end = performance.now()
 	console.log(`Built in ${(end - start).toFixed(2)}ms`)
@@ -187,7 +191,7 @@ export async function build({ outDir, preBuild, postBuild }) {
 async function _import(...files) {
 	const found = await globby(files, {
 		cwd: process.cwd(),
-		onlyFiles: true,
+		onlyFiles: true
 	})
 	if (found.length === 0) {
 		return null
@@ -230,4 +234,25 @@ async function $(cmd) {
 			resolve(stdout)
 		})
 	})
+}
+
+/**
+ * Default layout
+ * @param {Object} props
+ * @param {string|undefined} props.title
+ * @param {import('react').ReactNode} props.children
+ * @returns {React.JSX.Element}
+ */
+function DefaultLayout({ title, children }) {
+	return createElement('html', { lang: 'en' }, [
+		createElement('head', {}, [
+			createElement('meta', { charSet: 'utf-8' }),
+			createElement('meta', {
+				name: 'viewport',
+				content: 'width=device-width, initial-scale=1'
+			}),
+			title && createElement('title', {}, title)
+		]),
+		createElement('body', {}, children)
+	])
 }

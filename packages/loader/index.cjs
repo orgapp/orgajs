@@ -8,10 +8,10 @@
  * @this {LoaderContext}
  * @param {string} code
  */
-module.exports = function (code) {
-  const callback = this.async()
-  // Note that `import()` caches, so this should be fast enough.
-  import('./lib/index.js').then((module) =>
-    module.loader.call(this, code, callback)
-  )
+module.exports = function orgLoader(code) {
+	const callback = this.async()
+	// Note that `import()` caches, so this should be fast enough.
+	import('./lib/index.js').then((module) =>
+		module.loader.call(this, code, callback)
+	)
 }

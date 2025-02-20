@@ -1,28 +1,29 @@
 {
-  "name": "@orgajs/reorg-parse",
-  "version": "4.2.0",
-  "description": "orga parser for unifiedjs",
-  "files": [
-    "lib/",
-    "index.js"
-  ],
-  "type": "module",
-  "main": "index.js",
-  "types": "index.d.ts",
-  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
-  "license": "MIT",
-  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/reorg-parse#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/orgapp/orgajs.git",
-    "directory": "packages/reorg-parse"
-  },
-  "scripts": {},
-  "dependencies": {
-    "orga": "workspace:^"
-  },
-  "devDependencies": {
-    "typescript": "^5.7.3",
-    "unified": "^11.0.5"
-  }
+	"name": "@orgajs/reorg-parse",
+	"version": "4.2.0",
+	"description": "orga parser for unifiedjs",
+	"type": "module",
+	"files": [
+		"lib/",
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
+	],
+	"exports": "./index.js",
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"license": "MIT",
+	"homepage": "https://github.com/orgapp/orgajs/tree/main/packages/reorg-parse#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/orgapp/orgajs.git",
+		"directory": "packages/reorg-parse"
+	},
+	"scripts": {},
+	"dependencies": {
+		"orga": "workspace:^"
+	},
+	"devDependencies": {
+		"typescript": "^5.7.3",
+		"unified": "^11.0.5"
+	}
 }

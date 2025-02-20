@@ -2,17 +2,15 @@
 	"name": "@orgajs/lezer",
 	"version": "1.2.1",
 	"description": "lezer parser for org-mode",
-	"main": "lib/index.js",
 	"type": "module",
-	"types": "dist/index.d.ts",
 	"files": [
 		"lib/",
-		"dist/"
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
 	],
 	"scripts": {
-		"clean": "tsc --build --clean",
-		"test": "node --test test/*.test.js",
-		"build": "tsc --build"
+		"test": "node --test tests/*.test.js"
 	},
 	"keywords": [
 		"org-mode",

@@ -1,6 +1,16 @@
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
+/**
+ * @param {string} href
+ *   URL.
+ * @param {unknown} context
+ *   Context.
+ * @param {Function} defaultLoad
+ *   Default `load`.
+ * @returns
+ *   Result.
+ */
 const rawLoader = async (href, context, defaultLoad) => {
 	const url = new URL(href)
 	const { searchParams } = url

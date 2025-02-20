@@ -1,34 +1,33 @@
 {
-  "name": "@orgajs/next",
-  "version": "6.0.0",
-  "description": "orgajs next plugin",
-  "files": [
-    "dist"
-  ],
-  "main": "dist/index.js",
-  "license": "MIT",
-  "repository": {
-    "url": "orgapp/orgajs",
-    "directory": "packages/next"
-  },
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build"
-  },
-  "peerDependencies": {
-    "@orgajs/loader": "*",
-    "@orgajs/react": "*"
-  },
-  "dependencies": {
-    "estree-walker": "3.0.3",
-    "unist-util-map": "4.0.0"
-  },
-  "devDependencies": {
-    "@orgajs/loader": "workspace:^",
-    "@types/estree": "^1.0.6",
-    "@types/estree-jsx": "^1.0.5",
-    "@types/hast": "^3.0.4",
-    "@types/node": "^20.5.7",
-    "unified": "11.0.5"
-  }
+	"name": "@orgajs/next",
+	"version": "6.0.0",
+	"description": "orgajs next plugin",
+	"files": [
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
+	],
+	"exports": "./index.js",
+	"type": "module",
+	"license": "MIT",
+	"repository": {
+		"url": "orgapp/orgajs",
+		"directory": "packages/next"
+	},
+	"peerDependencies": {
+		"@orgajs/loader": "*",
+		"@orgajs/react": "*"
+	},
+	"dependencies": {
+		"estree-walker": "3.0.3",
+		"unist-util-map": "4.0.0"
+	},
+	"devDependencies": {
+		"@orgajs/loader": "workspace:^",
+		"@types/estree": "^1.0.6",
+		"@types/estree-jsx": "^1.0.5",
+		"@types/hast": "^3.0.4",
+		"@types/node": "^20.5.7",
+		"unified": "11.0.5"
+	}
 }

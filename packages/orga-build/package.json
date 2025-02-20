@@ -2,18 +2,14 @@
 	"name": "@orgajs/build",
 	"version": "1.0.1",
 	"description": "",
-	"main": "index.js",
 	"type": "module",
 	"bin": {
 		"orga-build": "cli.js"
 	},
 	"scripts": {},
-	"keywords": [
-		"orgajs",
-		"build",
-		"website",
-		"react"
-	],
+	"files": ["lib/", "cli.js", "index.js", "index.d.ts", "index.d.ts.map"],
+	"exports": "./index.js",
+	"keywords": ["orgajs", "build", "website", "react"],
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"license": "MIT",
 	"dependencies": {
@@ -22,9 +18,14 @@
 		"globby": "^14.0.2",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
+		"rehype-katex": "^7.0.1",
 		"serve-handler": "^6.1.6"
 	},
 	"devDependencies": {
-		"@types/node": "^22.13.1"
+		"@orgajs/orgx": "workspace:^",
+		"@types/node": "^22.13.1",
+		"@types/react": "^19.0.8",
+		"@types/react-dom": "^19.0.3",
+		"@types/serve-handler": "^6.1.4"
 	}
 }

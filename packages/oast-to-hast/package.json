@@ -1,30 +1,27 @@
 {
-  "name": "oast-to-hast",
-  "version": "4.2.0",
-  "description": "Transform OAST to HAST",
-  "files": [
-    "dist"
-  ],
-  "main": "dist/index.js",
-  "type": "module",
-  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
-  "license": "MIT",
-  "repository": "https://github.com/orgapp/orgajs/tree/main/packages/oast-to-hast",
-  "dependencies": {
-    "hast-util-from-parse5": "^8.0.2",
-    "mime": "^3.0.0",
-    "orga": "workspace:^",
-    "parse5": "^7.1.2",
-    "prismjs": "^1.29.0",
-    "unist-builder": "^4.0.0"
-  },
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build"
-  },
-  "devDependencies": {
-    "@types/hast": "^3.0.4",
-    "@types/mime": "^3.0.1",
-    "@types/unist": "^3.0.3"
-  }
+	"name": "oast-to-hast",
+	"version": "4.2.0",
+	"description": "Transform OAST to HAST",
+	"files": ["lib", "index.js", "index.d.ts", "index.d.ts.map"],
+	"exports": "./index.js",
+	"type": "module",
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"license": "MIT",
+	"repository": "https://github.com/orgapp/orgajs/tree/main/packages/oast-to-hast",
+	"dependencies": {
+		"hast-util-from-html": "^2.0.3",
+		"mime": "^3.0.0",
+		"orga": "workspace:^",
+		"parse5": "^7.1.2",
+		"unist-util-position": "^5.0.0"
+	},
+	"scripts": {
+		"test": "node --test tests/*.js"
+	},
+	"devDependencies": {
+		"@types/hast": "^3.0.4",
+		"@types/mime": "^3.0.1",
+		"@types/unist": "^3.0.3",
+		"hastscript": "^9.0.0"
+	}
 }

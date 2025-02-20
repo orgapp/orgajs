@@ -8,13 +8,18 @@ import fs from 'node:fs/promises'
 export async function watch(dir, ignore, onChange) {
 	let busy = false
 	let dirty = false
+	/** @type {ReturnType<typeof setTimeout> | null} */
 	let timeout = null
 	const delay = 1000
 	const defaultIgnorePattern = /node_modules|\.git|\.DS_Store/
 
 	const watcher = fs.watch(dir, { recursive: true })
 	for await (const event of watcher) {
-		if (event.eventType !== 'change' || shouldIgnore(event.filename)) {
+		if (
+			event.eventType !== 'change' ||
+			event.filename === null ||
+			shouldIgnore(event.filename)
+		) {
 			continue
 		}
 		console.log(`file changed: ${event.filename}`)
@@ -22,7 +27,7 @@ export async function watch(dir, ignore, onChange) {
 		if (busy) {
 			continue
 		}
-		clearTimeout(timeout)
+		if (timeout !== null) clearTimeout(timeout)
 		timeout = setTimeout(processEvent, delay, event)
 	}
 
@@ -39,6 +44,9 @@ export async function watch(dir, ignore, onChange) {
 		}
 	}
 
+	/**
+	 * @param {string} filename
+	 */
 	function shouldIgnore(filename) {
 		return defaultIgnorePattern.test(filename) || ignore.test(filename)
 	}

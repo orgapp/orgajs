@@ -1,28 +1,29 @@
 {
-  "name": "@orgajs/metadata",
-  "version": "2.2.0",
-  "description": "extract metadata info from org file",
-  "main": "dist/index.js",
-  "type": "module",
-  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
-  "license": "MIT",
-  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/metadata#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/orgapp/orgajs.git",
-    "directory": "packages/metadata"
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build",
-    "test": "node --test --no-warnings --import tsx src/*.test.ts"
-  },
-  "devDependencies": {
-    "@types/node": "^20.5.7",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.3"
-  }
+	"name": "@orgajs/metadata",
+	"version": "2.2.0",
+	"description": "extract metadata info from org file",
+	"type": "module",
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"license": "MIT",
+	"homepage": "https://github.com/orgapp/orgajs/tree/main/packages/metadata#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/orgapp/orgajs.git",
+		"directory": "packages/metadata"
+	},
+	"files": [
+		"lib",
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
+	],
+	"exports": "./index.js",
+	"scripts": {
+		"test": "node --test --no-warnings tests/test.js"
+	},
+	"devDependencies": {
+		"@types/node": "^20.5.7",
+		"tsx": "^4.19.2",
+		"typescript": "^5.7.3"
+	}
 }

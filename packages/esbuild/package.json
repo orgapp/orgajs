@@ -22,5 +22,8 @@
 	"dependencies": {
 		"@orgajs/orgx": "workspace:^",
 		"vfile": "^6.0.3"
+	},
+	"devDependencies": {
+		"esbuild": "^0.24.2"
 	}
 }

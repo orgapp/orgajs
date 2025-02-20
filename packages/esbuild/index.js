@@ -22,7 +22,7 @@ const name = '@orgajs/esbuild'
 function esbuild(options) {
 	return {
 		name,
-		setup,
+		setup
 	}
 
 	/**
@@ -50,7 +50,7 @@ function esbuild(options) {
 				: await fs.readFile(data.path)
 		)
 
-		let file = new VFile({ path: data.path, value: document })
+		const file = new VFile({ path: data.path, value: document })
 		const code = await compile(file, options)
 		const contents =
 			String(code) +
@@ -60,7 +60,7 @@ function esbuild(options) {
 			'\n'
 
 		return {
-			contents,
+			contents
 		}
 	}
 }

@@ -1,29 +1,31 @@
 {
-  "name": "@orgajs/reorg-rehype",
-  "version": "4.2.0",
-  "description": "rehype support for orga",
-  "files": [
-    "dist"
-  ],
-  "main": "dist/index.js",
-  "type": "module",
-  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
-  "license": "MIT",
-  "homepage": "https://github.com/orgapp/orgajs/tree/main/packages/reorg-rehype#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/orgapp/orgajs.git",
-    "directory": "packages/reorg-rehype"
-  },
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build"
-  },
-  "dependencies": {
-    "oast-to-hast": "workspace:*"
-  },
-  "devDependencies": {
-    "@types/unist": "^3.0.3",
-    "unified": "^11.0.5"
-  }
+	"name": "@orgajs/reorg-rehype",
+	"version": "4.2.0",
+	"description": "rehype support for orga",
+	"files": [
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
+	],
+	"exports": "./index.js",
+	"type": "module",
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"license": "MIT",
+	"homepage": "https://github.com/orgapp/orgajs/tree/main/packages/reorg-rehype#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/orgapp/orgajs.git",
+		"directory": "packages/reorg-rehype"
+	},
+	"scripts": {},
+	"dependencies": {
+		"oast-to-hast": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/hast": "^3.0.4",
+		"@types/unist": "^3.0.3",
+		"orga": "workspace:*",
+		"unified": "^11.0.5",
+		"vfile": "^6.0.3"
+	}
 }

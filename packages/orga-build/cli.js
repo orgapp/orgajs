@@ -1,17 +1,17 @@
 import { argv } from 'node:process'
+import { parseArgs } from 'node:util'
 import { watch } from './lib/watch.js'
 import { build, loadConfig, clean } from './lib/build.js'
-import { parseArgs } from 'util'
 import { serve } from './lib/serve.js'
 
 const { values, positionals } = parseArgs({
 	args: argv.slice(2),
 	options: {
 		watch: { type: 'boolean', short: 'w' },
-		outDir: { type: 'string', short: 'o', default: 'out' },
+		outDir: { type: 'string', short: 'o', default: 'out' }
 	},
 	tokens: true,
-	allowPositionals: true,
+	allowPositionals: true
 })
 
 const config = await loadConfig()

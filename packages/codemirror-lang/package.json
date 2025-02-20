@@ -2,17 +2,13 @@
 	"name": "@orgajs/cm-lang",
 	"version": "1.1.6",
 	"description": "codemirror language: org",
-	"main": "index.js",
 	"type": "module",
-	"types": "dist/index.d.ts",
 	"files": [
 		"index.js",
-		"dist/"
+		"index.d.ts",
+		"index.d.ts.map"
 	],
-	"scripts": {
-		"clean": "tsc --build --clean",
-		"build": "tsc --build"
-	},
+	"scripts": {},
 	"keywords": [
 		"org",
 		"org-mode",

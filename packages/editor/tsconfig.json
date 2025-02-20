@@ -1,9 +1,3 @@
 {
-	"extends": "../../tsconfig.types.json",
-	"compilerOptions": {
-		"outFile": "./index.d.ts",
-		"jsx": "react-jsx",
-		"lib": ["dom", "esnext"]
-	},
-	"include": ["index.js"]
+	"extends": "../../tsconfig.json"
 }

@@ -1,3 +1,26 @@
 {
-  "extends": "./tsconfig.esm.json"
+	"compilerOptions": {
+		"checkJs": true,
+		"declaration": true,
+		"declarationMap": true,
+		"emitDeclarationOnly": true,
+		"exactOptionalPropertyTypes": true,
+		"jsx": "preserve",
+		"lib": ["esnext", "dom"],
+		"module": "node16",
+		"moduleResolution": "node16",
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "esnext"
+	},
+	"exclude": [
+		"**/coverage/",
+		"**/node_modules/",
+		"**/tests/",
+		"**/dist/",
+		"./packages/reorg-parse/",
+		"./packages/reorg/",
+		"./packages/loader/"
+	],
+	"include": ["packages/**/*.js"]
 }

@@ -1,242 +1,247 @@
 import type {
-  Literal as UnistLiteral,
-  Node,
-  Parent as UnistParent,
+	Literal as UnistLiteral,
+	Node,
+	Parent as UnistParent,
 } from 'unist'
 
 export interface Literal extends UnistLiteral {
-  value: string
+	value: string
 }
 
 export interface Parent extends UnistParent {
-  children: Content[]
+	children: Content[]
 }
 
 export type Primitive = string | number | boolean
 
 export interface Attributes {
-  [key: string]: Primitive | { [key: string]: Primitive }
+	[key: string]: Primitive | { [key: string]: Primitive }
 }
 
 export interface Attributed {
-  attributes: Attributes
+	attributes: Attributes
 }
 
 export interface Timestamp {
-  date: Date
-  end?: Date
+	date: Date
+	end?: Date
 }
 
-type PropertyValue = string
+type Properties = Record<string, PropertyValue>
+
+type PropertyValue = string | string[] | Record<string, string>
+
+export type Nodes = Document | Content | Token
 
 // ---- Syntax Tree Nodes ----
 export interface Document extends Parent {
-  type: 'document'
-  properties: Record<string, PropertyValue | PropertyValue[]>
-  children: TopLevelContent[]
+	type: 'document'
+	properties: Properties
+	children: TopLevelContent[]
 }
 
 export interface Section extends Parent {
-  type: 'section'
-  level: number
-  properties: { [key: string]: string }
-  children: Content[]
+	type: 'section'
+	level: number
+	properties: Properties
+	children: Content[]
 }
 
 // --- content types ----
 export type BlockContent =
-  | Section
-  | Paragraph
-  | Block
-  | Drawer
-  | Planning
-  | List
-  | Table
-  | HorizontalRule
-  | Headline
-  | HTML
-  | JSX
+	| Section
+	| Paragraph
+	| Block
+	| Drawer
+	| Planning
+	| List
+	| Table
+	| HorizontalRule
+	| Headline
+	| HTML
+	| JSX
+	| Latex
 
 type TopLevelContent = BlockContent | Keyword | Footnote
 
 export type Content =
-  | TopLevelContent
-  | TableContent
-  | TableRow
-  | TableCell
-  | ListContent
-  | PhrasingContent
+	| TopLevelContent
+	| TableContent
+	| TableRow
+	| TableCell
+	| ListContent
+	| PhrasingContent
 
 export interface Footnote extends Parent {
-  type: 'footnote'
-  label: string
+	type: 'footnote'
+	label: string
 }
 
 export interface Block extends Literal, Attributed {
-  type: 'block'
-  name: string
-  params: string[]
+	type: 'block'
+	name: string
+	params: string[]
 }
 
 export interface Latex extends Literal {
-  type: 'latex'
-  name: string
+	type: 'latex'
+	name: string
 }
 
 export interface Drawer extends Literal {
-  type: 'drawer'
-  name: string
+	type: 'drawer'
+	name: string
 }
 
 export interface Planning extends Node {
-  type: 'planning'
-  keyword: string
-  timestamp: Timestamp
+	type: 'planning'
+	keyword: string
+	timestamp: Timestamp
 }
 
 type ListContent = ListItem | List
 
 export interface List extends Parent, Attributed {
-  type: 'list'
-  indent: number
-  ordered: boolean
-  children: ListContent[]
+	type: 'list'
+	indent: number
+	ordered: boolean
+	children: ListContent[]
 }
 
 type TableContent = TableRow | TableRule
 
 export interface Table extends Parent, Attributed {
-  type: 'table'
-  children: TableContent[]
+	type: 'table'
+	children: TableContent[]
 }
 
 export interface TableRow extends Parent {
-  type: 'table.row'
-  children: TableCell[]
+	type: 'table.row'
+	children: TableCell[]
 }
 
 export interface TableCell extends Parent {
-  type: 'table.cell'
-  children: PhrasingContent[]
+	type: 'table.cell'
+	children: PhrasingContent[]
 }
 
 export interface ListItem extends Parent {
-  type: 'list.item'
-  indent: number
-  tag?: string
-  children: PhrasingContent[]
+	type: 'list.item'
+	indent: number
+	tag?: string
+	children: PhrasingContent[]
 }
 
 export interface Headline extends Parent {
-  type: 'headline'
-  level: number
-  keyword?: string
-  actionable: boolean
-  priority?: string
-  tags?: string[]
-  children: PhrasingContent[]
+	type: 'headline'
+	level: number
+	keyword?: string
+	actionable: boolean
+	priority?: string
+	tags?: string[]
+	children: PhrasingContent[]
 }
 
 export interface Paragraph extends Parent, Attributed {
-  type: 'paragraph'
-  children: PhrasingContent[]
+	type: 'paragraph'
+	children: PhrasingContent[]
 }
 
 export interface HTML extends Literal {
-  type: 'html'
+	type: 'html'
 }
 
 export interface JSX extends Literal {
-  type: 'jsx'
+	type: 'jsx'
 }
 
 // ---- Tokens ----
 export type Token =
-  | Keyword
-  | Todo
-  | Newline
-  | EmptyLine
-  | HorizontalRule
-  | Stars
-  | Priority
-  | Tags
-  | PlanningKeyword
-  | PlanningTimestamp
-  | ListItemTag
-  | ListItemCheckbox
-  | ListItemBullet
-  | TableRule
-  | TableColumnSeparator
-  | PhrasingContent
-  | FootnoteLabel
-  | BlockBegin
-  | BlockEnd
-  | LatexBegin
-  | LatexEnd
-  | DrawerBegin
-  | DrawerEnd
-  | Comment
-  | Opening
-  | Closing
-  | LinkPath
+	| Keyword
+	| Todo
+	| Newline
+	| EmptyLine
+	| HorizontalRule
+	| Stars
+	| Priority
+	| Tags
+	| PlanningKeyword
+	| PlanningTimestamp
+	| ListItemTag
+	| ListItemCheckbox
+	| ListItemBullet
+	| TableRule
+	| TableColumnSeparator
+	| PhrasingContent
+	| FootnoteLabel
+	| BlockBegin
+	| BlockEnd
+	| LatexBegin
+	| LatexEnd
+	| DrawerBegin
+	| DrawerEnd
+	| Comment
+	| Opening
+	| Closing
+	| LinkPath
 
 export type PhrasingContent =
-  | Text
-  | Link
-  | FootnoteReference
-  | Newline
-  | EmptyLine
-  | HTML
-  | JSX
+	| Text
+	| Link
+	| FootnoteReference
+	| Newline
+	| EmptyLine
+	| HTML
+	| JSX
 
 export interface HorizontalRule extends Node {
-  type: 'hr'
+	type: 'hr'
 }
 
 export interface Newline extends Node {
-  type: 'newline'
+	type: 'newline'
 }
 
 export interface EmptyLine extends Node {
-  type: 'emptyLine'
+	type: 'emptyLine'
 }
 
 export type Style =
-  | 'bold'
-  | 'verbatim'
-  | 'italic'
-  | 'strikeThrough'
-  | 'underline'
-  | 'code'
-  | 'math'
+	| 'bold'
+	| 'verbatim'
+	| 'italic'
+	| 'strikeThrough'
+	| 'underline'
+	| 'code'
+	| 'math'
 
 export interface Text extends Literal {
-  type: 'text'
-  style?: Style
+	type: 'text'
+	style?: Style
 }
 
 export interface Link extends Parent, Attributed {
-  type: 'link'
-  path: Omit<LinkPath, 'type'>
-  children: PhrasingContent[]
+	type: 'link'
+	path: Omit<LinkPath, 'type'>
+	children: PhrasingContent[]
 }
 
 export interface LinkPath extends Literal {
-  type: 'link.path'
-  protocol: string
-  search?: string | number
+	type: 'link.path'
+	protocol: string
+	search?: string | number
 }
 
 export type Enclosed = Style | 'link' | 'footnote.reference'
 
 export interface Opening extends Node {
-  type: 'opening'
-  element: Enclosed
+	type: 'opening'
+	element: Enclosed
 }
 
 export interface Closing extends Node {
-  type: 'closing'
-  element: Enclosed
+	type: 'closing'
+	element: Enclosed
 }
 
 /**
@@ -259,127 +264,127 @@ export interface Closing extends Node {
  * footnote definition.
  */
 export interface FootnoteReference extends Parent {
-  type: 'footnote.reference'
-  label: string
-  children: PhrasingContent[]
+	type: 'footnote.reference'
+	label: string
+	children: PhrasingContent[]
 }
 
 // headline tokens
 export interface Stars extends Node {
-  type: 'stars'
-  level: number
+	type: 'stars'
+	level: number
 }
 
 export interface Todo extends Node {
-  type: 'todo'
-  keyword: string
-  actionable: boolean
+	type: 'todo'
+	keyword: string
+	actionable: boolean
 }
 
 export interface Priority extends Literal {
-  type: 'priority'
+	type: 'priority'
 }
 
 export interface Tags extends Node {
-  type: 'tags'
-  tags: string[]
+	type: 'tags'
+	tags: string[]
 }
 
 // block tokens
 export interface BlockBegin extends Node {
-  type: 'block.begin'
-  name: string
-  params: string[]
+	type: 'block.begin'
+	name: string
+	params: string[]
 }
 
 export interface BlockEnd extends Node {
-  type: 'block.end'
-  name: string
+	type: 'block.end'
+	name: string
 }
 
 // drawer tokens
 export interface DrawerBegin extends Node {
-  type: 'drawer.begin'
-  name: string
+	type: 'drawer.begin'
+	name: string
 }
 
 interface DrawerEnd extends Node {
-  type: 'drawer.end'
+	type: 'drawer.end'
 }
 
 export interface LatexBegin extends Node {
-  type: 'latex.begin'
-  name: string
+	type: 'latex.begin'
+	name: string
 }
 
 export interface LatexEnd extends Node {
-  type: 'latex.end'
-  name: string
+	type: 'latex.end'
+	name: string
 }
 
 interface Comment extends Literal {
-  type: 'comment'
+	type: 'comment'
 }
 
 export interface Keyword extends Node {
-  type: 'keyword'
-  key: string
-  value: string
+	type: 'keyword'
+	key: string
+	value: string
 }
 
 export interface FootnoteLabel extends Node {
-  type: 'footnote.label'
-  label: string
+	type: 'footnote.label'
+	label: string
 }
 
 export interface PlanningKeyword extends Literal {
-  type: 'planning.keyword'
+	type: 'planning.keyword'
 }
 
 export interface PlanningTimestamp extends UnistLiteral {
-  type: 'planning.timestamp'
-  value: Timestamp
+	type: 'planning.timestamp'
+	value: Timestamp
 }
 
 export interface ListItemTag extends Literal {
-  type: 'list.item.tag'
+	type: 'list.item.tag'
 }
 
 export interface ListItemCheckbox extends Node {
-  type: 'list.item.checkbox'
-  checked: boolean
+	type: 'list.item.checkbox'
+	checked: boolean
 }
 
 export interface ListItemBullet extends Node {
-  type: 'list.item.bullet'
-  ordered: boolean
-  indent: number
+	type: 'list.item.bullet'
+	ordered: boolean
+	indent: number
 }
 
 export interface TableRule extends Node {
-  type: 'table.hr'
+	type: 'table.hr'
 }
 
 export interface TableColumnSeparator extends Node {
-  type: 'table.columnSeparator'
+	type: 'table.columnSeparator'
 }
 
 export function isSection(node: Node): node is Section {
-  return node.type === 'section'
+	return node.type === 'section'
 }
 
 export function isParagraph(node: Node): node is Paragraph {
-  return node.type === 'paragraph'
+	return node.type === 'paragraph'
 }
 
 export function isLink(node: Node): node is Link {
-  return node.type === 'link'
+	return node.type === 'link'
 }
 
 export function isFootnoteReference(node: Node): node is FootnoteReference {
-  return node.type === 'footnote.reference'
+	return node.type === 'footnote.reference'
 }
 
 export function isText(node: Node): node is Text {
-  return node.type === 'text'
+	return node.type === 'text'
 }

@@ -1,20 +1,16 @@
 {
-  "files": [],
-  "references": [
-    { "path": "packages/text-kit" },
-    { "path": "packages/orga" },
-    { "path": "packages/oast-to-hast" },
-    { "path": "packages/reorg" },
-    { "path": "packages/reorg-parse" },
-    { "path": "packages/reorg-rehype" },
-    { "path": "packages/next" },
-    { "path": "packages/react" },
-    { "path": "packages/gatsby-transformer-orga" },
-    { "path": "packages/orga-posts" },
-    { "path": "packages/playground" },
-    { "path": "packages/metadata" },
-    { "path": "packages/orgx" },
-    { "path": "packages/rehype-latex" },
-    { "path": "packages/rollup" }
-  ]
+	"files": [],
+	"references": [
+		{ "path": "packages/text-kit" },
+		{ "path": "packages/orga" },
+		{ "path": "packages/oast-to-hast" },
+		{ "path": "packages/reorg" },
+		{ "path": "packages/reorg-parse" },
+		{ "path": "packages/reorg-rehype" },
+		{ "path": "packages/next" },
+		{ "path": "packages/react" },
+		{ "path": "packages/metadata" },
+		{ "path": "packages/orgx" },
+		{ "path": "packages/rollup" }
+	]
 }

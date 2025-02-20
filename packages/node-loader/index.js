@@ -1,14 +1,39 @@
+/**
+ * @import {LoadFnOutput, LoadHook, LoadHookContext} from 'node:module'
+ * @import {ProcessorOptions} from '@orgajs/orgx'
+ */
+
+/**
+ * @typedef {Parameters<LoadHook>[2]} NextLoad
+ *   Next.
+ *
+ * @typedef {ProcessorOptions} Options
+ *   Configuration.
+ *
+ */
+
 import fs from 'node:fs/promises'
 import { reporter } from 'vfile-reporter'
 import { VFile } from 'vfile'
+import { SourceMapGenerator } from 'source-map'
 import { createProcessor } from '@orgajs/orgx'
 
+/**
+ * Create Node.js hooks to handle org files.
+ *
+ * @param {Readonly<Options> | null | undefined} [loaderOptions]
+ *   Configuration (optional).
+ * @returns
+ *   Node.js hooks.
+ */
 export function createLoader(loaderOptions) {
-	/** @type {Settings} */
 	let settings = configure(loaderOptions || {})
 
 	return { initialize, load }
 
+	/**
+	 * @param {Readonly<Options> | null | undefined} options
+	 */
 	async function initialize(options) {
 		settings = configure({ ...loaderOptions, ...options })
 	}
@@ -36,16 +61,17 @@ export function createLoader(loaderOptions) {
 			if (file.messages.length > 0) {
 				console.error(reporter(file))
 			}
+
 			let source = String(file)
-			// source +=
-			//   '\n//# sourceMappingURL=data:application/json;base64,' +
-			//   Buffer.from(JSON.stringify(file.map)).toString('base64') +
-			//   '\n'
+			source +=
+				'\n//# sourceMappingURL=data:application/json;base64,' +
+				Buffer.from(JSON.stringify(file.map)).toString('base64') +
+				'\n'
 
 			return {
 				format: 'module',
 				shortCircuit: true,
-				source,
+				source
 			}
 		}
 
@@ -53,12 +79,19 @@ export function createLoader(loaderOptions) {
 	}
 }
 
+/**
+ * @param {Options} options
+ */
 function configure(options) {
 	const processor = createProcessor({
 		development: true,
 		...options,
-		// SourceMapGenerator,
+		SourceMapGenerator
 	})
+
+	/**
+	 * @param {import('vfile').Compatible} file
+	 */
 	function compile(file) {
 		return processor.process(file)
 	}

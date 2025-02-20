@@ -3,20 +3,13 @@
 	"description": "Add support for org-mode pages in your Astro site",
 	"version": "1.2.2",
 	"type": "module",
-	"main": "index.js",
-	"types": "dist/index.d.ts",
 	"files": [
 		"lib/",
-		"dist/",
-		"index.js"
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
 	],
-	"exports": {
-		".": "./index.js"
-	},
-	"scripts": {
-		"clean": "tsc --build --clean",
-		"build": "tsc --build"
-	},
+	"scripts": {},
 	"keywords": [
 		"astro-integration"
 	],

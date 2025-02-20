@@ -2,18 +2,13 @@
 	"name": "@orgajs/react",
 	"version": "4.1.2",
 	"license": "MIT",
-	"main": "lib/index.js",
 	"type": "module",
-	"types": "dist/index.d.ts",
 	"files": [
-		"lib/",
-		"dist/",
-		"index.js"
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
 	],
-	"scripts": {
-		"clean": "tsc --build --clean",
-		"build": "tsc --build"
-	},
+	"scripts": {},
 	"peerDependencies": {
 		"react": ">=16"
 	},
