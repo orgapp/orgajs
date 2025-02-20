@@ -3,6 +3,7 @@
 	"private": true,
 	"devDependencies": {
 		"@changesets/cli": "^2.26.2",
+		"@types/node": "^22.13.4",
 		"prettier": "^2.8.8",
 		"turbo": "^1.10.13",
 		"type-coverage": "^2.29.7",
@@ -11,6 +12,7 @@
 	},
 	"scripts": {
 		"build": "turbo run build --filter='./packages/*' && tsc --build --clean && tsc --build && type-coverage",
+		"build:docs": "pnpm --filter='@orgajs/docs' run build",
 		"clean": "tsc --build --clean",
 		"test": "xo packages/**/*.js && turbo run test --filter='./packages/*'",
 		"format": "prettier --write .",
