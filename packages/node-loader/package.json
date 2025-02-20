@@ -3,12 +3,8 @@
 	"version": "1.1.0",
 	"description": "",
 	"type": "module",
-	"files": [
-		"lib",
-		"index.js",
-		"index.d.ts",
-		"index.d.ts.map"
-	],
+	"files": ["lib", "index.js", "index.d.ts", "index.d.ts.map"],
+	"exports": "./index.js",
 	"scripts": {},
 	"keywords": [],
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
