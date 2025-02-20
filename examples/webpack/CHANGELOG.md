@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.2.0
+
+### Minor Changes
+
+- 188d30f: - migrate most of modules to js
+  - fix types during the process
+  - remove unmaintained modules
+
 ## 3.1.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @orgajs/node-loader
 
+## 1.1.0
+
+### Minor Changes
+
+- 188d30f: - migrate most of modules to js
+  - fix types during the process
+  - remove unmaintained modules
+
+### Patch Changes
+
+- Updated dependencies [188d30f]
+  - @orgajs/orgx@2.5.0
+
 ## 1.0.1
 
 ### Patch Changes

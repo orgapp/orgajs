@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.2.1
+
+### Patch Changes
+
+- Updated dependencies [188d30f]
+  - @orgajs/reorg-rehype@4.3.0
+  - @orgajs/reorg@4.3.0
+
 ## 4.2.0
 
 ### Minor Changes

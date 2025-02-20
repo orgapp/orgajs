@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.5.0
+
+### Minor Changes
+
+- 188d30f: - migrate most of modules to js
+  - fix types during the process
+  - remove unmaintained modules
+
+### Patch Changes
+
+- Updated dependencies [188d30f]
+  - text-kit@4.4.0
+
 ## 4.4.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @orgajs/metadata
 
+## 2.3.0
+
+### Minor Changes
+
+- 188d30f: - migrate most of modules to js
+  - fix types during the process
+  - remove unmaintained modules
+
 ## 2.2.0
 
 ### Minor Changes

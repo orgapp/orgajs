@@ -1,5 +1,20 @@
 # Change Log
 
+## 4.2.0
+
+### Minor Changes
+
+- 188d30f: - migrate most of modules to js
+  - fix types during the process
+  - remove unmaintained modules
+
+### Patch Changes
+
+- Updated dependencies [188d30f]
+  - @orgajs/loader@4.4.0
+  - @orgajs/react@4.2.0
+  - @orgajs/next@7.0.0
+
 ## 4.1.7
 
 ### Patch Changes

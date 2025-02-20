@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.2.0
+
+### Minor Changes
+
+- 188d30f: - migrate most of modules to js
+  - fix types during the process
+  - remove unmaintained modules
+
 ## 4.1.2
 
 ### Patch Changes
