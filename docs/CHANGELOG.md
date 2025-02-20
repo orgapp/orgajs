@@ -1,5 +1,12 @@
 # @orgajs/docs
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies [b73e6b3]
+  - @orgajs/build@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes
