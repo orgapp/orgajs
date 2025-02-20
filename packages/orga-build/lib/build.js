@@ -244,15 +244,19 @@ async function $(cmd) {
  * @returns {React.JSX.Element}
  */
 function DefaultLayout({ title, children }) {
-	return createElement('html', { lang: 'en' }, [
-		createElement('head', {}, [
+	return createElement(
+		'html',
+		{ lang: 'en' },
+		createElement(
+			'head',
+			{},
 			createElement('meta', { charSet: 'utf-8' }),
 			createElement('meta', {
 				name: 'viewport',
 				content: 'width=device-width, initial-scale=1'
 			}),
 			title && createElement('title', {}, title)
-		]),
+		),
 		createElement('body', {}, children)
-	])
+	)
 }

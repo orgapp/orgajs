@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { argv } from 'node:process'
 import { parseArgs } from 'node:util'
 import { watch } from './lib/watch.js'
