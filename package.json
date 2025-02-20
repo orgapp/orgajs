@@ -2,12 +2,7 @@
 	"name": "orgajs",
 	"private": true,
 	"devDependencies": {
-		"@babel/core": "^7.22.11",
-		"@babel/plugin-syntax-jsx": "^7.22.5",
-		"@babel/preset-react": "^7.22.5",
 		"@changesets/cli": "^2.26.2",
-		"chalk": "^4.1.2",
-		"cross-env": "^7.0.3",
 		"prettier": "^2.8.8",
 		"turbo": "^1.10.13",
 		"type-coverage": "^2.29.7",
@@ -16,6 +11,7 @@
 	},
 	"scripts": {
 		"build": "turbo run build --filter='./packages/*' && tsc --build --clean && tsc --build && type-coverage",
+		"clean": "tsc --build --clean",
 		"test": "xo packages/**/*.js && turbo run test --filter='./packages/*'",
 		"format": "prettier --write .",
 		"changeset": "changeset",

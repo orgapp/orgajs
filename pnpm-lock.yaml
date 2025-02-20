@@ -8,24 +8,9 @@ importers:
 
   .:
     devDependencies:
-      '@babel/core':
-        specifier: ^7.22.11
-        version: 7.26.8
-      '@babel/plugin-syntax-jsx':
-        specifier: ^7.22.5
-        version: 7.25.9(@babel/core@7.26.8)
-      '@babel/preset-react':
-        specifier: ^7.22.5
-        version: 7.26.3(@babel/core@7.26.8)
       '@changesets/cli':
         specifier: ^2.26.2
         version: 2.27.12
-      chalk:
-        specifier: ^4.1.2
-        version: 4.1.2
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
       prettier:
         specifier: ^2.8.8
         version: 2.8.8
@@ -156,7 +141,7 @@ importers:
         version: 13.5.8(eslint@8.57.1)(typescript@5.7.3)
       next:
         specifier: ^13.4.19
-        version: 13.5.8(@babel/core@7.26.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 13.5.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -187,7 +172,7 @@ importers:
         version: 19.0.3(@types/react@19.0.8)
       next:
         specifier: 13.4.3
-        version: 13.4.3(@babel/core@7.26.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 13.4.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -3369,11 +3354,6 @@ packages:
 
   crelt@1.0.6:
     resolution: {integrity: sha512-VQ2MBenTq1fWZUH9DJNGti7kKv6EeAuYr3cLwxUWhIu1baTaXh4Ib5W2CqHVqib4/MqbYGJqiL3Zb8GJZr3l4g==}
-
-  cross-env@7.0.3:
-    resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
-    engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
-    hasBin: true
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -9812,10 +9792,6 @@ snapshots:
 
   crelt@1.0.6: {}
 
-  cross-env@7.0.3:
-    dependencies:
-      cross-spawn: 7.0.6
-
   cross-spawn@7.0.6:
     dependencies:
       path-key: 3.1.1
@@ -12399,7 +12375,7 @@ snapshots:
     dependencies:
       typescript: 5.7.3
 
-  next@13.4.3(@babel/core@7.26.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  next@13.4.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@next/env': 13.4.3
       '@swc/helpers': 0.5.1
@@ -12408,7 +12384,7 @@ snapshots:
       postcss: 8.4.14
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
-      styled-jsx: 5.1.1(@babel/core@7.26.8)(react@19.0.0)
+      styled-jsx: 5.1.1(react@19.0.0)
       zod: 3.21.4
     optionalDependencies:
       '@next/swc-darwin-arm64': 13.4.3
@@ -12424,7 +12400,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  next@13.5.8(@babel/core@7.26.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  next@13.5.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@next/env': 13.5.8
       '@swc/helpers': 0.5.2
@@ -12433,7 +12409,7 @@ snapshots:
       postcss: 8.4.31
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
-      styled-jsx: 5.1.1(@babel/core@7.26.8)(react@19.0.0)
+      styled-jsx: 5.1.1(react@19.0.0)
       watchpack: 2.4.0
     optionalDependencies:
       '@next/swc-darwin-arm64': 13.5.8
@@ -13680,12 +13656,10 @@ snapshots:
     dependencies:
       inline-style-parser: 0.2.4
 
-  styled-jsx@5.1.1(@babel/core@7.26.8)(react@19.0.0):
+  styled-jsx@5.1.1(react@19.0.0):
     dependencies:
       client-only: 0.0.1
       react: 19.0.0
-    optionalDependencies:
-      '@babel/core': 7.26.8
 
   suf-log@2.5.3:
     dependencies:
