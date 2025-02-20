@@ -1,8 +1,13 @@
 {
 	"name": "oast-to-hast",
-	"version": "4.2.0",
+	"version": "4.3.0",
 	"description": "Transform OAST to HAST",
-	"files": ["lib", "index.js", "index.d.ts", "index.d.ts.map"],
+	"files": [
+		"lib",
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
+	],
 	"exports": "./index.js",
 	"type": "module",
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",

@@ -1,5 +1,19 @@
 # Change Log
 
+## 7.0.0
+
+### Minor Changes
+
+- 188d30f: - migrate most of modules to js
+  - fix types during the process
+  - remove unmaintained modules
+
+### Patch Changes
+
+- Updated dependencies [188d30f]
+  - @orgajs/loader@4.4.0
+  - @orgajs/react@4.2.0
+
 ## 6.0.0
 
 ### Minor Changes

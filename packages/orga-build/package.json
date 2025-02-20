@@ -1,15 +1,26 @@
 {
 	"name": "@orgajs/build",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "",
 	"type": "module",
 	"bin": {
 		"orga-build": "cli.js"
 	},
 	"scripts": {},
-	"files": ["lib/", "cli.js", "index.js", "index.d.ts", "index.d.ts.map"],
+	"files": [
+		"lib/",
+		"cli.js",
+		"index.js",
+		"index.d.ts",
+		"index.d.ts.map"
+	],
 	"exports": "./index.js",
-	"keywords": ["orgajs", "build", "website", "react"],
+	"keywords": [
+		"orgajs",
+		"build",
+		"website",
+		"react"
+	],
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"license": "MIT",
 	"dependencies": {

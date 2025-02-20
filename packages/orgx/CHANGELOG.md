@@ -1,5 +1,19 @@
 # @orgajs/orgx
 
+## 2.5.0
+
+### Minor Changes
+
+- 188d30f: - migrate most of modules to js
+  - fix types during the process
+  - remove unmaintained modules
+
+### Patch Changes
+
+- Updated dependencies [188d30f]
+  - @orgajs/reorg-rehype@4.3.0
+  - @orgajs/reorg-parse@4.3.0
+
 ## 2.4.1
 
 ### Patch Changes

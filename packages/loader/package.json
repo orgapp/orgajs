@@ -1,6 +1,6 @@
 {
 	"name": "@orgajs/loader",
-	"version": "4.3.2",
+	"version": "4.4.0",
 	"description": "Load org-mode content through orga.",
 	"type": "module",
 	"main": "./index.cjs",

@@ -1,6 +1,6 @@
 {
 	"name": "@orgajs/cm-lang",
-	"version": "1.1.6",
+	"version": "1.2.0",
 	"description": "codemirror language: org",
 	"type": "module",
 	"files": [
