@@ -17,7 +17,7 @@ const defaultConfig = {
 	/** @type {string[]} */
 	preBuild: [],
 	/** @type {string[]} */
-	postBuild: [],
+	postBuild: []
 }
 
 /**
@@ -41,7 +41,7 @@ const defaultConfig = {
  * @property {import('@orgajs/orgx').OrgComponents} [components] - The components from the org file
  * @property {Layout | undefined} [Layout] - The layout component
  * @property {Pattern | Pattern[]} [ignore] - The ignore pattern
- * @property {(page: Page & { Layout?: Layout, components: Record<string, any> }) => Promise<void>} build - The build function
+ * @property {(page: Page & { Layout?: Layout | undefined, components: Record<string, any> }) => Promise<void>} build - The build function
  * @property {(filePath: string, metadata: Record<string, any>) => string} buildHref - The build function
  */
 
@@ -113,7 +113,7 @@ async function iter(dirPath, context) {
 				Content,
 				metadata,
 				slug: context.buildHref(filePath, metadata),
-				src: filePath,
+				src: filePath
 			})
 		}
 	}
@@ -124,10 +124,10 @@ async function iter(dirPath, context) {
 				...page,
 				metadata: {
 					...page.metadata,
-					pages: pages.map((p) => ({ ...p.metadata, slug: p.slug })),
+					pages: pages.map((p) => ({ ...p.metadata, slug: p.slug }))
 				},
-				Layout: Layout || DefaultLayout,
-				components,
+				Layout: Layout,
+				components
 			})
 		)
 	)
@@ -137,7 +137,7 @@ async function iter(dirPath, context) {
 		await iter(subdir, {
 			...context,
 			Layout,
-			components,
+			components
 		})
 	}
 }
@@ -161,10 +161,9 @@ export async function build({ outDir, preBuild, postBuild }) {
 		},
 		ignore: [/node_modules/, 'out'],
 		build: async ({ Layout, Content, metadata, src, components }) => {
-			assert(Layout, `${src}: Layout component is required`)
 			assert(Content, 'Content component is required')
 			const e = createElement(
-				Layout,
+				Layout ?? DefaultLayout,
 				metadata,
 				createElement(Content, { components })
 			)
@@ -175,7 +174,7 @@ export async function build({ outDir, preBuild, postBuild }) {
 			const filesize = new Intl.NumberFormat().format(code.length)
 			console.log(`${filePath} (${filesize} bytes)`)
 			await fs.writeFile(outPath, code, { encoding: 'utf-8', flush: true })
-		},
+		}
 	})
 	const end = performance.now()
 	console.log(`Built in ${(end - start).toFixed(2)}ms`)
@@ -192,7 +191,7 @@ export async function build({ outDir, preBuild, postBuild }) {
 async function _import(...files) {
 	const found = await globby(files, {
 		cwd: process.cwd(),
-		onlyFiles: true,
+		onlyFiles: true
 	})
 	if (found.length === 0) {
 		return null
@@ -240,9 +239,20 @@ async function $(cmd) {
 /**
  * Default layout
  * @param {Object} props
+ * @param {string|undefined} props.title
  * @param {import('react').ReactNode} props.children
  * @returns {React.JSX.Element}
  */
-function DefaultLayout({ children }) {
-	return createElement('html', {}, createElement('body', {}, children))
+function DefaultLayout({ title, children }) {
+	return createElement('html', { lang: 'en' }, [
+		createElement('head', {}, [
+			createElement('meta', { charSet: 'utf-8' }),
+			createElement('meta', {
+				name: 'viewport',
+				content: 'width=device-width, initial-scale=1'
+			}),
+			title && createElement('title', {}, title)
+		]),
+		createElement('body', {}, children)
+	])
 }
