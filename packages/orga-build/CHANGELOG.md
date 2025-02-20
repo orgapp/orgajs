@@ -1,5 +1,13 @@
 # @orgajs/build
 
+## 1.1.1
+
+### Patch Changes
+
+- b73e6b3: fix builder
+- Updated dependencies [b73e6b3]
+  - @orgajs/node-loader@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes
