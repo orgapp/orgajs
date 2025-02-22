@@ -8,6 +8,7 @@
 import fs from 'node:fs/promises'
 import { VFile } from 'vfile'
 import { compile } from '@orgajs/orgx'
+import { SourceMapGenerator } from 'source-map'
 
 const name = '@orgajs/esbuild'
 
@@ -51,7 +52,7 @@ function esbuild(options) {
 		)
 
 		const file = new VFile({ path: data.path, value: document })
-		const code = await compile(file, options)
+		const code = await compile(file, { ...options, SourceMapGenerator })
 		const contents =
 			String(code) +
 			'\n' +
