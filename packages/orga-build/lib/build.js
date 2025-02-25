@@ -1,4 +1,3 @@
-import { exec } from 'child_process'
 import { globby } from 'globby'
 import fs from 'node:fs/promises'
 import { register } from 'node:module'
@@ -7,10 +6,16 @@ import { createElement } from 'react'
 import { renderToString } from 'react-dom/server'
 import assert from 'node:assert'
 import { match } from './util.js'
+import { evaluate, build as _build } from './esbuild.js'
+import { $, DefaultLayout } from './util.js'
 
-register('./jsx-loader.js', import.meta.url)
-register('./orga-loader.js', import.meta.url)
-register('./raw-loader.js', import.meta.url)
+const USE_NODE = false
+
+if (USE_NODE) {
+	register('./jsx-loader.js', import.meta.url)
+	register('./orga-loader.js', import.meta.url)
+	register('./raw-loader.js', import.meta.url)
+}
 
 const defaultConfig = {
 	outDir: 'out',
@@ -58,12 +63,15 @@ async function iter(dirPath, context) {
 
 	let components = { ...context.components }
 	let Layout = context.Layout
-	const ignore = context.ignore || /node_modules/
+	let ignore = context.ignore || /node_modules/
+	if (!Array.isArray(ignore)) {
+		ignore = [ignore]
+	}
 
 	const files = await fs.readdir(dirPath)
 
 	for (const file of files) {
-		if (match(file, ignore)) {
+		if (match(file, ...ignore)) {
 			continue
 		}
 		const filePath = path.join(dirPath, file)
@@ -103,7 +111,7 @@ async function iter(dirPath, context) {
 
 		// write regex to match .org and .tsx, .jsx files, javascript code only
 
-		if (match(file, [/\.(org)$/, /\.(j|t)sx$/])) {
+		if (match(file, /\.(org)$/, /\.(j|t)sx$/)) {
 			const module = await _import(filePath)
 			const {
 				default: /** @type import('@orgajs/orgx').OrgContent */ Content,
@@ -200,7 +208,11 @@ async function _import(...files) {
 	const file = found[0]
 	const fullPath = path.isAbsolute(file) ? file : path.join(process.cwd(), file)
 	const { mtime } = await fs.stat(fullPath)
-	return await import(`${fullPath}?version=${mtime.getTime()}`)
+	if (USE_NODE) {
+		return await import(`${fullPath}?version=${mtime.getTime()}`)
+	} else {
+		return await evaluate(fullPath)
+	}
 }
 
 /**
@@ -216,47 +228,4 @@ export async function clean(dir) {
 export async function loadConfig() {
 	const config = await _import('orga.config.(j|t)s')
 	return { ...defaultConfig, ...config }
-}
-
-/**
- * @param {string} cmd
- */
-async function $(cmd) {
-	return new Promise((resolve, reject) => {
-		exec(cmd, (err, stdout, stderr) => {
-			if (err) {
-				reject(err)
-			}
-			if (stderr) {
-				console.error(stderr)
-			}
-			console.log(stdout)
-			resolve(stdout)
-		})
-	})
-}
-
-/**
- * Default layout
- * @param {Object} props
- * @param {string|undefined} props.title
- * @param {import('react').ReactNode} props.children
- * @returns {React.JSX.Element}
- */
-function DefaultLayout({ title, children }) {
-	return createElement(
-		'html',
-		{ lang: 'en' },
-		createElement(
-			'head',
-			{},
-			createElement('meta', { charSet: 'utf-8' }),
-			createElement('meta', {
-				name: 'viewport',
-				content: 'width=device-width, initial-scale=1'
-			}),
-			title && createElement('title', {}, title)
-		),
-		createElement('body', {}, children)
-	)
 }
