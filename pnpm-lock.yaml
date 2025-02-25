@@ -506,8 +506,8 @@ importers:
   packages/orga-build:
     dependencies:
       '@orgajs/esbuild':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.1.1
+        version: 1.1.1
       '@orgajs/node-loader':
         specifier: workspace:^
         version: link:../node-loader
@@ -2195,8 +2195,8 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
 
-  '@orgajs/esbuild@1.1.0':
-    resolution: {integrity: sha512-qsKD1WpAmA2Ka7ZlCPF5rkqml1Or580bIXj6XYEkqZxAGq69QydHAkvTMTqY8U1cBrwOzjBeZc5WyTpaSwLkbA==}
+  '@orgajs/esbuild@1.1.1':
+    resolution: {integrity: sha512-tKaBVtLXPqA8XxCH9L8IUsvlOWOlTzsQSKGperKn0x/XL2QBUe1NEy4ohTfM1rw/G1WxXvce2HZU0w7mEd6gjQ==}
 
   '@orgajs/orgx@2.5.0':
     resolution: {integrity: sha512-M8ZXdnl9EJ+U1H/HafMt/8+ke0gNAyrNWLNBvxZI3CdxvaSiScUo8kGP7+ZIFFyGZTywV5H92e1RRxIbjFHnKA==}
@@ -8555,9 +8555,10 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@orgajs/esbuild@1.1.0':
+  '@orgajs/esbuild@1.1.1':
     dependencies:
       '@orgajs/orgx': 2.5.0
+      source-map: 0.7.4
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
