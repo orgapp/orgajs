@@ -1,5 +1,11 @@
 # @orgajs/esbuild
 
+## 1.1.1
+
+### Patch Changes
+
+- 8451164: move orga-build to esbuild
+
 ## 1.1.0
 
 ### Minor Changes

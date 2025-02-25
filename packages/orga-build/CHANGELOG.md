@@ -1,5 +1,13 @@
 # @orgajs/build
 
+## 1.1.2
+
+### Patch Changes
+
+- 8451164: move orga-build to esbuild
+- Updated dependencies [8451164]
+  - @orgajs/esbuild@1.1.1
+
 ## 1.1.1
 
 ### Patch Changes
