@@ -1,11 +1,5 @@
 # @orgajs/esbuild
 
-## 1.1.1
-
-### Patch Changes
-
-- 99d76a3: release orga-build, add source map to @orgajs/esbuild
-
 ## 1.1.0
 
 ### Minor Changes
