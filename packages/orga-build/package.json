@@ -6,9 +6,7 @@
 	"bin": {
 		"orga-build": "cli.js"
 	},
-	"scripts": {
-		"test": "node --test --no-warnings tests/*.js"
-	},
+	"scripts": {},
 	"files": ["lib/", "cli.js", "index.js", "index.d.ts", "index.d.ts.map"],
 	"exports": "./index.js",
 	"keywords": ["orgajs", "build", "website", "react"],
