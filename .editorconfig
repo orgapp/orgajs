@@ -7,6 +7,10 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 indent_style = tab
 
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
 [vcbuild.bat]
 end_of_line = crlf
 

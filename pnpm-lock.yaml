@@ -506,8 +506,8 @@ importers:
   packages/orga-build:
     dependencies:
       '@orgajs/esbuild':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.1.1
+        version: 1.1.1
       '@orgajs/node-loader':
         specifier: workspace:^
         version: link:../node-loader
@@ -2195,8 +2195,8 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
 
-  '@orgajs/esbuild@1.1.0':
-    resolution: {integrity: sha512-qsKD1WpAmA2Ka7ZlCPF5rkqml1Or580bIXj6XYEkqZxAGq69QydHAkvTMTqY8U1cBrwOzjBeZc5WyTpaSwLkbA==}
+  '@orgajs/esbuild@1.1.1':
+    resolution: {integrity: sha512-tKaBVtLXPqA8XxCH9L8IUsvlOWOlTzsQSKGperKn0x/XL2QBUe1NEy4ohTfM1rw/G1WxXvce2HZU0w7mEd6gjQ==}
 
   '@orgajs/orgx@2.5.0':
     resolution: {integrity: sha512-M8ZXdnl9EJ+U1H/HafMt/8+ke0gNAyrNWLNBvxZI3CdxvaSiScUo8kGP7+ZIFFyGZTywV5H92e1RRxIbjFHnKA==}
@@ -4207,7 +4207,7 @@ packages:
     resolution: {integrity: sha512-kGzZ3LWWQcGIAmg6iWvXn0ei6WDtV26wzHRMwDSzmAbcXrTEXxHy6IehI6/4eT6VRKyMP1eF1VqwrVUmE/LR7A==}
 
   github-from-package@0.0.0:
-    resolution: {integrity: sha1-l/tdlr/eiXMxPyDoKI75oWf6ZM4=}
+    resolution: {integrity: sha512-SyHy3T1v2NUXn29OsWdxmK6RwHD+vkj3v8en8AOBZ1wBQ/hCAQ5bAQTD02kW4W9tUp/3Qh6J8r9EvntiyCmOOw==}
 
   github-slugger@1.5.0:
     resolution: {integrity: sha512-wIh+gKBI9Nshz2o46B0B3f5k/W+WI9ZAv6y5Dn5WJ5SK1t0TnDimB4WE5rmTD05ZAIn8HALCZVmCsvj0w0v0lw==}
@@ -8555,9 +8555,10 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@orgajs/esbuild@1.1.0':
+  '@orgajs/esbuild@1.1.1':
     dependencies:
       '@orgajs/orgx': 2.5.0
+      source-map: 0.7.4
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
