@@ -1,27 +1,15 @@
 {
 	"name": "orga-build",
-	"version": "0.1.1",
+	"version": "0.1.0",
 	"description": "A simple tool that builds org-mode files into a website",
 	"type": "module",
 	"bin": {
 		"orga-build": "cli.js"
 	},
 	"scripts": {},
-	"files": [
-		"lib/",
-		"cli.js",
-		"index.js",
-		"index.d.ts",
-		"index.d.ts.map"
-	],
+	"files": ["lib/", "cli.js", "index.js", "index.d.ts", "index.d.ts.map"],
 	"exports": "./index.js",
-	"keywords": [
-		"orgajs",
-		"org-mode",
-		"build",
-		"website",
-		"react"
-	],
+	"keywords": ["orgajs", "org-mode", "build", "website", "react"],
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"license": "MIT",
 	"dependencies": {
