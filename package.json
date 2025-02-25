@@ -2,7 +2,7 @@
 	"name": "orgajs",
 	"private": true,
 	"devDependencies": {
-		"@changesets/cli": "^2.26.2",
+		"@changesets/cli": "^2.28.1",
 		"@types/node": "^22.13.4",
 		"prettier": "^2.8.8",
 		"turbo": "^1.10.13",
