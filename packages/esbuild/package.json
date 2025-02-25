@@ -21,6 +21,7 @@
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"dependencies": {
 		"@orgajs/orgx": "workspace:^",
+		"source-map": "^0.7.4",
 		"vfile": "^6.0.3"
 	},
 	"devDependencies": {

@@ -24,7 +24,7 @@ const rawLoader = async (href, context, defaultLoad) => {
 	return {
 		format: 'module',
 		shortCircuit: true,
-		source: `export default ${JSON.stringify(fileContent)}`,
+		source: `export default ${JSON.stringify(fileContent)}`
 	}
 }
 

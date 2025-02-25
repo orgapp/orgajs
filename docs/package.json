@@ -19,7 +19,7 @@
 		"@codemirror/language": "^6.10.8",
 		"@codemirror/state": "^6.5.2",
 		"@codemirror/view": "^6.36.2",
-		"@orgajs/build": "workspace:^",
+		"orga-build": "workspace:^",
 		"@orgajs/editor": "workspace:^",
 		"@orgajs/orgx": "workspace:^",
 		"codemirror": "^6.0.1",

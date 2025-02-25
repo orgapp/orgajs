@@ -3,7 +3,8 @@
 import { argv } from 'node:process'
 import { parseArgs } from 'node:util'
 import { watch } from './lib/watch.js'
-import { build, loadConfig, clean } from './lib/build.js'
+import { loadConfig, clean } from './lib/build.js'
+import { build } from './lib/esbuild/index.js'
 import { serve } from './lib/serve.js'
 
 const { values, positionals } = parseArgs({
