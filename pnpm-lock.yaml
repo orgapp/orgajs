@@ -44,6 +44,9 @@ importers:
       '@codemirror/view':
         specifier: ^6.36.2
         version: 6.36.2
+      '@orgajs/build':
+        specifier: workspace:^
+        version: link:../packages/orga-build
       '@orgajs/editor':
         specifier: workspace:^
         version: link:../packages/editor
@@ -53,9 +56,6 @@ importers:
       codemirror:
         specifier: ^6.0.1
         version: 6.0.1
-      orga-build:
-        specifier: workspace:^
-        version: link:../packages/orga-build
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -194,12 +194,6 @@ importers:
       unist-util-visit:
         specifier: ^5.0.0
         version: 5.0.0
-
-  examples/orga-build:
-    devDependencies:
-      orga-build:
-        specifier: workspace:^
-        version: link:../../packages/orga-build
 
   examples/webpack:
     devDependencies:

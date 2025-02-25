@@ -1,6 +1,6 @@
 {
-	"name": "orga-build",
-	"version": "0.0.1",
+	"name": "@orgajs/build",
+	"version": "1.1.1",
 	"description": "",
 	"type": "module",
 	"bin": {
