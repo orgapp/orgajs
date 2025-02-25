@@ -18,15 +18,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
-      - uses: pnpm/action-setup@v2
+          node-version: 20
+      - uses: pnpm/action-setup@v4
         with:
-          version: 9.x.x
+          version: 10
+          cache: 'pnpm'
       - name: run unit tests
         run: |
-          pnpm install --frozen-lockfile
+          pnpm install
           pnpm test
