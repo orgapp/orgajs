@@ -10,14 +10,7 @@ import rawLoader from './raw-loader.js'
 import resolveReact from './resolve-react.js'
 
 /**
- * @typedef {Object} Options
- * @property {string} [outDir]
- * @property {string[]} [preBuild]
- * @property {string[]} [postBuild]
- */
-
-/**
- * @param {Options} options
+ * @param {import('../config.js').Options} options
  */
 export async function build({ outDir = 'dir', preBuild = [], postBuild = [] }) {
 	for (const cmd of preBuild) {
