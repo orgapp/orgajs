@@ -33,7 +33,7 @@ export function section(state, node) {
 }
 
 /**
- * @param {import('../state.js').Options} options
+ * @param {import('../state.js').Config} config
  * @param {string[]} tags
  * @returns {boolean}
  */

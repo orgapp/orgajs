@@ -63,7 +63,21 @@ export async function build({ outDir = 'dir', preBuild = [], postBuild = [] }) {
 		outdir: '.orga-build/js',
 		// splitting: true,
 		metafile: true,
-		plugins: [esbuildOrga(), rawLoader, resolveReact],
+		plugins: [
+			esbuildOrga({
+				reorgRehypeOptions: {
+					linkHref: (link) => {
+						if (link.path.protocol === 'file') {
+							return link.path.value.replace(/\.org$/, '.html')
+						}
+						return link.path.value
+					}
+				}
+				// reorgPlugins: [reorgLinks]
+			}),
+			rawLoader,
+			resolveReact
+		],
 		// external: ['react/jsx-runtime'],
 		loader: {
 			'.jsx': 'jsx',
