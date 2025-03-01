@@ -7,6 +7,7 @@ import { renderToString } from 'react-dom/server'
 import assert from 'node:assert'
 import { DefaultLayout, $, match } from '../util.js'
 import rawLoader from './raw-loader.js'
+import resolveReact from './resolve-react.js'
 
 /**
  * @typedef {Object} Options
@@ -62,12 +63,14 @@ export async function build({ outDir = 'dir', preBuild = [], postBuild = [] }) {
 		format: 'esm',
 		platform: 'node',
 		target: 'esnext',
+		// jsxFactory: 'React.createElement',
+		// jsxFragment: 'React.Fragment',
 		jsx: 'automatic',
 		// write: false,
 		outdir: '.orga-build/js',
 		// splitting: true,
 		metafile: true,
-		plugins: [esbuildOrga(), rawLoader],
+		plugins: [esbuildOrga(), rawLoader, resolveReact],
 		// external: ['react/jsx-runtime'],
 		loader: {
 			'.jsx': 'jsx',
