@@ -225,3 +225,10 @@ async function walk(dirPath, callback) {
 		}
 	}
 }
+
+/**
+ * @param {import("fs").PathLike} dir
+ */
+export async function clean(dir) {
+	await fs.rm(dir, { recursive: true })
+}
