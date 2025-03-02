@@ -3,13 +3,13 @@ import path from 'node:path'
 import { evaluate } from './esbuild/evaluate.js'
 
 /**
- * @typedef {Object} Options
- * @property {string} [outDir]
- * @property {string[]} [preBuild]
- * @property {string[]} [postBuild]
+ * @typedef {Object} Config
+ * @property {string} outDir
+ * @property {string[]} preBuild
+ * @property {string[]} postBuild
  */
 
-/** @type {Options} */
+/** @type {Config} */
 const defaultConfig = {
 	outDir: 'out',
 	preBuild: [],
@@ -19,7 +19,7 @@ const defaultConfig = {
 /**
  * @param {string} cwd
  * @param {string[]} files
- * @returns {Promise<Options>}
+ * @returns {Promise<Config>}
  */
 export async function loadConfig(cwd, ...files) {
 	for (const file of files) {
