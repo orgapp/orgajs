@@ -1,5 +1,11 @@
 # @orgajs/node-loader
 
+## 1.1.2
+
+### Patch Changes
+
+- @orgajs/orgx@2.5.1
+
 ## 1.1.1
 
 ### Patch Changes

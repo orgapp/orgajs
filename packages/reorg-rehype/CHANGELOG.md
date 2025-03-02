@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.3.1
+
+### Patch Changes
+
+- Updated dependencies [7c3c600]
+  - oast-to-hast@4.3.1
+
 ## 4.3.0
 
 ### Minor Changes

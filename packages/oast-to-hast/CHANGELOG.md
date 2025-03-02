@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.3.1
+
+### Patch Changes
+
+- 7c3c600: fix react resolve issue
+
 ## 4.3.0
 
 ### Minor Changes
