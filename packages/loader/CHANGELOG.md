@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.4.1
+
+### Patch Changes
+
+- @orgajs/orgx@2.5.1
+
 ## 4.4.0
 
 ### Minor Changes

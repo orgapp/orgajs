@@ -1,5 +1,11 @@
 # @orgajs/orgx
 
+## 2.5.1
+
+### Patch Changes
+
+- @orgajs/reorg-rehype@4.3.1
+
 ## 2.5.0
 
 ### Minor Changes
