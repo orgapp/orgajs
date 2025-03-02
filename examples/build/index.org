@@ -1,0 +1,11 @@
+#+title: Build with Orga
+
+* Hi
+
+You can build a static website with *just* org files.
+
+Here's [[file:more.org][another page]].
+
+#+begin_src sh
+orga-build
+#+end_src

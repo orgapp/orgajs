@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import { argv } from 'node:process'
+import { argv, cwd } from 'node:process'
 import { parseArgs } from 'node:util'
 import { watch } from './lib/watch.js'
-import { loadConfig, clean } from './lib/build.js'
-import { build } from './lib/esbuild/index.js'
+import { build, clean } from './lib/esbuild/build.js'
+import { loadConfig } from './lib/config.js'
 import { serve } from './lib/serve.js'
 
 const { values, positionals } = parseArgs({
@@ -17,7 +17,7 @@ const { values, positionals } = parseArgs({
 	allowPositionals: true
 })
 
-const config = await loadConfig()
+const config = await loadConfig(cwd(), 'orga.config.js', 'orga.config.ts')
 
 await build(config)
 

@@ -105,3 +105,6 @@ dist
 *.d.ts.map
 !packages/reorg-parse/index.d.ts
 !packages/loader/index.d.ts
+
+.meta.json
+.orga-build

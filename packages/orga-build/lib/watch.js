@@ -11,7 +11,7 @@ export async function watch(dir, ignore, onChange) {
 	/** @type {ReturnType<typeof setTimeout> | null} */
 	let timeout = null
 	const delay = 1000
-	const defaultIgnorePattern = /node_modules|\.git|\.DS_Store/
+	const defaultIgnorePattern = /node_modules|\.git|\.DS_Store|\.orga-build/
 
 	const watcher = fs.watch(dir, { recursive: true })
 	for await (const event of watcher) {

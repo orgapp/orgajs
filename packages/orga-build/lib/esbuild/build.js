@@ -7,16 +7,10 @@ import { renderToString } from 'react-dom/server'
 import assert from 'node:assert'
 import { DefaultLayout, $, match } from '../util.js'
 import rawLoader from './raw-loader.js'
+import resolveReact from './resolve-react.js'
 
 /**
- * @typedef {Object} Options
- * @property {string} [outDir]
- * @property {string[]} [preBuild]
- * @property {string[]} [postBuild]
- */
-
-/**
- * @param {Options} options
+ * @param {import('../config.js').Options} options
  */
 export async function build({ outDir = 'dir', preBuild = [], postBuild = [] }) {
 	for (const cmd of preBuild) {
@@ -62,12 +56,28 @@ export async function build({ outDir = 'dir', preBuild = [], postBuild = [] }) {
 		format: 'esm',
 		platform: 'node',
 		target: 'esnext',
+		// jsxFactory: 'React.createElement',
+		// jsxFragment: 'React.Fragment',
 		jsx: 'automatic',
 		// write: false,
 		outdir: '.orga-build/js',
 		// splitting: true,
 		metafile: true,
-		plugins: [esbuildOrga(), rawLoader],
+		plugins: [
+			esbuildOrga({
+				reorgRehypeOptions: {
+					linkHref: (link) => {
+						if (link.path.protocol === 'file') {
+							return link.path.value.replace(/\.org$/, '.html')
+						}
+						return link.path.value
+					}
+				}
+				// reorgPlugins: [reorgLinks]
+			}),
+			rawLoader,
+			resolveReact
+		],
 		// external: ['react/jsx-runtime'],
 		loader: {
 			'.jsx': 'jsx',
@@ -214,4 +224,11 @@ async function walk(dirPath, callback) {
 			}
 		}
 	}
+}
+
+/**
+ * @param {import("fs").PathLike} dir
+ */
+export async function clean(dir) {
+	await fs.rm(dir, { recursive: true })
 }
