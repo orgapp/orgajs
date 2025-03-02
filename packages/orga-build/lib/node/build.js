@@ -5,17 +5,11 @@ import path from 'path'
 import { createElement } from 'react'
 import { renderToString } from 'react-dom/server'
 import assert from 'node:assert'
-import { match } from './util.js'
-import { evaluate, build as _build } from './esbuild.js'
-import { $, DefaultLayout } from './util.js'
+import { match, $, DefaultLayout } from '../util.js'
 
-const USE_NODE = false
-
-if (USE_NODE) {
-	register('./jsx-loader.js', import.meta.url)
-	register('./orga-loader.js', import.meta.url)
-	register('./raw-loader.js', import.meta.url)
-}
+register('./jsx-loader.js', import.meta.url)
+register('./orga-loader.js', import.meta.url)
+register('./raw-loader.js', import.meta.url)
 
 const defaultConfig = {
 	outDir: 'out',
@@ -208,11 +202,7 @@ async function _import(...files) {
 	const file = found[0]
 	const fullPath = path.isAbsolute(file) ? file : path.join(process.cwd(), file)
 	const { mtime } = await fs.stat(fullPath)
-	if (USE_NODE) {
-		return await import(`${fullPath}?version=${mtime.getTime()}`)
-	} else {
-		return await evaluate(fullPath)
-	}
+	return await import(`${fullPath}?version=${mtime.getTime()}`)
 }
 
 /**

@@ -1,6 +1,7 @@
 /**
  * @typedef {import('hast').Nodes} HastNodes
  * @typedef {import('orga').Nodes} OastNodes
+ * @typedef {Partial<import('./state.js').Config> | null | undefined} Options
  */
 
 import { createState } from './state.js'
@@ -8,7 +9,7 @@ import { createState } from './state.js'
 /**
  * @param {OastNodes} tree
  *   oast tree.
- * @param {import('./state.js').Options | null | undefined} [options]
+ * @param {Options} [options]
  *   Configuration (optional).
  * @returns {HastNodes}
  *   hast tree.

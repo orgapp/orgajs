@@ -61,7 +61,7 @@ export function link(state, node) {
 		type: 'element',
 		tagName: 'a',
 		properties: {
-			href: node.path.value,
+			href: state.options.linkHref(node),
 			target: state.options.linkTarget
 		},
 		children: state.all(node)

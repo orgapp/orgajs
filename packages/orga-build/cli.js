@@ -3,8 +3,8 @@
 import { argv } from 'node:process'
 import { parseArgs } from 'node:util'
 import { watch } from './lib/watch.js'
-import { loadConfig, clean } from './lib/build.js'
-import { build } from './lib/esbuild/index.js'
+import { build } from './lib/esbuild/build.js'
+import { loadConfig } from './lib/config.js'
 import { serve } from './lib/serve.js'
 
 const { values, positionals } = parseArgs({
@@ -17,7 +17,11 @@ const { values, positionals } = parseArgs({
 	allowPositionals: true
 })
 
-const config = await loadConfig()
+const config = await loadConfig(
+	process.cwd(),
+	'orga.config.js',
+	'orga.config.ts'
+)
 
 await build(config)
 
@@ -25,7 +29,7 @@ if (positionals.includes('dev')) {
 	serve(values.outDir)
 	watch('.', new RegExp(`^${config.outDir}`), async () => {
 		console.log('rebuilding')
-		await clean(config.outDir)
+		// await clean(config.outDir)
 		await build(config)
 	})
 }

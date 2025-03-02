@@ -6,11 +6,12 @@
  */
 
 /**
- * @typedef {Object} Options
- * @property {Handlers} [handlers]
- * @property {string} [linkTarget='_self']
- * @property {string[]} [selectTags=[]]
- * @property {string[]} [excludeTags=['noexport']]
+ * @typedef {Object} Config
+ * @property {Handlers} handlers
+ * @property {string} linkTarget
+ * @property {(link: import('orga').Link) => string} linkHref
+ * @property {string[]} selectTags=[]
+ * @property {string[]} excludeTags=['noexport']
  */
 
 /**
@@ -32,11 +33,14 @@ import { handlers as defaultHandlers } from './handlers/index.js'
 
 /**
  * @param {OastNodes} tree
- * @param {Options | null | undefined} [options = {}]
+ * @param {Partial<Config> | null | undefined} [options = {}]
  */
 export function createState(tree, options = {}) {
 	/** @type {Handlers} */
-	const handlers = { ...defaultHandlers, ...options?.handlers }
+	let handlers = { ...defaultHandlers }
+	if (options?.handlers) {
+		handlers = { ...handlers, ...options.handlers }
+	}
 
 	const state = {
 		one,
@@ -44,10 +48,13 @@ export function createState(tree, options = {}) {
 		handlers,
 		getAttrHtml,
 		patch,
+		/** @type {Config} */
 		options: {
+			handlers,
 			linkTarget: '_self',
 			selectTags: [],
 			excludeTags: ['noexport'],
+			linkHref: (link) => link.path.value,
 			...options
 		}
 	}

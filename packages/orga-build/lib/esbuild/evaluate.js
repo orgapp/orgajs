@@ -31,27 +31,3 @@ export async function evaluate(filePath) {
 		`return import("data:application/javascript,${encodeURIComponent(code)}")`
 	)()
 }
-
-/**
- * @param {string} pattern
- */
-export async function build(pattern) {
-	return await esbuild.build({
-		entryPoints: [pattern],
-		entryNames: '[dir]/_/[name]',
-		bundle: true,
-		format: 'esm',
-		platform: 'node',
-		target: 'esnext',
-		jsx: 'automatic',
-		// write: false,
-		outdir: '.build',
-		plugins: [esbuildOrga()],
-		loader: {
-			'.jsx': 'jsx',
-			'.tsx': 'tsx'
-		}
-	})
-}
-
-export async function b() {}

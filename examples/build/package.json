@@ -1,0 +1,12 @@
+{
+	"name": "@orgajs/example-build",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "orga-build dev",
+		"build": "orga-build"
+	},
+	"devDependencies": {
+		"orga-build": "workspace:^"
+	}
+}

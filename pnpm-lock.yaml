@@ -91,6 +91,12 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
 
+  examples/build:
+    devDependencies:
+      orga-build:
+        specifier: workspace:^
+        version: link:../../packages/orga-build
+
   examples/editor:
     dependencies:
       '@orgajs/editor':
@@ -506,8 +512,8 @@ importers:
   packages/orga-build:
     dependencies:
       '@orgajs/esbuild':
-        specifier: ^1.1.1
-        version: 1.1.1
+        specifier: workspace:^
+        version: link:../esbuild
       '@orgajs/node-loader':
         specifier: workspace:^
         version: link:../node-loader
@@ -545,6 +551,9 @@ importers:
       '@types/serve-handler':
         specifier: ^6.1.4
         version: 6.1.4
+      orga:
+        specifier: workspace:^
+        version: link:../orga
 
   packages/orgx:
     dependencies:
@@ -2195,22 +2204,10 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
 
-  '@orgajs/esbuild@1.1.1':
-    resolution: {integrity: sha512-tKaBVtLXPqA8XxCH9L8IUsvlOWOlTzsQSKGperKn0x/XL2QBUe1NEy4ohTfM1rw/G1WxXvce2HZU0w7mEd6gjQ==}
-
-  '@orgajs/orgx@2.5.0':
-    resolution: {integrity: sha512-M8ZXdnl9EJ+U1H/HafMt/8+ke0gNAyrNWLNBvxZI3CdxvaSiScUo8kGP7+ZIFFyGZTywV5H92e1RRxIbjFHnKA==}
-
   '@orgajs/react@4.1.1':
     resolution: {integrity: sha512-cpUapGGBdqpnoxWZ/qRsV6tG5hlHw7BthuTdMviP5PvXfng5YbVlZ2BIjCFzhsrQ1pSZ7UVNX6/EGIcB/DcPNQ==}
     peerDependencies:
       react: '>=16'
-
-  '@orgajs/reorg-parse@4.3.0':
-    resolution: {integrity: sha512-3nJIgaShKiIUBNZTRP9X5vc1uSG+8FwpHujBM+m6yRDNM+niGqrK9IGdM+lQCEi6CM3AhEvQeentCdEps6ppWg==}
-
-  '@orgajs/reorg-rehype@4.3.0':
-    resolution: {integrity: sha512-ZJgvxIFil2qrvFM91326gkDzsJcyEcivOFc99IasFLe23jZ+WOWlKyX50bzK4TgAsUOt8ZTOUGIjJqlWuHm78g==}
 
   '@parcel/watcher-android-arm64@2.5.1':
     resolution: {integrity: sha512-KF8+j9nNbUN8vzOFDpRMsaKBHZ/mcjEjMToVMJOhTozkDonQFFrRcfdLWn6yWKCmJKmdVxSgHiYvTCef4/qcBA==}
@@ -3334,7 +3331,7 @@ packages:
     engines: {node: '>= 0.8.0'}
 
   concat-map@0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   confusing-browser-globals@1.0.11:
     resolution: {integrity: sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==}
@@ -3359,7 +3356,7 @@ packages:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
   cookie-signature@1.0.6:
-    resolution: {integrity: sha1-4wOogrNCzD7oylE6eZmXNNqzriw=}
+    resolution: {integrity: sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==}
 
   cookie@0.5.0:
     resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
@@ -4132,7 +4129,7 @@ packages:
     engines: {node: '>= 0.6'}
 
   fresh@0.5.2:
-    resolution: {integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=}
+    resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
 
   fs-constants@1.0.0:
@@ -5094,7 +5091,7 @@ packages:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
 
   media-typer@0.3.0:
-    resolution: {integrity: sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=}
+    resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
     engines: {node: '>= 0.6'}
 
   memfs@3.6.0:
@@ -5462,9 +5459,6 @@ packages:
     resolution: {integrity: sha512-9qny7Z9DsQU8Ou39ERsPU4OZQlSTP47ShQzuKZ6PRXpYLtIFgl/DEBYEXKlvcEa+9tHVcK8CF81Y2V72qaZhWA==}
     engines: {node: '>=18'}
 
-  oast-to-hast@4.3.0:
-    resolution: {integrity: sha512-ZE7tCwxpEfxdtQd+Hn8vbJBDs/rJnxdKAzBHqTc2/OmpE01GPhcJns1bymvg5U11FvUa1zKagfnFcrmT9kWduA==}
-
   obj-props@1.4.0:
     resolution: {integrity: sha512-p7p/7ltzPDiBs6DqxOrIbtRdwxxVRBj5ROukeNb9RgA+fawhrz5n2hpNz8DDmYR//tviJSj7nUnlppGmONkjiQ==}
     engines: {node: '>=0.10.0'}
@@ -5548,9 +5542,6 @@ packages:
 
   orderedmap@2.1.1:
     resolution: {integrity: sha512-TvAWxi0nDe1j/rtMcWcIj94+Ffe6n7zhow33h40SKxmsmozs6dz/e+EajymfoFcHd7sxNn8yHM8839uixMOV6g==}
-
-  orga@4.5.0:
-    resolution: {integrity: sha512-N2FhxPQQVgUtetCpGmZTtgcXDwR25hNHbV9AmkK9ewKOijZx69g4b3F6V9EB74NC9+FtxtcU7AEJznZG7kviIw==}
 
   os-tmpdir@1.0.2:
     resolution: {integrity: sha512-D2FR03Vir7FIu45XBY20mTb+/ZSWB00sjU9jdQXt83gDrI4Ztz5Fs7/yy74g2N5SVQY4xY1qDr4rNddwYRVX0g==}
@@ -6497,9 +6488,6 @@ packages:
   text-decoder@1.2.3:
     resolution: {integrity: sha512-3/o9z3X0X0fTupwsYvR03pJ/DjWuqqrfwBgTQzdWDiQSm9KitAyz/9WqsT2JQW7KV2m+bC2ol/zqpW37NHxLaA==}
 
-  text-kit@4.4.0:
-    resolution: {integrity: sha512-i/bAPntrC3TaNbqu4KBEW3tKB0UbzXsoyo/BVSIiI+NpdPtt3+W3EvPDVKG0vz4w2gKUW3rGTCxd9Xg3Y9NyIA==}
-
   text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
 
@@ -6777,7 +6765,7 @@ packages:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
   utils-merge@1.0.1:
-    resolution: {integrity: sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=}
+    resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
   uuid@8.3.2:
@@ -8555,49 +8543,9 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@orgajs/esbuild@1.1.1':
-    dependencies:
-      '@orgajs/orgx': 2.5.0
-      source-map: 0.7.4
-      vfile: 6.0.3
-    transitivePeerDependencies:
-      - supports-color
-
-  '@orgajs/orgx@2.5.0':
-    dependencies:
-      '@orgajs/reorg-parse': 4.3.0
-      '@orgajs/reorg-rehype': 4.3.0
-      acorn: 8.14.0
-      acorn-jsx: 5.3.2(acorn@8.14.0)
-      astring: 1.9.0
-      estree-util-build-jsx: 3.0.1
-      estree-util-is-identifier-name: 3.0.0
-      estree-util-to-js: 2.0.0
-      estree-walker: 3.0.3
-      hast-util-to-estree: 3.1.1
-      periscopic: 3.1.0
-      recma-build-jsx: 1.0.0
-      recma-jsx: 1.0.0(acorn@8.14.0)
-      recma-stringify: 1.0.0
-      source-map: 0.7.4
-      unified: 11.0.5
-      unist-util-position-from-estree: 2.0.0
-      unist-util-stringify-position: 4.0.0
-      vfile: 6.0.3
-    transitivePeerDependencies:
-      - supports-color
-
   '@orgajs/react@4.1.1(react@19.0.0)':
     dependencies:
       react: 19.0.0
-
-  '@orgajs/reorg-parse@4.3.0':
-    dependencies:
-      orga: 4.5.0
-
-  '@orgajs/reorg-rehype@4.3.0':
-    dependencies:
-      oast-to-hast: 4.3.0
 
   '@parcel/watcher-android-arm64@2.5.1':
     optional: true
@@ -12560,14 +12508,6 @@ snapshots:
       path-key: 4.0.0
       unicorn-magic: 0.3.0
 
-  oast-to-hast@4.3.0:
-    dependencies:
-      hast-util-from-html: 2.0.3
-      mime: 3.0.0
-      orga: 4.5.0
-      parse5: 7.2.1
-      unist-util-position: 5.0.0
-
   obj-props@1.4.0: {}
 
   object-assign@4.1.1: {}
@@ -12679,12 +12619,6 @@ snapshots:
       wcwidth: 1.0.1
 
   orderedmap@2.1.1: {}
-
-  orga@4.5.0:
-    dependencies:
-      date-fns: 2.30.0
-      date-fns-tz: 2.0.1(date-fns@2.30.0)
-      text-kit: 4.4.0
 
   os-tmpdir@1.0.2: {}
 
@@ -13859,8 +13793,6 @@ snapshots:
     dependencies:
       b4a: 1.6.7
     optional: true
-
-  text-kit@4.4.0: {}
 
   text-table@0.2.0: {}
 

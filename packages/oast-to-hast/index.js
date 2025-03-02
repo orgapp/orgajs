@@ -1,5 +1,5 @@
 /**
- * @typedef {import('./lib/state.js').Options} Options
+ * @typedef {import('./lib/index.js').Options} Options
  */
 
 export { handlers as defaultHandlers } from './lib/handlers/index.js'
