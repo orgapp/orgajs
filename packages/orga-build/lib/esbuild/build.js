@@ -39,11 +39,18 @@ export async function build({ outDir = 'dir', preBuild = [], postBuild = [] }) {
 			src.components.push(file)
 			return
 		}
+		// ignore other files starting with `_` or `.`
+		if (match(fileName, /(^_|^\.)/)) {
+			return
+		}
+
 		if (match(fileName, /\.(org)$/, /\.(j|t)sx$/)) {
 			src.pages.push(file)
 			return
 		}
 	})
+
+	const esbuildOutDir = '.orga-build'
 
 	const result = await esbuild.build({
 		entryPoints: [
@@ -60,9 +67,10 @@ export async function build({ outDir = 'dir', preBuild = [], postBuild = [] }) {
 		// jsxFragment: 'React.Fragment',
 		jsx: 'automatic',
 		// write: false,
-		outdir: '.orga-build/js',
+		outdir: esbuildOutDir,
 		// splitting: true,
 		metafile: true,
+		assetNames: '[name]-[hash]',
 		plugins: [
 			esbuildOrga({
 				reorgRehypeOptions: {
@@ -81,7 +89,11 @@ export async function build({ outDir = 'dir', preBuild = [], postBuild = [] }) {
 		// external: ['react/jsx-runtime'],
 		loader: {
 			'.jsx': 'jsx',
-			'.tsx': 'tsx'
+			'.tsx': 'tsx',
+			'.png': 'file',
+			'.jpg': 'file',
+			'.jpeg': 'file',
+			'.webp': 'file'
 		}
 	})
 
@@ -105,7 +117,15 @@ export async function build({ outDir = 'dir', preBuild = [], postBuild = [] }) {
 	let map = {}
 	// iterate over results to get layout and components
 	for (const [file, meta] of Object.entries(result.metafile.outputs)) {
-		if (!meta.entryPoint) continue
+		if (!meta.entryPoint) {
+			// copy assets
+			const relPath = path.relative(esbuildOutDir, file)
+			const to = path.join(cwd, path.join(outDir, relPath))
+			await fs.mkdir(path.dirname(to), { recursive: true })
+			await fs.copyFile(file, to)
+			continue
+		}
+
 		const fullSrc = path.join(cwd, meta.entryPoint)
 		// get components
 		if (src.components.includes(fullSrc)) {
@@ -204,6 +224,7 @@ async function walk(dirPath, callback) {
 	const queue = [dirPath]
 
 	const ignore = [/^\./, /node_modules/]
+	const ignoreDirs = [/^_/, /^\./, /node_modules/]
 
 	while (queue.length > 0) {
 		const currentPath = queue.shift()
@@ -218,6 +239,9 @@ async function walk(dirPath, callback) {
 			const stats = await fs.stat(filePath)
 
 			if (stats.isDirectory()) {
+				if (match(file, ...ignoreDirs)) {
+					continue
+				}
 				queue.push(filePath)
 			} else {
 				callback(filePath)
