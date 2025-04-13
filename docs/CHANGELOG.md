@@ -1,5 +1,12 @@
 # @orgajs/docs
 
+## 1.1.5
+
+### Patch Changes
+
+- Updated dependencies [10e8856]
+  - orga-build@0.1.2
+
 ## 1.1.4
 
 ### Patch Changes

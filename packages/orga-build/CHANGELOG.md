@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.1.2
+
+### Patch Changes
+
+- 10e8856: [orga-build] copy assets
+
 ## 0.1.1
 
 ### Patch Changes
