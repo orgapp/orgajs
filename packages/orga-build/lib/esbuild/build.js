@@ -94,7 +94,6 @@ export async function build({ outDir = 'dir', preBuild = [], postBuild = [] }) {
 							}
 							const name = (imports[src] ??= `asset_${genId()}`)
 							node.value = `<img src={${name}} target='${target}'/>`
-							console.log(node)
 						})
 
 						for (const [src, name] of Object.entries(imports)) {
