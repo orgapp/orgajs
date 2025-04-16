@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.1.3
+
+### Patch Changes
+
+- e504f45: you can refer to image using relative path now
+
 ## 0.1.2
 
 ### Patch Changes
