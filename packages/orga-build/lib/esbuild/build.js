@@ -8,6 +8,7 @@ import assert from 'node:assert'
 import { DefaultLayout, $, match } from '../util.js'
 import rawLoader from './raw-loader.js'
 import resolveReact from './resolve-react.js'
+import { visitParents } from 'unist-util-visit-parents'
 
 /**
  * @param {import('../config.js').Config} options
@@ -80,8 +81,31 @@ export async function build({ outDir = 'dir', preBuild = [], postBuild = [] }) {
 						}
 						return link.path.value
 					}
-				}
-				// reorgPlugins: [reorgLinks]
+				},
+				rehypePlugins: [
+					() => (tree) => {
+						/** @type {Record<string, string>} */
+						const imports = {}
+						visitParents(tree, { tagName: 'img' }, (node) => {
+							node.type = 'jsx'
+							const { src, target } = node.properties
+							if (src.startsWith('http')) {
+								return
+							}
+							const name = (imports[src] ??= `asset_${genId()}`)
+							node.value = `<img src={${name}} target='${target}'/>`
+							console.log(node)
+						})
+
+						for (const [src, name] of Object.entries(imports)) {
+							tree.children.unshift({
+								type: 'jsx',
+								value: `import ${name} from '${src}'`,
+								children: []
+							})
+						}
+					}
+				]
 			}),
 			rawLoader,
 			resolveReact
@@ -255,4 +279,10 @@ async function walk(dirPath, callback) {
  */
 export async function clean(dir) {
 	await fs.rm(dir, { recursive: true })
+}
+
+function genId(length = 8) {
+	const array = new Uint8Array(length)
+	crypto.getRandomValues(array)
+	return Array.from(array, (byte) => (byte % 36).toString(36)).join('')
 }
