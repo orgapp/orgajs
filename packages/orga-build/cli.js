@@ -2,10 +2,10 @@
 
 import { argv, cwd } from 'node:process'
 import { parseArgs } from 'node:util'
-import { watch } from './lib/watch.js'
-import { build, clean } from './lib/esbuild/build.js'
 import { loadConfig } from './lib/config.js'
 import { serve } from './lib/serve.js'
+import { build, clean } from './lib/vite/build.js'
+import { watch } from './lib/watch.js'
 
 const { values, positionals } = parseArgs({
 	args: argv.slice(2),
