@@ -1,0 +1,60 @@
+import { setup } from './files.js'
+import path from 'node:path'
+
+const magicModulePrefix = '@orga-build'
+
+/**
+ * @param {Object} [options]
+ * @param {string?} [options.dir]
+ * @returns {import('vite').Plugin}
+ */
+export function pluginFactory({ dir } = {}) {
+	const files = setup(dir || process.cwd())
+
+	return {
+		name: 'vite-plugin-orga-pages',
+		enforce: 'pre',
+		async resolveId(id, importer) {
+			if (id.startsWith(magicModulePrefix)) {
+				return id
+			}
+		},
+		async load(id) {
+			if (id === `${magicModulePrefix}/pages`) {
+				return await renderPageList()
+			}
+			if (id.startsWith(`${magicModulePrefix}/pages/`)) {
+				let pageId = id.replace(`${magicModulePrefix}/pages/`, '')
+			}
+		}
+	}
+
+	async function renderPageList() {
+		const pages = await files.pages()
+		/** @type {string[]} */ const _imports = []
+		/** @type {string[]} */ const _pages = []
+		Object.entries(pages).forEach(([pageId, value], i) => {
+			const dataModulePath = path.join(magicModulePrefix, 'pages', pageId)
+			_imports.push(`import * as page${i} from '${value.dataPath}'`)
+			_pages.push(`pages['${pageId}'] = page${i}`)
+		})
+		// 		const pageList = Object.entries(pages)
+		// 			.map(([pageId, value]) => {
+		// 				const dataModulePath = path.join(magicModulePrefix, 'pages', pageId)
+
+		// 				return `
+		// pages['${pageId}'] = {}
+		// pages['${pageId}'].metadata = await imoprt('${value.dataPath}');
+		// `
+		// 			})
+		// 			.join('\n')
+		return `
+${_imports.join('\n')}
+const pages = {};
+${_pages.join('\n')}
+export default pages;
+	`
+	}
+
+	async function renderPage() {}
+}
