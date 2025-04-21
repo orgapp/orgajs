@@ -6,7 +6,8 @@ import path from 'node:path'
  */
 export function setup(dir) {
 	return {
-		pages
+		pages,
+		components,
 	}
 
 	async function pages() {
@@ -30,6 +31,13 @@ export function setup(dir) {
 		}
 
 		return pages
+	}
+
+	async function components() {
+		const files = await globby(['_components.{tsx,jsx}'], {
+			cwd: dir,
+		})
+		return files[0] ? path.join(dir, files[0]) : null
 	}
 
 	/**

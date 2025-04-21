@@ -46,7 +46,7 @@ export async function build({ outDir = 'out' }) {
 		build: {
 			cssCodeSplit: false,
 			rollupOptions: {
-				input: fileURLToPath(new URL('./client.js', import.meta.url)),
+				input: fileURLToPath(new URL('./client.jsx', import.meta.url)),
 				preserveEntrySignatures: 'allow-extension'
 			},
 			assetsDir: 'assets',

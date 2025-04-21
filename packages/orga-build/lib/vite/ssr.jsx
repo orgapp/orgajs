@@ -1,5 +1,7 @@
 import pages from '@orga-build/pages'
 import { renderToString } from 'react-dom/server'
+import { StaticRouter } from 'react-router'
+import { App } from './app.jsx'
 export {pages}
 
 /**
@@ -11,16 +13,14 @@ export function render(url) {
 		console.log(`no page found for ${url}`)
 		return
 	}
-	const Content = page.default
-	const components = {Notice}
-	return renderToString(<Content title={page.title} components={components}/>);
+	return renderToString(<SSRContent url={url}/>);
 }
 
-function Notice({children}) {
+function SSRContent({url}) {
 	return (
-		<div>
-			<h1>Notice</h1>
-			<p>{children}</p>
-		</div>
+		<StaticRouter location={url}>
+			<App />
+		</StaticRouter>
 	)
 }
+

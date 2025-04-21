@@ -26,6 +26,10 @@ export function pluginFactory({ dir } = {}) {
 			if (id.startsWith(`${magicModulePrefix}/pages/`)) {
 				let pageId = id.replace(`${magicModulePrefix}/pages/`, '')
 			}
+
+			if (id === `${magicModulePrefix}/components`) {
+				return await renderComponents()
+			}
 		}
 	}
 
@@ -54,6 +58,14 @@ const pages = {};
 ${_pages.join('\n')}
 export default pages;
 	`
+	}
+
+	async function renderComponents() {
+		const components = await files.components()
+		if (components) {
+			return `export * from '${components}'`
+		}
+		return ''
 	}
 
 	async function renderPage() {}
