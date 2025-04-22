@@ -27,6 +27,21 @@ export function pluginFactory({ dir } = {}) {
 				let pageId = id.replace(`${magicModulePrefix}/pages/`, '')
 			}
 
+			if (id === `${magicModulePrefix}/layouts`) {
+				const layouts = await files.layouts()
+				const imports = []
+				const lines = Object.entries(layouts).map(([key, value], i) => {
+					imports.push(`import Layout${i} from '${value}'`)
+					return `layouts['${key}'] = Layout${i}`
+				})
+				return `
+${imports.join('\n')}
+const layouts = {};
+${lines.join('\n')}
+export default layouts;
+				`
+			}
+
 			if (id === `${magicModulePrefix}/components`) {
 				return await renderComponents()
 			}
@@ -42,16 +57,6 @@ export function pluginFactory({ dir } = {}) {
 			_imports.push(`import * as page${i} from '${value.dataPath}'`)
 			_pages.push(`pages['${pageId}'] = page${i}`)
 		})
-		// 		const pageList = Object.entries(pages)
-		// 			.map(([pageId, value]) => {
-		// 				const dataModulePath = path.join(magicModulePrefix, 'pages', pageId)
-
-		// 				return `
-		// pages['${pageId}'] = {}
-		// pages['${pageId}'].metadata = await imoprt('${value.dataPath}');
-		// `
-		// 			})
-		// 			.join('\n')
 		return `
 ${_imports.join('\n')}
 const pages = {};
@@ -68,5 +73,6 @@ export default pages;
 		return ''
 	}
 
-	async function renderPage() {}
+	async function renderPage() {
+	}
 }

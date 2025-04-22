@@ -3,7 +3,7 @@ import { build as viteBuild } from 'vite'
 import orga from '@orgajs/rollup'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { emptyDir, ensureDir, copy } from './fs.js'
+import { copy, emptyDir, ensureDir } from './fs.js'
 import { pluginFactory } from './plugin.js'
 import fs from 'fs/promises'
 
@@ -61,7 +61,7 @@ export async function build({ outDir = 'out' }) {
 	/* --- get html template, inject entry js and css --- */
 	const template = await fs.readFile(
 		fileURLToPath(new URL('./index.html', import.meta.url)),
-		{encoding: 'utf-8'}
+		{ encoding: 'utf-8' }
 	)
 	/* --- for each page path, render html using render function from ssr bundle, and inject the right css  --- */
 	const pagePaths = Object.keys(pages)
@@ -85,7 +85,7 @@ export async function build({ outDir = 'out' }) {
 	function renderHTML(pagePath) {
 		const content = render(pagePath)
 		const ssr = {
-			routePath: pagePath,
+			routePath: pagePath
 		}
 		let html = template.replace('<div id="root"></div>', `
 		<script>window._ssr=${JSON.stringify(ssr)};</script>
