@@ -4,7 +4,7 @@ import { argv, cwd } from 'node:process'
 import { parseArgs } from 'node:util'
 import { loadConfig } from './lib/config.js'
 import { serve } from './lib/serve.js'
-import { build, clean } from './lib/vite/build.js'
+import { build } from './lib/vite/build.js'
 import { watch } from './lib/watch.js'
 
 const { values, positionals } = parseArgs({
@@ -25,7 +25,6 @@ if (positionals.includes('dev')) {
 	serve(values.outDir)
 	watch('.', new RegExp(`^${config.outDir}`), async () => {
 		console.log('rebuilding')
-		await clean(config.outDir)
 		await build(config)
 	})
 }

@@ -1,300 +1,99 @@
-import orgaRollup from '@orgajs/rollup'
-import react from '@vitejs/plugin-react'
-import { promises as fs } from 'fs'
-import { globby } from 'globby'
-import path from 'path'
+import path from 'node:path'
 import { build as viteBuild } from 'vite'
+import orga from '@orgajs/rollup'
+import react from '@vitejs/plugin-react'
+import { fileURLToPath, pathToFileURL } from 'node:url'
+import { copy, emptyDir, ensureDir } from './fs.js'
+import { pluginFactory } from './plugin.js'
+import fs from 'fs/promises'
 
-/**
- * @param {import('../config.js').Config} options
- * this function is used to iterate through all files in the current directory
- * and its subdirectories, and generate a static site using Vite.
- * each .org/.tsx/.jsx file is treated as a page.
- * use vite to build individual html files for each page.
- * use the file path to determine the route.
- * also, for each page, generate a [page_name].[hash].js file that hydrates the page, and attach it to the html file.
- * use @orgajs/rollup as a plugin to handle the .org files.
- * also add necessary plugins to handle .tsx/.jsx files.
- * the preBuild and postBuild hooks are used to run custom scripts before and after the build process.
- * they are commands in string form
- */
-export async function build({ outDir = 'out', preBuild = [], postBuild = [] }) {
-	// Execute pre-build hooks
-	// for (const hook of preBuild) {
-	//   await hook();
-	// }
+export async function build({ outDir = 'out' }) {
+	/* --- prepare folders, out, ssr, client --- */
+	const root = process.cwd()
+	outDir = path.resolve(root, outDir)
+	await emptyDir(outDir)
+	const ssrOutDir = path.join(outDir, '.ssr')
+	const clientOutDir = path.join(outDir, '.client')
 
-	// Find all page files (.org, .tsx, .jsx)
-	// Ignore files starting with . or _, also ignore node_modules and out directory
-	const files = await globby([
-		'**/*.{org,tsx,jsx}',
-		'!**/_*/**',
-		'!**/_*',
-		'!**/.*/**',
-		'!**/.*',
-		'!node_modules/**',
-		'!out/**'
-	])
-
-	// Check for _components.tsx or _components.jsx file
-	const componentFiles = await globby(['_components.tsx', '_components.jsx'])
-	const hasComponentsFile = componentFiles.length > 0
-	const componentsFilePath = hasComponentsFile
-		? path.resolve(componentFiles[0])
-		: null
-
-	console.log(
-		hasComponentsFile
-			? `Found components file: ${componentsFilePath}`
-			: 'No components file found'
-	)
-
-	// Create directory if it doesn't exist
-	await fs.mkdir(outDir, { recursive: true })
-
-	// Create temp directories for SSR
-	const ssrDir = path.join(outDir, '_temp_ssr')
-	const entriesDir = path.join(outDir, '_temp_entries')
-	await fs.mkdir(ssrDir, { recursive: true })
-	await fs.mkdir(entriesDir, { recursive: true })
-
-	/** @type {Object.<string, string>} - Map of entry point names to file paths */
-	const clientEntries = {}
-	/** @type {Object.<string, string>} - Map of SSR entry point names to file paths */
-	const ssrEntries = {}
-
-	for (const file of files) {
-		const fileBaseName = path.basename(file, path.extname(file))
-		const relativePath = file.replace(/\.(org|tsx|jsx)$/, '')
-
-		// Generate entry file for client hydration
-		const clientEntry = path.join(entriesDir, `${relativePath}.client.jsx`)
-		await fs.mkdir(path.dirname(clientEntry), { recursive: true })
-
-		const clientEntryContent = generateClientEntry(file, componentsFilePath)
-
-		await fs.writeFile(clientEntry, clientEntryContent)
-		clientEntries[relativePath] = clientEntry
-
-		// Generate entry file for SSR
-		const ssrEntry = path.join(entriesDir, `${relativePath}.server.jsx`)
-		await fs.mkdir(path.dirname(ssrEntry), { recursive: true })
-
-		const ssrEntryContent = generateSSREntry(file, componentsFilePath)
-
-		await fs.writeFile(ssrEntry, ssrEntryContent)
-		ssrEntries[relativePath] = ssrEntry
-	}
-
-	// Client build config
-	// First, build the client-side bundle
-	console.log('Building client bundle...')
-
-	// Build client bundle
-	await viteBuild({
-		plugins: [orgaRollup(), react()],
+	/* --- build ssr bundle: server.mjs --- */
+	console.log('preparing ssr bundle...')
+	const ssrOutput = await viteBuild({
+		root,
+		plugins: [orga(), react(), pluginFactory()],
 		build: {
-			outDir: path.join(outDir, 'assets'),
-			emptyOutDir: true,
+			ssr: true,
+			cssCodeSplit: false,
 			rollupOptions: {
-				input: clientEntries, // Rollup will handle this object format
+				input: fileURLToPath(new URL('./ssr.jsx', import.meta.url)),
 				output: {
-					entryFileNames: '[name].[hash].js',
-					chunkFileNames: 'chunks/[name].[hash].js'
+					entryFileNames: '[name].mjs',
+					chunkFileNames: '[name]-[hash].mjs'
 				}
 			},
-			cssCodeSplit: true,
-			minify: true,
-			manifest: true // Generate manifest.json for asset mapping
+			outDir: ssrOutDir,
+			minify: false
 		}
 	})
 
-	// Read the manifest to map routes to assets
-	const manifest = JSON.parse(
-		await fs.readFile(
-			path.join(outDir, 'assets', '.vite', 'manifest.json'),
-			'utf-8'
-		)
-	)
+	/* --- import ssr bundle entry output, to get all the data and render function --- */
 
-	console.log('Manifest:', manifest)
+	const { render, pages } = await import(pathToFileURL(path.join(ssrOutDir, 'ssr.mjs')).toString())
 
-	// Now build SSR bundle for HTML generation
-	console.log('Building SSR bundle...')
-
-	// Build SSR bundle
-	await viteBuild({
-		plugins: [orgaRollup(), react()],
+	/* --- build client bundle: client.mjs --- */
+	const clientResult = await viteBuild({
+		root,
+		plugins: [orga(), react(), pluginFactory()],
 		build: {
-			outDir: ssrDir,
-			ssr: true,
+			cssCodeSplit: false,
 			rollupOptions: {
-				input: ssrEntries, // Rollup will handle this object format
-				output: {
-					format: 'esm',
-					entryFileNames: '[name].js'
-				}
-			}
+				input: fileURLToPath(new URL('./client.jsx', import.meta.url)),
+				preserveEntrySignatures: 'allow-extension'
+			},
+			assetsDir: 'assets',
+			outDir: clientOutDir
 		}
 	})
-
-	// Generate HTML files using SSR output
-	console.log('Generating static HTML...')
-	for (const file of files) {
-		const fileBaseName = path.basename(file, path.extname(file))
-		const relativePath = file.replace(/\.(org|tsx|jsx)$/, '')
-
-		// Determine output HTML path
-		const htmlOutput = path.join(
-			outDir,
-			relativePath === 'index' ? 'index.html' : `${relativePath}/index.html`
-		)
-		await fs.mkdir(path.dirname(htmlOutput), { recursive: true })
-
-		// Import the SSR module
-		const ssrModule = await import(
-			`file://${path.resolve(ssrDir, `${relativePath}.js`)}?t=${Date.now()}`
-		)
-		const renderedContent = ssrModule.render()
-
-		// Find the right entry in the manifest
-		const entryKey = `${outDir}/_temp_entries/${relativePath}.client.jsx`
-		const entryAsset = manifest[entryKey]
-
-		console.log(`Looking for manifest entry with key: ${entryKey}`)
-
-		let entryScript = ''
-		let cssAssets = []
-
-		if (entryAsset) {
-			console.log(`Found entry asset: ${JSON.stringify(entryAsset)}`)
-			entryScript = entryAsset.file
-			cssAssets = entryAsset.css || []
-		} else {
-			// Try to find by matching the relative path
-			console.warn(`No direct match for ${entryKey}, searching...`)
-
-			const possibleKey = Object.keys(manifest).find((key) =>
-				key.includes(`/${relativePath}.client.jsx`)
-			)
-
-			if (possibleKey) {
-				console.log(`Found alternative key: ${possibleKey}`)
-				entryScript = manifest[possibleKey].file
-				cssAssets = manifest[possibleKey].css || []
-			} else {
-				console.warn(`Could not find entry for ${relativePath} in manifest`)
-			}
-		}
-
-		// Generate HTML with SSR content and hydration scripts
-		const htmlContent = generateHtml({
-			title: ssrModule.title,
-			content: renderedContent,
-			css: cssAssets,
-			js: [entryScript]
-		})
-		await fs.writeFile(htmlOutput, htmlContent)
-	}
-
-	// Clean up temp directories
-	await fs.rm(ssrDir, { recursive: true, force: true })
-	await fs.rm(entriesDir, { recursive: true, force: true })
-
-	// Execute post-build hooks
-	// for (const hook of postBuild) {
-	//   await hook();
-	// }
-
-	console.log(`Build completed. Output directory: ${outDir}`)
-}
-
-/**
- * @param {string} file
- * @param {string | null} components
- */
-function generateClientEntry(file, components) {
-	let imports = `
-		import React from 'react';
-		import ReactDOM from 'react-dom/client';
-		import Page from '${path.resolve(file)}';
-	`
-
-	let render = 'React.createElement(Page)'
-	if (components !== null) {
-		imports += `import * as components from '${components}';`
-		render = 'React.createElement(Page, { components })'
-	}
-
-	return `
-${imports}
-
-window.addEventListener('DOMContentLoaded', () => {
-  const root = ReactDOM.hydrateRoot(document.getElementById('app'), ${render});
-});
-`
-}
-
-/**
- * @param {string} file
- * @param {string | null} components
- */
-function generateSSREntry(file, components) {
-	let imports = `
-		import React from 'react';
-	  import { renderToString } from 'react-dom/server';
-		import {default as Page, title} from '${path.resolve(file)}';
-	`
-
-	let render = 'React.createElement(Page)'
-	if (components !== null) {
-		imports += `import * as components from '${components}';`
-		render = 'React.createElement(Page, { components })'
-	}
-
-	return `
-${imports}
-
-export function render() {
-  return renderToString(${render});
-}
-
-export { title }
-
-`
-}
-
-/**
- * @typedef {Object} HtmlOptions
- * @property {string} title
- * @property {string} content
- * @property {string[]} css
- * @property {string[]} js
- * @param {HtmlOptions} js
- */
-function generateHtml({ title, content, css, js }) {
-	const cssLinks = css.map((p) => `<link rel="stylesheet" href="/assets/${p}">`)
-	const jsRefs = js.map(
-		(p) => `<script type="module" src="/assets/${p}"></script>`
+	// console.log(clientResult)
+	/* --- get from client bundle result: entry chunk, css chunks --- */
+	const entryChunk = clientResult.output.filter(c => {
+		return c.type === 'chunk' && c.isEntry
+	})[0]
+	/* --- get html template, inject entry js and css --- */
+	const template = await fs.readFile(
+		fileURLToPath(new URL('./index.html', import.meta.url)),
+		{ encoding: 'utf-8' }
 	)
-	return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title}</title>
-  ${cssLinks.join('\n')}
-</head>
-<body>
-  <div id="app">${content}</div>
-  ${jsRefs.join('\n')}
-</body>
-</html>`
-}
+	/* --- for each page path, render html using render function from ssr bundle, and inject the right css  --- */
+	const pagePaths = Object.keys(pages)
+	await Promise.all(pagePaths.map(async pagePath => {
+		const html = renderHTML(pagePath)
+		const writePath = path.join(
+			clientOutDir,
+			pagePath.replace(/^\//, ''),
+			'index.html'
+		)
+		await ensureDir(path.dirname(writePath))
+		await fs.writeFile(writePath, html)
+		console.log(`wrote ${writePath}`)
+	}))
 
-/**
- * @param {import("fs").PathLike} dir
- */
-export async function clean(dir) {
-	await fs.rm(dir, { recursive: true })
+	await copy(clientOutDir, outDir)
+	await fs.rm(clientOutDir, { recursive: true })
+	await fs.rm(ssrOutDir, { recursive: true })
+
+	function renderHTML(pagePath) {
+		const content = render(pagePath)
+		const ssr = {
+			routePath: pagePath
+		}
+		let html = template.replace('<div id="root"></div>', `
+		<script>window._ssr=${JSON.stringify(ssr)};</script>
+		<div id="root">${content}</div>
+		`)
+		html = html.replace(
+			'<script type="module" src="/client.js"></script>',
+			`<script type="module" src="/${entryChunk.fileName}"></script>`
+		)
+		return html
+	}
 }
