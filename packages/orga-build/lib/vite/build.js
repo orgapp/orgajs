@@ -7,7 +7,8 @@ import { copy, emptyDir, ensureDir } from './fs.js'
 import { pluginFactory } from './plugin.js'
 import fs from 'fs/promises'
 
-export async function build({ outDir = 'out' }) {
+export async function build({ outDir = 'out', vitePlugins = [] }) {
+
 	/* --- prepare folders, out, ssr, client --- */
 	const root = process.cwd()
 	outDir = path.resolve(root, outDir)
@@ -19,7 +20,7 @@ export async function build({ outDir = 'out' }) {
 	console.log('preparing ssr bundle...')
 	const ssrOutput = await viteBuild({
 		root,
-		plugins: [orga(), react(), pluginFactory()],
+		plugins: [orga(), react(), pluginFactory(), ...vitePlugins],
 		build: {
 			ssr: true,
 			cssCodeSplit: false,
@@ -32,6 +33,9 @@ export async function build({ outDir = 'out' }) {
 			},
 			outDir: ssrOutDir,
 			minify: false
+		},
+		ssr: {
+			noExternal: true
 		}
 	})
 
@@ -42,7 +46,7 @@ export async function build({ outDir = 'out' }) {
 	/* --- build client bundle: client.mjs --- */
 	const clientResult = await viteBuild({
 		root,
-		plugins: [orga(), react(), pluginFactory()],
+		plugins: [orga(), react(), pluginFactory(), ...vitePlugins],
 		build: {
 			cssCodeSplit: false,
 			rollupOptions: {
@@ -51,13 +55,20 @@ export async function build({ outDir = 'out' }) {
 			},
 			assetsDir: 'assets',
 			outDir: clientOutDir
+		},
+		ssr: {
+			noExternal: true
 		}
 	})
-	// console.log(clientResult)
 	/* --- get from client bundle result: entry chunk, css chunks --- */
 	const entryChunk = clientResult.output.filter(c => {
 		return c.type === 'chunk' && c.isEntry
 	})[0]
+
+	const cssChunks = clientResult.output.filter(c => {
+		return c.type === 'asset' && c.fileName.endsWith('.css')
+	})
+
 	/* --- get html template, inject entry js and css --- */
 	const template = await fs.readFile(
 		fileURLToPath(new URL('./index.html', import.meta.url)),
@@ -90,10 +101,17 @@ export async function build({ outDir = 'out' }) {
 		<script>window._ssr=${JSON.stringify(ssr)};</script>
 		<div id="root">${content}</div>
 		`)
+		const css = cssChunks.map(c => `<link rel="stylesheet" href="/${c.fileName}">`).join('\n')
 		html = html.replace(
 			'<script type="module" src="/client.js"></script>',
 			`<script type="module" src="/${entryChunk.fileName}"></script>`
 		)
+
+		html = html.replace(
+			'</head>',
+			`${css}</head>`
+		)
 		return html
 	}
 }
+
