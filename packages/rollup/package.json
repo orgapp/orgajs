@@ -25,14 +25,14 @@
 		"@types/react-dom": "^19.0.3",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"rollup": "^3.28.1"
+		"rollup": "^4.40.0"
 	},
 	"peerDependencies": {
 		"rollup": ">=2"
 	},
 	"dependencies": {
 		"@orgajs/orgx": "workspace:^",
-		"@rollup/pluginutils": "^5.0.4",
+		"@rollup/pluginutils": "^5.1.4",
 		"source-map": "^0.7.4",
 		"vfile": "^6.0.3"
 	}
