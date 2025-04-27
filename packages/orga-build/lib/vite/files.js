@@ -2,22 +2,30 @@ import { globby } from 'globby'
 import path from 'node:path'
 
 /**
+ * @typedef {Object} Page
+ * @property {string} dataPath
+ *   Path to the page data file
+ */
+
+/**
  * @param {string} dir
  */
 export function setup(dir) {
+	const pages = cache(async function () {
+		const files = await globby(
+			[
+				'**/*.{org,tsx,jsx}',
+				'!**/_*/**',
+				'!**/_*',
+				'!**/.*/**',
+				'!**/.*',
+				'!node_modules/**',
+				'!out/**'
+			],
+			{ cwd: dir }
+		)
 
-	const pages = cache(async function() {
-		const files = await globby([
-			'**/*.{org,tsx,jsx}',
-			'!**/_*/**',
-			'!**/_*',
-			'!**/.*/**',
-			'!**/.*',
-			'!node_modules/**',
-			'!out/**'
-		], { cwd: dir })
-
-		/** @type {Record<string, object>} */
+		/** @type {Record<string, Page>} */
 		const pages = {}
 		for (const file of files) {
 			const pageId = getPagePublicPath(file)
@@ -29,36 +37,45 @@ export function setup(dir) {
 		return pages
 	})
 
-	const layouts = cache(async function() {
-		const layoutFiles = await globby([
-			'**/_layout.{tsx,jsx}',
-			'!**/.*/**',
-			'!**/.*',
-			'!node_modules/**',
-			'!out/**'
-		], {
-			cwd: dir
-		})
+	const layouts = cache(async function () {
+		const layoutFiles = await globby(
+			[
+				'**/_layout.{tsx,jsx}',
+				'!**/.*/**',
+				'!**/.*',
+				'!node_modules/**',
+				'!out/**'
+			],
+			{
+				cwd: dir
+			}
+		)
 
 		console.log('layout files:', layoutFiles)
 
-		return layoutFiles.reduce((result, file) => {
-			const layoutPath = path.dirname(getPagePublicPath(file))
-			result[layoutPath] = path.join(dir, file)
-			return result
-		}, /** @type {Record<string, string>} */ ({}))
+		return layoutFiles.reduce(
+			(/** @type {Record<string, string>} */ result, file) => {
+				const layoutPath = path.dirname(getPagePublicPath(file))
+				result[layoutPath] = path.join(dir, file)
+				return result
+			},
+			/** @type {Record<string, string>} */ {}
+		)
 	})
 
-	const components = cache(async function() {
-		const files = await globby([
-			'_components.{tsx,jsx}',
-			'!**/.*/**',
-			'!**/.*',
-			'!node_modules/**',
-			'!out/**'
-		], {
-			cwd: dir
-		})
+	const components = cache(async function () {
+		const files = await globby(
+			[
+				'_components.{tsx,jsx}',
+				'!**/.*/**',
+				'!**/.*',
+				'!node_modules/**',
+				'!out/**'
+			],
+			{
+				cwd: dir
+			}
+		)
 		return files[0] ? path.join(dir, files[0]) : null
 	})
 
@@ -71,8 +88,7 @@ export function setup(dir) {
 	/**
 	 * @param {string} id
 	 */
-	async function page(id) {
-	}
+	async function page(id) {}
 }
 
 /**
@@ -84,8 +100,9 @@ export function setup(dir) {
  * @returns {() => Promise<T>} - Cached function that returns the same type as the input function
  */
 function cache(fn) {
+	/** @type {T | null} */
 	let cache = null
-	return async function() {
+	return async function () {
 		if (cache) {
 			return cache
 		}

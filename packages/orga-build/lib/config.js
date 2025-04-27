@@ -6,7 +6,7 @@ import path from 'node:path'
  * @property {string} outDir
  * @property {string[]} preBuild
  * @property {string[]} postBuild
- * @property {any[]} vitePlugins
+ * @property {import('vite').PluginOption[]} vitePlugins - Array of Vite plugins
  */
 
 /** @type {Config} */

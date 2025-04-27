@@ -2,6 +2,7 @@ import { setup } from './files.js'
 import path from 'node:path'
 
 const magicModulePrefix = '@orga-build'
+const appEntryId = `/${magicModulePrefix}/main.js`
 
 /**
  * @param {Object} [options]
@@ -14,12 +15,36 @@ export function pluginFactory({ dir } = {}) {
 	return {
 		name: 'vite-plugin-orga-pages',
 		enforce: 'pre',
+
+		configureServer({ watcher, moduleGraph }) {
+			const reloadVirtualModule = (/** @type {string} */ moduleId) => {
+				const module = moduleGraph.getModuleById(moduleId)
+				if (module) {
+					moduleGraph.invalidateModule(module)
+					watcher.emit('change', moduleId)
+				}
+			}
+
+			console.log('configureServer')
+			reloadVirtualModule('/')
+		},
+
+		buildStart() {
+			console.log('buildStart')
+		},
+
 		async resolveId(id, importer) {
+			if (id === appEntryId) {
+				return appEntryId
+			}
 			if (id.startsWith(magicModulePrefix)) {
 				return id
 			}
 		},
 		async load(id) {
+			if (id === appEntryId) {
+				return `import "orga-build/csr.jsx";`
+			}
 			if (id === `${magicModulePrefix}/pages`) {
 				return await renderPageList()
 			}
@@ -29,6 +54,7 @@ export function pluginFactory({ dir } = {}) {
 
 			if (id === `${magicModulePrefix}/layouts`) {
 				const layouts = await files.layouts()
+				/** @type {string[]} */
 				const imports = []
 				const lines = Object.entries(layouts).map(([key, value], i) => {
 					imports.push(`import Layout${i} from '${value}'`)
@@ -71,8 +97,5 @@ export default pages;
 			return `export * from '${components}'`
 		}
 		return ''
-	}
-
-	async function renderPage() {
 	}
 }

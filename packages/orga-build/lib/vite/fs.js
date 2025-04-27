@@ -18,20 +18,24 @@ export async function emptyDir(dir) {
 	)
 }
 
+/**
+ * @param {string} path
+ */
 export async function ensureDir(path) {
-	console.log(`ensureDir: ${path}`)
 	try {
 		await fs.mkdir(path, { recursive: true })
-	} catch (e) {
-		if (e.code !== 'EEXIST') {
+	} catch (/** @type{any} */ e) {
+		if (e && typeof e === 'object' && 'code' in e && e.code !== 'EEXIST') {
 			throw e
 		}
 	}
 }
 
+/**
+ * @param {string} src
+ * @param {string} dest
+ */
 export async function copy(src, dest) {
-	console.log(`copy: ${src} -> ${dest}`)
 	await fs.mkdir(dest, { recursive: true })
 	await fs.cp(src, dest, { recursive: true })
 }
-

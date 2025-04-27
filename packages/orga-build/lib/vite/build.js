@@ -6,9 +6,12 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { copy, emptyDir, ensureDir } from './fs.js'
 import { pluginFactory } from './plugin.js'
 import fs from 'fs/promises'
+import assert from 'node:assert'
 
+/**
+ * @param {import('../config.js').Config} config
+ */
 export async function build({ outDir = 'out', vitePlugins = [] }) {
-
 	/* --- prepare folders, out, ssr, client --- */
 	const root = process.cwd()
 	outDir = path.resolve(root, outDir)
@@ -16,11 +19,13 @@ export async function build({ outDir = 'out', vitePlugins = [] }) {
 	const ssrOutDir = path.join(outDir, '.ssr')
 	const clientOutDir = path.join(outDir, '.client')
 
+	const plugins = [orga(), react(), pluginFactory(), ...vitePlugins]
+
 	/* --- build ssr bundle: server.mjs --- */
 	console.log('preparing ssr bundle...')
-	const ssrOutput = await viteBuild({
+	await viteBuild({
 		root,
-		plugins: [orga(), react(), pluginFactory(), ...vitePlugins],
+		plugins,
 		build: {
 			ssr: true,
 			cssCodeSplit: false,
@@ -41,12 +46,14 @@ export async function build({ outDir = 'out', vitePlugins = [] }) {
 
 	/* --- import ssr bundle entry output, to get all the data and render function --- */
 
-	const { render, pages } = await import(pathToFileURL(path.join(ssrOutDir, 'ssr.mjs')).toString())
+	const { render, pages } = await import(
+		pathToFileURL(path.join(ssrOutDir, 'ssr.mjs')).toString()
+	)
 
 	/* --- build client bundle: client.mjs --- */
-	const clientResult = await viteBuild({
+	const _clientResult = await viteBuild({
 		root,
-		plugins: [orga(), react(), pluginFactory(), ...vitePlugins],
+		plugins,
 		build: {
 			cssCodeSplit: false,
 			rollupOptions: {
@@ -60,12 +67,24 @@ export async function build({ outDir = 'out', vitePlugins = [] }) {
 			noExternal: true
 		}
 	})
+
+	/** @type {import('vite').Rollup.RollupOutput} */
+	let clientResult
+	if (Array.isArray(_clientResult)) {
+		if (_clientResult.length !== 1)
+			throw new Error(`expect viteBuild to have only one BuildResult`)
+		clientResult = _clientResult[0]
+	} else {
+		assert('output' in _clientResult)
+		clientResult = _clientResult
+	}
+
 	/* --- get from client bundle result: entry chunk, css chunks --- */
-	const entryChunk = clientResult.output.filter(c => {
+	const entryChunk = clientResult.output.filter((c) => {
 		return c.type === 'chunk' && c.isEntry
 	})[0]
 
-	const cssChunks = clientResult.output.filter(c => {
+	const cssChunks = clientResult.output.filter((c) => {
 		return c.type === 'asset' && c.fileName.endsWith('.css')
 	})
 
@@ -76,42 +95,52 @@ export async function build({ outDir = 'out', vitePlugins = [] }) {
 	)
 	/* --- for each page path, render html using render function from ssr bundle, and inject the right css  --- */
 	const pagePaths = Object.keys(pages)
-	await Promise.all(pagePaths.map(async pagePath => {
-		const html = renderHTML(pagePath)
-		const writePath = path.join(
-			clientOutDir,
-			pagePath.replace(/^\//, ''),
-			'index.html'
-		)
-		await ensureDir(path.dirname(writePath))
-		await fs.writeFile(writePath, html)
-		console.log(`wrote ${writePath}`)
-	}))
+	await Promise.all(
+		pagePaths.map(async (pagePath) => {
+			const html = renderHTML(pagePath)
+			const writePath = path.join(
+				clientOutDir,
+				pagePath.replace(/^\//, ''),
+				'index.html'
+			)
+			await ensureDir(path.dirname(writePath))
+			await fs.writeFile(writePath, html)
+			console.log(`wrote ${writePath}`)
+		})
+	)
 
 	await copy(clientOutDir, outDir)
 	await fs.rm(clientOutDir, { recursive: true })
 	await fs.rm(ssrOutDir, { recursive: true })
 
+	return
+
+	// ---------- the end ----------
+
+	/**
+	 * @param {string} pagePath
+	 */
 	function renderHTML(pagePath) {
 		const content = render(pagePath)
 		const ssr = {
 			routePath: pagePath
 		}
-		let html = template.replace('<div id="root"></div>', `
+		let html = template.replace(
+			'<div id="root"></div>',
+			`
 		<script>window._ssr=${JSON.stringify(ssr)};</script>
 		<div id="root">${content}</div>
-		`)
-		const css = cssChunks.map(c => `<link rel="stylesheet" href="/${c.fileName}">`).join('\n')
+		`
+		)
+		const css = cssChunks
+			.map((c) => `<link rel="stylesheet" href="/${c.fileName}">`)
+			.join('\n')
 		html = html.replace(
 			'<script type="module" src="/client.js"></script>',
 			`<script type="module" src="/${entryChunk.fileName}"></script>`
 		)
 
-		html = html.replace(
-			'</head>',
-			`${css}</head>`
-		)
+		html = html.replace('</head>', `${css}</head>`)
 		return html
 	}
 }
-
