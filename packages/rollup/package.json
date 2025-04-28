@@ -3,11 +3,14 @@
 	"version": "1.3.1",
 	"description": "Rollup plugin for Orga",
 	"license": "MIT",
-	"files": [
-		"index.js",
-		"index.d.ts",
-		"index.d.ts.map"
-	],
+	"files": ["index.js", "index.d.ts", "index.d.ts.map"],
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"import": "./index.js"
+		}
+	},
+
 	"type": "module",
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"homepage": "https://orga.js.org",
