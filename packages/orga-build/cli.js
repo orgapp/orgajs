@@ -3,7 +3,7 @@
 import { argv, cwd } from 'node:process'
 import { parseArgs } from 'node:util'
 import { loadConfig } from './lib/config.js'
-import { build } from './lib/vite/build.js'
+import { build } from './lib/build.js'
 import { serve } from './lib/serve.js'
 
 const { values, positionals } = parseArgs({
@@ -16,12 +16,10 @@ const { values, positionals } = parseArgs({
 	allowPositionals: true
 })
 
-const dir = cwd()
-
-const config = await loadConfig(dir, 'orga.config.js', 'orga.config.mjs')
-
-await build(config)
+const config = await loadConfig(cwd(), 'orga.config.js', 'orga.config.mjs')
 
 if (positionals.includes('dev')) {
 	await serve(config)
+} else {
+	await build(config)
 }

@@ -13,7 +13,7 @@
 			"types": "./index.d.ts",
 			"import": "./index.js"
 		},
-		"./csr.jsx": "./lib/vite/csr.jsx"
+		"./csr.jsx": "./lib/csr.jsx"
 	},
 	"keywords": ["orgajs", "org-mode", "build", "website", "react"],
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
@@ -37,6 +37,7 @@
 	"devDependencies": {
 		"@orgajs/orgx": "workspace:^",
 		"@types/express": "^5.0.1",
+		"@types/hast": "^3.0.4",
 		"@types/node": "^22.13.1",
 		"@types/react": "^19.0.8",
 		"@types/react-dom": "^19.0.3",

@@ -1,9 +1,11 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { resolvePath } from './fs.js'
 
 /**
  * @typedef {Object} Config
  * @property {string} outDir
+ * @property {string} root
  * @property {string[]} preBuild
  * @property {string[]} postBuild
  * @property {import('vite').PluginOption[]} vitePlugins - Array of Vite plugins
@@ -12,6 +14,7 @@ import path from 'node:path'
 /** @type {Config} */
 const defaultConfig = {
 	outDir: 'out',
+	root: 'pages',
 	preBuild: [],
 	postBuild: [],
 	vitePlugins: []
@@ -29,7 +32,10 @@ export async function loadConfig(cwd, ...files) {
 		try {
 			await fs.access(filePath, fs.constants.F_OK)
 			const config = await import(filePath)
-			return { ...defaultConfig, ...config }
+			const result = { ...defaultConfig, ...config }
+			result.root = resolvePath(result.root)
+			result.outDir = resolvePath(result.outDir)
+			return result
 		} catch (err) {
 			console.error(err)
 		}

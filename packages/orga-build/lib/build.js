@@ -4,22 +4,28 @@ import orga from '@orgajs/rollup'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { copy, emptyDir, ensureDir } from './fs.js'
-import { pluginFactory } from './plugin.js'
+import { pluginFactory } from './vite.js'
 import fs from 'fs/promises'
 import assert from 'node:assert'
+import { rehypeWrap } from './plugins.js'
 
 /**
- * @param {import('../config.js').Config} config
+ * @param {import('./config.js').Config} config
  */
-export async function build({ outDir = 'out', vitePlugins = [] }) {
+export async function build({ outDir, root, vitePlugins = [] }) {
 	/* --- prepare folders, out, ssr, client --- */
-	const root = process.cwd()
-	outDir = path.resolve(root, outDir)
 	await emptyDir(outDir)
 	const ssrOutDir = path.join(outDir, '.ssr')
 	const clientOutDir = path.join(outDir, '.client')
 
-	const plugins = [orga(), react(), pluginFactory(), ...vitePlugins]
+	const plugins = [
+		orga({
+			rehypePlugins: [[rehypeWrap, { className: ['prose'] }]]
+		}),
+		react(),
+		pluginFactory({ dir: root }),
+		...vitePlugins
+	]
 
 	/* --- build ssr bundle: server.mjs --- */
 	console.log('preparing ssr bundle...')
@@ -136,7 +142,7 @@ export async function build({ outDir = 'out', vitePlugins = [] }) {
 			.map((c) => `<link rel="stylesheet" href="/${c.fileName}">`)
 			.join('\n')
 		html = html.replace(
-			'<script type="module" src="/client.js"></script>',
+			'<script type="module" src="/@orga-build/main.js"></script>',
 			`<script type="module" src="/${entryChunk.fileName}"></script>`
 		)
 

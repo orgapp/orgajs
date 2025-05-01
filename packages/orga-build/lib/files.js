@@ -51,8 +51,6 @@ export function setup(dir) {
 			}
 		)
 
-		console.log('layout files:', layoutFiles)
-
 		return layoutFiles.reduce(
 			(/** @type {Record<string, string>} */ result, file) => {
 				const layoutPath = path.dirname(getPagePublicPath(file))
@@ -81,14 +79,16 @@ export function setup(dir) {
 
 	return {
 		pages,
+		page,
 		components,
 		layouts
 	}
 
-	/**
-	 * @param {string} id
-	 */
-	async function page(id) {}
+	/** @param {string} id */
+	async function page(id) {
+		const all = await pages()
+		return all[id]
+	}
 }
 
 /**

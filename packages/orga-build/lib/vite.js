@@ -5,17 +5,16 @@ const magicModulePrefix = '@orga-build'
 const appEntryId = `/${magicModulePrefix}/main.js`
 
 /**
- * @param {Object} [options]
- * @param {string?} [options.dir]
+ * @param {Object} options
+ * @param {string} options.dir
  * @returns {import('vite').Plugin}
  */
-export function pluginFactory({ dir } = {}) {
-	const files = setup(dir || process.cwd())
+export function pluginFactory({ dir }) {
+	const files = setup(dir)
 
 	return {
 		name: 'vite-plugin-orga-pages',
 		enforce: 'pre',
-
 		configureServer({ watcher, moduleGraph }) {
 			const reloadVirtualModule = (/** @type {string} */ moduleId) => {
 				const module = moduleGraph.getModuleById(moduleId)
@@ -25,12 +24,10 @@ export function pluginFactory({ dir } = {}) {
 				}
 			}
 
-			console.log('configureServer')
 			reloadVirtualModule('/')
 		},
 
 		buildStart() {
-			console.log('buildStart')
 		},
 
 		async resolveId(id, importer) {
@@ -49,7 +46,14 @@ export function pluginFactory({ dir } = {}) {
 				return await renderPageList()
 			}
 			if (id.startsWith(`${magicModulePrefix}/pages/`)) {
-				let pageId = id.replace(`${magicModulePrefix}/pages/`, '')
+				let pageId = id.replace(`${magicModulePrefix}/pages/`, '/')
+				const page = await files.page(pageId)
+				if (page) {
+					return `
+export * from '${page.dataPath}';
+export {default} from '${page.dataPath}';
+`
+				}
 			}
 
 			if (id === `${magicModulePrefix}/layouts`) {
@@ -80,7 +84,7 @@ export default layouts;
 		/** @type {string[]} */ const _pages = []
 		Object.entries(pages).forEach(([pageId, value], i) => {
 			const dataModulePath = path.join(magicModulePrefix, 'pages', pageId)
-			_imports.push(`import * as page${i} from '${value.dataPath}'`)
+			_imports.push(`import * as page${i} from '${dataModulePath}'`)
 			_pages.push(`pages['${pageId}'] = page${i}`)
 		})
 		return `

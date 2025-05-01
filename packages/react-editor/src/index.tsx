@@ -3,11 +3,13 @@ import { makeEditor } from '@orgajs/editor'
 import { useEffect, useRef, useState } from 'react'
 
 export function Editor({
+	content = '',
 	className,
-	children
+	onChange
 }: {
+	content?: string
 	className?: string
-	children: string
+	onChange?: (value: string) => void
 }) {
 	const container = useRef(null)
 	const [state, setState] = useState<EditorState | null>(null)
@@ -17,10 +19,13 @@ export function Editor({
 
 		makeEditor({
 			target: container.current,
-			content: children,
-			onChange: (s) => setState(s)
+			content,
+			onChange: (s) => {
+				setState(s)
+				onChange?.(s.doc.toString())
+			}
 		})
-	}, [container, children])
+	}, [container])
 
 	return <div className={className} ref={container}></div>
 }

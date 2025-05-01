@@ -1,4 +1,37 @@
 import fs from 'fs/promises'
+import path from 'node:path'
+
+/**
+ * Resolves a path to an absolute path, even if it's already absolute
+ * @param {string} rootPath - The path to resolve
+ * @returns {string} - The absolute path
+ */
+export function resolvePath(rootPath) {
+	if (!rootPath) {
+		return process.cwd()
+	}
+
+	// If it's already absolute, return it as is
+	if (path.isAbsolute(rootPath)) {
+		return rootPath
+	}
+
+	// Otherwise, resolve it relative to the current working directory
+	return path.resolve(process.cwd(), rootPath)
+}
+
+/**
+ * @param {string} path
+ * @returns {Promise<boolean>}
+ */
+export async function exists(path) {
+	try {
+		await fs.access(path)
+		return true
+	} catch {
+		return false
+	}
+}
 
 /**
  * @param {string} dir

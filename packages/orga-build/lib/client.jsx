@@ -1,6 +1,5 @@
 import { hydrateRoot } from 'react-dom/client'
-import pages from '@orga-build/pages'
-import { BrowserRouter, useRoutes } from 'react-router'
+import { BrowserRouter } from 'react-router'
 import { App } from './app.jsx'
 
 const ssr = window._ssr
@@ -12,7 +11,7 @@ function hydrate() {
 	// const page = pages[ssr.routePath]
 	hydrateRoot(
 		container,
-		<BrowserRouter basename='/'>
+		<BrowserRouter basename="/">
 			<App />
 		</BrowserRouter>
 	)
