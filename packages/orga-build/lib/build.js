@@ -12,7 +12,7 @@ import { rehypeWrap } from './plugins.js'
 /**
  * @param {import('./config.js').Config} config
  */
-export async function build({ outDir, root, vitePlugins = [] }) {
+export async function build({ outDir, root, vite }) {
 	/* --- prepare folders, out, ssr, client --- */
 	await emptyDir(outDir)
 	const ssrOutDir = path.join(outDir, '.ssr')
@@ -20,11 +20,11 @@ export async function build({ outDir, root, vitePlugins = [] }) {
 
 	const plugins = [
 		orga({
-			rehypePlugins: [[rehypeWrap, { className: ['prose'] }]]
+			rehypePlugins: [[rehypeWrap, { className: ['prose', 'p4'] }]]
 		}),
 		react(),
 		pluginFactory({ dir: root }),
-		...vitePlugins
+		...(vite.plugins ?? [])
 	]
 
 	/* --- build ssr bundle: server.mjs --- */

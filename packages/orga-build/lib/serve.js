@@ -15,11 +15,11 @@ export async function serve(config, port = 3000) {
 	const vite = await createServer({
 		plugins: [
 			orga({
-				rehypePlugins: [[rehypeWrap, { className: ['prose'] }]]
+				rehypePlugins: [[rehypeWrap, { className: ['prose', 'p-4'] }]]
 			}),
 			react(),
 			pluginFactory({ dir: config.root }),
-			...config.vitePlugins
+			...config.vite.plugins
 		],
 		server: { middlewareMode: true },
 		appType: 'custom'
