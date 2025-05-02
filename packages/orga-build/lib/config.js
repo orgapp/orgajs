@@ -3,17 +3,12 @@ import path from 'node:path'
 import { resolvePath } from './fs.js'
 
 /**
- * @typedef {Object} ViteConfig
- * @property {import('vite').PluginOption[]} plugins
- */
-
-/**
  * @typedef {Object} Config
  * @property {string} outDir
  * @property {string} root
  * @property {string[]} preBuild
  * @property {string[]} postBuild
- * @property {ViteConfig} vite
+ * @property {import('vite').PluginOption[]} vitePlugins - Array of Vite plugins
  */
 
 /** @type {Config} */
@@ -22,9 +17,7 @@ const defaultConfig = {
 	root: 'pages',
 	preBuild: [],
 	postBuild: [],
-	vite: {
-		plugins: []
-	}
+	vitePlugins: []
 }
 
 /**
