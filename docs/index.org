@@ -11,11 +11,7 @@
 
 Introducing org editor. This the source code of *this page*.
 
-#+begin_export jsx
-<orga-editor>
-  {code}
-</orga-editor>
-#+end_export
+#+jsx: <Editor className='h-64 not-prose' content={code}/>
 
 ** Publication
 

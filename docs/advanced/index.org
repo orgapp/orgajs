@@ -1,5 +1,6 @@
 #+title: Advanced
 #+published: true
+#+type: document
 #+position: 200
 
 #+jsx: <Notice>This page is a WIP</Notice>

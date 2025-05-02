@@ -1,6 +1,7 @@
 #+title: Contribute
 #+published: true
 #+position: 300
+#+type: document
 
 #+jsx: <Notice>This page is a WIP</Notice>
 

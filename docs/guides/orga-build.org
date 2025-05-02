@@ -1,5 +1,6 @@
 #+title: Build a blog with orga-build
 #+position: 2
+#+type: document
 
 
 =orga-build= is a powerful static site generator that allows you to build entire websites using only Org-mode files. Tired of learning ever changing frontend frameworks, just want to build a good old static website? This is for you.

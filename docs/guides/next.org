@@ -1,6 +1,10 @@
 #+title: Next.js
 #+published: true
+#+type: document
 #+position: 4
+
+#+jsx: import icon from '../images/icon.png'
+
 
 Use the next plugin for orga.
 
@@ -10,6 +14,10 @@ Use the next plugin for orga.
 npm install --save @orgajs/loader @orgajs/react @orgajs/next
 #+end_src
 
+
+#+jsx: <img src={icon}/>
+
+[[../images/icon.png]]
 
 * Configuration
 

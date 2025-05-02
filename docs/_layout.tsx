@@ -1,72 +1,84 @@
-import { isOrgContent } from '@orgajs/orgx'
+import { ReactNode } from 'react'
+import './style.css'
 
 interface LayoutProps {
 	title: string
-	children: React.ReactNode
+	children: ReactNode
 }
 
-export default function Layout({ title, children }: LayoutProps) {
+const navItems = [
+	{ name: 'Orga', href: '/' },
+	{ name: 'Documents', href: '/guides' },
+	{ name: 'Playground', href: '/playground' }
+]
+
+export default function Layout({ children }: LayoutProps) {
 	return (
-		<html>
-			<head>
-				<title>{title}</title>
-				<link
-					rel="stylesheet"
-					href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
-					integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib"
-					crossOrigin="anonymous"
-				/>
-				<link href="/style.css" rel="stylesheet" />
-			</head>
-			<body className="flex flex-col h-screen">
-				<nav className="p-2 bg-base-100 border-b">
-					<ol className="flex gap-4">
-						<li>
-							<a href="/">Orga</a>
+		<>
+			<nav className="navbar bg-base-200 shadow-sm">
+				<ol className="flex gap-4">
+					{navItems.map((item) => (
+						<li key={item.name}>
+							<a href={item.href} className="btn btn-ghost">
+								{item.name}
+							</a>
 						</li>
-						<li>
-							<a href="/guides">Guides</a>
-						</li>
-						<li>
-							<a href="/advanced">advanced</a>
-						</li>
-						<li>
-							<a href="/playground">Playground</a>
-						</li>
-					</ol>
-				</nav>
-				<main className="flex-grow flex-row overflow-hidden">
-					{isOrgContent(children) ? <Content>{children}</Content> : children}
-				</main>
-				<footer className="flex justify-between p-2 bg-base-100 border-t">
-					<div id="minibuffer" className=""></div>
-					<p>© 2025 Orga</p>
-				</footer>
-				<script type="module" src="/layout.js" />
-			</body>
-		</html>
+					))}
+				</ol>
+			</nav>
+			<main className="flex-grow flex-row overflow-hidden">{children}</main>
+			<footer className="footer sm:footer-horizontal footer-center bg-base-200 text-base-content p-4">
+				<aside>
+					<p>Copyright © {new Date().getFullYear()} - All right reserved</p>
+				</aside>
+			</footer>
+			{/* Client-side JS is now added by build process */}
+		</>
 	)
 }
 
-export function DocumentLayout({ title, pages, children }) {
+type Page = {
+	slug: string
+	title: string
+	position: number
+	type: string
+}
+
+function findParentSlug(slug: string, pages: Page[]): string | null {
+	const parts = slug.split('/').filter(Boolean)
+	while (parts.length > 0) {
+		parts.pop()
+		const parentSlug = '/' + parts.join('/')
+		if (pages.some((p) => p.slug === parentSlug)) return parentSlug
+	}
+	return null
+}
+
+function renderMenu(path: string, pages: Page[]) {
+	const children = pages
+		.filter(
+			(p) => findParentSlug(p.slug, pages) === path && p.type === 'document'
+		)
+		.sort((a, b) => (Number(a.position) || 0) - (Number(b.position) || 0))
+
+	if (children.length === 0) return null
+
+	return (
+		<ul>
+			{children.map((child) => (
+				<li key={child.slug}>
+					<a href={child.slug}>{child.title}</a>
+					{renderMenu(child.slug, pages)}
+				</li>
+			))}
+		</ul>
+	)
+}
+
+export function DocumentLayout({ title, pages = [], children }) {
 	return (
 		<div className="flex h-full w-full">
-			<aside className="w-64 bg-gray-50 p-4 border-r h-full overflow-y-auto">
-				<ul>
-					{pages
-						.sort((a, b) => a.position - b.position)
-						.map((page) => (
-							<li key={page.slug}>
-								<a
-									className="block p-2 hover:bg-gray-300"
-									href={`${page.slug}`}
-								>
-									{page.title}
-								</a>
-							</li>
-						))}
-				</ul>
-			</aside>
+			<ul className="menu bg-base-300 w-56">{renderMenu('/', pages)}</ul>
 			<Content>
 				<h1>{title}</h1>
 				{children}
@@ -75,7 +87,7 @@ export function DocumentLayout({ title, pages, children }) {
 	)
 }
 
-function Content({ children }) {
+function Content({ children }: { children: ReactNode }) {
 	return (
 		<div className="overflow-auto h-full w-full">
 			<article className="prose p-4">{children}</article>

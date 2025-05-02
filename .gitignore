@@ -110,3 +110,6 @@ dist
 .orga-build
 
 .turbo
+.aider*
+
+out

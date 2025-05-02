@@ -1,6 +1,7 @@
 #+title: Latex Support
 #+published: true
 #+position: 203
+#+type: document
 
 
 ** Inline Math

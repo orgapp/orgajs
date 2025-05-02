@@ -1,5 +1,6 @@
 #+title: Webpack
 #+published: true
+#+type: document
 #+position: 3
 
 =@orgajs/loader= is a webpack loader taht can be used natrually with webpack setup.

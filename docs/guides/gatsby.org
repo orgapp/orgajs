@@ -1,5 +1,6 @@
 #+title: Gatsby
 #+published: true
+#+type: document
 #+position: 102
 
 #+jsx: <Notice title="DEPRECATED">I'm no longer actively maintaining this Gatsby integration due to the rapid pace of frontend development. However, the source code remains available for those who wish to adapt and maintain it independently. You can refer to the orgajs project for examples of advanced usage.</Notice>
