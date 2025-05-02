@@ -8,12 +8,6 @@
 	@apply flex flex-col h-screen;
 }
 
-@theme {
-	--color-base-100: oklch(0.968 0.007 247.896);
-	--color-base-200: oklch(0.929 0.013 255.508);
-	--color-base-300: oklch(0.869 0.022 252.894);
-}
-
 .cm-editor {
 	outline: none;
 	@apply bg-base-300;
