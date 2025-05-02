@@ -9,6 +9,7 @@ import { resolvePath } from './fs.js'
  * @property {string[]} preBuild
  * @property {string[]} postBuild
  * @property {import('vite').PluginOption[]} vitePlugins - Array of Vite plugins
+ * @property {string[]|string} containerClass
  */
 
 /** @type {Config} */
@@ -17,7 +18,8 @@ const defaultConfig = {
 	root: 'pages',
 	preBuild: [],
 	postBuild: [],
-	vitePlugins: []
+	vitePlugins: [],
+	containerClass: []
 }
 
 /**

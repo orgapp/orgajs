@@ -15,7 +15,7 @@ export async function serve(config, port = 3000) {
 	const vite = await createServer({
 		plugins: [
 			orga({
-				rehypePlugins: [[rehypeWrap, { className: ['prose'] }]]
+				rehypePlugins: [[rehypeWrap, { className: config.containerClass }]]
 			}),
 			react(),
 			pluginFactory({ dir: config.root }),
