@@ -147,6 +147,15 @@ export async function build({ outDir, root, vitePlugins = [] }) {
 		)
 
 		html = html.replace('</head>', `${css}</head>`)
+
+		const page = pages[pagePath]
+		if (page && page.title) {
+			html = html.replace(
+				/<title>(.*?)<\/title>/,
+				`<title>${page.title}</title>`
+			)
+		}
+
 		return html
 	}
 }
