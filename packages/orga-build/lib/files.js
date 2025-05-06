@@ -4,6 +4,7 @@ import path from 'node:path'
 /**
  * @typedef {Object} Page
  * @property {string} dataPath
+ * @property {string} [title]
  *   Path to the page data file
  */
 

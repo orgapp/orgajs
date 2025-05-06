@@ -2,32 +2,18 @@ import { ReactNode, useEffect, useState } from 'react'
 import { VFile } from 'vfile'
 import { evaluate } from '@orgajs/orgx'
 import * as runtime from 'react/jsx-runtime'
-import { Editor } from '@orgajs/react-editor'
+import { map } from 'unist-util-map'
+import { JSEditor, OrgEditor } from './_components'
 import initContent from './_snippets/hey.org?raw'
-
-const classNames = (...classes: string[]) => classes.filter(Boolean).join(' ')
-
-export const message = 'Playground'
-
-const tabs = [
-	{
-		name: 'rendered',
-		label: 'Rendered'
-	},
-	{
-		name: 'oast',
-		label: 'OAST (Org-mode)'
-	},
-	{
-		name: 'hast',
-		label: 'HAST (HTML)'
-	}
-]
 
 export default function Playground() {
 	const [content, setContent] = useState<string>(initContent)
 	const [preview, setPreview] = useState<ReactNode>(null)
 	const [activeTab, setActiveTab] = useState('rendered')
+	const [oast, setOast] = useState('')
+	const [hast, setHast] = useState('')
+	const [jsx, setJsx] = useState('')
+	const showPosition = false
 
 	useEffect(() => {
 		render(content).then(setPreview)
@@ -37,43 +23,23 @@ export default function Playground() {
 		<div className="flex h-full w-full">
 			{/* Editor panel */}
 			<div className="h-full w-1/2">
-				<Editor className="h-full" content={content} onChange={setContent} />
+				<OrgEditor className="h-full" content={content} onChange={setContent} />
 			</div>
 
 			{/* Preview panel */}
 			<div role="tablist" className="tabs tabs-border h-full w-1/2">
-				<input
-					type="radio"
-					name={`rendered`}
-					className="tab"
-					aria-label="Rendered"
-					onChange={() => setActiveTab('rendered')}
-					checked={activeTab === 'rendered'}
-				/>
-
-				<div className={`tab-content bg-base-100 p-6`}>{preview}</div>
-
-				<input
-					type="radio"
-					name="oast"
-					className="tab"
-					aria-label="OAST (Org-mode)"
-					onChange={() => setActiveTab('oast')}
-					checked={activeTab === 'oast'}
-				/>
-
-				<div className={'tab-content p-6'}>OAST content</div>
-
-				<input
-					type="radio"
-					name="hast"
-					className="tab"
-					aria-label="HAST (HTML)"
-					onChange={() => setActiveTab('hast')}
-					checked={activeTab === 'hast'}
-				/>
-
-				<div className={'tab-content p-6'}>HTML content</div>
+				<Tab name="rendered" label="Rendered">
+					{preview}
+				</Tab>
+				<Tab name="oast" label="OAST (Org-mode)">
+					<JSEditor>{oast}</JSEditor>
+				</Tab>
+				<Tab name="hast" label="HAST (HTML)">
+					<JSEditor>{hast}</JSEditor>
+				</Tab>
+				<Tab name="jsx" label="jsx code">
+					<JSEditor>{jsx}</JSEditor>
+				</Tab>
 			</div>
 		</div>
 	)
@@ -96,17 +62,64 @@ export default function Playground() {
 		const file = new VFile(content)
 
 		const { default: Content } = await evaluate(file, {
-			...runtime
-			// rehypePlugins: [
-			// 	capture((v) => updateTabContent(TabId.hast, toJSON(v)))
-			// ],
-			// reorgPlugins: [capture((v) => updateTabContent(TabId.oast, toJSON(v)))]
+			...runtime,
+			rehypePlugins: [capture((v) => setHast(toJSON(v)))],
+			reorgPlugins: [capture((v) => setOast(toJSON(v)))]
 		})
+
+		setJsx(String(file))
 
 		return (
 			<div className="prose h-full overflow-auto">
 				<Content />
 			</div>
+		)
+	}
+
+	function capture(fn: (v: any) => void) {
+		return function () {
+			return function (tree) {
+				fn(tree)
+			}
+		}
+	}
+
+	function toJSON(tree: any) {
+		return JSON.stringify(
+			map(tree, (node) => {
+				const { position, ...rest } = node
+				if (!showPosition) {
+					return rest
+				}
+				return node
+			}),
+			null,
+			2
+		)
+	}
+
+	function Tab({
+		name,
+		label,
+		children
+	}: {
+		name: string
+		label: string
+		children: ReactNode
+	}) {
+		return (
+			<>
+				<input
+					key={`tab-${name}`}
+					type="radio"
+					name={name}
+					className="tab"
+					aria-label={label}
+					onChange={() => setActiveTab(name)}
+					checked={activeTab === name}
+				/>
+				<div className="tab-content h-full overflow-auto">{children}</div>
+			</>
 		)
 	}
 }

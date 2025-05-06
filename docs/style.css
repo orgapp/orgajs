@@ -10,11 +10,6 @@
 
 .cm-editor {
 	outline: none;
-	@apply bg-base-300;
-}
-
-.cm-gutter {
-	@apply bg-base-200;
 }
 
 .cm-editor.cm-focused {
