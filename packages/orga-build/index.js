@@ -1,1 +1,1 @@
-export { build } from './lib/esbuild/build.js'
+export { build } from './lib/build.js'

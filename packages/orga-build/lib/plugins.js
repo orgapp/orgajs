@@ -1,10 +1,21 @@
 /**
- * @import {Nodes} from 'hast'
+ * @import {Root} from 'hast'
  */
 
+/**
+ * @param {Object} options
+ * @param {string[]} options.className
+ */
 export function rehypeWrap({ className = [] }) {
+	/**
+	 * Transform.
+	 *
+	 * @param {Root} tree
+	 *   Tree.
+	 * @returns {Root}
+	 *   Nothing.
+	 */
 	return (tree) => {
-		/** @type {Array<Nodes>} */
 		return {
 			...tree,
 			children: [
@@ -14,6 +25,7 @@ export function rehypeWrap({ className = [] }) {
 					properties: {
 						className
 					},
+					// @ts-ignore
 					children: tree.children
 				}
 			]
