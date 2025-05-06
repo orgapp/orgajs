@@ -116,7 +116,6 @@ export async function build({
 			)
 			await ensureDir(path.dirname(writePath))
 			await fs.writeFile(writePath, html)
-			console.log(`wrote ${writePath}`)
 		})
 	)
 
