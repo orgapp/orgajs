@@ -44,7 +44,7 @@
 		"rehype-katex": "^7.0.1",
 		"serve-handler": "^6.1.6",
 		"unist-util-visit-parents": "^6.0.1",
-		"vite": "6.3.2"
+		"vite": "6.1.6"
 	},
 	"devDependencies": {
 		"@orgajs/orgx": "workspace:^",
