@@ -3,9 +3,6 @@
 #+type: document
 #+position: 4
 
-#+jsx: import icon from '../images/icon.png'
-
-
 Use the next plugin for orga.
 
 * Installation
@@ -13,11 +10,6 @@ Use the next plugin for orga.
 #+begin_src sh
 npm install --save @orgajs/loader @orgajs/react @orgajs/next
 #+end_src
-
-
-#+jsx: <img src={icon}/>
-
-[[../images/icon.png]]
 
 * Configuration
 
