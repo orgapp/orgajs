@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.5.1
+
+### Patch Changes
+
+- 60ad38f: migrate orga-build to be based on vite
+
 ## 4.5.0
 
 ### Minor Changes

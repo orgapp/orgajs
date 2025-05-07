@@ -1,5 +1,12 @@
 # @orgajs/editor
 
+## 1.3.1
+
+### Patch Changes
+
+- 60ad38f: migrate orga-build to be based on vite
+  - @orgajs/cm-lang@1.2.1
+
 ## 1.3.0
 
 ### Minor Changes

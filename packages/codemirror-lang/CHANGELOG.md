@@ -1,5 +1,11 @@
 # @orgajs/cm-lang
 
+## 1.2.1
+
+### Patch Changes
+
+- @orgajs/lezer@1.3.1
+
 ## 1.2.0
 
 ### Minor Changes
