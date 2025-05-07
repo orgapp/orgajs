@@ -1,5 +1,18 @@
 # orga-build
 
+## 0.2.0
+
+### Minor Changes
+
+- 60ad38f: migrate orga-build to be based on vite
+
+### Patch Changes
+
+- Updated dependencies [60ad38f]
+  - @orgajs/rollup@1.3.2
+  - @orgajs/esbuild@1.1.3
+  - @orgajs/node-loader@1.1.3
+
 ## 0.1.4
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.3.2
+
+### Patch Changes
+
+- Updated dependencies [60ad38f]
+  - orga@4.5.1
+
 ## 4.3.1
 
 ### Patch Changes

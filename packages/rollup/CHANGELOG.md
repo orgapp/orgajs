@@ -1,5 +1,12 @@
 # @orgajs/rollup
 
+## 1.3.2
+
+### Patch Changes
+
+- 60ad38f: migrate orga-build to be based on vite
+  - @orgajs/orgx@2.5.2
+
 ## 1.3.1
 
 ### Patch Changes

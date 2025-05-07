@@ -1,5 +1,11 @@
 # @orgajs/esbuild
 
+## 1.1.3
+
+### Patch Changes
+
+- @orgajs/orgx@2.5.2
+
 ## 1.1.2
 
 ### Patch Changes
