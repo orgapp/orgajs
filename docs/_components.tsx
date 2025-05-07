@@ -134,19 +134,26 @@ const nordHighlightStyle = HighlightStyle.define([
 
 const nord = [nordTheme, syntaxHighlighting(nordHighlightStyle)]
 
-export function JSEditor({ children }: { children: string }) {
+export function JSEditor({
+	className,
+	children
+}: {
+	className?: string
+	children: string
+}) {
 	return (
-		<ReactCodeMirror
-			className="h-full w-full"
-			extensions={[
-				foldGutter(),
-				syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
-				javascript(),
-				EditorView.editable.of(false),
-				nord
-			]}
-			content={children}
-		/>
+		<div className={className}>
+			<ReactCodeMirror
+				extensions={[
+					foldGutter(),
+					syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+					javascript(),
+					EditorView.editable.of(false),
+					nord
+				]}
+				content={children}
+			/>
+		</div>
 	)
 }
 
