@@ -1,6 +1,7 @@
 #+title: Getting Started
 #+published: true
-#+position: 1
+#+type: document
+#+position: 100
 
 ** Basic Setup
 Orga is built on the [[https://unifiedjs.com][unified]] ecosystem. The core parser package =@orgajs/reorg= is the minimum requirement to get started.

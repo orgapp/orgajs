@@ -108,3 +108,8 @@ dist
 
 .meta.json
 .orga-build
+
+.turbo
+.aider*
+
+out

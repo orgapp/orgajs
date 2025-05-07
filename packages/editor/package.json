@@ -25,8 +25,8 @@
 	"dependencies": {
 		"@codemirror/commands": "^6.8.0",
 		"@codemirror/language": "^6.10.8",
-		"@codemirror/view": "^6.36.2",
 		"@codemirror/state": "^6.5.2",
+		"@codemirror/view": "^6.36.2",
 		"@orgajs/cm-lang": "workspace:^"
 	},
 	"devDependencies": {

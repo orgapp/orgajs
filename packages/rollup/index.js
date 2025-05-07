@@ -1,7 +1,37 @@
 /**
  * @typedef {import('@rollup/pluginutils').FilterPattern} FilterPattern
- * @typedef {import('rollup').Plugin} Plugin
  * @typedef {import('rollup').SourceDescription} SourceDescription
+ * @typedef Plugin
+ *   Plugin that is compatible with both Rollup and Vite.
+ * @property {string} name
+ *   The name of the plugin
+ * @property {ViteConfig} config
+ *   Function used by Vite to set additional configuration options.
+ * @property {Transform} transform
+ *   Function to transform the source content.
+ *
+ * @callback Transform
+ *   Callback called by Rollup and Vite to transform.
+ * @param {string} value
+ *   File contents.
+ * @param {string} path
+ *   File path.
+ * @returns {Promise<SourceDescription | undefined>}
+ *   Result.
+ *
+ * @callback ViteConfig
+ *   Callback called by Vite to set additional configuration options.
+ * @param {unknown} config
+ *   Configuration object (unused).
+ * @param {ViteEnv} env
+ *   Environment variables.
+ * @returns {undefined}
+ *   Nothing.
+ *
+ * @typedef ViteEnv
+ *   Environment variables used by Vite.
+ * @property {string} mode
+ *   Mode.
  */
 
 /**
@@ -34,15 +64,25 @@ import { SourceMapGenerator } from 'source-map'
  */
 export default function rollup(options) {
 	const { include, exclude, ...rest } = options || {}
-	const processor = createProcessor({
-		SourceMapGenerator,
-		...rest
-	})
+	/** @type {ReturnType<typeof import('@orgajs/orgx').createProcessor>} */
+	let processor
 	const filter = createFilter(include, exclude)
 
 	return {
 		name: '@orgajs/rollup',
+		config(config, env) {
+			processor = createProcessor({
+				SourceMapGenerator,
+				development: env.mode === 'development',
+				...rest
+			})
+		},
 		async transform(value, path) {
+			processor ||= createProcessor({
+				SourceMapGenerator,
+				...rest
+			})
+
 			const file = new VFile({ value, path })
 
 			if (file.extname === '.org' && filter(file.path)) {

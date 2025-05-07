@@ -37,12 +37,12 @@ jobs:
         run: |
           pnpm install
           pnpm build
-          pnpm build:docs
+          pnpm docs
 
       - name: Upload Page Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'docs/out/'
+          path: 'out/'
 
   deploy:
     needs: build

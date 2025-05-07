@@ -1,0 +1,39 @@
+{
+	"name": "@orgajs/react-editor",
+	"version": "0.1.0",
+	"type": "module",
+	"description": "@orgajs/editor in react",
+	"files": ["index.js"],
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"import": "./index.js"
+		}
+	},
+	"scripts": {},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/orgapp/orgajs.git",
+		"directory": "packages/react-editor"
+	},
+	"keywords": ["org-mode", "react", "editor"],
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"license": "MIT",
+	"packageManager": "pnpm@10.4.1",
+	"dependencies": {
+		"@orgajs/editor": "workspace:^",
+		"@orgajs/react-cm": "workspace:^"
+	},
+	"devDependencies": {
+		"@codemirror/state": "^6.5.2",
+		"@types/react": "^19.1.2",
+		"@types/react-dom": "^19.1.2",
+		"esbuild": "^0.24.2",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"peerDependencies": {
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	}
+}

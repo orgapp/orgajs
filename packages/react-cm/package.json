@@ -1,0 +1,25 @@
+{
+	"name": "@orgajs/react-cm",
+	"version": "0.1.0",
+	"type": "module",
+	"description": "",
+	"main": "index.js",
+	"scripts": {},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.4.1",
+	"devDependencies": {
+		"@types/react": "^19.1.2",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"peerDependencies": {
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"dependencies": {
+		"@codemirror/state": "^6.5.2",
+		"@codemirror/view": "^6.36.2"
+	}
+}

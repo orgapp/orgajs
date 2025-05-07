@@ -1,24 +1,45 @@
 {
 	"name": "orgajs",
 	"private": true,
+	"type": "module",
 	"devDependencies": {
 		"@changesets/cli": "^2.28.1",
+		"@codemirror/lang-javascript": "^6.2.3",
+		"@codemirror/language": "^6.10.8",
+		"@codemirror/theme-one-dark": "^6.1.2",
+		"@codemirror/view": "^6.36.2",
+		"@lezer/highlight": "^1.2.1",
+		"@orgajs/orgx": "workspace:^",
+		"@orgajs/react-cm": "workspace:^",
+		"@orgajs/react-editor": "workspace:^",
+		"@tailwindcss/typography": "^0.5.9",
+		"@tailwindcss/vite": "^4.1.4",
 		"@types/node": "^22.13.4",
+		"@types/react": "^19.1.2",
+		"@types/react-dom": "^19.1.2",
+		"daisyui": "^5.0.28",
+		"orga-build": "workspace:^",
 		"prettier": "^2.8.8",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"tailwindcss": "^4.0.3",
 		"turbo": "^1.10.13",
 		"type-coverage": "^2.29.7",
 		"typescript": "^5.7.3",
+		"unist-util-map": "4.0.0",
+		"vfile": "^6.0.3",
 		"xo": "^0.60.0"
 	},
 	"scripts": {
 		"build": "turbo run build --filter='./packages/*' && tsc --build --clean && tsc --build && type-coverage",
-		"build:docs": "pnpm --filter='@orgajs/docs' run build",
 		"clean": "tsc --build --clean",
-		"test": "xo packages/**/*.js && turbo run test --filter='./packages/*'",
+		"test": "xo packages/**/*.js --fix && turbo run test --filter='./packages/*'",
 		"format": "prettier --write .",
 		"changeset": "changeset",
 		"ci:version": "changeset version",
-		"ci:publish": "pnpm build && changeset publish"
+		"ci:publish": "pnpm build && changeset publish",
+		"docs": "orga-build",
+		"docs:dev": "orga-build dev"
 	},
 	"xo": {
 		"prettier": true
