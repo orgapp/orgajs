@@ -6,7 +6,7 @@ import { loadConfig } from './lib/config.js'
 import { build } from './lib/build.js'
 import { serve } from './lib/serve.js'
 
-const { values, positionals } = parseArgs({
+const { positionals } = parseArgs({
 	args: argv.slice(2),
 	options: {
 		watch: { type: 'boolean', short: 'w' },
@@ -18,8 +18,4 @@ const { values, positionals } = parseArgs({
 
 const config = await loadConfig(cwd(), 'orga.config.js', 'orga.config.mjs')
 
-if (positionals.includes('dev')) {
-	await serve(config)
-} else {
-	await build(config)
-}
+await (positionals.includes('dev') ? serve(config) : build(config))

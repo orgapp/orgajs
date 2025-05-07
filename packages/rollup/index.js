@@ -78,12 +78,10 @@ export default function rollup(options) {
 			})
 		},
 		async transform(value, path) {
-			if (!processor) {
-				processor = createProcessor({
-					SourceMapGenerator,
-					...rest
-				})
-			}
+			processor ||= createProcessor({
+				SourceMapGenerator,
+				...rest
+			})
 
 			const file = new VFile({ value, path })
 
