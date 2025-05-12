@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.2.1
+
+### Patch Changes
+
+- cd8358d: replace react-router with wouter
+
 ## 0.2.0
 
 ### Minor Changes
