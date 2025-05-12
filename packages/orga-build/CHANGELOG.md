@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.2.2
+
+### Patch Changes
+
+- 107b375: move react and react-dom to peer dependencies
+
 ## 0.2.1
 
 ### Patch Changes
