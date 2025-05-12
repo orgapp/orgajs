@@ -7,13 +7,7 @@
 		"orga-build": "./cli.js"
 	},
 	"scripts": {},
-	"files": [
-		"lib/",
-		"cli.js",
-		"index.js",
-		"index.d.ts",
-		"index.d.ts.map"
-	],
+	"files": ["lib/", "cli.js", "index.js", "index.d.ts", "index.d.ts.map"],
 	"exports": {
 		".": {
 			"types": "./index.d.ts",
@@ -21,13 +15,7 @@
 		},
 		"./csr.jsx": "./lib/csr.jsx"
 	},
-	"keywords": [
-		"orgajs",
-		"org-mode",
-		"build",
-		"website",
-		"react"
-	],
+	"keywords": ["orgajs", "org-mode", "build", "website", "react"],
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"license": "MIT",
 	"dependencies": {
@@ -40,11 +28,10 @@
 		"globby": "^14.1.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"react-router": "^7.5.1",
 		"rehype-katex": "^7.0.1",
-		"serve-handler": "^6.1.6",
 		"unist-util-visit-parents": "^6.0.1",
-		"vite": "6.3.2"
+		"vite": "6.3.2",
+		"wouter": "^3.7.0"
 	},
 	"devDependencies": {
 		"@orgajs/orgx": "workspace:^",
@@ -53,7 +40,6 @@
 		"@types/node": "^22.13.1",
 		"@types/react": "^19.0.8",
 		"@types/react-dom": "^19.0.3",
-		"@types/serve-handler": "^6.1.4",
 		"orga": "workspace:^"
 	}
 }

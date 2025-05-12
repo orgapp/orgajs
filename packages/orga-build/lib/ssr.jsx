@@ -1,7 +1,7 @@
 import pages from '@orga-build/pages'
 import { renderToString } from 'react-dom/server'
-import { StaticRouter } from 'react-router'
 import { App } from './app.jsx'
+import { Router } from 'wouter'
 
 export { pages }
 
@@ -14,13 +14,11 @@ export function render(url) {
 		console.log(`no page found for ${url}`)
 		return
 	}
-	return renderToString(<SSRContent url={url} />)
-}
-
-function SSRContent({ url }) {
-	return (
-		<StaticRouter location={url}>
+	const ssrContext = {}
+	console.log(`rendering ${url}`)
+	return renderToString(
+		<Router ssrPath={url} ssrContext={ssrContext}>
 			<App />
-		</StaticRouter>
+		</Router>
 	)
 }
