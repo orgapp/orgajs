@@ -40,6 +40,7 @@ export async function build({
 		build: {
 			ssr: true,
 			cssCodeSplit: false,
+			emptyOutDir: true,
 			rollupOptions: {
 				input: fileURLToPath(new URL('./ssr.jsx', import.meta.url)),
 				output: {
@@ -67,6 +68,7 @@ export async function build({
 		plugins,
 		build: {
 			cssCodeSplit: false,
+			emptyOutDir: true,
 			rollupOptions: {
 				input: fileURLToPath(new URL('./client.jsx', import.meta.url)),
 				preserveEntrySignatures: 'allow-extension'

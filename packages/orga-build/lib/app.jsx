@@ -1,6 +1,6 @@
-import pages from '@orga-build/pages'
-import layouts from '@orga-build/layouts'
-import * as components from '@orga-build/components'
+import pages from '/@orga-build/pages'
+import layouts from '/@orga-build/layouts'
+import * as components from '/@orga-build/components'
 import { Route, Switch, Link } from 'wouter'
 
 export function App() {

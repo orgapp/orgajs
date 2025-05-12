@@ -507,12 +507,6 @@ importers:
 
   packages/orga-build:
     dependencies:
-      '@orgajs/esbuild':
-        specifier: workspace:^
-        version: link:../esbuild
-      '@orgajs/node-loader':
-        specifier: workspace:^
-        version: link:../node-loader
       '@orgajs/rollup':
         specifier: workspace:*
         version: link:../rollup
@@ -547,9 +541,6 @@ importers:
         specifier: ^3.7.0
         version: 3.7.0(react@19.0.0)
     devDependencies:
-      '@orgajs/orgx':
-        specifier: workspace:^
-        version: link:../orgx
       '@types/express':
         specifier: ^5.0.1
         version: 5.0.1
@@ -565,9 +556,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.3
         version: 19.0.3(@types/react@19.0.8)
-      orga:
-        specifier: workspace:^
-        version: link:../orga
 
   packages/orgx:
     dependencies:

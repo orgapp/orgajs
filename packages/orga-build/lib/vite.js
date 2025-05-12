@@ -1,8 +1,9 @@
 import { setup } from './files.js'
 import path from 'node:path'
 
-const magicModulePrefix = '@orga-build'
-const appEntryId = `/${magicModulePrefix}/main.js`
+const magicModulePrefix = '/@orga-build/'
+const pagesModuleId = magicModulePrefix + 'pages'
+const appEntryId = `${magicModulePrefix}main.js`
 
 /**
  * @param {Object} options
@@ -15,6 +16,19 @@ export function pluginFactory({ dir }) {
 	return {
 		name: 'vite-plugin-orga-pages',
 		enforce: 'pre',
+		config: (config, env) => ({
+			optimizeDeps: {
+				include: [
+					'react',
+					'react/jsx-runtime',
+					'react-dom',
+					'react-dom/client',
+					'wouter'
+				],
+				exclude: ['orga-build']
+			}
+		}),
+
 		configureServer({ watcher, moduleGraph }) {
 			const reloadVirtualModule = (/** @type {string} */ moduleId) => {
 				const module = moduleGraph.getModuleById(moduleId)
@@ -27,8 +41,7 @@ export function pluginFactory({ dir }) {
 			reloadVirtualModule('/')
 		},
 
-		buildStart() {
-		},
+		buildStart() {},
 
 		async resolveId(id, importer) {
 			if (id === appEntryId) {
@@ -40,13 +53,13 @@ export function pluginFactory({ dir }) {
 		},
 		async load(id) {
 			if (id === appEntryId) {
-				return `import "orga-build/csr.jsx";`
+				return `import "orga-build/csr";`
 			}
-			if (id === `${magicModulePrefix}/pages`) {
+			if (id === pagesModuleId) {
 				return await renderPageList()
 			}
-			if (id.startsWith(`${magicModulePrefix}/pages/`)) {
-				let pageId = id.replace(`${magicModulePrefix}/pages/`, '/')
+			if (id.startsWith(pagesModuleId)) {
+				let pageId = id.replace(pagesModuleId, '')
 				const page = await files.page(pageId)
 				if (page) {
 					return `
@@ -56,7 +69,7 @@ export {default} from '${page.dataPath}';
 				}
 			}
 
-			if (id === `${magicModulePrefix}/layouts`) {
+			if (id === `${magicModulePrefix}layouts`) {
 				const layouts = await files.layouts()
 				/** @type {string[]} */
 				const imports = []
@@ -72,7 +85,7 @@ export default layouts;
 				`
 			}
 
-			if (id === `${magicModulePrefix}/components`) {
+			if (id === `${magicModulePrefix}components`) {
 				return await renderComponents()
 			}
 		}

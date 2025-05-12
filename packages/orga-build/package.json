@@ -7,32 +7,18 @@
 		"orga-build": "./cli.js"
 	},
 	"scripts": {},
-	"files": [
-		"lib/",
-		"cli.js",
-		"index.js",
-		"index.d.ts",
-		"index.d.ts.map"
-	],
+	"files": ["lib/", "cli.js", "index.js", "index.d.ts", "index.d.ts.map"],
 	"exports": {
 		".": {
 			"types": "./index.d.ts",
 			"import": "./index.js"
 		},
-		"./csr.jsx": "./lib/csr.jsx"
+		"./csr": "./lib/csr.jsx"
 	},
-	"keywords": [
-		"orgajs",
-		"org-mode",
-		"build",
-		"website",
-		"react"
-	],
+	"keywords": ["orgajs", "org-mode", "build", "website", "react"],
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"license": "MIT",
 	"dependencies": {
-		"@orgajs/esbuild": "workspace:^",
-		"@orgajs/node-loader": "workspace:^",
 		"@orgajs/rollup": "workspace:*",
 		"@vitejs/plugin-react": "^4.4.0",
 		"esbuild": "^0.24.2",
@@ -44,13 +30,11 @@
 		"wouter": "^3.7.0"
 	},
 	"devDependencies": {
-		"@orgajs/orgx": "workspace:^",
 		"@types/express": "^5.0.1",
 		"@types/hast": "^3.0.4",
 		"@types/node": "^22.13.1",
 		"@types/react": "^19.0.8",
-		"@types/react-dom": "^19.0.3",
-		"orga": "workspace:^"
+		"@types/react-dom": "^19.0.3"
 	},
 	"peerDependencies": {
 		"react": "^19.0.0",

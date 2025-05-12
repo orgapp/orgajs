@@ -1,4 +1,4 @@
-import pages from '@orga-build/pages'
+import pages from '/@orga-build/pages'
 import { renderToString } from 'react-dom/server'
 import { App } from './app.jsx'
 import { Router } from 'wouter'
