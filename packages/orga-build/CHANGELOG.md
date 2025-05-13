@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.2.3
+
+### Patch Changes
+
+- c71a873: fix dependency issue
+
 ## 0.2.2
 
 ### Patch Changes
