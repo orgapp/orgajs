@@ -20,6 +20,8 @@
 		"daisyui": "^5.0.28",
 		"orga-build": "workspace:^",
 		"prettier": "^2.8.8",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"tailwindcss": "^4.0.3",
 		"turbo": "^1.10.13",
 		"type-coverage": "^2.29.7",
