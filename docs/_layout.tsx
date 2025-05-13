@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { Link } from 'orga-build/components'
 import './style.css'
 
 import type { SVGProps } from 'react'
@@ -39,9 +40,9 @@ export default function Layout({ children }: LayoutProps) {
 				<ol className="flex flex-1 gap-4">
 					{navItems.map((item) => (
 						<li key={item.name}>
-							<a href={item.href} className="btn btn-ghost">
+							<Link href={item.href} className="btn btn-ghost">
 								{item.name}
-							</a>
+							</Link>
 						</li>
 					))}
 				</ol>
@@ -111,7 +112,7 @@ function renderMenu(path: string, pages: Page[]) {
 		<ul>
 			{children.map((child) => (
 				<li key={child.slug}>
-					<a href={child.slug}>{child.title}</a>
+					<Link href={child.slug}>{child.title}</Link>
 					{renderMenu(child.slug, pages)}
 				</li>
 			))}
