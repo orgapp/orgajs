@@ -1,4 +1,5 @@
 import path from 'node:path'
+import { createRequire } from 'node:module'
 import { build as viteBuild } from 'vite'
 import orga from '@orgajs/rollup'
 import react from '@vitejs/plugin-react'
@@ -8,6 +9,14 @@ import { pluginFactory } from './vite.js'
 import fs from 'fs/promises'
 import assert from 'node:assert'
 import { rehypeWrap } from './plugins.js'
+
+const require = createRequire(import.meta.url)
+
+export const alias = {
+	react: path.dirname(require.resolve('react/package.json')),
+	'react-dom': path.dirname(require.resolve('react-dom/package.json')),
+	wouter: path.dirname(require.resolve('wouter'))
+}
 
 /**
  * @param {import('./config.js').Config} config
@@ -53,6 +62,9 @@ export async function build({
 		},
 		ssr: {
 			noExternal: true
+		},
+		resolve: {
+			alias: alias
 		}
 	})
 
@@ -78,6 +90,9 @@ export async function build({
 		},
 		ssr: {
 			noExternal: true
+		},
+		resolve: {
+			alias: alias
 		}
 	})
 

@@ -5,6 +5,7 @@ import orga from '@orgajs/rollup'
 import react from '@vitejs/plugin-react'
 import { pluginFactory } from './vite.js'
 import { rehypeWrap } from './plugins.js'
+import { alias } from './build.js'
 
 /**
  * @param {import('./config.js').Config} config
@@ -22,7 +23,10 @@ export async function serve(config, port = 3000) {
 			...config.vitePlugins
 		],
 		server: { middlewareMode: true },
-		appType: 'custom'
+		appType: 'custom',
+		resolve: {
+			alias: alias
+		}
 	})
 
 	app.use(vite.middlewares)
