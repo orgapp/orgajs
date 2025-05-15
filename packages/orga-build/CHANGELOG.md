@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.2.4
+
+### Patch Changes
+
+- c3fecf6: resolve react/react-dom/wouter properly
+
 ## 0.2.3
 
 ### Patch Changes
