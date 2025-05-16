@@ -3,7 +3,7 @@
 #+type: document
 #+position: 4
 
-Use the next plugin for orga.
+Use the next plugin for orga. Or better, use [[file:orga-build.org][orga-build]] instead.
 
 * Installation
 

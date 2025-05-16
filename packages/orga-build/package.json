@@ -6,7 +6,9 @@
 	"bin": {
 		"orga-build": "./cli.js"
 	},
-	"scripts": {},
+	"scripts": {
+		"clean": "fd . -e d.ts -e d.ts.map -I -x rm {}"
+	},
 	"files": [
 		"lib/",
 		"cli.js",
@@ -48,6 +50,7 @@
 		"@types/hast": "^3.0.4",
 		"@types/node": "^22.13.1",
 		"@types/react": "^19.0.8",
-		"@types/react-dom": "^19.0.3"
+		"@types/react-dom": "^19.0.3",
+		"orga": "^4.5.1"
 	}
 }

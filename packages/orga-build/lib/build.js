@@ -1,14 +1,13 @@
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { build as viteBuild } from 'vite'
-import orga from '@orgajs/rollup'
+import { setupOrga } from './orga.js'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { copy, emptyDir, ensureDir } from './fs.js'
 import { pluginFactory } from './vite.js'
 import fs from 'fs/promises'
 import assert from 'node:assert'
-import { rehypeWrap } from './plugins.js'
 
 const require = createRequire(import.meta.url)
 
@@ -33,9 +32,7 @@ export async function build({
 	const clientOutDir = path.join(outDir, '.client')
 
 	const plugins = [
-		orga({
-			rehypePlugins: [[rehypeWrap, { className: containerClass }]]
-		}),
+		setupOrga({ containerClass }),
 		react(),
 		pluginFactory({ dir: root }),
 		...vitePlugins

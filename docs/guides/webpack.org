@@ -4,6 +4,7 @@
 #+position: 3
 
 =@orgajs/loader= is a webpack loader taht can be used natrually with webpack setup.
+For hassle free experience, use [[file:orga-build.org][orga-build]].
 
 * Installation
 

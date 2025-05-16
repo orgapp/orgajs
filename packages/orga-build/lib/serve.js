@@ -1,11 +1,10 @@
 import express from 'express'
 import { createServer } from 'vite'
 import fs from 'node:fs/promises'
-import orga from '@orgajs/rollup'
 import react from '@vitejs/plugin-react'
 import { pluginFactory } from './vite.js'
-import { rehypeWrap } from './plugins.js'
 import { alias } from './build.js'
+import { setupOrga } from './orga.js'
 
 /**
  * @param {import('./config.js').Config} config
@@ -15,9 +14,7 @@ export async function serve(config, port = 3000) {
 	const app = express()
 	const vite = await createServer({
 		plugins: [
-			orga({
-				rehypePlugins: [[rehypeWrap, { className: config.containerClass }]]
-			}),
+			setupOrga({ containerClass: config.containerClass }),
 			react(),
 			pluginFactory({ dir: config.root }),
 			...config.vitePlugins
