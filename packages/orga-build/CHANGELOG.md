@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.2.5
+
+### Patch Changes
+
+- 70ebb3b: handle image and relative links
+
 ## 0.2.4
 
 ### Patch Changes
