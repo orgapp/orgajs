@@ -13,7 +13,6 @@ export function setupOrga({ containerClass }) {
 		rehypePlugins: [[rehypeWrap, { className: containerClass }], image],
 		reorgRehypeOptions: {
 			linkHref: (link) => {
-				console.log({ link })
 				if (link.path.protocol === 'file') {
 					return link.path.value.replace(/\.org$/, '')
 				}
