@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.2.6
+
+### Patch Changes
+
+- 6d46012: remove log
+
 ## 0.2.5
 
 ### Patch Changes
