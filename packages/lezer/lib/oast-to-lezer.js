@@ -27,7 +27,7 @@ function createParseState(file, nodeSet) {
 	/** @type {ParseState} */
 	const state = {
 		file,
-		ignore: ['section', 'newline', 'emptyLine'],
+		ignore: ['newline', 'emptyLine'],
 		nodeSet: nodeSet,
 		handlers,
 		one(node, parent, base = 0) {

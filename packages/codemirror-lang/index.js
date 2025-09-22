@@ -28,24 +28,19 @@ function isHeadline(type) {
 /**
  * @param {SyntaxNode} headerNode
  * @param {number} level
+ * @param {import('@codemirror/state').EditorState} state
  */
-function findSectionEnd(headerNode, level) {
-	let last = headerNode
-	for (;;) {
-		const next = last.nextSibling
-		if (!next) {
-			break
+function findSectionEnd(headerNode, level, state) {
+	let section = headerNode.parent
+	// Check if there's a newline at section.to and adjust accordingly
+	if (section.to > 0 && section.to <= state.doc.length) {
+		const charAtEnd = state.doc.sliceString(section.to - 1, section.to)
+		if (charAtEnd === '\n') {
+			return section.to - 1
 		}
-
-		const headline = isHeadline(next.type)
-		if (headline !== undefined && headline <= level) {
-			return next.from - 1 // Escape the newline. TODO: is this safe?
-		}
-
-		last = next
 	}
 
-	return last.to
+	return section.to
 }
 
 const headerIndent = foldService.of((state, start, end) => {
@@ -66,7 +61,7 @@ const headerIndent = foldService.of((state, start, end) => {
 			continue
 		}
 
-		const upto = findSectionEnd(node, headline)
+		const upto = findSectionEnd(node, headline, state)
 		if (upto > end) {
 			return { from: end, to: upto }
 		}

@@ -21,6 +21,15 @@ const headlines = [
   nodes.headline6,
 ]
 
+const sections = [
+	nodes.section1,
+	nodes.section2,
+	nodes.section3,
+	nodes.section4,
+	nodes.section5,
+	nodes.section6,
+]
+
 /**
  * @type {Handlers}
  */
@@ -38,7 +47,15 @@ export const handlers = {
     }
     return false
   },
-  stars: () => nodes.stars,
+	section: (s, node) => {
+		if (node.type === 'section') {
+			return {
+				id: sections[node.level - 1] || nodes.section6,
+			}
+		}
+		return false
+	},
+	stars: () => nodes.stars,
   todo: (_s, node) => {
     if (node.type !== 'todo') {
       return false

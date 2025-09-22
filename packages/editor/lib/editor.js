@@ -20,7 +20,6 @@ import { setup } from './setup.js'
  */
 export function makeEditor(config) {
 	const { target, content = '', extensions = [], onChange } = config
-	console.log({ extensions })
 	const state = EditorState.create({
 		doc: content,
 		extensions: [setup, extensions]

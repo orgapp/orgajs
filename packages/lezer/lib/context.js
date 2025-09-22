@@ -71,7 +71,7 @@ export function parseContext(config, input, _fragments, ranges) {
 
     if (!parser) {
       log('creating parser', cursor, end)
-      parser = makeParser(full, { range: { start: cursor, end }, flat: true })
+      parser = makeParser(full, { range: { start: cursor, end }, flat: false })
     } else {
       // console.log('moving parser', start, end)
       // parser.move(start, end)
