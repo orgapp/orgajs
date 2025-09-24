@@ -5,6 +5,7 @@
  *
  * @typedef {object} Options
  * @property {boolean} hideStars
+ * @property {boolean} hideLinks
  */
 import { syntaxTree } from '@codemirror/language'
 import { Decoration, ViewPlugin } from '@codemirror/view'
@@ -20,7 +21,6 @@ function overlap(a, b) {
 /**
  * @param {Options} options
  */
-
 export function cleanup(options) {
 	return ViewPlugin.define(
 		(view) => {
@@ -133,7 +133,7 @@ function createDecorations(view, options) {
 				})
 			}
 
-			if (node.name === 'url' || node.name === 'mark') {
+			if (options.hideLinks && (node.name === 'url' || node.name === 'mark')) {
 				decorations = decorations.update({
 					add: [hide(linkRange).range(node.from, node.to)]
 				})

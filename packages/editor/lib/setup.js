@@ -1,8 +1,8 @@
 import { bracketMatching, foldGutter, toggleFold } from '@codemirror/language'
 import { defaultKeymap } from '@codemirror/commands'
 import { EditorView, highlightActiveLine, keymap } from '@codemirror/view'
-import { cleanup } from './extensions/cleanup.js'
 import { org } from '@orgajs/cm-lang'
+import { cleanup } from './extensions/cleanup.js'
 import theme from './theme.js'
 import { shift } from './actions/shift.js'
 
@@ -33,5 +33,5 @@ export const setup = (() => [
 	}),
 	EditorView.lineWrapping,
 	bracketMatching(),
-	cleanup({ hideStars: false })
+	cleanup({ hideStars: false, hideLinks: true })
 ])()
