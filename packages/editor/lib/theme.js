@@ -19,15 +19,9 @@ const theme = EditorView.baseTheme({
 
 const baseStyle = HighlightStyle.define([
 	{
-		tag: [
-			t.heading1,
-			t.heading2,
-			t.heading3,
-			t.heading4,
-			t.heading5,
-			t.heading6
-		],
-		fontWeight: 'bold'
+		tag: [t.heading],
+		fontWeight: 'bold',
+		textDecoration: 'underline'
 	},
 	{ tag: [t.keyword, t.strong], fontWeight: 'bold' },
 	{ tag: t.emphasis, fontStyle: 'italic' },

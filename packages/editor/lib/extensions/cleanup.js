@@ -112,8 +112,9 @@ function createDecorations(view, options) {
 	let linkRange = null
 	syntaxTree(view.state).iterate({
 		enter(node) {
-			if (node.name.startsWith('headline'))
+			if (node.name.startsWith('headline')) {
 				headlineRange = { from: node.from, to: node.to }
+			}
 
 			if (node.name === 'link') {
 				linkRange = { from: node.from, to: node.to }
