@@ -1,13 +1,14 @@
-import { bracketMatching, foldGutter, toggleFold } from '@codemirror/language'
+import { bracketMatching, foldGutter } from '@codemirror/language'
 import { defaultKeymap } from '@codemirror/commands'
 import { EditorView, highlightActiveLine, keymap } from '@codemirror/view'
 import { org } from '@orgajs/cm-lang'
 import { cleanup } from './extensions/cleanup.js'
 import theme from './theme.js'
 import { shift } from './actions/shift.js'
+import { toggleFold, toggleFoldAll } from './actions/fold.js'
 
 const keys = [
-	{ key: 'Tab', run: toggleFold },
+	{ key: 'Tab', run: toggleFold, shift: toggleFoldAll },
 	{
 		key: 'Cmd-ArrowLeft',
 		run: shift(-1),
