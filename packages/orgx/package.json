@@ -32,7 +32,7 @@
 		"@types/react": "^19.0.8",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"typescript": "^5.7.3"
+		"typescript": "^5.9.2"
 	},
 	"dependencies": {
 		"@orgajs/reorg-parse": "workspace:^",
