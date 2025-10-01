@@ -54,8 +54,8 @@
                 },
                 "end": {
                   "line": 3,
-                  "column": 3,
-                  "offset": 28
+                  "column": 2,
+                  "offset": 27
                 }
               }
             },
@@ -71,8 +71,8 @@
                 },
                 "end": {
                   "line": 3,
-                  "column": 8,
-                  "offset": 33
+                  "column": 7,
+                  "offset": 32
                 }
               }
             },

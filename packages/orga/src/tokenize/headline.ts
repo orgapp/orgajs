@@ -23,17 +23,19 @@ export default (getTodoKeywordSets: GetTodoKeywordSets) =>
 
 		let buffer: Token[] = []
 
-		const stars = eat(/^\*+(?=\s)/)
+		const stars = eat(/^\*+(?=[ \t])/)
 		if (!stars) throw Error('not gonna happen')
 		buffer.push({
 			type: 'stars',
 			level: stars.value.length,
 			position: {
 				start: stars.position.start,
-				end: eat('whitespaces').position.end
+				end: eat('whitespaces').position.start
 			}
 		})
-		const keyword = eat(RegExp(`${todos.map(escape).join('|')}(?=\\s)`, 'y'))
+		const keyword = eat(
+			RegExp(`${todos.map(encodeURIComponent).join('|')}(?=[ \t])`, 'y')
+		)
 		if (keyword) {
 			buffer.push({
 				type: 'todo',
@@ -41,18 +43,18 @@ export default (getTodoKeywordSets: GetTodoKeywordSets) =>
 				actionable: isActionable(keyword.value),
 				position: {
 					start: keyword.position.start,
-					end: eat('whitespaces').position.end
+					end: eat('whitespaces').position.start
 				}
 			})
 		}
-		const priority = eat(/^\[#(A|B|C)\](?=\s)/y)
+		const priority = eat(/^\[#(A|B|C)\](?=[ \t])/y)
 		if (priority) {
 			buffer.push({
 				type: 'priority',
 				...priority,
 				position: {
 					start: priority.position.start,
-					end: eat('whitespaces').position.end
+					end: eat('whitespaces').position.start
 				}
 			})
 		}

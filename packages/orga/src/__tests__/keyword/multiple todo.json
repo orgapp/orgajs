@@ -88,8 +88,8 @@
                 },
                 "end": {
                   "line": 5,
-                  "column": 3,
-                  "offset": 88
+                  "column": 2,
+                  "offset": 87
                 }
               }
             },
@@ -105,8 +105,8 @@
                 },
                 "end": {
                   "line": 5,
-                  "column": 9,
-                  "offset": 94
+                  "column": 8,
+                  "offset": 93
                 }
               }
             },

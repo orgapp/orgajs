@@ -136,8 +136,8 @@
                 },
                 "end": {
                   "line": 3,
-                  "column": 3,
-                  "offset": 60
+                  "column": 2,
+                  "offset": 59
                 }
               }
             },
