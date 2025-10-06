@@ -1,6 +1,12 @@
 {
   "type": "document",
-  "properties": {},
+  "properties": {
+    "todo": [
+      "TODO NEXT | DONE",
+      "DRAFT PUBLISHED",
+      "BUG(b) FEATURE(f) | DONE(d)"
+    ]
+  },
   "children": [
     {
       "type": "keyword",

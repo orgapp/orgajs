@@ -1,25 +1,17 @@
 import { Reader } from 'text-kit'
-import { TodoKeywordSet } from '../todo-keyword-set.js'
 import { Token } from '../types.js'
 import { tokenize } from './inline/index.js'
+import { TodoKeywordSet } from '../todo'
 
-type GetTodoKeywordSets = () => TodoKeywordSet[]
-
-export default (getTodoKeywordSets: GetTodoKeywordSets) =>
+export default (todo: TodoKeywordSet) =>
 	(reader: Reader): Token[] | void => {
 		const { isStartOfLine, match, now, eol, eat, jump, substring, endOfLine } =
 			reader
 
-		const todoKeywordSets = getTodoKeywordSets()
-
 		if (!isStartOfLine() || !match(/^\*+[ \t]+/my)) return
 
 		// TODO: cache this, for performance sake
-		const todos = todoKeywordSets.flatMap((s) => s.keywords)
-
-		const isActionable = (keyword: string): boolean => {
-			return !!todoKeywordSets.find((s) => s.actionables.includes(keyword))
-		}
+		const todos = todo.keywords
 
 		let buffer: Token[] = []
 
@@ -40,7 +32,7 @@ export default (getTodoKeywordSets: GetTodoKeywordSets) =>
 			buffer.push({
 				type: 'todo',
 				keyword: keyword.value,
-				actionable: isActionable(keyword.value),
+				actionable: todo.actionable(keyword.value),
 				position: {
 					start: keyword.position.start,
 					end: eat('whitespaces').position.start

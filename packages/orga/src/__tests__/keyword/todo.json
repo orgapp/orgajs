@@ -1,6 +1,8 @@
 {
   "type": "document",
-  "properties": {},
+  "properties": {
+    "todo": "TODO NEXT | DONE"
+  },
   "children": [
     {
       "type": "keyword",

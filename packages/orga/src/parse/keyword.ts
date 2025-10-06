@@ -22,10 +22,11 @@ const keyword: Action = (token: Keyword, context) => {
 				...(context.attributes[key] as { [key: string]: Primitive }),
 				...parseSymbols(value)
 			}
-		} else if (key === 'todo') {
-			lexer.addInBufferTodoKeywords(value)
 		} else {
 			addProp(key, value)
+		}
+		if (key === 'todo') {
+			lexer.todo.add(value)
 		}
 		push(token)
 	}

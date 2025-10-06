@@ -62,8 +62,8 @@ export function createContext(lexer: Lexer, options: ParserOptions): Context {
 
 	const tree = enter({
 		type: 'document',
-		properties: {},
-		children: [],
+		properties: options.settings || {},
+		children: []
 	}) as Document
 
 	const pop = () => {
@@ -173,7 +173,7 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
 				stack: [...stack],
 				level,
 				attributes: { ...attributes },
-				savePoint: lexer.save(),
+				savePoint: lexer.save()
 			}
 		},
 
@@ -209,6 +209,6 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
 			}
 			lines.push(`stack:   ${stack.map((n) => n.type).join(' > ')}`)
 			return lines.join('\n')
-		},
+		}
 	}
 }

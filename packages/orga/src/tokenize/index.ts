@@ -1,7 +1,6 @@
 import { read, Reader } from 'text-kit'
 import { Point, Position } from 'unist'
 import type { LexerOptions } from '../options.js'
-import todoKeywordSet, { TodoKeywordSet } from '../todo-keyword-set.js'
 import { Token } from '../types.js'
 import block from './block.js'
 import latex from './latex.js'
@@ -16,6 +15,7 @@ import listItem from './list.js'
 import planning from './planning.js'
 import table from './table.js'
 import emptyLines from './empty.js'
+import { TodoManager } from '../todo'
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
@@ -27,29 +27,21 @@ export interface Lexer {
 	all: () => Token[]
 	save: () => number
 	restore: (point: number) => void
-	addInBufferTodoKeywords: (text: string) => void
 	substring: (position: Position) => string
 	/** Modify the next token (or the token at the given offset). */
 	modify(f: (t: Token) => Token, offset?: number): void
 	readonly now: number
 	toOffset: (point: Point | number) => number
 	toPoint: (point: number) => Point
+	readonly todo: TodoManager
 }
 
 export type Tokenizer = (reader: Reader) => Token[] | Token | void
 
 export const tokenize = (text: string, options: LexerOptions): Lexer => {
-	const { timezone, todos, range } = options
+	const { timezone, range, todo } = options
 	const reader = read(text, range)
 	const { getChar } = reader
-	const globalTodoKeywordSets = todos.map(todoKeywordSet)
-	const inBufferTodoKeywordSets: TodoKeywordSet[] = []
-
-	function todoKeywordSets() {
-		return inBufferTodoKeywordSets.length === 0
-			? globalTodoKeywordSets
-			: inBufferTodoKeywordSets
-	}
 
 	let tokens: Token[] = []
 
@@ -61,7 +53,7 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
 				type: 'newline',
 				position: eat('char').position
 			},
-		headline(todoKeywordSets),
+		headline(todo),
 		drawer,
 		planning({ keywords: PLANNING_KEYWORDS, timezone }),
 		keyword,
@@ -158,11 +150,6 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
 			cursor = point
 		},
 
-		addInBufferTodoKeywords(text) {
-			const keywords = todoKeywordSet(text)
-			if (keywords.keywords.length === 0) return
-			inBufferTodoKeywordSets.push(keywords)
-		},
 		substring: (pos) => reader.substring(pos.start, pos.end),
 		modify,
 		get now() {
@@ -170,6 +157,9 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
 			return reader.toIndex(token?.position.start ?? Infinity)
 		},
 		toOffset: (point) => reader.toIndex(point),
-		toPoint: (offset) => reader.toPoint(offset)
+		toPoint: (offset) => reader.toPoint(offset),
+		get todo() {
+			return todo
+		}
 	}
 }

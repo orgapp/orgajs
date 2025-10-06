@@ -1,33 +1,35 @@
 {
-  "name": "orga",
-  "version": "4.5.1",
-  "description": "org-mode parser",
-  "files": [
-    "dist"
-  ],
-  "main": "dist/index.js",
-  "type": "module",
-  "author": "Xiaoxing Hu <hi@xiaoxing.dev>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com:orgapp/orgajs.git",
-    "directory": "packages/orga"
-  },
-  "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "tsc --build",
-    "test": "node --test --no-warnings --import tsx src/**/*.test.ts"
-  },
-  "dependencies": {
-    "date-fns": "^2.30.0",
-    "date-fns-tz": "^2.0.0",
-    "text-kit": "workspace:^"
-  },
-  "devDependencies": {
-    "@types/node": "^20.5.7",
-    "@types/unist": "^3.0.3",
-    "tsx": "^4.19.2",
-    "typescript": "^5.9.2"
-  }
+	"name": "orga",
+	"version": "4.5.1",
+	"description": "org-mode parser",
+	"files": ["dist"],
+	"main": "dist/index.js",
+	"type": "module",
+	"exports": {
+		".": "./dist/index.js",
+		"./todo": "./dist/todo.js"
+	},
+	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com:orgapp/orgajs.git",
+		"directory": "packages/orga"
+	},
+	"scripts": {
+		"clean": "tsc --build --clean",
+		"build": "tsc --build",
+		"test": "node --test --no-warnings --import tsx \"src/**/*.test.ts\""
+	},
+	"dependencies": {
+		"date-fns": "^2.30.0",
+		"date-fns-tz": "^2.0.0",
+		"text-kit": "workspace:^"
+	},
+	"devDependencies": {
+		"@types/node": "^20.5.7",
+		"@types/unist": "^3.0.3",
+		"tsx": "^4.19.2",
+		"typescript": "^5.9.2"
+	}
 }
