@@ -6,14 +6,14 @@ import _primitive from './_primitive.js'
 const AFFILIATED_KEYWORDS = ['caption', 'header', 'name', 'plot', 'results']
 
 const keyword: Action = (token: Keyword, context) => {
-	const { push, lexer, addProp } = context
+	const { attach, lexer, addProp } = context
 	const key = token.key.toLowerCase()
 	const { value } = token
 
 	if (key === 'html') {
-		push({ type: 'html', value, position: token.position } as HTML)
+		attach({ type: 'html', value, position: token.position } as HTML)
 	} else if (key === 'jsx') {
-		push({ type: 'jsx', value, position: token.position } as JSX)
+		attach({ type: 'jsx', value, position: token.position } as JSX)
 	} else {
 		if (AFFILIATED_KEYWORDS.includes(key)) {
 			context.attributes[key] = _primitive(value)
@@ -28,7 +28,7 @@ const keyword: Action = (token: Keyword, context) => {
 		if (key === 'todo') {
 			lexer.todo.add(value)
 		}
-		push(token)
+		attach(token)
 	}
 
 	// if (AFFILIATED_KEYWORDS.includes(key)) {

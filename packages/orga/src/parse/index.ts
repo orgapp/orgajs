@@ -81,9 +81,9 @@ const main: Handler = {
 		{ test: /^table\./, action: table },
 		{
 			test: 'hr',
-			action: (token, { lexer, push }) => {
+			action: (token, { lexer, attach }) => {
 				lexer.eat()
-				push(token)
+				attach(token)
 			}
 		},
 		{ test: isPhrasingContent, action: paragraph },

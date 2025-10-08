@@ -389,3 +389,10 @@ export function isFootnoteReference(node: Node): node is FootnoteReference {
 export function isText(node: Node): node is Text {
 	return node.type === 'text'
 }
+
+declare module 'unist' {
+	interface Data {
+		/** context hash */
+		hash?: number | undefined
+	}
+}
