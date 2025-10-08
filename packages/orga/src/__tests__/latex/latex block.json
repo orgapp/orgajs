@@ -21,6 +21,9 @@
               "column": 17,
               "offset": 16
             }
+          },
+          "data": {
+            "hash": 33
           }
         },
         {
@@ -36,6 +39,9 @@
               "column": 1,
               "offset": 17
             }
+          },
+          "data": {
+            "hash": 17
           }
         },
         {
@@ -52,6 +58,9 @@
               "column": 11,
               "offset": 27
             }
+          },
+          "data": {
+            "hash": 19
           }
         },
         {
@@ -67,6 +76,9 @@
               "column": 1,
               "offset": 28
             }
+          },
+          "data": {
+            "hash": 17
           }
         },
         {
@@ -83,6 +95,9 @@
               "column": 16,
               "offset": 43
             }
+          },
+          "data": {
+            "hash": 34
           }
         }
       ],
@@ -97,6 +112,9 @@
           "column": 16,
           "offset": 43
         }
+      },
+      "data": {
+        "hash": 4
       }
     }
   ],

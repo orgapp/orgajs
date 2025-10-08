@@ -19,6 +19,9 @@
               "column": 11,
               "offset": 10
             }
+          },
+          "data": {
+            "hash": 19
           }
         },
         {
@@ -34,6 +37,9 @@
               "column": 1,
               "offset": 11
             }
+          },
+          "data": {
+            "hash": 17
           }
         }
       ],
@@ -49,6 +55,9 @@
           "column": 1,
           "offset": 11
         }
+      },
+      "data": {
+        "hash": 13
       }
     }
   ],
