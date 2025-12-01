@@ -36,7 +36,7 @@
 	"dependencies": {
 		"@orgajs/rollup": "workspace:*",
 		"@vitejs/plugin-react": "^4.4.0",
-		"express": "^5.1.0",
+		"express": "^5.2.0",
 		"globby": "^14.1.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
