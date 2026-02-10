@@ -4,7 +4,7 @@ import type { Predicate } from './index.js'
 import type { Lexer } from '../tokenize/index.js'
 import { Attributes, Document, isSection, Properties } from '../types.js'
 import { ParserOptions } from '../options.js'
-import { nodeIdMap } from '../nodes'
+import { nodeIdMap } from '../nodes.js'
 
 /**
  * Exclude `todo` from settings when initializing document properties.

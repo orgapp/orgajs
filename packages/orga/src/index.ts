@@ -6,7 +6,7 @@ import {
 } from './options.js'
 import { parser as _parser, type Parser } from './parse/index.js'
 import { parse as parseTimestamp } from './timestamp.js'
-import { todoManager } from './todo'
+import { todoManager } from './todo.js'
 import { Lexer, tokenize as _tokenize } from './tokenize/index.js'
 import type { Document, Settings } from './types.js'
 

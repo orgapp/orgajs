@@ -1,6 +1,6 @@
 import { Range } from 'text-kit'
 import { Settings } from './types'
-import { defaultTodoManager, TodoManager } from './todo'
+import { defaultTodoManager, TodoManager } from './todo.js'
 
 export interface LexerOptions {
 	timezone: string
