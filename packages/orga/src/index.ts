@@ -40,6 +40,41 @@ export function makeParser(text: string, options: Partial<Options> = {}) {
 	return _parser(lexer, { ..._options, range })
 }
 
+export function getSettings(text: string): Settings {
+	// Stop when seeing a non-keyword, non-empty line.
+	const settings: Settings = {}
+	const lexer = tokenize(text)
+
+	let token = lexer.peek()
+	while (token) {
+		if (token.type === 'keyword') {
+			const k = (token.key as string).toLowerCase()
+			const v = (token.value as string).trim()
+
+			// Handle multiple values for the same key (like multiple #+todo: lines)
+			const existing = settings[k]
+			if (existing) {
+				if (Array.isArray(existing)) {
+					existing.push(v)
+				} else if (typeof existing === 'string') {
+					settings[k] = [existing, v]
+				}
+			} else {
+				settings[k] = v
+			}
+			lexer.eat()
+		} else if (token.type === 'newline' || token.type === 'emptyLine') {
+			lexer.eat()
+		} else {
+			// Hit non-keyword content - stop collecting
+			break
+		}
+		token = lexer.peek()
+	}
+
+	return settings
+}
+
 function getTodo(settings: Settings) {
 	const todo = settings?.todo
 	if (Array.isArray(todo)) return todo

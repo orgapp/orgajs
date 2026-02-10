@@ -16,15 +16,6 @@ export { tags } from './nodes.js'
 
 export class OrgParser extends Parser {
 	/**
-	 * @type {import('orga').Properties}
-	 */
-	properties = {}
-	/**
-	 * @type {import('orga').Parser | null}
-	 */
-	parser = null
-
-	/**
 	 * @param {NodeSet} nodeSet
 	 * @param {(...data: any[]) => void} [log]
 	 */

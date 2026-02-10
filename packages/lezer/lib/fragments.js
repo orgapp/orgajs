@@ -13,12 +13,10 @@
  * @property {(pos: number, lineStart: number) => boolean} moveTo
  * @property {(hash: number) => boolean} matches
  * @property {(start: number, ranges: {from: number, to: number}[], rangeI: number) => TakeNodesResult} takeNodes
- * @property {() => void} getDocumentProp
  */
 
 import { NodeProp, Tree } from '@lezer/common'
 import { nodes } from './nodes.js'
-import { documentProp } from './handlers'
 
 /**
  * @param {import('./index.js').OrgParser} config
@@ -37,8 +35,7 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
 	return {
 		moveTo,
 		matches,
-		takeNodes,
-		getDocumentProp
+		takeNodes
 	}
 
 	function nextFragment() {
@@ -180,14 +177,6 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
 
 		result.taken = end - start
 		return result
-	}
-
-	function getDocumentProp() {
-		const first = fragments[0].tree
-		const props = first.prop(documentProp)
-		const hash = first.prop(NodeProp.contextHash)
-
-		console.info('......', { first: first, props, hash, fragments })
 	}
 }
 

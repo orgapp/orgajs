@@ -2,9 +2,20 @@ import type { Node, Point, Parent } from 'unist'
 import { not, test } from './index.js'
 import type { Predicate } from './index.js'
 import type { Lexer } from '../tokenize/index.js'
-import { Attributes, Document, isSection } from '../types.js'
+import { Attributes, Document, isSection, Properties } from '../types.js'
 import { ParserOptions } from '../options.js'
 import { nodeIdMap } from '../nodes'
+
+/**
+ * Exclude `todo` from settings when initializing document properties.
+ * The `todo` setting is only used for TodoManager initialization (for tokenization),
+ * not for document properties. Properties.todo should be discovered fresh during parsing.
+ */
+function initialProperties(settings: Properties | undefined): Properties {
+	if (!settings) return {}
+	const { todo, ...rest } = settings
+	return rest
+}
 
 interface Snapshot {
 	stack: Parent[]
@@ -63,7 +74,7 @@ export function createContext(lexer: Lexer, options: ParserOptions): Context {
 
 	const tree = enter({
 		type: 'document',
-		properties: options.settings || {},
+		properties: initialProperties(options.settings),
 		children: []
 	}) as Document
 
