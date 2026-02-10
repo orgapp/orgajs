@@ -26,8 +26,6 @@ export function parseContext(config, input, _fragments, ranges) {
 	/** @type {number | null} */
 	let stoppedAt = null
 	const full = input.read(0, input.length)
-	/** @type {import('orga').Parser | null} */
-	let parser = null
 
 	// const parser = makeParser(full, { range: { start, end } })
 	const builder = treeBuilder(nodeSet, nodes.document, 0, cursor, 0, 0)
@@ -62,23 +60,37 @@ export function parseContext(config, input, _fragments, ranges) {
 				wrapUpParser()
 				builder.addChildren(result.nodes, result.positions)
 				cursor += result.taken
-				// console.log(`took ${result.taken} from fragments`)
 				return null
 			} else {
 				log('took nothing')
 			}
 		}
 
-		if (!parser) {
-			log('creating parser', cursor, end)
-			parser = makeParser(full, { range: { start: cursor, end }, flat: false })
+		if (!config.parser) {
+			log('-- creating parser --', cursor, end)
+
+			// TODO: need to extract todos from fragments?
+			const todo = ['TODO', 'NEXT', 'DONE', 'CANCELLED']
+			if (fragments) {
+				const props = fragments.getDocumentProp()
+				console.log('document props from fragments', props)
+			}
+			console.log({ todo })
+
+			config.parser = makeParser(full, {
+				range: { start: cursor, end },
+				settings: { todo },
+				flat: true
+			})
 		} else {
-			// console.log('moving parser', start, end)
 			// parser.move(start, end)
 		}
 
 		// parser.advance should finish a block
-		const document = parser.advance()
+		const document = config.parser.advance()
+		if (config.parser.settings) {
+			config.properties = config.parser.settings
+		}
 		if (typeof document === 'number') {
 			cursor = document
 			return null
@@ -89,16 +101,20 @@ export function parseContext(config, input, _fragments, ranges) {
 	}
 
 	function wrapUpParser() {
-		if (!parser) return
-		const document = parser.finish()
+		if (!config.parser) return
+		const document = config.parser.finish()
 		log(
 			`wrap up parser: ${document.children.length}, ${document.position?.start.offset}, ${document.position?.end.offset}`
 		)
-		log(document)
+
 		const tree = toLezer(document, nodeSet)
+		log(document)
+		log(tree)
 		builder.takeChildren(tree, document.position?.start.offset)
+		builder.takeProps(tree)
 		if (document.position?.end.offset) cursor = document.position.end.offset
-		parser = null
+		log('-- destroying parser --')
+		config.parser = null
 	}
 
 	/**
@@ -117,7 +133,6 @@ export function parseContext(config, input, _fragments, ranges) {
 		get parsedPos() {
 			log('parsedPos called', cursor)
 			// if return undefined, the call of advance was not as intense
-			// console.log('parsedPos called', parser.now)
 			return cursor
 			// return parser.now
 		},

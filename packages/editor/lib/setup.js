@@ -6,6 +6,8 @@ import { cleanup } from './extensions/cleanup.js'
 import theme from './theme.js'
 import { shift } from './actions/shift.js'
 import { toggleFold, toggleFoldAll } from './actions/fold.js'
+import { settings } from './settings'
+import { toggleTodo } from './actions/todo'
 
 const keys = [
 	{ key: 'Tab', run: toggleFold, shift: toggleFoldAll },
@@ -20,11 +22,17 @@ const keys = [
 		run: shift(1),
 		shift: shift(1, true),
 		preventDefault: true
+	},
+	{
+		key: 'Cmd-x',
+		run: toggleTodo,
+		preventDefault: true
 	}
 ]
 
 export const setup = (() => [
 	org(),
+	settings,
 	theme,
 	keymap.of([...keys, ...defaultKeymap]),
 	highlightActiveLine(),

@@ -15,19 +15,39 @@ const data = defineLanguageFacet({})
 // --- folding ---
 
 /**
- * @param {SyntaxNode} section
- * @param {import('@codemirror/state').EditorState} state
+ * @param {SyntaxNode} node
  */
-function findSectionEnd(section, state) {
-	// Check if there's a newline at section.to and adjust accordingly
-	if (section.to > 0 && section.to <= state.doc.length) {
-		const charAtEnd = state.doc.sliceString(section.to - 1, section.to)
-		if (charAtEnd === '\n') {
-			return section.to - 1
+function getHeadlineLevel(node) {
+	if (node.type.name !== 'headline') return
+	const stars = node.getChild('stars')
+	if (stars) {
+		const level = stars?.to - stars?.from
+		return level
+	}
+}
+
+/**
+ * @param {SyntaxNode} headerNode
+ */
+function findSectionEnd(headerNode) {
+	const level = getHeadlineLevel(headerNode)
+	if (level === undefined) throw new Error('Not a headline')
+	let last = headerNode
+	for (;;) {
+		const next = last.nextSibling
+		if (!next) {
+			break
 		}
+
+		const l = getHeadlineLevel(next)
+		if (l !== undefined && l <= level) {
+			return next.from - 1 // Escape the newline. TODO: is this safe?
+		}
+
+		last = next
 	}
 
-	return section.to
+	return last.to
 }
 
 const headerIndent = foldService.of((state, start, end) => {
@@ -46,12 +66,8 @@ const headerIndent = foldService.of((state, start, end) => {
 		if (!node.type.name.startsWith('headline')) {
 			continue
 		}
-		const section = node.parent
-		if (!section) {
-			continue
-		}
 
-		const upto = findSectionEnd(section, state)
+		const upto = findSectionEnd(node)
 		if (upto > end) {
 			return { from: end, to: upto }
 		}

@@ -7,7 +7,6 @@ export const nodes = Object.freeze({
 	// block
 	document: i++,
 	headline: i++,
-	section: i++,
 	paragraph: i++,
 	keyword: i++,
 	block: i++,

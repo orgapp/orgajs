@@ -30,7 +30,7 @@ export function shift(delta, recursive = false) {
 		let cancelled = false
 		if (recursive === false) {
 			const stars = headline.getChild('stars')
-			if (!stars || stars.to - stars.from - 1 + delta < 1) {
+			if (!stars || stars.to - stars.from + delta < 1) {
 				return true
 			}
 			const change = _shift(stars, delta)
@@ -38,22 +38,24 @@ export function shift(delta, recursive = false) {
 				changes.push(change)
 			}
 		} else {
-			const section = headline.parent
-			if (!section) return false
-			const cursor = section.cursor()
-			cursor.iterate((node) => {
-				if (node.type.name === 'stars') {
-					const currentLevel = node.to - node.from - 1
-					if (currentLevel + delta < 1) {
-						cancelled = true
-						return false
-					}
-					const change = _shift(node.node, delta)
+			let cursor = headline.cursor()
+			const change = _shift(headline, delta)
+			if (change) {
+				changes.push(change)
+			} else {
+				return true
+			}
+			while (cursor.nextSibling()) {
+				if (cursor.type.name === 'headline') {
+					const change = _shift(cursor.node, delta)
 					if (change) {
 						changes.push(change)
+					} else {
+						cancelled = true
+						break
 					}
 				}
-			})
+			}
 		}
 
 		if (!cancelled && changes.length > 0) {
@@ -65,21 +67,26 @@ export function shift(delta, recursive = false) {
 
 /**
  * shift the stars
- * @param {Node|null|undefined} stars
+ * @param {Node|null|undefined} node
  * @param {number} delta
  * @returns {ChangeSpec | undefined}
  */
-function _shift(stars, delta) {
-	if (!stars) return undefined
+function _shift(node, delta) {
+	if (!node) return undefined
+	if (node.type.name === 'headline')
+		return _shift(node.getChild('stars'), delta)
+	if (node.type.name !== 'stars') return
+
 	if (delta > 0) {
 		return {
-			from: stars.from,
+			from: node.from,
 			insert: '*'.repeat(delta)
 		}
-	} else if (delta < 0) {
+	}
+	if (delta < 0 && node.to - node.from + delta >= 1) {
 		return {
-			from: stars.from,
-			to: stars.from - delta,
+			from: node.from,
+			to: node.from - delta,
 			insert: ''
 		}
 	}

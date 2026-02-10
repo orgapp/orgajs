@@ -9,6 +9,8 @@
  */
 import { syntaxTree } from '@codemirror/language'
 import { Decoration, ViewPlugin } from '@codemirror/view'
+import { settings } from '../settings'
+import { parseTodoKeywords } from 'orga/todo'
 
 /**
  * @param {Range} a
@@ -93,7 +95,10 @@ function hide(reveal) {
  */
 function todo(actionable) {
 	return Decoration.mark({
-		attributes: { class: actionable ? 'cm-org-todo' : 'cm-org-done' }
+		attributes: {
+			class: 'cm-org-todo',
+			'data-actionable': actionable.toString()
+		}
 	})
 }
 
@@ -102,6 +107,8 @@ function todo(actionable) {
  * @param {Options} options
  */
 function createDecorations(view, options) {
+	const _settings = view.state.field(settings)
+	const t = parseTodoKeywords(_settings.todo)
 	let decorations = Decoration.none
 	/** @type {Range[]} */
 	const links = []
@@ -152,8 +159,9 @@ function createDecorations(view, options) {
 			}
 
 			if (node.name === 'todo') {
+				const content = view.state.doc.sliceString(node.from, node.to).trim()
 				decorations = decorations.update({
-					add: [todo(true).range(node.from, node.to)]
+					add: [todo(t.actionable(content)).range(node.from, node.to)]
 				})
 			}
 

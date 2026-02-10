@@ -10,10 +10,14 @@ const theme = EditorView.baseTheme({
 		cursor: 'pointer'
 	},
 	'.cm-org-todo': {
-		color: 'red'
+		color: 'white',
+		backgroundColor: 'green',
+		padding: '0 2px',
+		borderRadius: '2px',
+		cursor: 'pointer'
 	},
-	'.cm-org-done': {
-		color: 'green'
+	'.cm-org-todo[data-actionable="true"]': {
+		backgroundColor: 'red'
 	}
 })
 

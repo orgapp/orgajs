@@ -1,4 +1,5 @@
 import { NodeProp, NodeType, Tree } from '@lezer/common'
+import { documentProp } from './handlers'
 // import { nodes } from './nodes.js'
 
 /**
@@ -7,7 +8,7 @@ import { NodeProp, NodeType, Tree } from '@lezer/common'
  * @param {number} [parentHash=0]
  */
 function hash(type, value, parentHash = 0) {
-  return (parentHash + (parentHash << 8) + type + (value << 4)) | 0
+	return (parentHash + (parentHash << 8) + type + (value << 4)) | 0
 }
 
 /**
@@ -19,94 +20,104 @@ function hash(type, value, parentHash = 0) {
  * @param {number} originalEnd
  */
 export function treeBuilder(
-  nodeSet,
-  type,
-  value,
-  from,
-  parentHash,
-  originalEnd,
+	nodeSet,
+	type,
+	value,
+	from,
+	parentHash,
+	originalEnd
 ) {
-  /** @type {Tree[]} */
-  const children = []
-  /** @type {number[]} */
-  const positions = []
+	/** @type {Tree[]} */
+	const children = []
+	/** @type {number[]} */
+	const positions = []
 
-  const _hash = hash(type, value, parentHash)
+	const _hash = hash(type, value, parentHash)
 
-  /** @type {[NodeProp<any>, any][]} */
-  const props = [[NodeProp.contextHash, _hash]]
+	/** @type {[NodeProp<any>, any][]} */
+	const props = [[NodeProp.contextHash, _hash]]
 
-  /**
-   * @param {Tree} child
-   * @param {number} pos
-   */
-  function addChild(child, pos) {
-    if (child.prop(NodeProp.contextHash) != _hash)
-      child = new Tree(
-        child.type,
-        child.children,
-        child.positions,
-        child.length,
-        props,
-      )
-    children.push(child)
-    positions.push(pos)
-  }
+	return {
+		addChild,
+		addChildren,
+		takeChildren,
+		takeProps,
+		addProps: (/** @type {[NodeProp<any>, any][]} */ p) => props.push(...p),
+		build,
+		hash: _hash
+	}
 
-  /**
-   * @param {Tree[]} children
-   * @param {number[]} positions
-   */
-  function addChildren(children, positions) {
-    for (let i = 0; i < children.length; i++)
-      addChild(children[i], positions[i])
-  }
+	/**
+	 * @param {Tree} child
+	 * @param {number} pos
+	 */
+	function addChild(child, pos) {
+		if (child.prop(NodeProp.contextHash) != _hash)
+			child = new Tree(
+				child.type,
+				child.children,
+				child.positions,
+				child.length,
+				props
+			)
+		children.push(child)
+		positions.push(pos)
+	}
 
-  /**
-   * @param {Tree} tree
-   * @param {number} [offset=0]
-   */
-  function takeChildren(tree, offset = 0) {
-    // addChildren(tree.children, tree.positions)
-    const cursor = tree.cursor()
-    if (!cursor.firstChild()) return
-    do {
-      const child = cursor.tree
-      if (!child) continue
-      // TODO: is the position correct?
-      addChild(child, cursor.from + offset)
-    } while (cursor.nextSibling())
-  }
+	/**
+	 * @param {Tree[]} children
+	 * @param {number[]} positions
+	 */
+	function addChildren(children, positions) {
+		for (let i = 0; i < children.length; i++)
+			addChild(children[i], positions[i])
+	}
 
-  /**
-   * @param {number} [end = originalEnd] - end of the tree
-   * @returns {Tree}
-   */
-  function build(end = originalEnd) {
-    let last = children.length - 1
-    if (last >= 0)
-      end = Math.max(end, positions[last] + children[last].length + from)
+	/**
+	 * @param {Tree} tree
+	 * @param {number} [offset=0]
+	 */
+	function takeChildren(tree, offset = 0) {
+		// addChildren(tree.children, tree.positions)
+		const cursor = tree.cursor()
+		if (!cursor.firstChild()) return
+		do {
+			const child = cursor.tree
+			if (!child) continue
+			// TODO: is the position correct?
+			addChild(child, cursor.from + offset)
+		} while (cursor.nextSibling())
+	}
 
-    const tree = new Tree(
-      nodeSet.types[type],
-      children,
-      positions,
-      end - from,
-    ).balance({
-      makeTree: (children, positions, length) =>
-        new Tree(NodeType.none, children, positions, length, props),
-    })
+	/**
+	 * @param {Tree} tree
+	 */
+	function takeProps(tree) {
+		const doc = tree.prop(documentProp)
+		if (doc) {
+			props.push([documentProp, doc])
+		}
+	}
 
-    // console.log(tree)
+	/**
+	 * @param {number} [end = originalEnd] - end of the tree
+	 * @returns {Tree}
+	 */
+	function build(end = originalEnd) {
+		let last = children.length - 1
+		if (last >= 0)
+			end = Math.max(end, positions[last] + children[last].length + from)
 
-    return tree
-  }
+		const tree = new Tree(
+			nodeSet.types[type],
+			children,
+			positions,
+			end - from
+		).balance({
+			makeTree: (children, positions, length) =>
+				new Tree(NodeType.none, children, positions, length, props)
+		})
 
-  return {
-    addChild,
-    addChildren,
-    takeChildren,
-    build,
-    hash: _hash,
-  }
+		return tree
+	}
 }

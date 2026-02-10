@@ -15,7 +15,7 @@
 
  * @typedef {import('./types.js').State} ParseState
  */
-import { Tree } from '@lezer/common'
+import { NodeProp, Tree } from '@lezer/common'
 import { handlers } from './handlers.js'
 
 /**
@@ -35,7 +35,7 @@ function createParseState(file, nodeSet) {
 		},
 		all(parent, base) {
 			return all(this, parent, base)
-		},
+		}
 	}
 	return state
 }
@@ -54,6 +54,7 @@ export function toLezer(tree, nodeSet, file = null) {
 		throw new Error('no result')
 	}
 	const t = result.nodes[0]
+	const props = tree.properties
 	return t
 }
 
@@ -95,8 +96,8 @@ function one(state, node, parent, base = 0) {
 		return null
 	}
 
-	const [id, skip] =
-		typeof seed === 'number' ? [seed, false] : [seed.id, seed.skip]
+	let [id, skip, props] =
+		typeof seed === 'number' ? [seed, false] : [seed.id, seed.skip, seed.props]
 
 	const [loc, len] = getRange(node)
 	const pos = loc - base
@@ -111,7 +112,14 @@ function one(state, node, parent, base = 0) {
 		positions = result.positions
 	}
 
-	const tree = new Tree(state.nodeSet.types[id], nodes, positions, len)
+	if (node.data?.hash !== undefined) {
+		if (!props) {
+			props = []
+		}
+		props.push([NodeProp.contextHash, node.data.hash])
+	}
+
+	const tree = new Tree(state.nodeSet.types[id], nodes, positions, len, props)
 	const result = { nodes: [tree], positions: [pos] }
 	return result
 }
@@ -134,7 +142,7 @@ function all(state, parent, base) {
 			const node = parent.children[index]
 			const { nodes, positions } = state.one(node, parent, base) || {
 				nodes: [],
-				positions: [],
+				positions: []
 			}
 			_nodes.push(...nodes)
 			_positions.push(...positions)
@@ -142,6 +150,6 @@ function all(state, parent, base) {
 	}
 	return {
 		nodes: _nodes,
-		positions: _positions,
+		positions: _positions
 	}
 }

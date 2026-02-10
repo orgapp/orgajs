@@ -9,6 +9,7 @@
 import { foldAll, foldState, unfoldAll, unfoldCode } from '@codemirror/language'
 import { toggleFold as _toggleFold, foldCode } from '@codemirror/language'
 import { EditorState } from '@codemirror/state'
+import { selectedLines } from './utils'
 
 /**
  * @param {EditorView} view
@@ -29,36 +30,6 @@ export function toggleFold(view) {
 }
 
 /**
- * @param {Tree} tree
- * @param {number} pos
- */
-function isHeadline(tree, pos) {
-	/** @type {import('@lezer/common').NodeIterator | null} */
-	let iter = tree.resolveStack(pos)
-	while (iter) {
-		const name = iter.node.type.name
-		if (name.startsWith('headline')) return true
-		iter = iter.next
-	}
-	return false
-}
-
-/**
- * @param {Tree} tree
- * @param {number} pos
- */
-function getSection(tree, pos) {
-	/** @type {import('@lezer/common').NodeIterator | null} */
-	let iter = tree.resolveStack(pos)
-	while (iter) {
-		const name = iter.node.type.name
-		if (name.startsWith('section')) return iter.node
-		iter = iter.next
-	}
-	return null
-}
-
-/**
  * @param {EditorState} state
  * @param {number} from
  * @param {number} to
@@ -69,19 +40,6 @@ function findFold(state, from, to) {
 		if (!found || found.from > from) found = { from, to }
 	})
 	return found
-}
-
-/**
- * @param {EditorView} view
- */
-function selectedLines(view) {
-	/** @type {Array<import('@codemirror/view').BlockInfo>} */
-	let lines = []
-	for (let { head } of view.state.selection.ranges) {
-		if (lines.some((l) => l.from <= head && l.to >= head)) continue
-		lines.push(view.lineBlockAt(head))
-	}
-	return lines
 }
 
 /**

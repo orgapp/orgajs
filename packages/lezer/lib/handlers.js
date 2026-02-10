@@ -16,13 +16,25 @@ import { nodes } from './nodes.js'
 /** @type {NodeProp<{level: number}>} */
 export const headlineProp = new NodeProp({ perNode: true })
 
+export const documentProp = new NodeProp({
+	perNode: true
+	// deserialize: (str) => {
+	// 	console.log('deserialize', str)
+	// 	return str
+	// }
+})
+
 /**
  * @type {Handlers}
  */
 export const handlers = {
-	document: () => {
+	document: (s, doc) => {
+		if (doc.type !== 'document') {
+			return false
+		}
 		return {
-			id: nodes.document
+			id: nodes.document,
+			props: [[documentProp, doc.properties]]
 		}
 	},
 	headline: (s, node) => {
@@ -34,24 +46,13 @@ export const handlers = {
 		}
 		return false
 	},
-	section: (s, node) => {
-		if (node.type === 'section') {
-			return {
-				id: nodes.section
-			}
-		}
-		return false
-	},
 	stars: () => nodes.stars,
 	todo: (_s, node) => {
 		if (node.type !== 'todo') {
 			return false
 		}
 
-		if (node.actionable) {
-			return nodes.todo
-		}
-		return nodes.done
+		return nodes.todo
 	},
 	'link.path': () => nodes.url,
 	// 'link.description': () => nodes.linkDescription,
