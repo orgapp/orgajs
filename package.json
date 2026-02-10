@@ -33,7 +33,7 @@
 	"scripts": {
 		"build": "turbo run build --filter='./packages/*' && tsc --build --clean && tsc --build && type-coverage",
 		"clean": "tsc --build --clean",
-		"test": "xo packages/**/*.js --fix && turbo run test --filter='./packages/*'",
+		"test": "xo packages/**/*.js --fix && pnpm -r --filter './packages/*' --if-present run test",
 		"format": "prettier --write .",
 		"changeset": "changeset",
 		"ci:version": "changeset version",

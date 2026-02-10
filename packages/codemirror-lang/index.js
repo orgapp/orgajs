@@ -21,7 +21,7 @@ function getHeadlineLevel(node) {
 	if (node.type.name !== 'headline') return
 	const stars = node.getChild('stars')
 	if (stars) {
-		const level = stars?.to - stars?.from
+		const level = stars.to - stars.from
 		return level
 	}
 }

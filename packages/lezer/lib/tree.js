@@ -1,5 +1,5 @@
 import { NodeProp, NodeType, Tree } from '@lezer/common'
-import { documentProp } from './handlers'
+import { documentProp } from './handlers.js'
 // import { nodes } from './nodes.js'
 
 /**
