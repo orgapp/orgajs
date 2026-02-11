@@ -3,7 +3,7 @@
 	"private": true,
 	"type": "module",
 	"devDependencies": {
-		"@changesets/cli": "^2.28.1",
+		"@changesets/cli": "^2.29.8",
 		"@codemirror/lang-javascript": "^6.2.3",
 		"@codemirror/language": "^6.10.8",
 		"@codemirror/theme-one-dark": "^6.1.2",
