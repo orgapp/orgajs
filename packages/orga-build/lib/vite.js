@@ -31,20 +31,20 @@ export function pluginFactory({ dir }) {
 			}
 		}),
 
-		configureServer({ watcher, moduleGraph }) {
-			const reloadVirtualModule = (/** @type {string} */ moduleId) => {
-				const module = moduleGraph.getModuleById(moduleId)
-				if (module) {
-					moduleGraph.invalidateModule(module)
-					watcher.emit('change', moduleId)
-				}
-			}
-
-			reloadVirtualModule('/')
+		configureServer(server) {
+			const { watcher, moduleGraph, ws } = server
 
 			// Invalidate content module on file changes
-			watcher.on('change', () => {
-				reloadVirtualModule(contentModuleIdResolved)
+			watcher.on('change', (filePath) => {
+				const module = moduleGraph.getModuleById(contentModuleIdResolved)
+				if (module) {
+					moduleGraph.invalidateModule(module)
+					// Send HMR update to client
+					ws.send({
+						type: 'full-reload',
+						path: '*'
+					})
+				}
 			})
 		},
 
