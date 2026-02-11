@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.3.1
+
+### Patch Changes
+
+- abbee9a: add docs and rename orga-build/content to orga-build/client
+
 ## 0.3.0
 
 ### Minor Changes
