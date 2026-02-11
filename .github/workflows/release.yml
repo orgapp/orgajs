@@ -29,7 +29,7 @@ jobs:
           version: 10
           cache: 'pnpm'
       - name: install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
       - name: create and publish versions
         uses: changesets/action@v1
         with:
