@@ -33,6 +33,11 @@
 	],
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/orgapp/orgajs.git",
+		"directory": "packages/orga-build"
+	},
 	"dependencies": {
 		"@orgajs/rollup": "workspace:*",
 		"@vitejs/plugin-react": "^4.4.0",

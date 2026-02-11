@@ -19,6 +19,11 @@
 		"react"
 	],
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/orgapp/orgajs.git",
+		"directory": "packages/esbuild"
+	},
 	"dependencies": {
 		"@orgajs/orgx": "workspace:^",
 		"source-map": "^0.7.4",

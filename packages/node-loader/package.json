@@ -14,6 +14,11 @@
 	"keywords": [],
 	"author": "Xiaoxing Hu <hi@xiaoxing.dev>",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/orgapp/orgajs.git",
+		"directory": "packages/node-loader"
+	},
 	"dependencies": {
 		"@orgajs/orgx": "workspace:^",
 		"source-map": "^0.7.4",
