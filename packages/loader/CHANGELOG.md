@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.4.3
+
+### Patch Changes
+
+- Updated dependencies [a53cfea]
+  - @orgajs/orgx@2.6.0
+
 ## 4.4.2
 
 ### Patch Changes

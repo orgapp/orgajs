@@ -1,5 +1,13 @@
 # @orgajs/metadata
 
+## 2.4.0
+
+### Minor Changes
+
+- a53cfea: all about the editor
+
+  This release improves the editor with new fold/shift/todo actions and settings, while also refactoring orga tokenization/parsing and lezer conversion to improve TODO handling, context hashing, and tree generation consistency.
+
 ## 2.3.0
 
 ### Minor Changes

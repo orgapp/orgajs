@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.3.2
+
+### Patch Changes
+
+- Updated dependencies [a53cfea]
+  - @orgajs/reorg-parse@4.4.0
+
 ## 4.3.1
 
 ### Patch Changes

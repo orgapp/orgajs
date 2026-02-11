@@ -1,5 +1,19 @@
 # @orgajs/orgx
 
+## 2.6.0
+
+### Minor Changes
+
+- a53cfea: all about the editor
+
+  This release improves the editor with new fold/shift/todo actions and settings, while also refactoring orga tokenization/parsing and lezer conversion to improve TODO handling, context hashing, and tree generation consistency.
+
+### Patch Changes
+
+- Updated dependencies [a53cfea]
+  - @orgajs/reorg-parse@4.4.0
+  - @orgajs/reorg-rehype@4.3.3
+
 ## 2.5.2
 
 ### Patch Changes

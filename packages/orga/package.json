@@ -1,8 +1,10 @@
 {
 	"name": "orga",
-	"version": "4.5.1",
+	"version": "4.6.0",
 	"description": "org-mode parser",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"main": "dist/index.js",
 	"type": "module",
 	"exports": {
