@@ -27,7 +27,6 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: 10
-          cache: 'pnpm'
       - name: install dependencies
         run: pnpm install --no-frozen-lockfile
       - name: create and publish versions
