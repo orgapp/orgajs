@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.3.0
+
+### Minor Changes
+
+- ad0bd0d: Add `orga-build:content` virtual module with `getPages()`, `getPage()`, and `getEntries()` functions for querying content entries. Automatically extracts metadata from org-mode headers (e.g., `#+title:`, `#+date:`) and supports hierarchical path filtering.
+
 ## 0.2.7
 
 ### Patch Changes
