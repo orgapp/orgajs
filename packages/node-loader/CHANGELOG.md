@@ -1,5 +1,12 @@
 # @orgajs/node-loader
 
+## 1.1.4
+
+### Patch Changes
+
+- Updated dependencies [a53cfea]
+  - @orgajs/orgx@2.6.0
+
 ## 1.1.3
 
 ### Patch Changes

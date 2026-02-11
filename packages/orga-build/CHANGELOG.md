@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.2.7
+
+### Patch Changes
+
+- @orgajs/rollup@1.3.3
+
 ## 0.2.6
 
 ### Patch Changes

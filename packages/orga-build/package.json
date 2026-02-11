@@ -1,6 +1,6 @@
 {
 	"name": "orga-build",
-	"version": "0.2.6",
+	"version": "0.2.7",
 	"description": "A simple tool that builds org-mode files into a website",
 	"type": "module",
 	"bin": {
@@ -51,6 +51,6 @@
 		"@types/node": "^22.13.1",
 		"@types/react": "^19.0.8",
 		"@types/react-dom": "^19.0.3",
-		"orga": "^4.5.1"
+		"orga": "^4.6.0"
 	}
 }

@@ -1,5 +1,13 @@
 # @orgajs/astro
 
+## 1.3.3
+
+### Patch Changes
+
+- Updated dependencies [a53cfea]
+  - @orgajs/metadata@2.4.0
+  - @orgajs/rollup@1.3.3
+
 ## 1.3.2
 
 ### Patch Changes
