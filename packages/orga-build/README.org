@@ -1,0 +1,220 @@
+#+TITLE: orga-build
+
+A simple tool that builds org-mode files into a website.
+
+* Installation
+
+#+begin_src bash
+npm install orga-build
+#+end_src
+
+* Content Query API
+
+orga-build provides an Astro-inspired content query API via the =orga-build:content= virtual module. This allows you to safely query content entries from any page or layout without circular imports.
+
+** Importing
+
+#+begin_src typescript
+import { getPages, getPage } from 'orga-build:content'
+#+end_src
+
+** API Reference
+
+*** =getPages(path?, filter?)=
+
+Get all content entries matching a path pattern.
+
+*Parameters:*
+- =path= (optional): Path prefix to filter by (e.g., ='writing'=, ='content/writing/2025'=)
+- =filter= (optional): Filter function to further refine results
+
+*Returns:* Array of =ContentEntry= objects
+
+*Examples:*
+
+#+begin_src typescript
+// Get all entries
+const all = getPages()
+
+// Get all entries in the 'writing' path
+const writing = getPages('writing')
+
+// Get entries in a nested path
+const posts2025 = getPages('content/writing/2025')
+
+// Filter out drafts
+const published = getPages('writing', (entry) => {
+  return entry.data['draft'] !== 'true'
+})
+#+end_src
+
+*** =getPage(idOrSlug, path?)=
+
+Get a single content entry by id or slug.
+
+*Parameters:*
+- =idOrSlug=: The id or slug of the entry to find
+- =path= (optional): Path prefix to search within
+
+*Returns:* =ContentEntry | undefined=
+
+*Examples:*
+
+#+begin_src typescript
+// Get by slug
+const post = getPage('/writing/the-birth-of-emacsclient')
+
+// Get by id within a path
+const post = getPage('the-birth-of-emacsclient', 'writing')
+#+end_src
+
+*** =getEntries(refs)=
+
+Get multiple content entries by reference.
+
+*Parameters:*
+- =refs=: Array of references with =id= and optional =path=
+
+*Returns:* Array of =ContentEntry | undefined=
+
+*Examples:*
+
+#+begin_src typescript
+const entries = getEntries([
+  { id: 'post-1', path: 'writing' },
+  { id: 'post-2', path: 'writing' }
+])
+#+end_src
+
+*** Aliases
+
+For Astro familiarity:
+- =getCollection= - Alias for =getPages=
+- =getEntry= - Alias for =getPage=
+
+** ContentEntry Type
+
+Each entry has the following structure:
+
+#+begin_src typescript
+interface ContentEntry {
+  id: string                    // e.g., 'post-name' or 'index'
+  slug: string                  // e.g., '/writing/post-name'
+  path: string                  // e.g., 'writing' or 'content/writing/2025'
+  filePath: string              // absolute source file path
+  ext: 'org' | 'tsx' | 'jsx'   // file extension
+  data: Record<string, unknown> // metadata from org headers
+}
+#+end_src
+
+** Metadata Extraction
+
+For =.org= files, orga-build automatically extracts metadata from org-mode headers:
+
+#+begin_example
+#+title: My Post
+#+date: 2025-01-15
+#+draft: false
+#+end_example
+
+This becomes:
+
+#+begin_src typescript
+{
+  data: {
+    title: 'My Post',
+    date: '2025-01-15',
+    draft: 'false'
+  }
+}
+#+end_src
+
+For =.tsx= and =.jsx= files, the =data= field is currently empty in v1.
+
+** Path Matching Behavior
+
+Path matching works hierarchically:
+
+- =getPages()= - Returns all entries
+- =getPages('writing')= - Returns entries where:
+  - =path = 'writing'=, or
+  - =path= starts with ='writing/'=
+- =getPages('content/writing/2025')= - Returns entries under that specific subtree
+
+*Path Derivation Examples:*
+
+| File Path | Slug | Path | ID |
+|-----------+------+------+----|
+| =pages/writing/foo.org= | =/writing/foo= | =writing= | =foo= |
+| =pages/content/writing/2025/post.org= | =/content/writing/2025/post= | =content/writing/2025= | =post= |
+| =pages/index.org= | =/= | =''= (empty) | =index= |
+| =pages/about.org= | =/about= | =''= (empty) | =about= |
+
+** Example: Blog Index Page
+
+#+begin_src tsx
+import { getPages } from 'orga-build:content'
+
+export default function BlogIndex() {
+  const posts = getPages('writing', (entry) => {
+    return entry.data['draft'] !== 'true'
+  }).sort((a, b) => {
+    // Sort by date descending
+    return String(b.data['date']).localeCompare(String(a.data['date']))
+  })
+
+  return (
+    <div>
+      <h1>Blog Posts</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <a href={post.slug}>{String(post.data['title'])}</a>
+            <span>{String(post.data['date'])}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+#+end_src
+
+** Example: Related Posts
+
+#+begin_src tsx
+import { getPages } from 'orga-build:content'
+
+export default function Post({ slug }: { slug: string }) {
+  // Get current post
+  const currentPost = getPages().find((p) => p.slug === slug)
+
+  // Get related posts from same path
+  const related = getPages(currentPost?.path).filter(
+    (p) => p.slug !== slug
+  ).slice(0, 3)
+
+  return (
+    <div>
+      <h2>Related Posts</h2>
+      <ul>
+        {related.map((post) => (
+          <li key={post.id}>
+            <a href={post.slug}>{String(post.data['title'])}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+#+end_src
+
+* Development
+
+** TODO Items
+
+- resolve relative path in links and images
+- monitor file changes and cache properly
+
+* License
+
+MIT

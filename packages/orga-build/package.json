@@ -14,7 +14,8 @@
 		"cli.js",
 		"index.js",
 		"index.d.ts",
-		"index.d.ts.map"
+		"index.d.ts.map",
+		"lib/content.d.ts"
 	],
 	"exports": {
 		".": {
@@ -22,7 +23,10 @@
 			"import": "./index.js"
 		},
 		"./csr": "./lib/csr.jsx",
-		"./components": "./lib/components.js"
+		"./components": "./lib/components.js",
+		"./content": {
+			"types": "./lib/content.d.ts"
+		}
 	},
 	"keywords": [
 		"orgajs",

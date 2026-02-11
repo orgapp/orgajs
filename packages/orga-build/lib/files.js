@@ -1,5 +1,7 @@
 import { globby } from 'globby'
 import path from 'node:path'
+import { readFile } from 'node:fs/promises'
+import { getSettings } from 'orga'
 
 /**
  * @typedef {Object} Page
@@ -7,6 +9,72 @@ import path from 'node:path'
  * @property {string} [title]
  *   Path to the page data file
  */
+
+/**
+ * @typedef {Object} ContentEntry
+ * @property {string} id
+ * @property {string} slug
+ * @property {string} path
+ * @property {string} filePath
+ * @property {'org' | 'tsx' | 'jsx'} ext
+ * @property {Record<string, unknown>} data
+ */
+
+/**
+ * Extract file extension from file path
+ * @param {string} filePath
+ * @returns {'org' | 'tsx' | 'jsx'}
+ */
+function getFileExtension(filePath) {
+	const match = filePath.match(/\.(org|tsx|jsx)$/)
+	return /** @type {'org' | 'tsx' | 'jsx'} */ (match ? match[1] : 'org')
+}
+
+/**
+ * Derive content path from slug
+ * @param {string} slug - e.g. '/writing/foo', '/content/writing/2025/post', '/'
+ * @returns {string} - e.g. 'writing', 'content/writing/2025', ''
+ */
+function getContentPath(slug) {
+	// Remove leading slash
+	let normalized = slug.replace(/^\/+/, '')
+	// Remove trailing slash
+	normalized = normalized.replace(/\/+$/, '')
+
+	// If root page, return empty string
+	if (!normalized) {
+		return ''
+	}
+
+	// Get all segments except the last one (the file name)
+	const segments = normalized.split('/')
+	if (segments.length === 1) {
+		// Single segment like '/about' -> path is empty (root level)
+		return ''
+	}
+
+	// Multiple segments like '/writing/foo' -> path is 'writing'
+	return segments.slice(0, -1).join('/')
+}
+
+/**
+ * Derive content id from slug
+ * @param {string} slug - e.g. '/writing/foo', '/writing', '/'
+ * @returns {string} - e.g. 'foo', 'writing', 'index'
+ */
+function getContentId(slug) {
+	// Remove leading and trailing slashes
+	let normalized = slug.replace(/^\/+/, '').replace(/\/+$/, '')
+
+	// If root page, return 'index'
+	if (!normalized) {
+		return 'index'
+	}
+
+	// Get last segment
+	const segments = normalized.split('/')
+	return segments[segments.length - 1] || 'index'
+}
 
 /**
  * @param {string} dir
@@ -78,12 +146,59 @@ export function setup(dir) {
 		return files[0] ? path.join(dir, files[0]) : null
 	})
 
-	return {
+	const contentEntries = cache(async function () {
+		const allPages = await pages()
+		/** @type {ContentEntry[]} */
+		const entries = []
+
+		for (const [slug, pageData] of Object.entries(allPages)) {
+			const filePath = pageData.dataPath
+			const ext = getFileExtension(filePath)
+
+			// Derive path from directory structure
+			const derivedPath = getContentPath(slug)
+
+			// Derive id from the slug (last segment or 'index')
+			const id = getContentId(slug)
+
+			/** @type {Record<string, unknown>} */
+			let data = {}
+
+			// Extract metadata from .org files
+			if (ext === 'org') {
+				try {
+					const content = await readFile(filePath, 'utf-8')
+					data = getSettings(content)
+				} catch (/** @type {any} */ error) {
+					console.warn(
+						`Failed to read metadata from ${filePath}:`,
+						error?.message || error
+					)
+				}
+			}
+
+			entries.push({
+				id,
+				slug,
+				path: derivedPath,
+				filePath,
+				ext,
+				data
+			})
+		}
+
+		return entries
+	})
+
+	const files = {
 		pages,
 		page,
 		components,
-		layouts
+		layouts,
+		contentEntries
 	}
+
+	return files
 
 	/** @param {string} id */
 	async function page(id) {
