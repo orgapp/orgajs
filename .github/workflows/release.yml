@@ -8,10 +8,16 @@ on:
 env:
   CI: true
 
+permissions: {}
+
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write      # Required for OIDC trusted publishing
+      contents: write      # Required for changesets to commit
+      pull-requests: write # Required for changesets to create PRs
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -29,7 +35,7 @@ jobs:
           version: 10
       - name: install dependencies
         run: pnpm install --no-frozen-lockfile
-      - name: create and publish versions
+      - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
         with:
           version: pnpm ci:version
@@ -38,4 +44,4 @@ jobs:
           publish: pnpm ci:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
