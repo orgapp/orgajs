@@ -24,7 +24,7 @@
 		},
 		"./csr": "./lib/csr.jsx",
 		"./components": "./lib/components.js",
-		"./content": {
+		"./client": {
 			"types": "./lib/content.d.ts"
 		}
 	},

@@ -8,6 +8,37 @@ A simple tool that builds org-mode files into a website.
 npm install orga-build
 #+end_src
 
+* TypeScript Setup
+
+If you're using TypeScript and want type support for the =orga-build:content= virtual module, you need to add a reference to the type definitions.
+
+** Minimal Setup
+
+1. Create a =types.d.ts= file in your project root (or any location):
+
+#+begin_src typescript
+/// <reference types="orga-build/client" />
+#+end_src
+
+2. Ensure your =tsconfig.json= includes this file:
+
+#+begin_src json
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx"
+  },
+  "include": ["types.d.ts", "**/*"]
+}
+#+end_src
+
+That's it! TypeScript will now recognize imports from =orga-build:content=.
+
+** Why This is Needed
+
+The =orga-build:content= module is a "virtual module" - it doesn't exist as a physical file but is generated at build time by Vite. The =/// <reference types="orga-build/client" />= directive tells TypeScript to load the type definitions for this virtual module.
+
 * Content Query API
 
 orga-build provides an Astro-inspired content query API via the =orga-build:content= virtual module. This allows you to safely query content entries from any page or layout without circular imports.
