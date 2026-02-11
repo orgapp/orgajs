@@ -25,147 +25,159 @@ import { nodes } from './nodes.js'
  * @returns {FragmentCursor}
  */
 export function fragmentCursor({ log, nodeSet }, fragments, input) {
-  let i = 0
-  /** @type {TreeCursor | null} */
-  let cursor = null
-  /** @type {TreeFragment | null} */
-  let fragment = fragments.length ? fragments[i++] : null
-  let fragmentEnd = -1
+	let i = 0
+	/** @type {TreeCursor | null} */
+	let cursor = null
+	/** @type {TreeFragment | null} */
+	let fragment = fragments.length ? fragments[i++] : null
+	let fragmentEnd = -1
 
-  function nextFragment() {
-    fragment = i < fragments.length ? fragments[i++] : null
-    cursor = null
-    fragmentEnd = -1
-  }
+	return {
+		moveTo,
+		matches,
+		takeNodes
+	}
 
-  /**
-   * move the cursor to the first block after `pos`.
-   * @param {number} pos
-   * @param {number} lineStart
-   */
-  function moveTo(pos, lineStart) {
-    while (fragment && fragment.to < pos) nextFragment()
-    if (!fragment || fragment.from > (pos ? pos - 1 : 0)) {
-      return false
-    }
+	function nextFragment() {
+		fragment = i < fragments.length ? fragments[i++] : null
+		cursor = null
+		fragmentEnd = -1
+	}
 
-    fragmentEnd = fragment.to
+	/**
+	 * move the cursor to the first block after `pos`.
+	 * @param {number} pos
+	 * @param {number} lineStart
+	 */
+	function moveTo(pos, lineStart) {
+		while (fragment && fragment.to < pos) nextFragment()
+		if (!fragment || fragment.from > (pos ? pos - 1 : 0)) {
+			return false
+		}
 
-    if (fragmentEnd < 0) {
-      let end = fragment.to
-      while (end > 0 && input.read(end - 1, end) != '\n') end--
-      fragmentEnd = end ? end - 1 : 0
-    }
+		fragmentEnd = fragment.to
 
-    let c = cursor || fragment.tree.cursor()
-    if (!cursor) {
-      cursor = c
-      c.firstChild()
-    }
-    // if (!c) {
-    //   c = cursor = fragment.tree.cursor()
-    //   c?.firstChild()
-    // }
+		if (fragmentEnd < 0) {
+			let end = fragment.to
+			while (end > 0 && input.read(end - 1, end) != '\n') end--
+			fragmentEnd = end ? end - 1 : 0
+		}
 
-    let rPos = pos + fragment.offset
-    while (c.to <= rPos) if (!c.parent()) return false
-    for (;;) {
-      if (c.from >= rPos) return fragment.from <= lineStart
-      if (!c.childAfter(rPos)) return false
-    }
-  }
+		let c = cursor || fragment.tree.cursor()
+		if (!cursor) {
+			cursor = c
+			c.firstChild()
+		}
+		// if (!c) {
+		//   c = cursor = fragment.tree.cursor()
+		//   c?.firstChild()
+		// }
 
-  /**
-   * @param {number} hash
-   */
-  function matches(hash) {
-    let tree = cursor?.tree
-    return tree ? tree.prop(NodeProp.contextHash) == hash : false
-  }
+		let rPos = pos + fragment.offset
+		while (c.to <= rPos) if (!c.parent()) return false
+		for (;;) {
+			if (c.from >= rPos) return fragment.from <= lineStart
+			if (!c.childAfter(rPos)) return false
+		}
+	}
 
-  /**
-   * @param {number} start
-   * @param {{from: number, to: number}[]} ranges
-   * @param {number} rangeI
-   * @returns {TakeNodesResult}
-   */
-  function takeNodes(start, ranges, rangeI) {
-    /** @type {TakeNodesResult} */
-    const result = {
-      nodes: [],
-      positions: [],
-      taken: 0,
-    }
+	/**
+	 * @param {number} hash
+	 */
+	function matches(hash) {
+		let tree = cursor?.tree
+		let result = tree ? tree.prop(NodeProp.contextHash) == hash : false
+		if (result) {
+			log('✅ fragment matches, reusing', {
+				hash,
+				np: tree?.prop(NodeProp.contextHash)
+			})
+		} else {
+			log('❌ fragment does not match, not reusing', {
+				hash,
+				np: tree?.prop(NodeProp.contextHash)
+			})
+		}
+		return result
+	}
 
-    log('takeNodes', start, ranges, rangeI)
+	/**
+	 * @param {number} start
+	 * @param {{from: number, to: number}[]} ranges
+	 * @param {number} rangeI
+	 * @returns {TakeNodesResult}
+	 */
+	function takeNodes(start, ranges, rangeI) {
+		/** @type {TakeNodesResult} */
+		const result = {
+			nodes: [],
+			positions: [],
+			taken: 0
+		}
 
-    if (!cursor || !fragment) return result
-    let cur = cursor
-    let off = fragment.offset
-    let end = start
-    // let prevEnd = end
-    let blockI = 0
-    // let prevI = 0
-    const fragEnd = fragmentEnd - (fragment.openEnd ? 1 : 0)
-    for (;;) {
-      if (cur.to - off > fragEnd) {
-        if (cur.type.isAnonymous && cur.firstChild()) continue
-        log(
-          `stop takeNodes from ${cur.name}: fe: ${fragEnd} | ${fragmentEnd}, cur: ${cur.name}, cur.from: ${cur.from}, cur.to: ${cur.to}, off: ${off}`,
-        )
-        break
-      }
+		log('takeNodes', start, ranges, rangeI)
 
-      let pos = toRelative(cur.from - off, ranges)
-      if (cur.to - off <= ranges[rangeI].to) {
-        // Fits in current range
-        log(
-          `Fits in current range, name: ${cur.name}, pos: ${pos}, cur.from: ${cur.from}, cur.to: ${cur.to}`,
-        )
-        const tree = cur.tree
+		if (!cursor || !fragment) return result
+		let cur = cursor
+		let off = fragment.offset
+		let end = start
+		// let prevEnd = end
+		let blockI = 0
+		// let prevI = 0
+		const fragEnd = fragmentEnd - (fragment.openEnd ? 1 : 0)
+		for (;;) {
+			if (cur.to - off > fragEnd) {
+				if (cur.type.isAnonymous && cur.firstChild()) continue
+				log(
+					`stop takeNodes from ${cur.name}: fe: ${fragEnd} | ${fragmentEnd}, cur: ${cur.name}, cur.from: ${cur.from}, cur.to: ${cur.to}, off: ${off}`
+				)
+				break
+			}
 
-        if (tree) {
-          result.nodes.push(tree)
-          result.positions.push(pos)
-        }
-      } else {
-        log('create dummy')
-        let dummy = new Tree(
-          nodeSet.types[nodes.paragraph],
-          [],
-          [],
-          0,
-          // cx.block.hashProp
-        )
-        result.nodes.push(dummy)
-        result.positions.push(pos)
-        // reuse dummy?
-      }
+			let pos = toRelative(cur.from - off, ranges)
+			if (cur.to - off <= ranges[rangeI].to) {
+				// Fits in current range
+				log(
+					`Fits in current range, name: ${cur.name}, pos: ${pos}, cur.from: ${cur.from}, cur.to: ${cur.to}`
+				)
+				const tree = cur.tree
 
-      if (cur.type.is('Block')) {
-        log('got block:', cur.type.name)
-        end = cur.to - off
-        blockI = result.nodes.length
-      }
-      if (!cur.nextSibling()) break
-    }
-    log(`>> popping: ${blockI} / ${result.nodes.length}`)
-    log('node:', result.nodes.map((n) => n.type.name).join(','))
-    while (result.nodes.length > blockI) {
-      const n = result.nodes.pop()
-      log('.. pop non blocks', n?.type.name)
-      result.positions.pop()
-    }
+				if (tree) {
+					result.nodes.push(tree)
+					result.positions.push(pos)
+				}
+			} else {
+				log('create dummy')
+				let dummy = new Tree(
+					nodeSet.types[nodes.paragraph],
+					[],
+					[],
+					0
+					// cx.block.hashProp
+				)
+				result.nodes.push(dummy)
+				result.positions.push(pos)
+				// reuse dummy?
+			}
 
-    result.taken = end - start
-    return result
-  }
+			if (cur.type.is('Block')) {
+				log('got block:', cur.type.name)
+				end = cur.to - off
+				blockI = result.nodes.length
+			}
+			if (!cur.nextSibling()) break
+		}
+		log(`>> popping: ${blockI} / ${result.nodes.length}`)
+		log('node:', result.nodes.map((n) => n.type.name).join(','))
+		while (result.nodes.length > blockI) {
+			const n = result.nodes.pop()
+			log('.. pop non blocks', n?.type.name)
+			result.positions.pop()
+		}
 
-  return {
-    moveTo,
-    matches,
-    takeNodes,
-  }
+		result.taken = end - start
+		return result
+	}
 }
 
 /**
@@ -176,11 +188,11 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
  * @param {{from: number, to: number}[]} ranges
  */
 function toRelative(abs, ranges) {
-  let pos = abs
-  for (let i = 1; i < ranges.length; i++) {
-    let gapFrom = ranges[i - 1].to,
-      gapTo = ranges[i].from
-    if (gapFrom < abs) pos -= gapTo - gapFrom
-  }
-  return pos
+	let pos = abs
+	for (let i = 1; i < ranges.length; i++) {
+		let gapFrom = ranges[i - 1].to,
+			gapTo = ranges[i].from
+		if (gapFrom < abs) pos -= gapTo - gapFrom
+	}
+	return pos
 }

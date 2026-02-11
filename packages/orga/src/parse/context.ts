@@ -2,8 +2,20 @@ import type { Node, Point, Parent } from 'unist'
 import { not, test } from './index.js'
 import type { Predicate } from './index.js'
 import type { Lexer } from '../tokenize/index.js'
-import { Attributes, Document, isSection } from '../types.js'
+import { Attributes, Document, isSection, Properties } from '../types.js'
 import { ParserOptions } from '../options.js'
+import { nodeIdMap } from '../nodes.js'
+
+/**
+ * Exclude `todo` from settings when initializing document properties.
+ * The `todo` setting is only used for TodoManager initialization (for tokenization),
+ * not for document properties. Properties.todo should be discovered fresh during parsing.
+ */
+function initialProperties(settings: Properties | undefined): Properties {
+	if (!settings) return {}
+	const { todo, ...rest } = settings
+	return rest
+}
 
 interface Snapshot {
 	stack: Parent[]
@@ -17,7 +29,7 @@ export interface Context {
 	// -
 	enter: <N extends Parent>(node: N) => N
 	exit: (predicate: Predicate, strict?: boolean) => Parent | void
-	push: (node: Node) => void
+	attach: (node: Node) => void
 	save: () => void
 	restore: () => void
 	addProp: (key: string, value: string) => void
@@ -62,8 +74,8 @@ export function createContext(lexer: Lexer, options: ParserOptions): Context {
 
 	const tree = enter({
 		type: 'document',
-		properties: {},
-		children: [],
+		properties: initialProperties(options.settings),
+		children: []
 	}) as Document
 
 	const pop = () => {
@@ -78,7 +90,7 @@ export function createContext(lexer: Lexer, options: ParserOptions): Context {
 		}
 		// attach to tree
 		if (stack.length > 0) {
-			push(node)
+			attach(node)
 		}
 		return node
 	}
@@ -122,14 +134,17 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
 		return 0
 	}
 
-	const push = (node: Node) => {
+	/**
+	 * attach a node to the current tree, adding data.hash
+	 */
+	function attach(node: Node) {
 		if (!node) return
 		if (stack.length === 0) {
 			throw new Error('unexpected empty stack')
 		}
 		const parent = stack[stack.length - 1]
+		node.data = { hash: hash(node.type) }
 		parent.children.push(node)
-		// node.parent = parent
 	}
 
 	return {
@@ -139,7 +154,7 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
 		exit,
 		exitAll,
 		exitTo,
-		push,
+		attach,
 		addProp: function (key, value) {
 			const k = key.toLowerCase().trim()
 			const v = value.trim()
@@ -157,7 +172,7 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
 		},
 
 		consume: function () {
-			push(lexer.eat())
+			attach(lexer.eat())
 		},
 		discard: function () {
 			lexer.eat()
@@ -173,7 +188,7 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
 				stack: [...stack],
 				level,
 				attributes: { ...attributes },
-				savePoint: lexer.save(),
+				savePoint: lexer.save()
 			}
 		},
 
@@ -209,6 +224,15 @@ location: line: ${last.position.start.line}, column: ${last.position.start.colum
 			}
 			lines.push(`stack:   ${stack.map((n) => n.type).join(' > ')}`)
 			return lines.join('\n')
-		},
+		}
+	}
+
+	function hash(type: string, value = 0) {
+		const typeHash = nodeIdMap[type]
+		let baseHash = 0
+		if (stack.length > 0) {
+			baseHash = stack[stack.length - 1].data?.hash ?? 0
+		}
+		return (baseHash + (baseHash << 8) + typeHash + (value << 4)) | 0
 	}
 }

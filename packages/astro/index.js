@@ -44,7 +44,7 @@ export default function org({ recmaPlugins, ...options }) {
 					handlePropagation: true
 				})
 
-				// TODO: add org-components support
+				// Future: add org-components support
 				// const components = new URL('org-components', config.srcDir)
 
 				updateConfig({

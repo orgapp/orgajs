@@ -1,14 +1,15 @@
 {
 	"compilerOptions": {
 		"checkJs": true,
+		"allowJs": true,
 		"declaration": true,
 		"declarationMap": true,
 		"emitDeclarationOnly": true,
 		"exactOptionalPropertyTypes": true,
 		"jsx": "preserve",
 		"lib": ["esnext", "dom"],
-		"module": "node16",
-		"moduleResolution": "node16",
+		"module": "esnext",
+		"moduleResolution": "bundler",
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "esnext"

@@ -19,6 +19,9 @@
               "column": 15,
               "offset": 14
             }
+          },
+          "data": {
+            "hash": 19
           }
         },
         {
@@ -34,6 +37,9 @@
               "column": 1,
               "offset": 15
             }
+          },
+          "data": {
+            "hash": 17
           }
         }
       ],
@@ -49,6 +55,9 @@
           "column": 1,
           "offset": 15
         }
+      },
+      "data": {
+        "hash": 13
       }
     },
     {
@@ -64,6 +73,9 @@
           "column": 6,
           "offset": 20
         }
+      },
+      "data": {
+        "hash": 16
       }
     },
     {
@@ -83,6 +95,9 @@
               "column": 21,
               "offset": 41
             }
+          },
+          "data": {
+            "hash": 19
           }
         },
         {
@@ -98,6 +113,9 @@
               "column": 1,
               "offset": 42
             }
+          },
+          "data": {
+            "hash": 17
           }
         },
         {
@@ -114,6 +132,9 @@
               "column": 10,
               "offset": 51
             }
+          },
+          "data": {
+            "hash": 19
           }
         },
         {
@@ -129,6 +150,9 @@
               "column": 11,
               "offset": 52
             }
+          },
+          "data": {
+            "hash": 17
           }
         }
       ],
@@ -144,6 +168,9 @@
           "column": 11,
           "offset": 52
         }
+      },
+      "data": {
+        "hash": 13
       }
     }
   ],

@@ -19,6 +19,9 @@
               "column": 8,
               "offset": 7
             }
+          },
+          "data": {
+            "hash": 19
           }
         },
         {
@@ -38,6 +41,9 @@
                   "column": 9,
                   "offset": 8
                 }
+              },
+              "data": {
+                "hash": 22
               }
             },
             {
@@ -55,6 +61,9 @@
                   "column": 31,
                   "offset": 30
                 }
+              },
+              "data": {
+                "hash": 21
               }
             },
             {
@@ -71,6 +80,9 @@
                   "column": 36,
                   "offset": 35
                 }
+              },
+              "data": {
+                "hash": 19
               }
             },
             {
@@ -87,6 +99,9 @@
                   "column": 38,
                   "offset": 37
                 }
+              },
+              "data": {
+                "hash": 23
               }
             }
           ],
@@ -106,7 +121,10 @@
             "protocol": "https",
             "value": "https://orga.js.org/"
           },
-          "attributes": {}
+          "attributes": {},
+          "data": {
+            "hash": 20
+          }
         },
         {
           "type": "text",
@@ -122,6 +140,9 @@
               "column": 39,
               "offset": 38
             }
+          },
+          "data": {
+            "hash": 19
           }
         },
         {
@@ -137,6 +158,9 @@
               "column": 40,
               "offset": 39
             }
+          },
+          "data": {
+            "hash": 17
           }
         }
       ],
@@ -152,6 +176,9 @@
           "column": 40,
           "offset": 39
         }
+      },
+      "data": {
+        "hash": 13
       }
     }
   ],

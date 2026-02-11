@@ -6,48 +6,49 @@ import _primitive from './_primitive.js'
 const AFFILIATED_KEYWORDS = ['caption', 'header', 'name', 'plot', 'results']
 
 const keyword: Action = (token: Keyword, context) => {
-  const { push, lexer, addProp } = context
-  const key = token.key.toLowerCase()
-  const { value } = token
+	const { attach, lexer, addProp } = context
+	const key = token.key.toLowerCase()
+	const { value } = token
 
-  if (key === 'html') {
-    push({ type: 'html', value, position: token.position } as HTML)
-  } else if (key === 'jsx') {
-    push({ type: 'jsx', value, position: token.position } as JSX)
-  } else {
-    if (AFFILIATED_KEYWORDS.includes(key)) {
-      context.attributes[key] = _primitive(value)
-    } else if (key.startsWith('attr_')) {
-      context.attributes[key] = {
-        ...(context.attributes[key] as { [key: string]: Primitive }),
-        ...parseSymbols(value),
-      }
-    } else if (key === 'todo') {
-      lexer.addInBufferTodoKeywords(value)
-    } else {
-      addProp(key, value)
-    }
-    push(token)
-  }
+	if (key === 'html') {
+		attach({ type: 'html', value, position: token.position } as HTML)
+	} else if (key === 'jsx') {
+		attach({ type: 'jsx', value, position: token.position } as JSX)
+	} else {
+		if (AFFILIATED_KEYWORDS.includes(key)) {
+			context.attributes[key] = _primitive(value)
+		} else if (key.startsWith('attr_')) {
+			context.attributes[key] = {
+				...(context.attributes[key] as { [key: string]: Primitive }),
+				...parseSymbols(value)
+			}
+		} else {
+			addProp(key, value)
+		}
+		if (key === 'todo') {
+			lexer.todo.add(value)
+		}
+		attach(token)
+	}
 
-  // if (AFFILIATED_KEYWORDS.includes(key)) {
-  //   context.attributes[key] = _primitive(value)
-  // } else if (key.startsWith('attr_')) {
-  //   context.attributes[key] = {
-  //     ...(context.attributes[key] as { [key: string]: Primitive }),
-  //     ...parseSymbols(value),
-  //   }
-  // } else if (key === 'todo') {
-  //   lexer.addInBufferTodoKeywords(value)
-  // } else if (key === 'html') {
-  //   push({ type: 'html', value } as HTML)
-  // } else if (key === 'jsx') {
-  //   push({ type: 'jsx', value } as JSX)
-  // } else {
-  //   addProp(key, value)
-  // }
+	// if (AFFILIATED_KEYWORDS.includes(key)) {
+	//   context.attributes[key] = _primitive(value)
+	// } else if (key.startsWith('attr_')) {
+	//   context.attributes[key] = {
+	//     ...(context.attributes[key] as { [key: string]: Primitive }),
+	//     ...parseSymbols(value),
+	//   }
+	// } else if (key === 'todo') {
+	//   lexer.addInBufferTodoKeywords(value)
+	// } else if (key === 'html') {
+	//   push({ type: 'html', value } as HTML)
+	// } else if (key === 'jsx') {
+	//   push({ type: 'jsx', value } as JSX)
+	// } else {
+	//   addProp(key, value)
+	// }
 
-  lexer.eat()
+	lexer.eat()
 }
 
 export default keyword

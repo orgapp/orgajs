@@ -17,12 +17,12 @@ const PAIRS = [
 	['{', '}'],
 	['[', ']'],
 	['(', ')'],
-	['<', '>'],
+	['<', '>']
 ].reduce((all, [l, r]) => {
 	return {
 		...all,
 		[l]: r,
-		[r]: l,
+		[r]: l
 	}
 }, {})
 
@@ -70,7 +70,7 @@ function reader(_core, range = {}) {
 
 		const position = {
 			start: core.toPoint(cursor),
-			end: core.toPoint(cursor),
+			end: core.toPoint(cursor)
 		}
 
 		if (cursor >= end) return undefined
@@ -101,7 +101,7 @@ function reader(_core, range = {}) {
 		position.end = core.toPoint(cursor)
 		return {
 			position,
-			value: value || '',
+			value: value || ''
 		}
 	}
 
@@ -119,8 +119,8 @@ function reader(_core, range = {}) {
 			result: m,
 			position: {
 				start: core.toPoint(cursor + m.index),
-				end: core.toPoint(cursor + m.index + m[0].length),
-			},
+				end: core.toPoint(cursor + m.index + m[0].length)
+			}
 		}
 	}
 
@@ -199,9 +199,9 @@ function reader(_core, range = {}) {
 		read: (range = {}) => {
 			return reader(_core, {
 				start: range.start || cursor,
-				end: range.end || end,
+				end: range.end || end
 			})
-		},
+		}
 	}
 }
 

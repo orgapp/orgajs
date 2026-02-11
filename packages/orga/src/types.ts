@@ -1,7 +1,7 @@
 import type {
 	Literal as UnistLiteral,
 	Node,
-	Parent as UnistParent,
+	Parent as UnistParent
 } from 'unist'
 
 export interface Literal extends UnistLiteral {
@@ -27,7 +27,8 @@ export interface Timestamp {
 	end?: Date
 }
 
-type Properties = Record<string, PropertyValue>
+export type Properties = Record<string, PropertyValue>
+export type Settings = Record<string, PropertyValue>
 
 type PropertyValue = string | string[] | Record<string, string>
 
@@ -387,4 +388,11 @@ export function isFootnoteReference(node: Node): node is FootnoteReference {
 
 export function isText(node: Node): node is Text {
 	return node.type === 'text'
+}
+
+declare module 'unist' {
+	interface Data {
+		/** context hash */
+		hash?: number | undefined
+	}
 }

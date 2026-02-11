@@ -19,6 +19,9 @@
               "column": 6,
               "offset": 5
             }
+          },
+          "data": {
+            "hash": 19
           }
         },
         {
@@ -38,6 +41,9 @@
                   "column": 10,
                   "offset": 9
                 }
+              },
+              "data": {
+                "hash": 22
               }
             },
             {
@@ -54,6 +60,9 @@
                   "column": 11,
                   "offset": 10
                 }
+              },
+              "data": {
+                "hash": 37
               }
             },
             {
@@ -70,6 +79,9 @@
                   "column": 27,
                   "offset": 26
                 }
+              },
+              "data": {
+                "hash": 19
               }
             },
             {
@@ -86,6 +98,9 @@
                   "column": 28,
                   "offset": 27
                 }
+              },
+              "data": {
+                "hash": 23
               }
             }
           ],
@@ -101,7 +116,10 @@
               "offset": 27
             }
           },
-          "label": "3"
+          "label": "3",
+          "data": {
+            "hash": 24
+          }
         },
         {
           "type": "text",
@@ -117,6 +135,9 @@
               "column": 29,
               "offset": 28
             }
+          },
+          "data": {
+            "hash": 19
           }
         },
         {
@@ -132,6 +153,9 @@
               "column": 30,
               "offset": 29
             }
+          },
+          "data": {
+            "hash": 17
           }
         }
       ],
@@ -147,6 +171,9 @@
           "column": 30,
           "offset": 29
         }
+      },
+      "data": {
+        "hash": 13
       }
     }
   ],

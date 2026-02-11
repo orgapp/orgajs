@@ -8,28 +8,30 @@ import {
 	LanguageSupport,
 	syntaxTree
 } from '@codemirror/language'
-import { NodeProp } from '@lezer/common'
 import { parser as baseParser } from '@orgajs/lezer'
 
 const data = defineLanguageFacet({})
 
 // --- folding ---
-/** @type {NodeProp<number>} */
-const headlineProperty = new NodeProp()
 
 /**
- * @param {import('@lezer/common').NodeType} type
+ * @param {SyntaxNode} node
  */
-function isHeadline(type) {
-	const match = /^headline(\d)$/.exec(type.name)
-	return match ? Number(match[1]) : undefined
+function getHeadlineLevel(node) {
+	if (node.type.name !== 'headline') return
+	const stars = node.getChild('stars')
+	if (stars) {
+		const level = stars.to - stars.from
+		return level
+	}
 }
 
 /**
  * @param {SyntaxNode} headerNode
- * @param {number} level
  */
-function findSectionEnd(headerNode, level) {
+function findSectionEnd(headerNode) {
+	const level = getHeadlineLevel(headerNode)
+	if (level === undefined) throw new Error('Not a headline')
 	let last = headerNode
 	for (;;) {
 		const next = last.nextSibling
@@ -37,8 +39,8 @@ function findSectionEnd(headerNode, level) {
 			break
 		}
 
-		const headline = isHeadline(next.type)
-		if (headline !== undefined && headline <= level) {
+		const l = getHeadlineLevel(next)
+		if (l !== undefined && l <= level) {
 			return next.from - 1 // Escape the newline. TODO: is this safe?
 		}
 
@@ -61,12 +63,11 @@ const headerIndent = foldService.of((state, start, end) => {
 			break
 		}
 
-		const headline = node.type.prop(headlineProperty)
-		if (!headline) {
+		if (!node.type.name.startsWith('headline')) {
 			continue
 		}
 
-		const upto = findSectionEnd(node, headline)
+		const upto = findSectionEnd(node)
 		if (upto > end) {
 			return { from: end, to: upto }
 		}
@@ -78,8 +79,7 @@ const headerIndent = foldService.of((state, start, end) => {
 const parser = baseParser.configure({
 	props: [
 		foldNodeProp.add((type) => {
-			const m = isHeadline(type)
-			if (!m) {
+			if (type.name !== 'headline') {
 				return undefined
 			}
 
@@ -87,8 +87,7 @@ const parser = baseParser.configure({
 				from: state.doc.lineAt(tree.from).to,
 				to: state.doc.lineAt(tree.from).to
 			})
-		}),
-		headlineProperty.add(isHeadline)
+		})
 	]
 })
 

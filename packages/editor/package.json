@@ -30,6 +30,7 @@
 		"@orgajs/cm-lang": "workspace:^"
 	},
 	"devDependencies": {
+		"@lezer/common": "^1.2.3",
 		"orga": "workspace:^",
 		"vfile": "^6.0.3"
 	}

@@ -22,12 +22,14 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
       - uses: pnpm/action-setup@v4
         with:
           version: 10
           cache: 'pnpm'
+      - name: install dependencies
+        run: pnpm install
+      - name: build packages
+        run: pnpm build
       - name: run unit tests
-        run: |
-          pnpm install
-          pnpm test
+        run: pnpm test

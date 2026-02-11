@@ -8,38 +8,38 @@ export type OastNode = Document | Content | Token
 type Action = boolean
 
 export type Seed =
-  | {
-      id: number
-      position?: Position
-      props?: any
-      skip?: Action
-    }
-  | Action
-  | number
+	| {
+			id: number
+			position?: Position
+			props?: any
+			skip?: Action
+	  }
+	| Action
+	| number
 
 interface LezerChild {
-  node: LezerTree
-  position: number
+	node: LezerTree
+	position: number
 }
 
 export type Handler = (
-  state: State,
-  node: OastNode,
-  parent: OastParent | undefined
+	state: State,
+	node: OastNode,
+	parent: OastParent | undefined
 ) => Seed
 
 export interface State {
-  file: VFile | null
-  ignore: string[]
-  readonly nodeSet: NodeSet
-  handlers: Record<string, Handler>
-  one: (
-    node: OastNode,
-    parent?: OastParent | undefined,
-    base?: number
-  ) => { nodes: LezerTree[]; positions: number[] } | null | undefined
-  all: (
-    node: OastNode,
-    base: number
-  ) => { nodes: LezerTree[]; positions: number[] }
+	file: VFile | null
+	ignore: string[]
+	readonly nodeSet: NodeSet
+	handlers: Record<string, Handler>
+	one: (
+		node: OastNode,
+		parent?: OastParent | undefined,
+		base?: number
+	) => { nodes: LezerTree[]; positions: number[] } | null | undefined
+	all: (
+		node: OastNode,
+		base: number
+	) => { nodes: LezerTree[]; positions: number[] }
 }

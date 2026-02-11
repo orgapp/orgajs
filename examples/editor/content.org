@@ -1,10 +1,11 @@
 #+title:  Example Org File
 #+date:   2023-11-24
+#+todo: TODO NEXT | DONE
 
 Org uses single characters to markup *bold* /italic/ _underline_ +strike through+ ~code~ and =verbatim=. Links also use minimal
 markup in [[https://orgmode.org][Org]].
 
-* Blocks
+* NEXT Blocks
 
 #+begin_src js
 console.log('hello')

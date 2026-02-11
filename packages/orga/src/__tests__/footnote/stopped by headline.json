@@ -20,6 +20,9 @@
               "column": 7,
               "offset": 6
             }
+          },
+          "data": {
+            "hash": 37
           }
         },
         {
@@ -39,6 +42,9 @@
                   "column": 32,
                   "offset": 31
                 }
+              },
+              "data": {
+                "hash": 19
               }
             },
             {
@@ -54,6 +60,9 @@
                   "column": 1,
                   "offset": 32
                 }
+              },
+              "data": {
+                "hash": 17
               }
             },
             {
@@ -70,6 +79,9 @@
                   "column": 26,
                   "offset": 57
                 }
+              },
+              "data": {
+                "hash": 19
               }
             },
             {
@@ -85,6 +97,9 @@
                   "column": 1,
                   "offset": 58
                 }
+              },
+              "data": {
+                "hash": 17
               }
             }
           ],
@@ -100,6 +115,9 @@
               "column": 1,
               "offset": 58
             }
+          },
+          "data": {
+            "hash": 13
           }
         }
       ],
@@ -114,6 +132,9 @@
           "column": 1,
           "offset": 58
         }
+      },
+      "data": {
+        "hash": 2
       }
     },
     {
@@ -136,9 +157,12 @@
                 },
                 "end": {
                   "line": 3,
-                  "column": 3,
-                  "offset": 60
+                  "column": 2,
+                  "offset": 59
                 }
+              },
+              "data": {
+                "hash": 25
               }
             },
             {
@@ -155,6 +179,9 @@
                   "column": 13,
                   "offset": 70
                 }
+              },
+              "data": {
+                "hash": 19
               }
             }
           ],
@@ -170,6 +197,9 @@
               "column": 14,
               "offset": 71
             }
+          },
+          "data": {
+            "hash": 12
           }
         }
       ],
@@ -184,6 +214,9 @@
           "column": 14,
           "offset": 71
         }
+      },
+      "data": {
+        "hash": 1
       }
     }
   ],

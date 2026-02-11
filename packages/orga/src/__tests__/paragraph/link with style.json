@@ -19,6 +19,9 @@
               "column": 6,
               "offset": 5
             }
+          },
+          "data": {
+            "hash": 19
           }
         },
         {
@@ -38,6 +41,9 @@
                   "column": 7,
                   "offset": 6
                 }
+              },
+              "data": {
+                "hash": 22
               }
             },
             {
@@ -55,6 +61,9 @@
                   "column": 29,
                   "offset": 28
                 }
+              },
+              "data": {
+                "hash": 21
               }
             },
             {
@@ -72,6 +81,9 @@
                   "column": 36,
                   "offset": 35
                 }
+              },
+              "data": {
+                "hash": 19
               }
             },
             {
@@ -88,6 +100,9 @@
                   "column": 42,
                   "offset": 41
                 }
+              },
+              "data": {
+                "hash": 19
               }
             },
             {
@@ -105,6 +120,9 @@
                   "column": 49,
                   "offset": 48
                 }
+              },
+              "data": {
+                "hash": 19
               }
             },
             {
@@ -121,6 +139,9 @@
                   "column": 51,
                   "offset": 50
                 }
+              },
+              "data": {
+                "hash": 23
               }
             }
           ],
@@ -140,7 +161,10 @@
             "protocol": "https",
             "value": "https://orga.js.org/"
           },
-          "attributes": {}
+          "attributes": {},
+          "data": {
+            "hash": 20
+          }
         },
         {
           "type": "text",
@@ -156,6 +180,9 @@
               "column": 52,
               "offset": 51
             }
+          },
+          "data": {
+            "hash": 19
           }
         },
         {
@@ -171,6 +198,9 @@
               "column": 53,
               "offset": 52
             }
+          },
+          "data": {
+            "hash": 17
           }
         }
       ],
@@ -186,6 +216,9 @@
           "column": 53,
           "offset": 52
         }
+      },
+      "data": {
+        "hash": 13
       }
     }
   ],

@@ -1,58 +1,52 @@
 import { Reader } from 'text-kit'
-import { TodoKeywordSet } from '../todo-keyword-set.js'
 import { Token } from '../types.js'
 import { tokenize } from './inline/index.js'
+import { TodoKeywordSet } from '../todo'
 
-type GetTodoKeywordSets = () => TodoKeywordSet[]
-
-export default (getTodoKeywordSets: GetTodoKeywordSets) =>
+export default (todo: TodoKeywordSet) =>
 	(reader: Reader): Token[] | void => {
 		const { isStartOfLine, match, now, eol, eat, jump, substring, endOfLine } =
 			reader
 
-		const todoKeywordSets = getTodoKeywordSets()
-
 		if (!isStartOfLine() || !match(/^\*+[ \t]+/my)) return
 
 		// TODO: cache this, for performance sake
-		const todos = todoKeywordSets.flatMap((s) => s.keywords)
-
-		const isActionable = (keyword: string): boolean => {
-			return !!todoKeywordSets.find((s) => s.actionables.includes(keyword))
-		}
+		const todos = todo.keywords
 
 		let buffer: Token[] = []
 
-		const stars = eat(/^\*+(?=\s)/)
+		const stars = eat(/^\*+(?=[ \t])/)
 		if (!stars) throw Error('not gonna happen')
 		buffer.push({
 			type: 'stars',
 			level: stars.value.length,
 			position: {
 				start: stars.position.start,
-				end: eat('whitespaces').position.end
+				end: eat('whitespaces').position.start
 			}
 		})
-		const keyword = eat(RegExp(`${todos.map(escape).join('|')}(?=\\s)`, 'y'))
+		const keyword = eat(
+			RegExp(`${todos.map(encodeURIComponent).join('|')}(?=[ \t])`, 'y')
+		)
 		if (keyword) {
 			buffer.push({
 				type: 'todo',
 				keyword: keyword.value,
-				actionable: isActionable(keyword.value),
+				actionable: todo.actionable(keyword.value),
 				position: {
 					start: keyword.position.start,
-					end: eat('whitespaces').position.end
+					end: eat('whitespaces').position.start
 				}
 			})
 		}
-		const priority = eat(/^\[#(A|B|C)\](?=\s)/y)
+		const priority = eat(/^\[#(A|B|C)\](?=[ \t])/y)
 		if (priority) {
 			buffer.push({
 				type: 'priority',
 				...priority,
 				position: {
 					start: priority.position.start,
-					end: eat('whitespaces').position.end
+					end: eat('whitespaces').position.start
 				}
 			})
 		}
