@@ -10,7 +10,8 @@
 		"orga-build": "./cli.js"
 	},
 	"scripts": {
-		"clean": "fd . -e d.ts -e d.ts.map -I -x rm {}"
+		"clean": "fd . -e d.ts -e d.ts.map -I -x rm {}",
+		"test": "node --test --no-warnings \"lib/__tests__/*.test.js\""
 	},
 	"files": [
 		"lib/",
