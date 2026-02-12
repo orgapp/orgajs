@@ -3,11 +3,15 @@
 	"version": "0.4.0",
 	"description": "A simple tool that builds org-mode files into a website",
 	"type": "module",
+	"engines": {
+		"node": ">=20.19.0"
+	},
 	"bin": {
 		"orga-build": "./cli.js"
 	},
 	"scripts": {
-		"clean": "fd . -e d.ts -e d.ts.map -I -x rm {}"
+		"clean": "fd . -e d.ts -e d.ts.map -I -x rm {}",
+		"test": "node --test --no-warnings \"lib/__tests__/*.test.js\""
 	},
 	"files": [
 		"lib/",

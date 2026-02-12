@@ -1,13 +1,12 @@
 import path from 'node:path'
 import { createRequire } from 'node:module'
-import { build as viteBuild } from 'vite'
+import { createBuilder } from 'vite'
 import { setupOrga } from './orga.js'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { copy, emptyDir, ensureDir } from './fs.js'
 import { pluginFactory } from './vite.js'
 import fs from 'fs/promises'
-import assert from 'node:assert'
 
 const require = createRequire(import.meta.url)
 
@@ -16,6 +15,9 @@ export const alias = {
 	'react-dom': path.dirname(require.resolve('react-dom/package.json')),
 	wouter: path.dirname(require.resolve('wouter'))
 }
+
+const ssrEntry = fileURLToPath(new URL('./ssr.jsx', import.meta.url))
+const clientEntry = fileURLToPath(new URL('./client.jsx', import.meta.url))
 
 /**
  * @param {import('./config.js').Config} config
@@ -26,7 +28,6 @@ export async function build({
 	containerClass,
 	vitePlugins = []
 }) {
-	/* --- prepare folders, out, ssr, client --- */
 	await emptyDir(outDir)
 	const ssrOutDir = path.join(outDir, '.ssr')
 	const clientOutDir = path.join(outDir, '.client')
@@ -38,80 +39,71 @@ export async function build({
 		...vitePlugins
 	]
 
-	/* --- build ssr bundle: server.mjs --- */
-	console.log('preparing ssr bundle...')
-	await viteBuild({
+	// Shared config with environment-specific build settings
+	const builder = await createBuilder({
 		root,
 		plugins,
-		build: {
-			ssr: true,
-			cssCodeSplit: false,
-			emptyOutDir: true,
-			rollupOptions: {
-				input: fileURLToPath(new URL('./ssr.jsx', import.meta.url)),
-				output: {
-					entryFileNames: '[name].mjs',
-					chunkFileNames: '[name]-[hash].mjs'
+		resolve: { alias },
+		ssr: { noExternal: true },
+		environments: {
+			ssr: {
+				build: {
+					ssr: true,
+					outDir: ssrOutDir,
+					cssCodeSplit: false,
+					emptyOutDir: true,
+					minify: false,
+					rollupOptions: {
+						input: ssrEntry,
+						output: {
+							entryFileNames: '[name].mjs',
+							chunkFileNames: '[name]-[hash].mjs'
+						}
+					}
 				}
 			},
-			outDir: ssrOutDir,
-			minify: false
-		},
-		ssr: {
-			noExternal: true
-		},
-		resolve: {
-			alias: alias
+			client: {
+				build: {
+					outDir: clientOutDir,
+					cssCodeSplit: false,
+					emptyOutDir: true,
+					assetsDir: 'assets',
+					rollupOptions: {
+						input: clientEntry,
+						preserveEntrySignatures: 'allow-extension'
+					}
+				}
+			}
 		}
 	})
 
-	/* --- import ssr bundle entry output, to get all the data and render function --- */
+	// Build SSR first to get render function and pages
+	console.log('preparing ssr bundle...')
+	await builder.build(builder.environments.ssr)
 
 	const { render, pages } = await import(
 		pathToFileURL(path.join(ssrOutDir, 'ssr.mjs')).toString()
 	)
 
-	/* --- build client bundle: client.mjs --- */
-	const _clientResult = await viteBuild({
-		root,
-		plugins,
-		build: {
-			cssCodeSplit: false,
-			emptyOutDir: true,
-			rollupOptions: {
-				input: fileURLToPath(new URL('./client.jsx', import.meta.url)),
-				preserveEntrySignatures: 'allow-extension'
-			},
-			assetsDir: 'assets',
-			outDir: clientOutDir
-		},
-		ssr: {
-			noExternal: true
-		},
-		resolve: {
-			alias: alias
-		}
-	})
+	// Build client bundle
+	const _clientResult = await builder.build(builder.environments.client)
 
-	/** @type {import('vite').Rollup.RollupOutput} */
-	let clientResult
-	if (Array.isArray(_clientResult)) {
-		if (_clientResult.length !== 1)
-			throw new Error(`expect viteBuild to have only one BuildResult`)
-		clientResult = _clientResult[0]
-	} else {
-		assert('output' in _clientResult)
-		clientResult = _clientResult
-	}
+	// Normalize build result to single RollupOutput
+	const clientOutput = Array.isArray(_clientResult)
+		? _clientResult[0].output
+		: 'output' in _clientResult
+			? _clientResult.output
+			: null
+	if (!clientOutput) throw new Error('Unexpected client build result')
 
 	/* --- get from client bundle result: entry chunk, css chunks --- */
-	const entryChunk = clientResult.output.filter((c) => {
-		return c.type === 'chunk' && c.isEntry
-	})[0]
+	const entryChunk = clientOutput.find(
+		(/** @type {any} */ c) => c.type === 'chunk' && c.isEntry
+	)
 
-	const cssChunks = clientResult.output.filter((c) => {
-		return c.type === 'asset' && c.fileName.endsWith('.css')
-	})
+	const cssChunks = clientOutput.filter(
+		(/** @type {any} */ c) => c.type === 'asset' && c.fileName.endsWith('.css')
+	)
 
 	/* --- get html template, inject entry js and css --- */
 	const template = await fs.readFile(
@@ -157,11 +149,11 @@ export async function build({
 		`
 		)
 		const css = cssChunks
-			.map((c) => `<link rel="stylesheet" href="/${c.fileName}">`)
+			.map((/** @type {any} */ c) => `<link rel="stylesheet" href="/${c.fileName}">`)
 			.join('\n')
 		html = html.replace(
 			'<script type="module" src="/@orga-build/main.js"></script>',
-			`<script type="module" src="/${entryChunk.fileName}"></script>`
+			`<script type="module" src="/${entryChunk?.fileName}"></script>`
 		)
 
 		html = html.replace('</head>', `${css}</head>`)
