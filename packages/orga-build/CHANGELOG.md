@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.4.0
+
+### Minor Changes
+
+- 3a425ad: update to vite 7 🤞
+
 ## 0.3.2
 
 ### Patch Changes

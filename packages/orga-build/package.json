@@ -1,6 +1,6 @@
 {
 	"name": "orga-build",
-	"version": "0.3.2",
+	"version": "0.4.0",
 	"description": "A simple tool that builds org-mode files into a website",
 	"type": "module",
 	"bin": {
