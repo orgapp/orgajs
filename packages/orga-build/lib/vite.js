@@ -19,6 +19,11 @@ export function pluginFactory({ dir }) {
 		name: 'vite-plugin-orga-pages',
 		enforce: 'pre',
 		config: (config, env) => ({
+			future: {
+				removePluginHookSsrArgument: 'warn',
+				removePluginHookHandleHotUpdate: 'warn',
+				removeSsrLoadModule: 'warn'
+			},
 			optimizeDeps: {
 				include: [
 					'react',

@@ -3,6 +3,9 @@
 	"version": "0.4.0",
 	"description": "A simple tool that builds org-mode files into a website",
 	"type": "module",
+	"engines": {
+		"node": ">=20.19.0"
+	},
 	"bin": {
 		"orga-build": "./cli.js"
 	},
