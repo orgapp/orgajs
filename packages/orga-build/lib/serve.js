@@ -45,7 +45,6 @@ export async function serve(config, port = 3000) {
 			const html = template
 			res.status(200).setHeader('Content-Type', 'text/html').end(html)
 		} catch (/** @type{any} */ e) {
-			vite.ssrFixStacktrace(e)
 			next(e)
 		}
 	})
