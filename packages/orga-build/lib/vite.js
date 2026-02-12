@@ -36,24 +36,17 @@ export function pluginFactory({ dir }) {
 			}
 		}),
 
-		configureServer(server) {
-			const { watcher, moduleGraph, ws } = server
-
-			// Invalidate content module on file changes
-			watcher.on('change', (filePath) => {
-				const module = moduleGraph.getModuleById(contentModuleIdResolved)
-				if (module) {
-					moduleGraph.invalidateModule(module)
-					// Send HMR update to client
-					ws.send({
-						type: 'full-reload',
-						path: '*'
-					})
-				}
-			})
+		hotUpdate() {
+			// Invalidate content module when content files change
+			const module = this.environment.moduleGraph.getModuleById(
+				contentModuleIdResolved
+			)
+			if (module) {
+				this.environment.moduleGraph.invalidateModule(module)
+				// Full reload for now; can optimize to HMR later
+				this.environment.hot.send({ type: 'full-reload', path: '*' })
+			}
 		},
-
-		buildStart() {},
 
 		async resolveId(id, importer) {
 			if (id === appEntryId) {
