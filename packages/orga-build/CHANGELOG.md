@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.5.1
+
+### Patch Changes
+
+- 23b8f16: make orga-build dev mode to be vite-native
+
 ## 0.5.0
 
 ### Minor Changes
