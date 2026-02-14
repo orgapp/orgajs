@@ -21,7 +21,7 @@ export const alias = {
 /**
  * @typedef {Object} OrgaBuildPluginOptions
  * @property {string} root - Root directory for content files
- * @property {string} [outDir] - Output directory (excluded from file discovery)
+ * @property {string | undefined} [outDir] - Output directory (excluded from file discovery)
  * @property {string|string[]} [containerClass] - CSS class(es) to wrap rendered content
  */
 
