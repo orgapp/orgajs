@@ -10,10 +10,11 @@ const contentModuleIdResolved = '\0' + contentModuleId
 /**
  * @param {Object} options
  * @param {string} options.dir
+ * @param {string} [options.outDir]
  * @returns {import('vite').Plugin}
  */
-export function pluginFactory({ dir }) {
-	const files = setup(dir)
+export function pluginFactory({ dir, outDir }) {
+	const files = setup(dir, { outDir })
 
 	return {
 		name: 'vite-plugin-orga-pages',

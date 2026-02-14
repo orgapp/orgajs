@@ -78,8 +78,17 @@ function getContentId(slug) {
 
 /**
  * @param {string} dir
+ * @param {object} [options]
+ * @param {string} [options.outDir] - Output directory to exclude from file discovery
  */
-export function setup(dir) {
+export function setup(dir, { outDir } = {}) {
+	const outDirRelative = outDir ? path.relative(dir, outDir) : null
+	// Only exclude outDir if it's inside the root (not an external path like ../out)
+	const outDirExclude =
+		outDirRelative && !outDirRelative.startsWith('..')
+			? `!${outDirRelative}/**`
+			: null
+
 	const pages = cache(async function () {
 		const files = await globby(
 			[
@@ -89,7 +98,7 @@ export function setup(dir) {
 				'!**/.*/**',
 				'!**/.*',
 				'!node_modules/**',
-				'!out/**'
+				...(outDirExclude ? [outDirExclude] : [])
 			],
 			{ cwd: dir }
 		)
@@ -113,7 +122,7 @@ export function setup(dir) {
 				'!**/.*/**',
 				'!**/.*',
 				'!node_modules/**',
-				'!out/**'
+				...(outDirExclude ? [outDirExclude] : [])
 			],
 			{
 				cwd: dir
@@ -137,7 +146,7 @@ export function setup(dir) {
 				'!**/.*/**',
 				'!**/.*',
 				'!node_modules/**',
-				'!out/**'
+				...(outDirExclude ? [outDirExclude] : [])
 			],
 			{
 				cwd: dir

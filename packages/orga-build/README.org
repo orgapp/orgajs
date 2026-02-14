@@ -2,11 +2,95 @@
 
 A simple tool that builds org-mode files into a website.
 
+* Architecture
+
+orga-build is built on top of Vite with a Vite-native architecture. The dev server uses Vite's native =createServer().listen()= pattern (no custom Express wrapper), which ensures maximum compatibility with the Vite ecosystem, including plugins like Cloudflare Workers.
+
+** Key Design Principles
+
+- *Vite-native*: Framework behavior is implemented as Vite plugins, not external server wrappers
+- *Zero-config*: Works with just =.org= files - no =index.html= required
+- *Plugin-driven*: All features are implemented as composable Vite plugins
+
+** Plugin Composition
+
+When using orga-build CLI with additional Vite plugins (like Cloudflare Workers), add them to =vitePlugins= in your =orga.config.js=:
+
+#+begin_src javascript
+// orga.config.js
+import { cloudflare } from '@cloudflare/vite-plugin'
+
+export default {
+  root: 'pages',
+  // Add external plugins here - orga-build plugins are included automatically
+  vitePlugins: [
+    cloudflare()
+  ]
+}
+#+end_src
+
+Note: Do NOT add =orgaBuildPlugin()= to =vitePlugins= - it's already included by the CLI. Only add external plugins.
+
+For advanced users integrating directly with Vite (without the orga-build CLI), use =orgaBuildPlugin= in your =vite.config.js=:
+
+#+begin_src javascript
+// vite.config.js (advanced - direct Vite integration)
+import { cloudflare } from '@cloudflare/vite-plugin'
+import { orgaBuildPlugin, alias } from 'orga-build'
+
+export default {
+  plugins: [
+    cloudflare(),
+    ...orgaBuildPlugin({ root: 'pages', containerClass: [] })
+  ],
+  resolve: { alias }
+}
+#+end_src
+
+** Default HTML Template
+
+If your project doesn't have an =index.html= file, orga-build provides a default template that:
+- Sets up React rendering
+- Enables client-side routing
+- Works in both dev and production builds
+
+To customize the HTML shell, create your own =index.html= in your project root.
+
 * Installation
 
 #+begin_src bash
 npm install orga-build
 #+end_src
+
+* Configuration
+
+orga-build uses =orga.config.js= (or =orga.config.mjs=) as the primary configuration file. This file should be placed in your project root.
+
+#+begin_src javascript
+// orga.config.js
+export default {
+  // Directory containing your .org files (default: 'pages')
+  root: 'pages',
+
+  // Output directory for production build (default: 'out')
+  outDir: 'out',
+
+  // CSS class(es) to wrap rendered org content
+  containerClass: ['prose', 'prose-lg'],
+
+  // Additional Vite plugins
+  vitePlugins: []
+}
+#+end_src
+
+** Configuration Options
+
+| Option | Type | Default | Description |
+|--------+------+---------+-------------|
+| =root= | =string= | ='pages'= | Directory containing content files |
+| =outDir= | =string= | ='out'= | Output directory for production build |
+| =containerClass= | =string \vert string[]= | =[]= | CSS class(es) for content wrapper |
+| =vitePlugins= | =PluginOption[]= | =[]= | Additional Vite plugins |
 
 * TypeScript Setup
 

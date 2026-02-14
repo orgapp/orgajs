@@ -1,23 +1,16 @@
 import path from 'node:path'
-import { createRequire } from 'node:module'
 import { createBuilder } from 'vite'
-import { setupOrga } from './orga.js'
-import react from '@vitejs/plugin-react'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { copy, emptyDir, ensureDir } from './fs.js'
-import { pluginFactory } from './vite.js'
+import { copy, emptyDir, ensureDir, exists } from './fs.js'
 import fs from 'fs/promises'
+import { createOrgaBuildConfig, alias } from './plugin.js'
 
-const require = createRequire(import.meta.url)
-
-export const alias = {
-	react: path.dirname(require.resolve('react/package.json')),
-	'react-dom': path.dirname(require.resolve('react-dom/package.json')),
-	wouter: path.dirname(require.resolve('wouter'))
-}
+// Re-export alias for backwards compatibility
+export { alias }
 
 const ssrEntry = fileURLToPath(new URL('./ssr.jsx', import.meta.url))
 const clientEntry = fileURLToPath(new URL('./client.jsx', import.meta.url))
+const defaultIndexHtml = fileURLToPath(new URL('./index.html', import.meta.url))
 
 /**
  * @param {import('./config.js').Config} config
@@ -32,18 +25,18 @@ export async function build({
 	const ssrOutDir = path.join(outDir, '.ssr')
 	const clientOutDir = path.join(outDir, '.client')
 
-	const plugins = [
-		setupOrga({ containerClass }),
-		react(),
-		pluginFactory({ dir: root }),
-		...vitePlugins
-	]
+	const { plugins, resolve } = createOrgaBuildConfig({
+		root,
+		outDir,
+		containerClass,
+		vitePlugins
+	})
 
 	// Shared config with environment-specific build settings
 	const builder = await createBuilder({
 		root,
 		plugins,
-		resolve: { alias },
+		resolve,
 		ssr: { noExternal: true },
 		environments: {
 			ssr: {
@@ -106,10 +99,11 @@ export async function build({
 	)
 
 	/* --- get html template, inject entry js and css --- */
-	const template = await fs.readFile(
-		fileURLToPath(new URL('./index.html', import.meta.url)),
-		{ encoding: 'utf-8' }
-	)
+	// Check for user's index.html in project root, otherwise use default
+	const projectRoot = process.cwd()
+	const userIndexPath = path.join(projectRoot, 'index.html')
+	const indexHtmlPath = (await exists(userIndexPath)) ? userIndexPath : defaultIndexHtml
+	const template = await fs.readFile(indexHtmlPath, { encoding: 'utf-8' })
 	/* --- for each page path, render html using render function from ssr bundle, and inject the right css  --- */
 	const pagePaths = Object.keys(pages)
 	await Promise.all(

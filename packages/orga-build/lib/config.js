@@ -1,6 +1,5 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { resolvePath } from './fs.js'
 
 /**
  * @typedef {Object} Config
@@ -14,8 +13,8 @@ import { resolvePath } from './fs.js'
 
 /** @type {Config} */
 const defaultConfig = {
-	outDir: 'out',
-	root: 'pages',
+	outDir: '.out',
+	root: '.',
 	preBuild: [],
 	postBuild: [],
 	vitePlugins: [],
@@ -23,24 +22,43 @@ const defaultConfig = {
 }
 
 /**
- * @param {string} cwd
  * @param {string[]} files
  * @returns {Promise<Config>}
  */
-export async function loadConfig(cwd, ...files) {
+export async function loadConfig(...files) {
+	const cwd = process.cwd()
+
+	/**
+	 * @param {string} value
+	 */
+	const resolveConfigPath = (value) =>
+		path.isAbsolute(value) ? value : path.resolve(cwd, value)
+
+	let result = { ...defaultConfig }
+
 	for (const file of files) {
 		const filePath = path.join(cwd, file)
 
 		try {
 			await fs.access(filePath, fs.constants.F_OK)
-			const config = await import(filePath)
-			const result = { ...defaultConfig, ...config }
-			result.root = resolvePath(result.root)
-			result.outDir = resolvePath(result.outDir)
-			return result
+		} catch {
+			// File doesn't exist, try next
+			continue
+		}
+
+		try {
+			const module = await import(filePath)
+			// Support both default export (recommended) and named exports
+			const config = module.default || module
+			result = { ...defaultConfig, ...config }
+			break
 		} catch (err) {
-			console.error(err)
+			// Config file exists but has errors
+			console.error(`Error loading config from ${file}:`, err)
 		}
 	}
-	return defaultConfig
+
+	result.root = resolveConfigPath(result.root)
+	result.outDir = resolveConfigPath(result.outDir)
+	return result
 }
