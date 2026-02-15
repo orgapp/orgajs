@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.5.2
+
+### Patch Changes
+
+- ada31b9: org-build output directly to outDir
+
 ## 0.5.1
 
 ### Patch Changes
