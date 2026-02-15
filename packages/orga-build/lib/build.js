@@ -1,7 +1,7 @@
 import path from 'node:path'
 import { createBuilder } from 'vite'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { copy, emptyDir, ensureDir, exists } from './fs.js'
+import { emptyDir, ensureDir, exists } from './fs.js'
 import fs from 'fs/promises'
 import { createOrgaBuildConfig, alias } from './plugin.js'
 
@@ -23,7 +23,7 @@ export async function build({
 }) {
 	await emptyDir(outDir)
 	const ssrOutDir = path.join(outDir, '.ssr')
-	const clientOutDir = path.join(outDir, '.client')
+	const clientOutDir = outDir
 
 	const { plugins, resolve } = createOrgaBuildConfig({
 		root,
@@ -59,7 +59,7 @@ export async function build({
 				build: {
 					outDir: clientOutDir,
 					cssCodeSplit: false,
-					emptyOutDir: true,
+					emptyOutDir: false,
 					assetsDir: 'assets',
 					rollupOptions: {
 						input: clientEntry,
@@ -119,8 +119,6 @@ export async function build({
 		})
 	)
 
-	await copy(clientOutDir, outDir)
-	await fs.rm(clientOutDir, { recursive: true })
 	await fs.rm(ssrOutDir, { recursive: true })
 
 	return
