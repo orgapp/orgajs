@@ -1,23 +1,25 @@
 /**
  * @import {Root as HastTree} from 'hast'
  */
+import path from 'node:path'
 import _orga from '@orgajs/rollup'
 import { visitParents } from 'unist-util-visit-parents'
+import { getSlugFromContentFilePath } from './files.js'
 
 /**
  * @param {Object} options
  * @param {string|string[]} options.containerClass - CSS class name(s) to wrap the rendered content
+ * @param {string} options.root - Root directory for content files
  */
-export function setupOrga({ containerClass }) {
+export function setupOrga({ containerClass, root }) {
 	return _orga({
-		rehypePlugins: [[rehypeWrap, { className: containerClass }], image],
+		rehypePlugins: [
+			[rehypeWrap, { className: containerClass }],
+			[rewriteOrgFileLinks, { root }],
+			image
+		],
 		reorgRehypeOptions: {
-			linkHref: (link) => {
-				if (link.path.protocol === 'file') {
-					return link.path.value.replace(/\.org$/, '')
-				}
-				return link.path.value
-			}
+			linkHref: (link) => link.path.value
 		}
 	})
 }
@@ -81,6 +83,56 @@ function image() {
 			})
 		}
 	}
+}
+
+/**
+ * @param {Object} options
+ * @param {string} options.root
+ */
+function rewriteOrgFileLinks({ root }) {
+	/**
+	 * @param {any} tree
+	 * @param {import('vfile').VFile} [file]
+	 */
+	return function (tree, file) {
+		const filePath = file?.path
+		if (!filePath) return
+
+		visitParents(tree, { tagName: 'a' }, (node) => {
+			const href = node?.properties?.href
+			if (typeof href !== 'string') return
+			if (!href.endsWith('.org')) return
+
+			const targetSlug = resolveOrgHrefToContentSlug({
+				root,
+				filePath,
+				href
+			})
+			if (!targetSlug) return
+			node.properties.href = targetSlug
+		})
+	}
+}
+
+/**
+ * @param {Object} options
+ * @param {string} options.root
+ * @param {string} options.filePath
+ * @param {string} options.href
+ * @returns {string|null}
+ */
+function resolveOrgHrefToContentSlug({ root, filePath, href }) {
+	const decodedHrefPath = decodeURI(href)
+	const absoluteTargetPath = decodedHrefPath.startsWith('/')
+		? path.resolve(root, `.${decodedHrefPath}`)
+		: path.resolve(path.dirname(filePath), decodedHrefPath)
+
+	const relativeTargetPath = path.relative(root, absoluteTargetPath)
+	if (relativeTargetPath.startsWith('..') || path.isAbsolute(relativeTargetPath)) {
+		return null
+	}
+
+	return getSlugFromContentFilePath(relativeTargetPath)
 }
 
 function genId(length = 8) {

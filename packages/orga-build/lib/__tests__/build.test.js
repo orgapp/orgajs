@@ -12,6 +12,7 @@ const outDir = path.join(__dirname, '.test-output')
 describe('orga-build', () => {
 	before(async () => {
 		await fs.mkdir(fixtureDir, { recursive: true })
+		await fs.mkdir(path.join(fixtureDir, 'docs'), { recursive: true })
 		// Create minimal fixture
 		await fs.writeFile(
 			path.join(fixtureDir, 'index.org'),
@@ -20,8 +21,14 @@ describe('orga-build', () => {
 * Hello World
 
 This is a test page.
+
+Here's [[file:./docs/index.org][index page]].
+
+Here's [[file:more.org][another page]].
 `
 		)
+		await fs.writeFile(path.join(fixtureDir, 'docs', 'index.org'), 'Docs index page.')
+		await fs.writeFile(path.join(fixtureDir, 'more.org'), 'Another page.')
 	})
 
 	after(async () => {
@@ -51,6 +58,8 @@ This is a test page.
 		const html = await fs.readFile(indexPath, 'utf-8')
 		assert.ok(html.includes('<title>Test Page</title>'), 'should have title')
 		assert.ok(html.includes('Hello World'), 'should have heading content')
+		assert.ok(html.includes('href="/docs"'), 'should rewrite docs/index.org to /docs')
+		assert.ok(html.includes('href="/more"'), 'should rewrite more.org to /more')
 	})
 
 	test('generates assets directory', async () => {

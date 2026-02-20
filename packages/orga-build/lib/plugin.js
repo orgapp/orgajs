@@ -33,7 +33,11 @@ export const alias = {
  * @returns {import('vite').PluginOption[]}
  */
 export function orgaBuildPlugin({ root, outDir, containerClass = [] }) {
-	return [setupOrga({ containerClass }), react(), pluginFactory({ dir: root, outDir })]
+	return [
+		setupOrga({ containerClass, root }),
+		react(),
+		pluginFactory({ dir: root, outDir })
+	]
 }
 
 /**

@@ -106,8 +106,8 @@ export function setup(dir, { outDir } = {}) {
 		/** @type {Record<string, Page>} */
 		const pages = {}
 		for (const file of files) {
-			const pageId = getPagePublicPath(file)
-			pages[pageId] = {
+			const pageSlug = getSlugFromContentFilePath(file)
+			pages[pageSlug] = {
 				dataPath: path.join(dir, file)
 			}
 		}
@@ -131,8 +131,8 @@ export function setup(dir, { outDir } = {}) {
 
 		return layoutFiles.reduce(
 			(/** @type {Record<string, string>} */ result, file) => {
-				const layoutPath = path.dirname(getPagePublicPath(file))
-				result[layoutPath] = path.join(dir, file)
+				const layoutSlug = path.dirname(getSlugFromContentFilePath(file))
+				result[layoutSlug] = path.join(dir, file)
 				return result
 			},
 			/** @type {Record<string, string>} */ {}
@@ -209,10 +209,10 @@ export function setup(dir, { outDir } = {}) {
 
 	return files
 
-	/** @param {string} id */
-	async function page(id) {
+	/** @param {string} slug */
+	async function page(slug) {
 		const all = await pages()
-		return all[id]
+		return all[slug]
 	}
 }
 
@@ -237,16 +237,18 @@ function cache(fn) {
 }
 
 /**
- * @param {string} file
+ * Convert a content file path (relative to content root) to the canonical page slug.
+ * @param {string} contentFilePath
  */
-function getPagePublicPath(file) {
-	let pagePublicPath = file.replace(/\.(org|md|mdx|js|jsx|ts|tsx)$/, '')
-	pagePublicPath = pagePublicPath.replace(/index$/, '')
+export function getSlugFromContentFilePath(contentFilePath) {
+	const normalizedFilePath = contentFilePath.replace(/\\/g, '/')
+	let slug = normalizedFilePath.replace(/\.(org|md|mdx|js|jsx|ts|tsx)$/, '')
+	slug = slug.replace(/index$/, '')
 	// remove trailing slash
-	pagePublicPath = pagePublicPath.replace(/\/$/, '')
+	slug = slug.replace(/\/$/, '')
 	// ensure starting slash
-	pagePublicPath = pagePublicPath.replace(/^\//, '')
-	pagePublicPath = `/${pagePublicPath}`
+	slug = slug.replace(/^\//, '')
+	slug = `/${slug}`
 
 	// turn [id] into :id
 	// so that react-router can recognize it as url params
@@ -255,5 +257,5 @@ function getPagePublicPath(file) {
 	// 	(_, paramName) => `:${paramName}`
 	// )
 
-	return pagePublicPath
+	return slug
 }
