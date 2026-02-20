@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.5.3
+
+### Patch Changes
+
+- 15434f6: Normalize org file: links to canonical slugs and fix index.org link targets
+
 ## 0.5.2
 
 ### Patch Changes
