@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.3.4
+
+### Patch Changes
+
+- Updated dependencies [da20dcc]
+  - oast-to-hast@4.4.0
+
 ## 4.3.3
 
 ### Patch Changes
