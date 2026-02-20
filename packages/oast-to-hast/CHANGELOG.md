@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.4.0
+
+### Minor Changes
+
+- da20dcc: bug fix: correct definition list HTML output
+
 ## 4.3.3
 
 ### Patch Changes
