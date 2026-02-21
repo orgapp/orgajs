@@ -16,7 +16,7 @@ export function setupOrga({ containerClass, root }) {
 		rehypePlugins: [
 			[rehypeWrap, { className: containerClass }],
 			[rewriteOrgFileLinks, { root }],
-			image
+			mediaAssets
 		],
 		reorgRehypeOptions: {
 			linkHref: (link) => link.path.value
@@ -25,6 +25,37 @@ export function setupOrga({ containerClass, root }) {
 }
 
 // --- plugins ---
+
+function mediaAssets() {
+	/**
+	 * @param {any} tree
+	 */
+	return function (tree) {
+		/** @type {Record<string, string>} */
+		const imports = {}
+		visitParents(tree, [{ tagName: 'img' }, { tagName: 'video' }], (node) => {
+			node.type = 'jsx'
+			const { src, ...rest } = node.properties
+			if (typeof src !== 'string') return
+			if (src.startsWith('http')) return
+			const tagName = node.tagName
+			const name = (imports[src] ??= `asset_${genId()}`)
+			const attrs = Object.entries(rest)
+				.filter(([, v]) => v !== undefined && v !== false)
+				.map(([k, v]) => (v === true ? k : `${k}='${v}'`))
+				.join(' ')
+			node.value = `<${tagName} src={${name}}${attrs ? ` ${attrs}` : ''}/>`
+		})
+
+		for (const [src, name] of Object.entries(imports)) {
+			tree.children.unshift({
+				type: 'jsx',
+				value: `import ${name} from '${src}'`,
+				children: []
+			})
+		}
+	}
+}
 
 /**
  * @param {Object} options
@@ -53,34 +84,6 @@ function rehypeWrap({ className = [] }) {
 					children: tree.children
 				}
 			]
-		}
-	}
-}
-
-function image() {
-	/**
-	 * @param {any} tree
-	 */
-	return function (tree) {
-		/** @type {Record<string, string>} */
-		const imports = {}
-		visitParents(tree, { tagName: 'img' }, (node) => {
-			node.type = 'jsx'
-			const { src, target } = node.properties
-			if (typeof src !== 'string') return
-			if (src.startsWith('http')) {
-				return
-			}
-			const name = (imports[src] ??= `asset_${genId()}`)
-			node.value = `<img src={${name}} target='${target}'/>`
-		})
-
-		for (const [src, name] of Object.entries(imports)) {
-			tree.children.unshift({
-				type: 'jsx',
-				value: `import ${name} from '${src}'`,
-				children: []
-			})
 		}
 	}
 }

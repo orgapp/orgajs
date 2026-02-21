@@ -57,6 +57,52 @@ export function link(state, node) {
 
 		return state.patch(node, image)
 	}
+
+	if (type && type.startsWith('video')) {
+		/** @type {Element} */
+		const video = {
+			type: 'element',
+			tagName: 'video',
+			properties: {
+				src: node.path.value,
+				controls: true
+			},
+			children: []
+		}
+		/** @type {Element|null} */
+		let cap = null
+		const c = node.attributes['caption']
+		if (c) {
+			cap = {
+				type: 'element',
+				tagName: 'figcaption',
+				properties: {},
+				children: [
+					{
+						type: 'text',
+						value: `${c}`
+					}
+				]
+			}
+		} else if (node.children.length > 0) {
+			cap = {
+				type: 'element',
+				tagName: 'figcaption',
+				properties: {},
+				children: state.all(node)
+			}
+		}
+		if (cap) {
+			return state.patch(node, {
+				type: 'element',
+				tagName: 'figure',
+				properties: {},
+				children: [video, cap]
+			})
+		}
+
+		return state.patch(node, video)
+	}
 	return state.patch(node, {
 		type: 'element',
 		tagName: 'a',
