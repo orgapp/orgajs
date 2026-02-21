@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.5.4
+
+### Patch Changes
+
+- 20f5a03: fix: render video links as `<video controls>` elements
+
 ## 0.5.3
 
 ### Patch Changes

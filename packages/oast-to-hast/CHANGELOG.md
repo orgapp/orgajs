@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.4.1
+
+### Patch Changes
+
+- 20f5a03: fix: render video links as `<video controls>` elements
+
 ## 4.4.0
 
 ### Minor Changes
