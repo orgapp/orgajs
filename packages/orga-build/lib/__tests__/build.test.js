@@ -81,7 +81,9 @@ Here's [[file:more.org][another page]].
 			outDir: outDir,
 			containerClass: [],
 			styles: ['/style.css'],
-			vitePlugins: []
+			vitePlugins: [],
+			preBuild: [],
+			postBuild: []
 		})
 
 		const html = await fs.readFile(path.join(outDir, 'index.html'), 'utf-8')
