@@ -82,6 +82,7 @@ export interface Block extends Literal, Attributed {
 	type: 'block'
 	name: string
 	params: string[]
+	children: PhrasingContent[] | BlockContent[]
 }
 
 export interface Latex extends Literal {

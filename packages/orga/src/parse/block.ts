@@ -14,7 +14,7 @@ const block: Action = (begin: BlockBegin, ctx): Handler => {
 		attributes: { ...ctx.attributes },
 		children: []
 	})
-	ctx.attach(ctx.lexer.eat())
+	ctx.lexer.eat()
 
 	/*
 	 * find the indentation of the block and apply it to
@@ -62,7 +62,7 @@ const block: Action = (begin: BlockBegin, ctx): Handler => {
 							end: token.position.start
 						})
 					)
-					context.attach(lexer.eat())
+					lexer.eat()
 					context.exit('block')
 					return 'break'
 				}
