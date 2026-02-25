@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.2.7
+
+### Patch Changes
+
+- @orgajs/reorg-rehype@4.3.6
+
 ## 4.2.6
 
 ### Patch Changes
