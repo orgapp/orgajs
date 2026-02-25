@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.6.2
+
+### Patch Changes
+
+- 292e2f1: Use the shared virtual client entry in production builds so `styles` are imported, hashed by Vite, and injected from built CSS assets.
+
 ## 0.6.1
 
 ### Patch Changes
