@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.6.0
+
+### Minor Changes
+
+- 18c8ed7: implement per-page head injection
+
 ## 0.5.4
 
 ### Patch Changes
