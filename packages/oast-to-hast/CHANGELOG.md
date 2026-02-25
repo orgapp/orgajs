@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.4.2
+
+### Patch Changes
+
+- d8da621: fix invalid html structure with image/video
+
 ## 4.4.1
 
 ### Patch Changes
