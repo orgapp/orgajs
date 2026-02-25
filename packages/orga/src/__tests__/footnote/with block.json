@@ -247,28 +247,6 @@
           "attributes": {},
           "children": [
             {
-              "type": "block.begin",
-              "name": "SRC",
-              "params": [
-                "javascript"
-              ],
-              "position": {
-                "start": {
-                  "line": 4,
-                  "column": 1,
-                  "offset": 59
-                },
-                "end": {
-                  "line": 4,
-                  "column": 23,
-                  "offset": 81
-                }
-              },
-              "data": {
-                "hash": 29
-              }
-            },
-            {
               "type": "text",
               "value": "console.log('footnote with code block')",
               "position": {
@@ -285,25 +263,6 @@
               },
               "data": {
                 "hash": 19
-              }
-            },
-            {
-              "type": "block.end",
-              "name": "SRC",
-              "position": {
-                "start": {
-                  "line": 6,
-                  "column": 1,
-                  "offset": 122
-                },
-                "end": {
-                  "line": 6,
-                  "column": 11,
-                  "offset": 132
-                }
-              },
-              "data": {
-                "hash": 30
               }
             }
           ],

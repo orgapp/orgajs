@@ -7,6 +7,14 @@ import { parseHtml } from './html.js'
  */
 export function block(state, node) {
 	const name = node.name.toLowerCase()
+
+	/**
+	 * Preserve inline markup for block types whose content is parsed into
+	 * block children by orga. Fallback to the raw value for externally-provided
+	 * trees that omit `children`.
+	 */
+	const parsedChildren = state.all(node)
+
 	if (name === 'src') {
 		return state.patch(node, {
 			type: 'element',
@@ -33,12 +41,15 @@ export function block(state, node) {
 			type: 'element',
 			tagName: 'blockquote',
 			properties: {},
-			children: [
-				{
-					type: 'text',
-					value: node.value
-				}
-			]
+			children:
+				parsedChildren.length > 0
+					? parsedChildren
+					: [
+							{
+								type: 'text',
+								value: node.value
+							}
+						]
 		})
 	}
 
@@ -47,12 +58,15 @@ export function block(state, node) {
 			type: 'element',
 			tagName: 'center',
 			properties: {},
-			children: [
-				{
-					type: 'text',
-					value: node.value
-				}
-			]
+			children:
+				parsedChildren.length > 0
+					? parsedChildren
+					: [
+							{
+								type: 'text',
+								value: node.value
+							}
+						]
 		})
 	}
 

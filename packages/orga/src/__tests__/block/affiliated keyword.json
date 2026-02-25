@@ -36,28 +36,6 @@
       },
       "children": [
         {
-          "type": "block.begin",
-          "name": "SRC",
-          "params": [
-            "javascript"
-          ],
-          "position": {
-            "start": {
-              "line": 2,
-              "column": 1,
-              "offset": 19
-            },
-            "end": {
-              "line": 2,
-              "column": 23,
-              "offset": 41
-            }
-          },
-          "data": {
-            "hash": 29
-          }
-        },
-        {
           "type": "text",
           "value": "console.log('named code block')",
           "position": {
@@ -74,25 +52,6 @@
           },
           "data": {
             "hash": 19
-          }
-        },
-        {
-          "type": "block.end",
-          "name": "SRC",
-          "position": {
-            "start": {
-              "line": 4,
-              "column": 1,
-              "offset": 74
-            },
-            "end": {
-              "line": 4,
-              "column": 10,
-              "offset": 83
-            }
-          },
-          "data": {
-            "hash": 30
           }
         }
       ],
@@ -178,28 +137,6 @@
       "attributes": {},
       "children": [
         {
-          "type": "block.begin",
-          "name": "SRC",
-          "params": [
-            "javascript"
-          ],
-          "position": {
-            "start": {
-              "line": 8,
-              "column": 1,
-              "offset": 105
-            },
-            "end": {
-              "line": 8,
-              "column": 23,
-              "offset": 127
-            }
-          },
-          "data": {
-            "hash": 29
-          }
-        },
-        {
           "type": "text",
           "value": "console.log('no name')",
           "position": {
@@ -216,25 +153,6 @@
           },
           "data": {
             "hash": 19
-          }
-        },
-        {
-          "type": "block.end",
-          "name": "SRC",
-          "position": {
-            "start": {
-              "line": 10,
-              "column": 1,
-              "offset": 151
-            },
-            "end": {
-              "line": 10,
-              "column": 10,
-              "offset": 160
-            }
-          },
-          "data": {
-            "hash": 30
           }
         }
       ],
@@ -302,28 +220,6 @@
       "attributes": {},
       "children": [
         {
-          "type": "block.begin",
-          "name": "SRC",
-          "params": [
-            "javascript"
-          ],
-          "position": {
-            "start": {
-              "line": 13,
-              "column": 1,
-              "offset": 180
-            },
-            "end": {
-              "line": 13,
-              "column": 23,
-              "offset": 202
-            }
-          },
-          "data": {
-            "hash": 29
-          }
-        },
-        {
           "type": "text",
           "value": "console.log('no name')",
           "position": {
@@ -340,25 +236,6 @@
           },
           "data": {
             "hash": 19
-          }
-        },
-        {
-          "type": "block.end",
-          "name": "SRC",
-          "position": {
-            "start": {
-              "line": 15,
-              "column": 1,
-              "offset": 226
-            },
-            "end": {
-              "line": 15,
-              "column": 11,
-              "offset": 236
-            }
-          },
-          "data": {
-            "hash": 30
           }
         }
       ],
