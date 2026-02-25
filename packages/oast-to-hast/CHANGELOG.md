@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.4.3
+
+### Patch Changes
+
+- 68430c7: fix newline in paragraph
+
 ## 4.4.2
 
 ### Patch Changes
