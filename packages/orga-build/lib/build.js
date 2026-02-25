@@ -5,12 +5,12 @@ import { emptyDir, ensureDir, exists } from './fs.js'
 import fs from 'fs/promises'
 import { createOrgaBuildConfig, alias } from './plugin.js'
 import { escapeHtml } from './util.js'
+import { appEntryId } from './vite.js'
 
 // Re-export alias for backwards compatibility
 export { alias }
 
 const ssrEntry = fileURLToPath(new URL('./ssr.jsx', import.meta.url))
-const clientEntry = fileURLToPath(new URL('./client.jsx', import.meta.url))
 const defaultIndexHtml = fileURLToPath(new URL('./index.html', import.meta.url))
 
 /**
@@ -66,7 +66,7 @@ export async function build({
 					emptyOutDir: false,
 					assetsDir: 'assets',
 					rollupOptions: {
-						input: clientEntry,
+						input: appEntryId,
 						preserveEntrySignatures: 'allow-extension'
 					}
 				}

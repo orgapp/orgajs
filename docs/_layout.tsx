@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { Link } from 'orga-build/components'
-import './style.css'
 
 import type { SVGProps } from 'react'
 const GitHub = (props: SVGProps<SVGSVGElement>) => (

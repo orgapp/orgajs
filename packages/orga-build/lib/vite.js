@@ -3,7 +3,7 @@ import path from 'node:path'
 
 const magicModulePrefix = '/@orga-build/'
 const pagesModuleId = magicModulePrefix + 'pages'
-const appEntryId = `${magicModulePrefix}main.js`
+export const appEntryId = `${magicModulePrefix}main.js`
 const contentModuleId = 'orga-build:content'
 const contentModuleIdResolved = '\0' + contentModuleId
 

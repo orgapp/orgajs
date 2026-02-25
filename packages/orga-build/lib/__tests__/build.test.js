@@ -29,6 +29,10 @@ Here's [[file:more.org][another page]].
 		)
 		await fs.writeFile(path.join(fixtureDir, 'docs', 'index.org'), 'Docs index page.')
 		await fs.writeFile(path.join(fixtureDir, 'more.org'), 'Another page.')
+		await fs.writeFile(
+			path.join(fixtureDir, 'style.css'),
+			'.global-style-marker { color: rgb(1, 2, 3); }'
+		)
 	})
 
 	after(async () => {
@@ -69,5 +73,28 @@ Here's [[file:more.org][another page]].
 			.then(() => true)
 			.catch(() => false)
 		assert.ok(assetsExists, 'assets directory should exist')
+	})
+
+	test('processes configured global styles through vite and injects built css', async () => {
+		await build({
+			root: fixtureDir,
+			outDir: outDir,
+			containerClass: [],
+			styles: ['/style.css'],
+			vitePlugins: []
+		})
+
+		const html = await fs.readFile(path.join(outDir, 'index.html'), 'utf-8')
+		assert.ok(!html.includes('href="/style.css"'), 'should not link raw source css path')
+
+		const cssHrefMatch = html.match(/href="\/(assets\/[^"]+\.css)"/)
+		assert.ok(cssHrefMatch, 'should link built css asset from assets with hashed name')
+
+		const builtCssPath = cssHrefMatch[1]
+		const builtCss = await fs.readFile(path.join(outDir, builtCssPath), 'utf-8')
+		assert.ok(
+			builtCss.includes('.global-style-marker'),
+			'built css should include configured global style content'
+		)
 	})
 })
