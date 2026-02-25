@@ -16,6 +16,11 @@ const { positionals } = parseArgs({
 	allowPositionals: true
 })
 
-const config = await loadConfig('orga.config.js', 'orga.config.mjs')
+const { config, projectRoot } = await loadConfig(
+	'orga.config.js',
+	'orga.config.mjs'
+)
 
-await (positionals.includes('dev') ? serve(config) : build(config))
+await (positionals.includes('dev')
+	? serve(config, 3000, projectRoot)
+	: build(config, projectRoot))

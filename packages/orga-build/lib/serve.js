@@ -7,8 +7,9 @@ import { createOrgaBuildConfig, alias } from './plugin.js'
  *
  * @param {import('./config.js').Config} config
  * @param {number} [port]
+ * @param {string} [projectRoot]
  */
-export async function serve(config, port = 3000) {
+export async function serve(config, port = 3000, projectRoot = process.cwd()) {
 	const { plugins } = createOrgaBuildConfig({
 		root: config.root,
 		outDir: config.outDir,
@@ -16,7 +17,7 @@ export async function serve(config, port = 3000) {
 		styles: config.styles ?? [],
 		vitePlugins: config.vitePlugins,
 		includeFallbackHtml: true,
-		projectRoot: config.root
+		projectRoot
 	})
 
 	const server = await createServer({

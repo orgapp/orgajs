@@ -25,7 +25,7 @@ const defaultConfig = {
 
 /**
  * @param {string[]} files
- * @returns {Promise<Config>}
+ * @returns {Promise<{ config: Config, projectRoot: string }>}
  */
 export async function loadConfig(...files) {
 	const cwd = process.cwd()
@@ -37,6 +37,7 @@ export async function loadConfig(...files) {
 		path.isAbsolute(value) ? value : path.resolve(cwd, value)
 
 	let result = { ...defaultConfig }
+	let configPath = null
 
 	for (const file of files) {
 		const filePath = path.join(cwd, file)
@@ -53,6 +54,7 @@ export async function loadConfig(...files) {
 			// Support both default export (recommended) and named exports
 			const config = module.default || module
 			result = { ...defaultConfig, ...config }
+			configPath = filePath
 			break
 		} catch (err) {
 			// Config file exists but has errors
@@ -64,5 +66,8 @@ export async function loadConfig(...files) {
 	result.outDir = resolveConfigPath(result.outDir)
 	const styles = result.styles
 	result.styles = Array.isArray(styles) ? styles.filter((v) => typeof v === 'string') : []
-	return result
+	return {
+		config: result,
+		projectRoot: configPath ? path.dirname(configPath) : cwd
+	}
 }

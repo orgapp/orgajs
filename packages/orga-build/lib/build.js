@@ -15,6 +15,7 @@ const defaultIndexHtml = fileURLToPath(new URL('./index.html', import.meta.url))
 
 /**
  * @param {import('./config.js').Config} config
+ * @param {string} [projectRoot]
  */
 export async function build({
 	outDir,
@@ -22,7 +23,7 @@ export async function build({
 	containerClass,
 	styles = [],
 	vitePlugins = []
-}) {
+}, projectRoot = process.cwd()) {
 	await emptyDir(outDir)
 	const ssrOutDir = path.join(outDir, '.ssr')
 	const clientOutDir = outDir
@@ -103,7 +104,6 @@ export async function build({
 
 	/* --- get html template, inject entry js and css --- */
 	// Check for user's index.html in project root, otherwise use default
-	const projectRoot = process.cwd()
 	const userIndexPath = path.join(projectRoot, 'index.html')
 	const indexHtmlPath = (await exists(userIndexPath)) ? userIndexPath : defaultIndexHtml
 	const template = await fs.readFile(indexHtmlPath, { encoding: 'utf-8' })
