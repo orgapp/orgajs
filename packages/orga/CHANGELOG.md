@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.7.0
+
+### Minor Changes
+
+- 761c484: Preserve inline markup in quote and center blocks.
+
 ## 4.6.0
 
 ### Minor Changes

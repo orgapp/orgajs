@@ -1,5 +1,16 @@
 # Change Log
 
+## 4.5.0
+
+### Minor Changes
+
+- 761c484: Preserve inline markup in quote and center blocks.
+
+### Patch Changes
+
+- Updated dependencies [761c484]
+  - orga@4.7.0
+
 ## 4.4.3
 
 ### Patch Changes
