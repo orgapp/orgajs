@@ -13,6 +13,19 @@ test('paragraph with text', async () => {
 	assert.deepEqual(hast, h('p', 'Hello'))
 })
 
+test('paragraph newline is rendered as a space', async () => {
+	const hast = toHast({
+		type: 'paragraph',
+		children: [
+			{ type: 'text', value: 'foo' },
+			{ type: 'newline' },
+			{ type: 'text', value: 'bar' },
+		],
+	})
+
+	assert.deepEqual(hast, h('p', ['foo', ' ', 'bar']))
+})
+
 test('paragraph with single media figure unwraps to figure', async () => {
 	// A video link with a caption produces a <figure> from the link handler.
 	// The paragraph handler must not wrap it in <p> (invalid HTML).

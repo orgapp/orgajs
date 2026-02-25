@@ -10,6 +10,7 @@ import { section } from './section.js'
 import { hr } from './hr.js'
 import { checkbox, list, item as listItem } from './list.js'
 import { footnote, footnoteRef } from './footnote.js'
+import { newline } from './newline.js'
 import {
 	table,
 	cell as tableCell,
@@ -51,6 +52,7 @@ export const handlers = {
 	footnote,
 	'footnote.reference': footnoteRef,
 	hr,
+	newline,
 }
 
 /** @type {import('../state.js').Handler} */
