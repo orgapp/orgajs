@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.6.1
+
+### Patch Changes
+
+- b2110a4: fix index.html resolution conflict
+
 ## 0.6.0
 
 ### Minor Changes
