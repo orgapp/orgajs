@@ -13,7 +13,7 @@ export async function serve(config, port = 3000) {
 		root: config.root,
 		outDir: config.outDir,
 		containerClass: config.containerClass,
-		styles: config.styles,
+		styles: config.styles ?? [],
 		vitePlugins: config.vitePlugins,
 		includeFallbackHtml: true,
 		projectRoot: config.root
@@ -30,7 +30,7 @@ export async function serve(config, port = 3000) {
 		// ESModulesEvaluator (which has no 'module'/'require' globals).
 		environments: {
 			client: {
-				resolve: { alias }
+				resolve: /** @type {any} */ ({ alias })
 			}
 		},
 		server: {
