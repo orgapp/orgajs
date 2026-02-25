@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { createServer } from 'vite'
-import { createOrgaBuildConfig } from './plugin.js'
+import { createOrgaBuildConfig, alias } from './plugin.js'
 
 /**
  * Start the development server using native Vite.
@@ -9,7 +9,7 @@ import { createOrgaBuildConfig } from './plugin.js'
  * @param {number} [port]
  */
 export async function serve(config, port = 3000) {
-	const { plugins, resolve } = createOrgaBuildConfig({
+	const { plugins } = createOrgaBuildConfig({
 		root: config.root,
 		outDir: config.outDir,
 		containerClass: config.containerClass,
@@ -20,8 +20,17 @@ export async function serve(config, port = 3000) {
 	const server = await createServer({
 		root: config.root,
 		plugins,
-		resolve,
 		appType: 'custom',
+		// Aliases are scoped to the client environment only.
+		// The SSR environment must NOT have these aliases: they convert bare specifiers
+		// (e.g. 'react') into absolute paths, which bypasses Vite's fetchModule
+		// externalization branch and causes CJS packages to be evaluated inline by
+		// ESModulesEvaluator (which has no 'module'/'require' globals).
+		environments: {
+			client: {
+				resolve: { alias }
+			}
+		},
 		server: {
 			port,
 			strictPort: false,

@@ -2,9 +2,13 @@ import path from 'node:path'
 import fs from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
+import { createServerModuleRunner } from 'vite'
 import react from '@vitejs/plugin-react'
 import { setupOrga } from './orga.js'
 import { pluginFactory } from './vite.js'
+import { escapeHtml } from './util.js'
+
+const ssrEntry = fileURLToPath(new URL('./ssr.jsx', import.meta.url))
 
 const require = createRequire(import.meta.url)
 const defaultIndexHtml = fileURLToPath(new URL('./index.html', import.meta.url))
@@ -85,11 +89,11 @@ async function hasUserIndexHtml(root) {
 /**
  * Creates an HTML serving plugin that handles index.html for dev mode.
  *
- * This plugin:
- * - Serves user's index.html from project root if present, otherwise uses the default template
+ * This plugin performs per-request SSR in dev mode (matching Astro/SvelteKit behaviour):
+ * - SSR-renders each page on every request using Vite's server module runner
+ * - Injects rendered content and page metadata (%orga.*% placeholders) into the template
+ * - Falls back to the shell HTML for unknown routes (client-side router handles 404)
  * - Only handles GET/HEAD requests that accept HTML
- * - Runs late (post middleware) so other plugins get first chance
- * - Passes HTML through transformIndexHtml for ecosystem compatibility
  * - Does not intercept asset requests
  *
  * @param {string} projectRoot - Project root directory (where orga.config.js lives)
@@ -106,7 +110,11 @@ export function htmlFallbackPlugin(projectRoot) {
 			const userHasIndex = await hasUserIndexHtml(projectRoot)
 			const indexHtmlPath = userHasIndex ? userIndexPath : defaultIndexHtml
 
-			// Add middleware to serve HTML early in the chain.
+			// CJS compatibility here depends on Vite externalizing bare-specifier deps
+			// (e.g. react/*) to native Node import(). If aliases rewrite specifiers
+			// to absolute paths, modules can be inlined and evaluated without CJS globals.
+			const runner = createServerModuleRunner(server.environments.ssr)
+
 			server.middlewares.use(async (req, res, next) => {
 				// Only handle GET/HEAD requests
 				if (req.method !== 'GET' && req.method !== 'HEAD') {
@@ -128,8 +136,33 @@ export function htmlFallbackPlugin(projectRoot) {
 				}
 
 				try {
+					// Import via the runner on each request — the module graph handles
+					// HMR invalidation so stale modules are never served.
+					const { render, pages } = await runner.import(ssrEntry)
+					const content = render(pathname)
+
 					let html = await fs.readFile(indexHtmlPath, 'utf-8')
 					html = await server.transformIndexHtml(url, html)
+
+					if (content) {
+						const ssr = { routePath: pathname }
+						html = html.replace(
+							'<div id="root"></div>',
+							`<script>window._ssr=${JSON.stringify(ssr)};</script><div id="root">${content}</div>`
+						)
+					}
+
+					// Replace %orga.*% placeholders with page metadata
+					const page = pages[pathname]
+					if (page) {
+						html = html.replace(/%orga\.(\w+)%/g, (_, key) => {
+							const value = page[key] ?? ''
+							return escapeHtml(String(value))
+						})
+					}
+					// Strip any remaining unresolved placeholders (unknown route)
+					html = html.replace(/%orga\.\w+%/g, '')
+
 					res.statusCode = 200
 					res.setHeader('Content-Type', 'text/html')
 					res.end(html)

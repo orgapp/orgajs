@@ -4,6 +4,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { emptyDir, ensureDir, exists } from './fs.js'
 import fs from 'fs/promises'
 import { createOrgaBuildConfig, alias } from './plugin.js'
+import { escapeHtml } from './util.js'
 
 // Re-export alias for backwards compatibility
 export { alias }
@@ -150,14 +151,15 @@ export async function build({
 
 		html = html.replace('</head>', `${css}</head>`)
 
-		const page = pages[pagePath]
-		if (page && page.title) {
-			html = html.replace(
-				/<title>(.*?)<\/title>/,
-				`<title>${page.title}</title>`
-			)
+			const page = pages[pagePath]
+		if (page) {
+			html = html.replace(/%orga\.(\w+)%/g, (_, key) => {
+				const value = page[key] ?? ''
+				return escapeHtml(String(value))
+			})
 		}
 
 		return html
 	}
 }
+
