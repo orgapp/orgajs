@@ -13,8 +13,10 @@ export async function serve(config, port = 3000) {
 		root: config.root,
 		outDir: config.outDir,
 		containerClass: config.containerClass,
+		styles: config.styles,
 		vitePlugins: config.vitePlugins,
-		includeFallbackHtml: true
+		includeFallbackHtml: true,
+		projectRoot: config.root
 	})
 
 	const server = await createServer({

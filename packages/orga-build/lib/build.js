@@ -20,6 +20,7 @@ export async function build({
 	outDir,
 	root,
 	containerClass,
+	styles = [],
 	vitePlugins = []
 }) {
 	await emptyDir(outDir)
@@ -30,6 +31,7 @@ export async function build({
 		root,
 		outDir,
 		containerClass,
+		styles,
 		vitePlugins
 	})
 
@@ -162,4 +164,3 @@ export async function build({
 		return html
 	}
 }
-

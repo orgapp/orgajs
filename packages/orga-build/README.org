@@ -78,6 +78,10 @@ export default {
   // CSS class(es) to wrap rendered org content
   containerClass: ['prose', 'prose-lg'],
 
+  // Global stylesheet URLs (explicit, no magic files)
+  // These are injected in dev SSR <head> and imported by the client entry.
+  styles: ['/style.css'],
+
   // Additional Vite plugins
   vitePlugins: []
 }
@@ -90,6 +94,7 @@ export default {
 | =root= | =string= | ='pages'= | Directory containing content files |
 | =outDir= | =string= | ='out'= | Output directory for production build |
 | =containerClass= | =string \vert string[]= | =[]= | CSS class(es) for content wrapper |
+| =styles= | =string[]= | =[]= | Global stylesheet URLs injected/imported explicitly |
 | =vitePlugins= | =PluginOption[]= | =[]= | Additional Vite plugins |
 
 * TypeScript Setup

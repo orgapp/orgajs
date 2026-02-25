@@ -12,7 +12,6 @@ const ssrEntry = fileURLToPath(new URL('./ssr.jsx', import.meta.url))
 
 const require = createRequire(import.meta.url)
 const defaultIndexHtml = fileURLToPath(new URL('./index.html', import.meta.url))
-
 /**
  * Alias map for React and wouter to ensure consistent resolution
  */
@@ -27,6 +26,7 @@ export const alias = {
  * @property {string} root - Root directory for content files
  * @property {string | undefined} [outDir] - Output directory (excluded from file discovery)
  * @property {string|string[]} [containerClass] - CSS class(es) to wrap rendered content
+ * @property {string[]} [styles] - Global stylesheet URLs to import/inject
  */
 
 /**
@@ -36,11 +36,16 @@ export const alias = {
  * @param {OrgaBuildPluginOptions} options
  * @returns {import('vite').PluginOption[]}
  */
-export function orgaBuildPlugin({ root, outDir, containerClass = [] }) {
+export function orgaBuildPlugin({
+	root,
+	outDir,
+	containerClass = [],
+	styles = []
+}) {
 	return [
 		setupOrga({ containerClass, root }),
 		react(),
-		pluginFactory({ dir: root, outDir })
+		pluginFactory({ dir: root, outDir, styles })
 	]
 }
 
@@ -55,15 +60,19 @@ export function createOrgaBuildConfig({
 	root,
 	outDir,
 	containerClass = [],
+	styles = [],
 	vitePlugins = [],
 	includeFallbackHtml = false,
 	projectRoot = process.cwd()
 }) {
-	const plugins = [...vitePlugins, ...orgaBuildPlugin({ root, outDir, containerClass })]
+	const plugins = [
+		...vitePlugins,
+		...orgaBuildPlugin({ root, outDir, containerClass, styles })
+	]
 	if (includeFallbackHtml) {
 		// HTML fallback must be first so it can handle HTML navigation requests
 		// before runtime plugins (e.g. Cloudflare) potentially return 404.
-		plugins.unshift(htmlFallbackPlugin(projectRoot))
+		plugins.unshift(htmlFallbackPlugin(projectRoot, styles))
 	}
 	return {
 		plugins,
@@ -97,9 +106,10 @@ async function hasUserIndexHtml(root) {
  * - Does not intercept asset requests
  *
  * @param {string} projectRoot - Project root directory (where orga.config.js lives)
+ * @param {string[]} [styles]
  * @returns {import('vite').Plugin}
  */
-export function htmlFallbackPlugin(projectRoot) {
+export function htmlFallbackPlugin(projectRoot, styles = []) {
 	return {
 		name: 'orga-build:html-fallback',
 
@@ -143,6 +153,14 @@ export function htmlFallbackPlugin(projectRoot) {
 
 					let html = await fs.readFile(indexHtmlPath, 'utf-8')
 					html = await server.transformIndexHtml(url, html)
+
+					const uniqueCssUrls = [...new Set(styles)]
+					if (uniqueCssUrls.length > 0) {
+						const cssLinks = uniqueCssUrls
+							.map((u) => `<link rel="stylesheet" href="${escapeHtml(u)}">`)
+							.join('')
+						html = html.replace('</head>', `${cssLinks}</head>`)
+					}
 
 					if (content) {
 						const ssr = { routePath: pathname }

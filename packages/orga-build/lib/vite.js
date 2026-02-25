@@ -11,9 +11,10 @@ const contentModuleIdResolved = '\0' + contentModuleId
  * @param {Object} options
  * @param {string} options.dir
  * @param {string} [options.outDir]
+ * @param {string[]} [options.styles]
  * @returns {import('vite').Plugin}
  */
-export function pluginFactory({ dir, outDir }) {
+export function pluginFactory({ dir, outDir, styles = [] }) {
 	const files = setup(dir, { outDir })
 
 	return {
@@ -62,7 +63,10 @@ export function pluginFactory({ dir, outDir }) {
 		},
 		async load(id) {
 			if (id === appEntryId) {
-				return `import "orga-build/csr";`
+				const styleImports = styles
+					.map((styleUrl) => `import ${JSON.stringify(styleUrl)};`)
+					.join('\n')
+				return `${styleImports}\nimport "orga-build/csr";`
 			}
 			if (id === contentModuleIdResolved) {
 				return await renderContentModule()

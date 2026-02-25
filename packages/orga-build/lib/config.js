@@ -9,6 +9,7 @@ import path from 'node:path'
  * @property {string[]} postBuild
  * @property {import('vite').PluginOption[]} vitePlugins - Array of Vite plugins
  * @property {string[]|string} containerClass
+ * @property {string[]} styles - Global stylesheet URLs injected in dev SSR and imported by client entry
  */
 
 /** @type {Config} */
@@ -18,7 +19,8 @@ const defaultConfig = {
 	preBuild: [],
 	postBuild: [],
 	vitePlugins: [],
-	containerClass: []
+	containerClass: [],
+	styles: []
 }
 
 /**
@@ -60,5 +62,7 @@ export async function loadConfig(...files) {
 
 	result.root = resolveConfigPath(result.root)
 	result.outDir = resolveConfigPath(result.outDir)
+	const styles = result.styles
+	result.styles = Array.isArray(styles) ? styles.filter((v) => typeof v === 'string') : []
 	return result
 }
