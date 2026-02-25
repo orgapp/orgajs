@@ -121,8 +121,8 @@ export default function Playground() {
 
 		const { default: Content } = await evaluate(file, {
 			...runtime,
-			rehypePlugins: [capture((v) => (oast = toJSON(v)))],
-			reorgPlugins: [capture((v) => (hast = toJSON(v)))]
+			rehypePlugins: [capture((v) => (hast = toJSON(v)))],
+			reorgPlugins: [capture((v) => (oast = toJSON(v)))]
 		})
 
 		jsx = String(file)
