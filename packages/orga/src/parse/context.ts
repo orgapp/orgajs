@@ -33,7 +33,7 @@ export interface Context {
 	// control
 	// -
 	enter: <N extends Parent>(node: N) => N
-	exit: (predicate: Predicate, strict?: boolean) => Parent | undefined
+	exit: (predicate: Predicate, strict?: boolean) => Parent | void
 	attach: (node: Node) => void
 	save: () => void
 	restore: () => void
@@ -41,8 +41,8 @@ export interface Context {
 
 	// syntactic sugar
 	// -
-	exitTo: (predicate: Predicate) => Parent | undefined
-	exitAll: (predicate: Predicate) => Parent | undefined
+	exitTo: (predicate: Predicate) => void
+	exitAll: (predicate: Predicate) => void
 	/** shorthand for lexer.eat and push it **/
 	consume: () => void
 	/** shorthand for lexer.eat **/

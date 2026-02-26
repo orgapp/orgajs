@@ -32,7 +32,7 @@ import { position } from 'unist-util-position'
 import { handlers as defaultHandlers } from './handlers/index.js'
 
 /**
- * @param {OastNodes} tree
+ * @param {OastNodes} _tree
  * @param {Partial<Config> | null | undefined} [options = {}]
  */
 export function createState(_tree, options = {}) {

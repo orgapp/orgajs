@@ -75,9 +75,7 @@ export default function org({ recmaPlugins, ...options }) {
 										)
 										if (myPluginIndex !== -1) {
 											const myPlugin = resolved.plugins[myPluginIndex]
-											// @ts-expect-error-error ignore readonly annotation
 											resolved.plugins.splice(myPluginIndex, 1)
-											// @ts-expect-error-error ignore readonly annotation
 											resolved.plugins.splice(jsxPluginIndex, 0, myPlugin)
 										}
 									}

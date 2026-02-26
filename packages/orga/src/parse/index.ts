@@ -25,7 +25,7 @@ type FlowControl = 'break' | 'next' | 'finish'
 export type Action = (
 	token: Token,
 	context: Context
-) => FlowControl | Handler | undefined
+) => FlowControl | Handler | void
 
 export type Predicate = string | 'EOF' | RegExp | ((token: Node) => boolean)
 
