@@ -27,10 +27,10 @@ export default function rehypeRecma(options) {
 	return function (tree) {
 		const data = tree.data || {}
 		/** @type {ModuleDeclaration[]} */
-		const prepand = []
+		const prepend = []
 		Object.entries(data).forEach(([k, v]) => {
 			if (k === 'layout') {
-				prepand.push({
+				prepend.push({
 					type: 'ImportDeclaration',
 					specifiers: [
 						{
@@ -48,12 +48,12 @@ export default function rehypeRecma(options) {
 					}
 				})
 			} else {
-				prepand.push(createExport(k, v))
+				prepend.push(createExport(k, v))
 			}
 		})
 
 		const estree = toEstree(tree, { ...options, handlers: { jsx: handleJsx } })
-		estree.body.unshift(...prepand)
+		estree.body.unshift(...prepend)
 		return estree
 	}
 }
