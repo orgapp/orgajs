@@ -1,5 +1,5 @@
 import { Reader } from 'text-kit'
-import { Token } from '../types'
+import { Token } from '../types.js'
 
 export default ({ eat }: Reader): Token | void => {
   const hr = eat(/^\s*-{5,}\s*$/my)

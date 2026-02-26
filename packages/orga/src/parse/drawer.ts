@@ -1,5 +1,5 @@
-import { Action } from '.'
-import { DrawerBegin, Section } from '../types'
+import { Action } from './index.js'
+import { DrawerBegin, Section } from '../types.js'
 
 const drawer: Action = (begin: DrawerBegin, context) => {
   context.save()

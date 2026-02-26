@@ -1,7 +1,7 @@
 import { Reader } from 'text-kit'
 import { Token } from '../types.js'
 import { tokenize } from './inline/index.js'
-import { TodoKeywordSet } from '../todo'
+import { TodoKeywordSet } from '../todo.js'
 
 export default (todo: TodoKeywordSet) =>
 	(reader: Reader): Token[] | void => {

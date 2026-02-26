@@ -1,5 +1,5 @@
 import { Reader } from 'text-kit'
-import { Token } from '../types'
+import { Token } from '../types.js'
 
 export default (reader: Reader): Token[] => {
   const { match, jump, eat } = reader

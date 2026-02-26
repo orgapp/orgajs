@@ -15,7 +15,7 @@ import listItem from './list.js'
 import planning from './planning.js'
 import table from './table.js'
 import emptyLines from './empty.js'
-import { TodoManager } from '../todo'
+import { TodoManager } from '../todo.js'
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 

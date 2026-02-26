@@ -1,4 +1,4 @@
-import { PhrasingContent, Token } from './types'
+import { PhrasingContent, Token } from './types.js'
 
 const matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g
 

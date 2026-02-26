@@ -1,5 +1,5 @@
 import { Range } from 'text-kit'
-import { Settings } from './types'
+import { Settings } from './types.js'
 import { defaultTodoManager, TodoManager } from './todo.js'
 
 export interface LexerOptions {

@@ -1,5 +1,5 @@
-import { Tokenizer } from '..'
-import { Token } from '../../types'
+import { Tokenizer } from '../index.js'
+import { Token } from '../../types.js'
 
 const tokenizeMath: Tokenizer = (reader) => {
   const { now, eat, getChar, jump, substring, match } = reader

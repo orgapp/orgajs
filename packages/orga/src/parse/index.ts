@@ -1,4 +1,4 @@
-import { Lexer } from '../tokenize'
+import { Lexer } from '../tokenize/index.js'
 import { Node } from 'unist'
 import { Document, Parent, Settings, Token } from '../types.js'
 import { isPhrasingContent } from '../utils.js'
@@ -11,7 +11,7 @@ import paragraph from './paragraph.js'
 import section from './section.js'
 import table from './table.js'
 import footnote from './footnote.js'
-import { ParserOptions } from '../options'
+import { ParserOptions } from '../options.js'
 
 export type Parse = (lexer: Lexer) => Parent | undefined
 

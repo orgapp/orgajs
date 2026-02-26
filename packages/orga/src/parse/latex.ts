@@ -1,5 +1,5 @@
-import { Action, Handler } from '.'
-import { LatexBegin, LatexEnd } from '../types'
+import { Action, Handler } from './index.js'
+import { LatexBegin, LatexEnd } from '../types.js'
 
 const latex: Action = (begin: LatexBegin, context): Handler => {
 	context.save()

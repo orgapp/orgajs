@@ -1,8 +1,8 @@
 import { Reader } from 'text-kit'
 import { Point } from 'unist'
-import { Tokenizer } from '..'
-import { Style, Token } from '../../types'
-import uri from '../../uri'
+import { Tokenizer } from '../index.js'
+import { Style, Token } from '../../types.js'
+import uri from '../../uri.js'
 
 const MARKERS: { [key: string]: Style } = {
   '*': 'bold',

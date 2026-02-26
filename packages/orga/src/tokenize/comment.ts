@@ -1,5 +1,5 @@
 import { Reader } from 'text-kit'
-import { Token } from '../types'
+import { Token } from '../types.js'
 
 export default ({ match, eat, jump }: Reader): Token | void => {
   const ws = eat('whitespaces')

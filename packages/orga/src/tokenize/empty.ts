@@ -1,5 +1,5 @@
 import { Reader } from 'text-kit'
-import { Token } from '../types'
+import { Token } from '../types.js'
 
 export default function ({ isStartOfLine, getLine, eat }: Reader): Token[] {
   const tokens: Token[] = []

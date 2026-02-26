@@ -23,7 +23,7 @@
 		"orga": "workspace:^"
 	},
 	"devDependencies": {
-		"typescript": "^5.9.2",
+		"typescript": "^5.9.3",
 		"unified": "^11.0.5"
 	}
 }

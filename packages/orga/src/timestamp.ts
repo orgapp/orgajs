@@ -1,6 +1,6 @@
 import { zonedTimeToUtc } from 'date-fns-tz'
 import { read } from 'text-kit'
-import { Timestamp } from './types'
+import { Timestamp } from './types.js'
 
 export const parse = (
   input: string,

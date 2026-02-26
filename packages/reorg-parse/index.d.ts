@@ -1,9 +1,8 @@
-import type { Document } from 'orga'
+import type { Document, ParseOptions } from 'orga'
 import type { Plugin } from 'unified'
-import type { Options } from './index.js'
 
 declare const reorgParse: Plugin<
-	[(Readonly<Options> | null | undefined)?],
+	[(Readonly<ParseOptions> | null | undefined)?],
 	string,
 	Document
 >
