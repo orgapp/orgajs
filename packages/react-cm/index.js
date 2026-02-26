@@ -26,7 +26,6 @@ export function ReactCodeMirror({
 
 	useEffect(() => {
 		if (!container.current || editor.current) return
-		console.log('mount editor')
 		const state = EditorState.create({
 			doc: content,
 			extensions
@@ -42,10 +41,15 @@ export function ReactCodeMirror({
 			}
 		})
 		editor.current = ed
-	}, [container.current])
+		return () => {
+			ed.destroy()
+			editor.current = undefined
+		}
+	}, [])
 
 	useEffect(() => {
 		if (!editor.current) return
+		if (editor.current.state.doc.toString() === content) return
 		editor.current.dispatch({
 			changes: {
 				from: 0,
@@ -53,7 +57,7 @@ export function ReactCodeMirror({
 				insert: content
 			}
 		})
-	}, [content, editor.current])
+	}, [content])
 
 	return jsx('div', { ref: container, className })
 }
