@@ -35,7 +35,7 @@ import { handlers as defaultHandlers } from './handlers/index.js'
  * @param {OastNodes} tree
  * @param {Partial<Config> | null | undefined} [options = {}]
  */
-export function createState(tree, options = {}) {
+export function createState(_tree, options = {}) {
 	/** @type {Handlers} */
 	let handlers = { ...defaultHandlers }
 	if (options?.handlers) {
@@ -123,7 +123,7 @@ export function createState(tree, options = {}) {
 
 /** @type {Handler} */
 function unkownHandler(state, node) {
-	if (node && node.children) {
+	if (node?.children) {
 		return {
 			type: 'element',
 			tagName: 'div',

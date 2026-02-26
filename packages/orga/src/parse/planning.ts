@@ -1,6 +1,6 @@
-import { Handler } from './index.js'
-import { PlanningKeyword } from '../types.js'
+import type { PlanningKeyword } from '../types.js'
 import drawer from './drawer.js'
+import type { Handler } from './index.js'
 
 const planning: Handler = {
 	name: 'planning',

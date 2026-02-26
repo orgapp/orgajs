@@ -54,7 +54,7 @@ export function toLezer(tree, nodeSet, file = null) {
 		throw new Error('no result')
 	}
 	const t = result.nodes[0]
-	const props = tree.properties
+	const _props = tree.properties
 	return t
 }
 

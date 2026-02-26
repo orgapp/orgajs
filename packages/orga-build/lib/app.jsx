@@ -1,7 +1,7 @@
-import pages from '/@orga-build/pages'
-import layouts from '/@orga-build/layouts'
+import { Link, Route, Switch } from 'wouter'
 import * as components from '/@orga-build/components'
-import { Route, Switch, Link } from 'wouter'
+import layouts from '/@orga-build/layouts'
+import pages from '/@orga-build/pages'
 
 export function App() {
 	const _pages = Object.entries(pages).map(([path, page]) => {
@@ -15,7 +15,9 @@ export function App() {
 		const layoutIds = Object.keys(layouts)
 			.filter((key) => path.startsWith(key))
 			.sort((a, b) => -a.localeCompare(b))
-		let element = <page.default components={{ ...components, Link, a: Link }} />
+		let element = (
+			<page.default key={path} components={{ ...components, Link, a: Link }} />
+		)
 		for (const layoutId of layoutIds) {
 			const Layout = layouts[layoutId]
 			element = (

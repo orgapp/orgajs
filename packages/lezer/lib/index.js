@@ -9,9 +9,10 @@
  * @property {import('@lezer/common').NodePropSource[] | undefined | null} props
  */
 
-import { Parser, NodeSet } from '@lezer/common'
+import { NodeSet, Parser } from '@lezer/common'
 import { parseContext } from './context.js'
 import { nodeSet } from './nodes.js'
+
 export { tags } from './nodes.js'
 
 export class OrgParser extends Parser {
@@ -49,7 +50,7 @@ export class OrgParser extends Parser {
 	 */
 	configure(config) {
 		let { nodeSet } = this
-		let nodeTypes = nodeSet.types.slice()
+		const nodeTypes = nodeSet.types.slice()
 
 		nodeSet = new NodeSet(nodeTypes)
 		if (config.props && config.props.length > 0) {

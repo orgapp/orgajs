@@ -5,11 +5,40 @@
  * @see https://html.spec.whatwg.org/multipage/grouping-content.html#the-p-element
  */
 const BLOCK_TAGS = new Set([
-	'address', 'article', 'aside', 'blockquote', 'details', 'dialog',
-	'dd', 'div', 'dl', 'dt', 'fieldset', 'figcaption', 'figure',
-	'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-	'header', 'hgroup', 'hr', 'li', 'main', 'nav', 'ol', 'p',
-	'pre', 'section', 'summary', 'table', 'ul',
+	'address',
+	'article',
+	'aside',
+	'blockquote',
+	'details',
+	'dialog',
+	'dd',
+	'div',
+	'dl',
+	'dt',
+	'fieldset',
+	'figcaption',
+	'figure',
+	'footer',
+	'form',
+	'h1',
+	'h2',
+	'h3',
+	'h4',
+	'h5',
+	'h6',
+	'header',
+	'hgroup',
+	'hr',
+	'li',
+	'main',
+	'nav',
+	'ol',
+	'p',
+	'pre',
+	'section',
+	'summary',
+	'table',
+	'ul'
 ])
 
 /**
@@ -25,7 +54,9 @@ export function paragraph(state, node) {
 	// with caption), wrapping in <p> produces invalid HTML and causes hydration
 	// errors in React. Unwrap single block children; use <div> for mixed content.
 	const hasBlock = children.some(
-		(child) => child.type === 'element' && BLOCK_TAGS.has(/** @type {import('hast').Element} */ (child).tagName)
+		(child) =>
+			child.type === 'element' &&
+			BLOCK_TAGS.has(/** @type {import('hast').Element} */ (child).tagName)
 	)
 
 	if (hasBlock) {
@@ -36,7 +67,7 @@ export function paragraph(state, node) {
 			type: 'element',
 			tagName: 'div',
 			properties: properties ?? {},
-			children,
+			children
 		})
 	}
 
@@ -44,6 +75,6 @@ export function paragraph(state, node) {
 		type: 'element',
 		tagName: 'p',
 		properties: properties ?? {},
-		children,
+		children
 	})
 }

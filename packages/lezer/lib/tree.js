@@ -1,5 +1,6 @@
 import { NodeProp, NodeType, Tree } from '@lezer/common'
 import { documentProp } from './handlers.js'
+
 // import { nodes } from './nodes.js'
 
 /**
@@ -52,7 +53,7 @@ export function treeBuilder(
 	 * @param {number} pos
 	 */
 	function addChild(child, pos) {
-		if (child.prop(NodeProp.contextHash) != _hash)
+		if (child.prop(NodeProp.contextHash) !== _hash)
 			child = new Tree(
 				child.type,
 				child.children,
@@ -104,7 +105,7 @@ export function treeBuilder(
 	 * @returns {Tree}
 	 */
 	function build(end = originalEnd) {
-		let last = children.length - 1
+		const last = children.length - 1
 		if (last >= 0)
 			end = Math.max(end, positions[last] + children[last].length + from)
 

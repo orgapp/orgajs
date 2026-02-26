@@ -38,7 +38,7 @@ export function shift(delta, recursive = false) {
 				changes.push(change)
 			}
 		} else {
-			let cursor = headline.cursor()
+			const cursor = headline.cursor()
 			const change = _shift(headline, delta)
 			if (change) {
 				changes.push(change)

@@ -43,8 +43,9 @@ export function item(state, node, parent) {
 			}
 		]
 
-		const allTagged =
-			parent?.children?.every((i) => i.type !== 'list.item' || i.tag)
+		const allTagged = parent?.children?.every(
+			(i) => i.type !== 'list.item' || i.tag
+		)
 
 		if (allTagged) {
 			// Pure definition list: return [<dt>, <dd>] to be flattened into <dl>

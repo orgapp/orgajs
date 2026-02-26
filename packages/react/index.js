@@ -57,17 +57,16 @@ const emptyObject = {}
  * @returns {React.JSX.Element}
  */
 export function OrgProvider({ components, children, disableParentContext }) {
-	/** @type {Components} */
-	let allComponents
-
-	if (disableParentContext) {
-		allComponents =
-			typeof components === 'function'
-				? components({})
-				: components || emptyObject
-	} else {
-		allComponents = useOrgComponents(components)
-	}
+	const contextComponents = React.useContext(OrgContext)
+	const allComponents = React.useMemo(() => {
+		const baseComponents = disableParentContext
+			? emptyObject
+			: contextComponents
+		if (typeof components === 'function') {
+			return components(baseComponents)
+		}
+		return { ...baseComponents, ...components }
+	}, [components, contextComponents, disableParentContext])
 
 	return React.createElement(
 		OrgContext.Provider,

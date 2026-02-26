@@ -1,11 +1,11 @@
-import { describe, it } from 'node:test'
 import * as assert from 'node:assert'
+import { describe, it } from 'node:test'
 import { parse } from '../index.js'
 
 describe('metadata parser', () => {
 	it('works', () => {
 		assert.deepEqual(parse('#+title: hello world'), {
-			title: 'hello world',
+			title: 'hello world'
 		})
 	})
 
@@ -16,7 +16,7 @@ describe('metadata parser', () => {
 #+include: ../file2.org
 `),
 			{
-				include: ['file1.org', '../file2.org'],
+				include: ['file1.org', '../file2.org']
 			}
 		)
 	})
@@ -29,7 +29,7 @@ describe('metadata parser', () => {
 `),
 			{
 				title: 'orga',
-				keywords: 'parser ast',
+				keywords: 'parser ast'
 			}
 		)
 	})
@@ -41,7 +41,7 @@ describe('metadata parser', () => {
 #+todo: DRAFT | PUBLISHED
 `),
 			{
-				todo: ['TODO NEXT | DONE', 'DRAFT | PUBLISHED'],
+				todo: ['TODO NEXT | DONE', 'DRAFT | PUBLISHED']
 			}
 		)
 	})
@@ -55,7 +55,7 @@ describe('metadata parser', () => {
 `),
 			{
 				include: ['./file1.org', './file2.org'],
-				desc: "it's good",
+				desc: "it's good"
 			}
 		)
 	})

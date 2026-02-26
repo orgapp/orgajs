@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { createServer } from 'vite'
-import { createOrgaBuildConfig, alias } from './plugin.js'
+import { alias, createOrgaBuildConfig } from './plugin.js'
 
 /**
  * Start the development server using native Vite.
@@ -38,7 +38,7 @@ export async function serve(config, port = 3000, projectRoot = process.cwd()) {
 			port,
 			strictPort: false,
 			watch: {
-				ignored: [path.resolve(config.outDir) + '/**']
+				ignored: [`${path.resolve(config.outDir)}/**`]
 			}
 		}
 	})

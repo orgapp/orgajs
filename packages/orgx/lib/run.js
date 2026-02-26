@@ -12,7 +12,7 @@ const AsyncFunction = Object.getPrototypeOf(run).constructor
  *   Anything.
  */
 export async function run(file, options) {
-  return new AsyncFunction(String(file))(options)
+	return new AsyncFunction(String(file))(options)
 }
 
 /**
@@ -26,6 +26,6 @@ export async function run(file, options) {
  *   Anything.
  */
 export function runSync(file, options) {
-  // eslint-disable-next-line no-new-func
-  return new Function(String(file))(options)
+	// eslint-disable-next-line no-new-func
+	return new Function(String(file))(options)
 }

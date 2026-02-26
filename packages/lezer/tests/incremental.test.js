@@ -1,9 +1,10 @@
 /**
  * @typedef {{from: number, to?: number, insert?: string}[]} ChangeSpec
  */
+
+import assert from 'node:assert'
 import { describe, it } from 'node:test'
 import { Tree, TreeFragment } from '@lezer/common'
-import assert from 'node:assert'
 import { parser } from '../lib/index.js'
 import { compareTree } from './compare-tree.js'
 
@@ -27,7 +28,7 @@ class State {
 	}
 
 	static start(doc) {
-		let tree = parser.parse(doc)
+		const tree = parser.parse(doc)
 		return new State(doc, tree, TreeFragment.addTree(tree))
 	}
 
@@ -39,20 +40,20 @@ class State {
 		let changed = [],
 			doc = this.doc,
 			off = 0
-		for (let { from, to = from, insert = '' } of changes) {
+		for (const { from, to = from, insert = '' } of changes) {
 			doc = doc.slice(0, from) + insert + doc.slice(to)
 			changed.push({
 				fromA: from - off,
 				toA: to - off,
 				fromB: from,
-				toB: from + insert.length,
+				toB: from + insert.length
 			})
 			off += insert.length - (to - from)
 		}
-		let fragments = TreeFragment.applyChanges(this.fragments, changed, 2)
+		const fragments = TreeFragment.applyChanges(this.fragments, changed, 2)
 		if (!reparse) return new State(doc, Tree.empty, fragments)
 		// return this
-		let tree = parser.parse(doc, fragments)
+		const tree = parser.parse(doc, fragments)
 		return new State(doc, tree, TreeFragment.addTree(tree, fragments))
 	}
 }
@@ -66,7 +67,7 @@ class State {
  */
 function testChange(change, verbose = false, reuse = 10) {
 	const state1 = State.start(doc)
-	let state = state1.update(change)
+	const state = state1.update(change)
 	const updatedDoc = state.doc
 	verbose && console.log('updatedDoc', updatedDoc)
 	compareTree(state.tree, parser.parse(updatedDoc))
@@ -119,7 +120,7 @@ describe('incremential parsing', () => {
 	})
 	it('reuses nodes from the previous parse', () => {
 		const state1 = State.start(doc)
-		let state = state1.update([{ from: 2, to: 8, insert: 'bears' }])
+		const state = state1.update([{ from: 2, to: 8, insert: 'bears' }])
 		const diff = overlap(state1.tree, state.tree)
 		assert.ok(diff > 90, `diff: ${diff}`)
 		console.log('hello test')

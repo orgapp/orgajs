@@ -44,12 +44,12 @@ export function parseTodoKeywords(value: string): TodoKeywordSet {
 	function next(value: string, reverse = false) {
 		const index = keywords.indexOf(value)
 		if (index === -1) return undefined
-		let nextIndex = _next(index, reverse)
+		const nextIndex = _next(index, reverse)
 		return keywords[nextIndex]
 	}
 
 	function _next(idx: number, reverse: boolean) {
-		let offset = reverse ? -1 : 1
+		const offset = reverse ? -1 : 1
 		let nextIndex = idx + offset
 		if (nextIndex < 0) nextIndex = keywords.length - 1
 		if (nextIndex >= keywords.length) nextIndex = 0

@@ -1,10 +1,10 @@
-import { Reader } from 'text-kit'
-import { Token } from '../types.js'
+import type { Reader } from 'text-kit'
+import type { TodoKeywordSet } from '../todo.js'
+import type { Token } from '../types.js'
 import { tokenize } from './inline/index.js'
-import { TodoKeywordSet } from '../todo.js'
 
 export default (todo: TodoKeywordSet) =>
-	(reader: Reader): Token[] | void => {
+	(reader: Reader): Token[] | undefined => {
 		const { isStartOfLine, match, now, eol, eat, jump, substring, endOfLine } =
 			reader
 

@@ -1,7 +1,7 @@
-import { test, describe, before, after } from 'node:test'
 import assert from 'node:assert'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { after, before, describe, test } from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { build } from '../build.js'
 
@@ -27,7 +27,10 @@ Here's [[file:./docs/index.org][index page]].
 Here's [[file:more.org][another page]].
 `
 		)
-		await fs.writeFile(path.join(fixtureDir, 'docs', 'index.org'), 'Docs index page.')
+		await fs.writeFile(
+			path.join(fixtureDir, 'docs', 'index.org'),
+			'Docs index page.'
+		)
 		await fs.writeFile(path.join(fixtureDir, 'more.org'), 'Another page.')
 		await fs.writeFile(
 			path.join(fixtureDir, 'style.css'),
@@ -62,7 +65,10 @@ Here's [[file:more.org][another page]].
 		const html = await fs.readFile(indexPath, 'utf-8')
 		assert.ok(html.includes('<title>Test Page</title>'), 'should have title')
 		assert.ok(html.includes('Hello World'), 'should have heading content')
-		assert.ok(html.includes('href="/docs"'), 'should rewrite docs/index.org to /docs')
+		assert.ok(
+			html.includes('href="/docs"'),
+			'should rewrite docs/index.org to /docs'
+		)
 		assert.ok(html.includes('href="/more"'), 'should rewrite more.org to /more')
 	})
 
@@ -87,10 +93,16 @@ Here's [[file:more.org][another page]].
 		})
 
 		const html = await fs.readFile(path.join(outDir, 'index.html'), 'utf-8')
-		assert.ok(!html.includes('href="/style.css"'), 'should not link raw source css path')
+		assert.ok(
+			!html.includes('href="/style.css"'),
+			'should not link raw source css path'
+		)
 
 		const cssHrefMatch = html.match(/href="\/(assets\/[^"]+\.css)"/)
-		assert.ok(cssHrefMatch, 'should link built css asset from assets with hashed name')
+		assert.ok(
+			cssHrefMatch,
+			'should link built css asset from assets with hashed name'
+		)
 
 		const builtCssPath = cssHrefMatch[1]
 		const builtCss = await fs.readFile(path.join(outDir, builtCssPath), 'utf-8')

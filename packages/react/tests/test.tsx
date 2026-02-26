@@ -9,29 +9,29 @@ import { renderToString } from 'react-dom/server'
 import { orga } from '../src'
 
 const run = async (value) => {
-  const processor = reorg().use(toHast).use(toEstree).use(toJsx)
+	const processor = reorg().use(toHast).use(toEstree).use(toJsx)
 
-  const doc = await processor.process(value)
+	const doc = await processor.process(value)
 
-  console.log({ doc })
+	console.log({ doc })
 
-  // …and that into serialized JS.
-  const { code } = await babelTransform(doc.toString('utf-8'), {
-    configFile: false,
-    plugins: ['@babel/plugin-transform-react-jsx', removeExport],
-  })
+	// …and that into serialized JS.
+	const { code } = await babelTransform(doc.toString('utf-8'), {
+		configFile: false,
+		plugins: ['@babel/plugin-transform-react-jsx', removeExport]
+	})
 
-  console.dir(code)
+	console.dir(code)
 
-  // …and finally run it, returning the component.
-  // eslint-disable-next-line no-new-func
-  return new Function('orga', `${code}; return OrgaContent`)(orga)
+	// …and finally run it, returning the component.
+	// eslint-disable-next-line no-new-func
+	return new Function('orga', `${code}; return OrgaContent`)(orga)
 }
 
 describe.skip('@orgajs/react', () => {
-  test('should work', async () => {
-    const Content = await run('* hi')
-    const string = renderToString(<Content />)
-    console.dir(string)
-  })
+	test('should work', async () => {
+		const Content = await run('* hi')
+		const string = renderToString(<Content />)
+		console.dir(string)
+	})
 })

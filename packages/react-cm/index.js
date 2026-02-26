@@ -1,7 +1,7 @@
-import { jsx } from 'react/jsx-runtime'
-import { useRef, useEffect } from 'react'
 import { EditorState } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
+import { useEffect, useRef } from 'react'
+import { jsx } from 'react/jsx-runtime'
 
 /**
  * A React component that renders an Orga editor.
@@ -45,7 +45,7 @@ export function ReactCodeMirror({
 			ed.destroy()
 			editor.current = undefined
 		}
-	}, [])
+	}, [content, extensions, onChange])
 
 	useEffect(() => {
 		if (!editor.current) return

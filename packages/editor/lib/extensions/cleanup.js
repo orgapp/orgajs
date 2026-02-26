@@ -9,8 +9,8 @@
  */
 import { syntaxTree } from '@codemirror/language'
 import { Decoration, ViewPlugin } from '@codemirror/view'
-import { settings } from '../settings'
 import { parseTodoKeywords } from 'orga/todo'
+import { settings } from '../settings'
 
 /**
  * @param {Range} a

@@ -1,76 +1,76 @@
-import { Reader } from 'text-kit'
-import { Tokenizer } from '../index.js'
-import { Token } from '../../types.js'
-import tokenizeLink from './link.js'
-import tokenizeText from './text.js'
-import tokenizeMath from './math.js'
+import type { Reader } from 'text-kit'
+import type { Token } from '../../types.js'
+import type { Tokenizer } from '../index.js'
 import tokenizeFootnoteRef from './footnote.js'
+import tokenizeLink from './link.js'
+import tokenizeMath from './math.js'
+import tokenizeText from './text.js'
 
 const ALL: Tokenizer[] = [
-  tokenizeFootnoteRef,
-  tokenizeLink,
-  tokenizeMath,
-  tokenizeText(),
+	tokenizeFootnoteRef,
+	tokenizeLink,
+	tokenizeMath,
+	tokenizeText()
 ]
 
 export const tokenize = (
-  reader: Reader,
-  tokenizers: Tokenizer[] = ALL,
-  { ignoring }: { ignoring: string[] } = { ignoring: [] }
+	reader: Reader,
+	tokenizers: Tokenizer[] = ALL,
+	{ ignoring }: { ignoring: string[] } = { ignoring: [] }
 ): Token[] => {
-  const { now, eat, jump, substring, getChar, toPoint } = reader
+	const { now, eat, jump, substring, getChar, toPoint } = reader
 
-  const _tokens: Token[] = []
+	const _tokens: Token[] = []
 
-  let cursor = now().offset
+	let cursor = now().offset
 
-  const push = (...tokens: Token[]) => {
-    if (tokens.length === 0) return
-    // collect plain text
-    const textEnd = tokens[0].position.start
-    if (cursor < textEnd.offset) {
-      _tokens.push({
-        type: 'text',
-        value: substring(cursor, textEnd),
-        position: { start: toPoint(cursor), end: { ...textEnd } },
-      })
-    }
+	const push = (...tokens: Token[]) => {
+		if (tokens.length === 0) return
+		// collect plain text
+		const textEnd = tokens[0].position.start
+		if (cursor < textEnd.offset) {
+			_tokens.push({
+				type: 'text',
+				value: substring(cursor, textEnd),
+				position: { start: toPoint(cursor), end: { ...textEnd } }
+			})
+		}
 
-    cursor = tokens[tokens.length - 1].position.end.offset
-    _tokens.push(...tokens)
-  }
+		cursor = tokens[tokens.length - 1].position.end.offset
+		_tokens.push(...tokens)
+	}
 
-  main: while (getChar()) {
-    const newline = eat('newline')
-    if (newline) {
-      push({
-        type: 'newline',
-        position: newline.position,
-      })
-      break // newline breaks inline
-    }
+	main: while (getChar()) {
+		const newline = eat('newline')
+		if (newline) {
+			push({
+				type: 'newline',
+				position: newline.position
+			})
+			break // newline breaks inline
+		}
 
-    for (const t of tokenizers) {
-      const r = reader.read()
-      const tokens = t(r)
-      if (tokens) {
-        push(...(Array.isArray(tokens) ? tokens : [tokens]))
-        jump(r.now())
-        continue main
-      }
-    }
+		for (const t of tokenizers) {
+			const r = reader.read()
+			const tokens = t(r)
+			if (tokens) {
+				push(...(Array.isArray(tokens) ? tokens : [tokens]))
+				jump(r.now())
+				continue main
+			}
+		}
 
-    eat()
-  }
+		eat()
+	}
 
-  if (cursor < now().offset) {
-    const value = substring(cursor, reader.now())
-    _tokens.push({
-      type: 'text',
-      value,
-      position: { start: toPoint(cursor), end: reader.now() },
-    })
-  }
+	if (cursor < now().offset) {
+		const value = substring(cursor, reader.now())
+		_tokens.push({
+			type: 'text',
+			value,
+			position: { start: toPoint(cursor), end: reader.now() }
+		})
+	}
 
-  return _tokens
+	return _tokens
 }

@@ -1,5 +1,5 @@
 import { read } from 'text-kit'
-import { LexerOptions, defaultLexerOptions } from '../../options'
+import { defaultLexerOptions, type LexerOptions } from '../../options'
 import { tokenize } from '../index'
 
 export default (text: string, options: Partial<LexerOptions> = {}) => {

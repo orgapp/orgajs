@@ -1,54 +1,54 @@
-import { Reader } from 'text-kit'
-import { Token } from '../../types.js'
+import type { Reader } from 'text-kit'
+import type { Token } from '../../types.js'
 import { tokenize } from './index.js'
 
 const tokFootnoteRefernece = (reader: Reader) => {
-  const tokens: Token[] = []
+	const tokens: Token[] = []
 
-  const { eat, now, jump } = reader
-  const fnb = eat(/^\[fn:/)
-  if (!fnb) return
-  tokens.push({
-    type: 'opening',
-    element: 'footnote.reference',
-    position: fnb.position,
-  })
-  const closing = reader.findClosing(fnb.position.start)
-  if (!closing) return
-  const label = eat(/^[\w_-]+/)
-  if (label) {
-    tokens.push({
-      type: 'footnote.label',
-      label: label.value,
-      position: label.position,
-    })
-  }
-  if (label && now().offset === closing.offset) {
-    tokens.push({
-      type: 'closing',
-      element: 'footnote.reference',
-      position: eat().position,
-    })
-    return tokens
-  }
+	const { eat, now, jump } = reader
+	const fnb = eat(/^\[fn:/)
+	if (!fnb) return
+	tokens.push({
+		type: 'opening',
+		element: 'footnote.reference',
+		position: fnb.position
+	})
+	const closing = reader.findClosing(fnb.position.start)
+	if (!closing) return
+	const label = eat(/^[\w_-]+/)
+	if (label) {
+		tokens.push({
+			type: 'footnote.label',
+			label: label.value,
+			position: label.position
+		})
+	}
+	if (label && now().offset === closing.offset) {
+		tokens.push({
+			type: 'closing',
+			element: 'footnote.reference',
+			position: eat().position
+		})
+		return tokens
+	}
 
-  if (!eat(/^:/)) return
-  const defRange = {
-    start: now(),
-    end: closing,
-  }
+	if (!eat(/^:/)) return
+	const defRange = {
+		start: now(),
+		end: closing
+	}
 
-  const more = tokenize(reader.read(defRange))
-  tokens.push(...more)
-  jump(closing)
+	const more = tokenize(reader.read(defRange))
+	tokens.push(...more)
+	jump(closing)
 
-  tokens.push({
-    type: 'closing',
-    element: 'footnote.reference',
-    position: eat().position,
-  })
+	tokens.push({
+		type: 'closing',
+		element: 'footnote.reference',
+		position: eat().position
+	})
 
-  return tokens
+	return tokens
 }
 
 export default tokFootnoteRefernece

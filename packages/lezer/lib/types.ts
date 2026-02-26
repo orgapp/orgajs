@@ -1,7 +1,7 @@
-import { Document, Content, Parent as OastParent, Token } from 'orga'
-import { Tree as LezerTree, NodeSet } from '@lezer/common'
-import { Position } from 'unist'
-import { type VFile } from 'vfile'
+import type { Tree as LezerTree, NodeSet } from '@lezer/common'
+import type { Content, Document, Parent as OastParent, Token } from 'orga'
+import type { Position } from 'unist'
+import type { VFile } from 'vfile'
 
 export type OastNode = Document | Content | Token
 

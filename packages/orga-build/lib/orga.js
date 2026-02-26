@@ -39,7 +39,8 @@ function mediaAssets() {
 			if (typeof src !== 'string') return
 			if (src.startsWith('http')) return
 			const tagName = node.tagName
-			const name = (imports[src] ??= `asset_${genId()}`)
+			if (!imports[src]) imports[src] = `asset_${genId()}`
+			const name = imports[src]
 			const attrs = Object.entries(rest)
 				.filter(([, v]) => v !== undefined && v !== false)
 				.map(([k, v]) => (v === true ? k : `${k}='${v}'`))
@@ -80,7 +81,7 @@ function rehypeWrap({ className = [] }) {
 					properties: {
 						className
 					},
-					// @ts-ignore
+					// @ts-expect-error
 					children: tree.children
 				}
 			]
@@ -131,7 +132,10 @@ function resolveOrgHrefToContentSlug({ root, filePath, href }) {
 		: path.resolve(path.dirname(filePath), decodedHrefPath)
 
 	const relativeTargetPath = path.relative(root, absoluteTargetPath)
-	if (relativeTargetPath.startsWith('..') || path.isAbsolute(relativeTargetPath)) {
+	if (
+		relativeTargetPath.startsWith('..') ||
+		path.isAbsolute(relativeTargetPath)
+	) {
 		return null
 	}
 

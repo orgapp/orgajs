@@ -15,15 +15,15 @@ import { VFile } from 'vfile'
  * @returns {{file: VFile, options: ProcessorOptions}}
  */
 export function resolveFileAndOptions(vfileCompatible, options) {
-  const file = looksLikeAVFile(vfileCompatible)
-    ? vfileCompatible
-    : new VFile(vfileCompatible)
-  return {
-    file,
-    options: {
-      ...options,
-    },
-  }
+	const file = looksLikeAVFile(vfileCompatible)
+		? vfileCompatible
+		: new VFile(vfileCompatible)
+	return {
+		file,
+		options: {
+			...options
+		}
+	}
 }
 
 /**
@@ -31,10 +31,10 @@ export function resolveFileAndOptions(vfileCompatible, options) {
  * @returns {value is VFile}
  */
 function looksLikeAVFile(value) {
-  return Boolean(
-    value &&
-      typeof value === 'object' &&
-      'message' in value &&
-      'messages' in value
-  )
+	return Boolean(
+		value &&
+			typeof value === 'object' &&
+			'message' in value &&
+			'messages' in value
+	)
 }

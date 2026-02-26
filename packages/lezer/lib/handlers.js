@@ -28,7 +28,7 @@ export const documentProp = new NodeProp({
  * @type {Handlers}
  */
 export const handlers = {
-	document: (s, doc) => {
+	document: (_s, doc) => {
 		if (doc.type !== 'document') {
 			return false
 		}
@@ -37,7 +37,7 @@ export const handlers = {
 			props: [[documentProp, doc.properties]]
 		}
 	},
-	headline: (s, node) => {
+	headline: (_s, node) => {
 		if (node.type === 'headline') {
 			return {
 				id: nodes.headline,

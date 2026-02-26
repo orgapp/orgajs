@@ -12,7 +12,7 @@ import mime from 'mime'
 export function link(state, node) {
 	const type = mime.getType(node.path.value)
 
-	if (type && type.startsWith('image')) {
+	if (type?.startsWith('image')) {
 		/** @type {Element} */
 		const image = {
 			type: 'element',
@@ -25,7 +25,7 @@ export function link(state, node) {
 		}
 		/** @type {Element|null} */
 		let cap = null
-		const c = node.attributes['caption']
+		const c = node.attributes.caption
 		if (c) {
 			cap = {
 				type: 'element',
@@ -58,7 +58,7 @@ export function link(state, node) {
 		return state.patch(node, image)
 	}
 
-	if (type && type.startsWith('video')) {
+	if (type?.startsWith('video')) {
 		/** @type {Element} */
 		const video = {
 			type: 'element',
@@ -71,7 +71,7 @@ export function link(state, node) {
 		}
 		/** @type {Element|null} */
 		let cap = null
-		const c = node.attributes['caption']
+		const c = node.attributes.caption
 		if (c) {
 			cap = {
 				type: 'element',

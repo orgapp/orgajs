@@ -9,7 +9,7 @@
  * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
  */
 
-import {create} from './estree-util-create.js'
+import { create } from './estree-util-create.js'
 
 /**
  * @param {Array<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier | ExportSpecifier>} specifiers
@@ -17,78 +17,78 @@ import {create} from './estree-util-create.js'
  * @returns {Array<VariableDeclarator>}
  */
 export function specifiersToDeclarations(specifiers, init) {
-  let index = -1
-  /** @type {Array<VariableDeclarator>} */
-  const declarations = []
-  /** @type {Array<ImportSpecifier | ImportDefaultSpecifier | ExportSpecifier>} */
-  const otherSpecifiers = []
-  // Can only be one according to JS syntax.
-  /** @type {ImportNamespaceSpecifier | undefined} */
-  let importNamespaceSpecifier
+	let index = -1
+	/** @type {Array<VariableDeclarator>} */
+	const declarations = []
+	/** @type {Array<ImportSpecifier | ImportDefaultSpecifier | ExportSpecifier>} */
+	const otherSpecifiers = []
+	// Can only be one according to JS syntax.
+	/** @type {ImportNamespaceSpecifier | undefined} */
+	let importNamespaceSpecifier
 
-  while (++index < specifiers.length) {
-    const specifier = specifiers[index]
+	while (++index < specifiers.length) {
+		const specifier = specifiers[index]
 
-    if (specifier.type === 'ImportNamespaceSpecifier') {
-      importNamespaceSpecifier = specifier
-    } else {
-      otherSpecifiers.push(specifier)
-    }
-  }
+		if (specifier.type === 'ImportNamespaceSpecifier') {
+			importNamespaceSpecifier = specifier
+		} else {
+			otherSpecifiers.push(specifier)
+		}
+	}
 
-  if (importNamespaceSpecifier) {
-    /** @type {VariableDeclarator} */
-    const declarator = {
-      type: 'VariableDeclarator',
-      id: importNamespaceSpecifier.local,
-      init
-    }
-    create(importNamespaceSpecifier, declarator)
-    declarations.push(declarator)
-  }
+	if (importNamespaceSpecifier) {
+		/** @type {VariableDeclarator} */
+		const declarator = {
+			type: 'VariableDeclarator',
+			id: importNamespaceSpecifier.local,
+			init
+		}
+		create(importNamespaceSpecifier, declarator)
+		declarations.push(declarator)
+	}
 
-  declarations.push({
-    type: 'VariableDeclarator',
-    id: {
-      type: 'ObjectPattern',
-      properties: otherSpecifiers.map((specifier) => {
-        /** @type {Identifier} */
-        // @ts-expect-error: fine.
-        let key =
-          specifier.type === 'ImportSpecifier'
-            ? specifier.imported
-            : specifier.type === 'ExportSpecifier'
-            ? specifier.exported
-            : {type: 'Identifier', name: 'default'}
-        let value = specifier.local
+	declarations.push({
+		type: 'VariableDeclarator',
+		id: {
+			type: 'ObjectPattern',
+			properties: otherSpecifiers.map((specifier) => {
+				/** @type {Identifier} */
+				// @ts-expect-error: fine.
+				let key =
+					specifier.type === 'ImportSpecifier'
+						? specifier.imported
+						: specifier.type === 'ExportSpecifier'
+							? specifier.exported
+							: { type: 'Identifier', name: 'default' }
+				let value = specifier.local
 
-        // Switch them around if we’re exporting.
-        if (specifier.type === 'ExportSpecifier') {
-          value = key
-          // @ts-expect-error: fine.
-          key = specifier.local
-        }
+				// Switch them around if we’re exporting.
+				if (specifier.type === 'ExportSpecifier') {
+					value = key
+					// @ts-expect-error: fine.
+					key = specifier.local
+				}
 
-        /** @type {AssignmentProperty} */
-        const property = {
-          type: 'Property',
-          kind: 'init',
-          // @ts-expect-error: fine.
-          shorthand: key.name === value.name,
-          method: false,
-          computed: false,
-          key,
-          // @ts-expect-error: fine.
-          value
-        }
-        create(specifier, property)
-        return property
-      })
-    },
-    init: importNamespaceSpecifier
-      ? {type: 'Identifier', name: importNamespaceSpecifier.local.name}
-      : init
-  })
+				/** @type {AssignmentProperty} */
+				const property = {
+					type: 'Property',
+					kind: 'init',
+					// @ts-expect-error: fine.
+					shorthand: key.name === value.name,
+					method: false,
+					computed: false,
+					key,
+					// @ts-expect-error: fine.
+					value
+				}
+				create(specifier, property)
+				return property
+			})
+		},
+		init: importNamespaceSpecifier
+			? { type: 'Identifier', name: importNamespaceSpecifier.local.name }
+			: init
+	})
 
-  return declarations
+	return declarations
 }

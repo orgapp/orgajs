@@ -8,8 +8,8 @@
  * @typedef {import('./lib/types.js').OrgProps} OrgProps
  */
 
-export { createProcessor } from './lib/core.js'
 export { compile, compileSync } from './lib/compile.js'
+export { createProcessor } from './lib/core.js'
 export { evaluate, evaluateSync } from './lib/evaluate.js'
 export { run, runSync } from './lib/run.js'
 export { isOrgContent } from './lib/util/is-org-content.js'

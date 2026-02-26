@@ -1,17 +1,17 @@
-import { Lexer } from '../tokenize/index.js'
-import { Node } from 'unist'
-import { Document, Parent, Settings, Token } from '../types.js'
+import type { Node } from 'unist'
+import type { ParserOptions } from '../options.js'
+import type { Lexer } from '../tokenize/index.js'
+import type { Document, Parent, Settings, Token } from '../types.js'
 import { isPhrasingContent } from '../utils.js'
 import block from './block.js'
-import latex from './latex.js'
-import { Context, createContext } from './context.js'
+import { type Context, createContext } from './context.js'
+import footnote from './footnote.js'
 import keyword from './keyword.js'
+import latex from './latex.js'
 import list from './list.js'
 import paragraph from './paragraph.js'
 import section from './section.js'
 import table from './table.js'
-import footnote from './footnote.js'
-import { ParserOptions } from '../options.js'
 
 export type Parse = (lexer: Lexer) => Parent | undefined
 
@@ -25,7 +25,7 @@ type FlowControl = 'break' | 'next' | 'finish'
 export type Action = (
 	token: Token,
 	context: Context
-) => FlowControl | Handler | void
+) => FlowControl | Handler | undefined
 
 export type Predicate = string | 'EOF' | RegExp | ((token: Node) => boolean)
 

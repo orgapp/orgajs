@@ -16,7 +16,7 @@ const TO_DISCARD = [
 	'begin',
 	'end', // blocks
 	'call', // call
-	'jsx', // orga's jsx support
+	'jsx' // orga's jsx support
 ]
 
 /**
@@ -56,9 +56,11 @@ function pushTo(data) {
 
 		const existing = data[key]
 		if (existing) {
-			Array.isArray(existing)
-				? existing.push(value)
-				: (data[key] = [existing, value])
+			if (Array.isArray(existing)) {
+				existing.push(value)
+			} else {
+				data[key] = [existing, value]
+			}
 		} else {
 			data[key] = value
 		}

@@ -1,21 +1,21 @@
-import { read, Reader } from 'text-kit'
-import { Point, Position } from 'unist'
+import { type Reader, read } from 'text-kit'
+import type { Point, Position } from 'unist'
 import type { LexerOptions } from '../options.js'
-import { Token } from '../types.js'
+import type { TodoManager } from '../todo.js'
+import type { Token } from '../types.js'
 import block from './block.js'
-import latex from './latex.js'
 import comment from './comment.js'
 import drawer from './drawer.js'
+import emptyLines from './empty.js'
 import footnote from './footnote.js'
 import headline from './headline.js'
 import hr from './hr.js'
 import { tokenize as inlineTok } from './inline/index.js'
 import keyword from './keyword.js'
+import latex from './latex.js'
 import listItem from './list.js'
 import planning from './planning.js'
 import table from './table.js'
-import emptyLines from './empty.js'
-import { TodoManager } from '../todo.js'
 
 const PLANNING_KEYWORDS = ['DEADLINE', 'SCHEDULED', 'CLOSED']
 
@@ -36,7 +36,7 @@ export interface Lexer {
 	readonly todo: TodoManager
 }
 
-export type Tokenizer = (reader: Reader) => Token[] | Token | void
+export type Tokenizer = (reader: Reader) => Token[] | Token | undefined
 
 export const tokenize = (text: string, options: LexerOptions): Lexer => {
 	const { timezone, range, todo } = options
@@ -125,7 +125,7 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
 			}
 			return count
 		},
-		match(cond, offset = 0) {
+		match(cond, _offset = 0) {
 			const token = peek()
 			if (!token) return false
 			if (typeof cond === 'string') {
@@ -134,7 +134,7 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
 			return cond.test(token.type)
 		},
 
-		all(max: number | undefined = undefined): Token[] {
+		all(_max: number | undefined = undefined): Token[] {
 			let _all: Token[] = []
 			let tokens = tok()
 			while (tokens.length > 0) {

@@ -34,51 +34,51 @@ import { handlers, ignore } from './handlers/index.js'
  * @returns {State}
  */
 export function createParseState(file, options) {
-  /** @type {State} */
-  const state = {
-    handlers: { ...handlers },
-    ignored: [...ignore],
-    schema: options.schema,
-    inParagraph: false,
-    ignore(...types) {
-      this.ignored.push(...types)
-    },
-    unignore(...types) {
-      this.ignored = this.ignored.filter((type) => !types.includes(type))
-    },
-    one(node, parent) {
-      if (this.ignored.includes(node.type)) {
-        return null
-      }
-      const handler = this.handlers[node.type]
-      if (handler) {
-        return handler(this, node, parent)
-      }
-      return defaultUnknownHandler(this, node, file)
-    },
-    all(parent) {
-      /** @type {Array<ProseNode>} */
-      const values = []
+	/** @type {State} */
+	const state = {
+		handlers: { ...handlers },
+		ignored: [...ignore],
+		schema: options.schema,
+		inParagraph: false,
+		ignore(...types) {
+			this.ignored.push(...types)
+		},
+		unignore(...types) {
+			this.ignored = this.ignored.filter((type) => !types.includes(type))
+		},
+		one(node, parent) {
+			if (this.ignored.includes(node.type)) {
+				return null
+			}
+			const handler = this.handlers[node.type]
+			if (handler) {
+				return handler(this, node, parent)
+			}
+			return defaultUnknownHandler(this, node, file)
+		},
+		all(parent) {
+			/** @type {Array<ProseNode>} */
+			const values = []
 
-      if ('children' in parent) {
-        const nodes = parent.children
-        let index = -1
-        while (++index < nodes.length) {
-          const node = this.one(nodes[index], parent)
-          if (node) {
-            if (Array.isArray(node)) {
-              values.push(...node)
-            } else {
-              values.push(node)
-            }
-          }
-        }
-      }
-      return values
-    },
-  }
+			if ('children' in parent) {
+				const nodes = parent.children
+				let index = -1
+				while (++index < nodes.length) {
+					const node = this.one(nodes[index], parent)
+					if (node) {
+						if (Array.isArray(node)) {
+							values.push(...node)
+						} else {
+							values.push(node)
+						}
+					}
+				}
+			}
+			return values
+		}
+	}
 
-  return state
+	return state
 }
 
 /**
@@ -93,24 +93,24 @@ export function createParseState(file, options) {
  *   Resulting pose node.
  */
 function defaultUnknownHandler(state, node, file) {
-  console.log('unknown node', node)
-  if ('value' in node) {
-    const raw = state.schema.text(
-      getRawContent(node, file) || 'cannot find raw',
-      [state.schema.mark('raw', { type: node.type })]
-    )
-    if (!state.inParagraph) {
-      return state.schema.node('paragraph', null, [raw])
-    }
-    return raw
-  }
-  if ('children' in node) {
-    return state.all(node)
-  }
+	console.log('unknown node', node)
+	if ('value' in node) {
+		const raw = state.schema.text(
+			getRawContent(node, file) || 'cannot find raw',
+			[state.schema.mark('raw', { type: node.type })]
+		)
+		if (!state.inParagraph) {
+			return state.schema.node('paragraph', null, [raw])
+		}
+		return raw
+	}
+	if ('children' in node) {
+		return state.all(node)
+	}
 
-  // return state.schema.node('error', null, [
-  //   state.schema.text(`unknown node: ${node.type}`),
-  // ])
+	// return state.schema.node('error', null, [
+	//   state.schema.text(`unknown node: ${node.type}`),
+	// ])
 }
 
 /**
@@ -120,15 +120,15 @@ function defaultUnknownHandler(state, node, file) {
  * @returns {string | null}
  */
 function getRawContent(node, file) {
-  if (node.position) {
-    const content = file.value.slice(
-      node.position.start.offset,
-      node.position.end.offset
-    )
-    if (typeof content !== 'string') {
-      throw new Error('content is not a string')
-    }
-    return content
-  }
-  return null
+	if (node.position) {
+		const content = file.value.slice(
+			node.position.start.offset,
+			node.position.end.offset
+		)
+		if (typeof content !== 'string') {
+			throw new Error('content is not a string')
+		}
+		return content
+	}
+	return null
 }

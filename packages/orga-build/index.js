@@ -1,2 +1,2 @@
 export { build } from './lib/build.js'
-export { orgaBuildPlugin, createOrgaBuildConfig, alias } from './lib/plugin.js'
+export { alias, createOrgaBuildConfig, orgaBuildPlugin } from './lib/plugin.js'

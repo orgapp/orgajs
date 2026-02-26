@@ -8,6 +8,6 @@
  * @returns {ProseNode | Array<ProseNode> | null | undefined}
  */
 export function section(state, node) {
-  const n = state.schema.node('section', null, state.all(node))
-  return n
+	const n = state.schema.node('section', null, state.all(node))
+	return n
 }

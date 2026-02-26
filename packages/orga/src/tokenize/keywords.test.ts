@@ -1,5 +1,5 @@
-import { describe, it } from 'node:test'
 import assert from 'node:assert'
+import { describe, it } from 'node:test'
 import tokenize from './__tests__/tok'
 
 describe('tokenize keywords', () => {

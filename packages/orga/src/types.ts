@@ -1,6 +1,6 @@
 import type {
-	Literal as UnistLiteral,
 	Node,
+	Literal as UnistLiteral,
 	Parent as UnistParent
 } from 'unist'
 

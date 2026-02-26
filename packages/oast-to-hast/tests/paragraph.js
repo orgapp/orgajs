@@ -1,13 +1,12 @@
-import test from 'node:test'
 import * as assert from 'node:assert'
-import { toHast } from '../index.js'
-
+import test from 'node:test'
 import { h } from 'hastscript'
+import { toHast } from '../index.js'
 
 test('paragraph with text', async () => {
 	const hast = toHast({
 		type: 'paragraph',
-		children: [{ type: 'text', value: 'Hello' }],
+		children: [{ type: 'text', value: 'Hello' }]
 	})
 
 	assert.deepEqual(hast, h('p', 'Hello'))
@@ -19,8 +18,8 @@ test('paragraph newline is rendered as a space', async () => {
 		children: [
 			{ type: 'text', value: 'foo' },
 			{ type: 'newline' },
-			{ type: 'text', value: 'bar' },
-		],
+			{ type: 'text', value: 'bar' }
+		]
 	})
 
 	assert.deepEqual(hast, h('p', ['foo', ' ', 'bar']))
@@ -36,16 +35,16 @@ test('paragraph with single media figure unwraps to figure', async () => {
 				type: 'link',
 				path: { value: 'demo.mp4' },
 				attributes: { caption: 'A demo video' },
-				children: [],
-			},
-		],
+				children: []
+			}
+		]
 	})
 
 	assert.deepEqual(
 		hast,
 		h('figure', [
 			h('video', { src: 'demo.mp4', controls: true }),
-			h('figcaption', 'A demo video'),
+			h('figcaption', 'A demo video')
 		])
 	)
 })
@@ -60,9 +59,9 @@ test('paragraph with text and media figure wraps in div', async () => {
 				type: 'link',
 				path: { value: 'demo.mp4' },
 				attributes: { caption: 'A demo video' },
-				children: [],
-			},
-		],
+				children: []
+			}
+		]
 	})
 
 	assert.deepEqual(
@@ -71,8 +70,8 @@ test('paragraph with text and media figure wraps in div', async () => {
 			{ type: 'text', value: 'Caption: ' },
 			h('figure', [
 				h('video', { src: 'demo.mp4', controls: true }),
-				h('figcaption', 'A demo video'),
-			]),
+				h('figcaption', 'A demo video')
+			])
 		])
 	)
 })

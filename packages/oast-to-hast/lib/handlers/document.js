@@ -7,6 +7,6 @@ export function document(state, node) {
 	return {
 		type: 'root',
 		data: node.properties,
-		children: state.all(node),
+		children: state.all(node)
 	}
 }

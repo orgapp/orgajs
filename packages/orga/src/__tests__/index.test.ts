@@ -1,7 +1,7 @@
-import { describe, it } from 'node:test'
 import assert from 'node:assert'
-import { lstatSync, promises as fs, readdirSync } from 'fs'
-import * as path from 'path'
+import { promises as fs, lstatSync, readdirSync } from 'node:fs'
+import * as path from 'node:path'
+import { describe, it } from 'node:test'
 import { parse } from '../index.js'
 
 const specs: { name: string; input: string; output: string }[] = []
@@ -50,7 +50,7 @@ function removeUndefined(obj: any) {
 	return obj
 }
 
-const dateReviver = (key: string, value: any) => {
+const dateReviver = (_key: string, value: any) => {
 	if (typeof value === 'string') {
 		const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/
 		if (isoDateRegex.test(value)) {

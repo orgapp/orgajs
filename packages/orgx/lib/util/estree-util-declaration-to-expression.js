@@ -16,17 +16,17 @@
  *   Expression.
  */
 export function declarationToExpression(declaration) {
-  if (declaration.type === 'FunctionDeclaration') {
-    return {...declaration, type: 'FunctionExpression'}
-  }
+	if (declaration.type === 'FunctionDeclaration') {
+		return { ...declaration, type: 'FunctionExpression' }
+	}
 
-  if (declaration.type === 'ClassDeclaration') {
-    return {...declaration, type: 'ClassExpression'}
-    /* Internal utility so the next shouldn’t happen or a maintainer is making a
-     * mistake. */
-    /* c8 ignore next 4 */
-  }
+	if (declaration.type === 'ClassDeclaration') {
+		return { ...declaration, type: 'ClassExpression' }
+		/* Internal utility so the next shouldn’t happen or a maintainer is making a
+		 * mistake. */
+		/* c8 ignore next 4 */
+	}
 
-  // Probably `VariableDeclaration`.
-  throw new Error('Cannot turn `' + declaration.type + '` into an expression')
+	// Probably `VariableDeclaration`.
+	throw new Error(`Cannot turn \`${declaration.type}\` into an expression`)
 }

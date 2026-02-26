@@ -31,16 +31,16 @@
  *   Configuration for processor.
  */
 
-import { unified } from 'unified'
 import reorgParse from '@orgajs/reorg-parse'
+import reorgRehype from '@orgajs/reorg-rehype'
 import recmaBuildJsx from 'recma-build-jsx'
 import recmaJsx from 'recma-jsx'
 import recmaStringify from 'recma-stringify'
-import reorgRehype from '@orgajs/reorg-rehype'
+import { unified } from 'unified'
+import { recmaBuildJsxTransform } from './plugin/recma-build-jsx-transform.js'
 import { recmaDocument } from './plugin/recma-document.js'
 import { recmaJsxRewrite } from './plugin/recma-jsx-rewrite.js'
 import rehypeRecma from './plugin/rehype-recma.js'
-import { recmaBuildJsxTransform } from './plugin/recma-build-jsx-transform.js'
 
 /**
  * Pipeline to:
@@ -77,7 +77,7 @@ export function createProcessor(options) {
 		.use(reorgPlugins || [])
 		.use(reorgRehype, {
 			...reorgRehypeOptions,
-			allowDangerousHtml: true,
+			allowDangerousHtml: true
 		})
 		.use(rehypePlugins || [])
 		.use(rehypeRecma, { elementAttributeNameCase, stylePropertyNameCase })
@@ -85,7 +85,7 @@ export function createProcessor(options) {
 		.use(recmaJsxRewrite, {
 			development: dev,
 			providerImportSource,
-			outputFormat,
+			outputFormat
 		})
 
 	if (!jsx) {

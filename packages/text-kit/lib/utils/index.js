@@ -2,8 +2,8 @@
  * @import {CoreAPI} from '../core.js'
  */
 
-import substring from './substring.js'
 import lines from './lines.js'
+import substring from './substring.js'
 
 /**
  * @param {CoreAPI} core

@@ -16,7 +16,7 @@ export function table(state, node) {
 	)
 
 	/** @type {ElementContent[]} */
-	let headRows = []
+	const headRows = []
 	/** @type {ElementContent[]} */
 	const bodyRows = []
 	rows.forEach((row, i) => {

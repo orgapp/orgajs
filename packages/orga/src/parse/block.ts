@@ -1,5 +1,5 @@
-import { Action, Handler } from './index.js'
-import { BlockBegin, BlockEnd } from '../types.js'
+import type { BlockBegin, BlockEnd } from '../types.js'
+import type { Action, Handler } from './index.js'
 
 const block: Action = (begin: BlockBegin, ctx): Handler => {
 	ctx.save()

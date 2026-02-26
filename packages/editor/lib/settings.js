@@ -29,9 +29,9 @@ export const settings = StateField.define({
  * @return {Settings}
  */
 function extractSettings(state) {
-	let tree = syntaxTree(state)
+	const tree = syntaxTree(state)
 	/** @type {Settings} */
-	let settings = {
+	const settings = {
 		todo: 'TODO DONE'
 	}
 	tree.iterate({

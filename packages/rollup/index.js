@@ -49,10 +49,10 @@
  *   Configuration.
  */
 
-import { VFile } from 'vfile'
-import { createFilter } from '@rollup/pluginutils'
 import { createProcessor } from '@orgajs/orgx'
+import { createFilter } from '@rollup/pluginutils'
 import { SourceMapGenerator } from 'source-map'
+import { VFile } from 'vfile'
 
 /**
  * Compile org-mode w/ rollup.
@@ -70,7 +70,7 @@ export default function rollup(options) {
 
 	return {
 		name: '@orgajs/rollup',
-		config(config, env) {
+		config(_config, env) {
 			processor = createProcessor({
 				SourceMapGenerator,
 				development: env.mode === 'development',

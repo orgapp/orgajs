@@ -1,20 +1,20 @@
-import test from 'node:test'
 import * as assert from 'node:assert'
+import test from 'node:test'
 import { compile } from './compiler.js'
 
 test('basic org-mode parsing', async () => {
-  const stats = await compile('fixture.org', {
-    name: 'Alice',
-  })
+	const stats = await compile('fixture.org', {
+		name: 'Alice'
+	})
 
-  // wait for 3 seconds
-  await new Promise((resolve) => setTimeout(resolve, 3000))
-  console.log('after the wait')
+	// wait for 3 seconds
+	await new Promise((resolve) => setTimeout(resolve, 3000))
+	console.log('after the wait')
 
-  const output = `${stats.toJson({ source: true }).modules[0].source}`
-  assert.equal(
-    output.trim(),
-    `
+	const output = `${stats.toJson({ source: true }).modules[0].source}`
+	assert.equal(
+		output.trim(),
+		`
 /*@jsxRuntime automatic @jsxImportSource react*/
 import {jsx as _jsx, jsxs as _jsxs} from "react/jsx-runtime";
 export const title = 'hello world';
@@ -46,5 +46,5 @@ function OrgContent(props = {}) {
 }
 export default OrgContent;
   `.trim()
-  )
+	)
 })

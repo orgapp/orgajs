@@ -6,8 +6,13 @@
  * @typedef {import('@lezer/common').SyntaxNode} Node
  * @typedef {import('@codemirror/state').ChangeSpec} ChangeSpec
  */
-import { foldAll, foldState, unfoldAll, unfoldCode } from '@codemirror/language'
-import { toggleFold as _toggleFold, foldCode } from '@codemirror/language'
+import {
+	foldAll,
+	foldCode,
+	foldState,
+	unfoldAll,
+	unfoldCode
+} from '@codemirror/language'
 import { EditorState } from '@codemirror/state'
 import { selectedLines } from './utils'
 
@@ -18,8 +23,8 @@ export function toggleFold(view) {
 	const { state } = view
 
 	const lines = selectedLines(view)
-	for (let line of lines) {
-		let folded = findFold(state, line.from, line.to)
+	for (const line of lines) {
+		const folded = findFold(state, line.from, line.to)
 		if (folded) {
 			unfoldCode(view)
 		} else {
@@ -48,7 +53,7 @@ function findFold(state, from, to) {
 export function toggleFoldAll(view) {
 	const state = view.state
 	const folds = state.field(foldState, false)
-	if (folds && folds.size) {
+	if (folds?.size) {
 		unfoldAll(view)
 	} else {
 		foldAll(view)
