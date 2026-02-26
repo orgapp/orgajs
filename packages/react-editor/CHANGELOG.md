@@ -1,5 +1,14 @@
 # @orgajs/react-editor
 
+## 0.1.3
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+- Updated dependencies [bd2365a]
+  - @orgajs/react-cm@0.1.3
+  - @orgajs/editor@1.4.1
+
 ## 0.1.2
 
 ### Patch Changes

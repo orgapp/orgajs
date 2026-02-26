@@ -1,5 +1,13 @@
 # orga-build
 
+## 0.6.3
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+- Updated dependencies [bd2365a]
+  - @orgajs/rollup@1.3.4
+
 ## 0.6.2
 
 ### Patch Changes

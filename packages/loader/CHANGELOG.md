@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.4.4
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+- Updated dependencies [bd2365a]
+  - @orgajs/orgx@2.6.1
+
 ## 4.4.3
 
 ### Patch Changes

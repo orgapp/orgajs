@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.3.9
+
+### Patch Changes
+
+- Updated dependencies [bd2365a]
+  - oast-to-hast@4.5.1
+
 ## 4.3.8
 
 ### Patch Changes

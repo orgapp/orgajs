@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.7.1
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+- Updated dependencies [bd2365a]
+  - text-kit@4.5.1
+
 ## 4.7.0
 
 ### Minor Changes

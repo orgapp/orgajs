@@ -1,5 +1,11 @@
 # @orgajs/metadata
 
+## 2.4.1
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+
 ## 2.4.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.2.10
+
+### Patch Changes
+
+- Updated dependencies [bd2365a]
+  - @orgajs/reorg@4.3.3
+  - @orgajs/reorg-rehype@4.3.9
+
 ## 4.2.9
 
 ### Patch Changes

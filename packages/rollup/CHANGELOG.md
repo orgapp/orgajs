@@ -1,5 +1,13 @@
 # @orgajs/rollup
 
+## 1.3.4
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+- Updated dependencies [bd2365a]
+  - @orgajs/orgx@2.6.1
+
 ## 1.3.3
 
 ### Patch Changes
