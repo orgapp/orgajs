@@ -1,7 +1,7 @@
-import { promisify } from 'util'
-import { promises as fs } from 'fs'
+import { promises as fs } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { promisify } from 'node:util'
 import webpack from 'webpack'
-import { fileURLToPath } from 'url'
 
 export async function compile(fixture, options = {}) {
 	const base = new URL('.', import.meta.url)
@@ -13,7 +13,7 @@ export async function compile(fixture, options = {}) {
 		mode: 'none',
 		output: {
 			path: fileURLToPath(base),
-			filename: 'bundle.js',
+			filename: 'bundle.js'
 		},
 		module: {
 			rules: [
@@ -34,12 +34,12 @@ export async function compile(fixture, options = {}) {
 						{
 							// loader: path.resolve(__dirname, '../dist'),
 							loader: fileURLToPath(new URL('../index.cjs', import.meta.url)),
-							options,
-						},
-					],
-				},
-			],
-		},
+							options
+						}
+					]
+				}
+			]
+		}
 	})
 
 	// cleanup

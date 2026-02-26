@@ -20,8 +20,8 @@ import { resolveEvaluateOptions } from './util/resolve-evaluate-options.js'
  *   Export map.
  */
 export async function evaluate(vfileCompatible, evaluateOptions) {
-  const { compiletime, runtime } = resolveEvaluateOptions(evaluateOptions)
-  return run(await compile(vfileCompatible, compiletime), runtime)
+	const { compiletime, runtime } = resolveEvaluateOptions(evaluateOptions)
+	return run(await compile(vfileCompatible, compiletime), runtime)
 }
 
 /**
@@ -36,6 +36,6 @@ export async function evaluate(vfileCompatible, evaluateOptions) {
  *   Export map.
  */
 export function evaluateSync(vfileCompatible, evaluateOptions) {
-  const { compiletime, runtime } = resolveEvaluateOptions(evaluateOptions)
-  return runSync(compileSync(vfileCompatible, compiletime), runtime)
+	const { compiletime, runtime } = resolveEvaluateOptions(evaluateOptions)
+	return runSync(compileSync(vfileCompatible, compiletime), runtime)
 }

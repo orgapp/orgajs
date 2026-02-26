@@ -4,8 +4,8 @@
 
 import { syntaxTree } from '@codemirror/language'
 import { parseTodoKeywords } from 'orga/todo'
-import { getTodo } from './utils'
 import { settings } from '../settings'
+import { getTodo } from './utils'
 
 /**
  * @param {EditorView} view

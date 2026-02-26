@@ -8,5 +8,5 @@
  * @returns {ProseNode | Array<ProseNode> | null | undefined}
  */
 export function text(state, node) {
-  return state.schema.text(node.value)
+	return state.schema.text(node.value)
 }

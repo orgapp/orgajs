@@ -65,7 +65,9 @@ export async function loadConfig(...files) {
 	result.root = resolveConfigPath(result.root)
 	result.outDir = resolveConfigPath(result.outDir)
 	const styles = result.styles
-	result.styles = Array.isArray(styles) ? styles.filter((v) => typeof v === 'string') : []
+	result.styles = Array.isArray(styles)
+		? styles.filter((v) => typeof v === 'string')
+		: []
 	return {
 		config: result,
 		projectRoot: configPath ? path.dirname(configPath) : cwd

@@ -7,5 +7,5 @@
  * @returns {ProseNode | Array<ProseNode> | null | undefined}
  */
 export function newline(state) {
-  return state.schema.node('newline')
+	return state.schema.node('newline')
 }

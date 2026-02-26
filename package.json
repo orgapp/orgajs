@@ -3,6 +3,7 @@
 	"private": true,
 	"type": "module",
 	"devDependencies": {
+		"@biomejs/biome": "^2.4.4",
 		"@changesets/cli": "^2.29.8",
 		"@codemirror/lang-javascript": "^6.2.3",
 		"@codemirror/language": "^6.10.8",
@@ -19,28 +20,27 @@
 		"@types/react-dom": "^19.1.2",
 		"daisyui": "^5.0.28",
 		"orga-build": "workspace:^",
-		"prettier": "^2.8.8",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"tailwindcss": "^4.0.3",
 		"type-coverage": "^2.29.7",
 		"typescript": "^5.9.2",
 		"unist-util-map": "4.0.0",
-		"vfile": "^6.0.3",
-		"xo": "^0.60.0"
+		"vfile": "^6.0.3"
 	},
 	"scripts": {
 		"build": "pnpm -r --filter './packages/*' --if-present run build && tsc --build --clean && tsc --build && type-coverage",
 		"clean": "tsc --build --clean",
-		"test": "xo packages/**/*.js --fix && pnpm -r --filter './packages/*' --if-present run test",
-		"format": "prettier --write .",
+		"lint": "biome lint .",
+		"lint:fix": "biome lint . --write",
+		"test": "pnpm run check && pnpm -r --filter './packages/*' --if-present run test",
+		"format": "biome format --write .",
+		"check": "biome check .",
+		"check:fix": "biome check . --write",
 		"changeset": "changeset",
 		"ci:version": "changeset version",
 		"ci:publish": "pnpm build && changeset publish",
 		"docs": "orga-build",
 		"docs:dev": "orga-build dev"
-	},
-	"xo": {
-		"prettier": true
 	}
 }

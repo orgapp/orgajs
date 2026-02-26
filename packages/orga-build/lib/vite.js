@@ -1,11 +1,11 @@
-import { setup } from './files.js'
 import path from 'node:path'
+import { setup } from './files.js'
 
 const magicModulePrefix = '/@orga-build/'
-const pagesModuleId = magicModulePrefix + 'pages'
+const pagesModuleId = `${magicModulePrefix}pages`
 export const appEntryId = `${magicModulePrefix}main.js`
 const contentModuleId = 'orga-build:content'
-const contentModuleIdResolved = '\0' + contentModuleId
+const contentModuleIdResolved = `\0${contentModuleId}`
 
 /**
  * @param {Object} options
@@ -20,7 +20,7 @@ export function pluginFactory({ dir, outDir, styles = [] }) {
 	return {
 		name: 'vite-plugin-orga-pages',
 		enforce: 'pre',
-		config: (config, env) => ({
+		config: (_config, _env) => ({
 			future: {
 				removePluginHookSsrArgument: 'warn',
 				removePluginHookHandleHotUpdate: 'warn',
@@ -50,7 +50,7 @@ export function pluginFactory({ dir, outDir, styles = [] }) {
 			}
 		},
 
-		async resolveId(id, importer) {
+		async resolveId(id, _importer) {
 			if (id === appEntryId) {
 				return appEntryId
 			}
@@ -75,7 +75,7 @@ export function pluginFactory({ dir, outDir, styles = [] }) {
 				return await renderPageList()
 			}
 			if (id.startsWith(pagesModuleId)) {
-				let pageId = id.replace(pagesModuleId, '')
+				const pageId = id.replace(pagesModuleId, '')
 				const page = await files.page(pageId)
 				if (page) {
 					return `
@@ -111,7 +111,7 @@ export default layouts;
 		const pages = await files.pages()
 		/** @type {string[]} */ const _imports = []
 		/** @type {string[]} */ const _pages = []
-		Object.entries(pages).forEach(([pageId, value], i) => {
+		Object.entries(pages).forEach(([pageId, _value], i) => {
 			const dataModulePath = path.join(magicModulePrefix, 'pages', pageId)
 			_imports.push(`import * as page${i} from '${dataModulePath}'`)
 			_pages.push(`pages['${pageId}'] = page${i}`)

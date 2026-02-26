@@ -1,5 +1,5 @@
-import { EditorView } from '@codemirror/view'
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
+import { EditorView } from '@codemirror/view'
 import { tags as t } from '@orgajs/cm-lang'
 
 const theme = EditorView.baseTheme({

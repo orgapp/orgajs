@@ -12,9 +12,9 @@
  *   Whether `node` is a declaration.
  */
 export function isDeclaration(node) {
-  return Boolean(
-    node.type === 'FunctionDeclaration' ||
-      node.type === 'ClassDeclaration' ||
-      node.type === 'VariableDeclaration'
-  )
+	return Boolean(
+		node.type === 'FunctionDeclaration' ||
+			node.type === 'ClassDeclaration' ||
+			node.type === 'VariableDeclaration'
+	)
 }

@@ -6,9 +6,9 @@
  * } from 'esbuild'
  */
 import fs from 'node:fs/promises'
-import { VFile } from 'vfile'
 import { compile } from '@orgajs/orgx'
 import { SourceMapGenerator } from 'source-map'
+import { VFile } from 'vfile'
 
 const name = '@orgajs/esbuild'
 

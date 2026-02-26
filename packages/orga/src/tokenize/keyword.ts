@@ -1,7 +1,7 @@
-import { Reader } from 'text-kit'
-import { Token } from '../types'
+import type { Reader } from 'text-kit'
+import type { Token } from '../types.js'
 
-export default (reader: Reader): Token[] | void => {
+export default (reader: Reader): Token[] | undefined => {
 	const keyword = reader.match(/^#\+(\w+):(?:[ \t]+(.*))?$/my)
 	if (keyword) {
 		reader.eat('line')

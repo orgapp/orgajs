@@ -8,8 +8,8 @@
  * @returns {ProseNode | Array<ProseNode> | null | undefined}
  */
 export function todo(state, node) {
-  return state.schema.node('todo', {
-    keyword: node.keyword,
-    actionable: node.actionable,
-  })
+	return state.schema.node('todo', {
+		keyword: node.keyword,
+		actionable: node.actionable
+	})
 }

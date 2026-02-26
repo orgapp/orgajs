@@ -8,8 +8,8 @@
  * @returns {ProseNode | Array<ProseNode> | null | undefined}
  */
 export function paragraph(state, node) {
-  state.inParagraph = true
-  const n = state.schema.node('paragraph', null, state.all(node))
-  state.inParagraph = false
-  return n
+	state.inParagraph = true
+	const n = state.schema.node('paragraph', null, state.all(node))
+	state.inParagraph = false
+	return n
 }

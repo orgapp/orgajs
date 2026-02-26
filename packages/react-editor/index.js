@@ -1,6 +1,6 @@
-import { jsx } from 'react/jsx-runtime'
-import { ReactCodeMirror } from '@orgajs/react-cm'
 import { setup } from '@orgajs/editor'
+import { ReactCodeMirror } from '@orgajs/react-cm'
+import { jsx } from 'react/jsx-runtime'
 
 /**
  * A React component that renders an Orga editor.

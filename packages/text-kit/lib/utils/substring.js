@@ -25,6 +25,6 @@ export default function addSubstring(core) {
 	}
 	return {
 		...core,
-		substring,
+		substring
 	}
 }

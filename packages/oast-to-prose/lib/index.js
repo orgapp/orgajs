@@ -23,8 +23,8 @@
  * @property {import('prosemirror-model').Schema} schema
  */
 
-import { createParseState } from './state.js'
 import { defaultSchema } from './schema.js'
+import { createParseState } from './state.js'
 
 export const schema = defaultSchema
 
@@ -35,8 +35,8 @@ export const schema = defaultSchema
  * @returns {ProseNode}
  */
 export function toProse(tree, file, options) {
-  const schema = (options || {}).schema || defaultSchema
-  const state = createParseState(file, { schema })
-  const node = state.one(tree, null)
-  return schema.node('doc', null, node || undefined)
+	const schema = options?.schema || defaultSchema
+	const state = createParseState(file, { schema })
+	const node = state.one(tree, null)
+	return schema.node('doc', null, node || undefined)
 }

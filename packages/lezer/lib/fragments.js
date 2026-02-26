@@ -59,11 +59,11 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
 
 		if (fragmentEnd < 0) {
 			let end = fragment.to
-			while (end > 0 && input.read(end - 1, end) != '\n') end--
+			while (end > 0 && input.read(end - 1, end) !== '\n') end--
 			fragmentEnd = end ? end - 1 : 0
 		}
 
-		let c = cursor || fragment.tree.cursor()
+		const c = cursor || fragment.tree.cursor()
 		if (!cursor) {
 			cursor = c
 			c.firstChild()
@@ -73,7 +73,7 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
 		//   c?.firstChild()
 		// }
 
-		let rPos = pos + fragment.offset
+		const rPos = pos + fragment.offset
 		while (c.to <= rPos) if (!c.parent()) return false
 		for (;;) {
 			if (c.from >= rPos) return fragment.from <= lineStart
@@ -85,8 +85,8 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
 	 * @param {number} hash
 	 */
 	function matches(hash) {
-		let tree = cursor?.tree
-		let result = tree ? tree.prop(NodeProp.contextHash) == hash : false
+		const tree = cursor?.tree
+		const result = tree ? tree.prop(NodeProp.contextHash) === hash : false
 		if (result) {
 			log('✅ fragment matches, reusing', {
 				hash,
@@ -118,8 +118,8 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
 		log('takeNodes', start, ranges, rangeI)
 
 		if (!cursor || !fragment) return result
-		let cur = cursor
-		let off = fragment.offset
+		const cur = cursor
+		const off = fragment.offset
 		let end = start
 		// let prevEnd = end
 		let blockI = 0
@@ -134,7 +134,7 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
 				break
 			}
 
-			let pos = toRelative(cur.from - off, ranges)
+			const pos = toRelative(cur.from - off, ranges)
 			if (cur.to - off <= ranges[rangeI].to) {
 				// Fits in current range
 				log(
@@ -148,7 +148,7 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
 				}
 			} else {
 				log('create dummy')
-				let dummy = new Tree(
+				const dummy = new Tree(
 					nodeSet.types[nodes.paragraph],
 					[],
 					[],
@@ -190,7 +190,7 @@ export function fragmentCursor({ log, nodeSet }, fragments, input) {
 function toRelative(abs, ranges) {
 	let pos = abs
 	for (let i = 1; i < ranges.length; i++) {
-		let gapFrom = ranges[i - 1].to,
+		const gapFrom = ranges[i - 1].to,
 			gapTo = ranges[i].from
 		if (gapFrom < abs) pos -= gapTo - gapFrom
 	}

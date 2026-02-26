@@ -28,37 +28,37 @@
  * @returns {{compiletime: ProcessorOptions, runtime: RunnerOptions}}
  */
 export function resolveEvaluateOptions(options) {
-  const {
-    development,
-    Fragment,
-    jsx,
-    jsxs,
-    jsxDEV,
-    useOrgComponents,
-    ...rest
-  } = options || {}
+	const {
+		development,
+		Fragment,
+		jsx,
+		jsxs,
+		jsxDEV,
+		useOrgComponents,
+		...rest
+	} = options || {}
 
-  if (!Fragment) throw new Error('Expected `Fragment` given to `evaluate`')
-  if (development) {
-    if (!jsxDEV) throw new Error('Expected `jsxDEV` given to `evaluate`')
-  } else {
-    if (!jsx) throw new Error('Expected `jsx` given to `evaluate`')
-    if (!jsxs) throw new Error('Expected `jsxs` given to `evaluate`')
-  }
+	if (!Fragment) throw new Error('Expected `Fragment` given to `evaluate`')
+	if (development) {
+		if (!jsxDEV) throw new Error('Expected `jsxDEV` given to `evaluate`')
+	} else {
+		if (!jsx) throw new Error('Expected `jsx` given to `evaluate`')
+		if (!jsxs) throw new Error('Expected `jsxs` given to `evaluate`')
+	}
 
-  return {
-    compiletime: {
-      ...rest,
-      development,
-      outputFormat: 'function-body',
-      providerImportSource: useOrgComponents ? '#' : undefined,
-    },
-    runtime: {
-      Fragment,
-      jsx,
-      jsxs,
-      jsxDEV,
-      useOrgComponents,
-    },
-  }
+	return {
+		compiletime: {
+			...rest,
+			development,
+			outputFormat: 'function-body',
+			providerImportSource: useOrgComponents ? '#' : undefined
+		},
+		runtime: {
+			Fragment,
+			jsx,
+			jsxs,
+			jsxDEV,
+			useOrgComponents
+		}
+	}
 }

@@ -1,6 +1,6 @@
-import { globby } from 'globby'
-import path from 'node:path'
 import { readFile } from 'node:fs/promises'
+import path from 'node:path'
+import { globby } from 'globby'
 import { getSettings } from 'orga'
 
 /**
@@ -64,7 +64,7 @@ function getContentPath(slug) {
  */
 function getContentId(slug) {
 	// Remove leading and trailing slashes
-	let normalized = slug.replace(/^\/+/, '').replace(/\/+$/, '')
+	const normalized = slug.replace(/^\/+/, '').replace(/\/+$/, '')
 
 	// If root page, return 'index'
 	if (!normalized) {

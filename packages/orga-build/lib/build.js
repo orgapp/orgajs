@@ -1,9 +1,9 @@
+import fs from 'node:fs/promises'
 import path from 'node:path'
-import { createBuilder } from 'vite'
 import { fileURLToPath, pathToFileURL } from 'node:url'
+import { createBuilder } from 'vite'
 import { emptyDir, ensureDir, exists } from './fs.js'
-import fs from 'fs/promises'
-import { createOrgaBuildConfig, alias } from './plugin.js'
+import { alias, createOrgaBuildConfig } from './plugin.js'
 import { escapeHtml } from './util.js'
 import { appEntryId } from './vite.js'
 
@@ -17,13 +17,10 @@ const defaultIndexHtml = fileURLToPath(new URL('./index.html', import.meta.url))
  * @param {import('./config.js').Config} config
  * @param {string} [projectRoot]
  */
-export async function build({
-	outDir,
-	root,
-	containerClass,
-	styles = [],
-	vitePlugins = []
-}, projectRoot = process.cwd()) {
+export async function build(
+	{ outDir, root, containerClass, styles = [], vitePlugins = [] },
+	projectRoot = process.cwd()
+) {
 	await emptyDir(outDir)
 	const ssrOutDir = path.join(outDir, '.ssr')
 	const clientOutDir = outDir
@@ -105,7 +102,9 @@ export async function build({
 	/* --- get html template, inject entry js and css --- */
 	// Check for user's index.html in project root, otherwise use default
 	const userIndexPath = path.join(projectRoot, 'index.html')
-	const indexHtmlPath = (await exists(userIndexPath)) ? userIndexPath : defaultIndexHtml
+	const indexHtmlPath = (await exists(userIndexPath))
+		? userIndexPath
+		: defaultIndexHtml
 	const template = await fs.readFile(indexHtmlPath, { encoding: 'utf-8' })
 	/* --- for each page path, render html using render function from ssr bundle, and inject the right css  --- */
 	const pagePaths = Object.keys(pages)
@@ -144,7 +143,10 @@ export async function build({
 		`
 		)
 		const css = cssChunks
-			.map((/** @type {any} */ c) => `<link rel="stylesheet" href="/${c.fileName}">`)
+			.map(
+				(/** @type {any} */ c) =>
+					`<link rel="stylesheet" href="/${c.fileName}">`
+			)
 			.join('\n')
 		html = html.replace(
 			'<script type="module" src="/@orga-build/main.js"></script>',
@@ -153,7 +155,7 @@ export async function build({
 
 		html = html.replace('</head>', `${css}</head>`)
 
-			const page = pages[pagePath]
+		const page = pages[pagePath]
 		if (page) {
 			html = html.replace(/%orga\.(\w+)%/g, (_, key) => {
 				const value = page[key] ?? ''

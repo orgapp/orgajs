@@ -8,7 +8,7 @@
  * @returns {ProseNode | Array<ProseNode> | null | undefined}
  */
 export function tags(state, node) {
-  return node.tags.map((tag) =>
-    state.schema.node('tag', { tag }, state.schema.text(tag))
-  )
+	return node.tags.map((tag) =>
+		state.schema.node('tag', { tag }, state.schema.text(tag))
+	)
 }

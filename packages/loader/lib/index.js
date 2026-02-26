@@ -1,8 +1,9 @@
 /**
  * @typedef {import('webpack').LoaderContext<unknown>} LoaderContext
  */
+
+import path from 'node:path'
 import { createProcessor } from '@orgajs/orgx'
-import path from 'path'
 
 /**
  * @param {string} source
@@ -12,13 +13,13 @@ import path from 'path'
 export async function loader(source, callback) {
 	const processor = createProcessor({
 		development: this.mode === 'development',
-		...this.getOptions(),
+		...this.getOptions()
 	})
 
 	try {
 		const file = await processor.process({
 			value: source,
-			path: this.resourcePath,
+			path: this.resourcePath
 		})
 		callback(undefined, file.value, file.map)
 	} catch (error) {

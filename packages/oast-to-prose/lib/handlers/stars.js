@@ -8,7 +8,7 @@
  * @returns {ProseNode | Array<ProseNode> | null | undefined}
  */
 export function stars(state, node) {
-  return state.schema.node('stars', {
-    level: node.level,
-  })
+	return state.schema.node('stars', {
+		level: node.level
+	})
 }

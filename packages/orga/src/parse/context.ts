@@ -1,10 +1,15 @@
-import type { Node, Point, Parent } from 'unist'
-import { not, test } from './index.js'
-import type { Predicate } from './index.js'
-import type { Lexer } from '../tokenize/index.js'
-import { Attributes, Document, isSection, Properties } from '../types.js'
-import { ParserOptions } from '../options.js'
+import type { Node, Parent, Point } from 'unist'
 import { nodeIdMap } from '../nodes.js'
+import type { ParserOptions } from '../options.js'
+import type { Lexer } from '../tokenize/index.js'
+import {
+	type Attributes,
+	type Document,
+	isSection,
+	type Properties
+} from '../types.js'
+import type { Predicate } from './index.js'
+import { not, test } from './index.js'
 
 /**
  * Exclude `todo` from settings when initializing document properties.
@@ -36,8 +41,8 @@ export interface Context {
 
 	// syntactic sugar
 	// -
-	exitTo: (predicate: Predicate) => Parent | void
-	exitAll: (predicate: Predicate) => Parent | void
+	exitTo: (predicate: Predicate) => void
+	exitAll: (predicate: Predicate) => void
 	/** shorthand for lexer.eat and push it **/
 	consume: () => void
 	/** shorthand for lexer.eat **/
@@ -60,13 +65,13 @@ function point(d: Point): Point {
 
 export function createContext(lexer: Lexer, options: ParserOptions): Context {
 	let stack: Parent[] = []
-	let snapshot: Snapshot | undefined = undefined
+	let snapshot: Snapshot | undefined
 
 	function enter<N extends Parent>(node: N): N {
 		const start = lexer.peek()?.position?.start ||
 			lexer.peek(-1)?.position?.end || { line: 1, column: 1, offset: 0 }
 
-		// @ts-ignore will add the end later
+		// @ts-expect-error will add the end later
 		node.position = { start: point(start) }
 		stack.push(node)
 		return node

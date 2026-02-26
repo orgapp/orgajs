@@ -1,5 +1,5 @@
-import { describe, it } from 'node:test'
 import assert from 'node:assert'
+import { describe, it } from 'node:test'
 import core from '../lib/core.js'
 import lines from '../lib/utils/lines.js'
 
@@ -12,8 +12,8 @@ describe('linePosition', () => {
 			point: { line: 1, column: 1, offset: 0 },
 			expected: {
 				start: { line: 1, column: 1, offset: 0 },
-				end: { line: 1, column: 5, offset: 4 },
-			},
+				end: { line: 1, column: 5, offset: 4 }
+			}
 		},
 		{
 			desc: 'middle of line',
@@ -21,8 +21,8 @@ describe('linePosition', () => {
 			point: { line: 1, column: 2, offset: 0 },
 			expected: {
 				start: { line: 1, column: 1, offset: 0 },
-				end: { line: 1, column: 5, offset: 4 },
-			},
+				end: { line: 1, column: 5, offset: 4 }
+			}
 		},
 		{
 			desc: 'end of line',
@@ -30,21 +30,21 @@ describe('linePosition', () => {
 			point: { line: 1, column: 4, offset: 0 },
 			expected: {
 				start: { line: 1, column: 1, offset: 0 },
-				end: { line: 1, column: 5, offset: 4 },
-			},
+				end: { line: 1, column: 5, offset: 4 }
+			}
 		},
 		{
 			desc: 'out of bound (before)',
 			text: 'abcd',
 			point: { line: -1, column: 1, offset: -1 },
-			expected: null,
+			expected: null
 		},
 		{
 			desc: 'out of bound (after)',
 			text: 'abcd',
 			point: { line: 10, column: 1, offset: 100 },
-			expected: null,
-		},
+			expected: null
+		}
 	]
 
 	testCases.forEach(({ desc, text, point, expected }) => {

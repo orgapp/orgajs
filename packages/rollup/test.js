@@ -1,10 +1,10 @@
-import test from 'node:test'
 import assert from 'node:assert'
 import { promises as fs } from 'node:fs'
+import test from 'node:test'
 import { fileURLToPath } from 'node:url'
-import { rollup } from 'rollup'
-import { renderToStaticMarkup } from 'react-dom/server'
 import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import { rollup } from 'rollup'
 import rollupOrg from './index.js'
 
 test('@orgajs/rollup', async () => {

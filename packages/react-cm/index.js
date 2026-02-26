@@ -1,7 +1,7 @@
-import { jsx } from 'react/jsx-runtime'
-import { useRef, useEffect } from 'react'
 import { EditorState } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
+import { useEffect, useRef } from 'react'
+import { jsx } from 'react/jsx-runtime'
 
 /**
  * A React component that renders an Orga editor.
@@ -23,12 +23,22 @@ export function ReactCodeMirror({
 	const container = useRef(undefined)
 	/** @type {import('react').RefObject<import('@codemirror/view').EditorView|undefined>} */
 	const editor = useRef(undefined)
+	/** @type {import('react').RefObject<Function|undefined>} */
+	const onChangeRef = useRef(onChange)
+	/** @type {import('react').RefObject<string>} */
+	const initialContent = useRef(content)
+	/** @type {import('react').RefObject<import('@codemirror/state').Extension>} */
+	const initialExtensions = useRef(extensions)
+
+	useEffect(() => {
+		onChangeRef.current = onChange
+	}, [onChange])
 
 	useEffect(() => {
 		if (!container.current || editor.current) return
 		const state = EditorState.create({
-			doc: content,
-			extensions
+			doc: initialContent.current,
+			extensions: initialExtensions.current
 		})
 		const ed = new EditorView({
 			state,
@@ -36,7 +46,7 @@ export function ReactCodeMirror({
 			dispatch(tr) {
 				ed.update([tr])
 				if (tr.docChanged) {
-					onChange?.(ed.state)
+					onChangeRef.current?.(ed.state)
 				}
 			}
 		})

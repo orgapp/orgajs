@@ -13,10 +13,10 @@
  */
 
 import fs from 'node:fs/promises'
-import { reporter } from 'vfile-reporter'
-import { VFile } from 'vfile'
-import { SourceMapGenerator } from 'source-map'
 import { createProcessor } from '@orgajs/orgx'
+import { SourceMapGenerator } from 'source-map'
+import { VFile } from 'vfile'
+import { reporter } from 'vfile-reporter'
 
 /**
  * Create Node.js hooks to handle org files.

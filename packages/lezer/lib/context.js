@@ -21,8 +21,8 @@ import { treeBuilder } from './tree.js'
 export function parseContext(config, input, _fragments, ranges) {
 	const { log, nodeSet } = config
 	let cursor = ranges[0].from
-	let end = ranges[ranges.length - 1].to
-	let rangeI = 0
+	const end = ranges[ranges.length - 1].to
+	const rangeI = 0
 	/** @type {number | null} */
 	let stoppedAt = null
 	const full = input.read(0, input.length)

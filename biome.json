@@ -1,0 +1,29 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.4/schema.json",
+	"files": {
+		"includes": ["packages/**", "!packages/**/__tests__/**/*.json"]
+	},
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"formatter": {
+		"indentStyle": "tab",
+		"bracketSpacing": true
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"semicolons": "asNeeded",
+			"trailingCommas": "none"
+		}
+	},
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useArrowFunction": "off"
+			}
+		}
+	}
+}

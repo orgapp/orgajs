@@ -39,7 +39,7 @@ export default function (core) {
 			if (!s || !e) return null
 			result = {
 				start: s,
-				end: e,
+				end: e
 			}
 		}
 
@@ -74,6 +74,6 @@ export default function (core) {
 		...core,
 		linePosition,
 		endOfLine,
-		beginOfLine,
+		beginOfLine
 	}
 }

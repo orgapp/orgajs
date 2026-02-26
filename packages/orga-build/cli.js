@@ -2,8 +2,8 @@
 
 import { argv } from 'node:process'
 import { parseArgs } from 'node:util'
-import { loadConfig } from './lib/config.js'
 import { build } from './lib/build.js'
+import { loadConfig } from './lib/config.js'
 import { serve } from './lib/serve.js'
 
 const { positionals } = parseArgs({

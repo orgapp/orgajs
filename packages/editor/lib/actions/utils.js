@@ -8,8 +8,8 @@
  */
 export function selectedLines(view) {
 	/** @type {Array<import('@codemirror/view').BlockInfo>} */
-	let lines = []
-	for (let { head } of view.state.selection.ranges) {
+	const lines = []
+	for (const { head } of view.state.selection.ranges) {
 		if (lines.some((l) => l.from <= head && l.to >= head)) continue
 		lines.push(view.lineBlockAt(head))
 	}

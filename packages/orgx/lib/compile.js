@@ -18,8 +18,8 @@
  *   Configuration.
  */
 
-import {createProcessor} from './core.js'
-import {resolveFileAndOptions} from './util/resolve-file-and-options.js'
+import { createProcessor } from './core.js'
+import { resolveFileAndOptions } from './util/resolve-file-and-options.js'
 
 /**
  * Compile MDX to JS.
@@ -33,8 +33,11 @@ import {resolveFileAndOptions} from './util/resolve-file-and-options.js'
  *   File.
  */
 export function compile(vfileCompatible, compileOptions) {
-  const {file, options} = resolveFileAndOptions(vfileCompatible, compileOptions)
-  return createProcessor(options).process(file)
+	const { file, options } = resolveFileAndOptions(
+		vfileCompatible,
+		compileOptions
+	)
+	return createProcessor(options).process(file)
 }
 
 /**
@@ -49,6 +52,9 @@ export function compile(vfileCompatible, compileOptions) {
  *   File.
  */
 export function compileSync(vfileCompatible, compileOptions) {
-  const {file, options} = resolveFileAndOptions(vfileCompatible, compileOptions)
-  return createProcessor(options).processSync(file)
+	const { file, options } = resolveFileAndOptions(
+		vfileCompatible,
+		compileOptions
+	)
+	return createProcessor(options).processSync(file)
 }

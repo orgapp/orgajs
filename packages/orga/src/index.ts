@@ -1,17 +1,17 @@
 import {
-	type LexerOptions,
-	type Options,
 	defaultLexerOptions,
-	defaultParserOptions
+	defaultParserOptions,
+	type LexerOptions,
+	type Options
 } from './options.js'
 import { parser as _parser, type Parser } from './parse/index.js'
 import { parse as parseTimestamp } from './timestamp.js'
 import { todoManager } from './todo.js'
-import { Lexer, tokenize as _tokenize } from './tokenize/index.js'
+import { tokenize as _tokenize, type Lexer } from './tokenize/index.js'
 import type { Document, Settings } from './types.js'
 
 export * from './types.js'
-export { parseTimestamp, Options as ParseOptions, Parser }
+export { parseTimestamp, type Options as ParseOptions, type Parser }
 
 export const tokenize = (
 	text: string,

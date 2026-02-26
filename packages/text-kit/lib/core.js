@@ -29,9 +29,9 @@ function clamp(num, min, max) {
 function core(text) {
 	const strLines = text.split(/^/gm)
 	const lines = strLines.length > 0 ? [0] : [] // index of line starts
-	strLines
-		.slice(0, strLines.length - 1)
-		.forEach((l, i) => lines.push(lines[i] + l.length))
+	strLines.slice(0, strLines.length - 1).forEach((l, i) => {
+		lines.push(lines[i] + l.length)
+	})
 
 	function eof() {
 		if (lines.length === 0) {
@@ -40,7 +40,7 @@ function core(text) {
 		return {
 			line: lines.length,
 			column: text.length - lines[lines.length - 1] + 1,
-			offset: text.length,
+			offset: text.length
 		}
 	}
 
@@ -87,7 +87,7 @@ function core(text) {
 		return {
 			line: lineIndex,
 			column: index - lines[lineIndex - 1] + 1,
-			offset: index,
+			offset: index
 		}
 	}
 
@@ -116,7 +116,7 @@ function core(text) {
 		toPoint,
 		toIndex,
 		bol,
-		eol,
+		eol
 	}
 }
 

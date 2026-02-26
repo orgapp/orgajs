@@ -1,5 +1,5 @@
-import { describe, it } from 'node:test'
 import * as assert from 'node:assert'
+import { describe, it } from 'node:test'
 import { compile } from '../lib/compile.js'
 
 const fixture = `
@@ -25,13 +25,13 @@ export default OrgContent;
 `
 
 describe('compile', () => {
-  it('can compile org file', async () => {
-    const result = await compile(fixture, {
-      jsxRuntime: 'classic',
-      jsx: true,
-      outputFormat: 'program',
-    })
+	it('can compile org file', async () => {
+		const result = await compile(fixture, {
+			jsxRuntime: 'classic',
+			jsx: true,
+			outputFormat: 'program'
+		})
 
-    assert.strictEqual(`${result}`.trim(), code.trim())
-  })
+		assert.strictEqual(`${result}`.trim(), code.trim())
+	})
 })

@@ -5,8 +5,9 @@
  * }} SetupHookParams
  * @typedef {import('@orgajs/orgx').CompileOptions} Options
  */
-import orga from '@orgajs/rollup'
+
 import { parse as parseMetadata } from '@orgajs/metadata'
+import orga from '@orgajs/rollup'
 import astroJSXRenderer from 'astro/jsx/renderer.js'
 import { addAstroFragment } from './lib/plugin/recma-add-astro-fragment.js'
 
@@ -18,7 +19,7 @@ export default function org({ recmaPlugins, ...options }) {
 	return {
 		name: '@orgajs/astro',
 		hooks: {
-			// @ts-ignore
+			// @ts-expect-error
 			async 'astro:config:setup'(/** @type {SetupHookParams} */ parameters) {
 				const {
 					addPageExtension,
@@ -60,23 +61,21 @@ export default function org({ recmaPlugins, ...options }) {
 									elementAttributeNameCase: 'html',
 									development: false
 								}),
-								// @ts-ignore
+								// @ts-expect-error
 								configResolved(resolved) {
 									// HACK: move ourselves before Astro's JSX plugin to transform things in the right order
 									const jsxPluginIndex = resolved.plugins.findIndex(
-										// @ts-ignore
+										// @ts-expect-error
 										(p) => p.name === 'astro:jsx'
 									)
 									if (jsxPluginIndex !== -1) {
 										const myPluginIndex = resolved.plugins.findIndex(
-											// @ts-ignore
+											// @ts-expect-error
 											(p) => p.name === '@orgajs/rollup'
 										)
 										if (myPluginIndex !== -1) {
 											const myPlugin = resolved.plugins[myPluginIndex]
-											// @ts-ignore-error ignore readonly annotation
 											resolved.plugins.splice(myPluginIndex, 1)
-											// @ts-ignore-error ignore readonly annotation
 											resolved.plugins.splice(jsxPluginIndex, 0, myPlugin)
 										}
 									}
