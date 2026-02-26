@@ -1,5 +1,11 @@
 # oast-to-prose
 
+## 1.3.1
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+
 ## 1.3.0
 
 ### Minor Changes

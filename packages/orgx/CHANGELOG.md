@@ -1,5 +1,14 @@
 # @orgajs/orgx
 
+## 2.6.1
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+- Updated dependencies [bd2365a]
+  - @orgajs/reorg-parse@4.4.1
+  - @orgajs/reorg-rehype@4.3.9
+
 ## 2.6.0
 
 ### Minor Changes

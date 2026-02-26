@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.3.3
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+- Updated dependencies [bd2365a]
+  - @orgajs/reorg-parse@4.4.1
+  - orga@4.7.1
+
 ## 4.3.2
 
 ### Patch Changes

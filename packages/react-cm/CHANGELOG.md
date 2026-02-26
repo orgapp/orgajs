@@ -1,5 +1,11 @@
 # @orgajs/react-cm
 
+## 0.1.3
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+
 ## 0.1.2
 
 ### Patch Changes

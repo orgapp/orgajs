@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.5.1
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+
 ## 4.5.0
 
 ### Minor Changes

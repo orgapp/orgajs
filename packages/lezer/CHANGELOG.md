@@ -1,5 +1,13 @@
 # @orgajs/lezer
 
+## 1.4.1
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+- Updated dependencies [bd2365a]
+  - orga@4.7.1
+
 ## 1.4.0
 
 ### Minor Changes

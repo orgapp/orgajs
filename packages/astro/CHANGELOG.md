@@ -1,5 +1,14 @@
 # @orgajs/astro
 
+## 1.3.4
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+- Updated dependencies [bd2365a]
+  - @orgajs/metadata@2.4.1
+  - @orgajs/rollup@1.3.4
+
 ## 1.3.3
 
 ### Patch Changes

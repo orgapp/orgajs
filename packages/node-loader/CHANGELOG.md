@@ -1,5 +1,13 @@
 # @orgajs/node-loader
 
+## 1.1.5
+
+### Patch Changes
+
+- bd2365a: fix types and linting
+- Updated dependencies [bd2365a]
+  - @orgajs/orgx@2.6.1
+
 ## 1.1.4
 
 ### Patch Changes
