@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.5.3
+
+### Patch Changes
+
+- 850bcf9: fix: use native anchor for external links to prevent wouter pushState SecurityError
+
 ## 4.5.2
 
 ### Patch Changes

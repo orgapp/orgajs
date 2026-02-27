@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.7.1
+
+### Patch Changes
+
+- 850bcf9: fix: use native anchor for external links to prevent wouter pushState SecurityError
+
 ## 0.7.0
 
 ### Minor Changes
