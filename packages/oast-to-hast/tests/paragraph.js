@@ -25,6 +25,29 @@ test('paragraph newline is rendered as a space', async () => {
 	assert.deepEqual(hast, h('p', ['foo', ' ', 'bar']))
 })
 
+test('paragraph mailto link keeps protocol in href', async () => {
+	const hast = toHast({
+		type: 'paragraph',
+		children: [
+			{
+				type: 'link',
+				path: { protocol: 'mailto', value: 'hi@unclex.net' },
+				attributes: {},
+				children: [{ type: 'text', value: 'send me an email' }]
+			}
+		]
+	})
+
+	assert.deepEqual(
+		hast,
+		h('p', [
+			h('a', { href: 'mailto:hi@unclex.net', target: '_self' }, [
+				'send me an email'
+			])
+		])
+	)
+})
+
 test('paragraph with single media figure unwraps to figure', async () => {
 	// A video link with a caption produces a <figure> from the link handler.
 	// The paragraph handler must not wrap it in <p> (invalid HTML).

@@ -54,7 +54,7 @@ export function createState(_tree, options = {}) {
 			linkTarget: '_self',
 			selectTags: [],
 			excludeTags: ['noexport'],
-			linkHref: (link) => link.path.value,
+			linkHref: defaultLinkHref,
 			...options
 		}
 	}
@@ -119,6 +119,21 @@ export function createState(_tree, options = {}) {
 		}
 		return to
 	}
+}
+
+/**
+ * @param {import('orga').Link} link
+ * @returns {string}
+ */
+function defaultLinkHref(link) {
+	const protocol = link.path.protocol
+	if (!protocol || protocol === 'internal' || protocol === 'file') {
+		return link.path.value
+	}
+	if (protocol === 'http' || protocol === 'https') {
+		return link.path.value
+	}
+	return `${protocol}:${link.path.value}`
 }
 
 /** @type {Handler} */

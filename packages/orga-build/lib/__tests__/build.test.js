@@ -40,6 +40,8 @@ This is a test page.
 Here's [[file:./docs/index.org][index page]].
 
 Here's [[file:more.org][another page]].
+
+Here's [[mailto:hi@unclex.net][send me an email]].
 `
 		)
 		await fs.writeFile(
@@ -85,6 +87,10 @@ Here's [[file:more.org][another page]].
 			'should rewrite docs/index.org to /docs'
 		)
 		assert.ok(html.includes('href="/more"'), 'should rewrite more.org to /more')
+		assert.ok(
+			html.includes('href="mailto:hi@unclex.net"'),
+			'should keep mailto protocol in href'
+		)
 	})
 
 	test('generates assets directory', async () => {

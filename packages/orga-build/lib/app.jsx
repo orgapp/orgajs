@@ -3,6 +3,13 @@ import * as components from '/@orga-build/components'
 import layouts from '/@orga-build/layouts'
 import pages from '/@orga-build/pages'
 
+function SmartLink({ href, ...props }) {
+	if (!href || /^([a-z][a-z\d+\-.]*:|\/\/)/i.test(href)) {
+		return <a href={href} {...props} />
+	}
+	return <Link href={href} {...props} />
+}
+
 export function App() {
 	const _pages = Object.entries(pages).map(([path, page]) => {
 		return {
@@ -16,7 +23,10 @@ export function App() {
 			.filter((key) => path.startsWith(key))
 			.sort((a, b) => -a.localeCompare(b))
 		let element = (
-			<page.default key={path} components={{ ...components, Link, a: Link }} />
+			<page.default
+				key={path}
+				components={{ ...components, Link, a: SmartLink }}
+			/>
 		)
 		for (const layoutId of layoutIds) {
 			const Layout = layouts[layoutId]

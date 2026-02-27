@@ -19,10 +19,7 @@ export function setupOrga({ containerClass, root, rehypePlugins = [] }) {
 			[rewriteOrgFileLinks, { root }],
 			mediaAssets,
 			...rehypePlugins
-		],
-		reorgRehypeOptions: {
-			linkHref: (link) => link.path.value
-		}
+		]
 	})
 }
 
