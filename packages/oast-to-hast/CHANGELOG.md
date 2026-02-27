@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.5.2
+
+### Patch Changes
+
+- be20652: expose rehypePlugins in orga-build
+
 ## 4.5.1
 
 ### Patch Changes
