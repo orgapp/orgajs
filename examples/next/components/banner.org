@@ -1,7 +1,0 @@
-#+layout: nil
-#+words: here are some words from metadata of imported org file
-
-#+attr_html: :width 200 :height 200
-[[file:../../../assets/logo.png][The /beauty/ of org *must* be shared.]]
-
------
