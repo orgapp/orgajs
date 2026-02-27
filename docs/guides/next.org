@@ -3,46 +3,8 @@
 #+type: document
 #+position: 4
 
-Use the next plugin for orga. Or better, use [[file:orga-build.org][orga-build]] instead.
+The in-repo Next.js integration has been removed from this repository.
 
-* Installation
+I am trying to move the integration into next.js project, For now, the active proof-of-concept lives in this fork:
 
-#+begin_src sh
-npm install --save @orgajs/loader @orgajs/react @orgajs/next
-#+end_src
-
-* Configuration
-
-Add the following to =next.config.js=
-
-#+begin_src javascript
-const withOrga = require('@orgajs/next')({})
-
-module.exports = withOrga({
-	pageExtensions: ['js', 'jsx', 'org'],
-})
-#+end_src
-
-* Customization (optional)
-
-You can add =shortcodes= for use within org files without importing them every time.
-Edit =pages/_app.js= file.
-
-#+begin_src javascript
-import { OrgaProvider } from '@orgajs/react'
-import Box from '../components/box'
-
-function MyApp({ Component, pageProps }) {
-  // add "shortcodes" by passing in react components via components prop
-  return (
-    <OrgaProvider components={{ Box }}>
-      <Component {...pageProps} />
-    </OrgaProvider>
-  )
-}
-
-export default MyApp
-#+end_src
-
-
-After that, you can use =<Box/>= component in org file without importing it.
+- https://github.com/xiaoxinghu/next.js/tree/feat/next-org-integration/packages/next-org

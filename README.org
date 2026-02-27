@@ -59,7 +59,11 @@ Build blazing fast, modern apps and websites with React
 The React Framework
 #+end_quote
 
-Because orga is native to webpack, it's fairly simply to intergrate with nextjs. [[https://github.com/orgapp/orgajs/tree/main/examples/next][Example project]].
+The in-repo Next.js integration was removed from this repository.
+
+Current proof-of-concept lives in this fork:
+- [[https://github.com/xiaoxinghu/next.js][Fork]]
+- [[https://github.com/xiaoxinghu/next.js/tree/feat/next-org-integration/packages/next-org][@next/org package path]]
 
 
 * Examples
