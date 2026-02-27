@@ -82,6 +82,10 @@ export default {
   // These are injected in dev SSR <head> and imported by the client entry.
   styles: ['/style.css'],
 
+  // Extra rehype plugins appended to orga-build defaults
+  // Useful for syntax highlighting (e.g. rehype-pretty-code).
+  rehypePlugins: [],
+
   // Additional Vite plugins
   vitePlugins: []
 }
@@ -95,7 +99,18 @@ export default {
 | =outDir= | =string= | ='out'= | Output directory for production build |
 | =containerClass= | =string \vert string[]= | =[]= | CSS class(es) for content wrapper |
 | =styles= | =string[]= | =[]= | Global stylesheet URLs injected/imported explicitly |
+| =rehypePlugins= | =PluggableList= | =[]= | Extra rehype plugins appended to orga-build defaults |
 | =vitePlugins= | =PluginOption[]= | =[]= | Additional Vite plugins |
+
+** Syntax Highlighting Example
+
+#+begin_src javascript
+import rehypePrettyCode from 'rehype-pretty-code'
+
+export default {
+  rehypePlugins: [[rehypePrettyCode, { theme: 'github-dark' }]]
+}
+#+end_src
 
 * TypeScript Setup
 

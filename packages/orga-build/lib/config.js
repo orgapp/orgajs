@@ -10,6 +10,7 @@ import path from 'node:path'
  * @property {import('vite').PluginOption[]} vitePlugins - Array of Vite plugins
  * @property {string[]|string} containerClass
  * @property {string[]} [styles] - Global stylesheet URLs injected in dev SSR and imported by client entry
+ * @property {import('unified').PluggableList} [rehypePlugins] - Extra rehype plugins appended to orga-build defaults
  */
 
 /** @type {Config} */
@@ -20,7 +21,8 @@ const defaultConfig = {
 	postBuild: [],
 	vitePlugins: [],
 	containerClass: [],
-	styles: []
+	styles: [],
+	rehypePlugins: []
 }
 
 /**

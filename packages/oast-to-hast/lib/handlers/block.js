@@ -16,6 +16,9 @@ export function block(state, node) {
 	const parsedChildren = state.all(node)
 
 	if (name === 'src') {
+		const lang = node.params?.[0]
+			? `language-${node.params[0]}`
+			: 'language-undefined'
 		return state.patch(node, {
 			type: 'element',
 			tagName: 'pre',
@@ -24,7 +27,7 @@ export function block(state, node) {
 				{
 					type: 'element',
 					tagName: 'code',
-					properties: { className: `language-${node.params[0]}` },
+					properties: { className: [lang] },
 					children: [
 						{
 							type: 'text',

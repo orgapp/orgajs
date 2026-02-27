@@ -10,13 +10,15 @@ import { getSlugFromContentFilePath } from './files.js'
  * @param {Object} options
  * @param {string|string[]} options.containerClass - CSS class name(s) to wrap the rendered content
  * @param {string} options.root - Root directory for content files
+ * @param {import('unified').PluggableList} [options.rehypePlugins] - Extra rehype plugins appended to defaults
  */
-export function setupOrga({ containerClass, root }) {
+export function setupOrga({ containerClass, root, rehypePlugins = [] }) {
 	return _orga({
 		rehypePlugins: [
 			[rehypeWrap, { className: containerClass }],
 			[rewriteOrgFileLinks, { root }],
-			mediaAssets
+			mediaAssets,
+			...rehypePlugins
 		],
 		reorgRehypeOptions: {
 			linkHref: (link) => link.path.value

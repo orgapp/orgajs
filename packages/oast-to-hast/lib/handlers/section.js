@@ -27,7 +27,7 @@ export function section(state, node) {
 	return state.patch(node, {
 		type: 'element',
 		tagName: 'div',
-		properties: { className },
+		properties: { className: className.split(/\s+/).filter(Boolean) },
 		children: state.all(node)
 	})
 }

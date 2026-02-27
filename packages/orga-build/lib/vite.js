@@ -25,16 +25,6 @@ export function pluginFactory({ dir, outDir, styles = [] }) {
 				removePluginHookSsrArgument: 'warn',
 				removePluginHookHandleHotUpdate: 'warn',
 				removeSsrLoadModule: 'warn'
-			},
-			optimizeDeps: {
-				include: [
-					'react',
-					'react/jsx-runtime',
-					'react-dom',
-					'react-dom/client',
-					'wouter'
-				],
-				exclude: ['orga-build']
 			}
 		}),
 

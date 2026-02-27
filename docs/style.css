@@ -15,3 +15,49 @@
 .cm-editor.cm-focused {
 	outline: none;
 }
+
+/* GitHub-like code block styling for rehype-pretty-code output */
+.prose pre[data-theme] {
+	background-color: #0d1117;
+	border: 1px solid #30363d;
+	border-radius: 8px;
+	color: #c9d1d9;
+	margin: 1.25rem 0;
+	overflow-x: auto;
+	padding: 1rem 0;
+}
+
+.prose pre[data-theme] code {
+	background: transparent;
+	color: inherit;
+	counter-reset: line;
+	display: grid;
+	font-size: 0.875rem;
+	line-height: 1.5;
+	padding: 0;
+}
+
+.prose pre[data-theme] code .line {
+	display: inline-block;
+	min-height: 1.5rem;
+	padding: 0 1rem;
+	width: 100%;
+}
+
+.prose pre[data-theme] code .line--highlighted {
+	background-color: rgba(56, 139, 253, 0.15);
+}
+
+.prose pre[data-theme] code .word--highlighted {
+	background-color: rgba(56, 139, 253, 0.3);
+	border: 1px solid rgba(56, 139, 253, 0.45);
+	border-radius: 4px;
+	padding: 0.1rem 0.25rem;
+}
+
+.prose code:not(pre code) {
+	background-color: rgba(175, 184, 193, 0.2);
+	border-radius: 6px;
+	font-size: 0.875em;
+	padding: 0.15rem 0.35rem;
+}

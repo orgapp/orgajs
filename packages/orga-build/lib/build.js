@@ -18,7 +18,14 @@ const defaultIndexHtml = fileURLToPath(new URL('./index.html', import.meta.url))
  * @param {string} [projectRoot]
  */
 export async function build(
-	{ outDir, root, containerClass, styles = [], vitePlugins = [] },
+	{
+		outDir,
+		root,
+		containerClass,
+		styles = [],
+		rehypePlugins = [],
+		vitePlugins = []
+	},
 	projectRoot = process.cwd()
 ) {
 	await emptyDir(outDir)
@@ -30,6 +37,7 @@ export async function build(
 		outDir,
 		containerClass,
 		styles,
+		rehypePlugins,
 		vitePlugins
 	})
 

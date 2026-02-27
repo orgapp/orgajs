@@ -9,6 +9,21 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const fixtureDir = path.join(__dirname, 'fixtures')
 const outDir = path.join(__dirname, '.test-output')
 
+function markCodeBlocks() {
+	/**
+	 * @param {any} tree
+	 */
+	return (tree) => {
+		tree.children ||= []
+		tree.children.unshift({
+			type: 'element',
+			tagName: 'div',
+			properties: { id: 'rehype-plugin-ran' },
+			children: []
+		})
+	}
+}
+
 describe('orga-build', () => {
 	before(async () => {
 		await fs.mkdir(fixtureDir, { recursive: true })
@@ -110,5 +125,42 @@ Here's [[file:more.org][another page]].
 			builtCss.includes('.global-style-marker'),
 			'built css should include configured global style content'
 		)
+	})
+
+	test('applies custom rehype plugins from config', async () => {
+		const fixtureDirRehype = path.join(__dirname, 'fixtures-rehype')
+		const outDirRehype = path.join(__dirname, '.test-output-rehype')
+
+		try {
+			await fs.mkdir(fixtureDirRehype, { recursive: true })
+			await fs.writeFile(
+				path.join(fixtureDirRehype, 'index.org'),
+				`#+title: Rehype Test
+
+This page verifies custom rehype plugins.`
+			)
+
+			await build({
+				root: fixtureDirRehype,
+				outDir: outDirRehype,
+				containerClass: [],
+				rehypePlugins: [markCodeBlocks],
+				vitePlugins: [],
+				preBuild: [],
+				postBuild: []
+			})
+
+			const html = await fs.readFile(
+				path.join(outDirRehype, 'index.html'),
+				'utf-8'
+			)
+			assert.ok(
+				html.includes('rehype-plugin-ran'),
+				'should apply user-provided rehype plugins to rendered HTML'
+			)
+		} finally {
+			await fs.rm(outDirRehype, { recursive: true, force: true })
+			await fs.rm(fixtureDirRehype, { recursive: true, force: true })
+		}
 	})
 })
