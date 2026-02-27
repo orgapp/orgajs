@@ -15,7 +15,7 @@
 		"@orgajs/react-editor": "workspace:^",
 		"@tailwindcss/typography": "^0.5.9",
 		"@tailwindcss/vite": "^4.1.4",
-		"@types/node": "^22.13.4",
+		"@types/node": "^25.3.2",
 		"@types/react": "^19.1.2",
 		"@types/react-dom": "^19.1.2",
 		"daisyui": "^5.0.28",

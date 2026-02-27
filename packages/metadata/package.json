@@ -22,7 +22,7 @@
 		"test": "node --test --no-warnings tests/test.js"
 	},
 	"devDependencies": {
-		"@types/node": "^20.5.7",
+		"@types/node": "^25.3.2",
 		"tsx": "^4.19.2",
 		"typescript": "^5.9.2"
 	}

@@ -29,7 +29,7 @@
 		"text-kit": "workspace:^"
 	},
 	"devDependencies": {
-		"@types/node": "^20.5.7",
+		"@types/node": "^25.3.2",
 		"@types/unist": "^3.0.3",
 		"tsx": "^4.19.2",
 		"typescript": "^5.9.2"

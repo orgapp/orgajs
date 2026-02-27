@@ -28,7 +28,7 @@
 		"@types/estree": "^1.0.6",
 		"@types/estree-jsx": "^1.0.5",
 		"@types/hast": "^3.0.4",
-		"@types/node": "^20.5.7",
+		"@types/node": "^25.3.2",
 		"@types/react": "^19.0.8",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
