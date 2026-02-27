@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.3.11
+
+### Patch Changes
+
+- Updated dependencies [850bcf9]
+  - oast-to-hast@4.5.3
+
 ## 4.3.10
 
 ### Patch Changes
