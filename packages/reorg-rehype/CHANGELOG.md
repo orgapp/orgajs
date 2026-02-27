@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.3.10
+
+### Patch Changes
+
+- Updated dependencies [be20652]
+  - oast-to-hast@4.5.2
+
 ## 4.3.9
 
 ### Patch Changes

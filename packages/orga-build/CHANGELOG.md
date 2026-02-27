@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.7.0
+
+### Minor Changes
+
+- be20652: expose rehypePlugins in orga-build
+
 ## 0.6.3
 
 ### Patch Changes
