@@ -246,7 +246,15 @@ export function setup(dir, { outDir } = {}) {
 		endpoint,
 		components,
 		layouts,
-		contentEntries
+		contentEntries,
+		invalidate() {
+			discoveredRoutes.invalidate()
+			pages.invalidate()
+			endpoints.invalidate()
+			layouts.invalidate()
+			components.invalidate()
+			contentEntries.invalidate()
+		}
 	}
 
 	return files
@@ -266,22 +274,30 @@ export function setup(dir, { outDir } = {}) {
 
 /**
  * Creates a cached version of an async function that will only execute once
- * and return the cached result on subsequent calls
+ * and return the cached result on subsequent calls. The returned function
+ * also has an `invalidate()` method to clear the cache.
  *
  * @template T
  * @param {() => Promise<T>} fn - The async function to cache
- * @returns {() => Promise<T>} - Cached function that returns the same type as the input function
+ * @returns {(() => Promise<T>) & { invalidate: () => void }}
  */
 function cache(fn) {
-	/** @type {T | null} */
-	let cache = null
-	return async function () {
-		if (cache) {
-			return cache
+	let settled = false
+	/** @type {T | undefined} */
+	let value
+	/** @returns {Promise<T>} */
+	async function cached() {
+		if (!settled) {
+			value = await fn()
+			settled = true
 		}
-		cache = await fn()
-		return cache
+		return /** @type {T} */ (value)
 	}
+	cached.invalidate = function () {
+		settled = false
+		value = undefined
+	}
+	return cached
 }
 
 /**

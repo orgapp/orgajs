@@ -30,7 +30,15 @@ export function pluginFactory({ dir, outDir, styles = [] }) {
 			}
 		}),
 
+		async configureServer(_server) {
+			// Eagerly run file discovery so route conflicts surface at startup
+			await files.pages()
+			await files.endpoints()
+		},
+
 		hotUpdate() {
+			// Invalidate in-memory file caches so added/removed routes are picked up
+			files.invalidate()
 			// Invalidate content module when content files change
 			const module = this.environment.moduleGraph.getModuleById(
 				contentModuleIdResolved
