@@ -92,10 +92,7 @@ export {default} from '${page.dataPath}';
 				const endpointId = Buffer.from(routeHex, 'hex').toString('utf-8')
 				const endpoint = await files.endpoint(endpointId)
 				if (endpoint) {
-					return `
-import * as endpointModule from '${endpoint.dataPath}';
-export default endpointModule;
-`
+					return `export * from '${endpoint.dataPath}';`
 				}
 			}
 
@@ -123,37 +120,38 @@ export default layouts;
 
 	async function renderPageList() {
 		const pages = await files.pages()
-		/** @type {string[]} */ const _imports = []
-		/** @type {string[]} */ const _pages = []
-		Object.entries(pages).forEach(([pageId, _value], i) => {
-			const dataModulePath = path.join(magicModulePrefix, 'pages', pageId)
-			_imports.push(`import * as page${i} from '${dataModulePath}'`)
-			_pages.push(`pages['${pageId}'] = page${i}`)
-		})
-		return `
-${_imports.join('\n')}
-const pages = {};
-${_pages.join('\n')}
-export default pages;
-	`
+		return renderModuleMap('pages', pages, (id) =>
+			path.join(magicModulePrefix, 'pages', id)
+		)
 	}
 
 	async function renderEndpointList() {
 		const endpoints = await files.endpoints()
-		/** @type {string[]} */ const _imports = []
-		/** @type {string[]} */ const _endpoints = []
-		Object.entries(endpoints).forEach(([route, _value], i) => {
-			const routeHex = Buffer.from(route, 'utf-8').toString('hex')
-			const dataModulePath = `${endpointModulePrefix}${routeHex}`
-			_imports.push(`import endpoint${i} from '${dataModulePath}'`)
-			_endpoints.push(`endpoints['${route}'] = endpoint${i}`)
+		return renderModuleMap('endpoints', endpoints, (route) =>
+			endpointModulePrefix + Buffer.from(route).toString('hex')
+		)
+	}
+
+	/**
+	 * @param {string} name
+	 * @param {Record<string, unknown>} entries
+	 * @param {(key: string) => string} toModulePath
+	 */
+	function renderModuleMap(name, entries, toModulePath) {
+		/** @type {string[]} */
+		const imports = []
+		/** @type {string[]} */
+		const assignments = []
+		Object.keys(entries).forEach((key, i) => {
+			imports.push(`import * as m${i} from '${toModulePath(key)}'`)
+			assignments.push(`${name}['${key}'] = m${i}`)
 		})
-		return `
-${_imports.join('\n')}
-const endpoints = {};
-${_endpoints.join('\n')}
-export default endpoints;
-	`
+		return [
+			imports.join('\n'),
+			`const ${name} = {};`,
+			assignments.join('\n'),
+			`export default ${name};`
+		].join('\n')
 	}
 
 	async function renderComponents() {

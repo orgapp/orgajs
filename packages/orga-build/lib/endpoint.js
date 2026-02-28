@@ -13,36 +13,31 @@
  * @returns {Promise<Response>}
  */
 export async function resolveEndpointResponse(endpointModule, ctx, method = 'GET') {
-	const hasGet = typeof endpointModule.GET === 'function'
-	const hasHead = typeof endpointModule.HEAD === 'function'
+	const route = ctx.route.route
 
-	if (method === 'HEAD' && hasHead) {
-		const headResponse = await endpointModule.HEAD(ctx)
-		if (headResponse instanceof Response) return headResponse
-		throw new Error(`Endpoint route "${ctx.route.route}" HEAD must return Response`)
+	if (method === 'HEAD' && typeof endpointModule.HEAD === 'function') {
+		const res = await endpointModule.HEAD(ctx)
+		if (!(res instanceof Response))
+			throw new Error(`Endpoint route "${route}" HEAD must return Response`)
+		return res
 	}
 
-	if (hasGet) {
-		const getResponse = await endpointModule.GET(ctx)
-		if (!(getResponse instanceof Response)) {
-			throw new Error(
-				`Endpoint route "${ctx.route.route}" GET must return Response`
-			)
-		}
-
-		if (method === 'HEAD') {
-			const headers = new Headers(getResponse.headers)
-			return new Response(null, {
-				status: getResponse.status,
-				statusText: getResponse.statusText,
-				headers
-			})
-		}
-
-		return getResponse
+	if (typeof endpointModule.GET !== 'function') {
+		throw new Error(`Endpoint route "${route}" must export GET(ctx) returning Response`)
 	}
 
-	throw new Error(
-		`Endpoint route "${ctx.route.route}" must export GET(ctx) returning Response`
-	)
+	const res = await endpointModule.GET(ctx)
+	if (!(res instanceof Response)) {
+		throw new Error(`Endpoint route "${route}" GET must return Response`)
+	}
+
+	if (method === 'HEAD') {
+		return new Response(null, {
+			status: res.status,
+			statusText: res.statusText,
+			headers: new Headers(res.headers)
+		})
+	}
+
+	return res
 }

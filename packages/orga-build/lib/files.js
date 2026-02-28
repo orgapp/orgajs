@@ -122,22 +122,12 @@ export function setup(dir, { outDir } = {}) {
 			const endpointRoute = getEndpointRouteFromFilePath(file)
 
 			if (pageSlug) {
-				assertUniqueRoute({
-					routeOwners,
-					route: pageSlug,
-					filePath: absolutePath,
-					sourceType: 'page'
-				})
+				assertUniqueRoute(routeOwners, pageSlug, 'page', absolutePath)
 				pages[pageSlug] = { dataPath: absolutePath }
 			}
 
 			if (endpointRoute) {
-				assertUniqueRoute({
-					routeOwners,
-					route: endpointRoute,
-					filePath: absolutePath,
-					sourceType: 'endpoint'
-				})
+				assertUniqueRoute(routeOwners, endpointRoute, 'endpoint', absolutePath)
 				endpoints[endpointRoute] = { route: endpointRoute, dataPath: absolutePath }
 			}
 		}
@@ -357,24 +347,17 @@ function getEndpointRouteFromFilePath(filePath) {
 }
 
 /**
- * @param {Object} options
- * @param {Map<string, { sourceType: 'page' | 'endpoint', filePath: string }>} options.routeOwners
- * @param {string} options.route
- * @param {string} options.filePath
- * @param {'page' | 'endpoint'} options.sourceType
+ * @param {Map<string, { sourceType: 'page' | 'endpoint', filePath: string }>} routeOwners
+ * @param {string} route
+ * @param {'page' | 'endpoint'} sourceType
+ * @param {string} filePath
  */
-function assertUniqueRoute({ routeOwners, route, filePath, sourceType }) {
+function assertUniqueRoute(routeOwners, route, sourceType, filePath) {
 	const existing = routeOwners.get(route)
-	if (!existing) {
-		routeOwners.set(route, { sourceType, filePath })
-		return
+	if (existing) {
+		throw new Error(
+			`Route conflict detected for "${route}"\n- ${existing.sourceType}: ${existing.filePath}\n- ${sourceType}: ${filePath}`
+		)
 	}
-
-	throw new Error(
-		[
-			`Route conflict detected for "${route}"`,
-			`- ${existing.sourceType}: ${existing.filePath}`,
-			`- ${sourceType}: ${filePath}`
-		].join('\n')
-	)
+	routeOwners.set(route, { sourceType, filePath })
 }
