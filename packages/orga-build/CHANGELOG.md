@@ -1,5 +1,11 @@
 # orga-build
 
+## 0.8.0
+
+### Minor Changes
+
+- f4b8394: add data endpoint
+
 ## 0.7.1
 
 ### Patch Changes
