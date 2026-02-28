@@ -93,14 +93,14 @@ export default {
 
 ** Configuration Options
 
-| Option | Type | Default | Description |
-|--------+------+---------+-------------|
-| =root= | =string= | ='pages'= | Directory containing content files |
-| =outDir= | =string= | ='out'= | Output directory for production build |
-| =containerClass= | =string \vert string[]= | =[]= | CSS class(es) for content wrapper |
-| =styles= | =string[]= | =[]= | Global stylesheet URLs injected/imported explicitly |
-| =rehypePlugins= | =PluggableList= | =[]= | Extra rehype plugins appended to orga-build defaults |
-| =vitePlugins= | =PluginOption[]= | =[]= | Additional Vite plugins |
+| Option         | Type              | Default | Description                                          |
+|----------------+-------------------+---------+------------------------------------------------------|
+| =root=           | =string=            | ='pages'= | Directory containing content files                   |
+| =outDir=         | =string=            | ='out'=   | Output directory for production build                |
+| =containerClass= | =string \vert string[]= | =[]=      | CSS class(es) for content wrapper                    |
+| =styles=         | =string[]=          | =[]=      | Global stylesheet URLs injected/imported explicitly  |
+| =rehypePlugins=  | =PluggableList=     | =[]=      | Extra rehype plugins appended to orga-build defaults |
+| =vitePlugins=    | =PluginOption[]=    | =[]=      | Additional Vite plugins                              |
 
 ** Syntax Highlighting Example
 
@@ -111,6 +111,47 @@ export default {
   rehypePlugins: [[rehypePrettyCode, { theme: 'github-dark' }]]
 }
 #+end_src
+
+* Routing
+
+orga-build supports two route types: *page routes* and *endpoint routes*.
+
+** Page Routes
+
+Page routes are discovered from =.org=, =.tsx=, and =.jsx= files.
+
+- =index.org= -> =/=
+- =about.org= -> =/about=
+- =docs/getting-started.tsx= -> =/docs/getting-started=
+
+At build time, page routes are emitted as HTML:
+
+- =/about= -> =out/about/index.html=
+
+** Endpoint Routes
+
+Endpoint routes are discovered from =.ts=, =.js=, =.mts=, and =.mjs= files where the basename already includes a target extension (for example =rss.xml.ts= or =data.json.ts=).
+
+- =rss.xml.ts= -> =/rss.xml=
+- =nested/feed.xml.ts= -> =/nested/feed.xml=
+- =api/data.json.ts= -> =/api/data.json=
+
+Endpoint modules must export:
+
+#+begin_src ts
+export async function GET(ctx) {
+  return new Response('ok', {
+    headers: { 'content-type': 'text/plain; charset=utf-8' }
+  })
+}
+#+end_src
+
+At build time, endpoint routes are emitted to exact filenames:
+
+- =/rss.xml= -> =out/rss.xml=
+- =/api/data.json= -> =out/api/data.json=
+
+Route conflicts (same final route path) fail fast during dev/build startup.
 
 * TypeScript Setup
 
