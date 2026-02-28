@@ -4,6 +4,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import react from '@vitejs/plugin-react'
 import { createServerModuleRunner } from 'vite'
+import { resolveEndpointResponse } from './endpoint.js'
 import { setupOrga } from './orga.js'
 import { escapeHtml } from './util.js'
 import { pluginFactory } from './vite.js'
@@ -134,6 +135,43 @@ export function htmlFallbackPlugin(projectRoot, styles = []) {
 					return next()
 				}
 
+				const url = req.url || '/'
+				const pathname = url.split('?')[0]
+
+				// Endpoint routes are handled first and bypass HTML fallback.
+				try {
+					const { endpoints } = await runner.import(ssrEntry)
+					const endpointModule = endpoints?.[pathname]
+					if (endpointModule) {
+						const ctx = {
+							url: new URL(url, `http://${req.headers.host || 'localhost'}`),
+							params: {},
+							mode: /** @type {'dev'} */ ('dev'),
+							route: { route: pathname }
+						}
+
+						const response = await resolveEndpointResponse(
+							endpointModule,
+							ctx,
+							req.method
+						)
+						res.statusCode = response.status
+						response.headers.forEach((headerValue, headerName) => {
+							res.setHeader(headerName, headerValue)
+						})
+						if (req.method === 'HEAD') {
+							res.end()
+							return
+						}
+						const bytes = Buffer.from(await response.arrayBuffer())
+						res.end(bytes)
+						return
+					}
+				} catch (e) {
+					next(e)
+					return
+				}
+
 				// Only handle browser-like navigation requests.
 				// Don't match generic */* accepts to avoid hijacking API requests.
 				const accept = req.headers.accept || ''
@@ -142,8 +180,6 @@ export function htmlFallbackPlugin(projectRoot, styles = []) {
 				}
 
 				// Don't intercept asset requests (files with extensions)
-				const url = req.url || '/'
-				const pathname = url.split('?')[0]
 				if (pathname !== '/' && /\.\w+$/.test(pathname)) {
 					return next()
 				}

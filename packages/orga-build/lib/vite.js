@@ -3,9 +3,11 @@ import { setup } from './files.js'
 
 const magicModulePrefix = '/@orga-build/'
 const pagesModuleId = `${magicModulePrefix}pages`
+const endpointsModuleId = `${magicModulePrefix}endpoints`
 export const appEntryId = `${magicModulePrefix}main.js`
 const contentModuleId = 'orga-build:content'
 const contentModuleIdResolved = `\0${contentModuleId}`
+const endpointModulePrefix = `${endpointsModuleId}/__route__/`
 
 /**
  * @param {Object} options
@@ -28,7 +30,15 @@ export function pluginFactory({ dir, outDir, styles = [] }) {
 			}
 		}),
 
+		async configureServer(_server) {
+			// Eagerly run file discovery so route conflicts surface at startup
+			await files.pages()
+			await files.endpoints()
+		},
+
 		hotUpdate() {
+			// Invalidate in-memory file caches so added/removed routes are picked up
+			files.invalidate()
 			// Invalidate content module when content files change
 			const module = this.environment.moduleGraph.getModuleById(
 				contentModuleIdResolved
@@ -64,6 +74,9 @@ export function pluginFactory({ dir, outDir, styles = [] }) {
 			if (id === pagesModuleId) {
 				return await renderPageList()
 			}
+			if (id === endpointsModuleId) {
+				return await renderEndpointList()
+			}
 			if (id.startsWith(pagesModuleId)) {
 				const pageId = id.replace(pagesModuleId, '')
 				const page = await files.page(pageId)
@@ -72,6 +85,14 @@ export function pluginFactory({ dir, outDir, styles = [] }) {
 export * from '${page.dataPath}';
 export {default} from '${page.dataPath}';
 `
+				}
+			}
+			if (id.startsWith(endpointModulePrefix)) {
+				const routeHex = id.slice(endpointModulePrefix.length)
+				const endpointId = Buffer.from(routeHex, 'hex').toString('utf-8')
+				const endpoint = await files.endpoint(endpointId)
+				if (endpoint) {
+					return `export * from '${endpoint.dataPath}';`
 				}
 			}
 
@@ -99,19 +120,40 @@ export default layouts;
 
 	async function renderPageList() {
 		const pages = await files.pages()
-		/** @type {string[]} */ const _imports = []
-		/** @type {string[]} */ const _pages = []
-		Object.entries(pages).forEach(([pageId, _value], i) => {
-			const dataModulePath = path.join(magicModulePrefix, 'pages', pageId)
-			_imports.push(`import * as page${i} from '${dataModulePath}'`)
-			_pages.push(`pages['${pageId}'] = page${i}`)
+		return renderModuleMap('pages', pages, (id) =>
+			path.join(magicModulePrefix, 'pages', id)
+		)
+	}
+
+	async function renderEndpointList() {
+		const endpoints = await files.endpoints()
+		return renderModuleMap(
+			'endpoints',
+			endpoints,
+			(route) => endpointModulePrefix + Buffer.from(route).toString('hex')
+		)
+	}
+
+	/**
+	 * @param {string} name
+	 * @param {Record<string, unknown>} entries
+	 * @param {(key: string) => string} toModulePath
+	 */
+	function renderModuleMap(name, entries, toModulePath) {
+		/** @type {string[]} */
+		const imports = []
+		/** @type {string[]} */
+		const assignments = []
+		Object.keys(entries).forEach((key, i) => {
+			imports.push(`import * as m${i} from '${toModulePath(key)}'`)
+			assignments.push(`${name}['${key}'] = m${i}`)
 		})
-		return `
-${_imports.join('\n')}
-const pages = {};
-${_pages.join('\n')}
-export default pages;
-	`
+		return [
+			imports.join('\n'),
+			`const ${name} = {};`,
+			assignments.join('\n'),
+			`export default ${name};`
+		].join('\n')
 	}
 
 	async function renderComponents() {

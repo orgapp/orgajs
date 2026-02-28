@@ -50,6 +50,19 @@ Here's [[mailto:hi@unclex.net][send me an email]].
 		)
 		await fs.writeFile(path.join(fixtureDir, 'more.org'), 'Another page.')
 		await fs.writeFile(
+			path.join(fixtureDir, 'rss.xml.ts'),
+			`import { getPages } from 'orga-build:content'
+
+export function GET() {
+  const pages = getPages()
+  return new Response(
+    '<?xml version="1.0" encoding="UTF-8"?><rss><count>' + pages.length + '</count></rss>',
+    { headers: { 'content-type': 'application/xml; charset=utf-8' } }
+  )
+}
+`
+		)
+		await fs.writeFile(
 			path.join(fixtureDir, 'style.css'),
 			'.global-style-marker { color: rgb(1, 2, 3); }'
 		)
@@ -167,6 +180,52 @@ This page verifies custom rehype plugins.`
 		} finally {
 			await fs.rm(outDirRehype, { recursive: true, force: true })
 			await fs.rm(fixtureDirRehype, { recursive: true, force: true })
+		}
+	})
+
+	test('emits endpoint routes with exact output filenames', async () => {
+		await build({
+			root: fixtureDir,
+			outDir: outDir,
+			containerClass: [],
+			vitePlugins: [],
+			preBuild: [],
+			postBuild: []
+		})
+
+		const rss = await fs.readFile(path.join(outDir, 'rss.xml'), 'utf-8')
+		assert.ok(
+			rss.includes('<rss>') && rss.includes('<count>'),
+			'should emit rss.xml from GET endpoint'
+		)
+	})
+
+	test('fails on duplicate route conflicts', async () => {
+		const fixtureDirConflict = path.join(__dirname, 'fixtures-conflict')
+		const outDirConflict = path.join(__dirname, '.test-output-conflict')
+		try {
+			await fs.mkdir(fixtureDirConflict, { recursive: true })
+			await fs.writeFile(path.join(fixtureDirConflict, 'index.org'), 'Home')
+			await fs.writeFile(
+				path.join(fixtureDirConflict, 'index.tsx'),
+				'export default function Page() { return <div>Index</div> }'
+			)
+
+			await assert.rejects(
+				() =>
+					build({
+						root: fixtureDirConflict,
+						outDir: outDirConflict,
+						containerClass: [],
+						vitePlugins: [],
+						preBuild: [],
+						postBuild: []
+					}),
+				/Route conflict detected/
+			)
+		} finally {
+			await fs.rm(outDirConflict, { recursive: true, force: true })
+			await fs.rm(fixtureDirConflict, { recursive: true, force: true })
 		}
 	})
 })

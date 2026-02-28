@@ -11,6 +11,12 @@ import { getSettings } from 'orga'
  */
 
 /**
+ * @typedef {Object} EndpointRoute
+ * @property {string} route
+ * @property {string} dataPath
+ */
+
+/**
  * @typedef {Object} ContentEntry
  * @property {string} id
  * @property {string} slug
@@ -89,10 +95,10 @@ export function setup(dir, { outDir } = {}) {
 			? `!${outDirRelative}/**`
 			: null
 
-	const pages = cache(async function () {
+	const discoveredRoutes = cache(async function () {
 		const files = await globby(
 			[
-				'**/*.{org,tsx,jsx}',
+				'**/*.{org,tsx,jsx,ts,js,mts,mjs}',
 				'!**/_*/**',
 				'!**/_*',
 				'!**/.*/**',
@@ -105,14 +111,41 @@ export function setup(dir, { outDir } = {}) {
 
 		/** @type {Record<string, Page>} */
 		const pages = {}
+		/** @type {Record<string, EndpointRoute>} */
+		const endpoints = {}
+		/** @type {Map<string, { sourceType: 'page' | 'endpoint', filePath: string }>} */
+		const routeOwners = new Map()
+
 		for (const file of files) {
-			const pageSlug = getSlugFromContentFilePath(file)
-			pages[pageSlug] = {
-				dataPath: path.join(dir, file)
+			const absolutePath = path.join(dir, file)
+			const pageSlug = getPageSlugFromFilePath(file)
+			const endpointRoute = getEndpointRouteFromFilePath(file)
+
+			if (pageSlug) {
+				assertUniqueRoute(routeOwners, pageSlug, 'page', absolutePath)
+				pages[pageSlug] = { dataPath: absolutePath }
+			}
+
+			if (endpointRoute) {
+				assertUniqueRoute(routeOwners, endpointRoute, 'endpoint', absolutePath)
+				endpoints[endpointRoute] = {
+					route: endpointRoute,
+					dataPath: absolutePath
+				}
 			}
 		}
 
-		return pages
+		return { pages, endpoints }
+	})
+
+	const pages = cache(async function () {
+		const routes = await discoveredRoutes()
+		return routes.pages
+	})
+
+	const endpoints = cache(async function () {
+		const routes = await discoveredRoutes()
+		return routes.endpoints
 	})
 
 	const layouts = cache(async function () {
@@ -202,9 +235,19 @@ export function setup(dir, { outDir } = {}) {
 	const files = {
 		pages,
 		page,
+		endpoints,
+		endpoint,
 		components,
 		layouts,
-		contentEntries
+		contentEntries,
+		invalidate() {
+			discoveredRoutes.invalidate()
+			pages.invalidate()
+			endpoints.invalidate()
+			layouts.invalidate()
+			components.invalidate()
+			contentEntries.invalidate()
+		}
 	}
 
 	return files
@@ -214,26 +257,40 @@ export function setup(dir, { outDir } = {}) {
 		const all = await pages()
 		return all[slug]
 	}
+
+	/** @param {string} route */
+	async function endpoint(route) {
+		const all = await endpoints()
+		return all[route]
+	}
 }
 
 /**
  * Creates a cached version of an async function that will only execute once
- * and return the cached result on subsequent calls
+ * and return the cached result on subsequent calls. The returned function
+ * also has an `invalidate()` method to clear the cache.
  *
  * @template T
  * @param {() => Promise<T>} fn - The async function to cache
- * @returns {() => Promise<T>} - Cached function that returns the same type as the input function
+ * @returns {(() => Promise<T>) & { invalidate: () => void }}
  */
 function cache(fn) {
-	/** @type {T | null} */
-	let cache = null
-	return async function () {
-		if (cache) {
-			return cache
+	let settled = false
+	/** @type {T | undefined} */
+	let value
+	/** @returns {Promise<T>} */
+	async function cached() {
+		if (!settled) {
+			value = await fn()
+			settled = true
 		}
-		cache = await fn()
-		return cache
+		return /** @type {T} */ (value)
 	}
+	cached.invalidate = function () {
+		settled = false
+		value = undefined
+	}
+	return cached
 }
 
 /**
@@ -258,4 +315,52 @@ export function getSlugFromContentFilePath(contentFilePath) {
 	// )
 
 	return slug
+}
+
+/**
+ * @param {string} filePath
+ * @returns {string|null}
+ */
+function getPageSlugFromFilePath(filePath) {
+	if (!/\.(org|tsx|jsx)$/.test(filePath)) {
+		return null
+	}
+	return getSlugFromContentFilePath(filePath)
+}
+
+/**
+ * @param {string} filePath
+ * @returns {string|null}
+ */
+function getEndpointRouteFromFilePath(filePath) {
+	if (!/\.(ts|js|mts|mjs)$/.test(filePath)) {
+		return null
+	}
+
+	const normalizedFilePath = filePath.replace(/\\/g, '/')
+	const targetPath = normalizedFilePath.replace(/\.(ts|js|mts|mjs)$/, '')
+	const basename = path.posix.basename(targetPath)
+
+	// Endpoint files must carry a target extension: rss.xml.ts, data.json.ts, etc.
+	if (!basename.includes('.')) {
+		return null
+	}
+
+	return `/${targetPath.replace(/^\/+/, '')}`
+}
+
+/**
+ * @param {Map<string, { sourceType: 'page' | 'endpoint', filePath: string }>} routeOwners
+ * @param {string} route
+ * @param {'page' | 'endpoint'} sourceType
+ * @param {string} filePath
+ */
+function assertUniqueRoute(routeOwners, route, sourceType, filePath) {
+	const existing = routeOwners.get(route)
+	if (existing) {
+		throw new Error(
+			`Route conflict detected for "${route}"\n- ${existing.sourceType}: ${existing.filePath}\n- ${sourceType}: ${filePath}`
+		)
+	}
+	routeOwners.set(route, { sourceType, filePath })
 }
