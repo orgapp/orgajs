@@ -3,9 +3,11 @@ import { setup } from './files.js'
 
 const magicModulePrefix = '/@orga-build/'
 const pagesModuleId = `${magicModulePrefix}pages`
+const endpointsModuleId = `${magicModulePrefix}endpoints`
 export const appEntryId = `${magicModulePrefix}main.js`
 const contentModuleId = 'orga-build:content'
 const contentModuleIdResolved = `\0${contentModuleId}`
+const endpointModulePrefix = `${endpointsModuleId}/__route__/`
 
 /**
  * @param {Object} options
@@ -64,6 +66,9 @@ export function pluginFactory({ dir, outDir, styles = [] }) {
 			if (id === pagesModuleId) {
 				return await renderPageList()
 			}
+			if (id === endpointsModuleId) {
+				return await renderEndpointList()
+			}
 			if (id.startsWith(pagesModuleId)) {
 				const pageId = id.replace(pagesModuleId, '')
 				const page = await files.page(pageId)
@@ -71,6 +76,17 @@ export function pluginFactory({ dir, outDir, styles = [] }) {
 					return `
 export * from '${page.dataPath}';
 export {default} from '${page.dataPath}';
+`
+				}
+			}
+			if (id.startsWith(endpointModulePrefix)) {
+				const routeHex = id.slice(endpointModulePrefix.length)
+				const endpointId = Buffer.from(routeHex, 'hex').toString('utf-8')
+				const endpoint = await files.endpoint(endpointId)
+				if (endpoint) {
+					return `
+import * as endpointModule from '${endpoint.dataPath}';
+export default endpointModule;
 `
 				}
 			}
@@ -111,6 +127,24 @@ ${_imports.join('\n')}
 const pages = {};
 ${_pages.join('\n')}
 export default pages;
+	`
+	}
+
+	async function renderEndpointList() {
+		const endpoints = await files.endpoints()
+		/** @type {string[]} */ const _imports = []
+		/** @type {string[]} */ const _endpoints = []
+		Object.entries(endpoints).forEach(([route, _value], i) => {
+			const routeHex = Buffer.from(route, 'utf-8').toString('hex')
+			const dataModulePath = `${endpointModulePrefix}${routeHex}`
+			_imports.push(`import endpoint${i} from '${dataModulePath}'`)
+			_endpoints.push(`endpoints['${route}'] = endpoint${i}`)
+		})
+		return `
+${_imports.join('\n')}
+const endpoints = {};
+${_endpoints.join('\n')}
+export default endpoints;
 	`
 	}
 

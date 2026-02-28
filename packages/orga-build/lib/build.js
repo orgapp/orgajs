@@ -2,6 +2,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createBuilder } from 'vite'
+import { resolveEndpointResponse } from './endpoint.js'
 import { emptyDir, ensureDir, exists } from './fs.js'
 import { alias, createOrgaBuildConfig } from './plugin.js'
 import { escapeHtml } from './util.js'
@@ -83,7 +84,7 @@ export async function build(
 	console.log('preparing ssr bundle...')
 	await builder.build(builder.environments.ssr)
 
-	const { render, pages } = await import(
+	const { render, pages, endpoints = {} } = await import(
 		pathToFileURL(path.join(ssrOutDir, 'ssr.mjs')).toString()
 	)
 
@@ -126,6 +127,31 @@ export async function build(
 			)
 			await ensureDir(path.dirname(writePath))
 			await fs.writeFile(writePath, html)
+		})
+	)
+
+	const endpointPaths = Object.keys(endpoints)
+	await Promise.all(
+		endpointPaths.map(async (route) => {
+			const endpointModule = endpoints[route]
+			const ctx = {
+				url: new URL(`http://localhost${route}`),
+				params: {},
+				mode: /** @type {'build'} */ ('build'),
+				route: { route }
+			}
+
+			const response = await resolveEndpointResponse(endpointModule, ctx, 'GET')
+			if (response.status < 200 || response.status >= 300) {
+				throw new Error(
+					`Endpoint route "${route}" returned non-2xx status during build: ${response.status}`
+				)
+			}
+
+			const bytes = Buffer.from(await response.arrayBuffer())
+			const writePath = path.join(clientOutDir, route.replace(/^\//, ''))
+			await ensureDir(path.dirname(writePath))
+			await fs.writeFile(writePath, bytes)
 		})
 	)
 

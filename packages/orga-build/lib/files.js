@@ -11,6 +11,12 @@ import { getSettings } from 'orga'
  */
 
 /**
+ * @typedef {Object} EndpointRoute
+ * @property {string} route
+ * @property {string} dataPath
+ */
+
+/**
  * @typedef {Object} ContentEntry
  * @property {string} id
  * @property {string} slug
@@ -89,10 +95,10 @@ export function setup(dir, { outDir } = {}) {
 			? `!${outDirRelative}/**`
 			: null
 
-	const pages = cache(async function () {
+	const discoveredRoutes = cache(async function () {
 		const files = await globby(
 			[
-				'**/*.{org,tsx,jsx}',
+				'**/*.{org,tsx,jsx,ts,js,mts,mjs}',
 				'!**/_*/**',
 				'!**/_*',
 				'!**/.*/**',
@@ -105,14 +111,48 @@ export function setup(dir, { outDir } = {}) {
 
 		/** @type {Record<string, Page>} */
 		const pages = {}
+		/** @type {Record<string, EndpointRoute>} */
+		const endpoints = {}
+		/** @type {Map<string, { sourceType: 'page' | 'endpoint', filePath: string }>} */
+		const routeOwners = new Map()
+
 		for (const file of files) {
-			const pageSlug = getSlugFromContentFilePath(file)
-			pages[pageSlug] = {
-				dataPath: path.join(dir, file)
+			const absolutePath = path.join(dir, file)
+			const pageSlug = getPageSlugFromFilePath(file)
+			const endpointRoute = getEndpointRouteFromFilePath(file)
+
+			if (pageSlug) {
+				assertUniqueRoute({
+					routeOwners,
+					route: pageSlug,
+					filePath: absolutePath,
+					sourceType: 'page'
+				})
+				pages[pageSlug] = { dataPath: absolutePath }
+			}
+
+			if (endpointRoute) {
+				assertUniqueRoute({
+					routeOwners,
+					route: endpointRoute,
+					filePath: absolutePath,
+					sourceType: 'endpoint'
+				})
+				endpoints[endpointRoute] = { route: endpointRoute, dataPath: absolutePath }
 			}
 		}
 
-		return pages
+		return { pages, endpoints }
+	})
+
+	const pages = cache(async function () {
+		const routes = await discoveredRoutes()
+		return routes.pages
+	})
+
+	const endpoints = cache(async function () {
+		const routes = await discoveredRoutes()
+		return routes.endpoints
 	})
 
 	const layouts = cache(async function () {
@@ -202,6 +242,8 @@ export function setup(dir, { outDir } = {}) {
 	const files = {
 		pages,
 		page,
+		endpoints,
+		endpoint,
 		components,
 		layouts,
 		contentEntries
@@ -213,6 +255,12 @@ export function setup(dir, { outDir } = {}) {
 	async function page(slug) {
 		const all = await pages()
 		return all[slug]
+	}
+
+	/** @param {string} route */
+	async function endpoint(route) {
+		const all = await endpoints()
+		return all[route]
 	}
 }
 
@@ -258,4 +306,59 @@ export function getSlugFromContentFilePath(contentFilePath) {
 	// )
 
 	return slug
+}
+
+/**
+ * @param {string} filePath
+ * @returns {string|null}
+ */
+function getPageSlugFromFilePath(filePath) {
+	if (!/\.(org|tsx|jsx)$/.test(filePath)) {
+		return null
+	}
+	return getSlugFromContentFilePath(filePath)
+}
+
+/**
+ * @param {string} filePath
+ * @returns {string|null}
+ */
+function getEndpointRouteFromFilePath(filePath) {
+	if (!/\.(ts|js|mts|mjs)$/.test(filePath)) {
+		return null
+	}
+
+	const normalizedFilePath = filePath.replace(/\\/g, '/')
+	const targetPath = normalizedFilePath.replace(/\.(ts|js|mts|mjs)$/, '')
+	const basename = path.posix.basename(targetPath)
+
+	// Endpoint files must carry a target extension: rss.xml.ts, data.json.ts, etc.
+	if (!basename.includes('.')) {
+		return null
+	}
+
+	return `/${targetPath.replace(/^\/+/, '')}`
+}
+
+/**
+ * @param {Object} options
+ * @param {Map<string, { sourceType: 'page' | 'endpoint', filePath: string }>} options.routeOwners
+ * @param {string} options.route
+ * @param {string} options.filePath
+ * @param {'page' | 'endpoint'} options.sourceType
+ */
+function assertUniqueRoute({ routeOwners, route, filePath, sourceType }) {
+	const existing = routeOwners.get(route)
+	if (!existing) {
+		routeOwners.set(route, { sourceType, filePath })
+		return
+	}
+
+	throw new Error(
+		[
+			`Route conflict detected for "${route}"`,
+			`- ${existing.sourceType}: ${existing.filePath}`,
+			`- ${sourceType}: ${filePath}`
+		].join('\n')
+	)
 }

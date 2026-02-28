@@ -1,9 +1,11 @@
 import { renderToString } from 'react-dom/server'
 import { Router } from 'wouter'
+import endpoints from '/@orga-build/endpoints'
 import pages from '/@orga-build/pages'
 import { App } from './app.jsx'
 
 export { pages }
+export { endpoints }
 
 /**
  * @param {string} url
