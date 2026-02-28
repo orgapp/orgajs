@@ -1,0 +1,73 @@
+#+title: Astro
+#+published: true
+#+type: document
+#+position: 5
+
+Use =@orgajs/astro= to write Astro pages in Org Mode (=.org=) and compile them with orgx.
+
+* Quick Start
+
+1. Install the integration:
+
+#+begin_src sh
+pnpm add @orgajs/astro
+#+end_src
+
+2. Register it in =astro.config.mjs=:
+
+#+begin_src javascript
+import { defineConfig } from 'astro/config'
+import orgMode from '@orgajs/astro'
+
+export default defineConfig({
+  integrations: [orgMode()]
+})
+#+end_src
+
+3. Create a page at =src/pages/index.org=:
+
+#+begin_src org
+,* Hello from Org Mode
+
+This page is rendered from Org Mode in Astro.
+#+end_src
+
+4. Start Astro:
+
+#+begin_src sh
+pnpm astro dev
+#+end_src
+
+* Major Features
+
+** Native =.org= pages in Astro
+Any file in =src/pages/*.org= is treated as a page route, just like Astro files in other supported formats.
+
+** Org metadata support
+Org keywords such as =#+title:=, =#+description:=, and =#+slug:= are parsed and exposed as entry metadata for Astro content handling.
+
+** orgx-powered compilation
+Under the hood, this integration uses orgx (via =@orgajs/rollup=), so you get:
+- Org Mode parsing to JSX-compatible output
+- JavaScript imports/exports inside Org documents
+- Unified/rehype/recma pipeline compatibility
+
+** Inline JSX components
+You can embed JSX directly in Org files, including imported components.
+
+#+begin_src org
+,#+jsx: import Card from '../components/Card.astro'
+
+Here is a Card rendered inline:
+
+,#+jsx: <Card title="Inline component">Hello from Org + JSX</Card>
+
+,#+begin_export jsx
+<section className="hero">
+  <h2>JSX export block</h2>
+  <p>You can also write larger JSX blocks.</p>
+</section>
+,#+end_export
+#+end_src
+
+Use =#+jsx:= for single-line JSX/imports and =#+begin_export jsx= for multi-line blocks.

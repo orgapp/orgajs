@@ -1,7 +1,7 @@
 * @orgajs/astro (Moved)
 
-The in-repo Astro integration has been removed from this repository.
+The Astro integration package has moved to a dedicated repository:
 
-Current proof-of-concept lives in the Astro fork [[https://github.com/xiaoxinghu/astro/tree/feat/org-mode-integration][here]] before it get's merged into Astro itself (if possible).
+[[https://github.com/orgapp/orga-astro][github.com/orgapp/orga-astro]]
 
-This is currently for viability discussion and not a stable release target.
+Please use that repository for source code, issues, and releases.
