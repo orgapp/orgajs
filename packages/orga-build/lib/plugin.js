@@ -156,9 +156,9 @@ export function htmlFallbackPlugin(projectRoot, styles = []) {
 							req.method
 						)
 						res.statusCode = response.status
-						for (const [headerName, headerValue] of response.headers) {
+						response.headers.forEach((headerValue, headerName) => {
 							res.setHeader(headerName, headerValue)
-						}
+						})
 						if (req.method === 'HEAD') {
 							res.end()
 							return

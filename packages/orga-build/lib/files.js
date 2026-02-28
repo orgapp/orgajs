@@ -128,7 +128,10 @@ export function setup(dir, { outDir } = {}) {
 
 			if (endpointRoute) {
 				assertUniqueRoute(routeOwners, endpointRoute, 'endpoint', absolutePath)
-				endpoints[endpointRoute] = { route: endpointRoute, dataPath: absolutePath }
+				endpoints[endpointRoute] = {
+					route: endpointRoute,
+					dataPath: absolutePath
+				}
 			}
 		}
 

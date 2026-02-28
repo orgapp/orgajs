@@ -12,7 +12,11 @@
  * @param {string} method
  * @returns {Promise<Response>}
  */
-export async function resolveEndpointResponse(endpointModule, ctx, method = 'GET') {
+export async function resolveEndpointResponse(
+	endpointModule,
+	ctx,
+	method = 'GET'
+) {
 	const route = ctx.route.route
 
 	if (method === 'HEAD' && typeof endpointModule.HEAD === 'function') {
@@ -23,7 +27,9 @@ export async function resolveEndpointResponse(endpointModule, ctx, method = 'GET
 	}
 
 	if (typeof endpointModule.GET !== 'function') {
-		throw new Error(`Endpoint route "${route}" must export GET(ctx) returning Response`)
+		throw new Error(
+			`Endpoint route "${route}" must export GET(ctx) returning Response`
+		)
 	}
 
 	const res = await endpointModule.GET(ctx)

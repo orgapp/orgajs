@@ -127,8 +127,10 @@ export default layouts;
 
 	async function renderEndpointList() {
 		const endpoints = await files.endpoints()
-		return renderModuleMap('endpoints', endpoints, (route) =>
-			endpointModulePrefix + Buffer.from(route).toString('hex')
+		return renderModuleMap(
+			'endpoints',
+			endpoints,
+			(route) => endpointModulePrefix + Buffer.from(route).toString('hex')
 		)
 	}
 

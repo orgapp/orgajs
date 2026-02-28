@@ -84,9 +84,11 @@ export async function build(
 	console.log('preparing ssr bundle...')
 	await builder.build(builder.environments.ssr)
 
-	const { render, pages, endpoints = {} } = await import(
-		pathToFileURL(path.join(ssrOutDir, 'ssr.mjs')).toString()
-	)
+	const {
+		render,
+		pages,
+		endpoints = {}
+	} = await import(pathToFileURL(path.join(ssrOutDir, 'ssr.mjs')).toString())
 
 	// Build client bundle
 	const _clientResult = await builder.build(builder.environments.client)
