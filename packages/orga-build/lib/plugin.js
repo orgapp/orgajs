@@ -29,6 +29,7 @@ export const alias = {
  * @property {string|string[]} [containerClass] - CSS class(es) to wrap rendered content
  * @property {string[]} [styles] - Global stylesheet URLs to import/inject
  * @property {import('unified').PluggableList} [rehypePlugins] - Extra rehype plugins appended to orga-build defaults
+ * @property {string[]} [exclude] - Glob patterns for files to exclude from content scanning
  */
 
 /**
@@ -43,12 +44,13 @@ export function orgaBuildPlugin({
 	outDir,
 	containerClass = [],
 	styles = [],
-	rehypePlugins = []
+	rehypePlugins = [],
+	exclude = []
 }) {
 	return [
 		setupOrga({ containerClass, root, rehypePlugins }),
 		react(),
-		pluginFactory({ dir: root, outDir, styles })
+		pluginFactory({ dir: root, outDir, styles, exclude })
 	]
 }
 
@@ -67,11 +69,12 @@ export function createOrgaBuildConfig({
 	rehypePlugins = [],
 	vitePlugins = [],
 	includeFallbackHtml = false,
-	projectRoot = process.cwd()
+	projectRoot = process.cwd(),
+	exclude = []
 }) {
 	const plugins = [
 		...vitePlugins,
-		...orgaBuildPlugin({ root, outDir, containerClass, styles, rehypePlugins })
+		...orgaBuildPlugin({ root, outDir, containerClass, styles, rehypePlugins, exclude })
 	]
 	if (includeFallbackHtml) {
 		// HTML fallback must be first so it can handle HTML navigation requests

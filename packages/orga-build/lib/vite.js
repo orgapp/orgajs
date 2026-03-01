@@ -14,10 +14,11 @@ const endpointModulePrefix = `${endpointsModuleId}/__route__/`
  * @param {string} options.dir
  * @param {string} [options.outDir]
  * @param {string[]} [options.styles]
+ * @param {string[]} [options.exclude]
  * @returns {import('vite').Plugin}
  */
-export function pluginFactory({ dir, outDir, styles = [] }) {
-	const files = setup(dir, { outDir })
+export function pluginFactory({ dir, outDir, styles = [], exclude = [] }) {
+	const files = setup(dir, { outDir, exclude })
 
 	return {
 		name: 'vite-plugin-orga-pages',

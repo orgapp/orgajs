@@ -86,8 +86,9 @@ function getContentId(slug) {
  * @param {string} dir
  * @param {object} [options]
  * @param {string} [options.outDir] - Output directory to exclude from file discovery
+ * @param {string[]} [options.exclude] - Additional glob patterns to exclude from file discovery
  */
-export function setup(dir, { outDir } = {}) {
+export function setup(dir, { outDir, exclude = [] } = {}) {
 	const outDirRelative = outDir ? path.relative(dir, outDir) : null
 	// Only exclude outDir if it's inside the root (not an external path like ../out)
 	const outDirExclude =
@@ -104,7 +105,8 @@ export function setup(dir, { outDir } = {}) {
 				'!**/.*/**',
 				'!**/.*',
 				'!node_modules/**',
-				...(outDirExclude ? [outDirExclude] : [])
+				...(outDirExclude ? [outDirExclude] : []),
+				...exclude.map((p) => `!${p}`)
 			],
 			{ cwd: dir }
 		)
@@ -155,7 +157,8 @@ export function setup(dir, { outDir } = {}) {
 				'!**/.*/**',
 				'!**/.*',
 				'!node_modules/**',
-				...(outDirExclude ? [outDirExclude] : [])
+				...(outDirExclude ? [outDirExclude] : []),
+				...exclude.map((p) => `!${p}`)
 			],
 			{
 				cwd: dir
@@ -179,7 +182,8 @@ export function setup(dir, { outDir } = {}) {
 				'!**/.*/**',
 				'!**/.*',
 				'!node_modules/**',
-				...(outDirExclude ? [outDirExclude] : [])
+				...(outDirExclude ? [outDirExclude] : []),
+				...exclude.map((p) => `!${p}`)
 			],
 			{
 				cwd: dir

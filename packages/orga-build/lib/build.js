@@ -25,7 +25,8 @@ export async function build(
 		containerClass,
 		styles = [],
 		rehypePlugins = [],
-		vitePlugins = []
+		vitePlugins = [],
+		exclude = []
 	},
 	projectRoot = process.cwd()
 ) {
@@ -39,7 +40,8 @@ export async function build(
 		containerClass,
 		styles,
 		rehypePlugins,
-		vitePlugins
+		vitePlugins,
+		exclude
 	})
 
 	// Shared config with environment-specific build settings

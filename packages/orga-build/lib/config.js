@@ -11,6 +11,7 @@ import path from 'node:path'
  * @property {string[]|string} containerClass
  * @property {string[]} [styles] - Global stylesheet URLs injected in dev SSR and imported by client entry
  * @property {import('unified').PluggableList} [rehypePlugins] - Extra rehype plugins appended to orga-build defaults
+ * @property {string[]} [exclude] - Glob patterns for files to exclude from content scanning
  */
 
 /** @type {Config} */
@@ -22,7 +23,8 @@ const defaultConfig = {
 	vitePlugins: [],
 	containerClass: [],
 	styles: [],
-	rehypePlugins: []
+	rehypePlugins: [],
+	exclude: []
 }
 
 /**
