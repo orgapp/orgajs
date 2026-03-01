@@ -46,7 +46,6 @@ export async function build(
 
 	// Shared config with environment-specific build settings
 	const builder = await createBuilder({
-		root,
 		plugins,
 		resolve,
 		ssr: { noExternal: true },

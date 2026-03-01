@@ -23,7 +23,6 @@ export async function serve(config, port = 3000, projectRoot = process.cwd()) {
 	})
 
 	const server = await createServer({
-		root: config.root,
 		plugins,
 		appType: 'custom',
 		// Aliases are scoped to the client environment only.
