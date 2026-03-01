@@ -78,29 +78,35 @@ export default {
   // CSS class(es) to wrap rendered org content
   containerClass: ['prose', 'prose-lg'],
 
-  // Global stylesheet URLs (explicit, no magic files)
-  // These are injected in dev SSR <head> and imported by the client entry.
-  styles: ['/style.css'],
+  // Global stylesheets — paths relative to orga.config.js (leading / optional).
+  // Injected in dev SSR <head> and imported by the client entry.
+  styles: ['pages/style.css'],
 
   // Extra rehype plugins appended to orga-build defaults
   // Useful for syntax highlighting (e.g. rehype-pretty-code).
   rehypePlugins: [],
 
   // Additional Vite plugins
-  vitePlugins: []
+  vitePlugins: [],
+
+  // Glob patterns (relative to root) to exclude from content scanning.
+  // Useful for generated or declaration files that must live inside root
+  // but should not be treated as pages or endpoints.
+  exclude: ['**/*.d.ts']
 }
 #+end_src
 
 ** Configuration Options
 
-| Option         | Type              | Default | Description                                          |
-|----------------+-------------------+---------+------------------------------------------------------|
-| =root=           | =string=            | ='pages'= | Directory containing content files                   |
-| =outDir=         | =string=            | ='out'=   | Output directory for production build                |
-| =containerClass= | =string \vert string[]= | =[]=      | CSS class(es) for content wrapper                    |
-| =styles=         | =string[]=          | =[]=      | Global stylesheet URLs injected/imported explicitly  |
-| =rehypePlugins=  | =PluggableList=     | =[]=      | Extra rehype plugins appended to orga-build defaults |
-| =vitePlugins=    | =PluginOption[]=    | =[]=      | Additional Vite plugins                              |
+| Option         | Type              | Default | Description                                                     |
+|----------------+-------------------+---------+-----------------------------------------------------------------|
+| =root=           | =string=            | ='pages'= | Directory containing content files                              |
+| =outDir=         | =string=            | ='out'=   | Output directory for production build                           |
+| =containerClass= | =string \vert string[]= | =[]=      | CSS class(es) for content wrapper                               |
+| =styles=         | =string[]=          | =[]=      | Stylesheets to inject/import; paths relative to =orga.config.js=  |
+| =exclude=        | =string[]=          | =[]=      | Glob patterns (relative to =root=) excluded from content scanning |
+| =rehypePlugins=  | =PluggableList=     | =[]=      | Extra rehype plugins appended to orga-build defaults            |
+| =vitePlugins=    | =PluginOption[]=    | =[]=      | Additional Vite plugins                                         |
 
 ** Syntax Highlighting Example
 
