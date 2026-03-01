@@ -1,5 +1,12 @@
 # orga-build
 
+## 0.9.0
+
+### Minor Changes
+
+- 8b13493: - add exclude config option to skip files from content scanning
+  - decouple Vite's root from the content root (now always cwd)
+
 ## 0.8.0
 
 ### Minor Changes
