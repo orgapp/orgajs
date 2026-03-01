@@ -70,7 +70,9 @@ export async function loadConfig(...files) {
 	result.outDir = resolveConfigPath(result.outDir)
 	const styles = result.styles
 	result.styles = Array.isArray(styles)
-		? styles.filter((v) => typeof v === 'string')
+		? styles
+				.filter((v) => typeof v === 'string')
+				.map((v) => '/' + v.replace(/^\/+/, ''))
 		: []
 	return {
 		config: result,

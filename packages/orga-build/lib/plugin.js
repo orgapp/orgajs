@@ -72,23 +72,14 @@ export function createOrgaBuildConfig({
 	projectRoot = process.cwd(),
 	exclude = []
 }) {
-	// When content root differs from cwd (Vite's default root), absolute style
-	// URLs like '/style.css' must be prefixed with the relative path so Vite
-	// can find them. e.g. root='docs', '/style.css' → '/docs/style.css'.
-	const rel = path.relative(process.cwd(), root)
-	const resolvedStyles =
-		rel && rel !== '.'
-			? styles.map((url) => (url.startsWith('/') ? `/${rel}${url}` : url))
-			: styles
-
 	const plugins = [
 		...vitePlugins,
-		...orgaBuildPlugin({ root, outDir, containerClass, styles: resolvedStyles, rehypePlugins, exclude })
+		...orgaBuildPlugin({ root, outDir, containerClass, styles, rehypePlugins, exclude })
 	]
 	if (includeFallbackHtml) {
 		// HTML fallback must be first so it can handle HTML navigation requests
 		// before runtime plugins (e.g. Cloudflare) potentially return 404.
-		plugins.unshift(htmlFallbackPlugin(projectRoot, resolvedStyles))
+		plugins.unshift(htmlFallbackPlugin(projectRoot, styles))
 	}
 	return {
 		plugins,
