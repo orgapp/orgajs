@@ -116,11 +116,13 @@ export function GET() {
 	})
 
 	test('processes configured global styles through vite and injects built css', async () => {
+		const styleUrl =
+			'/' + path.relative(process.cwd(), path.join(fixtureDir, 'style.css'))
 		await build({
 			root: fixtureDir,
 			outDir: outDir,
 			containerClass: [],
-			styles: ['/style.css'],
+			styles: [styleUrl],
 			vitePlugins: [],
 			preBuild: [],
 			postBuild: []

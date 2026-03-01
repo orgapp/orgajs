@@ -74,7 +74,14 @@ export function createOrgaBuildConfig({
 }) {
 	const plugins = [
 		...vitePlugins,
-		...orgaBuildPlugin({ root, outDir, containerClass, styles, rehypePlugins, exclude })
+		...orgaBuildPlugin({
+			root,
+			outDir,
+			containerClass,
+			styles,
+			rehypePlugins,
+			exclude
+		})
 	]
 	if (includeFallbackHtml) {
 		// HTML fallback must be first so it can handle HTML navigation requests
