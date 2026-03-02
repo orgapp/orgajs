@@ -3,8 +3,69 @@
 #+type: document
 #+position: 4
 
-The in-repo Next.js integration has been removed from this repository.
+Use =@orgajs/next= to write Next.js pages in Org Mode (=.org=) and compile them with orgx.
 
-I am trying to move the integration into next.js project, For now, the active proof-of-concept lives in this fork:
+Standalone repository:
 
-- https://github.com/xiaoxinghu/next.js/tree/feat/next-org-integration/packages/next-org
+- [[https://github.com/orgapp/orga-next][orgapp/orga-next]]
+
+* Quick Start
+
+1. Install the integration:
+
+#+begin_src sh
+pnpm add @orgajs/next @orgajs/loader @orgajs/react
+#+end_src
+
+2. Register it in =next.config.js=:
+
+#+begin_src javascript
+const withOrg = require('@orgajs/next')()
+
+module.exports = withOrg({
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'org'],
+})
+#+end_src
+
+3. Create a page at =app/page.org= (or =pages/index.org=):
+
+#+begin_src org
+,* Hello from Org Mode
+
+This page is rendered from Org Mode in Next.js.
+#+end_src
+
+4. Start Next.js:
+
+#+begin_src sh
+pnpm next dev
+#+end_src
+
+* Major Features
+
+** Native =.org= routes in Next.js
+Org files can be used as top-level routes in Next.js once =pageExtensions= includes =org=.
+
+** Works with App Router and Pages Router
+You can place Org pages in either:
+- =app/**/page.org=
+- =pages/**/*.org=
+
+** Global Org component mapping
+Create =org-components.js= at project root to override rendered elements globally.
+
+#+begin_src javascript
+export function useOrgComponents() {
+  return {
+    h1: (props) => <h1 style={{ color: 'tomato' }} {...props} />,
+  }
+}
+#+end_src
+
+** orgx-powered compilation
+This integration uses =@orgajs/loader= under the hood, providing Org Mode to JSX compilation and compatibility with orgx features.
+
+* Notes
+
+- Package name: =@orgajs/next=
+- Repository: [[https://github.com/orgapp/orga-next][orgapp/orga-next]]

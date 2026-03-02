@@ -46,24 +46,35 @@ Let's render *the box*.
 
 [[https://orga.js.org/playground/?text=*%20Hello%20World%0A%0ALet's%20render%20*the%20box*.%0A%0A%23%2Bbegin_export%20jsx%0A%3Cdiv%20style%3D%7B%7B%0A%20%20backgroundColor%3A%20'gold'%2C%20%0A%20%20padding%3A%20'1em'%2C%0A%20%20border%3A%20'1px%20solid%20black'%2C%0A%20%20boxShadow%3A%20'5px%205px'%0A%7D%7D%3EI%20am%20a%20box%20with%20shadow%3C%2Fdiv%3E%0A%23%2Bend_export%0A][Try it our yourself in the playground]].
 
-** [[https://www.gatsbyjs.com][Gatsby]]
+** [[https://vitejs.dev][Vite]]
+#+begin_quote
+Next generation frontend tooling
+#+end_quote
 
-#+BEGIN_QUOTE
-Build blazing fast, modern apps and websites with React
-#+END_QUOTE
+=@orgajs/rollup= is a plugin compatible with both Rollup and Vite. It lets you import =.org= files directly in your project.
 
-=gatsby-plugin-orga= is a powerful plugin that plug org-mode into gatsby system. This website is built with gatsby and =gatsby-theme-orga-docs= theme. Here is a [[https://github.com/orgapp/orgajs/tree/develop/examples/gatsby][minimal example project]].
+- Package: =@orgajs/rollup=
+
+** [[https://astro.build][Astro]]
+#+begin_quote
+The web framework for content-driven websites
+#+end_quote
+
+Astro integration is maintained in a standalone repository.
+
+- [[https://github.com/orgapp/orga-astro][orga-astro repository]]
+- Package: =@orgajs/astro=
 
 ** [[https://nextjs.org][Nextjs]]
 #+begin_quote
 The React Framework
 #+end_quote
 
-The in-repo Next.js integration was removed from this repository.
+Next.js integration is maintained in a standalone repository.
 
-Current proof-of-concept lives in this fork:
-- [[https://github.com/xiaoxinghu/next.js][Fork]]
-- [[https://github.com/xiaoxinghu/next.js/tree/feat/next-org-integration/packages/next-org][@next/org package path]]
+- [[https://github.com/orgapp/orga-next][orga-next repository]]
+- Package: =@orgajs/next=
+- Guide: [[https://orga.js.org/guides/next][Next.js integration guide]]
 
 
 * Examples

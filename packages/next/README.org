@@ -1,7 +1,12 @@
-* @orgajs/next (Moved)
+* @orgajs/next
 
-The in-repo Next.js integration has been removed from this repository.
+Next.js integration is now maintained in a standalone repository:
 
-Current proof-of-concept lives in the Next.js fork [[https://github.com/xiaoxinghu/next.js/tree/feat/next-org-integration/packages/next-org][here]].
+- [[https://github.com/orgapp/orga-next][orgapp/orga-next]]
 
-This is currently for viability discussion and not a stable release target.
+Package name remains =@orgajs/next=.
+
+For usage and setup instructions, see:
+
+- [[https://github.com/orgapp/orga-next/blob/main/README.org][README.org]]
+- [[https://orga.js.org/guides/next][Next.js guide]]
