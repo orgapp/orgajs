@@ -1,17 +1,22 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { normalizePath } from 'vite'
 import { resolveEndpointResponse } from './endpoint.js'
-import { ensureDir, exists } from './fs.js'
+import { ensureDir } from './fs.js'
 import { renderPageHtml } from './html.js'
+import { clientRuntime } from './island.js'
+import { assetUrlMarker } from './plugin.js'
 
 /**
- * Turns `vite build` into a static site build: builds the client and SSR
+ * Turns `vite build` into a static site build: builds the SSR and client
  * environments, then renders every page and endpoint into the client outDir.
  *
+ * @param {import('vite').Plugin} islands - The island plugin, whose `api`
+ *   tells whether the client build ran before islands were discovered
  * @returns {import('vite').Plugin}
  */
-export function prerenderPlugin() {
+export function prerenderPlugin(islands) {
 	return {
 		name: 'orga-build:prerender',
 
@@ -21,47 +26,94 @@ export function prerenderPlugin() {
 			order: 'post',
 			async handler(builder) {
 				const { client, ssr } = builder.environments
-				const clientOutDir = resolveOutDir(client)
-				const ssrOutDir = resolveOutDir(ssr)
-				const ssrBundle = path.join(ssrOutDir, 'ssr.mjs')
-
-				// Client first: it empties outDir, which contains the SSR outDir.
-				if (!client.isBuilt) await builder.build(client)
-				// A client build after the SSR build has deleted the SSR bundle.
-				if (!ssr.isBuilt || !(await exists(ssrBundle))) await builder.build(ssr)
-
-				await prerender(clientOutDir, ssrBundle)
-				await fs.rm(ssrOutDir, { recursive: true })
+				// Islands are discovered while building `ssr`, so it goes first. A
+				// client built earlier (e.g. by another plugin's buildApp) lacks them.
+				if (!ssr.isBuilt) await builder.build(ssr)
+				if (!client.isBuilt || islands.api?.clientIsStale) {
+					await builder.build(client)
+				}
+				await prerender(client, ssr, islands)
 			}
 		}
 	}
 }
 
 /**
- * @param {string} clientOutDir
- * @param {string} ssrBundle
+ * @param {import('vite').BuildEnvironment} client
+ * @param {import('vite').BuildEnvironment} ssr
+ * @param {import('vite').Plugin} islands - Its `api.ssrAssets` lists the files the SSR build emitted
  */
-async function prerender(clientOutDir, ssrBundle) {
+async function prerender(client, ssr, islands) {
+	const outDir = resolveOutDir(client)
+	const ssrOutDir = resolveOutDir(ssr)
+	const { root, base } = client.config
+
+	// Images and CSS imported by pages are emitted by the SSR build next to its
+	// bundle: move them into the site and link the CSS (one file, see
+	// `cssCodeSplit`).
+	/** @type {string[]} */
+	const emitted = [.../** @type {Set<string>} */ (islands.api?.ssrAssets ?? [])]
+	await Promise.all(
+		emitted.map(async (file) => {
+			await ensureDir(path.dirname(path.join(outDir, file)))
+			await fs.copyFile(path.join(ssrOutDir, file), path.join(outDir, file))
+		})
+	)
+	const styles = emitted.filter((file) => file.endsWith('.css'))
+
+	/**
+	 * URL of a file in outDir from a page `depth` directories deep. With a
+	 * relative `base`, URLs are relative to the page's directory.
+	 * @param {number} depth
+	 */
+	const urlAt =
+		(depth) =>
+		/** @param {string} file */
+		(file) =>
+			base === './'
+				? `${depth ? '../'.repeat(depth) : './'}${file}`
+				: base + file
+
 	// Cache-bust so repeated builds in one process load the fresh bundle.
-	const ssrModuleUrl = pathToFileURL(ssrBundle)
+	const ssrModuleUrl = pathToFileURL(path.join(ssrOutDir, 'ssr.mjs'))
 	ssrModuleUrl.search = `t=${Date.now()}`
 	const { render, pages, endpoints = {} } = await import(ssrModuleUrl.href)
 
-	// Vite has processed index.html into the shell: entry script and
-	// stylesheets are already injected with their hashed names.
-	const shellPath = path.join(clientOutDir, 'index.html')
+	// Vite has processed index.html into the shell: stylesheets are already
+	// injected with their hashed names.
+	const shellPath = path.join(outDir, 'index.html')
 	const template = await fs.readFile(shellPath, 'utf-8')
 	if (!pages['/']) await fs.rm(shellPath)
 
+	// Islands are built as extra client chunks; the manifest has their names.
+	/** @type {Record<string, { file: string }>} */
+	const manifest = JSON.parse(
+		await fs.readFile(path.join(outDir, '.vite/manifest.json'), 'utf-8')
+	)
+	const runtimeSrc = normalizePath(path.relative(root, clientRuntime))
+
 	await Promise.all(
 		Object.keys(pages).map(async (pathname) => {
+			const toUrl = urlAt(pathname.split('/').filter(Boolean).length)
+			/** @param {string} src */
+			const url = (src) => {
+				const file = manifest[src]?.file
+				if (!file) {
+					throw new Error(
+						`island "${src}" is missing from the client build: the client environment must be built after ssr`
+					)
+				}
+				return toUrl(file)
+			}
 			const html = renderPageHtml(rebaseRelativeUrls(template, pathname), {
-				pathname,
-				content: render(pathname),
-				page: pages[pathname]
+				// Emitted assets are marked in the markup (see `renderBuiltUrl`).
+				content: render(pathname, url)?.replaceAll(assetUrlMarker, toUrl('')),
+				page: pages[pathname],
+				islandScript: manifest[runtimeSrc] && url(runtimeSrc),
+				styles: styles.map(toUrl)
 			})
 			const writePath = path.join(
-				clientOutDir,
+				outDir,
 				pathname.replace(/^\//, ''),
 				'index.html'
 			)
@@ -90,9 +142,20 @@ async function prerender(clientOutDir, ssrBundle) {
 				)
 			}
 
-			const writePath = path.join(clientOutDir, route.replace(/^\//, ''))
+			// Responses may carry emitted asset URLs too (see `renderBuiltUrl`).
+			// The marker is ASCII, so the substitution is done on a byte-preserving
+			// latin1 view: any charset survives, and untouched bodies stay as is.
+			let body = Buffer.from(await response.arrayBuffer())
+			if (body.includes(assetUrlMarker)) {
+				const toUrl = urlAt(route.split('/').filter(Boolean).length - 1)
+				body = Buffer.from(
+					body.toString('latin1').replaceAll(assetUrlMarker, toUrl('')),
+					'latin1'
+				)
+			}
+			const writePath = path.join(outDir, route.replace(/^\//, ''))
 			await ensureDir(path.dirname(writePath))
-			await fs.writeFile(writePath, Buffer.from(await response.arrayBuffer()))
+			await fs.writeFile(writePath, body)
 		})
 	)
 }

@@ -1,7 +1,9 @@
+import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { isRunnableDevEnvironment } from 'vite'
+import { isCSSRequest, isRunnableDevEnvironment, normalizePath } from 'vite'
 import { resolveEndpointResponse } from './endpoint.js'
 import { readIndexHtml, renderPageHtml } from './html.js'
+import { islandRuntimeId } from './vite.js'
 
 const ssrEntry = fileURLToPath(new URL('./ssr.jsx', import.meta.url))
 
@@ -32,13 +34,39 @@ export function devSsrPlugin() {
 				return
 			}
 
+			// The browser imports islands straight from source, served by Vite
+			// under its `base`. The shell's own URLs are rebased by Vite in
+			// `transformIndexHtml`; these are injected afterwards.
+			const { root, base } = server.config
+			/** @param {string} src */
+			const islandUrl = (src) =>
+				// Outside the root (`..`, or another drive on Windows): Vite's /@fs/ form.
+				src.startsWith('..') || path.isAbsolute(src)
+					? `${base}@fs/${normalizePath(path.resolve(root, src)).replace(/^\//, '')}`
+					: base + src
+			const islandScript = base + islandRuntimeId.slice(1)
+			// CSS imported by server-rendered code never reaches the browser's
+			// module graph: link each file, which Vite serves as plain CSS.
+			const styles = () =>
+				[...ssr.moduleGraph.idToModuleMap.keys()]
+					.filter(
+						(id) => isCSSRequest(id) && path.isAbsolute(id) && !id.includes('?')
+					)
+					.map((id) => islandUrl(normalizePath(path.relative(root, id))))
+
 			server.middlewares.use(async (req, res, next) => {
 				if (req.method !== 'GET' && req.method !== 'HEAD') {
 					return next()
 				}
 
+				// This runs before Vite's own middlewares, so `base` is still in the URL.
 				const url = req.url || '/'
-				const pathname = url.split('?')[0]
+				const requestPath = url.split('?')[0]
+				if (!requestPath.startsWith(base)) return next()
+				// Directory-style URLs (`/docs/`) are the same page as `/docs`.
+				const pathname = requestPath
+					.slice(base.length - 1)
+					.replace(/(.)\/+$/, '$1')
 
 				try {
 					// The runner follows the module graph, so stale modules are never served.
@@ -87,9 +115,10 @@ export function devSsrPlugin() {
 						await readIndexHtml(server.config.root)
 					)
 					const html = renderPageHtml(template, {
-						pathname,
-						content: render(pathname),
-						page: pages[pathname]
+						content: render(pathname, islandUrl),
+						page: pages[pathname],
+						islandScript,
+						styles: styles()
 					})
 
 					res.statusCode = 200
