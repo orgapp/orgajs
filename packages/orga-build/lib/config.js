@@ -9,7 +9,7 @@ import path from 'node:path'
  * @property {string[]} postBuild
  * @property {import('vite').PluginOption[]} vitePlugins - Array of Vite plugins
  * @property {string[]|string} containerClass
- * @property {string[]} [styles] - Global stylesheet URLs injected in dev SSR and imported by client entry
+ * @property {string[]} [styles] - Global stylesheet URLs linked from the HTML shell
  * @property {import('unified').PluggableList} [rehypePlugins] - Extra rehype plugins appended to orga-build defaults
  * @property {string[]} [exclude] - Glob patterns for files to exclude from content scanning
  */

@@ -34,24 +34,6 @@ export async function exists(path) {
 }
 
 /**
- * @param {string} dir
- * @returns {Promise<void>}
- */
-export async function emptyDir(dir) {
-	/** @type {string[]} */
-	let items = []
-	try {
-		items = await fs.readdir(dir)
-	} catch {
-		await fs.mkdir(dir, { recursive: true })
-	}
-
-	await Promise.all(
-		items.map((item) => fs.rm(`${dir}/${item}`, { recursive: true }))
-	)
-}
-
-/**
  * @param {string} path
  */
 export async function ensureDir(path) {

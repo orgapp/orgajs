@@ -1,10 +1,12 @@
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { setup } from './files.js'
 
 const magicModulePrefix = '/@orga-build/'
 const pagesModuleId = `${magicModulePrefix}pages`
 const endpointsModuleId = `${magicModulePrefix}endpoints`
-export const appEntryId = `${magicModulePrefix}main.js`
+const appEntryId = `${magicModulePrefix}main.js`
+const csrEntry = fileURLToPath(new URL('./csr.jsx', import.meta.url))
 const contentModuleId = 'orga-build:content'
 const contentModuleIdResolved = `\0${contentModuleId}`
 const endpointModulePrefix = `${endpointsModuleId}/__route__/`
@@ -12,13 +14,12 @@ const endpointModulePrefix = `${endpointsModuleId}/__route__/`
 /**
  * @param {Object} options
  * @param {string} options.dir
- * @param {string} [options.outDir]
- * @param {string[]} [options.styles]
  * @param {string[]} [options.exclude]
  * @returns {import('vite').Plugin}
  */
-export function pluginFactory({ dir, outDir, styles = [], exclude = [] }) {
-	const files = setup(dir, { outDir, exclude })
+export function pluginFactory({ dir, exclude = [] }) {
+	/** @type {ReturnType<typeof setup>} */
+	let files
 	const contentDir = path.resolve(dir)
 
 	/**
@@ -42,6 +43,15 @@ export function pluginFactory({ dir, outDir, styles = [], exclude = [] }) {
 				removeSsrLoadModule: 'warn'
 			}
 		}),
+
+		configResolved(config) {
+			// Exclude the outDir Vite actually writes the site to (it may sit inside
+			// the content root), so generated files are never discovered as routes.
+			// Read it from the client environment: during a build, `config.build`
+			// is the current environment's (e.g. the SSR outDir).
+			const outDir = config.environments.client.build.outDir
+			files = setup(dir, { outDir: path.resolve(config.root, outDir), exclude })
+		},
 
 		async configureServer(_server) {
 			// Eagerly run file discovery so route conflicts surface at startup
@@ -67,8 +77,10 @@ export function pluginFactory({ dir, outDir, styles = [], exclude = [] }) {
 		},
 
 		async resolveId(id, _importer) {
+			// The HTML shell references the client entry by a stable URL; point it
+			// at the real file so Vite treats it like any other source module.
 			if (id === appEntryId) {
-				return appEntryId
+				return csrEntry
 			}
 			if (id === contentModuleId) {
 				return contentModuleIdResolved
@@ -78,12 +90,6 @@ export function pluginFactory({ dir, outDir, styles = [], exclude = [] }) {
 			}
 		},
 		async load(id) {
-			if (id === appEntryId) {
-				const styleImports = styles
-					.map((styleUrl) => `import ${JSON.stringify(styleUrl)};`)
-					.join('\n')
-				return `${styleImports}\nimport "orga-build/csr";`
-			}
 			if (id === contentModuleIdResolved) {
 				return await renderContentModule()
 			}
