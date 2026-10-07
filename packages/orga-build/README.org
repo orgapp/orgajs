@@ -4,7 +4,9 @@ A simple tool that builds org-mode files into a website.
 
 * Architecture
 
-orga-build is built on top of Vite with a Vite-native architecture. The dev server uses Vite's native =createServer().listen()= pattern (no custom Express wrapper), which ensures maximum compatibility with the Vite ecosystem, including plugins like Cloudflare Workers.
+orga-build is built on top of Vite (8+) with a Vite-native architecture. The dev server uses Vite's native =createServer().listen()= pattern (no custom Express wrapper), which ensures maximum compatibility with the Vite ecosystem, including plugins like Cloudflare Workers.
+
+The build uses Vite's Environment API: =orgaBuildPlugin= configures a =client= and an =ssr= environment, and its =buildApp= hook builds both and prerenders every page and endpoint. The CLI is a thin wrapper, so =vite build= with the plugin produces the same site.
 
 ** Key Design Principles
 
@@ -31,19 +33,18 @@ export default {
 
 Note: Do NOT add =orgaBuildPlugin()= to =vitePlugins= - it's already included by the CLI. Only add external plugins.
 
-For advanced users integrating directly with Vite (without the orga-build CLI), use =orgaBuildPlugin= in your =vite.config.js=:
+For advanced users integrating directly with Vite (without the orga-build CLI), use =orgaBuildPlugin= in your =vite.config.js=. =vite= then serves the site with SSR and =vite build= builds the static site:
 
 #+begin_src javascript
 // vite.config.js (advanced - direct Vite integration)
 import { cloudflare } from '@cloudflare/vite-plugin'
-import { orgaBuildPlugin, alias } from 'orga-build'
+import { orgaBuildPlugin } from 'orga-build'
 
 export default {
   plugins: [
     cloudflare(),
-    ...orgaBuildPlugin({ root: 'pages', containerClass: [] })
-  ],
-  resolve: { alias }
+    ...orgaBuildPlugin({ root: 'pages', outDir: 'out', containerClass: [] })
+  ]
 }
 #+end_src
 
@@ -54,7 +55,7 @@ If your project doesn't have an =index.html= file, orga-build provides a default
 - Enables client-side routing
 - Works in both dev and production builds
 
-To customize the HTML shell, create your own =index.html= in your project root.
+To customize the HTML shell, create your own =index.html= in your project root. Keep =<div id="root"></div>= and =<script type="module" src="/@orga-build/main.js"></script>=; Vite processes the rest like any =index.html= (bundling linked scripts and stylesheets), and =%orga.<key>%= placeholders are filled from each page's exports (e.g. =%orga.title%=).
 
 * Installation
 
@@ -79,7 +80,7 @@ export default {
   containerClass: ['prose', 'prose-lg'],
 
   // Global stylesheets — paths relative to orga.config.js (leading / optional).
-  // Injected in dev SSR <head> and imported by the client entry.
+  // Linked from the HTML shell; Vite processes them (with HMR in dev).
   styles: ['pages/style.css'],
 
   // Extra rehype plugins appended to orga-build defaults
@@ -103,7 +104,7 @@ export default {
 | =root=           | =string=            | ='pages'= | Directory containing content files                              |
 | =outDir=         | =string=            | ='out'=   | Output directory for production build                           |
 | =containerClass= | =string \vert string[]= | =[]=      | CSS class(es) for content wrapper                               |
-| =styles=         | =string[]=          | =[]=      | Stylesheets to inject/import; paths relative to =orga.config.js=  |
+| =styles=         | =string[]=          | =[]=      | Stylesheets to link; paths relative to =orga.config.js=           |
 | =exclude=        | =string[]=          | =[]=      | Glob patterns (relative to =root=) excluded from content scanning |
 | =rehypePlugins=  | =PluggableList=     | =[]=      | Extra rehype plugins appended to orga-build defaults            |
 | =vitePlugins=    | =PluginOption[]=    | =[]=      | Additional Vite plugins                                         |

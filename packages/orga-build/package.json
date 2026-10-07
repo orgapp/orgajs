@@ -4,7 +4,7 @@
 	"description": "A simple tool that builds org-mode files into a website",
 	"type": "module",
 	"engines": {
-		"node": ">=20.19.0"
+		"node": "^20.19.0 || >=22.12.0"
 	},
 	"bin": {
 		"orga-build": "./cli.js"
@@ -48,14 +48,14 @@
 	},
 	"dependencies": {
 		"@orgajs/rollup": "workspace:*",
-		"@vitejs/plugin-react": "^5.1.4",
+		"@vitejs/plugin-react": "^6.1.2",
 		"globby": "^14.1.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"rehype-katex": "^7.0.1",
 		"unified": "^11.0.5",
 		"unist-util-visit-parents": "^6.0.1",
-		"vite": "^7.3.1",
+		"vite": "^8.3.3",
 		"wouter": "^3.7.0"
 	},
 	"devDependencies": {

@@ -16,8 +16,12 @@
  *   File contents.
  * @param {string} path
  *   File path.
- * @returns {Promise<SourceDescription | undefined>}
+ * @returns {Promise<TransformResult | undefined>}
  *   Result.
+ *
+ * @typedef {SourceDescription & {moduleType?: string}} TransformResult
+ *   Transform result; `moduleType` tells Rolldown (Vite 8+) that the compiled
+ *   output is JavaScript, since it can't infer that from the `.org` extension.
  *
  * @callback ViteConfig
  *   Callback called by Vite to set additional configuration options.
@@ -88,10 +92,11 @@ export default function rollup(options) {
 			if (file.extname === '.org' && filter(file.path)) {
 				const compiled = await processor.process(file)
 				const code = String(compiled.value)
-				/** @type {SourceDescription} */
+				/** @type {TransformResult} */
 				const result = {
 					code,
-					map: compiled.map
+					map: compiled.map,
+					moduleType: 'js'
 				}
 				return result
 			}
