@@ -3,7 +3,9 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { after, before, describe, test } from 'node:test'
 import { fileURLToPath } from 'node:url'
+import { createBuilder } from 'vite'
 import { build } from '../build.js'
+import { orgaBuildPlugin } from '../plugin.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const fixtureDir = path.join(__dirname, 'fixtures')
@@ -228,6 +230,41 @@ This page verifies custom rehype plugins.`
 		} finally {
 			await fs.rm(outDirConflict, { recursive: true, force: true })
 			await fs.rm(fixtureDirConflict, { recursive: true, force: true })
+		}
+	})
+
+	test("excludes Vite's output directory from content discovery", async () => {
+		const dir = path.join(__dirname, 'fixtures-vite-outdir')
+		// Dotted chunk names would make bundles look like endpoint routes.
+		const buildOnce = async () => {
+			const builder = await createBuilder({
+				root: dir,
+				configFile: false,
+				logLevel: 'silent',
+				plugins: orgaBuildPlugin({ root: dir }),
+				build: {
+					rolldownOptions: {
+						output: { entryFileNames: 'assets/[name].[hash].js' }
+					}
+				}
+			})
+			await builder.buildApp()
+		}
+		try {
+			await fs.mkdir(dir, { recursive: true })
+			await fs.writeFile(path.join(dir, 'index.org'), '#+title: Home\n\nHome')
+
+			await buildOnce()
+			// The second build sees the first build's output inside the root.
+			await buildOnce()
+
+			const html = await fs.readFile(
+				path.join(dir, 'dist', 'index.html'),
+				'utf-8'
+			)
+			assert.ok(html.includes('<title>Home</title>'))
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
 		}
 	})
 })

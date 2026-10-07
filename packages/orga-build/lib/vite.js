@@ -14,12 +14,12 @@ const endpointModulePrefix = `${endpointsModuleId}/__route__/`
 /**
  * @param {Object} options
  * @param {string} options.dir
- * @param {string} [options.outDir]
  * @param {string[]} [options.exclude]
  * @returns {import('vite').Plugin}
  */
-export function pluginFactory({ dir, outDir, exclude = [] }) {
-	const files = setup(dir, { outDir, exclude })
+export function pluginFactory({ dir, exclude = [] }) {
+	/** @type {ReturnType<typeof setup>} */
+	let files
 	const contentDir = path.resolve(dir)
 
 	/**
@@ -43,6 +43,15 @@ export function pluginFactory({ dir, outDir, exclude = [] }) {
 				removeSsrLoadModule: 'warn'
 			}
 		}),
+
+		configResolved(config) {
+			// Exclude the outDir Vite actually writes the site to (it may sit inside
+			// the content root), so generated files are never discovered as routes.
+			// Read it from the client environment: during a build, `config.build`
+			// is the current environment's (e.g. the SSR outDir).
+			const outDir = config.environments.client.build.outDir
+			files = setup(dir, { outDir: path.resolve(config.root, outDir), exclude })
+		},
 
 		async configureServer(_server) {
 			// Eagerly run file discovery so route conflicts surface at startup

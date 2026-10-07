@@ -23,7 +23,7 @@ export const alias = {
 /**
  * @typedef {Object} OrgaBuildPluginOptions
  * @property {string} root - Root directory for content files
- * @property {string | undefined} [outDir] - Output directory (excluded from file discovery)
+ * @property {string | undefined} [outDir] - Output directory (default: Vite's `build.outDir`)
  * @property {string|string[]} [containerClass] - CSS class(es) to wrap rendered content
  * @property {string[]} [styles] - Global stylesheet URLs to link from the HTML shell
  * @property {import('unified').PluggableList} [rehypePlugins] - Extra rehype plugins appended to orga-build defaults
@@ -55,7 +55,7 @@ export function orgaBuildPlugin({
 		prerenderPlugin(),
 		setupOrga({ containerClass, root, rehypePlugins }),
 		react(),
-		pluginFactory({ dir: root, outDir, exclude })
+		pluginFactory({ dir: root, exclude })
 	]
 }
 
