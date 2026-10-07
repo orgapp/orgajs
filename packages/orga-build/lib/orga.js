@@ -42,7 +42,9 @@ function mediaAssets() {
 			const name = imports[src]
 			const attrs = Object.entries(rest)
 				.filter(([, v]) => v !== undefined && v !== false)
-				.map(([k, v]) => (v === true ? k : `${k}='${v}'`))
+				.map(([k, v]) =>
+					v === true ? k : `${k}={${JSON.stringify(String(v))}}`
+				)
 				.join(' ')
 			node.value = `<${tagName} src={${name}}${attrs ? ` ${attrs}` : ''}/>`
 		})
@@ -50,7 +52,7 @@ function mediaAssets() {
 		for (const [src, name] of Object.entries(imports)) {
 			tree.children.unshift({
 				type: 'jsx',
-				value: `import ${name} from '${src}'`,
+				value: `import ${name} from ${JSON.stringify(src)}`,
 				children: []
 			})
 		}
