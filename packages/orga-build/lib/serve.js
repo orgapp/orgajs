@@ -32,7 +32,16 @@ export async function serve(config, port = 3000, projectRoot = process.cwd()) {
 		// ESModulesEvaluator (which has no 'module'/'require' globals).
 		environments: {
 			client: {
-				resolve: /** @type {any} */ ({ alias })
+				resolve: /** @type {any} */ ({ alias }),
+				// The aliases resolve to file paths and the client entry lives in
+				// orga-build itself, so Vite never discovers these CJS modules.
+				// Pre-bundle them explicitly or the browser gets raw CommonJS.
+				optimizeDeps: {
+					include: [
+						'react-dom/client',
+						'orga-build > wouter > use-sync-external-store/shim/index.js'
+					]
+				}
 			}
 		},
 		server: {
