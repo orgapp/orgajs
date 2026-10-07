@@ -19,6 +19,18 @@ const endpointModulePrefix = `${endpointsModuleId}/__route__/`
  */
 export function pluginFactory({ dir, outDir, styles = [], exclude = [] }) {
 	const files = setup(dir, { outDir, exclude })
+	const contentDir = path.resolve(dir)
+
+	/**
+	 * Whether a changed file lives in the content root, skipping dot paths the
+	 * same way route discovery does.
+	 * @param {string} file
+	 */
+	function isContentFile(file) {
+		const rel = path.relative(contentDir, file)
+		if (!rel || rel.startsWith('..') || path.isAbsolute(rel)) return false
+		return !rel.split(path.sep).some((segment) => segment.startsWith('.'))
+	}
 
 	return {
 		name: 'vite-plugin-orga-pages',
@@ -37,7 +49,10 @@ export function pluginFactory({ dir, outDir, styles = [], exclude = [] }) {
 			await files.endpoints()
 		},
 
-		hotUpdate() {
+		hotUpdate({ file }) {
+			// Only content changes affect routes; anything else in the project
+			// (logs, editor backups, tool state) must not trigger a reload.
+			if (!isContentFile(file)) return
 			// Invalidate in-memory file caches so added/removed routes are picked up
 			files.invalidate()
 			// Invalidate content module when content files change
