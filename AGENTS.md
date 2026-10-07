@@ -1,5 +1,7 @@
 Monorepo for `orga`, an org-mode parser in the unifiedjs ecosystem (like remark for markdown). Use `pnpm`.
 
+Tasks are tracked with the `task` CLI. Run `task help` before picking up, adding or claiming a task.
+
 ## Lezer parser (`@orgajs/lezer`)
 
 - Keep `OrgParser` stateless: only immutable config (nodeSet, log) lives on the class. Every `createParse()` builds fresh state, following lezer-markdown. Incremental parsing reuses tree fragments, never parser state.
