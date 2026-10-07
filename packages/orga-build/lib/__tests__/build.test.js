@@ -11,6 +11,23 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const fixtureDir = path.join(__dirname, 'fixtures')
 const outDir = path.join(__dirname, '.test-output')
 
+/**
+ * Build `dir` with plain Vite and only `orgaBuildPlugin`, as a
+ * `vite.config.js` would, without the orga-build CLI.
+ * @param {string} dir
+ * @param {import('vite').InlineConfig} [config]
+ */
+async function viteBuild(dir, config = {}) {
+	const builder = await createBuilder({
+		root: dir,
+		configFile: false,
+		logLevel: 'silent',
+		plugins: orgaBuildPlugin({ root: dir }),
+		...config
+	})
+	await builder.buildApp()
+}
+
 function markCodeBlocks() {
 	/**
 	 * @param {any} tree
@@ -236,20 +253,14 @@ This page verifies custom rehype plugins.`
 	test("excludes Vite's output directory from content discovery", async () => {
 		const dir = path.join(__dirname, 'fixtures-vite-outdir')
 		// Dotted chunk names would make bundles look like endpoint routes.
-		const buildOnce = async () => {
-			const builder = await createBuilder({
-				root: dir,
-				configFile: false,
-				logLevel: 'silent',
-				plugins: orgaBuildPlugin({ root: dir }),
+		const buildOnce = () =>
+			viteBuild(dir, {
 				build: {
 					rolldownOptions: {
 						output: { entryFileNames: 'assets/[name].[hash].js' }
 					}
 				}
 			})
-			await builder.buildApp()
-		}
 		try {
 			await fs.mkdir(dir, { recursive: true })
 			await fs.writeFile(path.join(dir, 'index.org'), '#+title: Home\n\nHome')
@@ -263,6 +274,61 @@ This page verifies custom rehype plugins.`
 				'utf-8'
 			)
 			assert.ok(html.includes('<title>Home</title>'))
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
+	test('prerenders after a configured builder.buildApp', async () => {
+		const dir = path.join(__dirname, 'fixtures-vite-builder')
+		try {
+			await fs.mkdir(dir, { recursive: true })
+			await fs.writeFile(path.join(dir, 'index.org'), '#+title: Home\n\nHome')
+
+			await viteBuild(dir, {
+				builder: {
+					// Builds every environment itself, SSR first: the client build
+					// then empties outDir, SSR bundle included.
+					async buildApp(builder) {
+						await builder.build(builder.environments.ssr)
+						await builder.build(builder.environments.client)
+					}
+				}
+			})
+
+			const html = await fs.readFile(
+				path.join(dir, 'dist', 'index.html'),
+				'utf-8'
+			)
+			assert.ok(html.includes('<title>Home</title>'), 'page should survive')
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
+	test('rebases relative asset URLs for nested pages', async () => {
+		const dir = path.join(__dirname, 'fixtures-vite-base')
+		try {
+			await fs.mkdir(path.join(dir, 'docs'), { recursive: true })
+			await fs.writeFile(path.join(dir, 'index.org'), 'Home')
+			await fs.writeFile(path.join(dir, 'docs', 'index.org'), 'Docs')
+
+			await viteBuild(dir, { base: './' })
+
+			for (const [page, prefix] of [
+				['', './'],
+				['docs', '../']
+			]) {
+				const pageDir = path.join(dir, 'dist', page)
+				const html = await fs.readFile(
+					path.join(pageDir, 'index.html'),
+					'utf-8'
+				)
+				const src =
+					html.match(/<script type="module"[^>]* src="([^"]+)"/)?.[1] ?? ''
+				assert.ok(src.startsWith(`${prefix}assets/`), `${page || '/'}: ${src}`)
+				await fs.access(path.join(pageDir, src))
+			}
 		} finally {
 			await fs.rm(dir, { recursive: true, force: true })
 		}
