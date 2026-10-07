@@ -9,7 +9,7 @@ const fixture = `
 const code = `
 /*@jsxRuntime classic @jsx React.createElement @jsxFrag React.Fragment*/
 import React from "react";
-export const title = 'Hello World';
+export const title = "Hello World";
 function _createOrgContent(props) {
   const _components = Object.assign({
     div: "div",

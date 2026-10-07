@@ -389,7 +389,11 @@ This page verifies custom rehype plugins.`
 			await fs.mkdir(dir, { recursive: true })
 			// Larger than Vite's inline limit, so it is emitted as a file.
 			await fs.writeFile(path.join(dir, 'pic.png'), Buffer.alloc(8192, 1))
-			await fs.writeFile(path.join(dir, 'index.org'), '[[./pic.png]]\n')
+			await fs.writeFile(path.join(dir, "it's.png"), Buffer.alloc(8192, 2))
+			await fs.writeFile(
+				path.join(dir, 'index.org'),
+				"[[./pic.png]]\n\n[[./it's.png]]\n"
+			)
 			await fs.writeFile(path.join(dir, 'page.css'), '.page { color: red }\n')
 			await fs.writeFile(
 				path.join(dir, 'page.tsx'),
@@ -420,6 +424,7 @@ export function GET() {
 			const img = html.match(/<img src="\/(assets\/pic-[^"]+\.png)"/)?.[1] ?? ''
 			assert.ok(img, html)
 			await fs.access(path.join(dir, 'dist', img))
+			assert.equal(html.match(/<img src="\/assets\//g)?.length, 2, html)
 
 			const feed = JSON.parse(
 				await fs.readFile(path.join(dir, 'dist', 'feed.json'), 'utf-8')

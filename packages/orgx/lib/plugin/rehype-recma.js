@@ -41,13 +41,9 @@ export default function rehypeRecma(options) {
 							}
 						}
 					],
-					source: {
-						type: 'Literal',
-						value: `${v}`,
-						raw: `'${v}'`
-					}
+					source: { type: 'Literal', value: `${v}` }
 				})
-			} else {
+			} else if (isValidName(k)) {
 				prepend.push(createExport(k, v))
 			}
 		})
@@ -124,6 +120,24 @@ function removeQuotes(text) {
 }
 
 /**
+ * Whether `name` can be declared with `export const`. Org keywords are `\w+`,
+ * so this only rejects names starting with a digit and reserved words.
+ *
+ * @param {string} name
+ */
+function isValidName(name) {
+	try {
+		Parser.parse(`const ${name} = 0`, {
+			sourceType: 'module',
+			ecmaVersion: 'latest'
+		})
+		return true
+	} catch {
+		return false
+	}
+}
+
+/**
  * @param {string} k
  * @param {any} v
  * @returns {ModuleDeclaration}
@@ -131,8 +145,7 @@ function removeQuotes(text) {
 function createExport(k, v) {
 	/** @type {(text: string) => Expression} */
 	const createLiteral = (text) => {
-		const value = removeQuotes(`${text}`)
-		return { type: 'Literal', value, raw: `'${value}'` }
+		return { type: 'Literal', value: removeQuotes(`${text}`) }
 	}
 	/** @type {Expression} */
 	const init = Array.isArray(v)
