@@ -17,7 +17,7 @@ test('basic org-mode parsing', async () => {
 		`
 /*@jsxRuntime automatic @jsxImportSource react*/
 import {jsx as _jsx, jsxs as _jsxs} from "react/jsx-runtime";
-export const title = 'hello world';
+export const title = "hello world";
 function _createOrgContent(props) {
   const _components = Object.assign({
     div: "div",
