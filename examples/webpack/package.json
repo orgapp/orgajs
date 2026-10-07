@@ -9,7 +9,7 @@
 		"start": "webpack serve"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.22.11",
+		"@babel/core": "^7.29.6",
 		"@babel/preset-env": "^7.22.14",
 		"@babel/preset-react": "^7.22.5",
 		"@orgajs/loader": "workspace:^",
