@@ -6,7 +6,7 @@ A simple tool that builds org-mode files into a website.
 
 orga-build is built on top of Vite (8+) with a Vite-native architecture. The dev server uses Vite's native =createServer().listen()= pattern (no custom Express wrapper), which ensures maximum compatibility with the Vite ecosystem, including plugins like Cloudflare Workers.
 
-The build uses Vite's Environment API: =orgaBuildPlugin= configures a =client= and an =ssr= environment, and its =buildApp= hook builds both and prerenders every page and endpoint. The CLI is a thin wrapper, so =vite build= with the plugin produces the same site.
+The build uses Vite's Environment API: =orgaBuildPlugin= configures an =ssr= and a =client= environment, and its =buildApp= hook builds both and prerenders every page and endpoint to static HTML. Pages ship no JavaScript unless they use an [[*Interactive Components (Islands)][island]]. The CLI is a thin wrapper, so =vite build= with the plugin produces the same site.
 
 ** Key Design Principles
 
@@ -50,12 +50,9 @@ export default {
 
 ** Default HTML Template
 
-If your project doesn't have an =index.html= file, orga-build provides a default template that:
-- Sets up React rendering
-- Enables client-side routing
-- Works in both dev and production builds
+If your project doesn't have an =index.html= file, orga-build provides a default template: a bare HTML document with a =<div id="root">= that pages are rendered into.
 
-To customize the HTML shell, create your own =index.html= in your project root. Keep =<div id="root"></div>= and =<script type="module" src="/@orga-build/main.js"></script>=; Vite processes the rest like any =index.html= (bundling linked scripts and stylesheets), and =%orga.<key>%= placeholders are filled from each page's exports (e.g. =%orga.title%=).
+To customize the HTML shell, create your own =index.html= in your project root. Keep =<div id="root"></div>=; Vite processes the rest like any =index.html= (bundling linked scripts and stylesheets), and =%orga.<key>%= placeholders are filled from each page's exports (e.g. =%orga.title%=).
 
 * Installation
 
@@ -159,6 +156,37 @@ At build time, endpoint routes are emitted to exact filenames:
 - =/api/data.json= -> =out/api/data.json=
 
 Route conflicts (same final route path) fail fast during dev/build startup.
+
+* Interactive Components (Islands)
+
+Pages are static HTML. To run a component in the browser, start its module with React's ='use client'= directive, like in any React framework:
+
+#+begin_src tsx
+// _components.tsx
+'use client'
+import { useState } from 'react'
+
+export function Counter({ start }: { start: number }) {
+  const [count, setCount] = useState(start)
+  return <button onClick={() => setCount(count + 1)}>{count}</button>
+}
+#+end_src
+
+#+begin_example
+#+jsx: <Counter start={1} />
+#+end_example
+
+The component is still prerendered. On pages that use it, the browser imports just that module (plus a shared React chunk) and hydrates it in place; every other page ships no JavaScript. Only components become islands, recognized by their PascalCase name (or the default export); hooks and other exports of a ='use client'= module stay plain values. A page file (=.tsx=) can start with ='use client'= too, which makes the whole page an island.
+
+Props cross to the browser as JSON, so they must be serializable: no functions and no =children=. Components rendered /inside/ an island are already client code and have no such limit.
+
+An island is wrapped in an =<orga-island>= element, so it can't sit where HTML allows only specific children, such as directly inside =<table>=, =<tbody>=, =<tr>=, =<select>= or =<ul>=. Make the island the whole table or list instead.
+
+Islands hydrate as soon as the page loads. Pass =client="visible"= to defer hydration until the island scrolls into view, which also defers loading React:
+
+#+begin_example
+#+jsx: <Counter start={1} client="visible" />
+#+end_example
 
 * TypeScript Setup
 

@@ -5,7 +5,9 @@ import { after, before, describe, test } from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { createBuilder } from 'vite'
 import { build } from '../build.js'
+import { renderPageHtml } from '../html.js'
 import { orgaBuildPlugin } from '../plugin.js'
+import { writeIslandFixture } from './fixtures.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const fixtureDir = path.join(__dirname, 'fixtures')
@@ -125,13 +127,71 @@ export function GET() {
 		)
 	})
 
-	test('generates assets directory', async () => {
-		const assetsDir = path.join(outDir, 'assets')
-		const assetsExists = await fs
-			.access(assetsDir)
-			.then(() => true)
-			.catch(() => false)
-		assert.ok(assetsExists, 'assets directory should exist')
+	test('ships no JavaScript without islands', async () => {
+		const html = await fs.readFile(path.join(outDir, 'index.html'), 'utf-8')
+		assert.ok(!html.includes('<script'), html)
+	})
+
+	test("hydrates 'use client' components as islands", async () => {
+		const dir = path.join(__dirname, 'fixtures-islands')
+		try {
+			await writeIslandFixture(dir)
+			await viteBuild(dir)
+
+			const html = await fs.readFile(
+				path.join(dir, 'dist', 'index.html'),
+				'utf-8'
+			)
+			const island = html.match(/<orga-island ([^>]+)>/)?.[1] ?? ''
+			const islandSrc = island.match(/src="([^"]+)"/)?.[1] ?? ''
+			assert.match(islandSrc, /^\/assets\/.+\.js$/)
+			assert.match(island, /export="Counter"/)
+			assert.match(island, /props="{&quot;start&quot;:1}"/)
+			assert.match(island, /client="load"/)
+			assert.match(island, /prefix="island-0-"/)
+			assert.match(
+				html,
+				/<button id="[^"]*island-0-[^"]*">1<\/button>/,
+				'island is prerendered with its own useId prefix'
+			)
+			const chunk = await fs.readFile(
+				path.join(dir, 'dist', islandSrc),
+				'utf-8'
+			)
+			assert.match(chunk, /\bCounter\b/, 'island chunk keeps its exports')
+
+			const script =
+				html.match(/<script type="module" src="([^"]*island[^"]*\.js)"/)?.[1] ??
+				''
+			assert.match(script, /^\/assets\//, html)
+			await fs.access(path.join(dir, 'dist', script))
+
+			const nested = await fs.readFile(
+				path.join(dir, 'dist', 'docs', 'index.html'),
+				'utf-8'
+			)
+			assert.match(nested, /<orga-island [^>]*client="visible"/)
+			assert.match(
+				nested,
+				/<orga-island [^>]*export="MemoCounter" props="{&quot;start&quot;:3,&quot;meta&quot;:{&quot;children&quot;:\[&quot;a&quot;\]}}"/,
+				'nested `children` keys are data; undefined is dropped'
+			)
+
+			const plain = await fs.readFile(
+				path.join(dir, 'dist', 'plain', 'index.html'),
+				'utf-8'
+			)
+			assert.ok(!plain.includes('<script'), 'pages without islands stay static')
+
+			const page = await fs.readFile(
+				path.join(dir, 'dist', 'page', 'index.html'),
+				'utf-8'
+			)
+			assert.match(page, /<title>Page<\/title>/)
+			assert.match(page, /<orga-island [^>]*export="default" props="{}"/)
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
 	})
 
 	test('processes configured global styles through vite and injects built css', async () => {
@@ -282,16 +342,16 @@ This page verifies custom rehype plugins.`
 	test('prerenders after a configured builder.buildApp', async () => {
 		const dir = path.join(__dirname, 'fixtures-vite-builder')
 		try {
-			await fs.mkdir(dir, { recursive: true })
-			await fs.writeFile(path.join(dir, 'index.org'), '#+title: Home\n\nHome')
+			await writeIslandFixture(dir)
 
 			await viteBuild(dir, {
 				builder: {
-					// Builds every environment itself, SSR first: the client build
-					// then empties outDir, SSR bundle included.
+					// Builds every environment itself, client first (as e.g. the
+					// Cloudflare plugin does): that client build predates island
+					// discovery and must be redone.
 					async buildApp(builder) {
-						await builder.build(builder.environments.ssr)
 						await builder.build(builder.environments.client)
+						await builder.build(builder.environments.ssr)
 					}
 				}
 			})
@@ -301,17 +361,99 @@ This page verifies custom rehype plugins.`
 				'utf-8'
 			)
 			assert.ok(html.includes('<title>Home</title>'), 'page should survive')
+			const islandSrc = html.match(/<orga-island [^>]*src="([^"]+)"/)?.[1]
+			assert.ok(islandSrc, 'island is rendered')
+			await fs.access(path.join(dir, 'dist', islandSrc))
 		} finally {
 			await fs.rm(dir, { recursive: true, force: true })
 		}
 	})
 
+	test('rejects island props that cannot reach the browser', async () => {
+		const dir = path.join(__dirname, 'fixtures-island-props')
+		try {
+			await writeIslandFixture(dir)
+			await fs.writeFile(
+				path.join(dir, 'index.org'),
+				'#+jsx: <Counter start={1} config={{ onClick: () => {} }} />\n'
+			)
+			await assert.rejects(() => viteBuild(dir), /prop "onClick" can't be sent/)
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
+	test('emits images and CSS imported by pages', async () => {
+		const dir = path.join(__dirname, 'fixtures-page-assets')
+		try {
+			await fs.mkdir(dir, { recursive: true })
+			// Larger than Vite's inline limit, so it is emitted as a file.
+			await fs.writeFile(path.join(dir, 'pic.png'), Buffer.alloc(8192, 1))
+			await fs.writeFile(path.join(dir, 'index.org'), '[[./pic.png]]\n')
+			await fs.writeFile(path.join(dir, 'page.css'), '.page { color: red }\n')
+			await fs.writeFile(
+				path.join(dir, 'page.tsx'),
+				`import './page.css'
+export default function Page() {
+	return <p className="page">hi</p>
+}
+`
+			)
+			await fs.writeFile(
+				path.join(dir, 'feed.json.ts'),
+				`import pic from './pic.png'
+export function GET() {
+	return Response.json({ pic })
+}
+`
+			)
+			await viteBuild(dir, { build: { sourcemap: true } })
+			// The SSR bundle and its source map are not part of the site.
+			for (const file of ['ssr.mjs', 'ssr.mjs.map']) {
+				await assert.rejects(fs.access(path.join(dir, 'dist', file)), file)
+			}
+
+			const html = await fs.readFile(
+				path.join(dir, 'dist', 'index.html'),
+				'utf-8'
+			)
+			const img = html.match(/<img src="\/(assets\/pic-[^"]+\.png)"/)?.[1] ?? ''
+			assert.ok(img, html)
+			await fs.access(path.join(dir, 'dist', img))
+
+			const feed = JSON.parse(
+				await fs.readFile(path.join(dir, 'dist', 'feed.json'), 'utf-8')
+			)
+			assert.equal(feed.pic, `/${img}`, 'endpoints get real asset URLs too')
+
+			const page = await fs.readFile(
+				path.join(dir, 'dist', 'page', 'index.html'),
+				'utf-8'
+			)
+			const css =
+				page.match(
+					/<link rel="stylesheet" href="\/(assets\/[^"]+\.css)"/
+				)?.[1] ?? ''
+			assert.ok(css, page)
+			const built = await fs.readFile(path.join(dir, 'dist', css), 'utf-8')
+			assert.ok(built.includes('.page'), built)
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
+	test('injects head tags for a page that renders nothing', () => {
+		const html = renderPageHtml(
+			'<html><head></head><body><div id="root"></div></body></html>',
+			{ content: '', page: {}, styles: ['/s.css'] }
+		)
+		assert.match(html, /<link rel="stylesheet" href="\/s.css"><\/head>/)
+	})
+
 	test('rebases relative asset URLs for nested pages', async () => {
 		const dir = path.join(__dirname, 'fixtures-vite-base')
 		try {
-			await fs.mkdir(path.join(dir, 'docs'), { recursive: true })
-			await fs.writeFile(path.join(dir, 'index.org'), 'Home')
-			await fs.writeFile(path.join(dir, 'docs', 'index.org'), 'Docs')
+			await writeIslandFixture(dir)
 
 			await viteBuild(dir, { base: './' })
 
@@ -324,10 +466,18 @@ This page verifies custom rehype plugins.`
 					path.join(pageDir, 'index.html'),
 					'utf-8'
 				)
-				const src =
-					html.match(/<script type="module"[^>]* src="([^"]+)"/)?.[1] ?? ''
-				assert.ok(src.startsWith(`${prefix}assets/`), `${page || '/'}: ${src}`)
-				await fs.access(path.join(pageDir, src))
+				for (const pattern of [
+					/<script type="module"[^>]* src="([^"]+)"/,
+					/<orga-island [^>]*src="([^"]+)"/,
+					...(page ? [/<img src="([^"]+)"/] : [])
+				]) {
+					const src = html.match(pattern)?.[1] ?? ''
+					assert.ok(
+						src.startsWith(`${prefix}assets/`),
+						`${page || '/'}: ${src}`
+					)
+					await fs.access(path.join(pageDir, src))
+				}
 			}
 		} finally {
 			await fs.rm(dir, { recursive: true, force: true })

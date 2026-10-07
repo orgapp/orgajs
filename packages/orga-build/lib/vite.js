@@ -1,12 +1,12 @@
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { setup } from './files.js'
+import { clientRuntime } from './island.js'
 
 const magicModulePrefix = '/@orga-build/'
 const pagesModuleId = `${magicModulePrefix}pages`
 const endpointsModuleId = `${magicModulePrefix}endpoints`
-const appEntryId = `${magicModulePrefix}main.js`
-const csrEntry = fileURLToPath(new URL('./csr.jsx', import.meta.url))
+/** URL the dev server serves the island runtime from. */
+export const islandRuntimeId = `${magicModulePrefix}islands.js`
 const contentModuleId = 'orga-build:content'
 const contentModuleIdResolved = `\0${contentModuleId}`
 const endpointModulePrefix = `${endpointsModuleId}/__route__/`
@@ -20,6 +20,8 @@ const endpointModulePrefix = `${endpointsModuleId}/__route__/`
 export function pluginFactory({ dir, exclude = [] }) {
 	/** @type {ReturnType<typeof setup>} */
 	let files
+	/** @type {import('vite').ViteDevServer | undefined} */
+	let server
 	const contentDir = path.resolve(dir)
 
 	/**
@@ -54,33 +56,38 @@ export function pluginFactory({ dir, exclude = [] }) {
 		},
 
 		async configureServer(_server) {
+			server = _server
 			// Eagerly run file discovery so route conflicts surface at startup
 			await files.pages()
 			await files.endpoints()
 		},
 
 		hotUpdate({ file }) {
-			// Only content changes affect routes; anything else in the project
-			// (logs, editor backups, tool state) must not trigger a reload.
-			if (!isContentFile(file)) return
+			// Content changes affect routes; files the server renders affect pages.
+			// Anything else in the project (logs, editor backups, tool state) must
+			// not trigger a reload.
+			const rendered =
+				server?.environments.ssr.moduleGraph.getModulesByFile(file)
+			if (!isContentFile(file) && !rendered?.size) return
 			// Invalidate in-memory file caches so added/removed routes are picked up
 			files.invalidate()
 			// Invalidate content module when content files change
 			const module = this.environment.moduleGraph.getModuleById(
 				contentModuleIdResolved
 			)
-			if (module) {
-				this.environment.moduleGraph.invalidateModule(module)
-				// Full reload for now; can optimize to HMR later
+			if (module) this.environment.moduleGraph.invalidateModule(module)
+			// Pages render on the server: the browser has nothing to hot-swap,
+			// so reload it.
+			if (this.environment.name === 'client') {
 				this.environment.hot.send({ type: 'full-reload', path: '*' })
 			}
 		},
 
 		async resolveId(id, _importer) {
-			// The HTML shell references the client entry by a stable URL; point it
-			// at the real file so Vite treats it like any other source module.
-			if (id === appEntryId) {
-				return csrEntry
+			// Pages with islands link the runtime by a stable URL; point it at the
+			// real file so Vite treats it like any other source module.
+			if (id === islandRuntimeId) {
+				return clientRuntime
 			}
 			if (id === contentModuleId) {
 				return contentModuleIdResolved
@@ -102,12 +109,21 @@ export function pluginFactory({ dir, exclude = [] }) {
 			if (id.startsWith(pagesModuleId)) {
 				const pageId = id.replace(pagesModuleId, '')
 				const page = await files.page(pageId)
-				if (page) {
+				if (!page) return
+				// Org pages take `_components` as the `components` prop.
+				if (page.dataPath.endsWith('.org')) {
 					return `
+import { createElement } from 'react';
+import Content from '${page.dataPath}';
+import * as components from '${magicModulePrefix}components';
+export * from '${page.dataPath}';
+export default (props) => createElement(Content, { components: { ...components }, ...props });
+`
+				}
+				return `
 export * from '${page.dataPath}';
 export {default} from '${page.dataPath}';
 `
-				}
 			}
 			if (id.startsWith(endpointModulePrefix)) {
 				const routeHex = id.slice(endpointModulePrefix.length)

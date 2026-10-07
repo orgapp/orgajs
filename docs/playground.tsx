@@ -1,3 +1,4 @@
+'use client'
 import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { VFile } from 'vfile'
 import { evaluate } from '@orgajs/orgx'
