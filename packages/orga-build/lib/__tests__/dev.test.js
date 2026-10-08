@@ -147,4 +147,149 @@ export default function Page() {
 			await fs.rm(dir, { recursive: true, force: true })
 		}
 	})
+
+	test('picks up added, renamed and deleted pages', async () => {
+		const site = await startSite('fixtures-dev-pages', 5181, {
+			'index.org': '#+title: Home\n\nhome\n'
+		})
+		try {
+			await site.write('new.org', '#+title: New\n\nfresh page\n')
+			await site.until('new', (html) => html.includes('fresh page'))
+
+			await site.rename('new.org', 'renamed.org')
+			await site.until('renamed', (html) => html.includes('fresh page'))
+			await site.until('new', (html) => !html.includes('fresh page'))
+
+			// A conflicting route is an error response; the server keeps running.
+			await site.write('renamed.tsx', 'export default () => <p>tsx</p>\n')
+			await site.until(
+				'renamed',
+				(html, status) => status === 500 && html.includes('Route conflict')
+			)
+			await site.remove('renamed.tsx')
+			await site.until('renamed', (html) => html.includes('fresh page'))
+
+			await site.remove('renamed.org')
+			await site.until('renamed', (html) => !html.includes('fresh page'))
+			assert.ok((await site.get()).html.includes('home'))
+		} finally {
+			await site.close()
+		}
+	})
+
+	test('picks up added, edited and deleted layouts and components', async () => {
+		const site = await startSite('fixtures-dev-layout', 5182, {
+			'index.org': '#+title: Home\n\nhome\n',
+			'greet.org': '#+title: Greet\n\n#+jsx: <Greeting />\n'
+		})
+		const layout = (/** @type {string} */ name) =>
+			`export default function Layout({ children }) {
+	return <main className="${name}">{children}</main>
+}
+`
+		const greeting = (/** @type {string} */ text) =>
+			`export function Greeting() {
+	return <b>${text}</b>
+}
+`
+		try {
+			await site.write('_layout.tsx', layout('first'))
+			await site.until('', (html) => html.includes('<main class="first">'))
+			await site.write('_layout.tsx', layout('second'))
+			await site.until('', (html) => html.includes('<main class="second">'))
+			await site.remove('_layout.tsx')
+			await site.until('', (html) => !html.includes('<main'))
+
+			await site.write('_components.tsx', greeting('hello'))
+			await site.until('greet', (html) => html.includes('<b>hello</b>'))
+			await site.write('_components.tsx', greeting('bye'))
+			await site.until('greet', (html) => html.includes('<b>bye</b>'))
+			await site.remove('_components.tsx')
+			await site.until(
+				'',
+				(html, status) => status === 200 && html.includes('home')
+			)
+		} finally {
+			await site.close()
+		}
+	})
+
+	test('getPages reflects metadata edits', async () => {
+		const site = await startSite('fixtures-dev-content', 5183, {
+			'post.org': '#+title: First\n\npost\n',
+			'list.tsx': `import { getPages } from 'orga-build:content'
+export default function List() {
+	return <ul>{getPages().map((p) => <li key={p.slug}>{String(p.data.title)}</li>)}</ul>
+}
+`
+		})
+		try {
+			await site.until('list', (html) => html.includes('<li>First</li>'))
+			await site.write('post.org', '#+title: Second\n\npost\n')
+			await site.until('list', (html) => html.includes('<li>Second</li>'))
+			await site.write('other.org', '#+title: Other\n')
+			await site.until('list', (html) => html.includes('<li>Other</li>'))
+		} finally {
+			await site.close()
+		}
+	})
 })
+
+/**
+ * Starts a dev server on a fresh fixture directory.
+ * @param {string} name
+ * @param {number} port
+ * @param {Record<string, string>} initial - file contents by relative path
+ */
+async function startSite(name, port, initial) {
+	const dir = path.join(__dirname, name)
+	await fs.rm(dir, { recursive: true, force: true })
+	await fs.mkdir(dir, { recursive: true })
+	for (const [file, content] of Object.entries(initial)) {
+		await fs.writeFile(path.join(dir, file), content)
+	}
+	const server = await createServer({
+		root: dir,
+		configFile: false,
+		logLevel: 'silent',
+		server: { port },
+		plugins: orgaBuildPlugin({ root: dir })
+	})
+	await server.listen()
+	const pageUrl = new URL(server.resolvedUrls?.local[0] ?? '')
+
+	async function get(url = '') {
+		const response = await fetch(new URL(url, pageUrl), {
+			headers: { accept: 'text/html' }
+		})
+		return { status: response.status, html: await response.text() }
+	}
+
+	return {
+		get,
+		/** @param {string} file @param {string} content */
+		write: (file, content) => fs.writeFile(path.join(dir, file), content),
+		/** @param {string} file */
+		remove: (file) => fs.rm(path.join(dir, file)),
+		/** @param {string} from @param {string} to */
+		rename: (from, to) => fs.rename(path.join(dir, from), path.join(dir, to)),
+		/**
+		 * Polls `url` until `check` passes, as a browser would after reloading.
+		 * @param {string} url
+		 * @param {(html: string, status: number) => boolean} check
+		 */
+		async until(url, check) {
+			let last = { status: 0, html: '' }
+			for (let i = 0; i < 50; i++) {
+				last = await get(url)
+				if (check(last.html, last.status)) return
+				await new Promise((resolve) => setTimeout(resolve, 100))
+			}
+			assert.fail(`/${url} never matched; last ${last.status}:\n${last.html}`)
+		},
+		async close() {
+			await server.close()
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	}
+}
