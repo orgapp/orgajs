@@ -88,3 +88,35 @@ Turns org-mode content into AST.
 }
 
 #+END_SRC
+
+** Timestamps
+
+Timestamps are parsed as written, with no timezone. ~parseTimestamp~ and
+~planning~ nodes give a plain object:
+
+#+BEGIN_SRC javascript
+  const { parseTimestamp } = require('orga')
+  parseTimestamp('<2026-01-05 Mon 10:00-11:00 +1w -2d>')
+  // {
+  //   active: true,
+  //   start: { year: 2026, month: 1, day: 5, hour: 10, minute: 0 },
+  //   end: { year: 2026, month: 1, day: 5, hour: 11, minute: 0 },
+  //   repeater: '+1w',
+  //   warning: '-2d'
+  // }
+#+END_SRC
+
+~hour~ and ~minute~ are set only when the timestamp has a time. ~end~ comes
+from a time range (~10:00-11:00~) or a date range (~<a>--<b>~). ~repeater~
+and ~warning~ are kept as written. A ~planning~ node's ~timestamp~ is
+~undefined~ when the text after its keyword is not a timestamp.
+
+The field names match ~Temporal.PlainDate~ and ~Temporal.PlainDateTime~, so
+you can pass ~start~ or ~end~ to them. Pick the timezone yourself:
+
+#+BEGIN_SRC javascript
+  const { start } = parseTimestamp('<2026-01-05 Mon 10:00>')
+  Temporal.PlainDate.from(start) // 2026-01-05
+  Temporal.PlainDateTime.from(start) // 2026-01-05T10:00:00 (00:00 without a time)
+  Temporal.PlainDateTime.from(start).toZonedDateTime('Pacific/Auckland')
+#+END_SRC

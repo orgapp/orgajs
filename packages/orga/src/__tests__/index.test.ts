@@ -50,30 +50,17 @@ function removeUndefined(obj: any) {
 	return obj
 }
 
-const dateReviver = (_key: string, value: any) => {
-	if (typeof value === 'string') {
-		const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/
-		if (isoDateRegex.test(value)) {
-			return new Date(value)
-		}
-	}
-	return value
-}
-
 describe('parser', () => {
 	specs.forEach(({ name, input, output }) => {
 		it(`${name}`, async () => {
 			const text = await fs.readFile(input, { encoding: 'utf8' })
-			const tree = parse(text, { timezone: 'Pacific/Auckland' })
+			const tree = parse(text)
 			if (update) {
 				await fs.writeFile(output, JSON.stringify(tree, null, 2), 'utf8')
 			} else {
 				assert.deepStrictEqual(
 					removeUndefined(tree),
-					JSON.parse(
-						await fs.readFile(output, { encoding: 'utf8' }),
-						dateReviver
-					)
+					JSON.parse(await fs.readFile(output, { encoding: 'utf8' }))
 				)
 			}
 		})

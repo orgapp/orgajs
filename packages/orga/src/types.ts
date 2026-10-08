@@ -22,9 +22,27 @@ export interface Attributed {
 	attributes: Attributes
 }
 
+/** A date as written in the text, with no timezone. Field names match `Temporal.PlainDate(Time)`. */
+export interface DateTime {
+	year: number
+	/** 1-12 */
+	month: number
+	day: number
+	/** `hour` and `minute` are both set, or neither. */
+	hour?: number
+	minute?: number
+}
+
 export interface Timestamp {
-	date: Date
-	end?: Date
+	/** `<...>` is active, `[...]` is inactive. */
+	active: boolean
+	start: DateTime
+	/** From a time range (`10:00-11:00`) or a date range (`<a>--<b>`). */
+	end?: DateTime
+	/** As written, e.g. `+1w`, `++1w`, `.+1w`. */
+	repeater?: string
+	/** As written, e.g. `-2d`, `--2d`. */
+	warning?: string
 }
 
 export type Properties = Record<string, PropertyValue>
@@ -98,7 +116,8 @@ export interface Drawer extends Literal {
 export interface Planning extends Node {
 	type: 'planning'
 	keyword: string
-	timestamp: Timestamp
+	/** `undefined` if the text after the keyword is not a timestamp. */
+	timestamp: Timestamp | undefined
 }
 
 type ListContent = ListItem | List
@@ -345,7 +364,7 @@ export interface PlanningKeyword extends Literal {
 
 export interface PlanningTimestamp extends UnistLiteral {
 	type: 'planning.timestamp'
-	value: Timestamp
+	value: Timestamp | undefined
 }
 
 export interface ListItemTag extends Literal {
