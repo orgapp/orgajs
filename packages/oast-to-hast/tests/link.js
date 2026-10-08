@@ -67,3 +67,9 @@ test('file links keep heading and custom-id searches as fragments', () => {
 		['x.org#some-heading', './x.org#custom', 'x.org', 'x.org']
 	)
 })
+
+test('headlines outside sections get ids (flat: true)', () => {
+	const flat = toHast(parse(`* Setup\n[[*Setup]]`, { flat: true }))
+	assert.deepEqual(select(flat, 'h1')[0].properties.id, 'setup')
+	assert.deepEqual(select(flat, 'a')[0].properties.href, '#setup')
+})

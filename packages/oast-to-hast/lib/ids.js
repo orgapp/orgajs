@@ -48,20 +48,22 @@ export function headingIds(tree) {
 
 	return { byNode, byText }
 
-	/** @param {Nodes} node */
-	function collect(node) {
-		if (!('children' in node)) return
-		if (node.type === 'section') {
-			const headline = node.children.find((n) => n.type === 'headline')
-			if (headline) {
-				const customId = node.properties.custom_id
-				headlines.push({
-					headline,
-					customId: typeof customId === 'string' ? customId : undefined
-				})
-			}
+	/**
+	 * @param {Nodes} node
+	 * @param {Nodes} [parent]
+	 */
+	function collect(node, parent) {
+		if (node.type === 'headline') {
+			const customId =
+				parent?.type === 'section' ? parent.properties.custom_id : undefined
+			headlines.push({
+				headline: node,
+				customId: typeof customId === 'string' ? customId : undefined
+			})
+			return
 		}
-		for (const child of node.children) collect(child)
+		if (!('children' in node)) return
+		for (const child of node.children) collect(child, node)
 	}
 }
 
