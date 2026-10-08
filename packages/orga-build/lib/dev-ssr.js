@@ -13,7 +13,7 @@ const ssrEntry = fileURLToPath(new URL('./ssr.jsx', import.meta.url))
  * - Endpoint routes are answered from their `GET`/`HEAD` handlers
  * - Pages are SSR-rendered through the `ssr` environment's module runner, so
  *   edits are picked up without restarting
- * - Unknown routes get the bare shell (the client-side router handles 404)
+ * - Unknown routes fall through to Vite, which answers 404 like the build
  * - Only GET/HEAD requests that accept HTML are rendered; assets pass through
  *
  * @returns {import('vite').Plugin}
@@ -109,6 +109,8 @@ export function devSsrPlugin() {
 					if (pathname !== '/' && /\.\w+$/.test(pathname)) {
 						return next()
 					}
+
+					if (!pages[pathname]) return next()
 
 					const template = await server.transformIndexHtml(
 						url,
