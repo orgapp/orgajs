@@ -253,9 +253,9 @@ const writing = getPages('writing')
 // Get entries in a nested path
 const posts2025 = getPages('content/writing/2025')
 
-// Filter out drafts
-const published = getPages('writing', (entry) => {
-  return entry.data['draft'] !== 'true'
+// Filter by metadata
+const featured = getPages('writing', (entry) => {
+  return entry.data['featured'] === 'true'
 })
 #+end_src
 
@@ -342,6 +342,13 @@ This becomes:
 
 For =.tsx= and =.jsx= files, the =data= field is currently empty in v1.
 
+** Drafts
+
+Mark a page as a draft with =#+draft: t= (or =true=, =yes=). The dev server
+serves drafts so you can preview them; the build leaves them out entirely: no
+HTML, and no entry in =getPages=, so feeds, sitemaps, and index pages skip
+them without filtering.
+
 ** Path Matching Behavior
 
 Path matching works hierarchically:
@@ -367,9 +374,7 @@ Path matching works hierarchically:
 import { getPages } from 'orga-build:content'
 
 export default function BlogIndex() {
-  const posts = getPages('writing', (entry) => {
-    return entry.data['draft'] !== 'true'
-  }).sort((a, b) => {
+  const posts = getPages('writing').sort((a, b) => {
     // Sort by date descending
     return String(b.data['date']).localeCompare(String(a.data['date']))
   })

@@ -339,6 +339,39 @@ This page verifies custom rehype plugins.`
 		}
 	})
 
+	test('leaves draft pages out of the build', async () => {
+		const dir = path.join(__dirname, 'fixtures-drafts')
+		try {
+			await fs.mkdir(dir, { recursive: true })
+			await fs.writeFile(path.join(dir, 'index.org'), 'Home')
+			await fs.writeFile(path.join(dir, 'draft.org'), '#+draft: t\n\nWIP')
+			await fs.writeFile(
+				path.join(dir, 'published.org'),
+				'#+draft: false\n\nDone'
+			)
+			await fs.writeFile(
+				path.join(dir, 'pages.json.ts'),
+				`import { getPages } from 'orga-build:content'
+export function GET() {
+  return Response.json(getPages().map((page) => page.slug).sort())
+}
+`
+			)
+
+			await viteBuild(dir)
+
+			const out = path.join(dir, 'dist')
+			const slugs = JSON.parse(
+				await fs.readFile(path.join(out, 'pages.json'), 'utf-8')
+			)
+			assert.deepEqual(slugs, ['/', '/published'])
+			await fs.access(path.join(out, 'published', 'index.html'))
+			await assert.rejects(fs.access(path.join(out, 'draft', 'index.html')))
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
 	test('prerenders after a configured builder.buildApp', async () => {
 		const dir = path.join(__dirname, 'fixtures-vite-builder')
 		try {

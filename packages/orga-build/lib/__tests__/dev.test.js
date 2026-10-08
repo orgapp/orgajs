@@ -55,6 +55,30 @@ describe('orga-build dev', () => {
 		}
 	})
 
+	test('serves draft pages for preview', async () => {
+		const dir = path.join(__dirname, 'fixtures-dev-drafts')
+		await fs.mkdir(dir, { recursive: true })
+		await fs.writeFile(path.join(dir, 'draft.org'), '#+draft: t\n\nWIP')
+		const server = await createServer({
+			root: dir,
+			configFile: false,
+			logLevel: 'silent',
+			server: { port: 5181 },
+			plugins: orgaBuildPlugin({ root: dir })
+		})
+		try {
+			await server.listen()
+			const url = new URL('draft', server.resolvedUrls?.local[0])
+			const html = await (
+				await fetch(url, { headers: { accept: 'text/html' } })
+			).text()
+			assert.ok(html.includes('WIP'), html)
+		} finally {
+			await server.close()
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
 	test('links page CSS and reloads the browser on server-rendered edits', async () => {
 		const dir = path.join(__dirname, 'fixtures-dev-reload')
 		await fs.mkdir(dir, { recursive: true })

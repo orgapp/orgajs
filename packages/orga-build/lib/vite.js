@@ -52,7 +52,12 @@ export function pluginFactory({ dir, exclude = [] }) {
 			// Read it from the client environment: during a build, `config.build`
 			// is the current environment's (e.g. the SSR outDir).
 			const outDir = config.environments.client.build.outDir
-			files = setup(dir, { outDir: path.resolve(config.root, outDir), exclude })
+			files = setup(dir, {
+				outDir: path.resolve(config.root, outDir),
+				exclude,
+				// Preview drafts in dev; leave them out of the build.
+				drafts: config.command === 'serve'
+			})
 		},
 
 		async configureServer(_server) {
