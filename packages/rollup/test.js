@@ -28,7 +28,7 @@ test('@orgajs/rollup', async () => {
 
 	assert.equal(
 		renderToStaticMarkup(createElement(Content)),
-		'<div class="section"><h1>Hi</h1></div>'
+		'<div class="section"><h1 id="hi">Hi</h1></div>'
 	)
 
 	await fs.unlink(new URL('rollup.org', import.meta.url))
