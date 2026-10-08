@@ -310,8 +310,8 @@ function readLiteralExports(filePath, text) {
 const notLiteral = Symbol('notLiteral')
 
 /**
- * The value of a literal expression: a string, number, boolean or `null`, a
- * template without placeholders, or an array of those.
+ * The value of a literal expression: a string, number (signed too), boolean
+ * or `null`, a template without placeholders, or an array of those.
  * @param {any} node
  * @returns {unknown}
  */
@@ -325,6 +325,15 @@ function literalValue(node) {
 		case 'TSAsExpression':
 		case 'TSSatisfiesExpression':
 			return literalValue(node.expression)
+		case 'UnaryExpression': {
+			const value = literalValue(node.argument)
+			if (typeof value !== 'number') return notLiteral
+			return node.operator === '-'
+				? -value
+				: node.operator === '+'
+					? value
+					: notLiteral
+		}
 		case 'ArrayExpression': {
 			const values = node.elements.map((/** @type {any} */ element) =>
 				element ? literalValue(element) : notLiteral

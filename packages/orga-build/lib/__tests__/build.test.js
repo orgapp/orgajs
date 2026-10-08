@@ -372,6 +372,7 @@ export function GET() {
 				`import { site } from 'orga-build:content'
 export const title = 'TSX page'
 export const tags = ['a', 'b'] as const
+export const order = -1
 export const render = () => title
 export default function Page() {
 	return <a href={site + '/page'}>link</a>
@@ -414,7 +415,10 @@ export function GET(ctx) {
 				ctxSite: 'https://example.com/blog',
 				url: 'https://example.com/blog/pages.json',
 				pages: [
-					{ slug: '/page', data: { title: 'TSX page', tags: ['a', 'b'] } },
+					{
+						slug: '/page',
+						data: { title: 'TSX page', tags: ['a', 'b'], order: -1 }
+					},
 					{ slug: '/post', data: { title: 'Org post' } }
 				]
 			})
@@ -423,10 +427,12 @@ export function GET(ctx) {
 				'utf-8'
 			)
 			assert.ok(html.includes('href="https://example.com/blog/page"'), html)
-			assert.throws(
-				() => orgaBuildPlugin({ root: dir, site: 'example.com' }),
-				/"site" must be an absolute URL/
-			)
+			for (const site of ['example.com', 'localhost:3000']) {
+				assert.throws(
+					() => orgaBuildPlugin({ root: dir, site }),
+					/"site" must be an absolute http\(s\) URL/
+				)
+			}
 		} finally {
 			await fs.rm(dir, { recursive: true, force: true })
 		}

@@ -75,12 +75,14 @@ export function orgaBuildPlugin({
  */
 function normalizeSite(site) {
 	if (site === undefined) return
-	if (!URL.canParse(site)) {
+	// `localhost:3000` parses too, as a URL with the scheme `localhost:`.
+	const url = URL.canParse(site) ? new URL(site) : undefined
+	if (url?.protocol !== 'http:' && url?.protocol !== 'https:') {
 		throw new Error(
-			`orga-build: "site" must be an absolute URL, e.g. "https://example.com", got "${site}"`
+			`orga-build: "site" must be an absolute http(s) URL, e.g. "https://example.com", got "${site}"`
 		)
 	}
-	return new URL(site).href.replace(/\/+$/, '')
+	return url.href.replace(/\/+$/, '')
 }
 
 /**
