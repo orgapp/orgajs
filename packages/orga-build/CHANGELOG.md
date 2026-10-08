@@ -1,5 +1,39 @@
 # orga-build
 
+## 0.10.0
+
+### Minor Changes
+
+- d79fda5: Leave draft pages out of the build. A page with `#+draft: t` (or `true`, `yes`) is served by the dev server for preview, but the build emits no HTML for it and `getPages` doesn't return it, so feeds and index pages no longer need to filter drafts by hand.
+- d8f4492: Static HTML by default, with opt-in React islands. Pages are prerendered to plain HTML and ship no JavaScript; the client-side router (wouter) and whole-app hydration are gone, so links are regular page loads. A component module that starts with React's `'use client'` directive becomes an island: it is still prerendered, and the browser imports just that module (plus a shared React chunk) and hydrates it in place. Pass `client="visible"` to defer hydration until the island scrolls into view. Island props must be JSON-serializable.
+
+  The `orga-build/components` and `orga-build/csr` entry points are removed, and the default HTML shell no longer needs a `<script>` tag.
+
+- 89f9c20: Add a `site` option (absolute site URL), exported from `orga-build:content` and passed to endpoints as `ctx.site`. TSX/JSX pages now fill `data` in `getPages` from their literal named exports (`export const title = '…'`), and `export const draft = true` leaves them out of the build.
+- 8a8a3dd: Upgrade to Vite 8 and `@vitejs/plugin-react` 6, and move more of the build onto Vite:
+
+  - `orgaBuildPlugin` is now self-contained: in a `vite.config.js`, `vite` serves the site with SSR and `vite build` builds the static site (prerendering runs in Vite's `buildApp` hook). `resolve: { alias }` is no longer needed there.
+  - Vite processes `index.html` as the client entry, injecting the bundled script and stylesheets itself.
+  - Global `styles` are linked from the HTML shell, so they hot-reload in dev and are no longer loaded twice.
+  - Dependencies of pages, layouts and components are pre-bundled at dev startup instead of triggering a reload on first visit.
+  - Browser console errors are forwarded to the dev server terminal.
+  - A relative `root` passed to `orgaBuildPlugin` now works.
+
+  Breaking: requires Node `^20.19.0 || >=22.12.0` (Vite 8), and `createOrgaBuildConfig` no longer returns `resolve`.
+
+- 3cc8613: Resolve Org links to headings. Headings get an `id` (`CUSTOM_ID`, or a slug of their text), `[[*Heading]]` and `[[#custom-id]]` link within the page, and `file:x.org::*Heading` / `file:x.org::#custom-id` keep the target as a URL fragment. orga-build rewrites `.org` links to page URLs under Vite's `base`.
+
+### Patch Changes
+
+- c9b7b32: Align config, CLI and docs: `--outDir`/`-o` now overrides the output directory, a broken `orga.config.js` fails the command instead of silently using defaults, unknown routes answer 404 in dev, and the unused `preBuild`/`postBuild` options and `--watch` flag are removed.
+- f7dcadd: Fix the dev server serving a stale file list: added pages now render without a restart, and deleting a `_layout` or `_components` file no longer breaks every page with "Failed to load url".
+- c5fbbf1: Fix two dev server issues: only reload when files in the content root change (unrelated writes in the project caused endless reloads), and pre-bundle `react-dom/client` and wouter's `use-sync-external-store` shim so the client no longer fails with "does not provide an export named" errors.
+- a1f9553: Leave protocol-relative (`//cdn...`) and other non-local media URLs alone instead of importing them as assets
+- b3f20cd: Hydrate server-rendered pages instead of re-rendering them. The client entry used `createRoot`, which threw away the prerendered HTML and rebuilt the DOM on every page load, causing a visible flicker on navigation.
+- bab911a: Escape metadata and media paths in generated code. `#+title: Don't panic` produced `export const title = 'Don't panic'`, a syntax error that failed the build; keywords that aren't valid identifiers (`#+1st:`, `#+class:`) are now skipped instead of breaking the module. In orga-build, an image or video whose file name contains a quote (`[[./it's.png]]`) no longer breaks the page.
+- Updated dependencies [8a8a3dd]
+  - @orgajs/rollup@1.3.5
+
 ## 0.9.0
 
 ### Minor Changes

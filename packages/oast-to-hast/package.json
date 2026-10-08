@@ -1,6 +1,6 @@
 {
 	"name": "oast-to-hast",
-	"version": "4.5.3",
+	"version": "4.6.0",
 	"description": "Transform OAST to HAST",
 	"files": [
 		"lib",

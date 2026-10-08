@@ -1,5 +1,13 @@
 # @orgajs/rollup
 
+## 1.3.5
+
+### Patch Changes
+
+- 8a8a3dd: Mark compiled `.org` modules as JavaScript (`moduleType: 'js'`), as Rolldown (Vite 8) requires for plugins that transform non-JS files.
+- Updated dependencies [bab911a]
+  - @orgajs/orgx@2.6.2
+
 ## 1.3.4
 
 ### Patch Changes
