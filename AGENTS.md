@@ -1,6 +1,6 @@
 Monorepo for `orga`, an org-mode parser in the unifiedjs ecosystem (like remark for markdown). Use `pnpm`.
 
-Tasks are tracked with the `task` CLI. Run `task help` before picking up, adding or claiming a task.
+Tasks are tracked with the `task` CLI. Run `task help` before picking up, adding or claiming a task. Once a task is done, push its `task/<id>` branch and open a PR to `main`; that PR is how the task gets merged.
 
 ## Lezer parser (`@orgajs/lezer`)
 
