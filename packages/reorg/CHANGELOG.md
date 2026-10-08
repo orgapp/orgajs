@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.3.4
+
+### Patch Changes
+
+- Updated dependencies [dc8eef4]
+  - orga@5.0.0
+  - @orgajs/reorg-parse@4.4.2
+
 ## 4.3.3
 
 ### Patch Changes
