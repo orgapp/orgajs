@@ -41,6 +41,10 @@ describe('orga-build dev', () => {
 				})
 			).text()
 			assert.match(nested, /client="visible"/, 'trailing slash finds the page')
+			const missing = await fetch(new URL('nope', pageUrl), {
+				headers: { accept: 'text/html' }
+			})
+			assert.equal(missing.status, 404, 'unknown routes are not rendered')
 			for (const [url, marker] of [
 				[islandSrc, 'Counter'],
 				[script, 'hydrateRoot']

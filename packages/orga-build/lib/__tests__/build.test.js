@@ -99,9 +99,7 @@ export function GET() {
 			root: fixtureDir,
 			outDir: outDir,
 			containerClass: [],
-			vitePlugins: [],
-			preBuild: [],
-			postBuild: []
+			vitePlugins: []
 		})
 
 		// Check output exists
@@ -202,9 +200,7 @@ export function GET() {
 			outDir: outDir,
 			containerClass: [],
 			styles: [styleUrl],
-			vitePlugins: [],
-			preBuild: [],
-			postBuild: []
+			vitePlugins: []
 		})
 
 		const html = await fs.readFile(path.join(outDir, 'index.html'), 'utf-8')
@@ -245,9 +241,7 @@ This page verifies custom rehype plugins.`
 				outDir: outDirRehype,
 				containerClass: [],
 				rehypePlugins: [markCodeBlocks],
-				vitePlugins: [],
-				preBuild: [],
-				postBuild: []
+				vitePlugins: []
 			})
 
 			const html = await fs.readFile(
@@ -269,9 +263,7 @@ This page verifies custom rehype plugins.`
 			root: fixtureDir,
 			outDir: outDir,
 			containerClass: [],
-			vitePlugins: [],
-			preBuild: [],
-			postBuild: []
+			vitePlugins: []
 		})
 
 		const rss = await fs.readFile(path.join(outDir, 'rss.xml'), 'utf-8')
@@ -298,9 +290,7 @@ This page verifies custom rehype plugins.`
 						root: fixtureDirConflict,
 						outDir: outDirConflict,
 						containerClass: [],
-						vitePlugins: [],
-						preBuild: [],
-						postBuild: []
+						vitePlugins: []
 					}),
 				/Route conflict detected/
 			)

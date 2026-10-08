@@ -60,17 +60,25 @@ To customize the HTML shell, create your own =index.html= in your project root. 
 npm install orga-build
 #+end_src
 
+* Usage
+
+#+begin_src bash
+orga-build dev            # dev server with live reload
+orga-build                # build the static site into outDir
+orga-build --outDir dist  # override outDir (also -o)
+#+end_src
+
 * Configuration
 
-orga-build uses =orga.config.js= (or =orga.config.mjs=) as the primary configuration file. This file should be placed in your project root.
+orga-build uses =orga.config.js= (or =orga.config.mjs=) as the primary configuration file. This file should be placed in your project root. It is optional; a config file that fails to load fails the command.
 
 #+begin_src javascript
 // orga.config.js
 export default {
-  // Directory containing your .org files (default: 'pages')
+  // Directory containing your .org files (default: '.', the project root)
   root: 'pages',
 
-  // Output directory for production build (default: 'out')
+  // Output directory for production build (default: '.out')
   outDir: 'out',
 
   // CSS class(es) to wrap rendered org content
@@ -98,8 +106,8 @@ export default {
 
 | Option         | Type              | Default | Description                                                     |
 |----------------+-------------------+---------+-----------------------------------------------------------------|
-| =root=           | =string=            | ='pages'= | Directory containing content files                              |
-| =outDir=         | =string=            | ='out'=   | Output directory for production build                           |
+| =root=           | =string=            | ='.'=     | Directory containing content files                              |
+| =outDir=         | =string=            | ='.out'=  | Output directory for production build                           |
 | =containerClass= | =string \vert string[]= | =[]=      | CSS class(es) for content wrapper                               |
 | =styles=         | =string[]=          | =[]=      | Stylesheets to link; paths relative to =orga.config.js=           |
 | =exclude=        | =string[]=          | =[]=      | Glob patterns (relative to =root=) excluded from content scanning |
@@ -130,7 +138,7 @@ Page routes are discovered from =.org=, =.tsx=, and =.jsx= files.
 
 At build time, page routes are emitted as HTML:
 
-- =/about= -> =out/about/index.html=
+- =/about= -> =.out/about/index.html=
 
 ** Endpoint Routes
 
@@ -152,8 +160,8 @@ export async function GET(ctx) {
 
 At build time, endpoint routes are emitted to exact filenames:
 
-- =/rss.xml= -> =out/rss.xml=
-- =/api/data.json= -> =out/api/data.json=
+- =/rss.xml= -> =.out/rss.xml=
+- =/api/data.json= -> =.out/api/data.json=
 
 Route conflicts (same final route path) fail fast during dev/build startup.
 
@@ -418,13 +426,6 @@ export default function Post({ slug }: { slug: string }) {
   )
 }
 #+end_src
-
-* Development
-
-** TODO Items
-
-- resolve relative path in links and images
-- monitor file changes and cache properly
 
 * License
 

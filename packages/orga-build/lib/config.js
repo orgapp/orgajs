@@ -5,8 +5,6 @@ import path from 'node:path'
  * @typedef {Object} Config
  * @property {string} outDir
  * @property {string} root
- * @property {string[]} preBuild
- * @property {string[]} postBuild
  * @property {import('vite').PluginOption[]} vitePlugins - Array of Vite plugins
  * @property {string[]|string} containerClass
  * @property {string[]} [styles] - Global stylesheet URLs linked from the HTML shell
@@ -18,8 +16,6 @@ import path from 'node:path'
 const defaultConfig = {
 	outDir: '.out',
 	root: '.',
-	preBuild: [],
-	postBuild: [],
 	vitePlugins: [],
 	containerClass: [],
 	styles: [],
@@ -53,17 +49,12 @@ export async function loadConfig(...files) {
 			continue
 		}
 
-		try {
-			const module = await import(filePath)
-			// Support both default export (recommended) and named exports
-			const config = module.default || module
-			result = { ...defaultConfig, ...config }
-			configPath = filePath
-			break
-		} catch (err) {
-			// Config file exists but has errors
-			console.error(`Error loading config from ${file}:`, err)
-		}
+		// A broken config file fails the command rather than falling back to defaults.
+		const module = await import(filePath)
+		// Support both default export (recommended) and named exports
+		result = { ...defaultConfig, ...(module.default || module) }
+		configPath = filePath
+		break
 	}
 
 	result.root = resolveConfigPath(result.root)
