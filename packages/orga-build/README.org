@@ -434,7 +434,7 @@ export default function Post({ slug }: { slug: string }) {
 
 * Search with Pagefind
 
-The build output is plain static HTML, so [[https://pagefind.app][Pagefind]] can index it without any orga-build integration. Install it and run it on =outDir= after each build:
+The build output is plain static HTML, so [[https://pagefind.app][Pagefind]] can index it without any orga-build integration. Install it and run it on =outDir= (default =.out=) after each build:
 
 #+begin_src bash
 npm install -D pagefind
@@ -443,12 +443,12 @@ npm install -D pagefind
 #+begin_src json
 {
   "scripts": {
-    "build": "orga-build && pagefind --site out"
+    "build": "orga-build && pagefind --site .out"
   }
 }
 #+end_src
 
-Pagefind writes its index and UI to =out/pagefind/=. By default it indexes everything on the page, navigation and footer included. Mark the content area with =data-pagefind-body= in your root =_layout.jsx= to index only that. Then add the search UI from the same layout. It is made of web components, so it doesn't need an island:
+Pagefind writes its index and UI to =.out/pagefind/=. By default it indexes everything on the page, navigation and footer included. Mark the content area with =data-pagefind-body= in your root =_layout.jsx= to index only that. Then add the search UI from the same layout. It is made of web components, so it doesn't need an island:
 
 #+begin_src jsx
 // pages/_layout.jsx
@@ -469,7 +469,7 @@ export default function Layout({ children }) {
 
 Pages without =data-pagefind-body= are left out of the index, so put it in a layout that wraps every page you want searchable.
 
-The index only exists after a build, so search doesn't work in =orga-build dev=. To try it locally, run =npx pagefind --site out --serve= after building.
+The index only exists after a build, so search doesn't work in =orga-build dev=. To try it locally, run =npx pagefind --site .out --serve= after building.
 
 In a =_layout.tsx=, declare the elements so TypeScript accepts them:
 
