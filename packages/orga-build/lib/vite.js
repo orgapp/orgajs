@@ -71,11 +71,17 @@ export function pluginFactory({ dir, exclude = [] }) {
 			if (!isContentFile(file) && !rendered?.size) return
 			// Invalidate in-memory file caches so added/removed routes are picked up
 			files.invalidate()
-			// Invalidate content module when content files change
-			const module = this.environment.moduleGraph.getModuleById(
-				contentModuleIdResolved
-			)
-			if (module) this.environment.moduleGraph.invalidateModule(module)
+			// The generated modules list files by path, so regenerate them all:
+			// otherwise added pages are missing and deleted layouts stay imported.
+			const { moduleGraph } = this.environment
+			for (const [id, module] of moduleGraph.idToModuleMap) {
+				if (
+					id === contentModuleIdResolved ||
+					id.startsWith(magicModulePrefix)
+				) {
+					moduleGraph.invalidateModule(module)
+				}
+			}
 			// Pages render on the server: the browser has nothing to hot-swap,
 			// so reload it.
 			if (this.environment.name === 'client') {
