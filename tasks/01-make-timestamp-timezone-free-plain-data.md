@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 ---
 # Make Timestamp timezone-free plain data
 

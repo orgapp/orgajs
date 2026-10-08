@@ -24,8 +24,6 @@
 		"test": "node --test --no-warnings --import tsx \"src/**/*.test.ts\""
 	},
 	"dependencies": {
-		"date-fns": "^2.30.0",
-		"date-fns-tz": "^2.0.0",
 		"text-kit": "workspace:^"
 	},
 	"devDependencies": {

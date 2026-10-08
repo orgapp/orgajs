@@ -3,15 +3,9 @@ import type { Point } from 'unist'
 import { parse as parseTimestamp } from '../timestamp.js'
 import type { Token } from '../types.js'
 
-export default ({
-	keywords,
-	timezone
-}: {
-	keywords: string[]
-	timezone: string
-}) =>
+export default (keywords: string[]) =>
 	(reader: Reader): Token[] | undefined => {
-		const { now, match, eat, substring, getLine, jump } = reader
+		const { now, match, eat, getLine, jump } = reader
 		const ws = eat('whitespaces')
 
 		const pattern = `(${keywords.join('|')}):`
@@ -31,29 +25,26 @@ export default ({
 			offset: offset + _offset
 		})
 
-		const all: Token[] = []
-
-		const parseLastTimestamp = (end: number) => {
-			if (all.length === 0) return
-			const { type, position } = all[all.length - 1]
-			if (!position) throw Error(`position is ${position}`)
-			if (type !== 'planning.keyword') return
-			const endLocation = getLocation(end)
-			const timestampPosition = { start: position.end, end: endLocation }
-			const value = substring(timestampPosition.start, timestampPosition.end)
-			all.push({
+		// the timestamp between `from` and `to`, without surrounding whitespace
+		const timestamp = (from: number, to: number): Token => {
+			const text = currentLine.slice(from, to)
+			const start = from + text.length - text.trimStart().length
+			const value = text.trim()
+			return {
 				type: 'planning.timestamp',
-				value: parseTimestamp(value, { timezone }),
-				position: timestampPosition
-			})
+				value: parseTimestamp(value),
+				position: {
+					start: getLocation(start),
+					end: getLocation(start + value.length)
+				}
+			}
 		}
 
-		const p = RegExp(pattern, 'g')
-		for (;;) {
-			const m = p.exec(currentLine)
-			if (m === null) break
-			parseLastTimestamp(m.index)
+		const all: Token[] = []
 
+		const p = RegExp(pattern, 'g')
+		let m = p.exec(currentLine)
+		while (m) {
 			all.push({
 				type: 'planning.keyword',
 				value: m[1],
@@ -62,8 +53,10 @@ export default ({
 					end: getLocation(p.lastIndex)
 				}
 			})
+			const from = p.lastIndex
+			m = p.exec(currentLine)
+			all.push(timestamp(from, m ? m.index : currentLine.length))
 		}
-		parseLastTimestamp(currentLine.length)
 		eat('line')
 
 		return all

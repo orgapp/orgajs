@@ -39,7 +39,7 @@ export interface Lexer {
 export type Tokenizer = (reader: Reader) => Token[] | Token | undefined
 
 export const tokenize = (text: string, options: LexerOptions): Lexer => {
-	const { timezone, range, todo } = options
+	const { range, todo } = options
 	const reader = read(text, range)
 	const { getChar } = reader
 
@@ -55,7 +55,7 @@ export const tokenize = (text: string, options: LexerOptions): Lexer => {
 			},
 		headline(todo),
 		drawer,
-		planning({ keywords: PLANNING_KEYWORDS, timezone }),
+		planning(PLANNING_KEYWORDS),
 		keyword,
 		block,
 		latex,

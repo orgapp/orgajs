@@ -71,7 +71,12 @@
           "type": "planning",
           "keyword": "DEADLINE",
           "timestamp": {
-            "date": "2021-08-19T12:00:00.000Z"
+            "active": true,
+            "start": {
+              "year": 2021,
+              "month": 8,
+              "day": 20
+            }
           },
           "children": [
             {
@@ -96,13 +101,18 @@
             {
               "type": "planning.timestamp",
               "value": {
-                "date": "2021-08-19T12:00:00.000Z"
+                "active": true,
+                "start": {
+                  "year": 2021,
+                  "month": 8,
+                  "day": 20
+                }
               },
               "position": {
                 "start": {
                   "line": 2,
-                  "column": 10,
-                  "offset": 25
+                  "column": 11,
+                  "offset": 26
                 },
                 "end": {
                   "line": 2,
@@ -235,7 +245,12 @@
           "type": "planning",
           "keyword": "DEADLINE",
           "timestamp": {
-            "date": "2021-08-26T12:00:00.000Z"
+            "active": true,
+            "start": {
+              "year": 2021,
+              "month": 8,
+              "day": 27
+            }
           },
           "children": [
             {
@@ -260,18 +275,23 @@
             {
               "type": "planning.timestamp",
               "value": {
-                "date": "2021-08-26T12:00:00.000Z"
+                "active": true,
+                "start": {
+                  "year": 2021,
+                  "month": 8,
+                  "day": 27
+                }
               },
               "position": {
                 "start": {
                   "line": 5,
-                  "column": 10,
-                  "offset": 83
+                  "column": 11,
+                  "offset": 84
                 },
                 "end": {
                   "line": 5,
-                  "column": 28,
-                  "offset": 101
+                  "column": 27,
+                  "offset": 100
                 }
               },
               "data": {
@@ -299,7 +319,12 @@
           "type": "planning",
           "keyword": "SCHEDULED",
           "timestamp": {
-            "date": "2021-08-02T12:00:00.000Z"
+            "active": true,
+            "start": {
+              "year": 2021,
+              "month": 8,
+              "day": 3
+            }
           },
           "children": [
             {
@@ -324,18 +349,23 @@
             {
               "type": "planning.timestamp",
               "value": {
-                "date": "2021-08-02T12:00:00.000Z"
+                "active": true,
+                "start": {
+                  "year": 2021,
+                  "month": 8,
+                  "day": 3
+                }
               },
               "position": {
                 "start": {
                   "line": 5,
-                  "column": 38,
-                  "offset": 111
+                  "column": 39,
+                  "offset": 112
                 },
                 "end": {
                   "line": 5,
-                  "column": 56,
-                  "offset": 129
+                  "column": 55,
+                  "offset": 128
                 }
               },
               "data": {
@@ -351,8 +381,8 @@
             },
             "end": {
               "line": 5,
-              "column": 56,
-              "offset": 129
+              "column": 55,
+              "offset": 128
             }
           },
           "data": {
@@ -368,8 +398,8 @@
         },
         "end": {
           "line": 5,
-          "column": 56,
-          "offset": 129
+          "column": 55,
+          "offset": 128
         }
       },
       "data": {
