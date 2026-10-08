@@ -547,14 +547,10 @@ export function GET() {
 }
 #+end_src
 
-Link to it from your layout so feed readers find it. Build the URL from =site= so it also works when the site is served under a path:
+Feed readers look for the feed in the page's =<head>=. Layouts render inside =<body>=, so add the link to the =<head>= of your own [[*Default HTML Template][index.html]] instead, with the feed's full URL (=site= + =/rss.xml=):
 
-#+begin_src jsx
-// _layout.jsx
-import { site } from 'orga-build:content'
-
-// inside the layout's JSX:
-<link rel="alternate" type="application/rss+xml" href={site + '/rss.xml'} />
+#+begin_src html
+<link rel="alternate" type="application/rss+xml" href="https://example.com/rss.xml" />
 #+end_src
 
 ** Sitemap
