@@ -33,11 +33,11 @@ export function section(state, node) {
 }
 
 /**
- * @param {import('../state.js').Config} config
+ * @param {Pick<import('../state.js').Config, 'selectTags' | 'excludeTags'>} config
  * @param {string[]} tags
  * @returns {boolean}
  */
-function shouldSkip({ selectTags = [], excludeTags = [] }, tags) {
+export function shouldSkip({ selectTags = [], excludeTags = [] }, tags) {
 	if (selectTags.length > 0) {
 		return !tags.some((tag) => selectTags.includes(tag))
 	}

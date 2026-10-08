@@ -73,3 +73,9 @@ test('headlines outside sections get ids (flat: true)', () => {
 	assert.deepEqual(select(flat, 'h1')[0].properties.id, 'setup')
 	assert.deepEqual(select(flat, 'a')[0].properties.href, '#setup')
 })
+
+test('headings skipped by tags take no ids', () => {
+	const hast = toHast(parse(`* Same :noexport:\n* Same\n[[*Same]]`))
+	assert.deepEqual(select(hast, 'h1')[0].properties.id, 'same')
+	assert.deepEqual(select(hast, 'a')[0].properties.href, '#same')
+})

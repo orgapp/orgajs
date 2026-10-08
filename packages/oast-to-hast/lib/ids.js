@@ -1,6 +1,9 @@
 /**
  * @import {Headline, Nodes} from 'orga'
+ * @import {Config} from './state.js'
  */
+
+import { shouldSkip } from './handlers/section.js'
 
 /**
  * Slug of heading text: lowercased, punctuation dropped, spaces as dashes.
@@ -17,12 +20,14 @@ export function slug(text) {
 }
 
 /**
- * Assign every headline a unique id: its section's `CUSTOM_ID` when set,
- * otherwise a slug of its text (`-1`, `-2`… on repeats).
+ * Assign every rendered headline a unique id: its section's `CUSTOM_ID` when
+ * set, otherwise a slug of its text (`-1`, `-2`… on repeats). Sections skipped
+ * by `selectTags`/`excludeTags` are left out, as they are when rendering.
  *
  * @param {Nodes} tree
+ * @param {Pick<Config, 'selectTags' | 'excludeTags'>} config
  */
-export function headingIds(tree) {
+export function headingIds(tree, config) {
 	/** @type {Array<{headline: Headline, customId: string | undefined}>} */
 	const headlines = []
 	collect(tree)
@@ -63,6 +68,10 @@ export function headingIds(tree) {
 			return
 		}
 		if (!('children' in node)) return
+		if (node.type === 'section') {
+			const headline = node.children.find((n) => n.type === 'headline')
+			if (headline && shouldSkip(config, headline.tags || [])) return
+		}
 		for (const child of node.children) collect(child, node)
 	}
 }

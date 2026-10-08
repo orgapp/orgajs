@@ -43,7 +43,16 @@ export function createState(tree, options = {}) {
 		handlers = { ...handlers, ...options.handlers }
 	}
 
-	const ids = headingIds(tree)
+	/** @type {Config} */
+	const config = {
+		handlers,
+		linkTarget: '_self',
+		selectTags: [],
+		excludeTags: ['noexport'],
+		linkHref: defaultLinkHref,
+		...options
+	}
+	const ids = headingIds(tree, config)
 
 	const state = {
 		one,
@@ -52,15 +61,7 @@ export function createState(tree, options = {}) {
 		handlers,
 		getAttrHtml,
 		patch,
-		/** @type {Config} */
-		options: {
-			handlers,
-			linkTarget: '_self',
-			selectTags: [],
-			excludeTags: ['noexport'],
-			linkHref: defaultLinkHref,
-			...options
-		}
+		options: config
 	}
 
 	return state
