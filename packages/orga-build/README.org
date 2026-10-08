@@ -496,6 +496,104 @@ export default function Post({ slug }: { slug: string }) {
 }
 #+end_src
 
+* Feeds and Sitemaps
+
+There is no built-in feed or sitemap. Write them as [[*Endpoint Routes][endpoints]] built on =getPages=, and adapt them to your site. Both need =site= for absolute URLs. Drafts are already left out of =getPages= in the build.
+
+** RSS Feed
+
+This feed lists the pages under =writing/= that have a =#+date:=, newest first. It reads the =YYYY-MM-DD= part of the date, so both =2025-01-15= and =<2025-01-15 Wed>= work.
+
+#+begin_src ts
+// rss.xml.ts
+import { getPages, site } from 'orga-build:content'
+
+const escape = (value: unknown) =>
+  String(value).replace(/[<>&'"]/g, (c) => `&#${c.charCodeAt(0)};`)
+
+export function GET() {
+  if (!site) throw new Error('Set "site" in orga.config.js to build the feed')
+
+  const posts = getPages('writing')
+    .flatMap((page) => {
+      const date = String(page.data['date'] ?? '').match(/\d{4}-\d{2}-\d{2}/)
+      return date ? [{ page, date: date[0] }] : []
+    })
+    .sort((a, b) => b.date.localeCompare(a.date))
+
+  const items = posts.map(({ page, date }) => {
+    const url = escape(site + page.slug)
+    return `
+    <item>
+      <title>${escape(page.data['title'] ?? page.id)}</title>
+      <link>${url}</link>
+      <guid>${url}</guid>
+      <pubDate>${new Date(date).toUTCString()}</pubDate>
+    </item>`
+  })
+
+  return new Response(
+    `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>My Site</title>
+    <link>${escape(site + '/')}</link>
+    <description>Latest writing</description>${items.join('')}
+  </channel>
+</rss>
+`,
+    { headers: { 'content-type': 'application/xml; charset=utf-8' } }
+  )
+}
+#+end_src
+
+Feed readers look for the feed in the page's =<head>=. Layouts render inside =<body>=, so add the link to the =<head>= of your own [[*Default HTML Template][index.html]] instead, with the feed's full URL (=site= + =/rss.xml=):
+
+#+begin_src html
+<link rel="alternate" type="application/rss+xml" href="https://example.com/rss.xml" />
+#+end_src
+
+** Sitemap
+
+#+begin_src ts
+// sitemap.xml.ts
+import { getPages, site } from 'orga-build:content'
+
+const escape = (value: unknown) =>
+  String(value).replace(/[<>&'"]/g, (c) => `&#${c.charCodeAt(0)};`)
+
+export function GET() {
+  if (!site) throw new Error('Set "site" in orga.config.js to build the sitemap')
+
+  const urls = getPages().map(
+    (page) => `
+  <url><loc>${escape(site + page.slug)}</loc></url>`
+  )
+
+  return new Response(
+    `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join('')}
+</urlset>
+`,
+    { headers: { 'content-type': 'application/xml; charset=utf-8' } }
+  )
+}
+#+end_src
+
+** robots.txt
+
+A small endpoint, which can also point crawlers at the sitemap:
+
+#+begin_src ts
+// robots.txt.ts
+import { site } from 'orga-build:content'
+
+export function GET() {
+  if (!site) throw new Error('Set "site" in orga.config.js to build robots.txt')
+  return new Response(`User-agent: *\nAllow: /\nSitemap: ${site}/sitemap.xml\n`)
+}
+#+end_src
+
 * Search with Pagefind
 
 The build output is plain static HTML, so [[https://pagefind.app][Pagefind]] can index it without any orga-build integration. Install it and run it on =outDir= (default =.out=) after each build:
