@@ -6,8 +6,9 @@ import { getSettings } from 'orga'
 /**
  * @typedef {Object} Page
  * @property {string} dataPath
- * @property {string} [title]
  *   Path to the page data file
+ * @property {Record<string, unknown>} data
+ *   Metadata from the page's org keywords
  */
 
 /**
@@ -87,8 +88,9 @@ function getContentId(slug) {
  * @param {object} [options]
  * @param {string} [options.outDir] - Output directory to exclude from file discovery
  * @param {string[]} [options.exclude] - Additional glob patterns to exclude from file discovery
+ * @param {boolean} [options.drafts] - Include pages marked `#+draft:` (for previews in dev)
  */
-export function setup(dir, { outDir, exclude = [] } = {}) {
+export function setup(dir, { outDir, exclude = [], drafts = false } = {}) {
 	const outDirRelative = outDir ? path.relative(dir, outDir) : null
 	// Only exclude outDir if it's inside the root (not an external path like ../out)
 	const outDirExclude =
@@ -125,7 +127,10 @@ export function setup(dir, { outDir, exclude = [] } = {}) {
 
 			if (pageSlug) {
 				assertUniqueRoute(routeOwners, pageSlug, 'page', absolutePath)
-				pages[pageSlug] = { dataPath: absolutePath }
+				const data = await readMetadata(absolutePath)
+				if (drafts || !isDraft(data)) {
+					pages[pageSlug] = { dataPath: absolutePath, data }
+				}
 			}
 
 			if (endpointRoute) {
@@ -207,29 +212,13 @@ export function setup(dir, { outDir, exclude = [] } = {}) {
 			// Derive id from the slug (last segment or 'index')
 			const id = getContentId(slug)
 
-			/** @type {Record<string, unknown>} */
-			let data = {}
-
-			// Extract metadata from .org files
-			if (ext === 'org') {
-				try {
-					const content = await readFile(filePath, 'utf-8')
-					data = getSettings(content)
-				} catch (/** @type {any} */ error) {
-					console.warn(
-						`Failed to read metadata from ${filePath}:`,
-						error?.message || error
-					)
-				}
-			}
-
 			entries.push({
 				id,
 				slug,
 				path: derivedPath,
 				filePath,
 				ext,
-				data
+				data: pageData.data
 			})
 		}
 
@@ -267,6 +256,32 @@ export function setup(dir, { outDir, exclude = [] } = {}) {
 		const all = await endpoints()
 		return all[route]
 	}
+}
+
+/**
+ * Read metadata from an org file's keywords. Other pages have none yet.
+ * @param {string} filePath
+ * @returns {Promise<Record<string, unknown>>}
+ */
+async function readMetadata(filePath) {
+	if (!filePath.endsWith('.org')) return {}
+	try {
+		return getSettings(await readFile(filePath, 'utf-8'))
+	} catch (/** @type {any} */ error) {
+		console.warn(
+			`Failed to read metadata from ${filePath}:`,
+			error?.message || error
+		)
+		return {}
+	}
+}
+
+/**
+ * Whether a page is marked `#+draft: t` (or `true`, `yes`).
+ * @param {Record<string, unknown>} data
+ */
+function isDraft(data) {
+	return /^(t|true|yes)$/i.test(String(data.draft ?? '').trim())
 }
 
 /**

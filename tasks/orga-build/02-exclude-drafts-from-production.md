@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 ---
 # Exclude drafts from production
 
