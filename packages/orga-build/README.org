@@ -81,6 +81,10 @@ export default {
   // Output directory for production build (default: '.out')
   outDir: 'out',
 
+  // Absolute URL the site is served from, for canonical URLs, feeds and
+  // sitemaps. Include the path if the site isn't at the domain root.
+  site: 'https://example.com',
+
   // CSS class(es) to wrap rendered org content
   containerClass: ['prose', 'prose-lg'],
 
@@ -108,6 +112,7 @@ export default {
 |----------------+-------------------+---------+-----------------------------------------------------------------|
 | =root=           | =string=            | ='.'=     | Directory containing content files                              |
 | =outDir=         | =string=            | ='.out'=  | Output directory for production build                           |
+| =site=           | =string=            | none    | Absolute URL the site is served from, see [[*Site URL][Site URL]]               |
 | =containerClass= | =string \vert string[]= | =[]=      | CSS class(es) for content wrapper                               |
 | =styles=         | =string[]=          | =[]=      | Stylesheets to link; paths relative to =orga.config.js=           |
 | =exclude=        | =string[]=          | =[]=      | Glob patterns (relative to =root=) excluded from content scanning |
@@ -157,6 +162,13 @@ export async function GET(ctx) {
   })
 }
 #+end_src
+
+=ctx= has:
+
+- =url=: the request URL. At build time it is =site + route= (or =http://localhost= + route without =site=).
+- =site=: the configured =site=, see [[*Site URL][Site URL]]
+- =mode=: ='dev'= or ='build'=
+- =route.route=: the route, e.g. ='/rss.xml'=
 
 At build time, endpoint routes are emitted to exact filenames:
 
@@ -305,6 +317,10 @@ const entries = getEntries([
 ])
 #+end_src
 
+*** =site=
+
+The configured =site=, without a trailing slash, or =undefined=. See [[*Site URL][Site URL]].
+
 *** Aliases
 
 For Astro familiarity:
@@ -322,7 +338,7 @@ interface ContentEntry {
   path: string                  // e.g., 'writing' or 'content/writing/2025'
   filePath: string              // absolute source file path
   ext: 'org' | 'tsx' | 'jsx'   // file extension
-  data: Record<string, unknown> // metadata from org headers
+  data: Record<string, unknown> // org keywords, or TSX/JSX named exports
 }
 #+end_src
 
@@ -348,14 +364,48 @@ This becomes:
 }
 #+end_src
 
-For =.tsx= and =.jsx= files, the =data= field is currently empty in v1.
+For =.tsx= and =.jsx= files, =data= holds the page's named exports whose values are literals: strings, numbers, booleans, =null=, templates without =${}=, and arrays of those. Other exports (functions, computed values) are skipped, since pages aren't run to read them.
+
+#+begin_src tsx
+export const title = 'About'
+export const date = '2025-01-15'
+export const tags = ['meta', 'site']
+
+export default function About() {
+  return <h1>{title}</h1>
+}
+#+end_src
 
 ** Drafts
 
-Mark a page as a draft with =#+draft: t= (or =true=, =yes=). The dev server
+Mark a page as a draft with =#+draft: t= (or =true=, =yes=), or in a TSX/JSX
+page with =export const draft = true=. The dev server
 serves drafts so you can preview them; the build leaves them out entirely: no
 HTML, and no entry in =getPages=, so feeds, sitemaps, and index pages skip
 them without filtering.
+
+** Site URL
+
+Set =site= in the config to the absolute URL the site is served from. It is
+exported from =orga-build:content= and passed to endpoints as =ctx.site=,
+without a trailing slash, so a page's absolute URL is =site + page.slug=:
+
+#+begin_src tsx
+// _layout.tsx
+import { site } from 'orga-build:content'
+
+export default function Layout({ slug, children }) {
+  const share = 'https://bsky.app/intent/compose?text=' + encodeURIComponent(site + slug)
+  return (
+    <>
+      {children}
+      <a href={share}>Share</a>
+    </>
+  )
+}
+#+end_src
+
+If the site is served under a path, include it: =site: 'https://example.com/blog'=.
 
 ** Path Matching Behavior
 

@@ -4,6 +4,7 @@
  * @property {Record<string, string>} params
  * @property {'dev' | 'build'} mode
  * @property {{ route: string }} route
+ * @property {string | undefined} site - The configured `site`, without a trailing slash
  */
 
 /**

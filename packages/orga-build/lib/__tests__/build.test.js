@@ -362,6 +362,76 @@ export function GET() {
 		}
 	})
 
+	test('reads TSX page metadata and exposes site', async () => {
+		const dir = path.join(__dirname, 'fixtures-metadata')
+		try {
+			await fs.mkdir(dir, { recursive: true })
+			await fs.writeFile(path.join(dir, 'post.org'), '#+title: Org post\n')
+			await fs.writeFile(
+				path.join(dir, 'page.tsx'),
+				`import { site } from 'orga-build:content'
+export const title = 'TSX page'
+export const tags = ['a', 'b'] as const
+export const render = () => title
+export default function Page() {
+	return <a href={site + '/page'}>link</a>
+}
+`
+			)
+			await fs.writeFile(
+				path.join(dir, 'draft.jsx'),
+				'export const draft = true\nexport default () => <p />\n'
+			)
+			await fs.writeFile(
+				path.join(dir, 'pages.json.ts'),
+				`import { getPages, site } from 'orga-build:content'
+export function GET(ctx) {
+  return Response.json({
+    site,
+    ctxSite: ctx.site,
+    url: ctx.url.href,
+    pages: getPages()
+      .map(({ slug, data }) => ({ slug, data }))
+      .sort((a, b) => a.slug.localeCompare(b.slug))
+  })
+}
+`
+			)
+
+			await viteBuild(dir, {
+				plugins: orgaBuildPlugin({
+					root: dir,
+					site: 'https://example.com/blog/'
+				})
+			})
+
+			const out = path.join(dir, 'dist')
+			const json = JSON.parse(
+				await fs.readFile(path.join(out, 'pages.json'), 'utf-8')
+			)
+			assert.deepEqual(json, {
+				site: 'https://example.com/blog',
+				ctxSite: 'https://example.com/blog',
+				url: 'https://example.com/blog/pages.json',
+				pages: [
+					{ slug: '/page', data: { title: 'TSX page', tags: ['a', 'b'] } },
+					{ slug: '/post', data: { title: 'Org post' } }
+				]
+			})
+			const html = await fs.readFile(
+				path.join(out, 'page', 'index.html'),
+				'utf-8'
+			)
+			assert.ok(html.includes('href="https://example.com/blog/page"'), html)
+			assert.throws(
+				() => orgaBuildPlugin({ root: dir, site: 'example.com' }),
+				/"site" must be an absolute URL/
+			)
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
 	test('prerenders after a configured builder.buildApp', async () => {
 		const dir = path.join(__dirname, 'fixtures-vite-builder')
 		try {

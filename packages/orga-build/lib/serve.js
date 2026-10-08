@@ -16,7 +16,8 @@ export async function serve(config, port = 3000, projectRoot = process.cwd()) {
 		styles: config.styles ?? [],
 		rehypePlugins: config.rehypePlugins ?? [],
 		vitePlugins: config.vitePlugins,
-		exclude: config.exclude ?? []
+		exclude: config.exclude ?? [],
+		site: config.site
 	})
 
 	const server = await createServer({

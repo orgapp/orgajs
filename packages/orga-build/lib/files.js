@@ -2,13 +2,14 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { globby } from 'globby'
 import { getSettings } from 'orga'
+import { parseSync } from 'vite'
 
 /**
  * @typedef {Object} Page
  * @property {string} dataPath
  *   Path to the page data file
  * @property {Record<string, unknown>} data
- *   Metadata from the page's org keywords
+ *   Metadata: an org page's keywords, or a TSX/JSX page's literal named exports
  */
 
 /**
@@ -259,20 +260,79 @@ export function setup(dir, { outDir, exclude = [], drafts = false } = {}) {
 }
 
 /**
- * Read metadata from an org file's keywords. Other pages have none yet.
+ * Read a page's metadata: an org file's keywords, or the named exports of a
+ * TSX/JSX page whose values are literals (`export const title = 'Hi'`).
  * @param {string} filePath
  * @returns {Promise<Record<string, unknown>>}
  */
 async function readMetadata(filePath) {
-	if (!filePath.endsWith('.org')) return {}
 	try {
-		return getSettings(await readFile(filePath, 'utf-8'))
+		const text = await readFile(filePath, 'utf-8')
+		return filePath.endsWith('.org')
+			? getSettings(text)
+			: readLiteralExports(filePath, text)
 	} catch (/** @type {any} */ error) {
 		console.warn(
 			`Failed to read metadata from ${filePath}:`,
 			error?.message || error
 		)
 		return {}
+	}
+}
+
+/**
+ * Named exports whose values can be read without running the module. Others
+ * are skipped; Vite reports syntax errors when it builds the page.
+ * @param {string} filePath
+ * @param {string} text
+ */
+function readLiteralExports(filePath, text) {
+	const { program, errors } = parseSync(filePath, text)
+	/** @type {Record<string, unknown>} */
+	const data = {}
+	if (errors.length) return data
+	for (const node of program.body) {
+		if (
+			node.type !== 'ExportNamedDeclaration' ||
+			node.declaration?.type !== 'VariableDeclaration'
+		) {
+			continue
+		}
+		for (const { id, init } of node.declaration.declarations) {
+			if (id.type !== 'Identifier' || !init) continue
+			const value = literalValue(init)
+			if (value !== notLiteral) data[id.name] = value
+		}
+	}
+	return data
+}
+
+const notLiteral = Symbol('notLiteral')
+
+/**
+ * The value of a literal expression: a string, number, boolean or `null`, a
+ * template without placeholders, or an array of those.
+ * @param {any} node
+ * @returns {unknown}
+ */
+function literalValue(node) {
+	switch (node.type) {
+		case 'Literal':
+			// Regexes and bigints have no JSON form.
+			return node.regex || node.bigint ? notLiteral : node.value
+		case 'TemplateLiteral':
+			return node.expressions.length ? notLiteral : node.quasis[0].value.cooked
+		case 'TSAsExpression':
+		case 'TSSatisfiesExpression':
+			return literalValue(node.expression)
+		case 'ArrayExpression': {
+			const values = node.elements.map((/** @type {any} */ element) =>
+				element ? literalValue(element) : notLiteral
+			)
+			return values.includes(notLiteral) ? notLiteral : values
+		}
+		default:
+			return notLiteral
 	}
 }
 

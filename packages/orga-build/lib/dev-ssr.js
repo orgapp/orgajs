@@ -16,9 +16,10 @@ const ssrEntry = fileURLToPath(new URL('./ssr.jsx', import.meta.url))
  * - Unknown routes fall through to Vite, which answers 404 like the build
  * - Only GET/HEAD requests that accept HTML are rendered; assets pass through
  *
+ * @param {string | undefined} site - Absolute site URL, passed to endpoints
  * @returns {import('vite').Plugin}
  */
-export function devSsrPlugin() {
+export function devSsrPlugin(site) {
 	return {
 		name: 'orga-build:dev-ssr',
 		// Run before other plugins' middlewares (e.g. Cloudflare) so HTML
@@ -79,7 +80,8 @@ export function devSsrPlugin() {
 							url: new URL(url, `http://${req.headers.host || 'localhost'}`),
 							params: {},
 							mode: /** @type {'dev'} */ ('dev'),
-							route: { route: pathname }
+							route: { route: pathname },
+							site
 						}
 						const response = await resolveEndpointResponse(
 							endpointModule,
