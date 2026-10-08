@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 ---
 # Align configuration and documentation
 
