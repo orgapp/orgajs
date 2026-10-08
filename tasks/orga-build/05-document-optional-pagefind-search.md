@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 ---
 # Document optional Pagefind search
 
