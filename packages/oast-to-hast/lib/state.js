@@ -30,20 +30,24 @@
 
 import { position } from 'unist-util-position'
 import { handlers as defaultHandlers } from './handlers/index.js'
+import { headingIds, slug } from './ids.js'
 
 /**
- * @param {OastNodes} _tree
+ * @param {OastNodes} tree
  * @param {Partial<Config> | null | undefined} [options = {}]
  */
-export function createState(_tree, options = {}) {
+export function createState(tree, options = {}) {
 	/** @type {Handlers} */
 	let handlers = { ...defaultHandlers }
 	if (options?.handlers) {
 		handlers = { ...handlers, ...options.handlers }
 	}
 
+	const ids = headingIds(tree)
+
 	const state = {
 		one,
+		ids,
 		all,
 		handlers,
 		getAttrHtml,
@@ -60,6 +64,28 @@ export function createState(_tree, options = {}) {
 	}
 
 	return state
+
+	/**
+	 * @param {import('orga').Link} link
+	 * @returns {string}
+	 */
+	function defaultLinkHref(link) {
+		const { protocol, value, search } = link.path
+		if (protocol === 'internal' && value.startsWith('*')) {
+			const target = slug(value.slice(1))
+			return `#${ids.byText.get(target) ?? target}`
+		}
+		if (!protocol || protocol === 'internal') {
+			return value
+		}
+		if (protocol === 'file') {
+			return value + fragment(search)
+		}
+		if (protocol === 'http' || protocol === 'https') {
+			return value
+		}
+		return `${protocol}:${value}`
+	}
 
 	/**
 	 * @param {OastNodes} parent
@@ -122,18 +148,17 @@ export function createState(_tree, options = {}) {
 }
 
 /**
- * @param {import('orga').Link} link
+ * URL fragment for a `file:` link's search option: `*Heading` and `#custom-id`
+ * target a heading; other searches (line numbers, text) are dropped.
+ *
+ * @param {string | number | undefined} search
  * @returns {string}
  */
-function defaultLinkHref(link) {
-	const protocol = link.path.protocol
-	if (!protocol || protocol === 'internal' || protocol === 'file') {
-		return link.path.value
-	}
-	if (protocol === 'http' || protocol === 'https') {
-		return link.path.value
-	}
-	return `${protocol}:${link.path.value}`
+function fragment(search) {
+	if (typeof search !== 'string') return ''
+	if (search.startsWith('#')) return search
+	if (search.startsWith('*')) return `#${slug(search.slice(1))}`
+	return ''
 }
 
 /** @type {Handler} */
