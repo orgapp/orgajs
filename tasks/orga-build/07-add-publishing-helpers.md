@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 blocked-by: [orga-build/02-exclude-drafts-from-production, orga-build/06-unify-page-metadata-and-urls]
 ---
 # Add publishing helpers
