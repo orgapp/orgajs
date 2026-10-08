@@ -33,6 +33,7 @@ export const alias = {
  * @property {string[]} [styles] - Global stylesheet URLs to link from the HTML shell
  * @property {import('unified').PluggableList} [rehypePlugins] - Extra rehype plugins appended to orga-build defaults
  * @property {string[]} [exclude] - Glob patterns for files to exclude from content scanning
+ * @property {string | undefined} [site] - Absolute URL the site is served from, e.g. `https://example.com`
  */
 
 /**
@@ -49,21 +50,39 @@ export function orgaBuildPlugin({
 	containerClass = [],
 	styles = [],
 	rehypePlugins = [],
-	exclude = []
+	exclude = [],
+	site
 }) {
 	// Virtual modules import content files by path, so it must be absolute.
 	root = path.resolve(root)
+	site = normalizeSite(site)
 	const islands = islandPlugin()
 	return [
 		configPlugin({ root, outDir }),
 		htmlShellPlugin(styles),
-		devSsrPlugin(),
-		prerenderPlugin(islands),
+		devSsrPlugin(site),
+		prerenderPlugin(islands, site),
 		islands,
 		setupOrga({ containerClass, root, rehypePlugins }),
 		react(),
-		pluginFactory({ dir: root, exclude })
+		pluginFactory({ dir: root, exclude, site })
 	]
+}
+
+/**
+ * Without a trailing slash, so `site + page.slug` is a page's URL.
+ * @param {string | undefined} site
+ */
+function normalizeSite(site) {
+	if (site === undefined) return
+	// `localhost:3000` parses too, as a URL with the scheme `localhost:`.
+	const url = URL.canParse(site) ? new URL(site) : undefined
+	if (url?.protocol !== 'http:' && url?.protocol !== 'https:') {
+		throw new Error(
+			`orga-build: "site" must be an absolute http(s) URL, e.g. "https://example.com", got "${site}"`
+		)
+	}
+	return url.href.replace(/\/+$/, '')
 }
 
 /**

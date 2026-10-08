@@ -14,9 +14,10 @@ import { assetUrlMarker } from './plugin.js'
  *
  * @param {import('vite').Plugin} islands - The island plugin, whose `api`
  *   tells whether the client build ran before islands were discovered
+ * @param {string | undefined} site - Absolute site URL, without a trailing slash
  * @returns {import('vite').Plugin}
  */
-export function prerenderPlugin(islands) {
+export function prerenderPlugin(islands, site) {
 	return {
 		name: 'orga-build:prerender',
 
@@ -32,7 +33,7 @@ export function prerenderPlugin(islands) {
 				if (!client.isBuilt || islands.api?.clientIsStale) {
 					await builder.build(client)
 				}
-				await prerender(client, ssr, islands)
+				await prerender(client, ssr, islands, site)
 			}
 		}
 	}
@@ -42,8 +43,9 @@ export function prerenderPlugin(islands) {
  * @param {import('vite').BuildEnvironment} client
  * @param {import('vite').BuildEnvironment} ssr
  * @param {import('vite').Plugin} islands - Its `api.ssrAssets` lists the files the SSR build emitted
+ * @param {string | undefined} site
  */
-async function prerender(client, ssr, islands) {
+async function prerender(client, ssr, islands, site) {
 	const outDir = resolveOutDir(client)
 	const ssrOutDir = resolveOutDir(ssr)
 	const { root, base } = client.config
@@ -125,10 +127,11 @@ async function prerender(client, ssr, islands) {
 	await Promise.all(
 		Object.keys(endpoints).map(async (route) => {
 			const ctx = {
-				url: new URL(`http://localhost${route}`),
+				url: new URL((site ?? 'http://localhost') + route),
 				params: {},
 				mode: /** @type {'build'} */ ('build'),
-				route: { route }
+				route: { route },
+				site
 			}
 
 			const response = await resolveEndpointResponse(

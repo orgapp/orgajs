@@ -15,9 +15,10 @@ const endpointModulePrefix = `${endpointsModuleId}/__route__/`
  * @param {Object} options
  * @param {string} options.dir
  * @param {string[]} [options.exclude]
+ * @param {string | undefined} [options.site] - Absolute site URL, exported as `site`
  * @returns {import('vite').Plugin}
  */
-export function pluginFactory({ dir, exclude = [] }) {
+export function pluginFactory({ dir, exclude = [], site }) {
 	/** @type {ReturnType<typeof setup>} */
 	let files
 	/** @type {import('vite').ViteDevServer | undefined} */
@@ -219,6 +220,8 @@ export default layouts;
 
 		return `
 const __entries = ${manifest}
+
+export const site = ${JSON.stringify(site)}
 
 function normalizePath(path = '') {
   return String(path).replace(/^\\/+|\\/+$/g, '')

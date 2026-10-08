@@ -9,6 +9,12 @@ declare module 'orga-build:content' {
 	}
 
 	/**
+	 * The configured `site` (absolute URL, no trailing slash), or `undefined`.
+	 * A page's absolute URL is `site + page.slug`.
+	 */
+	export const site: string | undefined
+
+	/**
 	 * Get all content entries matching a path pattern
 	 * @param path - Optional path prefix to filter by (e.g., 'writing', 'content/writing/2025')
 	 * @param filter - Optional filter function to further refine results

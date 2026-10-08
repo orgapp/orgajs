@@ -19,7 +19,8 @@ export async function build(
 		styles = [],
 		rehypePlugins = [],
 		vitePlugins = [],
-		exclude = []
+		exclude = [],
+		site
 	},
 	projectRoot = process.cwd()
 ) {
@@ -30,7 +31,8 @@ export async function build(
 		styles,
 		rehypePlugins,
 		vitePlugins,
-		exclude
+		exclude,
+		site
 	})
 
 	const builder = await createBuilder({ root: projectRoot, plugins })

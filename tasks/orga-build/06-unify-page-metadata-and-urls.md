@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 ---
 # Unify page metadata and URLs
 

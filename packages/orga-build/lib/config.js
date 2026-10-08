@@ -10,6 +10,7 @@ import path from 'node:path'
  * @property {string[]} [styles] - Global stylesheet URLs linked from the HTML shell
  * @property {import('unified').PluggableList} [rehypePlugins] - Extra rehype plugins appended to orga-build defaults
  * @property {string[]} [exclude] - Glob patterns for files to exclude from content scanning
+ * @property {string | undefined} [site] - Absolute URL the site is served from, e.g. `https://example.com`
  */
 
 /** @type {Config} */
