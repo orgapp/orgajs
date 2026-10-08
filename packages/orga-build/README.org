@@ -547,10 +547,14 @@ export function GET() {
 }
 #+end_src
 
-Link to it from your layout so feed readers find it:
+Link to it from your layout so feed readers find it. Build the URL from =site= so it also works when the site is served under a path:
 
 #+begin_src jsx
-<link rel="alternate" type="application/rss+xml" href="/rss.xml" />
+// _layout.jsx
+import { site } from 'orga-build:content'
+
+// inside the layout's JSX:
+<link rel="alternate" type="application/rss+xml" href={site + '/rss.xml'} />
 #+end_src
 
 ** Sitemap
@@ -582,14 +586,16 @@ export function GET() {
 
 ** robots.txt
 
-A one-line endpoint, which can also point crawlers at the sitemap:
+A small endpoint, which can also point crawlers at the sitemap:
 
 #+begin_src ts
 // robots.txt.ts
 import { site } from 'orga-build:content'
 
-export const GET = () =>
-  new Response(`User-agent: *\nAllow: /\nSitemap: ${site}/sitemap.xml\n`)
+export function GET() {
+  if (!site) throw new Error('Set "site" in orga.config.js to build robots.txt')
+  return new Response(`User-agent: *\nAllow: /\nSitemap: ${site}/sitemap.xml\n`)
+}
 #+end_src
 
 * Search with Pagefind
