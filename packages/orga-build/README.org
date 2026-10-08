@@ -448,7 +448,7 @@ npm install -D pagefind
 }
 #+end_src
 
-Pagefind writes its index and UI to =.out/pagefind/=. By default it indexes everything on the page, navigation and footer included. Mark the content area with =data-pagefind-body= in your root =_layout.jsx= to index only that. Then add the search UI from the same layout. It is made of web components, so it doesn't need an island:
+Pagefind writes its index and UI to =.out/pagefind/=. Pagefind already skips =<nav>= and =<footer>= elements. To also leave out headers, sidebars and other page chrome, mark the content area with =data-pagefind-body= in your root =_layout.jsx=, and Pagefind indexes only that. Then add the search UI from the same layout. It is made of web components, so it doesn't need an island:
 
 #+begin_src jsx
 // pages/_layout.jsx
