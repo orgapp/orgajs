@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 ---
 # Resolve Org links correctly
 
