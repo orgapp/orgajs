@@ -10,5 +10,5 @@ test('heading', async () => {
 		children: [{ type: 'text', value: 'Hello' }]
 	})
 
-	assert.deepEqual(hast, h('h3', 'Hello'))
+	assert.deepEqual(hast, h('h3', { id: 'hello' }, 'Hello'))
 })

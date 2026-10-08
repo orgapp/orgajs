@@ -13,14 +13,26 @@ import { getSlugFromContentFilePath } from './files.js'
  * @param {import('unified').PluggableList} [options.rehypePlugins] - Extra rehype plugins appended to defaults
  */
 export function setupOrga({ containerClass, root, rehypePlugins = [] }) {
-	return _orga({
-		rehypePlugins: [
-			[rehypeWrap, { className: containerClass }],
-			[rewriteOrgFileLinks, { root }],
-			mediaAssets,
-			...rehypePlugins
-		]
-	})
+	/** Vite's `base`, set once the config resolves. */
+	const site = { base: '/' }
+	/** @type {import('vite').Plugin} */
+	const base = {
+		name: 'orga-build:base',
+		configResolved(config) {
+			site.base = config.base
+		}
+	}
+	return [
+		base,
+		_orga({
+			rehypePlugins: [
+				[rehypeWrap, { className: containerClass }],
+				[rewriteOrgFileLinks, { root, site }],
+				mediaAssets,
+				...rehypePlugins
+			]
+		})
+	]
 }
 
 // --- plugins ---
@@ -91,10 +103,13 @@ function rehypeWrap({ className = [] }) {
 }
 
 /**
+ * Point links to `.org` files at their pages, keeping any `#fragment`.
+ *
  * @param {Object} options
  * @param {string} options.root
+ * @param {{ base: string }} options.site
  */
-function rewriteOrgFileLinks({ root }) {
+function rewriteOrgFileLinks({ root, site }) {
 	/**
 	 * @param {any} tree
 	 * @param {import('vfile').VFile} [file]
@@ -106,16 +121,36 @@ function rewriteOrgFileLinks({ root }) {
 		visitParents(tree, { tagName: 'a' }, (node) => {
 			const href = node?.properties?.href
 			if (typeof href !== 'string') return
-			if (!href.endsWith('.org')) return
+			if (/^[a-z][a-z\d+.-]*:/i.test(href)) return
+			const hashIndex = href.indexOf('#')
+			const target = hashIndex === -1 ? href : href.slice(0, hashIndex)
+			const hash = hashIndex === -1 ? '' : href.slice(hashIndex)
+			if (!target.endsWith('.org')) return
 
 			const targetSlug = resolveOrgHrefToContentSlug({
 				root,
 				filePath,
-				href
+				href: target
 			})
 			if (!targetSlug) return
-			node.properties.href = targetSlug
+			node.properties.href = pageUrl(targetSlug) + hash
 		})
+
+		/**
+		 * URL of the page at `slug`. With a relative `base`, it is relative to
+		 * this page's directory, as pages are written to `<slug>/index.html`.
+		 * @param {string} slug
+		 */
+		function pageUrl(slug) {
+			const { base } = site
+			if ((base === './' || base === '') && filePath) {
+				const depth = getSlugFromContentFilePath(path.relative(root, filePath))
+					.split('/')
+					.filter(Boolean).length
+				return (depth ? '../'.repeat(depth) : './') + slug.slice(1)
+			}
+			return base.replace(/\/$/, '') + slug
+		}
 	}
 }
 

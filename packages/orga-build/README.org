@@ -165,6 +165,20 @@ At build time, endpoint routes are emitted to exact filenames:
 
 Route conflicts (same final route path) fail fast during dev/build startup.
 
+** Links
+
+Links to =.org= files point at their pages, under Vite's =base=. Every heading gets an =id=: its =CUSTOM_ID= property when set, otherwise a slug of its text (=* Getting Started= → =#getting-started=).
+
+| Link                                   | Goes to                      |
+|----------------------------------------+------------------------------|
+| =[[file:guide.org]]=                   | =/guide=                     |
+| =[[file:guide.org::*Getting Started]]= | =/guide#getting-started=     |
+| =[[file:guide.org::#install]]=         | =/guide#install=             |
+| =[[*Getting Started]]=                 | heading on the same page     |
+| =[[#install]]=                         | =CUSTOM_ID= on the same page |
+
+A =::*Heading= link to another file assumes that heading's id is the slug of its text. If the heading has a =CUSTOM_ID=, link to it with =::#id= instead. =id:= links aren't supported yet.
+
 * Interactive Components (Islands)
 
 Pages are static HTML. To run a component in the browser, start its module with React's ='use client'= directive, like in any React framework:

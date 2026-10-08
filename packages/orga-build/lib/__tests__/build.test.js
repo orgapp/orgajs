@@ -62,6 +62,8 @@ Here's [[file:./docs/index.org][index page]].
 
 Here's [[file:more.org][another page]].
 
+Jump to [[*Hello World][the top]], [[file:more.org::*Some Heading][a heading]] or [[file:./docs/index.org::#cid][an anchor]].
+
 Here's [[mailto:hi@unclex.net][send me an email]].
 `
 		)
@@ -119,6 +121,16 @@ export function GET() {
 			'should rewrite docs/index.org to /docs'
 		)
 		assert.ok(html.includes('href="/more"'), 'should rewrite more.org to /more')
+		assert.ok(html.includes('<h1 id="hello-world">'), 'should id headings')
+		assert.ok(html.includes('href="#hello-world"'), 'should link in page')
+		assert.ok(
+			html.includes('href="/more#some-heading"'),
+			'should keep heading search as fragment'
+		)
+		assert.ok(
+			html.includes('href="/docs#cid"'),
+			'should keep custom-id search as fragment'
+		)
 		assert.ok(
 			html.includes('href="mailto:hi@unclex.net"'),
 			'should keep mailto protocol in href'
@@ -506,6 +518,34 @@ export function GET() {
 					)
 					await fs.access(path.join(pageDir, src))
 				}
+			}
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
+	test('resolves org links under base', async () => {
+		const dir = path.join(__dirname, 'fixtures-link-base')
+		try {
+			await fs.mkdir(path.join(dir, 'docs'), { recursive: true })
+			await fs.writeFile(
+				path.join(dir, 'index.org'),
+				'[[file:docs/a.org::*Part One][a]]\n'
+			)
+			await fs.writeFile(
+				path.join(dir, 'docs', 'a.org'),
+				'* Part One\n[[file:../index.org][home]]\n'
+			)
+
+			for (const [base, home, a] of [
+				['/blog/', '/blog/', '/blog/docs/a#part-one'],
+				['./', '../../', './docs/a#part-one']
+			]) {
+				await viteBuild(dir, { base })
+				const read = (/** @type {string} */ page) =>
+					fs.readFile(path.join(dir, 'dist', page, 'index.html'), 'utf-8')
+				assert.ok((await read('')).includes(`href="${a}"`), base)
+				assert.ok((await read('docs/a')).includes(`href="${home}"`), base)
 			}
 		} finally {
 			await fs.rm(dir, { recursive: true, force: true })
