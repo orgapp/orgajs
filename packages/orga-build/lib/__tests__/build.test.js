@@ -558,6 +558,28 @@ export function GET() {
 		}
 	})
 
+	test('leaves external image URLs alone', async () => {
+		const dir = path.join(__dirname, 'fixtures-external-assets')
+		const srcs = ['https://example.com/a.png', '//cdn.example.com/b.png']
+		try {
+			await fs.mkdir(dir, { recursive: true })
+			await fs.writeFile(
+				path.join(dir, 'index.org'),
+				srcs.map((src) => `[[${src}]]`).join('\n\n') + '\n'
+			)
+			await viteBuild(dir)
+			const html = await fs.readFile(
+				path.join(dir, 'dist', 'index.html'),
+				'utf-8'
+			)
+			for (const src of srcs) {
+				assert.ok(html.includes(`<img src="${src}"`), `${src}: ${html}`)
+			}
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
 	test('injects head tags for a page that renders nothing', () => {
 		const html = renderPageHtml(
 			'<html><head></head><body><div id="root"></div></body></html>',

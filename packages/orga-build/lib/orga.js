@@ -45,10 +45,11 @@ function mediaAssets() {
 		/** @type {Record<string, string>} */
 		const imports = {}
 		visitParents(tree, [{ tagName: 'img' }, { tagName: 'video' }], (node) => {
-			node.type = 'jsx'
 			const { src, ...rest } = node.properties
 			if (typeof src !== 'string') return
-			if (src.startsWith('http')) return
+			// A scheme (`https:`, `data:`) or `//host` means it isn't a local file.
+			if (/^([a-z][a-z\d+.-]*:|\/\/)/i.test(src)) return
+			node.type = 'jsx'
 			const tagName = node.tagName
 			if (!imports[src]) imports[src] = `asset_${genId()}`
 			const name = imports[src]
