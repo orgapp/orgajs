@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.3.13
+
+### Patch Changes
+
+- oast-to-hast@4.6.1
+
 ## 4.3.12
 
 ### Patch Changes
