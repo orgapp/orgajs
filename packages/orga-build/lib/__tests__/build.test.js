@@ -588,6 +588,40 @@ export function GET() {
 		assert.match(html, /<link rel="stylesheet" href="\/s.css"><\/head>/)
 	})
 
+	test('fills placeholders with fallbacks for missing or empty values', async () => {
+		const dir = path.join(__dirname, 'fixtures-placeholder-fallbacks')
+		try {
+			await fs.mkdir(dir, { recursive: true })
+			await fs.writeFile(
+				path.join(dir, 'index.html'),
+				'<html><head><meta property="og:image" content="%orga.image|https://example.com/og.png%"><meta name="description" content="%orga.description|Notes & <more>%"></head><body><div id="root"></div></body></html>'
+			)
+			await fs.writeFile(
+				path.join(dir, 'set.org'),
+				'#+image: https://example.com/set.png\n\nset'
+			)
+			await fs.writeFile(path.join(dir, 'empty.org'), '#+image:\n\nempty')
+			await fs.writeFile(path.join(dir, 'none.org'), 'none')
+
+			await viteBuild(dir)
+
+			for (const [page, image] of [
+				['set', 'https://example.com/set.png'],
+				['empty', 'https://example.com/og.png'],
+				['none', 'https://example.com/og.png']
+			]) {
+				const html = await fs.readFile(
+					path.join(dir, 'dist', page, 'index.html'),
+					'utf-8'
+				)
+				assert.ok(html.includes(`content="${image}"`), `${page}: ${html}`)
+				assert.ok(html.includes('content="Notes &amp; &lt;more&gt;"'), html)
+			}
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
 	test('rebases relative asset URLs for nested pages', async () => {
 		const dir = path.join(__dirname, 'fixtures-vite-base')
 		try {

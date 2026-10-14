@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 ---
 # Fallback values in placeholders
 
