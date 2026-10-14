@@ -94,6 +94,10 @@ async function prerender(client, ssr, islands, site) {
 	)
 	const runtimeSrc = normalizePath(path.relative(root, clientRuntime))
 
+	// Placeholders mostly fill `<head>`, where crawlers need absolute URLs
+	// (`og:image`): resolve asset URLs against `site` when it is set.
+	const absoluteAssetUrl = site && new URL(urlAt(0)(''), `${site}/`).href
+
 	await Promise.all(
 		Object.keys(pages).map(async (pathname) => {
 			const toUrl = urlAt(pathname.split('/').filter(Boolean).length)
@@ -110,7 +114,7 @@ async function prerender(client, ssr, islands, site) {
 			const html = renderPageHtml(rebaseRelativeUrls(template, pathname), {
 				// Emitted assets are marked in the markup (see `renderBuiltUrl`).
 				content: render(pathname, url)?.replaceAll(assetUrlMarker, toUrl('')),
-				page: pages[pathname],
+				page: resolveAssetUrls(pages[pathname], absoluteAssetUrl ?? toUrl('')),
 				slug: pathname,
 				site,
 				islandScript: manifest[runtimeSrc] && url(runtimeSrc),
@@ -162,6 +166,24 @@ async function prerender(client, ssr, islands, site) {
 			await ensureDir(path.dirname(writePath))
 			await fs.writeFile(writePath, body)
 		})
+	)
+}
+
+/**
+ * Replace the asset marker (see `renderBuiltUrl`) in a page's string exports.
+ *
+ * @param {Record<string, unknown> | undefined} page
+ * @param {string} assetUrl - URL of the directory emitted assets are in
+ */
+function resolveAssetUrls(page, assetUrl) {
+	if (!page) return page
+	return Object.fromEntries(
+		Object.entries(page).map(([key, value]) => [
+			key,
+			typeof value === 'string'
+				? value.replaceAll(assetUrlMarker, assetUrl)
+				: value
+		])
 	)
 }
 
