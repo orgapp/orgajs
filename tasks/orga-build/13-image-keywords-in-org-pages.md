@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 blocked-by: [orga-build/12-resolve-asset-urls-in-placeholders]
 ---
 # Image keywords in Org pages
