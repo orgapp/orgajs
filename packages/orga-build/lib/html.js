@@ -94,8 +94,13 @@ export function renderPageHtml(
 		}
 		if (head.length) html = html.replace(/<\/head>/i, `${head.join('')}$&`)
 	}
-	// Unknown routes have no page: their placeholders resolve to empty strings.
-	return html.replace(/%orga\.(\w+)%/g, (_, key) =>
-		escapeHtml(String(page?.[key] ?? ''))
+	// `%orga.key|fallback%` uses the fallback when the page's value is missing
+	// or empty. Unknown routes have no page, so they get fallbacks or ''.
+	return html.replace(
+		/%orga\.(\w+)(?:\|([^%]*))?%/g,
+		(_, key, fallback = '') => {
+			const value = page?.[key]
+			return escapeHtml(value == null || value === '' ? fallback : value)
+		}
 	)
 }

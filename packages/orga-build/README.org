@@ -54,6 +54,13 @@ If your project doesn't have an =index.html= file, orga-build provides a default
 
 To customize the HTML shell, create your own =index.html= in your project root. Keep =<div id="root"></div>=; Vite processes the rest like any =index.html= (bundling linked scripts and stylesheets), and =%orga.<key>%= placeholders are filled from each page's exports (e.g. =%orga.title%=).
 
+Give a placeholder a fallback after =|=; it's used when the page doesn't set the key or leaves it empty. The fallback is plain text and can't contain =%=.
+
+#+begin_src html
+<meta property="og:image" content="%orga.image|https://example.com/og.png%" />
+<meta name="description" content="%orga.description|Notes by me%" />
+#+end_src
+
 * Installation
 
 #+begin_src bash

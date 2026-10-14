@@ -233,6 +233,28 @@ export default function List() {
 			await site.close()
 		}
 	})
+
+	test('fills placeholders with fallbacks for missing or empty values', async () => {
+		const site = await startSite('fixtures-dev-placeholders', 5184, {
+			'index.html':
+				'<html><head><meta property="og:image" content="%orga.image|https://example.com/og.png%"></head><body><div id="root"></div></body></html>',
+			'set.org': '#+image: https://example.com/set.png\n\nset\n',
+			'empty.org': '#+image:\n\nempty\n',
+			'none.org': 'none\n'
+		})
+		try {
+			for (const [page, image] of [
+				['set', 'https://example.com/set.png'],
+				['empty', 'https://example.com/og.png'],
+				['none', 'https://example.com/og.png']
+			]) {
+				const { html } = await site.get(page)
+				assert.ok(html.includes(`content="${image}"`), `${page}: ${html}`)
+			}
+		} finally {
+			await site.close()
+		}
+	})
 })
 
 /**
