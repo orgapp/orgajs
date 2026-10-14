@@ -74,12 +74,14 @@ export function htmlShellPlugin(styles = []) {
  * @param {Object} options
  * @param {string | undefined} options.content - Rendered page markup
  * @param {Record<string, unknown> | undefined} options.page - Page module exports, used for `%orga.*%` placeholders
+ * @param {string} options.slug - The page's slug, e.g. `/writing/post`
+ * @param {string | undefined} [options.site] - Absolute site URL, without a trailing slash
  * @param {string | undefined} [options.islandScript] - URL of the island runtime
  * @param {string[]} [options.styles] - URLs of stylesheets imported by server-rendered code
  */
 export function renderPageHtml(
 	template,
-	{ content, page, islandScript, styles = [] }
+	{ content, page, slug, site, islandScript, styles = [] }
 ) {
 	let html = template
 	// Unknown routes render nothing (`undefined`); a page may render ''.
@@ -94,12 +96,15 @@ export function renderPageHtml(
 		}
 		if (head.length) html = html.replace(/<\/head>/i, `${head.join('')}$&`)
 	}
-	// `%orga.key|fallback%` uses the fallback when the page's value is missing
-	// or empty. Unknown routes have no page, so they get fallbacks or ''.
+	// Only orga-build decides a page's URL: built-ins win over page exports.
+	/** @type {Record<string, string>} */
+	const builtins = { slug, url: site === undefined ? '' : site + slug }
+	// `%orga.key|fallback%` uses the fallback when the value is missing or
+	// empty. Unknown routes have no page, so they get fallbacks or ''.
 	return html.replace(
 		/%orga\.(\w+)(?:\|([^%]*))?%/g,
 		(_, key, fallback = '') => {
-			const value = page?.[key]
+			const value = Object.hasOwn(builtins, key) ? builtins[key] : page?.[key]
 			return escapeHtml(value == null || value === '' ? fallback : value)
 		}
 	)

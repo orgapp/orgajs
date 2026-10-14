@@ -380,6 +380,15 @@ export function GET() {
 			await fs.mkdir(dir, { recursive: true })
 			await fs.writeFile(path.join(dir, 'post.org'), '#+title: Org post\n')
 			await fs.writeFile(
+				path.join(dir, 'index.html'),
+				'<html><head><link rel="canonical" href="%orga.url%"><meta name="slug" content="%orga.slug%"></head><body><div id="root"></div></body></html>'
+			)
+			await fs.mkdir(path.join(dir, 'writing'))
+			await fs.writeFile(
+				path.join(dir, 'writing', 'post.org'),
+				'#+url: /x\n#+slug: /y\n'
+			)
+			await fs.writeFile(
 				path.join(dir, 'page.tsx'),
 				`import { site } from 'orga-build:content'
 export const title = 'TSX page'
@@ -431,7 +440,8 @@ export function GET(ctx) {
 						slug: '/page',
 						data: { title: 'TSX page', tags: ['a', 'b'], order: -1 }
 					},
-					{ slug: '/post', data: { title: 'Org post' } }
+					{ slug: '/post', data: { title: 'Org post' } },
+					{ slug: '/writing/post', data: { url: '/x', slug: '/y' } }
 				]
 			})
 			const html = await fs.readFile(
@@ -439,6 +449,21 @@ export function GET(ctx) {
 				'utf-8'
 			)
 			assert.ok(html.includes('href="https://example.com/blog/page"'), html)
+			// A page's own `url` or `slug` doesn't override the built-ins.
+			const post = await fs.readFile(
+				path.join(out, 'writing', 'post', 'index.html'),
+				'utf-8'
+			)
+			assert.ok(
+				post.includes(
+					'<link rel="canonical" href="https://example.com/blog/writing/post">'
+				),
+				post
+			)
+			assert.ok(
+				post.includes('<meta name="slug" content="/writing/post">'),
+				post
+			)
 			for (const site of ['example.com', 'localhost:3000']) {
 				assert.throws(
 					() => orgaBuildPlugin({ root: dir, site }),
@@ -583,7 +608,7 @@ export function GET() {
 	test('injects head tags for a page that renders nothing', () => {
 		const html = renderPageHtml(
 			'<html><head></head><body><div id="root"></div></body></html>',
-			{ content: '', page: {}, styles: ['/s.css'] }
+			{ content: '', page: {}, slug: '/', styles: ['/s.css'] }
 		)
 		assert.match(html, /<link rel="stylesheet" href="\/s.css"><\/head>/)
 	})
@@ -620,6 +645,14 @@ export function GET() {
 		} finally {
 			await fs.rm(dir, { recursive: true, force: true })
 		}
+	})
+
+	test('leaves the url placeholder empty without site', () => {
+		const html = renderPageHtml(
+			'<link href="%orga.url%"><link href="%orga.url|/fallback%">%orga.slug%',
+			{ content: '', page: { url: '/x' }, slug: '/post' }
+		)
+		assert.equal(html, '<link href=""><link href="/fallback">/post')
 	})
 
 	test('rebases relative asset URLs for nested pages', async () => {

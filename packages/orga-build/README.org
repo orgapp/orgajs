@@ -61,6 +61,20 @@ Give a placeholder a fallback after =|=; it's used when the page doesn't set the
 <meta name="description" content="%orga.description|Notes by me%" />
 #+end_src
 
+Two placeholders are built in, for the page's own address:
+
+| Placeholder   | =/writing/post= with =site: 'https://example.com'= |
+|---------------+----------------------------------------------------|
+| =%orga.slug%= | =/writing/post=                                    |
+| =%orga.url%=  | =https://example.com/writing/post=                 |
+
+=%orga.url%= is =site + slug=, the page URL [[*Site URL][Site URL]] describes, so canonical links and feeds agree; without =site= it is empty, so =%orga.url|...%= uses its fallback. Only orga-build decides a page's URL, so =url= and =slug= are reserved: a page keyword or export with either name stays in its =data= but doesn't change these placeholders.
+
+#+begin_src html
+<link rel="canonical" href="%orga.url%">
+<meta property="og:url" content="%orga.url%">
+#+end_src
+
 * Installation
 
 #+begin_src bash
@@ -384,6 +398,8 @@ This becomes:
   }
 }
 #+end_src
+
+=url= and =slug= are reserved for the [[*Default HTML Template][built-in placeholders]]: a page can't set its own URL.
 
 For =.tsx= and =.jsx= files, =data= holds the page's named exports whose values are literals: strings, numbers, booleans, =null=, templates without =${}=, and arrays of those. Other exports (functions, computed values) are skipped, since pages aren't run to read them.
 

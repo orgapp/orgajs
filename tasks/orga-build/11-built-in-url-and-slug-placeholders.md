@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 ---
 # Built-in url and slug placeholders
 

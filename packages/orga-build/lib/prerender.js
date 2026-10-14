@@ -111,6 +111,8 @@ async function prerender(client, ssr, islands, site) {
 				// Emitted assets are marked in the markup (see `renderBuiltUrl`).
 				content: render(pathname, url)?.replaceAll(assetUrlMarker, toUrl('')),
 				page: pages[pathname],
+				slug: pathname,
+				site,
 				islandScript: manifest[runtimeSrc] && url(runtimeSrc),
 				styles: styles.map(toUrl)
 			})
