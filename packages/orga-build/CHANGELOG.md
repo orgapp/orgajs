@@ -1,5 +1,17 @@
 # orga-build
 
+## 0.11.0
+
+### Minor Changes
+
+- 1f86dca: Add `assetKeywords`: Org keywords holding local file paths (e.g. `#+image: ./cover.png` with `assetKeywords: ['image']`) are imported as assets, so `%orga.image%`, the layout's `image` prop and the page's `data.image` from `getPages()` get the emitted file's URL
+- e8e625f: Support fallback values in HTML shell placeholders: `%orga.image|https://example.com/og.png%` uses the fallback when the page doesn't set `image` or leaves it empty
+- 1982ad0: Add built-in `%orga.slug%` and `%orga.url%` placeholders for the HTML shell, e.g. for `<link rel="canonical">` and `og:url`. A page's own `url` or `slug` keyword or export doesn't override them.
+
+### Patch Changes
+
+- 08d509c: Resolve asset URLs in HTML shell placeholders: a page exporting an imported image (`export const image = cover`) fills `%orga.image%` with the hashed asset's URL, absolute when `site` is set
+
 ## 0.10.0
 
 ### Minor Changes
