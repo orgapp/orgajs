@@ -60,9 +60,12 @@ function mediaAssets({ keywords }) {
 		/** @param {string} src */
 		const importName = (src) => (imports[src] ??= `asset_${genId()}`)
 		// A scheme (`https:`, `data:`) or `//host` means it isn't a local file.
+		// An empty value (`#+image:`) is left to a placeholder's fallback.
 		/** @param {unknown} src */
 		const isLocal = (src) =>
-			typeof src === 'string' && !/^([a-z][a-z\d+.-]*:|\/\/)/i.test(src)
+			typeof src === 'string' &&
+			src !== '' &&
+			!/^([a-z][a-z\d+.-]*:|\/\/)/i.test(src)
 
 		visitParents(tree, [{ tagName: 'img' }, { tagName: 'video' }], (node) => {
 			const { src, ...rest } = node.properties

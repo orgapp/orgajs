@@ -667,6 +667,8 @@ export default function Post() {
 				path.join(dir, 'remote.org'),
 				'#+image: https://example.com/a.png\n\nremote\n'
 			)
+			// Left to the placeholder's fallback.
+			await fs.writeFile(path.join(dir, 'empty.org'), '#+image:\n\nempty\n')
 			await viteBuild(dir, {
 				base: './',
 				plugins: orgaBuildPlugin({
@@ -701,6 +703,11 @@ export default function Post() {
 				'utf-8'
 			)
 			assert.ok(remote.includes('content="https://example.com/a.png"'), remote)
+			const empty = await fs.readFile(
+				path.join(dir, 'dist', 'empty', 'index.html'),
+				'utf-8'
+			)
+			assert.ok(empty.includes('property="og:image" content=""'), empty)
 
 			await fs.writeFile(path.join(dir, 'post.org'), '#+image: ./gone.png\n')
 			await assert.rejects(
