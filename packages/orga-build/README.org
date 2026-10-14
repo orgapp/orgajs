@@ -75,6 +75,14 @@ Two placeholders are built in, for the page's own address:
 <meta property="og:url" content="%orga.url%">
 #+end_src
 
+An imported asset can fill a placeholder too. With =site= set, its URL is absolute, as =og:image= needs:
+
+#+begin_src tsx
+// post.tsx
+import cover from './cover.png'
+export const image = cover // %orga.image% → https://example.com/assets/cover-[hash].png
+#+end_src
+
 * Installation
 
 #+begin_src bash

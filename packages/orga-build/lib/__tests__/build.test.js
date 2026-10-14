@@ -583,6 +583,66 @@ export function GET() {
 		}
 	})
 
+	test('resolves asset URLs in placeholders', async () => {
+		const dir = path.join(__dirname, 'fixtures-placeholder-assets')
+		try {
+			await fs.mkdir(dir, { recursive: true })
+			await fs.writeFile(path.join(dir, 'cover.png'), Buffer.alloc(8192, 1))
+			await fs.writeFile(
+				path.join(dir, 'index.html'),
+				'<html><head><meta property="og:image" content="%orga.image%"></head><body><div id="root"></div></body></html>'
+			)
+			await fs.writeFile(
+				path.join(dir, 'post.tsx'),
+				`import cover from './cover.png'
+export const image = cover
+export default function Post() {
+	return <img src={cover} />
+}
+`
+			)
+
+			/** @type {[string | undefined, string, string, string][]} */
+			const cases = [
+				[undefined, '/', '/assets/', '/assets/'],
+				[
+					'https://example.com',
+					'./',
+					'https://example.com/assets/',
+					'../assets/'
+				],
+				// `site` includes the path the site is served under.
+				[
+					'https://example.com/blog',
+					'/blog/',
+					'https://example.com/blog/assets/',
+					'/blog/assets/'
+				]
+			]
+			for (const [site, base, head, inline] of cases) {
+				await viteBuild(dir, {
+					base,
+					plugins: orgaBuildPlugin({ root: dir, site })
+				})
+				const html = await fs.readFile(
+					path.join(dir, 'dist', 'post', 'index.html'),
+					'utf-8'
+				)
+				const file = html.match(/content="[^"]*(cover-[^"]+\.png)"/)?.[1]
+				assert.ok(file, html)
+				assert.ok(html.includes(`content="${head}${file}"`), html)
+				assert.ok(html.includes(`<img src="${inline}${file}"`), html)
+				const emitted = await fs.readdir(path.join(dir, 'dist', 'assets'))
+				assert.deepEqual(
+					emitted.filter((name) => name.startsWith('cover-')),
+					[file]
+				)
+			}
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
 	test('leaves external image URLs alone', async () => {
 		const dir = path.join(__dirname, 'fixtures-external-assets')
 		const srcs = ['https://example.com/a.png', '//cdn.example.com/b.png']
