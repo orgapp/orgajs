@@ -89,7 +89,7 @@ In an Org page, list the keyword in [[*Configuration][=assetKeywords=]] and give
 #+image: ./cover.png
 #+end_example
 
-The file is imported like =[[./cover.png]]=: Vite hashes and emits it once however often it's used, and a missing file fails the build. =%orga.image%= and the =image= prop of layouts get its URL. URLs (=#+image: https://...=) and keywords not listed stay as written.
+The file is imported like =[[./cover.png]]=: Vite hashes and emits it once however often it's used, and a missing file fails the build. =%orga.image%=, the =image= prop of layouts and the page's =data.image= in [[*Content Query API][=getPages()=]] get its URL, so list pages and feeds can use it too. URLs (=#+image: https://...=) and keywords not listed stay as written.
 
 * Installation
 

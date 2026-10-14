@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 blocked-by: [orga-build/13-image-keywords-in-org-pages]
 ---
 # Resolve image keywords in getPages data

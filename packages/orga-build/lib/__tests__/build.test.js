@@ -721,6 +721,66 @@ export default function Post() {
 		}
 	})
 
+	test('getPages returns URLs of files named by asset keywords', async () => {
+		const dir = path.join(__dirname, 'fixtures-asset-keywords-content')
+		try {
+			await fs.mkdir(path.join(dir, 'projects'), { recursive: true })
+			await fs.writeFile(path.join(dir, 'cover.png'), Buffer.alloc(8192, 1))
+			await fs.writeFile(
+				path.join(dir, 'projects', 'a.org'),
+				'#+image: ../cover.png\n\n[[../cover.png]]\n'
+			)
+			await fs.writeFile(
+				path.join(dir, 'projects', 'b.tsx'),
+				`export const image = './cover.png'
+export default () => <p>b</p>
+`
+			)
+			await fs.writeFile(
+				path.join(dir, 'index.tsx'),
+				`import { getPages } from 'orga-build:content'
+export default function List() {
+	return <ul>{getPages('projects').map((p) => <img key={p.slug} id={p.id} src={String(p.data.image)} />)}</ul>
+}
+`
+			)
+			await fs.writeFile(
+				path.join(dir, 'rss.xml.ts'),
+				`import { getPage, site } from 'orga-build:content'
+export function GET() {
+	const url = new URL(String(getPage('a').data.image), site)
+	return new Response(\`<enclosure url="\${url}"/>\`)
+}
+`
+			)
+			await viteBuild(dir, {
+				plugins: orgaBuildPlugin({
+					root: dir,
+					site: 'https://example.com',
+					assetKeywords: ['image']
+				})
+			})
+
+			const emitted = await fs.readdir(path.join(dir, 'dist', 'assets'))
+			const covers = emitted.filter((name) => name.startsWith('cover-'))
+			assert.equal(covers.length, 1, emitted.join())
+			const file = covers[0]
+			const html = await fs.readFile(
+				path.join(dir, 'dist', 'index.html'),
+				'utf-8'
+			)
+			assert.ok(html.includes(`<img id="a" src="/assets/${file}"`), html)
+			assert.ok(
+				html.includes('<img id="b" src="./cover.png"'),
+				'TSX pages keep their literal exports'
+			)
+			const rss = await fs.readFile(path.join(dir, 'dist', 'rss.xml'), 'utf-8')
+			assert.equal(rss, `<enclosure url="https://example.com/assets/${file}"/>`)
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
 	test('leaves external image URLs alone', async () => {
 		const dir = path.join(__dirname, 'fixtures-external-assets')
 		const srcs = ['https://example.com/a.png', '//cdn.example.com/b.png']
