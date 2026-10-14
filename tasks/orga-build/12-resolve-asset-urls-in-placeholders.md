@@ -1,5 +1,5 @@
 ---
-status: todo
+status: done
 ---
 # Resolve asset URLs in placeholders
 
