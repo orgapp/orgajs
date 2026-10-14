@@ -1,6 +1,6 @@
 ---
 status: todo
-blocked-by: [orga-build/01-align-configuration-and-documentation, orga-build/02-exclude-drafts-from-production, orga-build/03-resolve-org-links-correctly, orga-build/04-harden-development-rebuilds, orga-build/05-document-optional-pagefind-search, orga-build/06-unify-page-metadata-and-urls, orga-build/07-add-publishing-helpers, orga-build/08-improve-asset-handling]
+blocked-by: [orga-build/01-align-configuration-and-documentation, orga-build/02-exclude-drafts-from-production, orga-build/03-resolve-org-links-correctly, orga-build/04-harden-development-rebuilds, orga-build/05-document-optional-pagefind-search, orga-build/06-unify-page-metadata-and-urls, orga-build/07-add-publishing-helpers, orga-build/08-improve-asset-handling, orga-build/10-fallback-values-in-placeholders, orga-build/11-built-in-url-and-slug-placeholders, orga-build/12-resolve-asset-urls-in-placeholders, orga-build/13-image-keywords-in-org-pages, orga-build/14-resolve-image-keywords-in-getpages-data]
 ---
 # Add npm create orga-site starter
 
