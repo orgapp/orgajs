@@ -16,7 +16,7 @@ const ssrEntry = fileURLToPath(new URL('./ssr.jsx', import.meta.url))
  * - Unknown routes fall through to Vite, which answers 404 like the build
  * - Only GET/HEAD requests that accept HTML are rendered; assets pass through
  *
- * @param {string | undefined} site - Absolute site URL, passed to endpoints
+ * @param {string | undefined} site - Absolute site URL, passed to endpoints and placeholders
  * @returns {import('vite').Plugin}
  */
 export function devSsrPlugin(site) {
@@ -121,6 +121,8 @@ export function devSsrPlugin(site) {
 					const html = renderPageHtml(template, {
 						content: render(pathname, islandUrl),
 						page: pages[pathname],
+						slug: pathname,
+						site,
 						islandScript,
 						styles: styles()
 					})

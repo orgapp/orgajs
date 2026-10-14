@@ -255,6 +255,29 @@ export default function List() {
 			await site.close()
 		}
 	})
+
+	test('fills url and slug placeholders from site and route', async () => {
+		const site = await startSite(
+			'fixtures-dev-url',
+			5185,
+			{
+				'index.html':
+					'<html><head><link rel="canonical" href="%orga.url%"><meta name="slug" content="%orga.slug%"></head><body><div id="root"></div></body></html>',
+				'post.org': '#+url: /x\n#+slug: /y\n\npost\n'
+			},
+			{ site: 'https://example.com' }
+		)
+		try {
+			const { html } = await site.get('post')
+			assert.ok(
+				html.includes('<link rel="canonical" href="https://example.com/post">'),
+				html
+			)
+			assert.ok(html.includes('<meta name="slug" content="/post">'), html)
+		} finally {
+			await site.close()
+		}
+	})
 })
 
 /**
@@ -262,8 +285,9 @@ export default function List() {
  * @param {string} name
  * @param {number} port
  * @param {Record<string, string>} initial - file contents by relative path
+ * @param {Omit<import('../plugin.js').OrgaBuildPluginOptions, 'root'>} [options]
  */
-async function startSite(name, port, initial) {
+async function startSite(name, port, initial, options) {
 	const dir = path.join(__dirname, name)
 	await fs.rm(dir, { recursive: true, force: true })
 	await fs.mkdir(dir, { recursive: true })
@@ -275,7 +299,7 @@ async function startSite(name, port, initial) {
 		configFile: false,
 		logLevel: 'silent',
 		server: { port },
-		plugins: orgaBuildPlugin({ root: dir })
+		plugins: orgaBuildPlugin({ ...options, root: dir })
 	})
 	await server.listen()
 	const pageUrl = new URL(server.resolvedUrls?.local[0] ?? '')
