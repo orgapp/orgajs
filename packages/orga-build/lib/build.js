@@ -20,6 +20,7 @@ export async function build(
 		rehypePlugins = [],
 		vitePlugins = [],
 		exclude = [],
+		assetKeywords = [],
 		site
 	},
 	projectRoot = process.cwd()
@@ -32,6 +33,7 @@ export async function build(
 		rehypePlugins,
 		vitePlugins,
 		exclude,
+		assetKeywords,
 		site
 	})
 

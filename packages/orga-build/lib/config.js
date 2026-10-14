@@ -10,6 +10,7 @@ import path from 'node:path'
  * @property {string[]} [styles] - Global stylesheet URLs linked from the HTML shell
  * @property {import('unified').PluggableList} [rehypePlugins] - Extra rehype plugins appended to orga-build defaults
  * @property {string[]} [exclude] - Glob patterns for files to exclude from content scanning
+ * @property {string[]} [assetKeywords] - Org keywords holding local file paths, imported as assets, e.g. `['image']`
  * @property {string | undefined} [site] - Absolute URL the site is served from, e.g. `https://example.com`
  */
 
@@ -21,7 +22,8 @@ const defaultConfig = {
 	containerClass: [],
 	styles: [],
 	rehypePlugins: [],
-	exclude: []
+	exclude: [],
+	assetKeywords: []
 }
 
 /**

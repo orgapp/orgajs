@@ -643,6 +643,77 @@ export default function Post() {
 		}
 	})
 
+	test('imports files named by asset keywords', async () => {
+		const dir = path.join(__dirname, 'fixtures-asset-keywords')
+		try {
+			await fs.mkdir(dir, { recursive: true })
+			await fs.writeFile(path.join(dir, 'cover.png'), Buffer.alloc(8192, 1))
+			await fs.writeFile(
+				path.join(dir, 'index.html'),
+				'<html><head><meta property="og:image" content="%orga.image%"><meta name="repo" content="%orga.repo%"></head><body><div id="root"></div></body></html>'
+			)
+			await fs.writeFile(
+				path.join(dir, '_layout.tsx'),
+				`export default function Layout(props) {
+	return <main><img id="layout" src={props.image} />{props.children}</main>
+}
+`
+			)
+			await fs.writeFile(
+				path.join(dir, 'post.org'),
+				'#+image: ./cover.png\n#+repo: ./cover.png\n\n[[./cover.png]]\n'
+			)
+			await fs.writeFile(
+				path.join(dir, 'remote.org'),
+				'#+image: https://example.com/a.png\n\nremote\n'
+			)
+			await viteBuild(dir, {
+				base: './',
+				plugins: orgaBuildPlugin({
+					root: dir,
+					site: 'https://example.com',
+					assetKeywords: ['image']
+				})
+			})
+
+			const emitted = await fs.readdir(path.join(dir, 'dist', 'assets'))
+			const covers = emitted.filter((name) => name.startsWith('cover-'))
+			assert.equal(covers.length, 1, emitted.join())
+			const file = covers[0]
+			const html = await fs.readFile(
+				path.join(dir, 'dist', 'post', 'index.html'),
+				'utf-8'
+			)
+			assert.ok(
+				html.includes(
+					`property="og:image" content="https://example.com/assets/${file}"`
+				),
+				html
+			)
+			assert.ok(html.includes(`id="layout" src="../assets/${file}"`), html)
+			assert.ok(html.includes(`<img src="../assets/${file}"`), html)
+			assert.ok(
+				html.includes('name="repo" content="./cover.png"'),
+				'unlisted keywords stay literal'
+			)
+			const remote = await fs.readFile(
+				path.join(dir, 'dist', 'remote', 'index.html'),
+				'utf-8'
+			)
+			assert.ok(remote.includes('content="https://example.com/a.png"'), remote)
+
+			await fs.writeFile(path.join(dir, 'post.org'), '#+image: ./gone.png\n')
+			await assert.rejects(
+				viteBuild(dir, {
+					plugins: orgaBuildPlugin({ root: dir, assetKeywords: ['image'] })
+				}),
+				/gone\.png/
+			)
+		} finally {
+			await fs.rm(dir, { recursive: true, force: true })
+		}
+	})
+
 	test('leaves external image URLs alone', async () => {
 		const dir = path.join(__dirname, 'fixtures-external-assets')
 		const srcs = ['https://example.com/a.png', '//cdn.example.com/b.png']

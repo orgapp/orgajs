@@ -83,6 +83,14 @@ import cover from './cover.png'
 export const image = cover // %orga.image% → https://example.com/assets/cover-[hash].png
 #+end_src
 
+In an Org page, list the keyword in [[*Configuration][=assetKeywords=]] and give it a path, like an inline image:
+
+#+begin_example
+#+image: ./cover.png
+#+end_example
+
+The file is imported like =[[./cover.png]]=: Vite hashes and emits it once however often it's used, and a missing file fails the build. =%orga.image%= and the =image= prop of layouts get its URL. URLs (=#+image: https://...=) and keywords not listed stay as written.
+
 * Installation
 
 #+begin_src bash
@@ -131,7 +139,11 @@ export default {
   // Glob patterns (relative to root) to exclude from content scanning.
   // Useful for generated or declaration files that must live inside root
   // but should not be treated as pages or endpoints.
-  exclude: ['**/*.d.ts']
+  exclude: ['**/*.d.ts'],
+
+  // Org keywords whose values are paths to local files, imported as assets
+  // so they resolve to emitted URLs, e.g. for og:image.
+  assetKeywords: ['image']
 }
 #+end_src
 
@@ -146,6 +158,7 @@ export default {
 | =styles=         | =string[]=          | =[]=      | Stylesheets to link; paths relative to =orga.config.js=           |
 | =exclude=        | =string[]=          | =[]=      | Glob patterns (relative to =root=) excluded from content scanning |
 | =rehypePlugins=  | =PluggableList=     | =[]=      | Extra rehype plugins appended to orga-build defaults            |
+| =assetKeywords=  | =string[]=          | =[]=      | Org keywords holding local file paths, imported as assets       |
 | =vitePlugins=    | =PluginOption[]=    | =[]=      | Additional Vite plugins                                         |
 
 ** Syntax Highlighting Example
