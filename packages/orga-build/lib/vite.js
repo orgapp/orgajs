@@ -1,6 +1,7 @@
 import path from 'node:path'
 import { setup } from './files.js'
 import { clientRuntime } from './island.js'
+import { isLocalPath } from './util.js'
 
 const magicModulePrefix = '/@orga-build/'
 const pagesModuleId = `${magicModulePrefix}pages`
@@ -15,10 +16,11 @@ const endpointModulePrefix = `${endpointsModuleId}/__route__/`
  * @param {Object} options
  * @param {string} options.dir
  * @param {string[]} [options.exclude]
+ * @param {string[]} [options.assetKeywords] - Org keywords holding local file paths
  * @param {string | undefined} [options.site] - Absolute site URL, exported as `site`
  * @returns {import('vite').Plugin}
  */
-export function pluginFactory({ dir, exclude = [], site }) {
+export function pluginFactory({ dir, exclude = [], assetKeywords = [], site }) {
 	/** @type {ReturnType<typeof setup>} */
 	let files
 	/** @type {import('vite').ViteDevServer | undefined} */
@@ -217,9 +219,12 @@ export default layouts;
 	async function renderContentModule() {
 		const entries = await files.contentEntries()
 		const manifest = JSON.stringify(entries, null, 2)
+		const assets = renderAssetKeywords(entries)
 
 		return `
+${assets.imports.join('\n')}
 const __entries = ${manifest}
+${assets.assignments.join('\n')}
 
 export const site = ${JSON.stringify(site)}
 
@@ -253,5 +258,37 @@ export function getEntries(refs) {
 export const getCollection = getPages
 export const getEntry = getPage
 `
+	}
+
+	/**
+	 * Import the files Org pages name by asset keywords, as their page modules
+	 * do (see `mediaAssets`), so `data` holds the emitted URL, not the path.
+	 * @param {import('./files.js').ContentEntry[]} entries
+	 */
+	function renderAssetKeywords(entries) {
+		/** @type {Map<string, string>} */
+		const names = new Map()
+		/** @type {string[]} */
+		const assignments = []
+		entries.forEach((entry, i) => {
+			if (entry.ext !== 'org') return
+			for (const key of assetKeywords) {
+				const src = entry.data[key]
+				if (!isLocalPath(src)) continue
+				// Root-relative paths (`/cover.png`) resolve as Vite resolves them
+				// from the page.
+				const file = src.startsWith('/')
+					? src
+					: path.resolve(path.dirname(entry.filePath), src)
+				if (!names.has(file)) names.set(file, `__asset${names.size}`)
+				assignments.push(
+					`__entries[${i}].data[${JSON.stringify(key)}] = ${names.get(file)}`
+				)
+			}
+		})
+		const imports = [...names].map(
+			([file, name]) => `import ${name} from ${JSON.stringify(file)}`
+		)
+		return { imports, assignments }
 	}
 }

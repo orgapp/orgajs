@@ -67,7 +67,7 @@ export function orgaBuildPlugin({
 		islands,
 		setupOrga({ containerClass, root, rehypePlugins, assetKeywords }),
 		react(),
-		pluginFactory({ dir: root, exclude, site })
+		pluginFactory({ dir: root, exclude, assetKeywords, site })
 	]
 }
 

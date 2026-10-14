@@ -289,7 +289,12 @@ export default function List() {
 				'_layout.tsx':
 					'export default (props) => <main><img id="layout" src={props.image} />{props.children}</main>\n',
 				'post.org': '#+image: ./cover.png\n\npost\n',
-				'cover.png': 'png'
+				'cover.png': 'png',
+				'list.tsx': `import { getPages } from 'orga-build:content'
+export default function List() {
+	return <ul>{getPages().map((p) => <img key={p.slug} id={p.id} src={String(p.data.image)} />)}</ul>
+}
+`
 			},
 			{ assetKeywords: ['image'] }
 		)
@@ -297,6 +302,11 @@ export default function List() {
 			const { html } = await site.get('post')
 			assert.ok(html.includes('content="/cover.png"'), html)
 			assert.ok(html.includes('<img id="layout" src="/cover.png"'), html)
+			const list = await site.get('list')
+			assert.ok(
+				list.html.includes('<img id="post" src="/cover.png"'),
+				list.html
+			)
 		} finally {
 			await site.close()
 		}
