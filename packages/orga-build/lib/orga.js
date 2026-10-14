@@ -11,8 +11,14 @@ import { getSlugFromContentFilePath } from './files.js'
  * @param {string|string[]} options.containerClass - CSS class name(s) to wrap the rendered content
  * @param {string} options.root - Root directory for content files
  * @param {import('unified').PluggableList} [options.rehypePlugins] - Extra rehype plugins appended to defaults
+ * @param {string[]} [options.assetKeywords] - Org keywords holding local file paths
  */
-export function setupOrga({ containerClass, root, rehypePlugins = [] }) {
+export function setupOrga({
+	containerClass,
+	root,
+	rehypePlugins = [],
+	assetKeywords = []
+}) {
 	/** Vite's `base`, set once the config resolves. */
 	const site = { base: '/' }
 	/** @type {import('vite').Plugin} */
@@ -28,7 +34,7 @@ export function setupOrga({ containerClass, root, rehypePlugins = [] }) {
 			rehypePlugins: [
 				[rehypeWrap, { className: containerClass }],
 				[rewriteOrgFileLinks, { root, site }],
-				mediaAssets,
+				[mediaAssets, { keywords: assetKeywords }],
 				...rehypePlugins
 			]
 		})
@@ -37,22 +43,36 @@ export function setupOrga({ containerClass, root, rehypePlugins = [] }) {
 
 // --- plugins ---
 
-function mediaAssets() {
+/**
+ * Import local images and videos, and the files named by `keywords`, so Vite
+ * resolves, hashes and emits them.
+ *
+ * @param {Object} options
+ * @param {string[]} options.keywords - Org keywords holding file paths, e.g. `image`
+ */
+function mediaAssets({ keywords }) {
 	/**
 	 * @param {any} tree
 	 */
 	return function (tree) {
 		/** @type {Record<string, string>} */
 		const imports = {}
+		/** @param {string} src */
+		const importName = (src) => (imports[src] ??= `asset_${genId()}`)
+		// A scheme (`https:`, `data:`) or `//host` means it isn't a local file.
+		// An empty value (`#+image:`) is left to a placeholder's fallback.
+		/** @param {unknown} src */
+		const isLocal = (src) =>
+			typeof src === 'string' &&
+			src !== '' &&
+			!/^([a-z][a-z\d+.-]*:|\/\/)/i.test(src)
+
 		visitParents(tree, [{ tagName: 'img' }, { tagName: 'video' }], (node) => {
 			const { src, ...rest } = node.properties
-			if (typeof src !== 'string') return
-			// A scheme (`https:`, `data:`) or `//host` means it isn't a local file.
-			if (/^([a-z][a-z\d+.-]*:|\/\/)/i.test(src)) return
+			if (!isLocal(src)) return
 			node.type = 'jsx'
 			const tagName = node.tagName
-			if (!imports[src]) imports[src] = `asset_${genId()}`
-			const name = imports[src]
+			const name = importName(src)
 			const attrs = Object.entries(rest)
 				.filter(([, v]) => v !== undefined && v !== false)
 				.map(([k, v]) =>
@@ -61,6 +81,21 @@ function mediaAssets() {
 				.join(' ')
 			node.value = `<${tagName} src={${name}}${attrs ? ` ${attrs}` : ''}/>`
 		})
+
+		// Export the imported URL instead of the literal path `rehype-recma`
+		// would export from `tree.data`. Each jsx node is parsed on its own, so
+		// `export { asset as key }` fails: the import isn't in scope there.
+		const data = tree.data ?? {}
+		for (const key of keywords) {
+			const src = data[key]
+			if (!isLocal(src)) continue
+			delete data[key]
+			tree.children.unshift({
+				type: 'jsx',
+				value: `export const ${key} = ${importName(src)}`,
+				children: []
+			})
+		}
 
 		for (const [src, name] of Object.entries(imports)) {
 			tree.children.unshift({

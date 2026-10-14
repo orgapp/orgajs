@@ -17,6 +17,7 @@ export async function serve(config, port = 3000, projectRoot = process.cwd()) {
 		rehypePlugins: config.rehypePlugins ?? [],
 		vitePlugins: config.vitePlugins,
 		exclude: config.exclude ?? [],
+		assetKeywords: config.assetKeywords ?? [],
 		site: config.site
 	})
 

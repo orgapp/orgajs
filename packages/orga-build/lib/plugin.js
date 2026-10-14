@@ -33,6 +33,7 @@ export const alias = {
  * @property {string[]} [styles] - Global stylesheet URLs to link from the HTML shell
  * @property {import('unified').PluggableList} [rehypePlugins] - Extra rehype plugins appended to orga-build defaults
  * @property {string[]} [exclude] - Glob patterns for files to exclude from content scanning
+ * @property {string[]} [assetKeywords] - Org keywords holding local file paths, imported as assets, e.g. `['image']`
  * @property {string | undefined} [site] - Absolute URL the site is served from, e.g. `https://example.com`
  */
 
@@ -51,6 +52,7 @@ export function orgaBuildPlugin({
 	styles = [],
 	rehypePlugins = [],
 	exclude = [],
+	assetKeywords = [],
 	site
 }) {
 	// Virtual modules import content files by path, so it must be absolute.
@@ -63,7 +65,7 @@ export function orgaBuildPlugin({
 		devSsrPlugin(site),
 		prerenderPlugin(islands, site),
 		islands,
-		setupOrga({ containerClass, root, rehypePlugins }),
+		setupOrga({ containerClass, root, rehypePlugins, assetKeywords }),
 		react(),
 		pluginFactory({ dir: root, exclude, site })
 	]

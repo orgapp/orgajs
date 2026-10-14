@@ -278,6 +278,29 @@ export default function List() {
 			await site.close()
 		}
 	})
+
+	test('serves files named by asset keywords', async () => {
+		const site = await startSite(
+			'fixtures-dev-asset-keywords',
+			5186,
+			{
+				'index.html':
+					'<html><head><meta property="og:image" content="%orga.image%"></head><body><div id="root"></div></body></html>',
+				'_layout.tsx':
+					'export default (props) => <main><img id="layout" src={props.image} />{props.children}</main>\n',
+				'post.org': '#+image: ./cover.png\n\npost\n',
+				'cover.png': 'png'
+			},
+			{ assetKeywords: ['image'] }
+		)
+		try {
+			const { html } = await site.get('post')
+			assert.ok(html.includes('content="/cover.png"'), html)
+			assert.ok(html.includes('<img id="layout" src="/cover.png"'), html)
+		} finally {
+			await site.close()
+		}
+	})
 })
 
 /**
